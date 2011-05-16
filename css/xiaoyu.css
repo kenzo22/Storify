@@ -1,0 +1,76 @@
+/* 
+  by 肖羽  tongjimake.com
+  最后修改 2009-4 
+*/
+
+/*---------------------global-------------------------*/
+body{margin:0; font-size:9pt;  font-family:Verdana;}
+img{border:0px; vertical-align:text-bottom;}
+
+input{border:1px solid #99ccff; height:18px;}
+textarea{border:1px solid #99ccff; }
+
+ 
+
+#banner_xy{clear:both;height:120px; background:url(../img/bannerxy.gif) no-repeat; margin:auto; width:865px;}
+
+
+.div_center_870{ margin:auto; width:870px; font-size:12px;}
+.comman_text{text-indent:20px;  line-height:25px;}
+.float_l{float:left;}
+.float_r{float:right;}
+
+
+/*---------------------content-----------------------*/
+#footer_xiaoyu{clear:both; margin:auto; width:870px; height:30px;  padding:2px;  background:url(../img/bar_bottom.jpg) repeat-x; color:#eeeeee; font-size:12px;}
+#mainbody{margin:auto; width:864px; font:12px; }
+
+/*--------------------sidebar----------------------------*/
+
+/*两栏式*/
+#sidebar2_left{width:15%;  float:left;  border-left:1px solid #dcf5f5; height:600px; }    
+#sidebar2_right{width:82%; float:right;  border:1px solid #DCF5D5; font-size:14px; }
+#sidebar2_right div {padding:10px;}
+#sidebar2_right li{padding:10px; list-style:none outside none; border-bottom:1px solid #cccccc; }
+
+.table_right {width:100%;}
+.table_right td{padding:5px;}
+.table_right #head td{background:#EEF9EB; border-top:1px solid #DCF5D5;}
+
+#sidebar3_left{width:22%;   float:left; border-left:#dcf5f5 solid 1px; }    /*三栏式*/
+#sidebar3_center{width:55%; float:left; margin-left:10px;  border:1px solid #ff0000; }   
+#sidebar3_right{width:20%; float:right; border:#9944ff solid 1px; } 
+
+#side_nav    {border-left:8px solid #cccccc; padding-left:10px;}    /*左边sidebar容器*/
+#side_nav li {height:25px; padding-top:10px; list-style:none outside none;  border-bottom:#123456 dashed 1px;  font-weight:bold; font-size:14px;}
+
+#side_nav a{text-decoration:none; color:#333333}
+#footer_xiaoyu a{text-decoration:none; color:#ffffff}
+#side_nav a:hover,#footer_xiaoyu a:hover{text-decoration:none; color:#ff9900;}
+
+/*---------------------------header----------------------------*/
+/* #main_nav { margin:auto; width:870px; text-align:center; display:block; } *//*主导航条*/
+
+#main_nav {
+padding-top:15px;
+width:100%; height:50px;
+border-bottom:#4C94EA  solid 2px;
+background:#4C94EA url("../img/top.gif") repeat-x;  
+text-align:center; 
+
+}
+
+#main_nav a{
+  padding:8px; 
+  border:#ff9900 solid 1px;
+  width:100px; height:30px;
+  text-align:center; text-decoration:none;
+  color:#223344; font-weight:bold; font-size:14px; 
+  /* background: url(../img/nav_bg.png)  0px -108px; background: url(../img/nav_bg.png) no-repeat 0px -144px;*/
+}
+#main_nav a:hover{
+   border:#cccccc dotted 1px;
+}
+
+#main_nav  #nav_first_item { background: url(../img/nav_bg.png) no-repeat 2px 0px; }   
+#main_nav  a:hover,#main_nav #nav_first_item:hover{  }
