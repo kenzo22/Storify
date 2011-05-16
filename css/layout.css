@@ -31,10 +31,10 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 #top .user_console { float: right; margin: 0 10px 0 0; _margin: 0 10px 0 0 }
 
 /* weibo part*/
-#source_pane{width:420px;height:600px;}
-#edit_pane{width:420px; height:600px; margin-left:50px;}
+#source_pane{width:420px;height:800px;}
+#edit_pane{width:420px; height:800px; margin-left:50px;}
 #outputBox {width:380px; height:400px;overflow:auto;}
-.source_drag {padding:5px;margin:5px;height:500px;}
+.source_drag {padding:5px;margin:5px;height:750px;}
 /* weibo part*/
 
 /* content part */
