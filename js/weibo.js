@@ -33,22 +33,20 @@ function run_api_cmd()
   var method = '/search.json';
   var type = 'get';
   var args = {};
-  args['q'] = '丝袜';
+  args['q'] = 'Angelababy';
   //var loginfo;
   WB.client.parseCMD(method, function(sResult, bStatus)
   {
     $.each(sResult.results, function(i, result)
 	{
-	  //$.each(result, function(key, value)
-	  //{
-		//loginfo += result[key] + '\n';
-	  //});
+	  
 	  var weiboText= result.text;
 	  var from = result.from_user;
 	  var from_id = result.from_user_id;
 	  var time = result.created_at;
 	  var photo = result.profile_image_url;
 	  
+	  /*
 	  var $quote_span = $("<span style='font-size: 64px; color: #ccc;'> &#8220; </span>");
 	  var $quote_td = $("<td valign='top' rowspan=2></td>");
 	  $quote_td.append($quote_span);
@@ -95,14 +93,54 @@ function run_api_cmd()
 	  var $tr2 = $("<tr></tr>");
 	  $tr2.append($content_td);
 	  
-	  var $table = $("<table border=0 cellpadding=1 cellspacing=1 align='center' width='370' style='padding-bottom:25px;'></table>");
+	  var $table = $("<table class='showborder weibo_table' border=0 cellpadding=1 cellspacing=1 align='center' width='370' style='padding-bottom:25px;'></table>");
 	  $table.append($tr1);
 	  $table.append($tr2);
+	  */
 	  
+	  var $table = ("<div class='weibo_div'><table class='showborder weibo_table' border=0 cellpadding=1 cellspacing=1 align='center' width='370' style='padding-bottom:25px;'><tr><td valign='top' rowspan=2>\
+	  <span style='font-size: 64px; color: #ccc;'> &#8220; </span></td><td valign='top'><span class='text' style='color:#4A4A4B;margin-top:13px;display:block;font-size:10.5pt;line-height:1.3;'>" +weiboText+"</span>\
+	  </td></tr><tr><td><table border=0 cellpadding=1 cellspacing=1 align='right'><tr><td align='right'><a href='http://twitter.com/ReallyVirtual' style='text-decoration: none;' target='_blank'>\
+	  <span class='author' style='color: #000; font-weight: bold;font-size:12px;'>"+from+"</span></a><span class='timestamp' style='display: block;'>\
+	  <a href='http://weibo.com/"+from_id+"' style='color: #939393; text-decoration: none; margin-left: 5px; font-size:11px;' target='_blank'>"+time+"</a></span></td><td>\
+	  <a href='http://weibo.com/"+from_id+"' target='_blank'><img style='width: 32px; height: 32px; float: left; overflow: hidden; margin-left: 10px;' src='"+photo+"' alt='"+from+"' border=0 /></a></td></tr></table></td>\
+	  </tr></table></div>");
 	  var $parent = $('.source_drag');
 	  $parent.append($table);
+	   //$parent.append($weibo_div);
 	  //
-	 
+	  var elem = '';
+	  $('.weibo_div').draggable({
+	  helper: 'clone',
+	  opacity: 0.55,
+	  start:function(e, ui)
+      {
+          elem = e.srcElement || e.target;
+      }
+	  });
+	  
+	  $('#edit_pane').droppable({
+	  accept: '.weibo_div',
+	  activeClass: 'droppable-active',
+	  hoverClass: 'droppable-hover',
+	  drop: function(ev, ui) 
+      {
+		var content = $('.weibo_div').html();
+		//var content = '<p>test<p>';
+		var oid = elem.id;
+		var sid = "s" + oid;       
+        
+		//有相同的就不插入了。
+		if ( document.getElementById(sid) == null)
+		{
+            //$(this).append( "<div id='" + sid + "' title='"+ o +"' class='menunav'>" + "<a href='http://ioa.zte.com.cn'>" + content + "</a>" + "<a href='#' onclick='javascript:$(this.parentNode).remove();' title='删除此栏'> X</a></div>" );
+			$(this).append('<div>'+content+'</div>');
+	    }else 	{	
+		alert ("您已经添加了这个栏目菜单了,请您删除后再添加，谢谢！");
+		} 
+	  }
+	
+});
 	  //
 	  
 	});  
