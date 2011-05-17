@@ -105,7 +105,7 @@ function run_api_cmd()
 	  <a href='http://weibo.com/"+from_id+"' style='color: #939393; text-decoration: none; margin-left: 5px; font-size:11px;' target='_blank'>"+time+"</a></span></td><td>\
 	  <a href='http://weibo.com/"+from_id+"' target='_blank'><img style='width: 32px; height: 32px; float: left; overflow: hidden; margin-left: 10px;' src='"+photo+"' alt='"+from+"' border=0 /></a></td></tr></table></td>\
 	  </tr></table></div>");
-	  var $parent = $('.source_drag');
+	  var $parent = $('#source_pane');
 	  $parent.append($table);
 	   //$parent.append($weibo_div);
 	  //
