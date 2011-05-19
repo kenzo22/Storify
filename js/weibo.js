@@ -105,12 +105,18 @@ function run_api_cmd()
 	  <a href='http://weibo.com/"+from_id+"' style='color: #939393; text-decoration: none; margin-left: 5px; font-size:11px;' target='_blank'>"+time+"</a></span></td><td>\
 	  <a href='http://weibo.com/"+from_id+"' target='_blank'><img style='width: 32px; height: 32px; float: left; overflow: hidden; margin-left: 10px;' src='"+photo+"' alt='"+from+"' border=0 /></a></td></tr></table></td>\
 	  </tr></table></div>");
-	  var $parent = $('#source_pane');
-	  $parent.append($table);
+	  //var $parent = $('#sourcelist_container');
+	  //$parent.append($table);
 	   //$parent.append($weibo_div);
 	  //
+	  var $weibo_li=("<li class='weibo_element showborder'><div class='story_wrapper'><img style='width: 32px; height: 32px; float: left; overflow: hidden; margin-left: 10px;' src='"+photo+"' alt='"+from+"' border=0 /><div class='weibo_content'>\
+	  <a href='http://weibo.com/"+from_id+"' target='_blank'><span>"+from+"</span></a><span>"+weiboText+"</span><div><span>"+time+"</span></div></div></div></li>");
+	  var $parent = $('#source_list');
+	  $parent.append($weibo_li);
+	  //
 	  var elem = '';
-	  $('.weibo_div').draggable({
+	  //$('.weibo_div').draggable({
+	  $('.weibo_element').draggable({
 	  helper: 'clone',
 	  opacity: 0.55,
 	  start:function(e, ui)
@@ -119,13 +125,16 @@ function run_api_cmd()
       }
 	  });
 	  
-	  $('#edit_pane').droppable({
-	  accept: '.weibo_div',
+	  //$('#story').droppable({
+	  $('#story_pane').droppable({
+	  //accept: '.weibo_div',
+	  accept: '.weibo_element',
 	  activeClass: 'droppable-active',
 	  hoverClass: 'droppable-hover',
 	  drop: function(ev, ui) 
       {
-		var content = $('.weibo_div').html();
+		//var content = $('.weibo_div').html();
+		var content = $('.weibo_element').html();
 		//var content = '<p>test<p>';
 		var oid = elem.id;
 		var sid = "s" + oid;       
@@ -134,7 +143,8 @@ function run_api_cmd()
 		if ( document.getElementById(sid) == null)
 		{
             //$(this).append( "<div id='" + sid + "' title='"+ o +"' class='menunav'>" + "<a href='http://ioa.zte.com.cn'>" + content + "</a>" + "<a href='#' onclick='javascript:$(this.parentNode).remove();' title='删除此栏'> X</a></div>" );
-			$(this).append('<div>'+content+'</div>');
+			//$(this).append('<div>'+content+'</div>');
+			$('#story_list').append(content);
 	    }else 	{	
 		alert ("您已经添加了这个栏目菜单了,请您删除后再添加，谢谢！");
 		} 

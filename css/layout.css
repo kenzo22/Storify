@@ -12,6 +12,10 @@ a:visited { color: #666699; text-decoration: none;}
 a:hover { color: #666666; text-decoration: none;}
 a:active { color: #FFFFFF; text-decoration: none;}
 
+ol, ul, li {
+list-style: none;
+}
+
 ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 
 /*common class*/
@@ -32,7 +36,9 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 
 /* weibo part*/
 #source_pane{width:420px;}
-#edit_pane{width:420px; height:2000px; margin-left:50px;}
+#story_pane{width:420px; height:2000px; margin-left:50px;}
+#story {height:100%;}
+#storylist_container {}
 .source_drag {padding:5px;margin:5px;}
 /* weibo part*/
 
