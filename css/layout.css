@@ -36,9 +36,17 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 
 /* weibo part*/
 #source_pane{width:420px;}
-#story_pane{width:420px; height:2000px; margin-left:50px;}
+#story_pane{margin-left:50px; width:420px; height:2000px;}
 #story {height:100%;}
+#story_header {}
 #storylist_container {}
+.weibo_content{margin-left:36px;}
+.weibo_drag, .weibo_drop{padding:5px; margin-top:5px; border-color:#ababac;
+  border-style:solid;
+  border-width:2px;
+  border-radius: 5px; 
+  -moz-border-radius: 5px; 
+  -webkit-border-radius: 5px;}
 .source_drag {padding:5px;margin:5px;}
 /* weibo part*/
 
