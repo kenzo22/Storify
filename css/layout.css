@@ -35,7 +35,7 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 #top .user_console { float: right; margin: 0 10px 0 0; _margin: 0 10px 0 0 }
 
 /* weibo part*/
-#source_pane{width:420px;}
+#source_pane{width:420px; height:2000px;}
 #story_pane{margin-left:50px; width:420px; height:2000px;}
 #story {height:100%;}
 #story_header {}
