@@ -105,6 +105,12 @@ $(document).ready(function() {
 		  <span><a id='login_btn' href='#dialog' name='modal' align='center'>登录</a></span>
 		  <span><a style='margin-left:15px; line-height:2.4; color:#336699;' href='/storify/register/register_form.php'/>马上注册</a></span>
 		  </div>
+		  <form method='post' action='/storify/register/get_invitationcode.php'> 
+		  <div align='center'>
+		  <span > <input type='text' value='请输入邮箱地址' name='email' id='email_invitation' size='30' maxlength='100' onclick='this.value = ""'> </span>
+		  <span><input type='submit' id='btn_request_invitation' value='获得邀请码'></input></span>
+		  </div>
+		  </form>
 		  </div>
 		  </div>
 	      <div id='featuredStories' class='storySnippets'></div>
