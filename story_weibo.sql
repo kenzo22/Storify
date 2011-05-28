@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS story_weibo (
   weibo_date_gmt datetime NOT NULL DEFAULT '0000-00-00 00:00',
   weibo_content text NOT NULL,
   weibo_type varchar(20) NOT NULL DEFAULT '',
-  weibo_author_id bigint(20) unsigned NOT NULL DEFAULT '0',
+  weibo_author_id varchar(200) NOT NULL DEFAULT '',
   PRIMARY KEY (`weibo_ID`),
   KEY `weibo_post_ID` (`weibo_post_ID`),
   KEY `weibo_date_gmt` (`weibo_date_gmt`)

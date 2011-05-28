@@ -166,10 +166,10 @@ function run_api_cmd(type, method, args)
 		/*var content = ("<li class='weibo_drop' onmouseover='display_close(event)' onmouseout='hide_close(event)'><span class='remove_item' style='margin:0; padding-left:360px; color:#ababac;'><a onclick='remove_item(event)'>X</a></span><div class='story_wrapper'><div><span>"+weibo_Text+"</span></div><div id='story_signature'><div style='float:right;'><a href='http://weibo.com/"+from_id+"' target='_blank'>\
 		<img style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></div><div id='signature_text' style='margin-right:34px; padding-left:235px;'>\
 		<a href='http://weibo.com/"+from_id+"' target='_blank' style='display:block; height:16px;'><span>"+weibo_from+"</span></a><span style='height:16px;'>"+weibo_time+"</span></div></div></div></li>");*/
-		var content = ("<li class='weibo_drop'><div class='cross' action='delete' style='visibility:visible; padding-left:355px;'>\
-		<a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span>"+weibo_Text+"</span></div><div id='story_signature'><div style='float:right;'><a href='http://weibo.com/"+from_id+"' target='_blank'>\
-		<img style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></div><div id='signature_text' style='margin-right:34px; padding-left:235px;'>\
-		<a href='http://weibo.com/"+from_id+"' target='_blank' style='display:block; height:16px;'><span>"+weibo_from+"</span></a><span style='height:16px;'>"+weibo_time+"</span></div></div></div></li>");
+		var content = ("<li class='weibo_drop'><div class='cross' action='delete' style='visibility:hidden; padding-left:355px;'>\
+		<a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>"+weibo_Text+"</span></div><div id='story_signature'><div style='float:right;'><a href='http://weibo.com/"+from_id+"' target='_blank'>\
+		<img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></div><div id='signature_text' style='margin-right:34px; padding-left:235px;'>\
+		<a class='weibo_from_drop' href='http://weibo.com/"+from_id+"' target='_blank' style='display:block; height:16px;'><span>"+weibo_from+"</span></a><span class='weibo_date_drop' style='height:16px;'>"+weibo_time+"</span></div></div></div></li>");
 		var oid = elem.id;
 		var sid = "s" + oid;  
 
