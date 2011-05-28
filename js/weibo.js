@@ -159,7 +159,7 @@ function run_api_cmd(type, method, args)
 		ui.draggable.remove();
 		var weibo_Text= ui.draggable.find('.weibo_text').text();
 	    var weibo_from = ui.draggable.find('.weibo_from').text();
-	    //var weibo_from_id = $(srcElem).find('.weibo_from').text();
+	    var weibo_from_id = ui.draggable.find('.user_page').attr('href').replace(/http:\/\/weibo.com\//,"");
 	    var weibo_time = ui.draggable.find('.create_time').text();
 		//weibo_time = date_format(weibo_time);
 	    var weibo_photo = ui.draggable.find('.profile_img').attr('src');
@@ -169,7 +169,7 @@ function run_api_cmd(type, method, args)
 		var content = ("<li class='weibo_drop'><div class='cross' action='delete' style='visibility:hidden; padding-left:355px;'>\
 		<a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>"+weibo_Text+"</span></div><div id='story_signature'><div style='float:right;'><a href='http://weibo.com/"+from_id+"' target='_blank'>\
 		<img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></div><div id='signature_text' style='margin-right:34px; padding-left:235px;'>\
-		<a class='weibo_from_drop' href='http://weibo.com/"+from_id+"' target='_blank' style='display:block; height:16px;'><span>"+weibo_from+"</span></a><span class='weibo_date_drop' style='height:16px;'>"+weibo_time+"</span></div></div></div></li>");
+		<a class='weibo_from_drop' href='http://weibo.com/"+weibo_from_id+"' target='_blank' style='display:block; height:16px;'><span>"+weibo_from+"</span></a><span class='weibo_date_drop' style='height:16px;'>"+weibo_time+"</span></div></div></div></li>");
 		var oid = elem.id;
 		var sid = "s" + oid;  
 
@@ -196,92 +196,6 @@ function run_api_cmd(type, method, args)
   })
 }
 
-/*
-function run_api_cmd()
-{
-  var method = '/statuses/friends_timeline.json';
-  var type = 'get';
-  var args = {};
-  WB.client.parseCMD(method, function(sResult, bStatus)
-  {
-    
-	$.each(sResult, function(i, result)
-	{
-	  var weiboText, from, from_id, time, photo;
-	  weiboText= result.text;
-	  time = result.created_at;
-	  time = date_format(time);
-	  
-	  from = result.user.screen_name;
-	  from_id = result.user.id;
-	  
-	  photo = result.user.profile_image_url;
-
-	 
-	  var $weibo_li=("<li class='weibo_drag'><div class='story_wrapper'><img class='profile_img' style='width: 32px; height: 32px; float:left; overflow: hidden; margin-top:3px;' src='"+photo+"' alt='"+from+"' border=0 /><div class='weibo_content'>\
-	  <a class='user_page' href='http://weibo.com/"+from_id+"' target='_blank' style = 'display:block;'><span class='weibo_from'>"+from+"</span></a><span class='weibo_text'>"+weiboText+"</span><div><span class='create_time'>"+time+"</span><span style='float:right;'><a>[转发]</a></span></div></div></div></li>");
-	  var $parent = $('#source_list');
-	  $parent.append($weibo_li);
-	  //
-	  
-	  //
-	  var elem = '';
-	  $('.weibo_drag').draggable({
-	  cursor: 'move',
-	  revert:true,
-	  helper: 'original',
-	  opacity: 0.55,
-	  drag:function(e, ui)
-      {
-		  //$(this).remove();
-      }
-	  });
-	  
-	  
-	  
-	  $('#story_pane').droppable({
-	  accept: '.weibo_drag',
-	  activeClass: 'droppable-active',
-	  hoverClass: 'droppable-hover',
-	  //tolerance: 'touch',
-	  drop: function(ev, ui) 
-      {
-		ui.draggable.remove();
-		var weibo_Text= ui.draggable.find('.weibo_text').text();
-	    var weibo_from = ui.draggable.find('.weibo_from').text();
-	    //var weibo_from_id = $(srcElem).find('.weibo_from').text();
-	    var weibo_time = ui.draggable.find('.create_time').text();
-		//weibo_time = date_format(weibo_time);
-	    var weibo_photo = ui.draggable.find('.profile_img').attr('src');
-		var content = ("<li class='weibo_drop'><div class='story_wrapper'><div><span>"+weibo_Text+"</span></div><div id='story_signature'><div style='float:right;'><a href='http://weibo.com/"+from_id+"' target='_blank'>\
-		<img style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></div><div id='signature_text' style='margin-right:34px; padding-left:235px;'>\
-		<a href='http://weibo.com/"+from_id+"' target='_blank' style='display:block; height:16px;'><span>"+weibo_from+"</span></a><span style='height:16px;'>"+weibo_time+"</span></div></div></div></li>");
-		var oid = elem.id;
-		var sid = "s" + oid;       
-        
-		if ( document.getElementById(sid) == null)
-		{
-			$('#story_list').append(content);
-	    }else 	{	
-		alert ("您已经添加了这个栏目菜单了,请您删除后再添加，谢谢！");
-		} 
-		WB.widget.atWhere.searchAndAt(document.getElementById("story_list"));
-	  }
-	
-      });
-	  //
-	  WB.widget.atWhere.searchAndAt(document.getElementById("source_list"));
-	  
-	  //
-	});  
-  },
-  args,
-  {
-    'method': type
-  })
-}
-*/
-
 function run_api_cmd2()
 {
   $('.weibo_drag').remove();
@@ -289,10 +203,6 @@ function run_api_cmd2()
   var type = 'get';
   var args = {};
   args['q'] = 'Angelababy';
-  //var method = '/statuses/friends_timeline.json';
-  //var type = 'get';
-  //var args = {};
-  //var loginfo;
   WB.client.parseCMD(method, function(sResult, bStatus)
   {
     $.each(sResult.results, function(i, result)
@@ -346,14 +256,17 @@ function run_api_cmd2()
 		ui.draggable.remove();
 		var weibo_Text= ui.draggable.find('.weibo_text').text();
 	    var weibo_from = ui.draggable.find('.weibo_from').text();
-	    //var weibo_from_id = $(srcElem).find('.weibo_from').text();
+	    var weibo_from_id = ui.draggable.find('.user_page').attr('href').replace(/http:\/\/weibo.com\//,"");
 	    var weibo_time = ui.draggable.find('.create_time').text();
 		//weibo_time = date_format(weibo_time);
 	    var weibo_photo = ui.draggable.find('.profile_img').attr('src');
-		var content = ("<li class='weibo_drop'><div class='story_wrapper'><div><span>"+weibo_Text+"</span></div><div id='story_signature'><div style='float:right;'><a href='http://weibo.com/"+from_id+"' target='_blank'>\
+		/*var content = ("<li class='weibo_drop'><div class='story_wrapper'><div><span>"+weibo_Text+"</span></div><div id='story_signature'><div style='float:right;'><a href='http://weibo.com/"+from_id+"' target='_blank'>\
 		<img style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></div><div id='signature_text' style='margin-right:34px; padding-left:235px;'>\
-		<a href='http://weibo.com/"+from_id+"' target='_blank' style='display:block; height:16px;'><span>"+weibo_from+"</span></a><span style='height:16px;'>"+weibo_time+"</span></div></div></div></li>");
-		//var content = $(srcElem).html();
+		<a href='http://weibo.com/"+from_id+"' target='_blank' style='display:block; height:16px;'><span>"+weibo_from+"</span></a><span style='height:16px;'>"+weibo_time+"</span></div></div></div></li>");*/
+		var content = ("<li class='weibo_drop'><div class='cross' action='delete' style='visibility:hidden; padding-left:355px;'>\
+		<a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>"+weibo_Text+"</span></div><div id='story_signature'><div style='float:right;'><a href='http://weibo.com/"+from_id+"' target='_blank'>\
+		<img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></div><div id='signature_text' style='margin-right:34px; padding-left:235px;'>\
+		<a class='weibo_from_drop' href='http://weibo.com/"+weibo_from_id+"' target='_blank' style='display:block; height:16px;'><span>"+weibo_from+"</span></a><span class='weibo_date_drop' style='height:16px;'>"+weibo_time+"</span></div></div></div></li>");
 		var oid = elem.id;
 		var sid = "s" + oid;       
         
@@ -366,11 +279,7 @@ function run_api_cmd2()
 	  }
 	
       });
-	  
-	  //
-	  
 	});  
-    //log(loginfo);
   },
   args,
   {
