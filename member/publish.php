@@ -1,6 +1,7 @@
 <?php
 //include "../global.php";
 require_once "../connect_db.php";
+session_start();
 
 $story_title=$_POST['story_title'];
 $story_summary=$_POST['story_summary'];
@@ -13,10 +14,15 @@ $weibo_from_id=$_POST['weibo_from_id'];
 //save the story information in the story_post table
 $pulish_time=date("Y-m-d H:i:s");
 $DB->query("insert into ".$db_prefix."posts values
-                         (null, '22', '".$pulish_time."', '".$pulish_time."', '".$story_title."', '".$story_summary."', '".published."', '".$pulish_time."', '".$pulish_time."')");
+                         (null, '".$_SESSION['uid']."', '".$pulish_time."', '".$pulish_time."', '".$story_title."', '".$story_summary."', '".published."', '".$pulish_time."', '".$pulish_time."')");
 //end save the story information in the story_post table
 
-$post_id = 1;
+//get the post_id
+$result=$DB->fetch_one_array("SELECT ID FROM ".$db_prefix."posts where post_author='".$_SESSION['uid']."' AND post_title='".$story_title."' AND post_date='".$pulish_time."'" );
+//$result=$DB->fetch_one_array("SELECT ID FROM ".$db_prefix."posts where post_author='".$_SESSION['uid']."' AND post_title='".$story_title."'" );
+
+$post_id = intval($result['ID']);
+//$post_id="33";
 $weibo_type = "normal";
 
 $content = "";

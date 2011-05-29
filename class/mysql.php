@@ -181,7 +181,7 @@ class DB_MySQL {
 
         function halt($msg) {
 			    global $debug;
-                $technicalemail="yuxiao1985@hotmail.com";
+                $technicalemail="xinxinzhang22@gmail.com";
                
                 $message .= "yuxiao1985@hotmail.com \n";
 
@@ -195,7 +195,7 @@ class DB_MySQL {
                if ($debug==1) 
                         $message .= $content;
                  
-                $message .= "<p>数据库连接出错,请联系yuxiao1985@hotmail.com</p>";
+                $message .= "<p>数据库连接出错,请联系xinxinzhang22@gmail.com</p>";
                 $message .= "</body>\n</html>";
                 echo $message;
 

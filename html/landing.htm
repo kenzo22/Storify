@@ -1,4 +1,5 @@
 <script type='text/javascript' src='http://js.wcdn.cn/t3/platform/js/api/wb.js'></script>
+<link type="text/css" rel="stylesheet" href="http://js.wcdn.cn/t3/style/css/common/card.css" />
 <script type='text/javascript' src='/storify/js/weibo.js'></script>
 
 <script>
@@ -50,7 +51,31 @@ $(document).ready(function() {
 	$('#mask').click(function () {
 		$(this).hide();
 		$('.window').hide();
-	});			
+	});	
+
+	//weibo part
+	WB.widget.base.connectButton(document.getElementById('connectBtn'),
+							   {
+							     
+								 login:function(o)
+								 {
+								   //debugger;
+								   //alert(o.id);
+								   //self.location = '/storify/member/';
+								   var weibo_user_id_val = o.id;
+								   var weibo_scree_name_val = o.screen_name;
+								   $.post('/Storify/login/weibo_login.php', {weibo_user_id: weibo_user_id_val, weibo_scree_name: weibo_scree_name_val}, 		
+								   function(data, textStatus)
+								   {
+								     console.log(data);
+								   });
+								   self.location = '/storify/member/';
+								 },
+								 logout:function()
+								 {
+								   alert('logout');
+								 }
+							   });
 	
 });
 
@@ -73,9 +98,11 @@ $(document).ready(function() {
     </div>
 	<div class='float_l' style='border-left:1px solid #333; margin-top:20px; margin-left:70px; padding:0px 45px 80px 60px;'>
 	  <div><span align='center'>使用新浪微博帐号登录</span></div>
-	  <div style='height:30px; margin-top:17px;' align='center'>
-		  <span><input id='weibo_btn' type='button' onclick='weibo_login()'></span>
-	  </div>
+	  <!--<div style='height:30px; margin-top:17px;' align='center'>
+		  <span><input id='weibo_btn' type='button' onclick='weibo_login()'></span>		  
+	  </div>--> 
+	  <div style='margin-top:17px;'><span id="connectBtn" style='margin-top:17px;'></span></div>
+	  
 	</div>
   </div>
   </form>

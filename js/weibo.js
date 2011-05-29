@@ -7,9 +7,20 @@ WB.core.load(['connect', 'client', 'widget.base', 'widget.atWhere'], function()
   WB.connect.init(cfg);
   WB.client.init(cfg);
   
-  //WB.widget.atWhere.searchAndAt(document.getElementById("sourcelist_container"));
-  //WB.widget.atWhere.searchAndAt(document.getElementById("story_pane"));
-  //WB.widget.atWhere.searchAndAt(document.getElementById("source_list"));
+  /*WB.widget.base.connectButton(document.getElementById('connectBtn'),
+							   {
+							     
+								 login:function(o)
+								 {
+								   //debugger;
+								   alert(o.id);
+								   self.location = '/storify/member/';
+								 },
+								 logout:function()
+								 {
+								   alert('logout');
+								 }
+							   });*/
 });
 			
 function log(sData)
