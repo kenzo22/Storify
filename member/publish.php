@@ -2,11 +2,19 @@
 //include "../global.php";
 require_once "../connect_db.php";
 
+$story_title=$_POST['story_title'];
+$story_summary=$_POST['story_summary'];
 $weibo_author=$_POST['weibo_author'];
 $weibo_content=$_POST['weibo_content'];
 $weibo_date=$_POST['weibo_date'];
 $weibo_photo=$_POST['weibo_photo'];
 $weibo_from_id=$_POST['weibo_from_id'];
+
+//save the story information in the story_post table
+$pulish_time=date("Y-m-d H:i:s");
+$DB->query("insert into ".$db_prefix."posts values
+                         (null, '22', '".$pulish_time."', '".$pulish_time."', '".$story_title."', '".$story_summary."', '".published."', '".$pulish_time."', '".$pulish_time."')");
+//end save the story information in the story_post table
 
 $post_id = 1;
 $weibo_type = "normal";
