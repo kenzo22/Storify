@@ -57,6 +57,11 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 .source_drag {padding:5px;margin:5px;}
 /* weibo part*/
 
+/* publish part*/
+#publish_container{
+}
+/* publish part*/
+
 /* content part */
 .content { position:relative;overflow:hidden;}
 #homepage .inner {

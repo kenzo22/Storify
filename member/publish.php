@@ -25,7 +25,7 @@ $post_id = intval($result['ID']);
 //$post_id="33";
 $weibo_type = "normal";
 
-$content = "";
+$content = "<div id='publish_container' class='showborder'><div><h2>".$story_title."</h2></div><div>".$_SESSION['username']."</div><div>".$story_summary."</div><ul>";
 for($i=0; $i<sizeof($weibo_author); $i++)
 {
   $result = $DB->query("insert into ".$db_prefix."weibo values
@@ -51,6 +51,6 @@ for($i=0; $i<sizeof($weibo_author); $i++)
 		</div>
 		</li>";
 }
-		
+$content .="</ul></div>";	
 echo $content;
 ?>
