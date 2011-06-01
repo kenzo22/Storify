@@ -25,7 +25,11 @@ $post_id = intval($result['ID']);
 //$post_id="33";
 $weibo_type = "normal";
 
-$content = "<div id='publish_container' class='showborder'><div><h2>".$story_title."</h2></div><div>".$_SESSION['username']."</div><div>".$story_summary."</div><ul>";
+$content = "<div id='publish_container' class='showborder'>
+			  <div style='padding-left:20px;'><h2>".$story_title."</h2></div>
+			  <div style='padding-left:20px;'>".$_SESSION['username']."</div>
+			  <div style='padding-left:20px; border-bottom:1px solid #C9C9C9;'>".$story_summary."</div>
+			  <ul style='padding:0;'>";
 for($i=0; $i<sizeof($weibo_author); $i++)
 {
   $result = $DB->query("insert into ".$db_prefix."weibo values
@@ -43,14 +47,14 @@ for($i=0; $i<sizeof($weibo_author); $i++)
 			    <img class='profile_img' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='".$weibo_photo[$i]."' alt='".$weibo_author[$i]."' border=0 />
 			  </a>
 			</div>
-			<div id='signature_text' style='margin-right:34px; padding-left:235px;'>
+			<div id='signature_text' style='float:right; margin-right:5px;'>
 		      <a class='weibo_from' href='http://weibo.com/".$weibo_from_id[$i]."' target='_blank' style='display:block; height:16px;'><span>".$weibo_author[$i]."</span></a>
-			  <span class='weibo_date' style='height:16px;'>".$weibo_date[$i]."</span>
+			  <span class='weibo_date' style='display:block; height:16px;'>".$weibo_date[$i]."</span>
 			</div>
 		  </div>
 		</div>
 		</li>";
 }
-$content .="</ul></div>";	
+$content .="</ul><div style='display: block; padding:0 10px 0 5px; text-align:right;'>Powered by <a name='poweredby' target='_blank' href='http://storybing.com'>StoryBing</a></div></div>";	
 echo $content;
 ?>
