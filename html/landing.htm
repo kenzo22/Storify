@@ -5,7 +5,16 @@
 <script>
 
 $(document).ready(function() {	
-
+	WB.core.load(['connect', 'client', 'widget.base', 'widget.atWhere'], function() 
+	{
+	  var cfg = {
+      key: '314237338',
+	  xdpath: 'http://story.com/storify/html/xd.html'
+	};
+    WB.connect.init(cfg);
+    WB.client.init(cfg);
+});
+	
 	//select all the a tag with name equal to modal
 	$('a[name=modal]').click(function(e) {
 		//Cancel the link behavior

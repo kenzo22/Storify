@@ -31,7 +31,7 @@ if(this.value=='')
 </script>
 
 <?php
-session_start();
+//session_start();
 
 if(isset($_GET['logout']))
 {
