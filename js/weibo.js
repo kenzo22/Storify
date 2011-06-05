@@ -65,17 +65,44 @@ function date_format(origin_date)
   return temp_array[5]+'-'+temp_array[1]+'-'+temp_array[2]+' '+temp_array[3];
 }
 
+function weibo_search()
+{
+	var keywords = $('#keywords').val();
+	var type = $('#weibo_search button').text();
+	if(type === '搜索微博')
+	{
+	  run_api_cmd2(keywords);
+	}
+	else
+	{
+	  var method = '/statuses/user_timeline.json';
+	  var type = 'get';
+	  var args = {};
+	  args['screen_name'] = keywords;
+	  run_api_cmd(type, method, args);
+	}
+}
+
+function user_search()
+{
+	var keywords = $('#keywords').val();
+	run_api_cmd2(keywords);
+}
+
 function my_weibo()
 {
+  $('#weibo_search').css('display', 'none');
   $('.weibo_drag').remove();
   var method = '/statuses/user_timeline.json';
   var type = 'get';
-  args['user_id'] = '11051';
+  //args['user_id'] = '11051';
+  var args = {};
   run_api_cmd(type, method, args);
 }
 
 function my_follow()
 {
+  $('#weibo_search').css('display', 'none');
   $('.weibo_drag').remove();
   var method = '/statuses/friends_timeline.json';
   var type = 'get';
@@ -195,13 +222,15 @@ function run_api_cmd(type, method, args)
   })
 }
 
-function run_api_cmd2()
+function run_api_cmd2(keywords)
 {
+  //$('#weibo_search').css('visibility', 'visible');
   $('.weibo_drag').remove();
   var method = '/search.json';
   var type = 'get';
   var args = {};
-  args['q'] = 'Angelababy';
+  //args['q'] = 'Angelababy';
+  args['q'] = keywords;
   WB.client.parseCMD(method, function(sResult, bStatus)
   {
     $.each(sResult.results, function(i, result)
