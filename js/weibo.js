@@ -6,21 +6,6 @@ WB.core.load(['connect', 'client', 'widget.base', 'widget.atWhere'], function()
 			};
   WB.connect.init(cfg);
   WB.client.init(cfg);
-  
-  /*WB.widget.base.connectButton(document.getElementById('connectBtn'),
-							   {
-							     
-								 login:function(o)
-								 {
-								   //debugger;
-								   alert(o.id);
-								   self.location = '/storify/member/';
-								 },
-								 logout:function()
-								 {
-								   alert('logout');
-								 }
-							   });*/
 });
 			
 function log(sData)

@@ -1,8 +1,6 @@
 <?php
 //include "../global.php";
-include "../config/global_config.php";
 require_once "../connect_db.php";
-require_once "../include/functions.php";
 session_start();
 
 $story_title=$_POST['story_title'];
@@ -27,18 +25,17 @@ $post_id = intval($result['ID']);
 //$post_id="33";
 $weibo_type = "normal";
 
-/*$content = "<div id='publish_container' class='showborder'>
+$content = "<div id='publish_container' class='showborder'>
 			  <div style='padding-left:20px;'><h2>".$story_title."</h2></div>
 			  <div style='padding-left:20px;'>".$_SESSION['username']."</div>
 			  <div style='padding-left:20px; border-bottom:1px solid #C9C9C9;'>".$story_summary."</div>
-			  <ul style='padding:0;'>";*/
-			  
+			  <ul style='padding:0;'>";
 for($i=0; $i<sizeof($weibo_author); $i++)
 {
   $result = $DB->query("insert into ".$db_prefix."weibo values
                          (null, '".$post_id."', '".$weibo_author[$i]."', '".$weibo_photo[$i]."', '".$weibo_date[$i]."', '".$weibo_date[$i]."', '".$weibo_content[$i]."', '".$weibo_type."', '".$weibo_from_id[$i]."')");
 
-  /*$content .= "<li class='weibo_drop'>
+  $content .= "<li class='weibo_drop'>
 		<div class='story_wrapper'>
 		  <div><span class='weibo_text'>".$weibo_content[$i]."</span></div>
 		  <div id='story_signature'>
@@ -53,24 +50,9 @@ for($i=0; $i<sizeof($weibo_author); $i++)
 			</div>
 		  </div>
 		</div>
-		</li>";*/
+		</li>";
 }
-
-$redirect_url = "/storify/member/user.php?post_id=".$post_id;
-echo $redirect_url;
-//$content .="</ul><div style='display: block; padding:0 10px 0 5px; text-align:right;'>Powered by <a name='poweredby' target='_blank' href='http://storybing.com'>StoryBing</a></div></div>";	
-//echo $content;
-//go($rooturl."/login/?email=".$email,"邮箱或密码错误..",2);
-//go($rooturl."/register/register_form.php","邮箱或密码错误..",2);
-
-/*$result = $DB->query("select * from ".$db_prefix."posts where post_author='".$_SESSION['uid']."'");
-	if(!$result)
-	{
-	  throw new Exception('Could not execute query.');
-	}
-	else
-	{
-	  echo $DB->num_rows($result);
-	}*/
+$content .="</ul><div style='display: block; padding:0 10px 0 5px; text-align:right;'>Powered by <a name='poweredby' target='_blank' href='http://storybing.com'>StoryBing</a></div></div>";	
+echo $content;
 
 ?>
