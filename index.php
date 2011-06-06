@@ -31,7 +31,7 @@ $(document).ready(function() {
 								   {
 								     console.log(data);
 								   });
-								   self.location = '/storify/member/';
+								   self.location = '/storify/member/user.php';
 								 },
 								 logout:function()
 								 {

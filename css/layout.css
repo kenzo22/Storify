@@ -31,8 +31,10 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 /* header */
 #top { padding: 0;}
 #top .inner { position: relative; overflow: hidden;}
-#top .top_nav { height: 52px; border-bottom: none; color: #737373 }
+#top .top_nav { height: 55px; border-bottom: none; color: #737373 }
 #top .user_console { float: right; margin: 0 10px 0 0; _margin: 0 10px 0 0 }
+#logo {float: left;}
+#user_action {padding-left:20px; display:none;}
 
 /* weibo part*/
 #source_pane{width:420px; height:2000px;}
@@ -69,6 +71,7 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 /* publish part*/
 
 /* List all the story part*/
+#story_list ul {padding:0;}
 #story_list ul li { width:204px; float:left; margin:20px 0 0px 20px; display:inline; text-align:center;}
 #story_list ul li a { display:block;}
 #story_list ul li a img { padding:1px; border:1px solid #e1e1e1; margin-bottom:3px;}
