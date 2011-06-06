@@ -16,7 +16,7 @@ $weibo_from_id=$_POST['weibo_from_id'];
 //save the story information in the story_post table
 $pulish_time=date("Y-m-d H:i:s");
 $DB->query("insert into ".$db_prefix."posts values
-                         (null, '".$_SESSION['uid']."', '".$pulish_time."', '".$pulish_time."', '".$story_title."', '".$story_summary."', '".published."', '".$pulish_time."', '".$pulish_time."')");
+                         (null, '".$_SESSION['uid']."', '".$pulish_time."', '".$pulish_time."', '".$story_title."', '".$story_summary."', '".Published."', '".$pulish_time."', '".$pulish_time."')");
 //end save the story information in the story_post table
 
 //get the post_id
