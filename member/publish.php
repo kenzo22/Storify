@@ -42,7 +42,11 @@ else
   for($i=0; $i<sizeof($weibo_author); $i++)
   {   
 	$result = $DB->query("select * from ".$db_prefix."weibo where weibo_post_ID='".$post_id."' AND weibo_permanent_ID='".$weibo_id[$i]."'");
-	if ($DB->num_rows($result) == 0)
+	if ($DB->num_rows($result) > 0)
+	{
+	  
+	}
+	else
 	{
 	  $result = $DB->query("insert into ".$db_prefix."weibo values
                          (null, '".$weibo_id[$i]."', '".$post_id."', '".$weibo_author[$i]."', '".$weibo_photo[$i]."', '".$weibo_date[$i]."', '".$weibo_date[$i]."', '".$weibo_content[$i]."', '".$weibo_type."', '".$weibo_from_id[$i]."')");
