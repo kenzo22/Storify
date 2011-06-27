@@ -32,6 +32,7 @@ $(document).ready(function() {
 								     console.log(data);
 								   });
 								   self.location = '/storify/member/user.php';
+								   //self.location = '/storify/member/testweibo.php';
 								 },
 								 logout:function()
 								 {
