@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS story_posts (
   post_date_gmt datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   post_title varchar(120) NOT NULL,
   post_summary text NOT NULL,
+  post_content text NOT NULL,
   post_status varchar(20) NOT NULL DEFAULT 'draft',
   post_modified datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   post_modified_gmt datetime NOT NULL DEFAULT '0000-00-00 00:00:00',

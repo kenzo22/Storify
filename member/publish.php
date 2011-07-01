@@ -8,60 +8,25 @@ session_start();
 $story_id=$_POST['story_id'];
 $story_title=$_POST['story_title'];
 $story_summary=$_POST['story_summary'];
-$weibo_id=$_POST['weibo_id'];
+$story_content=$_POST['story_content'];
 
 //save the story information in the story_post table
 $pulish_time=date("Y-m-d H:i:s");
 $post_id = $story_id;
-$weibo_type = "normal";
 if(0 == $story_id)
 {
   $DB->query("insert into ".$db_prefix."posts values
-                         (null, '".$_SESSION['uid']."', '".$pulish_time."', '".$pulish_time."', '".$story_title."', '".$story_summary."', '".Published."', '".$pulish_time."', '".$pulish_time."')");
+                         (null, '".$_SESSION['uid']."', '".$pulish_time."', '".$pulish_time."', '".$story_title."', '".$story_summary."', '".$story_content."', '".Published."', '".$pulish_time."', '".$pulish_time."')");
 //end save the story information in the story_post table
 
 //get the post_id
   $result=$DB->fetch_one_array("SELECT ID FROM ".$db_prefix."posts where post_author='".$_SESSION['uid']."' AND post_title='".$story_title."' AND post_date='".$pulish_time."'" );
   $post_id = intval($result['ID']);  
-			  
-  for($i=0; $i<sizeof($weibo_id); $i++)
-  {
-    $result = $DB->query("insert into ".$db_prefix."weibo values (null, '".$weibo_id[$i]."', '".$post_id."')");
-  }
 }
 else
 {
-  $result=$DB->query("update ".$db_prefix."posts set post_title='".$story_title."', post_summary='".$story_summary."', post_status='Published'  WHERE ID='".$post_id."'");
-  $result = $DB->query("DELETE FROM ".$db_prefix."weibo where weibo_post_ID='".$post_id."'");
-  for($i=0; $i<sizeof($weibo_id); $i++)
-  {   
-	/*$result = $DB->query("select * from ".$db_prefix."weibo where weibo_post_ID='".$post_id."' AND weibo_permanent_ID='".$weibo_id[$i]."'");
-	if ($DB->num_rows($result) > 0)
-	{
-	  
-	}
-	else
-	{
-	  $result = $DB->query("insert into ".$db_prefix."weibo values
-                         (null, '".$weibo_id[$i]."', '".$post_id."', '".$weibo_author[$i]."', '".$weibo_photo[$i]."', '".$weibo_date[$i]."', '".$weibo_date[$i]."', '".$weibo_content[$i]."', '".$weibo_type."', '".$weibo_from_id[$i]."')");
-	}*/
-	$result = $DB->query("insert into ".$db_prefix."weibo values (null, '".$weibo_id[$i]."', '".$post_id."')");
-  }
+  $result=$DB->query("update ".$db_prefix."posts set post_title='".$story_title."', post_summary='".$story_summary."', post_content='".$story_content."', post_status='Published'  WHERE ID='".$post_id."'");
 }
-
-/*$DB->query("insert into ".$db_prefix."posts values
-                         (null, '".$_SESSION['uid']."', '".$pulish_time."', '".$pulish_time."', '".$story_title."', '".$story_summary."', '".Published."', '".$pulish_time."', '".$pulish_time."')");
-
-$result=$DB->fetch_one_array("SELECT ID FROM ".$db_prefix."posts where post_author='".$_SESSION['uid']."' AND post_title='".$story_title."' AND post_date='".$pulish_time."'" );
-
-$post_id = intval($result['ID']);
-$weibo_type = "normal";
-			  
-for($i=0; $i<sizeof($weibo_author); $i++)
-{
-  $result = $DB->query("insert into ".$db_prefix."weibo values
-                         (null, '".$post_id."', '".$weibo_author[$i]."', '".$weibo_photo[$i]."', '".$weibo_date[$i]."', '".$weibo_date[$i]."', '".$weibo_content[$i]."', '".$weibo_type."', '".$weibo_from_id[$i]."')");
-}*/
 
 $redirect_url = "/storify/member/user.php?post_id=".$post_id;
 echo $redirect_url;
