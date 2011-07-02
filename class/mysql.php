@@ -183,7 +183,7 @@ class DB_MySQL {
 			    global $debug;
                 $technicalemail="xinxinzhang22@gmail.com";
                
-                $message .= "yuxiao1985@hotmail.com \n";
+                $message .= "xinxinzhang22@gmail.com \n";
 
                 $content = "<p>数据库出错:</p><pre><b>" . htmlspecialchars($msg) . "</b></pre>\n";
                 $content .= "<b>Mysql error description</b>: " . $this->geterrdesc() . "\n<br>";
