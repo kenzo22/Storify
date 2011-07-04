@@ -1,5 +1,4 @@
 <?php
-//include "../global.php";
 include "../config/global_config.php";
 require_once "../connect_db.php";
 require_once "../include/functions.php";
@@ -10,14 +9,12 @@ $story_title=$_POST['story_title'];
 $story_summary=$_POST['story_summary'];
 $story_content=$_POST['story_content'];
 
-//save the story information in the story_post table
 $pulish_time=date("Y-m-d H:i:s");
 $post_id = $story_id;
 if(0 == $story_id)
 {
   $DB->query("insert into ".$db_prefix."posts values
                          (null, '".$_SESSION['uid']."', '".$pulish_time."', '".$pulish_time."', '".$story_title."', '".$story_summary."', '".$story_content."', '".Published."', '".$pulish_time."', '".$pulish_time."')");
-//end save the story information in the story_post table
 
 //get the post_id
   $result=$DB->fetch_one_array("SELECT ID FROM ".$db_prefix."posts where post_author='".$_SESSION['uid']."' AND post_title='".$story_title."' AND post_date='".$pulish_time."'" );
