@@ -21,7 +21,7 @@
   function sendEmail($dest,$subject='',$message='')
   {
   	$mail = new PHPMailer();
-	$mail->CharSet = "gb2312";
+	$mail->CharSet = "utf-8";
 	$mail->ishtml(true);
   	$mail->IsSMTP(); // telling the class to use SMTP
 	$mail->Host       = "localhost"; // SMTP server
