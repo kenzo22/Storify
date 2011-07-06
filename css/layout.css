@@ -65,17 +65,28 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 .source_drag {padding:5px;margin:5px;}
 /* weibo part*/
 
-.commentBox{padding:0px 5px 5px 5px;
+.editted{padding:0px 5px 5px 5px;
   border-color:#ababac;
   border-style:solid;
   border-width:2px;
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
-  margin:auto;
-  width:90%;
-  margin-top:5px;
-  overflow:auto;}
+  }
+  
+.add_comment{
+ width: 16px;
+ height: 16px;
+ overflow: hidden;
+ margin-left:2px;
+}
+  
+ .textElement{
+ margin:auto;
+ width:90%;
+ margin-top:5px;
+ overflow:auto;
+ }
 
 /* publish part*/
 #publish_container{
