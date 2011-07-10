@@ -112,7 +112,7 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 
 
 /* content part */
-.content { position:relative;overflow:hidden;}
+.content { position:relative; padding-left:50px;}
 #homepage .inner {
 overflow:hidden;
 }
@@ -370,3 +370,65 @@ height:53px;
   height:229px;
   padding:50px 0 20px 25px;
 }
+
+/* vertical tab part
+.ui-tabs-vertical { width: 55em; }
+.ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
+.ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
+.ui-tabs-vertical .ui-tabs-nav li a { display:block; }
+.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-selected { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; border-right-width: 1px; }
+.ui-tabs-vertical .ui-tabs-panel { padding: 1em; float: right; width: 40em;}*/
+
+#vtab {
+            margin: auto;
+            width: 460px;
+            height: 100%;
+			margin-left:-40px;
+        }
+        #vtab > ul > li {
+            width: 40px;
+            height: 110px;
+            background-color: #fff !important;
+            list-style-type: none;
+            display: block;
+            text-align: center;
+            margin: auto;
+            padding-bottom: 10px;
+            border: 1px solid #fff;
+            position: relative;
+            border-right: none;
+            opacity: .3;
+            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
+        }
+
+        #vtab > ul > li.selected {
+            opacity: 1;
+            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+            border: 1px solid #ddd;
+            border-right: none;
+            z-index: 10;
+            background-color: #fafafa !important;
+            position: relative;
+        }
+        #vtab > ul {
+            float: left;
+            width: 40px;
+            text-align: left;
+            display: block;
+            margin: auto 0;
+            padding: 0;
+            position: relative;
+            top: 30px;
+        }
+        #vtab > div {
+            background-color: #fafafa;
+            margin-left: 40px;
+            border: 1px solid #ddd;
+            min-height: 50px;
+            padding: 12px;
+            position: relative;
+            z-index: 9;
+            -moz-border-radius: 20px;
+        }
