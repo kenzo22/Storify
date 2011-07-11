@@ -50,6 +50,11 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
  }
+ 
+ .video_drop{
+  margin:0 auto;
+  width:55%
+ }
   
   .weibo_drop{padding:0px 5px 5px 5px;
   border-color:#ababac;
