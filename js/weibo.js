@@ -200,9 +200,9 @@ function run_api_cmd(type, method, args)
 	  //$( '#source_list' ).sortable();
 	  //$( '#source_list').disableSelection();	
 
-	  $( "#source_list, #story_list" ).sortable({
+	  /*$( "#source_list, #story_list" ).sortable({
 			connectWith: ".connectedSortable"
-		}).disableSelection();
+		}).disableSelection();*/
 	  
 	  $('#story_pane').droppable({
 	  accept: '.weibo_drag',
