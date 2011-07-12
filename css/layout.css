@@ -19,7 +19,7 @@ list-style: none;
 ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 
 /*common class*/
-.div_center { clear:both; margin:auto; width:50%; overflow:auto;}
+.div_center { clear:both; margin:auto; width:50%; overflow:hidden;}
 .float_l { float:left;}
 .float_r { float:right;}
 .field_name { width:80px; display:inline-block; }
@@ -37,13 +37,15 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 #user_action {padding-left:20px; display:none;}
 
 /* weibo part*/
-#source_pane{width:420px; height:2000px;}
-#story_pane{margin-left:50px; width:420px; height:2000px;}
+#source_pane{width:390px;}
+#story_pane{margin-left:20px; width:450px;}
+#source_list{height:550px;}
+#story_list{min-height:556px;}
 #story {height:100%;}
 #story_header {}
 #storylist_container {}
 .weibo_content{margin-left:36px;}
-.weibo_drag, .video_Drag{padding:5px; margin-top:5px; border-color:#ababac;
+.weibo_drag, .video_Drag{padding:5px; margin:8px; border-color:#ababac;
   border-style:solid;
   border-width:2px;
   border-radius: 5px;
@@ -51,9 +53,14 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
   -webkit-border-radius: 5px;
  }
  
- .video_drop{
+ .video_element{
   margin:0 auto;
-  width:55%
+  width:55%;
+ }
+ 
+ .video_drop{
+  margin:auto;
+  width:95%;
  }
   
   .weibo_drop{padding:0px 5px 5px 5px;
@@ -385,55 +392,55 @@ height:53px;
 .ui-tabs-vertical .ui-tabs-panel { padding: 1em; float: right; width: 40em;}*/
 
 #vtab {
-            margin: auto;
-            width: 460px;
-            height: 100%;
-			margin-left:-40px;
-        }
-        #vtab > ul > li {
-            width: 40px;
-            height: 110px;
-            background-color: #fff !important;
-            list-style-type: none;
-            display: block;
-            text-align: center;
-            margin: auto;
-            padding-bottom: 10px;
-            border: 1px solid #fff;
-            position: relative;
-            border-right: none;
-            opacity: .3;
-            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
-            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
-        }
+	margin: auto;
+	width: 430px;
+	height: 100%;
+	margin-left:-40px;
+}
+#vtab > ul > li {
+	width: 40px;
+	height: 110px;
+	background-color: #fff !important;
+	list-style-type: none;
+	display: block;
+	text-align: center;
+	margin: auto;
+	padding-bottom: 10px;
+	border: 1px solid #fff;
+	position: relative;
+	border-right: none;
+	opacity: .3;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
+}
 
-        #vtab > ul > li.selected {
-            opacity: 1;
-            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-            border: 1px solid #ddd;
-            border-right: none;
-            z-index: 10;
-            background-color: #fafafa !important;
-            position: relative;
-        }
-        #vtab > ul {
-            float: left;
-            width: 40px;
-            text-align: left;
-            display: block;
-            margin: auto 0;
-            padding: 0;
-            position: relative;
-            top: 30px;
-        }
-        #vtab > div {
-            background-color: #fafafa;
-            margin-left: 40px;
-            border: 1px solid #ddd;
-            min-height: 50px;
-            padding: 12px;
-            position: relative;
-            z-index: 9;
-            -moz-border-radius: 20px;
-        }
+#vtab > ul > li.selected {
+	opacity: 1;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+	border: 1px solid #ddd;
+	border-right: none;
+	z-index: 10;
+	background-color: #fafafa !important;
+	position: relative;
+}
+#vtab > ul {
+	float: left;
+	width: 40px;
+	text-align: left;
+	display: block;
+	margin: auto 0;
+	padding: 0;
+	position: relative;
+	top: 30px;
+}
+#vtab > div {
+	background-color: #fafafa;
+	margin-left: 40px;
+	border: 1px solid #ddd;
+	min-height: 50px;
+	padding: 12px;
+	position: relative;
+	z-index: 9;
+	-moz-border-radius: 20px;
+}

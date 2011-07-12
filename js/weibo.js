@@ -176,9 +176,6 @@ function run_api_cmd(type, method, args)
 	  from_id = result.user.id;
 	  
 	  photo = result.user.profile_image_url;
-
-	  //var $weibo_li=("<li class='weibo_drag'><div class='story_wrapper'><img class='profile_img' style='width: 32px; height: 32px; float:left; overflow: hidden; margin-top:3px;' src='"+weiboId+"' alt='"+from+"' border=0 /><div class='weibo_content'>\
-	  //<a class='user_page' href='http://weibo.com/"+from_id+"' target='_blank' style = 'display:block;'><span class='weibo_from'>"+from+"</span></a><span class='weibo_text'>"+weiboText+"</span><div><span class='create_time'>"+time+"</span><span style='float:right;'><a>[转发]</a></span></div></div></div></li>");
 	  
 	  var $weibo_li=("<li class='weibo_drag'><div class='story_wrapper'><img class='profile_img' style='width: 32px; height: 32px; float:left; overflow: hidden; margin-top:3px;' src='"+photo+"' alt='"+from+"' border=0 /><div class='weibo_content' id='"+weiboId+"'>\
 	  <a class='user_page' href='http://weibo.com/"+from_id+"' target='_blank' style = 'display:block;'><span class='weibo_from'>"+from+"</span></a><span class='weibo_text'>"+weiboText+"</span><div><span class='create_time'>"+time+"</span><span style='float:right;'><a>[转发]</a></span></div></div></div></li>");
@@ -188,7 +185,7 @@ function run_api_cmd(type, method, args)
 	  //
 	  
 	  //
-	  var elem = '';
+	  /*var elem = '';
 	  $('.weibo_drag').draggable({
 	  cursor: 'move',
 	  revert:true,
@@ -196,11 +193,16 @@ function run_api_cmd(type, method, args)
 	  opacity: 0.55,
 	  drag:function(e, ui)
       {
-		  //$(this).remove();
+
       }
-	  });
+	  });*/
 	  
-	  
+	  //$( '#source_list' ).sortable();
+	  //$( '#source_list').disableSelection();	
+
+	  $( "#source_list, #story_list" ).sortable({
+			connectWith: ".connectedSortable"
+		}).disableSelection();
 	  
 	  $('#story_pane').droppable({
 	  accept: '.weibo_drag',
@@ -218,26 +220,13 @@ function run_api_cmd(type, method, args)
 	    var weibo_time = ui.draggable.find('.create_time').text();
 		//weibo_time = date_format(weibo_time);
 	    var weibo_photo = ui.draggable.find('.profile_img').attr('src');
-		/*var content = ("<li class='weibo_drop'><div class='cross' action='delete' style='visibility:hidden; padding-left:355px;'>\
-		<a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>"+weibo_Text+"</span></div><div id='story_signature'><div style='float:right;'><a href='http://weibo.com/"+from_id+"' target='_blank'>\
-		<img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></div><div id='signature_text' style='margin-right:34px; padding-left:235px;'>\
-		<a class='weibo_from_drop' href='http://weibo.com/"+weibo_from_id+"' target='_blank' style='display:block; height:16px;'><span>"+weibo_from+"</span></a><span class='weibo_date_drop' style='height:16px;'>"+weibo_time+"</span></div></div></div></li>");*/
 		
 		var content = ("<li class='weibo_drop' id='"+weibo_id+"'><div class='cross' action='delete' style='visibility:hidden; padding-left:355px;'>\
 		<a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>"+weibo_Text+"</span></div><div id='story_signature'><div style='float:right;'><a href='http://weibo.com/"+from_id+"' target='_blank'>\
 		<img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></div><div id='signature_text' style='float:right; margin-right:5px;'>\
 		<a class='weibo_from_drop' href='http://weibo.com/"+weibo_from_id+"' target='_blank' style='display:block; height:16px;'><span>"+weibo_from+"</span></a><span class='weibo_date_drop' style='display:block; height:16px;'>"+weibo_time+"</span></div></div></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/Storify/img/editcomment.png' border='0'/></a></span></li>");
-		
-		var oid = elem.id;
-		var sid = "s" + oid;  
-
-        
-		if ( document.getElementById(sid) == null)
-		{
-			$('#story_list').append(content);
-	    }else 	{	
-		alert ("您已经添加了这个栏目菜单了,请您删除后再添加，谢谢！");
-		} 
+		 
+		$('#story_list').append(content);
 		WB.widget.atWhere.searchAndAt(document.getElementById("story_list"));
 	  }
 	
@@ -275,15 +264,6 @@ function run_api_cmd2(keywords)
 	  time = result.created_at;
 	  time = date_format(time);
 	  photo = result.profile_image_url;
-	  
-	  /*
-	  var $table = ("<div class='weibo_div'><table class='showborder weibo_table' border=0 cellpadding=1 cellspacing=1 align='center' width='370' style='padding-bottom:25px;'><tr><td valign='top' rowspan=2>\
-	  <span style='font-size: 64px; color: #ccc;'> &#8220; </span></td><td valign='top'><span class='text' style='color:#4A4A4B;margin-top:13px;display:block;font-size:10.5pt;line-height:1.3;'>" +weiboText+"</span>\
-	  </td></tr><tr><td><table border=0 cellpadding=1 cellspacing=1 align='right'><tr><td align='right'><a href='http://twitter.com/ReallyVirtual' style='text-decoration: none;' target='_blank'>\
-	  <span class='author' style='color: #000; font-weight: bold;font-size:12px;'>"+from+"</span></a><span class='timestamp' style='display: block;'>\
-	  <a href='http://weibo.com/"+from_id+"' style='color: #939393; text-decoration: none; margin-left: 5px; font-size:11px;' target='_blank'>"+time+"</a></span></td><td>\
-	  <a href='http://weibo.com/"+from_id+"' target='_blank'><img style='width: 32px; height: 32px; float: left; overflow: hidden; margin-left: 10px;' src='"+photo+"' alt='"+from+"' border=0 /></a></td></tr></table></td>\
-	  </tr></table></div>");*/
 	 
 	  var $weibo_li=("<li class='weibo_drag'><div class='story_wrapper'><img class='profile_img' style='width: 32px; height: 32px; float:left; overflow: hidden; margin-top:3px;' src='"+photo+"' alt='"+from+"' border=0 /><div class='weibo_content' id='"+weiboId+"'>\
 	  <a class='user_page' href='http://weibo.com/"+from_id+"' target='_blank' style = 'display:block;'><span class='weibo_from'>"+from+"</span></a><span class='weibo_text'>"+weiboText+"</span><div><span class='create_time'>"+time+"</span><span style='float:right;'><a>[转发]</a></span></div></div></div></li>");
@@ -293,18 +273,19 @@ function run_api_cmd2(keywords)
 	  //WB.widget.atWhere.searchAndAt(document.getElementById("content"));
 	  //
 	  
-	  var elem = '';
-	  $('.weibo_drag').draggable({
+	  /*$('.weibo_drag').draggable({
 	  cursor: 'move',
 	  revert:true,
 	  helper: 'original',
 	  opacity: 0.55,
 	  drag:function(e, ui)
       {
-		  //$(this).remove();
-      }
+
+      } 
+	  });*/
 	  
-	  });
+	  $( '#source_list' ).sortable();
+	  $( '#source_list').disableSelection();
 	  
 	  $('#story_pane').droppable({
 	  accept: '.weibo_drag',
@@ -322,22 +303,12 @@ function run_api_cmd2(keywords)
 	    var weibo_time = ui.draggable.find('.create_time').text();
 		//weibo_time = date_format(weibo_time);
 	    var weibo_photo = ui.draggable.find('.profile_img').attr('src');
-		/*var content = ("<li class='weibo_drop'><div class='story_wrapper'><div><span>"+weibo_Text+"</span></div><div id='story_signature'><div style='float:right;'><a href='http://weibo.com/"+from_id+"' target='_blank'>\
-		<img style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></div><div id='signature_text' style='margin-right:34px; padding-left:235px;'>\
-		<a href='http://weibo.com/"+from_id+"' target='_blank' style='display:block; height:16px;'><span>"+weibo_from+"</span></a><span style='height:16px;'>"+weibo_time+"</span></div></div></div></li>");*/
 		var content = ("<li class='weibo_drop' id='"+weibo_id+"'><div class='cross' action='delete' style='visibility:hidden; padding-left:355px;'>\
 		<a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>"+weibo_Text+"</span></div><div id='story_signature'><div style='float:right;'><a href='http://weibo.com/"+from_id+"' target='_blank'>\
 		<img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></div><div id='signature_text' style='float:right; margin-right:5px;'>\
-		<a class='weibo_from_drop' href='http://weibo.com/"+weibo_from_id+"' target='_blank' style='display:block; height:16px;'><span>"+weibo_from+"</span></a><span class='weibo_date_drop' style='display:block; height:16px;'>"+weibo_time+"</span></div></div></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/Storify/img/editcomment.png' border='0'/></a></span></li>");
-		var oid = elem.id;
-		var sid = "s" + oid;       
+		<a class='weibo_from_drop' href='http://weibo.com/"+weibo_from_id+"' target='_blank' style='display:block; height:16px;'><span>"+weibo_from+"</span></a><span class='weibo_date_drop' style='display:block; height:16px;'>"+weibo_time+"</span></div></div></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/Storify/img/editcomment.png' border='0'/></a></span></li>");      
         
-		if ( document.getElementById(sid) == null)
-		{
-			$('#story_list').append(content);
-	    }else 	{	
-		alert ("您已经添加了这个栏目菜单了,请您删除后再添加，谢谢！");
-		} 
+		$('#story_list').append(content);
 	  }
 	
       });
