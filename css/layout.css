@@ -39,8 +39,8 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 /* weibo part*/
 #source_pane{width:390px;}
 #story_pane{margin-left:20px; width:450px;}
-#source_list{height:550px;}
-#story_list{min-height:556px;}
+#source_list{height:554px; overflow:auto;}
+#story_list{min-height:582px;}
 #story {height:100%;}
 #story_header {}
 #storylist_container {}
