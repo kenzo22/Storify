@@ -39,11 +39,12 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 /* weibo part*/
 #source_pane{width:390px;}
 #story_pane{margin-left:20px; width:450px;}
-#source_list{height:554px; overflow:auto;}
-#story_list{min-height:582px;}
+#source_list{height:574px; overflow:auto;}
+#story_list{min-height:602px;}
 #story {height:100%;}
 #story_header {}
 #storylist_container {}
+.loadmore {padding: 0 150px 0 150px;}
 .weibo_content{margin-left:36px;}
 .weibo_drag, .video_Drag{padding:5px; margin:8px; border-color:#ababac;
   border-style:solid;
@@ -197,7 +198,7 @@ margin-top:20px;
 /*#user ul li a { float: left; padding: 3px 8px; background: #f7f8f8 url(http://static.storify.com/img/user-bg-a.gif) repeat-x; color: #86abc4; }*/
 #user ul li a { border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }
 
-#footer { padding: 10px 0 1px; }
+#footer { padding: 0 0 1px; }
 #footer p { color: #dbdada; font-size: 1.1em; }
 #footer ul { float: right; list-style: none; margin: 0 0 15px; padding: 0; }
 #footer ul li { display: inline; float: left; margin: 0 0 0 20px; font-size: 1.1em; }

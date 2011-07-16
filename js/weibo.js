@@ -66,22 +66,28 @@ function date_format(origin_date)
   return temp_array[5]+'-'+temp_array[1]+'-'+temp_array[2]+' '+temp_array[3];
 }
 
-function weibo_search()
+function weibo_search(page)
 {
 	var keywords = $('#keywords').val();
 	var type = $('#weibo_search button').text();
 	if(type === '搜索微博')
 	{
-	  run_api_cmd2(keywords);
+	  run_search_cmd(keywords);
 	}
 	else
 	{
-	  var method = '/statuses/user_timeline.json';
-	  var type = 'get';
-	  var args = {};
-	  args['screen_name'] = keywords;
-	  run_api_cmd(type, method, args);
+	  user_search(keywords, page);
 	}
+}
+
+function user_search(keywords, page)
+{
+  var method = '/statuses/user_timeline.json';
+  var type = 'get';
+  var args = {};
+  args['screen_name'] = keywords;
+  args['page'] = page;
+  run_timeline_cmd(type, method, args);
 }
 
 function get_weibo_byID(ID)
@@ -108,32 +114,25 @@ function get_weibo_byID(ID)
   });
 }
 
-
-function user_search()
-{
-	var keywords = $('#keywords').val();
-	run_api_cmd2(keywords);
-}
-
-function my_weibo()
+function my_weibo(page)
 {
   $('#weibo_search').css('display', 'none');
-  $('.weibo_drag').remove();
   var method = '/statuses/user_timeline.json';
   var type = 'get';
   //args['user_id'] = '11051';
   var args = {};
-  run_api_cmd(type, method, args);
+  args['page'] = page;
+  run_timeline_cmd(type, method, args);
 }
 
-function my_follow()
+function my_follow(page)
 {
   $('#weibo_search').css('display', 'none');
-  $('.weibo_drag').remove();
   var method = '/statuses/friends_timeline.json';
   var type = 'get';
   var args = {};
-  run_api_cmd(type, method, args);
+  args['page'] = page;
+  run_timeline_cmd(type, method, args);
 }
 
 function remove_item(event)
@@ -156,9 +155,10 @@ function hide_close(event)
   $('.cross').css('visibility', 'hidden');
 }
 
-function run_api_cmd(type, method, args)
+function run_timeline_cmd(type, method, args)
 {
-  $('.weibo_drag').remove();
+  //$('.weibo_drag').remove();
+  $('.loadmore').remove();
   WB.client.parseCMD(method, function(sResult, bStatus)
   {
       
@@ -182,7 +182,9 @@ function run_api_cmd(type, method, args)
 	  var $parent = $('#source_list');
 	  $parent.append($weibo_li);	  
 	  WB.widget.atWhere.searchAndAt(document.getElementById("source_list"));
-	});  
+	}); 
+	var $loadMore = $("<div class='loadmore'><a>load more</a></div>");
+    $('#source_list').append($loadMore);
   },
   args,
   {
@@ -190,8 +192,9 @@ function run_api_cmd(type, method, args)
   })
 }
 
-function run_api_cmd2(keywords)
+function run_search_cmd(keywords)
 {
+  $('.loadmore').remove();
   $('.weibo_drag').remove();
   var method = '/search.json';
   var type = 'get';
@@ -217,7 +220,9 @@ function run_api_cmd2(keywords)
 	  //
 	  //WB.widget.atWhere.searchAndAt(document.getElementById("content"));
 	  //
-	});  
+	}); 
+    var $loadMore = $("<div class='loadmore'><a>load more</a></div>");
+    $('#source_list').append($loadMore);	
   },
   args,
   {

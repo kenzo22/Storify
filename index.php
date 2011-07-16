@@ -57,8 +57,8 @@ $(document).ready(function() {
 		$('#mask').css({'width':maskWidth,'height':maskHeight});
 		
 		//transition effect		
-		$('#mask').fadeIn(1000);	
-		$('#mask').fadeTo("slow",0.8);	
+		//$('#mask').fadeIn(1000);	
+		//$('#mask').fadeTo("slow",0.8);	
 	
 		//Get the window height and width
 		var winH = $(window).height();
@@ -69,7 +69,7 @@ $(document).ready(function() {
 		$(id).css('left', winW/2-$(id).width()/2);
 	
 		//transition effect
-		$(id).fadeIn(2000); 
+		$(id).fadeIn(1000); 
 	
 	});
 	
