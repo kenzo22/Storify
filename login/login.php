@@ -84,7 +84,7 @@ if($email && $passwd)
 	  setcookie("password", $password, time()+3600*24*365); 
 	}
 	//go($rooturl);
-	go($rooturl."/member");
+	go($rooturl."/member/source.php");
   }
   else
   {

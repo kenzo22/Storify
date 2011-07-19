@@ -1,8 +1,6 @@
 <?php
-   include "global.php"; 
+include "global.php"; 
 ?>
-<script type='text/javascript' src='http://js.wcdn.cn/t3/platform/js/api/wb.js'></script>
-<script type='text/javascript' src='/storify/js/weibo.js'></script>
 <div id='boxes'>
   
 <!-- Start of Login Dialog -->  
@@ -77,7 +75,8 @@ $(document).ready(function() {
 	WB.core.load(['connect', 'client', 'widget.base', 'widget.atWhere'], function() 
 	{
 	  var cfg = {
-      key: '314237338',
+      //key: '314237338',
+	  key: '2417356638',
 	  xdpath: 'http://story.com/storify/html/xd.html'
 	};
     WB.connect.init(cfg);
