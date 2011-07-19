@@ -5,7 +5,7 @@ include dirname(__FILE__).'/'."../header.php";
 
 $(function(){
 $('#email_reg').bind('focus', function(){
-$('#email_tip').text('用来登录StoryBing， 接收到激活邮件才能完成注册').css('color', '#666699').show();
+$('#email_tip').text('用来登录口立方， 接收到激活邮件才能完成注册').css('color', '#666699').show();
 }).bind('blur', function(){
 if(this.value=='')
 {

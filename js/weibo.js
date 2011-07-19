@@ -1,13 +1,3 @@
-WB.core.load(['connect', 'client', 'widget.base', 'widget.atWhere'], function() 
-{
-  var cfg = {
-              key: '314237338',
-			  xdpath: 'http://story.com/storify/html/xd.html'
-			};
-  WB.connect.init(cfg);
-  WB.client.init(cfg);
-});
-			
 function log(sData)
 {
 	$('#outputBox')[0].value = sData;

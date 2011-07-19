@@ -39,9 +39,9 @@ else
 
 如果您的email程序不支持链接点击，请将上面的地址拷贝至您的浏览器(例如IE)的地址栏进入StoryBing。<br/><br/>
 
-感谢您对StoryBing的支持，再次希望您在StoryBing的体验有益和愉快。<br/><br/>
+感谢您对口立方的支持，再次希望您在口立方的体验有益和愉快。<br/><br/>
 
-StoryBing http://www.storybing.com<br/><br/>
+口立方 http://www.koulifang.com<br/><br/>
 
 (这是一封自动产生的email，请勿回复。)</p>';
 
@@ -60,11 +60,11 @@ StoryBing http://www.storybing.com<br/><br/>
   $mail->Username   = "11473124@qq.com";  // qq username
   $mail->Password   = "kenzo22";            // qq password
 
-  $mail->SetFrom('11473124@qq.com', 'StoryBing');
+  $mail->SetFrom('11473124@qq.com', 'Koulifang');
 
-  $mail->AddReplyTo("kenzo@storybing.com","StoryBing");
+  $mail->AddReplyTo("kenzo@koulifang.com","Koulifang");
 
-  $mail->Subject    = "重设".$username."在StoryBing的密码";
+  $mail->Subject    = "重设".$username."在口立方的密码";
 
   $mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; // optional, comment out and test
 
@@ -78,7 +78,7 @@ StoryBing http://www.storybing.com<br/><br/>
   } else {
     //echo "Message sent!";
 	$content="<div class='div_center' > <span class='title'> 重设密码 </span></div> 
-	<div class='div_center'><span>请到 ".$email." 查阅来自StoryBing的邮件, 从邮件重设你的密码。<span></div>
+	<div class='div_center'><span>请到 ".$email." 查阅来自口立方的邮件, 从邮件重设你的密码。<span></div>
 	<div class='div_center'><a target='_blank' href='http://mail.google.com'><span>登录Gmail邮箱查收确认信</span></a> </div>";
 	echo $content;
   }

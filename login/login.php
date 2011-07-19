@@ -1,8 +1,20 @@
 <?php
 include "../global.php";
+//session_start();
 ?>
 
 <script type="text/javascript">
+WB.core.load(['connect', 'client', 'widget.base', 'widget.atWhere'], function() 
+{
+  var cfg = {
+              //key: '314237338',
+			  key: '2417356638',
+			  xdpath: 'http://story.com/storify/html/xd.html'
+			};
+  WB.connect.init(cfg);
+  WB.client.init(cfg);
+});
+
 $(function(){
 $('#pwd_login').focus();
 $('#email_login').bind('focus', function(){
@@ -19,7 +31,7 @@ if(this.value=='')
 }
 })
 $('#pwd_login').bind('focus', function(){
-$('#pwd_tip').text('请输入你在StoryBing注册的密码').css('color', '#666699').show();
+$('#pwd_tip').text('请输入你在口立方注册的密码').css('color', '#666699').show();
 }).bind('blur', function(){
 $('#pwd_tip').text('');
 if(this.value=='')
@@ -31,8 +43,6 @@ if(this.value=='')
 </script>
 
 <?php
-//session_start();
-
 if(isset($_GET['logout']))
 {
 	unset($_SESSION['username']);
@@ -41,31 +51,18 @@ if(isset($_GET['logout']))
 	  setcookie("email", null, time()-3600*24*365);  
 	  setcookie("password", null, time()-3600*24*365);  
     } 
+	echo "<script language='javascript' >
+			window.onload = function()
+			{
+			  WB.connect.logout(function() 
+			  {
+				self.location = '/storify/index.php';
+			  });
+			}
+			</script>";
 	session_destroy(); 
-	go($rooturl);
+	//go($rooturl);
 	exit;
-}
-
-if($_POST['act']!="login")  //default 登陆界面
-{
-  $content="<form method='post'>
-  <div class='div_center' ><span class='title'> 登录 StoryBing.com </span></div>
-  <div class='div_center'>
-    <div class='float_l' style='margin-top:20px;' id='login'>
-	  <div><b> 邮 箱 &nbsp; </b><input type='text' name='email' id='email_login' size='30'></input><span class='form_tip' id='email_tip'></span></div>
-	  <div><b> 密 码 &nbsp; </b><input type='password' name='passwd' id='pwd_login' size='30'></input><span class='form_tip' id='pwd_tip'></span></div><br />
-	  <span> <input type='checkbox' name='autologin'>下次自动登录</span> | <span><a href='/storify/login/forget_form.php'/>忘记密码了？</a><span>
-	  <div><span style='color:red;'>请输入你在豆瓣的注册密码</span></div>
-	  <div>
-        <input type='submit' value='登录'/><input type='hidden' name='act' value='login'>
-	  </div>
-	</div>
-	<div class='float_r' style='margin-top:40px;'><span>还没有StoryBing帐号，<a href='/storify/register/register_form.php'/>立即注册？</a></span></div>
-  </div>
-  <div class='div_center' style='height:50px;'></div>
-</form>";
-
-  echo $content;
 }
 
   //post 登陆验证
@@ -86,7 +83,8 @@ if($email && $passwd)
 	  setcookie("email", $email, time()+3600*24*365);  
 	  setcookie("password", $password, time()+3600*24*365); 
 	}
-	go($rooturl);
+	//go($rooturl);
+	go($rooturl."/member");
   }
   else
   {
@@ -95,5 +93,29 @@ if($email && $passwd)
   }
 }
 
+if($_POST['act']!="login")  //default 登陆界面
+{
+  $content="<form method='post'>
+  <div class='div_center' ><span class='title'> 登录 Koulifang.com </span></div>
+  <div class='div_center'>
+    <div class='float_l' style='margin-top:20px;' id='login'>
+	  <div><b> 邮 箱 &nbsp; </b><input type='text' name='email' id='email_login' size='30'></input><span class='form_tip' id='email_tip'></span></div>
+	  <div><b> 密 码 &nbsp; </b><input type='password' name='passwd' id='pwd_login' size='30'></input><span class='form_tip' id='pwd_tip'></span></div><br />
+	  <span> <input type='checkbox' name='autologin'>下次自动登录</span> | <span><a href='/storify/login/forget_form.php'/>忘记密码了？</a><span>
+	  <div><span style='color:red;'>请输入你在口立方的注册密码</span></div>
+	  <div>
+        <input type='submit' value='登录'/><input type='hidden' name='act' value='login'>
+	  </div>
+	</div>
+	<div class='float_r' style='margin-top:40px;'><span>还没有口立方帐号，<a href='/storify/register/register_form.php'/>立即注册？</a></span></div>
+  </div>
+  <div class='div_center' style='height:50px;'></div>
+</form>";
+
+  echo $content;
+}
+?>
+
+<?php
 include "../include/footer.htm";
 ?>
