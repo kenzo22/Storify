@@ -16,7 +16,7 @@ $_SESSION['keys'] = $keys;
 ?>
 
 <div class='div_center' >
-<span>请您选择要添加的信息源</span>
+<span>为了您更好的使用该服务，请您选择要添加的信息源</span>
 <ul>
   <li id='sina_weibo'><a href="<?=$aurl?>">新浪微博</a></li>
   <li id='tencent_weibo'><a>腾讯微博</a></li>

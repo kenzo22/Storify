@@ -61,7 +61,7 @@ if(isset($_GET['logout']))
 			}
 			</script>";
 	session_destroy(); 
-	//go($rooturl);
+	go($rooturl);
 	exit;
 }
 
@@ -72,7 +72,7 @@ $autologin=$_POST["autologin"];
 
 if($email && $passwd)
 {
-  $result=$DB->fetch_one_array("SELECT id,username FROM ".$db_prefix."user WHERE email='".$email."' AND passwd='".$passwd."' AND activate='1'" );
+  $result=$DB->fetch_one_array("SELECT id, username, weibo_user_id FROM ".$db_prefix."user WHERE email='".$email."' AND passwd='".$passwd."' AND activate='1'" );
 
   if(!empty($result))
   {
@@ -84,7 +84,16 @@ if($email && $passwd)
 	  setcookie("password", $password, time()+3600*24*365); 
 	}
 	//go($rooturl);
-	go($rooturl."/member/source.php");
+	$_SESSION['weibo_uid']=intval($result['weibo_user_id']);
+	if(0 == $_SESSION['weibo_uid'])
+	{
+	  go($rooturl."/member/source.php");
+	}
+	else
+	{
+	  go($rooturl."/weibo/weibolist.php");
+	}
+	
   }
   else
   {
