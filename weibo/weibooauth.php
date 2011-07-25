@@ -963,10 +963,15 @@ class WeiboClient
      * @access public 
      * @return array 
      */ 
-    function friends_timeline() 
+    /*function friends_timeline() 
     { 
         return $this->home_timeline(); 
-    } 
+    }*/
+	
+	function friends_timeline($page = 1 , $count = 20) 
+    { 
+        return $this->request_with_pager( 'http://api.t.sina.com.cn/statuses/friends_timeline.json' , $page , $count );  
+    }
 
     /** 
      * 最新关注人微博 
@@ -1160,6 +1165,25 @@ class WeiboClient
         else 
             return $this->request_with_uid( 'http://api.t.sina.com.cn/statuses/user_timeline.json' ,  $uid_or_name , $page , $count ); 
     } 
+	
+	/** 
+     * 搜索微博 add by zxx
+     *  
+     * @access public 
+     * @param int $page 页码 
+     * @param int $count 每次返回的最大记录数，最多返回200条，默认20。 
+     * @param $search_keywords 搜索关键字 
+     * @return array 
+     */ 
+	function search_weibo( $page = 1 , $count = 20, $keywords)
+	{
+		$param = array(); 
+        $param['q'] = $keywords;
+		$param['page'] = $page;
+		$param['count'] = $count;		
+
+        return $this->oauth->post( 'http://api.t.sina.com.cn/statuses/search.json' , $param ); 
+	}
 
     /** 
      * 获取私信列表 
@@ -1377,6 +1401,11 @@ class WeiboClient
     { 
         return $this->oauth->post( 'http://api.t.sina.com.cn/favorites/destroy/' . $sid . '.json'  ); 
     } 
+	
+	function end_session()
+	{
+		return $this->oauth->post( 'http://api.t.sina.com.cn/account/end_session.json' );
+	}
     
     
     function verify_credentials() 

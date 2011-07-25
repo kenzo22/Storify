@@ -10,6 +10,7 @@ $_SESSION['last_key']['oauth_token_secret']=$result['weibo_access_token_secret']
 $c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_key']['oauth_token'] , $_SESSION['last_key']['oauth_token_secret']  );
 $ms  = $c->home_timeline(); // done
 $me = $c->verify_credentials();
+//$single_weibo  = $c->show_status(1189591617);
 
 
 ?>
@@ -48,17 +49,22 @@ else
 
 }
 
+$msg = $c->show_status(15114058604);
+	if ($msg === false || $msg === null){
+		echo "Error occured";
+		return false;
+	}
+	if (isset($msg['error_code']) && isset($msg['error'])){
+		echo ('Error_code: '.$msg['error_code'].';  Error: '.$msg['error'] );
+		return false;
+	}
+	if (isset($msg['id']) && isset($msg['text'])){
+		echo($msg['id'].' : '.$msg['text']);
+	}
+
 ?>
 
-<?php if( is_array( $ms ) ): ?>
-<div class='div_center'>
-<?php foreach( $ms as $item ): ?>
-<div style="padding:10px;margin:5px;border:1px solid #ccc">
-<?=$item['text'];?>
-</div>
-<?php endforeach; ?>
-</div>
-<?php endif; ?>
+
 <?php include "../include/footer.htm"; ?>
 
 
