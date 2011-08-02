@@ -398,9 +398,9 @@ height:53px;
 	height: 100%;
 	margin-left:-40px;
 }
-#vtab > ul > li {
+/*#vtab > ul > li {
 	width: 40px;
-	height: 110px;
+	height: 32px;
 	background-color: #fff !important;
 	list-style-type: none;
 	display: block;
@@ -413,6 +413,17 @@ height:53px;
 	opacity: .3;
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
 	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
+}*/
+
+#vtab > ul > li {
+	width: 40px;
+	height: 24px;
+	background-color: #fff !important;
+	list-style-type: none;
+	display: block;
+	border: 1px solid #fff;
+	position: relative;
+	border-right: none;
 }
 
 #vtab > ul > li.selected {
@@ -425,6 +436,7 @@ height:53px;
 	background-color: #fafafa !important;
 	position: relative;
 }
+
 #vtab > ul {
 	float: left;
 	width: 40px;
@@ -443,5 +455,5 @@ height:53px;
 	padding: 12px;
 	position: relative;
 	z-index: 9;
-	-moz-border-radius: 20px;
+	-moz-border-radius: 10px;
 }

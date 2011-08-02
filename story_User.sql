@@ -6,6 +6,9 @@ CREATE TABLE IF NOT EXISTS story_user (
   weibo_user_id bigint(20) unsigned NOT NULL DEFAULT 0,
   weibo_access_token varchar(100) NOT NULL DEFAULT '',
   weibo_access_token_secret varchar(100) NOT NULL DEFAULT '',
+  tweibo_user_id bigint(20) unsigned NOT NULL DEFAULT 0,
+  tweibo_access_token varchar(100) NOT NULL DEFAULT '',
+  tweibo_access_token_secret varchar(100) NOT NULL DEFAULT '',
   registered_time datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   activate int(1) not null default 0,
   KEY `user_name_key` (`username`)

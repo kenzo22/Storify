@@ -72,7 +72,7 @@ $autologin=$_POST["autologin"];
 
 if($email && $passwd)
 {
-  $result=$DB->fetch_one_array("SELECT id, username, weibo_user_id, weibo_access_token, weibo_access_token_secret FROM ".$db_prefix."user WHERE email='".$email."' AND passwd='".$passwd."' AND activate='1'" );
+  $result=$DB->fetch_one_array("SELECT id, username, weibo_user_id, weibo_access_token, weibo_access_token_secret, tweibo_user_id, tweibo_access_token, tweibo_access_token_secret FROM ".$db_prefix."user WHERE email='".$email."' AND passwd='".$passwd."' AND activate='1'" );
 
   if(!empty($result))
   {
@@ -85,7 +85,7 @@ if($email && $passwd)
 	}
 	//go($rooturl);
 	$_SESSION['weibo_uid']=intval($result['weibo_user_id']);
-	if(0 == $_SESSION['weibo_uid'])
+	if(0 == $_SESSION['weibo_uid'] && '' == $result['tweibo_access_token'])
 	{
 	  go($rooturl."/member/source.php");
 	}
@@ -94,7 +94,10 @@ if($email && $passwd)
 	  //go($rooturl."/weibo/weibolist.php");
 	  $_SESSION['last_key']['oauth_token']=$result['weibo_access_token'];
 	  $_SESSION['last_key']['oauth_token_secret']=$result['weibo_access_token_secret'];
+	  $_SESSION['last_tkey']['oauth_token']=$result['tweibo_access_token'];
+	  $_SESSION['last_tkey']['oauth_token_secret']=$result['tweibo_access_token_secret'];
 	  go($rooturl."/member/user.php");
+	  //go($rooturl."/member/source.php");
 	}
 	
   }

@@ -34,3 +34,9 @@ function date_format(origin_date)
   temp_array[3] = time_array[0]+':'+time_array[1];
   return temp_array[5]+'-'+temp_array[1]+'-'+temp_array[2]+' '+temp_array[3];
 }
+
+function parse_timestamp(timestamp)
+{
+  var date = new Date(timestamp*1000);
+  return date.getFullYear()+'-'+date.getMonth()+'-'+date.getDate()+' '+date.getHours()+':'+date.getMinutes();
+}
