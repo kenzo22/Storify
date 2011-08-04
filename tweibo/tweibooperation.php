@@ -9,9 +9,6 @@ $operation=$_GET['operation'];
 $page = $_GET['page'];
 $timestamp = $_GET['timestamp'];
 
-/*$result=$DB->fetch_one_array("SELECT weibo_access_token, weibo_access_token_secret FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
-$_SESSION['last_key']['oauth_token']=$result['weibo_access_token'];
-$_SESSION['last_key']['oauth_token_secret']=$result['weibo_access_token_secret'];*/
 $c = new TWeiboClient( MB_AKEY , MB_SKEY , $_SESSION['last_tkey']['oauth_token'] , $_SESSION['last_tkey']['oauth_token_secret']  );
 $tweibo;
 $keywords;
@@ -22,24 +19,19 @@ if('my_weibo' == $operation)
 }
 else if('my_follow' == $operation)
 {
-  //$tweibo  = $c->friends_timeline($page, 20); 
   $tweibo  = $c->home_timeline($page, $timestamp, 20);
 }
 else if('weibo_search' == $operation)
 {
   $keywords = $_GET['keywords'];
-  //$tweibo  = $c->search_weibo($page, 20, $keywords);
   $tweibo  = $c->search_t($keywords);
 }
 else if('user_search' == $operation)
 {
   $keywords = $_GET['keywords'];
-  //$tweibo  = $c->user_timeline($page, 20, $keywords);
   $tweibo  = $c->user_timeline($keywords, $page, $timestamp, 20);
-  //$tweibo = $c->user_other_info('DrYePeng');
 }
 
-//$data = $tweibo[data];
 $info = $tweibo[data][info];
 foreach( $info as $item )
 {

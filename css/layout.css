@@ -37,13 +37,13 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 #user_action {padding-left:20px; display:none;}
 
 /* weibo part*/
-#source_pane{width:390px;}
-#story_pane{margin-left:20px; width:450px;}
-#source_list{height:603px; overflow:auto;}
-#story_list{min-height:602px;}
-#story {height:100%;}
+#source_pane{width:390px; height: 750px;}
+#story_pane{margin-left:20px; width:450px; height: 750px;}
+#source_list{height:615px; overflow:auto;}
+#story_list{}
+#story {}
 #story_header {}
-#storylist_container {border: 1px solid #C9C9C9;}
+#storylist_container {height:625px; border: 1px solid #C9C9C9;}
 .loadmore {padding: 0 150px 0 150px;}
 .weibo_content{margin-left:36px;}
 .weibo_drag, .video_Drag{padding:5px; margin:8px; border-color:#ababac;
@@ -139,7 +139,7 @@ color-stop(0.80, #ededed)
 );
 }
 div .content-a { padding: 10px 0 20px; border-bottom: 1px solid #eaeaea; background: #fff; }
-div.inner { width: 920px; margin: 0 auto; }
+div.inner { width: 920px; margin: 0 auto; padding-left:50px;}
 div.cols-b { width: 100%; }
 div.cols-b:after { display: block; overflow: hidden; clear: both; content: ""; width: 100%; height: 0; }
 
@@ -394,9 +394,9 @@ height:53px;
 
 #vtab {
 	margin: auto;
-	width: 430px;
+	width: 425px;
 	height: 100%;
-	margin-left:-40px;
+	margin-left:-35px;
 }
 /*#vtab > ul > li {
 	width: 40px;
@@ -416,7 +416,7 @@ height:53px;
 }*/
 
 #vtab > ul > li {
-	width: 40px;
+	width: 35px;
 	height: 24px;
 	background-color: #fff !important;
 	list-style-type: none;
@@ -439,17 +439,17 @@ height:53px;
 
 #vtab > ul {
 	float: left;
-	width: 40px;
+	width: 35px;
 	text-align: left;
 	display: block;
 	margin: auto 0;
 	padding: 0;
 	position: relative;
-	top: 30px;
+	top: 26px;
 }
 #vtab > div {
 	background-color: #fafafa;
-	margin-left: 40px;
+	margin-left: 35px;
 	border: 1px solid #ddd;
 	min-height: 50px;
 	padding: 12px;
