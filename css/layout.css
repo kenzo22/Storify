@@ -29,10 +29,10 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 .title { height:50px;font-size:20px; font-weight:bold;}
 
 /* header */
-#top { padding: 0;}
-#top .inner { position: relative; overflow: hidden;}
-#top .top_nav { height: 55px; border-bottom: none; color: #737373 }
-#top .user_console { float: right; margin: 0 10px 0 0; _margin: 0 10px 0 0 }
+#top_bar { padding: 0;}
+#top_bar .inner { position: relative; overflow: hidden;}
+#top_bar .top_nav { height: 55px; border-bottom: none; color: #737373 }
+#top_bar .user_console { float: right; margin: 0 30px 0 0; _margin: 0 30px 0 0 }
 #logo {float: left;}
 #user_action {padding-left:20px; display:none;}
 
@@ -40,10 +40,10 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 #source_pane{width:390px; height: 750px;}
 #story_pane{margin-left:20px; width:450px; height: 750px;}
 #source_list{height:615px; overflow:auto;}
-#story_list{}
+#story_list{margin:0; height:625px; border: 1px solid #C9C9C9;}
 #story {}
 #story_header {}
-#storylist_container {height:625px; border: 1px solid #C9C9C9;}
+#storylist_container {}
 .loadmore {padding: 0 150px 0 150px;}
 .weibo_content{margin-left:36px;}
 .weibo_drag, .video_Drag{padding:5px; margin:8px; border-color:#ababac;
@@ -114,11 +114,11 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 /* publish part*/
 
 /* List all the story part*/
-#story_list ul {padding:0;}
-#story_list ul li { width:204px; float:left; margin:20px 0 0px 20px; display:inline; text-align:center;}
-#story_list ul li a { display:block;}
-#story_list ul li a img { padding:1px; border:1px solid #e1e1e1; margin-bottom:3px;}
-#story_list ul li a:hover img { padding:0px; border:2px solid #f98510;}
+#userstory_list ul {padding:0;}
+#userstory_list ul li { width:164px; float:left; margin:20px 0 0px 35px; display:inline; text-align:center;}
+#userstory_list ul li a { display:block;}
+#userstory_list ul li a img { padding:1px; border:1px solid #e1e1e1; margin-bottom:3px;}
+#userstory_list ul li a:hover img { padding:0px; border:2px solid #f98510;}
 
 /* List all the story part*/
 
@@ -139,7 +139,7 @@ color-stop(0.80, #ededed)
 );
 }
 div .content-a { padding: 10px 0 20px; border-bottom: 1px solid #eaeaea; background: #fff; }
-div.inner { width: 920px; margin: 0 auto; padding-left:50px;}
+div.inner { width: 880px; margin: 0 auto;}
 div.cols-b { width: 100%; }
 div.cols-b:after { display: block; overflow: hidden; clear: both; content: ""; width: 100%; height: 0; }
 
