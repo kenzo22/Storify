@@ -38,9 +38,9 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 
 /* weibo part*/
 #source_pane{width:390px; height: 750px;}
-#story_pane{margin-left:20px; width:450px; height: 750px;}
+#story_pane{margin-left:20px; width:450px; min-height: 750px; height:auto;}
 #source_list{height:615px; overflow:auto;}
-#story_list{margin:0; height:625px; border: 1px solid #C9C9C9;}
+#story_list{margin:0; min-height:625px; border: 1px solid #C9C9C9; height:auto;}
 #story {}
 #story_header {}
 #storylist_container {}
@@ -73,7 +73,7 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
   -webkit-border-radius: 5px;
   margin:auto;
   width:90%;
-  margin-top:5px;
+
   overflow:auto;}
 .source_drag {padding:5px;margin:5px;}
 /* weibo part*/
@@ -87,6 +87,14 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
   -webkit-border-radius: 5px;
   }
   
+.cross{
+  padding-left:390px;
+}
+  
+.addTextElementAnchor{
+height:16px;
+}
+  
 .add_comment{
  width: 16px;
  height: 16px;
@@ -97,8 +105,36 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
  .textElement{
  margin:auto;
  width:90%;
- margin-top:5px;
  overflow:auto;
+ }
+ 
+ .cover{
+    background-repeat: no-repeat;
+    display: block;
+    height: 190px;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    width: 190px;
+ }
+ 
+ .title_wrap{
+    bottom: 13px;
+    margin: 0;
+    position: absolute;
+    width: 185px;
+	text-align:left;
+ }
+ 
+ .title_wrap .title
+ {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.8);
+    color: #FFFFFF;
+    display: inline;
+    font: bold;
+    padding: 1px 0;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+    text-transform: uppercase;
  }
 
 /* publish part*/
@@ -115,10 +151,21 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 
 /* List all the story part*/
 #userstory_list ul {padding:0;}
-#userstory_list ul li { width:164px; float:left; margin:20px 0 0px 35px; display:inline; text-align:center;}
-#userstory_list ul li a { display:block;}
-#userstory_list ul li a img { padding:1px; border:1px solid #e1e1e1; margin-bottom:3px;}
-#userstory_list ul li a:hover img { padding:0px; border:2px solid #f98510;}
+#userstory_list ul li {float:left; margin:20px 0 0px 35px; border: 1px solid #DDDDDD;
+    border-radius: 3px 3px 3px 3px;
+    color: #323232;
+    display: inline-block;
+    padding: 5px;
+    text-decoration: none;}
+/*background: -moz-linear-gradient(center top , #FFFFFF 0%, #F1F2F2 33.3333%, #FFFFFF 100%) repeat scroll 0 0 transparent;
+    border: 1px solid #DDDDDD;
+    border-radius: 3px 3px 3px 3px;
+    color: #323232;
+    display: inline-block;
+    padding: 5px;
+    text-decoration: none;*/
+/*#userstory_list ul li a img { padding:1px; border:1px solid #e1e1e1; margin-bottom:3px;}
+#userstory_list ul li a:hover img { padding:0px; border:2px solid #f98510;}*/
 
 /* List all the story part*/
 
