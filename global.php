@@ -31,9 +31,15 @@
 	//if(isloggedin())
 	if(islogin())
     { 
-		$content="<span class='user_console'>欢迎，<a href='".$rooturl."/login/forget_passwd.php'><b>".$_SESSION['username']."</b> </a>
+		/*$content="<span class='user_console'>欢迎，<a href='".$rooturl."/login/forget_passwd.php'><b>".$_SESSION['username']."</b> </a>
 						<a href='".$rooturl."/login/forget_passwd.php'></a> 
-						<a href='".$rooturl."/login/login.php?logout'>&nbsp;&nbsp;[退出]</a></span>";
+						<a href='".$rooturl."/login/login.php?logout'>&nbsp;&nbsp;[退出]</a></span>";*/
+		$content="<ul class='user_console showborder'>
+				    <li class='person_li' style='display:block;'><a class='person_a person_a_display' href='/storify/member/user.php'><img id='person_img' src='/storify/img/person.png'><span id='person_name'>".$_SESSION['username']."</span></a></li>
+					<li class='person_li'><a class='person_a' href='/storify/member/user.php'>我的主页</a></li>
+					<li class='person_li'><a class='person_a' href='/storify/member/setting.php'>设置</a></li>
+					<li class='person_li'><a class='person_a' href='".$rooturl."/login/login.php?logout'>退出</a></li>
+		          </ul>";
 	  echo "<div id='top_bar'><div class='inner'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='/storify/img/logo.png' border='0'></a></span>
 	  <span id='user_action'><a href='".$rooturl."/index.php'>主页</a> | <a href='".$rooturl."/member/user.php'>我的故事</a> | <a href='".$rooturl."/member'>创建故事</a>
 	  </span>".$content."</div></div></div><BR>";
@@ -42,6 +48,14 @@
 	{
 	  echo "<div id='top_bar'><div class='inner'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='/storify/img/logo.png' border='0'></a></span></div></div></div><BR>";
 	}
-	 
-    
 ?>
+<script>
+$(function() {
+$('.person_li').mouseover(function(){
+$('.person_li').css('display', 'block');
+});
+$('.user_console').mouseout(function(){
+$('.person_li').slice(1, 4).css('display', 'none');
+});
+});
+</script>
