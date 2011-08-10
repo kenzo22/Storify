@@ -29,8 +29,9 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 .title { height:50px;font-size:20px; font-weight:bold;}
 
 /* header */
-#top_bar { padding: 0 20px; margin: 0 auto; width:880px;}
-#top_bar .top_nav { height: 55px; border-bottom: none; color: #737373; position: fixed; margin: 0 auto; width:880px; z-index:200;}
+#top_bar { padding: 0;}
+#top_bar .inner { position: relative;}
+#top_bar .top_nav { height: 55px; border-bottom: none; color: #737373 }
 #top_bar .user_consolee { float: right; margin: 0 30px 0 0; _margin: 0 30px 0 0 }
 #top_bar .user_console {margin: 0; position:absolute; right:0; top:5px;
     min-width: 120px;
@@ -85,20 +86,11 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 .person_li{
 display: none;
 }
-.left_half{
-float:left;
-}
-.right_half{
-padding-top: 98px;
-float:right;
-}
-
-
 /* weibo part*/
-#source_pane{position:fixed; top:120px; width:390px; height:750px; }
-#story_pane{position:relative; margin-left:20px; width:450px; min-height: 750px;}
+#source_pane{width:390px; height: 750px;}
+#story_pane{margin-left:20px; width:450px; min-height: 750px;}
 #source_list{height:615px; overflow:auto;}
-#story_list{position: inherit; margin:0; min-height:625px; border: 1px solid #C9C9C9; height:auto; overflow:hidden; list-style: none outside none;}
+#story_list{margin:0; min-height:625px; border: 1px solid #C9C9C9; height:auto; overflow:hidden;}
 #story {}
 #story_header {}
 #storylist_container {}
@@ -264,7 +256,6 @@ height:16px;
 
 /* content part */
 .content { position:relative; padding-left:50px;}
-#homepage {margin:5px 0; position:relative;}
 #homepage .inner {
 overflow:hidden;
 }
@@ -337,12 +328,8 @@ margin-top:20px;
 /*#user ul li a { float: left; padding: 3px 8px; background: #f7f8f8 url(http://static.storify.com/img/user-bg-a.gif) repeat-x; color: #86abc4; }*/
 #user ul li a { border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }
 
-#footer {position: fixed; top:900px; margin: 0 auto; width:880px; z-index:200; background: none repeat scroll 0 0 #F9F9F9;
-    border-top: 1px solid #E3E5E6;
-    bottom: 0;
-    padding: 0 0 1px;
-	margin-top:0;}
-#footer p { color: #BBBBBB; font-size: 1.1em; }
+#footer { padding: 0 0 1px; }
+#footer p { color: #dbdada; font-size: 1.1em; }
 #footer ul { float: right; list-style: none; margin: 0 0 15px; padding: 0; }
 #footer ul li { display: inline; float: left; margin: 0 0 0 20px; font-size: 1.1em; }
 

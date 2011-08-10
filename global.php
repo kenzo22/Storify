@@ -40,13 +40,13 @@
 					<li class='person_li'><a class='person_a' href='/storify/member/setting.php'>设置</a></li>
 					<li class='person_li'><a class='person_a' href='".$rooturl."/login/login.php?logout'>退出</a></li>
 		          </ul>";
-	  echo "<div id='top_bar'><div class='inner'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='/storify/img/logo.png' border='0'></a></span>
+	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='/storify/img/logo.png' border='0'></a></span>
 	  <span id='user_action'><a href='".$rooturl."/index.php'>主页</a> | <a href='".$rooturl."/member/user.php'>我的故事</a> | <a href='".$rooturl."/member'>创建故事</a>
-	  </span>".$content."</div></div></div><BR>";
+	  </span>".$content."</div></div><BR>";
     }
 	else
 	{
-	  echo "<div id='top_bar'><div class='inner'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='/storify/img/logo.png' border='0'></a></span></div></div></div><BR>";
+	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='/storify/img/logo.png' border='0'></a></span></div></div><BR>";
 	}
 ?>
 <script>
