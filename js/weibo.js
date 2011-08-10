@@ -127,7 +127,7 @@ function my_follow(page)
 
 function remove_item(event)
 {
-	var $temp = $(event.target || event.srcElement).closest('.weibo_drop');
+	var $temp = $(event.target || event.srcElement).closest('li');
 	$temp.next('li').remove();
 	$temp.remove();
 }

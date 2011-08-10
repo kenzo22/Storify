@@ -104,6 +104,14 @@ class YupooAPI {
 		return $result;
 	}
 	
+	public function get_photo_info($photoID)
+	{
+		$method = 'yupoo.photos.getInfo';
+		$args["photo_id"] = $photoID;
+		$result = $this->api_call($method, $args);
+		return $result;
+	}
+	
 	public function search_photo($keywords, $page, $token)
 	{
 		$method = 'yupoo.photos.search';
