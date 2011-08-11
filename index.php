@@ -41,30 +41,44 @@ include "global.php";
 			<img id='video_preview' src='/storify/img/storify.png' width='456' height='301'/>
 	      </div>
 		  <div id='intro'>
-		  <h3 class='blue'>创建属于你的故事!<br/>微博,开心,人人,优酷</h3>
-		  <p style='color:#438cc3'>一切都是那么简单，动动手，用无穷无尽的社交网
-		  <br/>络资源创建你自己的故事。发布分享你的故事，每
-		  <br/>个人都是见证新时代的媒体人。
-		  </p>
-		  <div id='sign_in'>
-		  <h2 style='padding-top:20px;' class='blue' align='center'>立即开始你的口立方旅程</h2>
-		  <div align='center'>
-		  <span><a id='login_btn' href='#dialog' name='modal' align='center'>登录</a></span>
-		  <span><a style='margin-left:15px; line-height:2.4; color:#336699;' href='/storify/register/register_form.php'/>马上注册</a></span>
+		    <h3 class='blue'>创建属于你的故事!<br/>微博,开心,人人,优酷</h3>
+		    <p style='color:#438cc3'>一切都是那么简单，动动手，用无穷无尽的社交网
+		    <br/>络资源创建你自己的故事。发布分享你的故事，每
+		    <br/>个人都是见证新时代的媒体人。
+		    </p>
+		    <div id='sign_in'>
+		      <h2 style='padding-top:20px;' class='blue' align='center'>立即开始你的口立方旅程</h2>
+		      <div align='center'>
+		        <span><a id='login_btn' href='#dialog' name='modal' align='center'>登录</a></span>
+				<span><a style='margin-left:15px; line-height:2.4; color:#336699;' href='/storify/register/register_form.php'/>马上注册</a></span>
+			  </div>
+		      <form method='post' action='/storify/register/get_invitationcode.php'> 
+				<div align='center'>
+				  <span > <input type='text' value='请输入邮箱地址' name='email' id='email_invitation' size='30' maxlength='100' onclick='this.value = ""'> </span>
+				  <span><input type='submit' id='btn_request_invitation' value='获得邀请码'></input></span>
+				</div>
+			  </form>
+		    </div>
 		  </div>
-		  <form method='post' action='/storify/register/get_invitationcode.php'> 
-		  <div align='center'>
-		  <span > <input type='text' value='请输入邮箱地址' name='email' id='email_invitation' size='30' maxlength='100' onclick='this.value = ""'> </span>
-		  <span><input type='submit' id='btn_request_invitation' value='获得邀请码'></input></span>
-		  </div>
-		  </form>
-		  </div>
-		  </div>
-	      <div id='featuredStories' class='storySnippets'></div>
-	      <div id='popularStories' class='storySnippets'></div>
-	      <div id='followedStories' class='storySnippets'></div>
-	      <div id='myStories' class='storySnippets'></div>
 	    </div>
+		<div class='category'>
+	      <div id='trendTopics' class='' style='display:block;'>
+			<h3 class='blue'>大家都在说</h3>
+		  </div>
+	      <div id='topUsers' class='' style='display:block;'>
+			<h3 class='blue'>排行榜</h3>
+			<ol>
+			  <li>测试 22 stories</li>
+			  <li>测试 22 stories</li>
+			  <li>测试 22 stories</li>
+			  <li>测试 22 stories</li>
+			  <li>测试 22 stories</li>
+			  <li>测试 22 stories</li>
+			  <li>测试 22 stories</li>
+			  <li>测试 22 stories</li>
+			</ol>
+		  </div>
+		</div>
 	  </div>
     </div>
 </div>
