@@ -38,8 +38,8 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
     border-top: 1px solid #FFFFFF;
     box-shadow: 0 2px 5px rgba(212, 212, 212, 0.3);
     height: 32px;}
-#top_bar { padding: 0 20px; margin: 0 auto; width:880px;}
-#top_bar .top_nav { height: 55px; border-bottom: none; color: #737373; margin: 0 auto; width:880px; z-index:200; position:absolute;}
+#top_bar { padding: 0 20px; margin: 0 auto; width:920px;}
+#top_bar .top_nav { height: 55px; border-bottom: none; color: #737373; margin: 0 auto; width:920px; z-index:200; position:absolute;}
 .editor #top_bar .top_nav{position: fixed; }
 .editor #global_bar {position: fixed; }
 #top_bar .user_consolee { float: right; margin: 0 30px 0 0; _margin: 0 30px 0 0 }
@@ -267,6 +267,9 @@ height:16px;
  }
 
 /* publish part*/
+#story_container{
+width:920px; margin:0 auto; padding-top:50px;
+}
 #publish_container{
   border-color:#ababac;
   border-style:solid;
@@ -274,7 +277,80 @@ height:16px;
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
+  width:660px;
+  float:left;
 }
+
+#userinfo_container{
+width:210px;
+height:600px;
+float:right;
+}
+
+.user_profiles{
+    border-radius: 3px 3px 3px 3px;
+    margin: 40px 0 0;
+    width: 210px;
+}
+
+.user_box{
+padding:10px;
+}
+
+.user_box .avatar{
+background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 3px 3px 3px 3px;
+    height: 80px;
+    padding: 4px;
+    width: 80px;
+}
+
+.user_box .avatar a{
+background-size: cover;
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+.follow_btn{
+margin: 5px 0 10px;
+display:block;
+    padding: 5px 0;
+    text-align: center;
+    width: 88px;
+	height:20px;
+	border:solid;
+	border-color: #ABABAC;
+}
+
+.userbox p {
+    margin: 0 0 10px;
+}
+
+.usersfollowers, .usersfollowing {
+    font-weight: bold;
+    margin: 18px 0 0;
+    position: relative;
+	overflow:auto;
+}
+
+.count{
+font-weight: normal;
+    position: absolute;
+    right: 0;
+    top: 1px;
+}
+
+.follow_mini_icon {
+    background-color: #D9D9D9;
+    display: block;
+    float: left;
+    height: 24px;
+    margin: 0 6px 6px 0;
+    width: 24px;
+}
+
 #story_action {background-color:#ababac;}
 /* publish part*/
 
@@ -317,7 +393,7 @@ color-stop(0.80, #ededed)
 );
 }
 div .content-a { padding: 10px 0 20px; border-bottom: 1px solid #eaeaea; background: #fff; }
-div.inner { width: 880px; margin: 0 auto;}
+div.inner { width: 920px; margin: 0 auto;}
 div.cols-b { width: 100%; }
 div.cols-b:after { display: block; overflow: hidden; clear: both; content: ""; width: 100%; height: 0; }
 
@@ -376,11 +452,12 @@ margin-top:20px;
 /*#user ul li a { float: left; padding: 3px 8px; background: #f7f8f8 url(http://static.storify.com/img/user-bg-a.gif) repeat-x; color: #86abc4; }*/
 #user ul li a { border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }
 
-#footer {position: absolute; margin: 0 auto; width:880px; z-index:200; background: none repeat scroll 0 0 #F9F9F9;
+#footer {margin: 0 auto; width:920px; z-index:200; background: none repeat scroll 0 0 #F9F9F9;
     border-top: 1px solid #E3E5E6;
     padding: 0 0 1px;
-	margin-top:0;}
-.editor #footer {position:fixed; top:900px; bottom: 0;}
+	margin-top:0;
+	clear:both;}
+.editor #footer {position:fixed; top:860px; bottom: 0;}
 #footer p { color: #BBBBBB; font-size: 1.1em; }
 #footer ul { float: right; list-style: none; margin: 13px 0 15px; padding: 0; }
 #footer ul li { display: inline; float: left; margin: 0 0 0 20px; font-size: 1.1em; }
