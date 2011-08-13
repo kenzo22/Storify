@@ -25,7 +25,7 @@ $result=$DB->query("update ".$db_prefix."user set yupoo_token='".$token."' WHERE
 
 ?>
 <!--授权完成,<a href="demo.html">进入SDK测试用例</a>-->
-<div class='div_center' >
+<div class='inner' style='padding-top:50px;'>
   <div><a href="../member/source.php">添加其他源</a></div>
   <div><a href="../member/index.php">暂不添加其他源，马上体验口立方</a></div>
 </div>

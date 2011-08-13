@@ -3,6 +3,8 @@ CREATE TABLE IF NOT EXISTS story_user (
   username varchar(60) NOT NULL DEFAULT '',
   passwd varchar(64) NOT NULL DEFAULT '',
   email varchar(100) NOT NULL DEFAULT '',
+  photo varchar(255) default NULL,
+  intro varchar(255) NOT NULL DEFAULT '',
   weibo_user_id bigint(20) unsigned NOT NULL DEFAULT 0,
   weibo_access_token varchar(100) NOT NULL DEFAULT '',
   weibo_access_token_secret varchar(100) NOT NULL DEFAULT '',

@@ -156,7 +156,7 @@ list-style-type: decimal;
  
  .video_element{
   margin:0 auto;
-  width:55%;
+  width:420px;
  }
  
  .video_drop1{
@@ -267,6 +267,14 @@ height:16px;
  }
 
 /* publish part*/
+#weibo_ul li{
+margin-top:25px;
+}
+
+#weibo_ul .weibo_drop{
+width:70%;
+}
+
 #story_container{
 width:920px; margin:0 auto; padding-top:50px;
 }
@@ -304,6 +312,7 @@ background: none repeat scroll 0 0 #FFFFFF;
     height: 80px;
     padding: 4px;
     width: 80px;
+	margin-bottom:5px;
 }
 
 .user_box .avatar a{
@@ -313,7 +322,7 @@ background-size: cover;
     width: 100%;
 }
 
-.follow_btn{
+.follow_btn1{
 margin: 5px 0 10px;
 display:block;
     padding: 5px 0;
@@ -322,6 +331,11 @@ display:block;
 	height:20px;
 	border:solid;
 	border-color: #ABABAC;
+}
+
+.follow_btn{
+    width: 88px;
+	height:30px;
 }
 
 .userbox p {
@@ -457,7 +471,7 @@ margin-top:20px;
     padding: 0 0 1px;
 	margin-top:0;
 	clear:both;}
-.editor #footer {position:fixed; top:860px; bottom: 0;}
+.editor #footer {position:fixed; top:900px; bottom: 0;}
 #footer p { color: #BBBBBB; font-size: 1.1em; }
 #footer ul { float: right; list-style: none; margin: 13px 0 15px; padding: 0; }
 #footer ul li { display: inline; float: left; margin: 0 0 0 20px; font-size: 1.1em; }

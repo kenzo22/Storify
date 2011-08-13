@@ -37,7 +37,7 @@
 		$content="<ul class='user_console showborder'>
 				    <li class='person_li' style='display:block;'><a class='person_a person_a_display' href='/storify/member/user.php'><img id='person_img' src='/storify/img/person.png'><span id='person_name'>".$_SESSION['username']."</span></a></li>
 					<li class='person_li'><a class='person_a' href='/storify/member/user.php'>我的主页</a></li>
-					<li class='person_li'><a class='person_a' href='/storify/member/setting.php'>设置</a></li>
+					<li class='person_li'><a class='person_a' href='/storify/member/user_setting.php'>设置</a></li>
 					<li class='person_li'><a class='person_a' href='".$rooturl."/login/login.php?logout'>退出</a></li>
 		          </ul>";
 	  echo "<div id='global_bar'><div></div></div><div id='top_bar'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='/storify/img/logo.png' border='0'></a></span>

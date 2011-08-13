@@ -2,7 +2,7 @@
 include "../global.php";
 ?>
 
-<div class='div_center' >
+<div class='inner' style='padding-top:50px;'>
 <span>为了您更好的使用该服务，请您选择要添加的信息源</span>
 <ul>
   <li><a id='sina_weibo' href='#'>新浪微博</a></li>
