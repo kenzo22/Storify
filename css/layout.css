@@ -368,6 +368,38 @@ font-weight: normal;
 #story_action {background-color:#ababac;}
 /* publish part*/
 
+.setting_bar{
+background-color: #FFF6EE;
+float: left;
+margin-bottom: 21px;
+overflow: hidden;
+width: 100%;
+}
+
+.setting_bar div{
+float: left;
+margin-left: 50px;
+padding-right: 5px;
+}
+
+.setting_bar a{
+display: block;
+float: left;
+line-height: 14px;
+text-decoration: none;
+padding:5px;
+margin-top:6px;
+margin-left:30px;
+}
+
+.setting_bar span.now{
+	background-color: #FFFFFF;
+    display: block;
+    float: left;
+	margin-top:4px;
+	padding: 3px 5px 3px 5px;
+}
+
 /* List all the story part*/
 #userstory_container{margin-top:30px; margin-bottom:30px; overflow:auto; zoom:1;}
 #userstory_list ul {padding:0;}

@@ -12,6 +12,15 @@ else
   $userphoto="<a href='/storify/member/uploadphoto.php'>放你的头像上来</a>";
 }			
 $user_set = "<div class='inner' style='padding-top:50px;'>
+			<div><h2>".$result['username']."的帐号"."</h2></div>
+			<div class='setting_bar'>
+			  <div>
+				<span class='now'>
+				  <span>基本设置</span>
+				</span>
+				<a href='/storify/member/managesource.php'>第三方应用授权</a>
+			  </div>
+			</div>
 			<form id='lzform' name='lzform' method='post'>
 			   <table style='clear:both' width='100%' align='center' cellpadding='5'>
 				 <tr>
