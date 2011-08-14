@@ -5,7 +5,7 @@ $uid=intval($_SESSION['uid']);
 $result=$DB->fetch_one_array("select * from story_user where id=".$uid);
 if(!empty($result['photo']))
 {
-$userphoto="<div id='user_profile_img'><img width='90px' src='".$rooturl."/img/user/".$result['photo']."' /> </div>";
+  $userphoto="<div id='user_profile_img'><img width='90px' src='".$rooturl."/img/user/".$result['photo']."' /> </div>";
 }    
 else
 {
@@ -18,7 +18,7 @@ $content = "<div class='inner' style='padding-top:50px;'><form name='form1'  met
 <span>
   <input type='hidden' name='MAX_FILE_SIZE' value='1000000' />  
   <input type='file' id='upfile' name='photofile' value='".$result['username']."' />
-  <input type='submit' value='上传照片' onclick='javascript:updatephoto();' />
+  <input id='upload_btn' type='submit' value='上传照片'/>
   <input type='hidden' name='act' value='uploadphoto' />
 </span> 
 </div> 
@@ -64,19 +64,28 @@ if($_POST['act'] == 'uploadphoto')
 			exit;
 	}
 
-	if (is_uploaded_file($_FILES['photofile']['tmp_name']) ){
-			$reslut=$DB->fetch_one_array("select photo from ".$db_prefix."user where ID=".$uid);
-			if(!empty($reslut['Photo']))
-					unlink($upload_dir.$reslut['photo']);
+	if (is_uploaded_file($_FILES['photofile']['tmp_name']) )
+	{
+		$reslut=$DB->fetch_one_array("select photo from ".$db_prefix."user where ID=".$uid);
+		if(!empty($reslut['Photo']))
+			unlink($upload_dir.$reslut['photo']);
 
-			$filename=$uid.substr($original,-4,4);
-			$local_file=$upload_dir.$filename;
-			if(!move_uploaded_file($_FILES['photofile']['tmp_name'],$local_file)){
-					echo "无法将文件移到目的位置";
-			}
-			chmod($local_file,0755);
-			$DB->query("update ".$db_prefix."user set Photo='".$filename."' where  ID=".$uid);
-			//go($rooturl."/member/user_setting.php","上传照片成功",2);	
+		$filename=$uid.substr($original,-4,4);
+		$local_file=$upload_dir.$filename;
+		$local_file_absolute = "/storify/img/".$filename;
+		if(!move_uploaded_file($_FILES['photofile']['tmp_name'],$local_file))
+		{
+		  echo "无法将文件移到目的位置";
+		}
+		chmod($local_file,0755);
+		$DB->query("update ".$db_prefix."user set photo='".$filename."' where  ID=".$uid);
+		echo "<script language='javascript' >
+			$(function()
+			{
+			  var imgPath = '$local_file_absolute';
+			  $('.user_profile_img').removeChildren().html(<img width='90px' src='"+imgPath+"' />);
+			};
+			</script>";
 	}
 	else
 	{
@@ -85,21 +94,6 @@ if($_POST['act'] == 'uploadphoto')
 		exit;
 	}
 }
-else
-{
-  
-}
 
 include "../include/footer.htm"
 ?>
-
-<script language="javascript">
-
-function updatephoto() 
-{
-	debugger;
-	var path=document.getElementById("upfile").value;
-	//$('.user_profile_img').attr("src", path);
-	document.getElementById("user_profile_img").innerHTML="<img width='90px' src='"+path+"'>";
-}
-</script>
