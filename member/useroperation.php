@@ -4,11 +4,14 @@ include "../include/functions.php";
 session_start();
   
 $operation=$_POST['operation'];
+$uid = $_POST['uid'];
 switch($operation)
   {
 	case "follow":
+	  //echo $uid;
 		break;
 	case"unfollow":
+	  //echo 'unfollow';
 		break;
 	default:
 		break;
