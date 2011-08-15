@@ -9,6 +9,7 @@ switch($operation)
   {
 	case "follow":
 	  //echo $uid;
+	  echo 'follow';
 		break;
 	case"unfollow":
 	  //echo 'unfollow';
