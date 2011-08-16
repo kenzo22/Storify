@@ -436,8 +436,8 @@ margin-left:30px;
 
 /* List all the story part*/
 #userstory_container{margin-top:30px; margin-bottom:30px; overflow:auto; zoom:1;}
-#userstory_list ul {padding:0;}
-#userstory_list ul li {float:left; margin:20px 0 0px 35px; border: 1px solid #DDDDDD;
+.userstory_list ul {padding:0;}
+.userstory_list ul li {float:left; margin:20px 0 0px 35px; border: 1px solid #DDDDDD;
     border-radius: 3px 3px 3px 3px;
     color: #323232;
     display: inline-block;
@@ -537,7 +537,7 @@ margin-top:20px;
     padding: 0 0 1px;
 	margin-top:0;
 	clear:both;}
-.editor #footer {position:fixed; top:900px; bottom: 0;}
+.editor #footer {position:fixed; top:890px; bottom: 0;}
 #footer p { color: #BBBBBB; font-size: 1.1em; }
 #footer ul { float: right; list-style: none; margin: 13px 0 15px; padding: 0; }
 #footer ul li { display: inline; float: left; margin: 0 0 0 20px; font-size: 1.1em; }

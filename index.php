@@ -61,11 +61,35 @@ include "global.php";
 		    </div>
 		  </div>
 	    </div>
+		<div id='popular' style='height:300px;'>
+		  <h3>最流行</h3>
+		  <div class='userstory_list'>
+		    <ul>
+			<?php
+			$story_content = '';
+			$result=$DB->query("SELECT * FROM ".$db_prefix."posts limit 3");
+			while ($story_item = mysql_fetch_array($result))
+			{
+			  //printf ("title: %s  summary: %s", $story_item['post_title'], $story_item['post_summary']);
+			  $post_author = $story_item['post_author'];
+			  $userresult = $DB->fetch_one_array("SELECT username FROM ".$db_prefix."user where id='".$post_author."'");
+			  $post_title = $story_item['post_title'];
+			  $post_date = $story_item['post_date'];
+			  $temp_array = explode(" ", $story_item['post_date']);
+			  $post_date = $temp_array[0];
+			  $story_content .= "<li><a class='cover' style='background-image: url(/Storify/img/greece.jpg);' href='/Storify/member/user.php?post_id=".$story_item['ID']."'><div class='title_wrap'><h1 class='title'>".$post_title."</h1></div></a><div class='story_meta' 
+			  ><span><img border='0' style='position:relative; top:2px' src='/Storify/img/sina16.png'/><a style='margin-left:5px;'>".$userresult['username']."</a><a style='margin-left:65px;'>".$post_date."</a></span></div></li>";
+			}
+			echo $story_content;
+			?>
+			</ul>
+		  </div>
+		</div>
 		<div class='category'>
 	      <div id='trendTopics' class='' style='display:block;'>
 			<h3 class='blue'>大家都在说</h3>
 		  </div>
-	      <div id='topUsers' class='' style='display:block;'>
+	      <div id='topUsers' class='float_l' style='display:block;'>
 			<h3 class='blue'>排行榜</h3>
 			<ol>
 			  <li>测试 22 stories</li>
