@@ -7,6 +7,7 @@ session_start();
 $story_id=$_POST['story_id'];
 $story_title=$_POST['story_title'];
 $story_summary=$_POST['story_summary'];
+$story_tag=$_POST['story_tag'];
 $story_content=$_POST['story_content'];
 
 $pulish_time=date("Y-m-d H:i:s");
