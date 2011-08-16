@@ -267,6 +267,40 @@ height:16px;
  }
 
 /* publish part*/
+.load_more {
+	background-color:#FFFFFF;
+	background-image:url("../img/more.gif");
+	background-position:left top;
+	background-repeat:repeat-x;
+	border-color:#DDDDDD #AAAAAA #AAAAAA #DDDDDD;
+	border-style:solid;
+	border-width:1px;
+	display:block;
+	font-size:14px;
+	font-weight:bold;
+	height:22px;
+	line-height:1.5em;
+	margin-bottom:6px;
+	outline:medium none;
+	padding:6px 0;
+	text-align:center;
+	text-shadow:1px 1px 1px #FFFFFF;
+	width:95%;
+	margin: 0 auto;
+}
+.load_more {
+	-moz-border-radius:5px 5px 5px 5px;
+}
+.load_more:hover {
+	background-position:left -78px;
+	border:1px solid #BBBBBB;
+	text-decoration:none;
+}
+.load_more:active {
+	background-position:left -38px;
+	color:#666666;
+}
+
 #weibo_ul li{
 margin-top:25px;
 }
