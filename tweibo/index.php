@@ -8,7 +8,7 @@ include_once( 'txwboauth.php' );
 
 $o = new TWeiboOAuth( MB_AKEY , MB_SKEY  );
 
-$tkeys = $o->getRequestToken('http://story.com/t/callback.php');//这里填上你的回调URL
+$tkeys = $o->getRequestToken('http://story.com/storify/tweibo/callback.php');//这里填上你的回调URL
 
 $aurl = $o->getAuthorizeURL( $tkeys['oauth_token'] ,false,'');
 

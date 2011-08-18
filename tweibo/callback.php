@@ -22,7 +22,6 @@ $result=$DB->query("update ".$db_prefix."user set tweibo_user_id='".$user[Uid]."
 
 
 ?>
-<!--授权完成,<a href="demo.html">进入SDK测试用例</a>-->
 <div class='inner' style='padding-top:50px;'>
   <div><a href="../member/source.php">添加其他源</a></div>
   <div><a href="../member/index.php">暂不添加其他源，马上体验口立方</a></div>

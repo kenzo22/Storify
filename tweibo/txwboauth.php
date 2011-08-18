@@ -141,6 +141,13 @@ $ip = "Unknown";
         $param['format']=$format;
         return $this->oauth->get( 'http://open.t.qq.com/api/t/show' ,$param); 
     } 
+	
+	function t_list($Ids,$format='json') 
+    { 
+        $param['ids'] =$Ids; 
+        $param['format']=$format;
+        return $this->oauth->get( 'http://open.t.qq.com/api/t/list' ,$param); 
+    }
 
 //2.t/add 发表一条微博
     function t_add($content='',$jing='',$wei='',$format='json') 
