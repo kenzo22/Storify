@@ -97,8 +97,16 @@ $_SESSION['last_tkey']['oauth_token_secret'] = $token['tweibo_access_token_secre
 		  </div>
 		</div>
 		<div class='category'>
-	      <div id='trendTopics' class='' style='display:block;'>
+	      <div id='trendTopics' class='' style='display:block; height:150px;'>
 			<h3 class='blue'>大家都在说</h3>
+			<div class='topic_list'>
+			  <ul>
+			    <li><div class='topic_meta'><span>新闻</span><span  style='margin-left:50px;'>20</span></div><a class='topic_cover' style='background-image: url(/Storify/img/iphone.jpg);' href='#'><div class='title_wrap'><h1 class='title'>测试</h1></div></a></li>
+				<li><div class='topic_meta'><span>新闻</span><span  style='margin-left:50px;'>20</span></div><a class='topic_cover' style='background-image: url(/Storify/img/iphone.jpg);' href='#'><div class='title_wrap'><h1 class='title'>测试</h1></div></a></li>
+				<li><div class='topic_meta'><span>新闻</span><span  style='margin-left:50px;'>20</span></div><a class='topic_cover' style='background-image: url(/Storify/img/iphone.jpg);' href='#'><div class='title_wrap'><h1 class='title'>测试</h1></div></a></li>
+				<li><div class='topic_meta'><span>新闻</span><span  style='margin-left:50px;'>20</span></div><a class='topic_cover' style='background-image: url(/Storify/img/iphone.jpg);' href='#'><div class='title_wrap'><h1 class='title'>测试</h1></div></a></li>
+			  </ul>
+			</div>
 		  </div>
 	      <div id='topUsers' class='float_l' style='display:block;'>
 			<h3 class='blue'>排行榜</h3>
