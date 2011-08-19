@@ -97,7 +97,8 @@ if($email && $passwd)
 	  $_SESSION['last_tkey']['oauth_token']=$result['tweibo_access_token'];
 	  $_SESSION['last_tkey']['oauth_token_secret']=$result['tweibo_access_token_secret'];
 	  $_SESSION['yupoo_token'] = $result['yupoo_token'];
-	  go($rooturl."/member/user.php");
+	  go($_SERVER['HTTP_REFERER']);
+	  //go($rooturl."/member/user.php");
 	  //go($rooturl."/member/source.php");
 	}
 	
@@ -112,8 +113,8 @@ if($email && $passwd)
 if($_POST['act']!="login")  //default 登陆界面
 {
   $content="<form method='post'>
-  <div class='div_center' ><span class='title'> 登录 Koulifang.com </span></div>
-  <div class='div_center'>
+  <div class='inner' style='padding-top:50px;'><span class='title'> 登录 Koulifang.com </span></div>
+  <div class='inner'>
     <div class='float_l' style='margin-top:20px;' id='login'>
 	  <div><b> 邮 箱 &nbsp; </b><input type='text' name='email' id='email_login' size='30'></input><span class='form_tip' id='email_tip'></span></div>
 	  <div><b> 密 码 &nbsp; </b><input type='password' name='passwd' id='pwd_login' size='30'></input><span class='form_tip' id='pwd_tip'></span></div><br />
@@ -125,7 +126,7 @@ if($_POST['act']!="login")  //default 登陆界面
 	</div>
 	<div class='float_r' style='margin-top:40px;'><span>还没有口立方帐号，<a href='/storify/register/register_form.php'/>立即注册？</a></span></div>
   </div>
-  <div class='div_center' style='height:50px;'></div>
+  <div class='inner' style='height:50px;'></div>
 </form>";
 
   echo $content;

@@ -141,43 +141,45 @@ if(!islogin())
 
 <script>
 
-$(document).ready(function() {	
-	WB.core.load(['connect', 'client', 'widget.base', 'widget.atWhere'], function() 
+$(document).ready(function() 
+{	
+  $('.login_top').attr('name', 'modal').attr('href', '#dialog');
+  WB.core.load(['connect', 'client', 'widget.base', 'widget.atWhere'], function() 
+  {
+    var cfg = 
 	{
-	  var cfg = {
       //key: '314237338',
-	  key: '2417356638',
-	  xdpath: 'http://story.com/storify/html/xd.html'
-	};
+      key: '2417356638',
+      xdpath: 'http://story.com/storify/html/xd.html'
+    };
     WB.connect.init(cfg);
     WB.client.init(cfg);
-	
-	WB.widget.base.connectButton(document.getElementById('connectBtn'),
-							   {
-							     
-								 login:function(o)
-								 {
-								   //debugger;
-								   //alert(o.id);
-								   //self.location = '/storify/member/';
-								   //debugger;
-								   //alert(o.id);
-								   var weibo_user_id_val = o.id;
-								   var weibo_scree_name_val = o.screen_name;
-								   $.post('/Storify/login/weibo_login.php', {weibo_user_id: weibo_user_id_val, weibo_scree_name: weibo_scree_name_val}, 		
-								   function(data, textStatus)
-								   {
-								     console.log(data);
-								   });
-								   self.location = '/storify/member/user.php';
-								   //self.location = '/storify/member/testweibo.php';
-								 },
-								 logout:function()
-								 {
-								   alert('logout');
-								 }
-							   });
-});
+
+    WB.widget.base.connectButton(document.getElementById('connectBtn'),
+    {
+      login:function(o)
+	  {
+	    //debugger;
+	    //alert(o.id);
+	    //self.location = '/storify/member/';
+	    //debugger;
+	    //alert(o.id);
+	    var weibo_user_id_val = o.id;
+	    var weibo_scree_name_val = o.screen_name;
+	    $.post('/Storify/login/weibo_login.php', {weibo_user_id: weibo_user_id_val, weibo_scree_name: weibo_scree_name_val}, 		
+	    function(data, textStatus)
+	    {
+		  console.log(data);
+	    });
+	    self.location = '/storify/member/user.php';
+	    //self.location = '/storify/member/testweibo.php';
+	  },
+	  logout:function()
+	  {
+	    alert('logout');
+	  }
+    });
+  });
 	
 	//select all the a tag with name equal to modal
 	$('a[name=modal]').click(function(e) {

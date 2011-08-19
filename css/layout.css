@@ -48,7 +48,7 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
     padding: 0;
     z-index: 10000;}
 #logo {float: left;}
-#user_action {padding-left:20px; display:none;}
+#user_action {padding-left:20px;}
 
 /* global part*/
 #person_img{
