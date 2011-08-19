@@ -131,6 +131,16 @@ list-style-type: decimal;
     text-shadow: 0 1px 0 #FFFFFF, 0 1px 0 #EEEEEE;
 }
 
+/* topic part */
+#tagstory_ul
+{
+  padding: 0;
+}
+
+.tagstory_li
+{
+  margin-bottom:20px;
+}
 
 /* weibo part*/
 #source_pane{position:fixed; top:120px; width:390px; height:770px; }
@@ -456,7 +466,7 @@ margin-left:30px;
 /* List all the story part*/
 #userstory_container{margin-top:30px; margin-bottom:30px; overflow:auto; zoom:1;}
 .userstory_list ul {padding:0;}
-.userstory_list ul li {float:left; margin:20px 0 0px 35px; border: 1px solid #DDDDDD;
+.userstory_list ul li {float:left; margin:20px 20px 0px 0px; border: 1px solid #DDDDDD;
     border-radius: 3px 3px 3px 3px;
     color: #323232;
     display: inline-block;
@@ -464,12 +474,16 @@ margin-left:30px;
     text-decoration: none;}
 	
 .topic_list ul {padding:0;}
-.topic_list ul li {float:left; margin:10px 0 0px 5px; border: 1px solid #DDDDDD;
+.topic_list ul li {float:left; margin:10px 10px 0px 0px; border: 1px solid #DDDDDD;
     border-radius: 3px 3px 3px 3px;
     color: #323232;
     display: inline-block;
     padding: 5px;
     text-decoration: none;}
+	
+.story_count{
+float:right;
+}
 /*background: -moz-linear-gradient(center top , #FFFFFF 0%, #F1F2F2 33.3333%, #FFFFFF 100%) repeat scroll 0 0 transparent;
     border: 1px solid #DDDDDD;
     border-radius: 3px 3px 3px 3px;

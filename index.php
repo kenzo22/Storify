@@ -1,15 +1,14 @@
 <?php
 include "global.php"; 
 //select a random item from the publictoken pool
-$token = $DB->fetch_one_array("select * from ".$db_prefix."publictoken where id='1'");
-/*$_SESSION['last_key']['oauth_token'] = '3dded3c1a69e0e24609b04c3bc07d3ee';
-$_SESSION['last_key']['oauth_token_secret'] = '4815f86a2f8dcbbca4a307535b1a82d8';
-$_SESSION['last_tkey']['oauth_token'] = '1fce15f8b9d3449ea9a031adf9138f95';
-$_SESSION['last_tkey']['oauth_token_secret'] = '2a4a03d0dac0951f06d3e7b5b30a1ea0';*/
-$_SESSION['last_key']['oauth_token'] = $token['weibo_access_token'];
-$_SESSION['last_key']['oauth_token_secret'] = $token['weibo_access_token_secret'];
-$_SESSION['last_tkey']['oauth_token'] = $token['tweibo_access_token'];
-$_SESSION['last_tkey']['oauth_token_secret'] = $token['tweibo_access_token_secret'];
+if(!islogin())
+{
+  $token = $DB->fetch_one_array("select * from ".$db_prefix."publictoken where id='1'");
+  $_SESSION['last_key']['oauth_token'] = $token['weibo_access_token'];
+  $_SESSION['last_key']['oauth_token_secret'] = $token['weibo_access_token_secret'];
+  $_SESSION['last_tkey']['oauth_token'] = $token['tweibo_access_token'];
+  $_SESSION['last_tkey']['oauth_token_secret'] = $token['tweibo_access_token_secret'];
+}
 
 ?>
 <div id='boxes'>
@@ -78,7 +77,7 @@ $_SESSION['last_tkey']['oauth_token_secret'] = $token['tweibo_access_token_secre
 		    <ul>
 			<?php
 			$story_content = '';
-			$result=$DB->query("SELECT * FROM ".$db_prefix."posts limit 3");
+			$result=$DB->query("SELECT * FROM ".$db_prefix."posts limit 4");
 			while ($story_item = mysql_fetch_array($result))
 			{
 			  //printf ("title: %s  summary: %s", $story_item['post_title'], $story_item['post_summary']);
@@ -101,10 +100,24 @@ $_SESSION['last_tkey']['oauth_token_secret'] = $token['tweibo_access_token_secre
 			<h3 class='blue'>大家都在说</h3>
 			<div class='topic_list'>
 			  <ul>
-			    <li><div class='topic_meta'><span>新闻</span><span  style='margin-left:50px;'>20</span></div><a class='topic_cover' style='background-image: url(/Storify/img/iphone.jpg);' href='#'><div class='title_wrap'><h1 class='title'>测试</h1></div></a></li>
-				<li><div class='topic_meta'><span>新闻</span><span  style='margin-left:50px;'>20</span></div><a class='topic_cover' style='background-image: url(/Storify/img/iphone.jpg);' href='#'><div class='title_wrap'><h1 class='title'>测试</h1></div></a></li>
-				<li><div class='topic_meta'><span>新闻</span><span  style='margin-left:50px;'>20</span></div><a class='topic_cover' style='background-image: url(/Storify/img/iphone.jpg);' href='#'><div class='title_wrap'><h1 class='title'>测试</h1></div></a></li>
-				<li><div class='topic_meta'><span>新闻</span><span  style='margin-left:50px;'>20</span></div><a class='topic_cover' style='background-image: url(/Storify/img/iphone.jpg);' href='#'><div class='title_wrap'><h1 class='title'>测试</h1></div></a></li>
+			    <?php
+				  //get the tag information from the tag table
+				  $tag_content = '';
+				  //need change to fetch the most popular topic from the database
+				  $tagresult=$DB->query("SELECT * FROM ".$db_prefix."tag limit 4");
+				  while ($tag_item = mysql_fetch_array($tagresult))
+				  {
+					$tag_id = $tag_item['id'];
+					$tag_name = $tag_item['name'];
+					$relationresult = $DB->query("select * from ".$db_prefix."tag_story where tag_id='".$tag_id."'");
+					$tag_count = $DB->num_rows($relationresult);
+					//need to fetch the title of the most popular story which has this specific tag
+					$most_popular_title = "测试";
+					$tag_content .= "<li><div class='topic_meta'><span class='topic_title'>#".$tag_name."#</span><span class='story_count'>".$tag_count."</span></div>
+					<a class='topic_cover' style='background-image: url(/Storify/img/iphone.jpg);' href='./topic/topic.php?topic=".$tag_name."'><div class='title_wrap'><h1 class='title'>".$most_popular_title."</h1></div></a></li>";
+				  }
+				  echo $tag_content;
+				?>
 			  </ul>
 			</div>
 		  </div>
