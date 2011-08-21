@@ -1,4 +1,15 @@
 <?php
+function isLocalURL($url) 
+{
+  $parts = parse_url($url);
+  if(isset($parts['scheme']) && $parts['scheme'] != 'http')
+  return false;
+  if(isset($parts['host']) && $parts['host'] != 'http://localhost')
+  return false;
+
+return true;
+} 
+
 
 function dateFormat($origin_date)
 {

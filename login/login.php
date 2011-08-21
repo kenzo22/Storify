@@ -39,7 +39,17 @@ if(this.value=='')
   $('#pwd_tip').text('密码不能为空').css('color', 'red');
 }
 })
+
+$('#loginbtn').click(function(e)
+{
+  var email_val = $('#email_login').val();
+  var pwd_val = $('#pwd_login').val();
+  if(email_val == '' || pwd_val == '')
+  {
+    e.preventDefault();
+  }
 })
+});
 </script>
 
 <?php
@@ -83,7 +93,6 @@ if($email && $passwd)
 	  setcookie("email", $email, time()+3600*24*365);  
 	  setcookie("password", $password, time()+3600*24*365); 
 	}
-	//go($rooturl);
 	$_SESSION['weibo_uid']=intval($result['weibo_user_id']);
 	if(0 == $_SESSION['weibo_uid'] && '' == $result['tweibo_access_token'])
 	{
@@ -91,37 +100,52 @@ if($email && $passwd)
 	}
 	else
 	{
-	  //go($rooturl."/weibo/weibolist.php");
 	  $_SESSION['last_key']['oauth_token']=$result['weibo_access_token'];
 	  $_SESSION['last_key']['oauth_token_secret']=$result['weibo_access_token_secret'];
 	  $_SESSION['last_tkey']['oauth_token']=$result['tweibo_access_token'];
 	  $_SESSION['last_tkey']['oauth_token_secret']=$result['tweibo_access_token_secret'];
 	  $_SESSION['yupoo_token'] = $result['yupoo_token'];
-	  go($_SERVER['HTTP_REFERER']);
-	  //go($rooturl."/member/user.php");
-	  //go($rooturl."/member/source.php");
+	  
+	  if(isset($_GET['next']) && !empty($_GET['next']) && isLocalURL($_GET['next']))
+	  {
+		header("location: ".$_GET['next']); 
+	  }
+	  else
+	  {
+	    $temparray = parse_url($_SERVER['HTTP_REFERER']);
+		if($temparray['path'] == '/storify/login/login.php')
+		{
+		  go($rooturl);
+		}
+		else
+		{
+		  go($_SERVER['HTTP_REFERER']);
+		}
+	  }
 	}
 	
   }
   else
   {
-    //go($rooturl."/login/?email=".$email,"邮箱或密码错误..",2);
-    //go($rooturl."/login/login_form.php");
+    go($rooturl."/login/login.php");
   }
 }
 
 if($_POST['act']!="login")  //default 登陆界面
 {
-  $content="<form method='post'>
+  $content ="<form method='post'>
   <div class='inner' style='padding-top:50px;'><span class='title'> 登录 Koulifang.com </span></div>
   <div class='inner'>
-    <div class='float_l' style='margin-top:20px;' id='login'>
-	  <div><b> 邮 箱 &nbsp; </b><input type='text' name='email' id='email_login' size='30'></input><span class='form_tip' id='email_tip'></span></div>
+    <div class='float_l' style='margin-top:20px;' id='login'>";
+  if(!isset($_GET['next']))
+  {
+    $content .="<div style='margin:0;'><span style='color:red;'>您的Email和密码不符，请再试一次</span></div>";
+  }
+  $content .="<div><b> 邮 箱 &nbsp; </b><input type='text' name='email' id='email_login' size='30'></input><span class='form_tip' id='email_tip'></span></div>
 	  <div><b> 密 码 &nbsp; </b><input type='password' name='passwd' id='pwd_login' size='30'></input><span class='form_tip' id='pwd_tip'></span></div><br />
 	  <span> <input type='checkbox' name='autologin'>下次自动登录</span> | <span><a href='/storify/login/forget_form.php'/>忘记密码了？</a><span>
-	  <div><span style='color:red;'>请输入你在口立方的注册密码</span></div>
-	  <div>
-        <input type='submit' value='登录'/><input type='hidden' name='act' value='login'>
+      <div>
+        <input id='loginbtn' type='submit' value='登录'/><input type='hidden' name='act' value='login'>
 	  </div>
 	</div>
 	<div class='float_r' style='margin-top:40px;'><span>还没有口立方帐号，<a href='/storify/register/register_form.php'/>立即注册？</a></span></div>
