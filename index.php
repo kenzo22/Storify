@@ -159,11 +159,6 @@ $(document).ready(function()
     {
       login:function(o)
 	  {
-	    //debugger;
-	    //alert(o.id);
-	    //self.location = '/storify/member/';
-	    //debugger;
-	    //alert(o.id);
 	    var weibo_user_id_val = o.id;
 	    var weibo_scree_name_val = o.screen_name;
 	    $.post('/Storify/login/weibo_login.php', {weibo_user_id: weibo_user_id_val, weibo_scree_name: weibo_scree_name_val}, 		
@@ -171,8 +166,13 @@ $(document).ready(function()
 	    {
 		  console.log(data);
 	    });
-	    self.location = '/storify/member/user.php';
-	    //self.location = '/storify/member/testweibo.php';
+		
+		$.post('./member/weibosource.php', {},
+	    function(sourcedata, textStatus)
+	    {					
+		  self.location = sourcedata;
+	    });
+	    //self.location = '/storify/member/user.php';
 	  },
 	  logout:function()
 	  {

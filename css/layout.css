@@ -131,6 +131,26 @@ list-style-type: decimal;
     text-shadow: 0 1px 0 #FFFFFF, 0 1px 0 #EEEEEE;
 }
 
+/* source page part */
+#source_ul
+{
+padding:0;
+}
+
+#source_ul li{
+margin-bottom:20px;
+}
+
+#source_ul li .source_name{
+vertical-align:top;
+}
+
+#source_ul li .source_status{
+float:right;
+margin-right:500px;
+vertical-align:top;
+}
+
 /* topic part */
 #tagstory_ul
 {

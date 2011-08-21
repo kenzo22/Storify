@@ -14,7 +14,7 @@ if ($DB->num_rows($result) == 0)
 {
   $register_time=date("Y-m-d H:i:s");
   $DB->query("insert into ".$db_prefix."user values
-                         (null, '".$weibo_scree_name."', '', '', '".$weibo_user_id."', '".$register_time."', 1)");
+                         (null, '".$weibo_scree_name."', '', '', '', '', '".$weibo_user_id."', '', '', 0, '', '', '', '".$register_time."', 1)");
 }
 
 $result=$DB->fetch_one_array("SELECT id,username FROM ".$db_prefix."user where weibo_user_id='".$weibo_user_id."'");
