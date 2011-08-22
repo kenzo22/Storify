@@ -11,6 +11,8 @@ if(!islogin())
 }
 
 ?>
+<link rel="stylesheet" type="text/css" href="/storify/css/skin.css" />
+<script type="text/javascript" src="/storify/js/jquery.jcarousel.min.js"></script>
 <div id='boxes'>
   
 <!-- Start of Login Dialog -->  
@@ -73,11 +75,11 @@ if(!islogin())
 	    </div>
 		<div id='popular' style='height:300px;'>
 		  <h3>最流行</h3>
-		  <div class='userstory_list'>
-		    <ul>
+		  <div id='popularstory_list'>
+		    <ul id='mycarousel' class='jcarousel-skin-tango'>
 			<?php
 			$story_content = '';
-			$result=$DB->query("SELECT * FROM ".$db_prefix."posts limit 4");
+			$result=$DB->query("SELECT * FROM ".$db_prefix."posts limit 8");
 			while ($story_item = mysql_fetch_array($result))
 			{
 			  //printf ("title: %s  summary: %s", $story_item['post_title'], $story_item['post_summary']);
@@ -87,8 +89,8 @@ if(!islogin())
 			  $post_date = $story_item['post_date'];
 			  $temp_array = explode(" ", $story_item['post_date']);
 			  $post_date = $temp_array[0];
-			  $story_content .= "<li><a class='cover' style='background-image: url(/Storify/img/greece.jpg);' href='/Storify/member/user.php?post_id=".$story_item['ID']."'><div class='title_wrap'><h1 class='title'>".$post_title."</h1></div></a><div class='story_meta' 
-			  ><span><img border='0' style='position:relative; top:2px' src='/Storify/img/sina16.png'/><a style='margin-left:5px;'>".$userresult['username']."</a><a style='margin-left:65px;'>".$post_date."</a></span></div></li>";
+			  $story_content .= "<li><a class='cover' href='/Storify/member/user.php?post_id=".$story_item['ID']."'><div class='title_wrap'><h1 class='title'>".$post_title."</h1></div></a><div class='story_meta' 
+			  ><span><img border='0' style='position:relative; top:2px' src='/Storify/img/sina16.png'/><a style='margin-left:5px;'>".$userresult['username']."</a><a style='float:right;'>".$post_date."</a></span></div></li>";
 			}
 			echo $story_content;
 			?>
@@ -140,10 +142,36 @@ if(!islogin())
 </div>
 
 <script>
+function mycarousel_initCallback(carousel)
+{
+    // Disable autoscrolling if the user clicks the prev or next button.
+    carousel.buttonNext.bind('click', function() {
+        carousel.startAuto(0);
+    });
+
+    carousel.buttonPrev.bind('click', function() {
+        carousel.startAuto(0);
+    });
+
+    // Pause autoscrolling if the user moves with the cursor over the clip.
+    carousel.clip.hover(function() {
+        carousel.stopAuto();
+    }, function() {
+        carousel.startAuto();
+    });
+};
 
 $(document).ready(function() 
 {	
   $('.login_top').attr('name', 'modal').attr('href', '#dialog');
+  
+  $('#mycarousel').jcarousel({
+        auto: 3,
+        wrap: 'circular',
+		scroll:1,
+        initCallback: mycarousel_initCallback
+    });
+  
   WB.core.load(['connect', 'client', 'widget.base', 'widget.atWhere'], function() 
   {
     var cfg = 

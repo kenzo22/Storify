@@ -263,13 +263,18 @@ height:16px;
  }
  
  .cover{
-    background-repeat: no-repeat;
+    background: url(../img/greece.jpg) no-repeat;
     display: block;
     height: 190px;
     overflow: hidden;
     padding: 0;
     position: relative;
     width: 190px;
+ }
+ 
+ #mycarousel .cover{
+ width:185px;
+ height:185px;
  }
  
  .title_wrap{
@@ -359,7 +364,7 @@ width:70%;
 }
 
 #story_container{
-width:920px; margin:0 auto; padding-top:50px;
+width:920px; margin:0 auto; padding-top:50px; min-height:650px;
 }
 #publish_container{
   border-color:#ababac;
@@ -483,15 +488,30 @@ margin-left:30px;
 	padding: 3px 5px 3px 5px;
 }
 
+#mycarousel{
+
+}
+
 /* List all the story part*/
 #userstory_container{margin-top:30px; margin-bottom:30px; overflow:auto; zoom:1;}
+.userstory_list {}
 .userstory_list ul {padding:0;}
-.userstory_list ul li {float:left; margin:20px 20px 0px 0px; border: 1px solid #DDDDDD;
+.userstory_list ul li { margin:20px 10px 0px 15px; border: 1px solid #DDDDDD;
     border-radius: 3px 3px 3px 3px;
     color: #323232;
     display: inline-block;
     padding: 5px;
     text-decoration: none;}
+	
+#popularstory_list {}
+#popularstory_list ul {padding:0;}
+#popularstory_list ul li {border: 1px solid #DDDDDD;
+    border-radius: 3px 3px 3px 3px;
+    color: #323232;
+    display: inline-block;
+    padding: 5px;
+    text-decoration: none;
+	zoom: 1;}
 	
 .topic_list ul {padding:0;}
 .topic_list ul li {float:left; margin:10px 10px 0px 0px; border: 1px solid #DDDDDD;
@@ -534,7 +554,7 @@ color-stop(0.80, #ededed)
 );
 }
 div .content-a { padding: 10px 0 20px; border-bottom: 1px solid #eaeaea; background: #fff; }
-div.inner { width: 920px; margin: 0 auto;}
+div.inner { width: 920px; margin: 0 auto; overflow:hidden;}
 div.cols-b { width: 100%; }
 div.cols-b:after { display: block; overflow: hidden; clear: both; content: ""; width: 100%; height: 0; }
 
