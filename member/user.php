@@ -67,7 +67,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 		
 		if ($single_weibo === false || $single_weibo === null){
 		echo "<br/><br/><br/><br/><br/>Error occured";
-		return false;
+		//return false;
 		}
 		if (isset($single_weibo['error_code']) && isset($single_weibo['error'])){
 			echo ('<br/><br/><br/><br/><br/>Error_code: '.$single_weibo['error_code'].';  Error: '.$single_weibo['error'] );

@@ -111,7 +111,7 @@ float:right;
 	
 #topUsers{
     overflow: hidden;
-    width: 250px;
+    width: 320px;
 }
 
 #topUsers ol{
@@ -133,9 +133,12 @@ list-style-type: decimal;
 
 /*slider part */
 #page-wrap						{ background: white; width: 920px; margin: 0 auto; 
-								  padding: 50px 0; }
+								  padding:0; }
 
 #slider							{ background: white url(../img/slider-bg.jpg); height: 227px; overflow: hidden;
+								  position: relative; margin: 50px 0; }
+								  
+#slider2							{ background: white; height: 227px; overflow: hidden;
 								  position: relative; margin: 50px 0; }
 								  
                                 /* DEFAULT is for three panels in width, adjust as needed
@@ -146,8 +149,8 @@ list-style-type: decimal;
 .slide h1						{ font-family: Helvetica, Sans-Serif; font-size: 30px; letter-spacing: -1px;
 								  color: #ac0000; }
 .slide p						{ color: #999; font-size: 12px; line-height: 22px; width: 300px; }
-.slide img						{ position: absolute; top: 20px; left: 400px; }
-#slider-stopper					{ position: absolute; top: 1px; right: 20px; background: #ac0000; color: white;
+.slide img						{ position: absolute; top: 60px; left: 400px; }
+#slider-stopper					{ position: absolute; top: 1px; right: 20px; background: #438CC3; color: white;
 								  padding: 3px 8px; font-size: 10px; text-transform: uppercase; z-index: 1000; }
 
 /* source page part */
@@ -292,8 +295,8 @@ height:16px;
  }
  
  #mycarousel .cover{
- width:185px;
- height:185px;
+ width:190px;
+ height:190px;
  }
  
  .title_wrap{

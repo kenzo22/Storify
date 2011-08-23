@@ -13,6 +13,7 @@ if(!islogin())
 ?>
 <link rel="stylesheet" type="text/css" href="/storify/css/skin.css" />
 <script type="text/javascript" src="/storify/js/jquery.jcarousel.min.js"></script>
+<script type="text/javascript" src="js/startstop-slider.js"></script>
 <div id='boxes'>
   
 <!-- Start of Login Dialog -->  
@@ -48,7 +49,28 @@ if(!islogin())
 <div class='content'>
     <div id='homepage' class='content-a'>
       <div class='inner'>
-	    <div style='padding-top:30px' class='cols-b signup'>
+	    <div id="page-wrap">
+		  <div id="slider">
+			<div id="mover">
+			  <div id="slide-1" class="slide">
+				<h1>Garden Rack</h1>
+				<p>Donec gravida posuere arcu. Nulla facilisi. Phasellus imperdiet. Vestibulum at metus. Integer euismod. Nullam placerat rhoncus sapien. Ut euismod. Praesent libero. Morbi pellentesque libero sit amet ante. Maecenas tellus.</p>
+				<a href="#"><img src="img/slide-1-image.png" alt="learn more" /></a>	
+			  </div>
+			  <div class="slide">
+				<h1>Tulip Bulbs</h1>
+				<p>Donec gravida posuere arcu. Nulla facilisi. Phasellus imperdiet. Vestibulum at metus. Integer euismod. Nullam placerat rhoncus sapien. Ut euismod. Praesent libero. Morbi pellentesque libero sit amet ante. Maecenas tellus.</p>
+				<a href="#"><img src="img/slide-2-image.png" alt="learn more" /></a>	
+			  </div>
+			  <div class="slide">
+				<h1>Garden Gloves</h1>
+				<p>Donec gravida posuere arcu. Nulla facilisi. Phasellus imperdiet. Vestibulum at metus. Integer euismod. Nullam placerat rhoncus sapien. Ut euismod. Praesent libero. Morbi pellentesque libero sit amet ante. Maecenas tellus.</p>
+				<a href="#"><img src="img/slide-3-image.png" alt="learn more" /></a>	
+			  </div>
+			</div>
+		  </div>
+	    </div>
+	    <!--<div style='padding-top:30px' class='cols-b signup'>
 	      <div id='demoVideo'>	 
 			<img id='video_preview' src='/storify/img/storify.png' width='456' height='301'/>
 	      </div>
@@ -72,9 +94,9 @@ if(!islogin())
 			  </form>
 		    </div>
 		  </div>
-	    </div>
+	    </div>-->
 		<div id='popular' style='height:300px;'>
-		  <h3>最流行</h3>
+		  <h3 style='color:#999999'>最流行</h3>
 		  <div id='popularstory_list'>
 		    <ul id='mycarousel' class='jcarousel-skin-tango'>
 			<?php
