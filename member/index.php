@@ -126,13 +126,13 @@ if(isset($_GET['post_id']))
   $weibo_id_array = array();
   $tweibo_id_array = array();
 	
-  $content .="<div id='story_header' style='border: 1px solid #C9C9C9; padding-bottom:15px; border-bottom:none;'>
-		  <span > <input type='text' value='".$story_title."' name='story_title' id='sto_title' style='width:400px; margin:10px; font-weight:bold;'> </span>
+  $content .="<div id='story_header'>
+		  <span > <input type='text' value='".$story_title."' name='story_title' id='sto_title'> </span>
 		  <div>
-		    <textarea id='sto_summary' style='width:400px; height:60px; margin:0px 10px;'>".$story_summary."</textarea>
+		    <textarea id='sto_summary'>".$story_summary."</textarea>
 		  </div>
 		  <div>
-		  <span ><input type='text' value='' name='story_tag' id='sto_tag' style='width:430px; margin:10px;'></span>
+		  <span ><input type='text' value='' name='story_tag' id='sto_tag'></span>
 		  <div>
 		</div>
 		<div id='storylist_container'>
@@ -234,13 +234,14 @@ if(isset($_GET['post_id']))
 }
 else
 {
-  $content .= "<div id='story_header' style='border: 1px solid #C9C9C9; padding-bottom:15px; border-bottom:none;'>
-		  <span ><input type='text' value='' name='story_title' id='sto_title' style='width:430px; margin:10px; font-weight:bold;'></span>
+  $content .= "<div id='story_header'>
+		  <div id='story_pic'></div>
+		  <span ><input type='text' value='' name='story_title' id='sto_title'></span>
 		  <div>
-		    <textarea id='sto_summary' style='width:430px; height:60px; margin:0px 10px;'></textarea>
+		    <textarea id='sto_summary'></textarea>
 		  </div>
 		  <div>
-		  <span ><input type='text' value='' name='story_tag' id='sto_tag' style='width:430px; margin:10px;'></span>
+		  <span ><input type='text' value='' name='story_tag' id='sto_tag'></span>
 		  <div>
 		</div>
 		<div id='storylist_container'>

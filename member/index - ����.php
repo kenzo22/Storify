@@ -1,1 +1,1080 @@
-<?phpinclude "../global.php";?><link type="text/css" href="/storify/css/jquery.ui.theme.css" rel="stylesheet" /><link type="text/css" href="/storify/css/jquery.ui.tabs.css" rel="stylesheet" /><link type="text/css" rel="stylesheet" href="http://js.wcdn.cn/t3/style/css/common/card.css" /><script type='text/javascript' src='http://js.wcdn.cn/t3/platform/js/api/wb.js'></script><script type='text/javascript' src='/storify/js/weibo.js'></script><script type='text/javascript' src='/storify/js/jquery-ui-1.8.12.custom.min.js'></script><script>function display_search(){  $('.weibo_drag').remove();  $('#keywords').val('');  $('#weibo_search button').text('搜索微博');  $('#weibo_search').css('display', 'block');}function display_user_search(){  $('.weibo_drag').remove();  $('#keywords').val('');  $('#weibo_search button').text('搜索用户');  $('#weibo_search').css('display', 'block');}function get_weibo_by_id(id_array){  var weiboText, from, from_id, created_time, photo;  var div_content = new Array();  var j=0;  for (var i in id_array)  {	//debugger;	//var $content = $("<li class='weibo_drop' id='"+id_array[i]+"'></li>");	//$('#story_list').append($content);	WB.client.parseCMD('/statuses/show/#{id}.json', function(sResult, bStatus)    {	  weiboText= sResult.text;	  created_time = sResult.created_at;	  created_time = date_format(created_time);  	  from = sResult.user.screen_name;	  from_id = sResult.user.id;	  photo = sResult.user.profile_image_url;	  //div_content.push("<div class='cross' action='delete' style='visibility:hidden; padding-left:355px;'><a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>"+weiboText+"</span></div><div id='story_signature'><div style='float:right;'><a href='http://weibo.com/"+from_id+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"+photo+"' alt='"+from+"' border=0 /></a></div><div id='signature_text' style='float:right; margin-right:5px;'><a class='weibo_from_drop' href='http://weibo.com/"+from_id+"' target='_blank' style='display:block; height:16px;'><span>"+from+"</span></a><span class='weibo_date_drop' style='display:block; height:16px;'>"+created_time+"</span></div></div></div>");	  var $div_content = $("<li class='weibo_drop' id='"+id_array[j]+"'><div class='cross' action='delete' style='visibility:hidden; padding-left:355px;'><a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>"+weiboText+"</span></div><div id='story_signature'><div style='float:right;'><a href='http://weibo.com/"+from_id+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"+photo+"' alt='"+from+"' border=0 /></a></div><div id='signature_text' style='float:right; margin-right:5px;'><a class='weibo_from_drop' href='http://weibo.com/"+from_id+"' target='_blank' style='display:block; height:16px;'><span>"+from+"</span></a><span class='weibo_date_drop' style='display:block; height:16px;'>"+created_time+"</span></div></div></div></li>");	  $('#story_list').append($div_content);	  j++;	},	{	  id : id_array[i]	},	{	  method: 'get'	});  }  //setTimeout("append_content(id_array, div_content)", 1000);  //append_content(id_array, div_content);  /*for (var i in id_array)  {	var $contentToAppend = $(div_content[i]);	$("#" + id_array[i]).append($contentToAppend);  }*/}function append_content(id_array, content_array){  for (var i in id_array)  {	//debugger;	var $contentToAppend = $(content_array[i]);	$("#" + id_array[i]).append($contentToAppend);  }}function get_weibo_by_id4(id_array){  for (var i=0;i<id_array.length;i++)   {    WB.client.parseCMD('/statuses/show/#{id}.json', function(sResult, bStatus)    {	  var weiboText, from, from_id, created_time, photo;	  weiboText= sResult.text;	  created_time = sResult.created_at;	  created_time = date_format(created_time);  	  from = sResult.user.screen_name;	  from_id = sResult.user.id;	  photo = sResult.user.profile_image_url;	  var content = ("<li class='weibo_drop'><div class='cross' action='delete' style='visibility:hidden; padding-left:355px;'><a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop' id='"+id_array[i]+"'>"+weiboText+"</span></div><div id='story_signature'><div style='float:right;'><a href='http://weibo.com/"+from_id+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"+photo+"' alt='"+from+"' border=0 /></a></div><div id='signature_text' style='float:right; margin-right:5px;'><a class='weibo_from_drop' href='http://weibo.com/"+from_id+"' target='_blank' style='display:block; height:16px;'><span>"+from+"</span></a><span class='weibo_date_drop' style='display:block; height:16px;'>"+created_time+"</span></div></div></div></li>");	  $('#story_list').append(content);	},	{	  id : id_array[i]	},	{	  method: 'get'	});  }}$(function() {		$( '#tabs' ).tabs();				if($('#sto_title').val() =='')		{		  $('#sto_title').val('写下你的故事标题吧(这将会是你故事的链接地址)').css('color', 'black').focus(function(){		  $(this).val('').css('color', 'black');		  }).blur(function(){		  if($(this).val() == '')		  {		    $(this).val('写下你的故事标题吧(这将会是你故事的链接地址)').css('color', 'black');		  }		  });		}						if($('#sto_summary').val() =='')		{		  $('#sto_summary').val('给你的故事写一个简短的描述').css('color', '#d8d8d8').focus(function(){		  $(this).val('').css('color', 'black');		  }).blur(function(){		  if($(this).val() == '')		  {		    $(this).val('给你的故事写一个简短的描述').css('color', '#d8d8d8');		  }		  });		}						$('#story_list').hover(function(e){		if ($(e.target).is('.weibo_drop'))		{		  //$('.cross').css('visibility', 'hidden');		  $(e.target).children('.cross').css('visibility', 'visible');		}		},		function(ev)		{		  if ($(ev.target).is('.weibo_drop'))		  {		    //$('.cross').css('visibility', 'hidden');			$(ev.target).children('.cross').css('visibility', 'hidden');		  }		});						/*$('#story_list').mouseover(function(e)		{		  if ($(e.target).is('li'))		  {		    $(e.target).find('.cross').css('visibility', 'visible');		  }		});				$('#story_list').mouseout(function(e)		{		  if ($(e.target).is('li'))		  {		    $(e.target).find('.cross').css('visibility', 'hidden');		  }		});*/						$('#draftBtn').click(function(e){		  //debugger;		  e.preventDefault();		  console.log('begin draft');		  var story_id_val;		  if (typeof(post_id)=="undefined" || post_id==null)		  {		    story_id_val = 0;		  }		  else		  {		    story_id_val = post_id;		  }		  var weibo_id_val = new Array();		  $('.weibo_drop').each(		  function(i)		  {			weibo_id_val[i] = $(this).attr('id');		  });		  var story_title_val = $('#sto_title').attr('value');		  var story_summary_val = $('#sto_summary').val();		  var postdata = {story_id: story_id_val, story_title: story_title_val, story_summary: story_summary_val, weibo_id: weibo_id_val};			  		  $.post('preview.php', postdata,		  function(data, textStatus)		  {            console.log(data);									self.location = data;		  });					});				$('#previewBtn').click(function(e){			//debugger;		  e.preventDefault();		  console.log('begin preview');		  var story_id_val;		  if (typeof(post_id)=="undefined" || post_id==null)		  {		    story_id_val = 0;		  }		  else		  {		    story_id_val = post_id;		  }		  var weibo_id_val = new Array();		  $('.weibo_drop').each(		  function(i)		  {			weibo_id_val[i] = $(this).attr('id');		  });		  var story_title_val = $('#sto_title').attr('value');		  var story_summary_val = $('#sto_summary').val();		  var postdata = {story_id: story_id_val, story_title: story_title_val, story_summary: story_summary_val, weibo_id: weibo_id_val};		  $.post('preview.php', postdata,		  function(data, textStatus)		  {            console.log(data);									self.location = data;		  });					});				$('#publishBtn').click(function(e)		{		  //debugger;		  e.preventDefault();		  //console.log(post_id);		  console.log('begin publish');		  var story_id_val;		  if (typeof(post_id)=="undefined" || post_id==null)		  {		    story_id_val = 0;		  }		  else		  {		    story_id_val = post_id;		  }		  var weibo_id_val = new Array();		  $('.weibo_drop').each(		  function(i)		  {			weibo_id_val[i] = $(this).attr('id');		  });		  var story_title_val = $('#sto_title').attr('value');		  var story_summary_val = $('#sto_summary').val();		  //var postdata = {story_id: story_id_val, story_title: story_title_val, story_summary: story_summary_val, weibo_id: weibo_id_val, weibo_author: weibo_author_val, weibo_content: weibo_content_val, weibo_date: weibo_date_val, weibo_photo: weibo_photo_val, weibo_from_id: weibo_from_id_val};		  //var postdata = {weibo_author: $('.profile_img_drop').attr('alt'), weibo_content: $('.weibo_text_drop').text(), weibo_date: $('.weibo_date_drop').text(), weibo_photo: $('.profile_img_drop').attr('src'), weibo_from_id: $('.profile_img_drop').attr('alt')};				  var postdata = {story_id: story_id_val, story_title: story_title_val, story_summary: story_summary_val, weibo_id: weibo_id_val};		  $.post('publish.php', postdata,		  function(data, textStatus)		  {            console.log(data);									self.location = data;					  });		});	  	});</script><?php$content = "<div class='div_center'><div id='actions' style='margin-left:20px;'><span><a id='draftBtn' href='./' >保存草稿</a></span><span style='margin-left:30px;'><a id='previewBtn' href='./' >预览</a></span><span style='margin-left:30px;'><a id='publishBtn' href='./' >发布</a></span></div><div class='content'>  <div class='inner'>	<div id='source_pane' class='float_l showborder'>	  <div id='source_controller'>	  </div>	  <div id='sourcelist_container'>	    <div id='tabs'>		  <ul>		    <!--<li><a href='#tabs-1' onclick='run_api_cmd2()'>微博搜索</a></li>-->			<li><a href='#tabs-1' onclick='display_search()'>微博搜索</a></li>		    <li><a href='#tabs-2' onclick='my_weibo()'>我的微博</a></li>		    <li><a href='#tabs-3' onclick='my_follow()'>我的关注</a></li>		    <li><a href='#tabs-4' onclick='display_user_search()'>用户搜索</a></li>	      </ul>		<div id='tabs-1'> 		  	    </div> 	    <div id='tabs-2'> 		  	    </div> 	    <div id='tabs-3'> 		  	    </div> 	    <div id='tabs-4'> 		 	    </div> 				<div id='weibo_search' style='padding-left:10px;'>		  <form id='source_controller_form' action='#'>		    <p class='sep'>			  <label for='keywords'>关键字:</label><br />           			  <input style='width: 300px;' id='keywords' name='keywords' type='text'>			  <button type='button' value='search' onclick='weibo_search()'>搜索微博</button>            </p>			<p></p>		  </form>		</div>	    	    		<ul id='source_list' style='padding:0;'>		</ul>		</div>	  </div>	</div>	<div id='story_pane' class='float_l showborder'>	  <div id='story'>";if(isset($_GET['post_id'])){    $post_id = $_GET['post_id'];  echo "<script language=javascript >  var post_id=$post_id;  </script>";  $result = $DB->fetch_one_array("select * from ".$db_prefix."posts where ID='".$post_id."'");  if(!$result)  {	throw new Exception('Could not execute query.');  }  $story_title=$result['post_title'];  $story_summary=$result['post_summary'];  //$story_status=$result['post_status'];  $content .="<div id='story_header'>		  <span > <input type='text' value='".$story_title."' name='story_title' id='sto_title' style='width:400px; margin:10px; font-weight:bold;'> </span>		  <div>		    <textarea id='sto_summary' style='width:400px; height:60px; margin:0px 10px;'>".$story_summary."</textarea>		  </div>		</div>		<div id='storylist_container'>		  <ul id='story_list' style='padding:0;'>		  </ul>		</div>	  </div>	</div>  </div></div></div>";  echo $content;    $result=$DB->query("SELECT * FROM ".$db_prefix."weibo where weibo_post_ID='".$post_id."'");  $weibo_id_array_php = array();  while ($weibo_item = mysql_fetch_array($result))   {	array_push($weibo_id_array_php, $weibo_item['weibo_permanent_ID']);  }  $weibo_id__array_json = json_encode($weibo_id_array_php);  echo "<script language='javascript' >			var weibo_id_array_js = $weibo_id__array_json;			window.onload = function()			{			  get_weibo_by_id(weibo_id_array_js);			}			</script>";}else{  $content .= "<div id='story_header'>		  <span > <input type='text' value='' name='story_title' id='sto_title' style='width:400px; margin:10px; font-weight:bold;'> </span>		  <div>		    <textarea id='sto_summary' style='width:400px; height:60px; margin:0px 10px;'></textarea>		  </div>		</div>		<div id='storylist_container'>		  <ul id='story_list' style='padding:0;'>		  </ul>		</div>	  </div>	</div>  </div></div></div>";  echo $content;}include "../include/footer.htm";?>
+<?php
+include "../editorglobal.php";
+session_start();
+include_once( '../weibo/config.php' );
+include_once( '../weibo/sinaweibo.php' );
+include_once( '../tweibo/config.php' );
+include_once( '../tweibo/txwboauth.php' );
+?>
+<link type="text/css" href="/storify/css/jquery.ui.theme.css" rel="stylesheet" />
+<link type="text/css" href="/storify/css/jquery.ui.tabs.css" rel="stylesheet" />
+<link type="text/css" rel="stylesheet" href="http://js.wcdn.cn/t3/style/css/common/card.css" />
+<link rel="stylesheet" type="text/css" href="/storify/CLEditor/jquery.cleditor.css" />
+<script type="text/javascript" src="/storify/CLEditor/jquery.cleditor.min.js"></script>
+<script type="text/javascript" src="/storify/js/jquery.embedly.min.js"></script>
+<script type='text/javascript' src='/storify/js/weibo.js'></script>
+<script type='text/javascript' src='/storify/js/jquery-ui-1.8.12.custom.min.js'></script>
+<script type='text/javascript' src='/storify/js/jquery.scrollfollow.js'></script>
+
+<?php
+$content = "<div class='inner' style='position:fixed; top:90px; left:520px;'><div id='actions'>
+<span><a id='draftBtn' href='./' >保存草稿</a></span>
+<span style='margin-left:30px;'><a id='previewBtn' href='./' >预览</a></span>
+<span style='margin-left:30px;'><a id='publishBtn' href='./' >发布</a></span>
+</div></div>
+<div id='storyContent' style='margin-bottom:0;'>
+  <div class='inner'>
+	<div class='left_half'>
+	<div id='source_pane'>
+	  <div id='sourcelist_container'>
+	    <div id='vtab'>
+		  <ul>
+		    <li class='weiboLi' style='padding:5px 0 5px 5px;'><a><img style='height:24px; border:0px; width:24px;' src='/storify/img/sina24.png' /></a></li>
+			<li class='tweiboLi' style='padding:5px 0 5px 5px;'><a><img src='/storify/img/tencent24.png' /></a></a></li>
+		    <li class='videoLi' style='padding:5px 0 5px 5px;'><a><img style='height:24px; border:0px; width:24px;' src='/storify/img/icon-youku.png' /></a></li>
+			<li class='yupooLi' style='padding:5px 0 5px 5px;'><a><img style='height:24px; border:0px; width:24px;' src='/storify/img/yupoo-logo.png' /></a></li>
+		  </ul>
+		  <div id='weiboTabs'>
+		    <ul>
+			  <li><a id='search_tab' href='#tabs-1'>微博搜索</a></li>
+		      <li><a id='my_tab' href='#tabs-2'>我的微博</a></li>
+		      <li><a id='follow_tab' href='#tabs-3'>我的关注</a></li>
+		      <li><a id='user_tab' href='#tabs-4'>用户搜索</a></li>
+	        </ul> 
+			<div id='tabs-1'> 
+
+	        </div> 
+	        <div id='tabs-2'> 
+
+	        </div> 
+	        <div id='tabs-3'> 
+
+	        </div> 
+	        <div id='tabs-4'> 
+		      
+	        </div>
+			<div id='weibo_search' style='padding-left:10px;'>
+		      <form id='source_controller_form' action='#'>
+		        <p class='sep'>
+				  <label for='keywords'>关键字:</label><br />           
+			      <input style='width: 250px;' id='keywords' name='keywords' type='text'>
+			      <button id='weibo_search_btn' type='button' value='search'>搜索微博</button>
+                </p>
+			    <p></p>
+		      </form>
+		    </div>
+		  </div>
+		  <div id='videoTabs'>
+		    <form action='#' style='padding-bottom:33px;'>
+		    <p>
+			  <label for='videoUrl'>视频地址:</label><br />           
+			  <input style='width: 250px;' id='videoUrl' name='videoUrl' type='text'>
+			  <button type='button' value='嵌入视频' id='embedVideo'>嵌入视频</button>
+            </p>
+		    </form>
+		  </div>
+		  <div id='picTabs'>
+		    <ul>
+			  <li><a id='search_tab_pic' href='#pictabs-1'>图片搜索</a></li>
+		      <li><a id='user_tab_pic' href='#pictabs-2'>用户搜索</a></li>
+	        </ul> 
+			<div id='pictabs-1'> 
+
+	        </div> 
+	        <div id='pictabs-2'> 
+
+	        </div> 
+			<div id='pic_search' style='padding-left:10px;'>
+		      <form action='#'>
+		        <p class='sep'>
+				  <label id='pic_label' for='pic_keywords'>关键字:</label><br />           
+			      <input style='width: 250px;' id='pic_keywords' name='pic_keywords' type='text'>
+			      <button id='pic_search_btn' type='button' value='search'>搜索</button>
+                </p>
+			    <p></p>
+		      </form>
+		    </div>
+		  </div>
+		  
+		</div>
+		<ul id='source_list' class='connectedSortable' style='padding:0; margin:0; border: 1px solid #C9C9C9; border-top: none;'>
+		</ul>    	
+	  </div>
+	</div>
+	</div>
+	<div class='right_half'>
+	<div id='story_pane'>
+	  <div id='story'>";
+
+if(isset($_GET['post_id']))
+{  
+  $c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_key']['oauth_token'] , $_SESSION['last_key']['oauth_token_secret']  );
+  $t = new TWeiboClient( MB_AKEY , MB_SKEY , $_SESSION['last_tkey']['oauth_token'] , $_SESSION['last_tkey']['oauth_token_secret']  );
+  $post_id = $_GET['post_id'];
+  echo "<script language=javascript >
+  var post_id=$post_id;
+  </script>";
+  $result = $DB->fetch_one_array("select * from ".$db_prefix."posts where ID='".$post_id."'");
+  if(!$result)
+  {
+	throw new Exception('Could not execute query.');
+  }
+  $story_title=$result['post_title'];
+  $story_summary=$result['post_summary'];
+  $story_content=$result['post_content'];
+  $story_content_array = json_decode($story_content, true);
+  $weibo_id_array = array();
+  $tweibo_id_array = array();
+	
+  $content .="<div id='story_header' style='border: 1px solid #C9C9C9; padding-bottom:15px; border-bottom:none;'>
+		  <span > <input type='text' value='".$story_title."' name='story_title' id='sto_title' style='width:400px; margin:10px; font-weight:bold;'> </span>
+		  <div>
+		    <textarea id='sto_summary' style='width:400px; height:60px; margin:0px 10px;'>".$story_summary."</textarea>
+		  </div>
+		  <div>
+		  <span ><input type='text' value='' name='story_tag' id='sto_tag' style='width:430px; margin:10px;'></span>
+		  <div>
+		</div>
+		<div id='storylist_container'>
+		  <ul id='story_list' class='connectedSortable' style='padding:0;'><li class='addTextElementAnchor'>
+			  <span><a><img class='add_comment' src='/Storify/img/editcomment.png' border='0'/></a></span></li>";
+  
+  foreach($story_content_array['content'] as $key=>$val)
+  {	
+	if($val['type'] === 'weibo')
+	{
+	  $weibo_per_id = $val['content'];
+	  $single_weibo  = $c->show_status($weibo_per_id );
+		
+	  if ($single_weibo === false || $single_weibo === null)
+	  {
+	    echo "Error occured";
+	    return false;
+	  }
+	  if (isset($single_weibo['error_code']) && isset($single_weibo['error']))
+	  {
+		echo ('Error_code: '.$single_weibo['error_code'].';  Error: '.$single_weibo['error'] );
+		return false;
+	  }
+	  if (isset($single_weibo['id']) && isset($single_weibo['text']))
+	  {
+		$createTime = dateFormat($single_weibo['created_at']);
+		$content .= ("<li class='weibo_drop sina' id='$weibo_per_id'><div class='cross' action='delete'><a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>"
+					.$single_weibo['text']."</span></div><div id='story_signature'><span style='float:right;'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
+					.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><span id='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='weibo_from_drop' href='http://weibo.com/"
+					.$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px' src='/Storify/img/sina16.png'/><a>"
+					.$createTime."</a></span></div></span></div></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/Storify/img/editcomment.png' border='0'/></a></span></li>");
+	  }
+	}
+	else if($val['type'] === 'tweibo')
+	{
+	  $tweibo_per_id = $val['content'];
+	  $tweibo_id_array[] = $tweibo_per_id;
+	  $content .="<li class='weibo_drop tencent' id='$tweibo_per_id'><div class='cross' action='delete'><a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div></li>
+	  <li class='addTextElementAnchor'><span><a><img class='add_comment' src='/Storify/img/editcomment.png' border='0'/></a></span></li>";
+	}
+	else if($val['type'] === 'comment')
+	{
+	  $comment_text = $val['content'];
+	  $content .="<li class='textElement editted'><div class='cross' action='delete'><a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='commentBox'>"
+	  .$comment_text."</div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/Storify/img/editcomment.png' border='0'/></a></span></li>";		
+	}
+	else if($val['type'] === 'video')
+	{
+	  $video_url_php = $val['content'];
+	  $content .="<li class='video_drop'><div class='cross' action='delete'><a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div><a class='videoTitle' target='_blank' href='"
+	  .$video_url_php."'></a></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/Storify/img/editcomment.png' border='0'/></a></span></li>";    	
+	}
+	else if($val['type'] === 'photo')
+	{
+	  $photo_meta_data = $val['content'];
+	  $photo_title = $photo_meta_data['title'];
+	  $photo_author = $photo_meta_data['author'];
+	  $photo_per_url = $photo_meta_data['url'];	 
+	  $content .="<li class='pic_drop'><div class='cross' action='delete'><a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div style='margin:0px auto; text-align:center; border: 5px solid #FFFFFF; box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); max-width: 260px;'><img class='pic_img' src='"
+				.$photo_per_url."'/><div class='pic_title' style='line-height:1.5;'>".$photo_title."</div><div class='pic_author' style='line-height:1.5;'>".$photo_author."</div></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/Storify/img/editcomment.png' border='0'/></a></span></li>";    	
+	}
+  }
+  
+  if(count($tweibo_id_array) > 0)
+  {
+    $tweibo_ids = implode(",", $tweibo_id_array);
+    echo "<script language='javascript' >
+		$(function()
+		{			  
+		  $.get('../tweibo/tweibooperation.php', {operation: 'list_weibo', weibo_ids: '$tweibo_ids'},
+		  function(data, textStatus)
+		  {
+			if(textStatus == 'success')
+			{
+			  var count = $(data).find('li').length;
+			  for(var j=0; j<count; j++)
+			  {
+				var li = $('li:eq('+j+')', data);
+				var temp_id = li.attr('id');
+				$('#'+temp_id).append(li.contents());
+			  }
+			}
+		  });
+		});
+		</script>";
+  }
+
+  $content .="</ul></div></div></div></div></div></div>";
+  echo $content;
+  echo "<script language='javascript' >
+			window.onload = function()
+			{			  
+			  $('.video_drop').each(function(){
+			  var videoUrlJs = $(this).find('.videoTitle').attr('href');
+			  append_video_content(videoUrlJs);
+			  });
+			}
+			</script>";
+}
+else
+{
+  $content .= "<div id='story_header' style='border: 1px solid #C9C9C9; padding-bottom:15px; border-bottom:none;'>
+		  <span ><input type='text' value='' name='story_title' id='sto_title' style='width:430px; margin:10px; font-weight:bold;'></span>
+		  <div>
+		    <textarea id='sto_summary' style='width:430px; height:60px; margin:0px 10px;'></textarea>
+		  </div>
+		  <div>
+		  <span ><input type='text' value='' name='story_tag' id='sto_tag' style='width:430px; margin:10px;'></span>
+		  <div>
+		</div>
+		<div id='storylist_container'>
+		  <ul id='story_list' class='connectedSortable' style='padding:0;'>
+		    <li class='addTextElementAnchor'>
+			  <span><a><img class='add_comment' src='/Storify/img/editcomment.png' border='0'/></a></span>
+		    </li>
+		  </ul>
+		</div>
+	  </div>
+	</div>
+	</div>
+  </div>
+</div>";
+  echo $content;
+}
+?>
+
+<script>
+var embedCode;
+var followPage;
+var myPage;
+var userSearchPage;
+var weiboSearhPage = 1;
+var picSearchPage = 1;
+var userpicSearchPage;
+
+var myPageTimestamp;
+var followTimestamp;
+var usersearchTimestamp;
+var tweibosearchPage = 1;
+
+var vtabIndex;
+
+WB.core.load(['connect', 'client', 'widget.base', 'widget.atWhere'], function() 
+{
+  var cfg = {
+              //key: '314237338',
+			  key: '2417356638',
+			  xdpath: 'http://story.com/storify/html/xd.html'
+			};
+  WB.connect.init(cfg);
+  WB.client.init(cfg);
+});
+
+function display_search()
+{
+  //$('.weibo_drag').remove();
+  //need to compare the performance of this two remove method
+  $('#source_list').children().remove();
+  $('#keywords').val('');
+  $('#weibo_search button').text('搜索微博');
+  $('#weibo_search').css('display', 'block');
+}
+
+function display_user_search()
+{
+  $('#source_list').children().remove();
+  $('#keywords').val('');
+  $('#weibo_search button').text('搜索用户');
+  $('#weibo_search').css('display', 'block');
+}
+
+function append_content(id_array, content_array)
+{
+  for (var i in id_array)
+  {
+	var $contentToAppend = $(content_array[i]);
+	$("#" + id_array[i]).append($contentToAppend);
+  }
+}
+
+function replaceURLWithHTMLLinks(source) {
+	var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    replaced = source.replace(exp,"<a href='$1' target='_blank'>$1</a>"); 
+	return replaced;
+}
+
+function append_video_content(url)
+{
+  $.embedly(url, {key: '4ac512dca79011e0aeec4040d3dc5c07', maxWidth: 420, wrapElement: 'div', method : 'afterParent'  }, function(oembed){        
+  if (oembed != null)
+  {
+    var videoContent = oembed.code;
+    $("a[href="+url+"]").parent().after(videoContent);
+  }            
+  });
+}
+
+$(function() {
+		//$( '#story_list' ).scrollFollow();
+		var $weiboTabs = $( '#weiboTabs' ).tabs();
+		var $picTabs = $( '#picTabs' ).tabs();
+		/*var $weiboTabs = $( '#weiboTabs' ).tabs({
+			ajaxOptions: {
+				success: function( data, status){
+				//$('.ui-tabs-panel').remove();
+				$('.source_list').html(data);
+				},
+				error: function( xhr, status, index, anchor ) {
+					$( anchor.hash ).html(
+						"Couldn't load this tab. We'll try to fix this as soon as possible. " +
+						"If this wouldn't be a demo." );
+				}
+			}
+		});*/
+		
+		$('#my_tab').click(function()
+		{
+		  $('.weibo_drag').remove();
+		  $('.loadmore').remove();
+		  $('#source_list').css('height', '693px');
+		  $('#weibo_search').css('display', 'none');
+		  myPage = 1;
+		  myPageTimestamp = 0;
+		  //my_weibo(myPage);
+		  var getUrl;
+		  var getData;
+		  if(0 == vtabIndex)
+		  {
+		    getUrl = '../weibo/weibooperation.php';
+			getData = {operation: 'my_weibo', page: myPage};
+		  }
+		  else
+		  {
+		    getUrl = '../tweibo/tweibooperation.php';
+			getData = {operation: 'my_weibo', page: 0, timestamp: myPageTimestamp};
+		  }
+		  $.get(getUrl, getData,
+		  function(data, textStatus)
+		  {
+            $('#source_list').html(data);
+			WB.widget.atWhere.searchAndAt(document.getElementById("source_list"));
+		  });
+		});
+		
+		$('#follow_tab').click(function()
+		{
+		  $('.weibo_drag').remove();
+		  $('.loadmore').remove();
+		  $('#source_list').css('height', '693px');
+		  $('#weibo_search').css('display', 'none');
+		  followPage = 1;
+		  followTimestamp = 0;
+		  //my_follow(followPage);
+		  var getUrl;
+		  var getData;
+		  if(0 == vtabIndex)
+		  {
+		    getUrl = '../weibo/weibooperation.php';
+			getData = {operation: 'my_follow', page: followPage};
+		  }
+		  else
+		  {
+		    getUrl = '../tweibo/tweibooperation.php';
+			getData = {operation: 'my_follow', page: 0, timestamp: followTimestamp};
+		  }
+		  $.get(getUrl, getData,
+		  function(data, textStatus)
+		  {
+			$('#source_list').html(data);
+			WB.widget.atWhere.searchAndAt(document.getElementById("source_list"));
+		  });
+		});
+		
+		$('#search_tab').click(function()
+		{
+		  $('#source_list').css('height', '635px');
+		  weiboSearhPage = 1;
+		  tweibosearchPage = 1;
+		  display_search();
+		});
+		
+		$('#user_tab').click(function()
+		{
+		  $('#source_list').css('height', '635px');
+		  userSearchPage = 1;
+		  usersearchTimestamp = 0;
+		  display_user_search();
+		});
+		
+		$('#weibo_search_btn').click(function(){
+		  $('.loadmore').remove();
+		  var words = $('#keywords').val();
+		  var type = $('#weibo_search button').text();
+		  var getUrl;
+		  var getData;
+		  if(type === '搜索微博')
+		  {
+		    if(0 == vtabIndex)
+		    {
+		      getUrl = '../weibo/weibooperation.php';
+			  getData = {operation: 'weibo_search', keywords: words, page:weiboSearhPage};
+		    }
+		    else
+		    {
+		      //need to revise according to Tencen API
+			  getUrl = '../tweibo/tweibooperation.php';
+			  getData = {operation: 'weibo_search', keywords: words, page:tweibosearchPage};
+		    }
+		  }
+		  else
+		  {
+		    if(0 == vtabIndex)
+		    {
+		      getUrl = '../weibo/weibooperation.php';
+			  getData = {operation: 'user_search', keywords: words, page:userSearchPage};
+		    }
+		    else
+		    {
+			  getUrl = '../tweibo/tweibooperation.php';
+			  getData = {operation: 'user_search', keywords: words, page: 0, timestamp: usersearchTimestamp};
+		    }	
+		  }
+		  $.get(getUrl, getData,
+		  function(data, textStatus)
+		  {
+            $('#source_list').html(data);
+			WB.widget.atWhere.searchAndAt(document.getElementById("source_list"));
+		  });
+		});
+		
+		$('#search_tab_pic').click(function()
+		{
+		  picSearchPage = 1;
+		  $('#source_list').children().remove();
+		  $('#source_list').css('height', '615px');
+		  $('#pic_label').text('关键字');
+		});
+		
+		$('#user_tab_pic').click(function()
+		{
+		  userpicSearchPage = 1;
+		  $('#source_list').children().remove();
+		  $('#source_list').css('height', '615px');
+		  $('#pic_label').text('用户名');
+		});
+		
+		$('#pic_search_btn').click(function()
+		{
+		  $('.loadmore').remove();
+		  var words = $('#pic_keywords').val();
+		  var selected = $picTabs.tabs('option', 'selected');
+		  var getUrl = '../yupoo/yupoooperation.php';
+		  var getData;
+		  if(0 == selected)
+		  {
+		    getData = {operation: 'pic_search', keywords: words, page: picSearchPage};
+		  }
+		  else
+		  {
+		    getData = {operation: 'user_search', keywords: words, page: userpicSearchPage};
+		  }
+		  $.get(getUrl, getData,
+		  function(data, textStatus)
+		  {
+            $('#source_list').html(data);
+		  });
+		});
+		
+		$( "#source_list, #story_list" ).sortable({
+			connectWith: ".connectedSortable",
+			cancel: ".weibo_drop, .video_drop, .textElement",
+			receive: function(event, ui) 
+			{
+			  var commentContent = ("<li class='addTextElementAnchor'><span><a><img class='add_comment' src='/Storify/img/editcomment.png' border='0'/></a></span></li>");
+			  if(!ui.item.prev('li').hasClass('addTextElementAnchor'))
+			  {
+			    ui.item.before(commentContent)
+			  }
+			  if(!ui.item.next('li').hasClass('addTextElementAnchor'))
+			  {
+			    ui.item.after(commentContent)
+			  }
+			  if(ui.item.hasClass('weibo_drag'))
+			  {
+			    var position = ui.position;
+			　  var weibo_id = ui.item.find('.weibo_drag').attr('id');
+			　  var weibo_Text= ui.item.find('.weibo_text').text();
+			　  var weibo_from = ui.item.find('.weibo_from').text();
+			　  var weibo_from_id = ui.item.find('.user_page').attr('href').replace(/http:\/\/weibo.com\//,"");
+			  　var weibo_time = ui.item.find('.create_time').text();
+			　  var weibo_photo = ui.item.find('.profile_img').attr('src');
+				var content;	
+			    if(ui.item.hasClass('sina'))
+				{
+				  ui.item.removeClass('weibo_drag').addClass('weibo_drop sina').children().remove();
+				  content = ("<div class='cross' action='delete'><a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>"
+					+weibo_Text+"</span></div><div id='story_signature'><span style='float:right;'><a href='http://weibo.com/"+weibo_from_id+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
+					+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></span><span id='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='weibo_from_drop' href='http://weibo.com/"
+					+weibo_from_id+"' target='_blank'>"+weibo_from+"</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px' src='/Storify/img/sina16.png'/><a>"
+					+weibo_time+"</a></span></div></span> </div></div>");
+				}
+				else
+				{
+				  ui.item.removeClass('weibo_drag').addClass('weibo_drop tencent').children().remove();
+				  content = ("<div class='cross' action='delete'><a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>"
+					+weibo_Text+"</span></div><div id='story_signature'><span style='float:right;'><a href='http://weibo.com/"+weibo_from_id+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
+					+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></span><span id='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='weibo_from_drop' href='http://weibo.com/"
+					+weibo_from_id+"' target='_blank'>"+weibo_from+"</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px' src='/Storify/img/tencent16.png'/><a>"
+					+weibo_time+"</a></span></div></span> </div></div>");
+				}
+				ui.item.append(content);　
+			    WB.widget.atWhere.searchAndAt(document.getElementById("story_list"));
+			  }
+			  else if(ui.item.hasClass('video_Drag'))
+			  {
+			    var videoUrl = ui.item.find('.videoTitle').attr('href');
+				var videoTitle = ui.item.find('.videoTitle').text();
+				var videoEmbedCode;
+				var videoContent = ("<div class='cross' action='delete'><a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div><a class='videoTitle' target='_blank' href='"
+				+videoUrl+"'>"+videoTitle+"</a></div>"+embedCode);
+				ui.item.removeClass('video_Drag').addClass('video_drop').children().remove();　
+			    ui.item.append(videoContent);
+			  }
+			  else if(ui.item.hasClass('pic_Drag'))
+			  {
+			    //debugger;
+				var picUrl = ui.item.find('img').attr('src');
+				var picTitle = ui.item.find('.pic_title').text();
+				var picAuthor = ui.item.find('.pic_author').text();
+				var temp_array = picUrl.split("\/");
+				var temp_array_length = temp_array.length;
+				temp_array[temp_array_length-1] = "small";
+				picUrl = temp_array.join("\/");
+				
+				var picContent = ("<div class='cross' action='delete'><a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div style='margin:0px auto; text-align:center; border: 5px solid #FFFFFF; box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); max-width: 260px;'><img class='pic_img' src='"
+				+picUrl+"'/><div class='pic_title' style='line-height:1.5;'>"+picTitle+"</div><div class='pic_author' style='line-height:1.5;'>"+picAuthor+"</div></div>");
+				ui.item.removeClass('pic_Drag').addClass('pic_drop').children().remove();　
+			    ui.item.append(picContent);
+			  }
+			}
+		});/*.disableSelection();*/
+		
+		$('#embedVideo').click(function(e)
+		{
+		  var videoTitle;
+		  var videoUrl = $('#videoUrl').val();
+		  //var videoUrl = 'http://v.youku.com/v_show/id_XMjgxMjIxNjUy.html';
+		  $.embedly(videoUrl, {key: '4ac512dca79011e0aeec4040d3dc5c07', maxWidth: 420, wrapElement: 'div', method : "afterParent"  }, function(oembed){				
+          if (oembed != null)
+		  {
+			embedCode = oembed.code;
+			videoTitle = oembed.title;
+			var post = "<li class='video_Drag'><div class='urlWrapper'><div><a class='videoTitle' target='_blank' href='"+videoUrl+"'>"+oembed.title+
+			"</a></div><div class='videoContent'><div class='video_domain'><div class='video_favicon' style='display:inline; position:relative; top:4px'><img src='/storify/img/youku.ico'/></div><div class='video_author' style='display:inline; margin-left:3px;'><a target='_blank' href='"
+			+videoUrl+"'>v.youku.com</a></div></div><div><img src='"+oembed.thumbnail_url+"' style='float:left; margin-right:5px; border: 1px solid #E9E9E9; padding:3px;'/><div class='video_description' style='line-height:1.5;'>"+oembed.description+"</div></div></div></div></li>";
+			$('#source_list').append(post);  
+		  }		  			
+          });
+		})
+		
+		if($('#sto_title').val() =='')
+		{
+		  $('#sto_title').val('写下你的故事标题吧(这将会是你故事的链接地址)').css('color', 'black').focus(function(){
+		  if($(this).val() == '写下你的故事标题吧(这将会是你故事的链接地址)')
+		  {
+		    $(this).val('').css('color', 'black');
+		  }
+		  }).blur(function(){
+		  if($(this).val() == '')
+		  {
+		    $(this).val('写下你的故事标题吧(这将会是你故事的链接地址)').css('color', 'black');
+		  }
+		  });
+		}
+		
+		
+		if($('#sto_summary').val() =='')
+		{
+		  $('#sto_summary').val('给你的故事写一个简短的描述').css('color', '#d8d8d8').focus(function(){
+		  if($(this).val() == '给你的故事写一个简短的描述')
+		  {
+		    $(this).val('').css('color', 'black');
+		  }		  
+		  }).blur(function(){
+		  if($(this).val() == '')
+		  {
+		    $(this).val('给你的故事写一个简短的描述').css('color', '#d8d8d8');
+		  }
+		  });
+		}		
+		
+		$('#story_list').hover(function(e){
+		if ($(e.target).is('.weibo_drop'))
+		{
+		  //$('.cross').css('visibility', 'hidden');
+		  $(e.target).children('.cross').css('visibility', 'visible');
+		}
+		},
+		function(ev)
+		{
+		  if ($(ev.target).is('.weibo_drop'))
+		  {
+		    //$('.cross').css('visibility', 'hidden');
+			$(ev.target).children('.cross').css('visibility', 'hidden');
+		  }
+		});
+		
+		
+		/*$('#story_list').mouseover(function(e)
+		{
+		  if ($(e.target).is('li'))
+		  {
+		    $(e.target).find('.cross').css('visibility', 'visible');
+		  }
+		});
+		
+		$('#story_list').mouseout(function(e)
+		{
+		  if ($(e.target).is('li'))
+		  {
+		    $(e.target).find('.cross').css('visibility', 'hidden');
+		  }
+		});*/
+		
+		
+		$('#draftBtn').click(function(e){
+		  e.preventDefault();
+		  //console.log('begin draft');
+		  var story_id_val;
+		  if (typeof(post_id)=="undefined" || post_id==null)
+		  {
+		    story_id_val = 0;
+		  }
+		  else
+		  {
+		    story_id_val = post_id;
+		  }
+		  
+		  var story_content_val = new Object;
+		  story_content_val.content = new Array();		  
+		  $('#story_list li:not(.addTextElementAnchor)').each(function(i)
+		  {
+		    if($(this).hasClass('sina'))
+			{
+			  story_content_val.content[i] = new Object;
+			  story_content_val.content[i].id = i;
+			  story_content_val.content[i].type = 'weibo';
+			  story_content_val.content[i].content = $(this).attr('id');
+			}
+			else if($(this).hasClass('tencent'))
+			{
+			  story_content_val.content[i] = new Object;
+			  story_content_val.content[i].id = i;
+			  story_content_val.content[i].type = 'tweibo';
+			  story_content_val.content[i].content = $(this).attr('id');
+			}
+			else if($(this).hasClass('textElement'))
+			{
+			  story_content_val.content[i] = new Object;
+			  story_content_val.content[i].id = i;
+			  story_content_val.content[i].type = 'comment';
+			  story_content_val.content[i].content = $(this).find('.commentBox').html();
+			}
+			else if($(this).hasClass('video_drop'))
+			{
+			  story_content_val.content[i] = new Object;
+			  story_content_val.content[i].id = i;
+			  story_content_val.content[i].type = 'video';
+			  story_content_val.content[i].content = $(this).find('.videoTitle').attr('href');
+			}
+			else if($(this).hasClass('pic_drop'))
+			{
+			  story_content_val.content[i] = new Object;
+			  story_content_val.content[i].id = i;
+			  story_content_val.content[i].type = 'photo';
+			  var photo_title = $(this).find('.pic_title').text();
+			  var photo_author = $(this).find('.pic_author').text();
+			  var photo_per_url = $(this).find('.pic_img').attr('src');
+			  var photo_metadata = {title: photo_title, author: photo_author, url: photo_per_url};
+			  story_content_val.content[i].content = photo_metadata;
+			}
+		  });
+		  var story_content_val_string = JSON.stringify(story_content_val);
+		  
+		  var story_title_val = $('#sto_title').attr('value');
+		  var story_summary_val = $('#sto_summary').val();
+		  var story_tag_val = $('#sto_tag').attr('value');
+		  var postdata = {story_id: story_id_val, story_title: story_title_val, story_summary: story_summary_val, story_tag: story_tag_val, story_content: story_content_val_string};		  
+		  $.post('preview.php', postdata,
+		  function(data, textStatus)
+		  {
+            //console.log(data);						
+			self.location = data;
+		  });
+			
+		});
+		
+		$('#previewBtn').click(function(e){
+		  e.preventDefault();
+		  //console.log('begin preview');
+		  var story_id_val;
+		  if (typeof(post_id)=="undefined" || post_id==null)
+		  {
+		    story_id_val = 0;
+		  }
+		  else
+		  {
+		    story_id_val = post_id;
+		  }
+		  
+		  var story_content_val = new Object;
+		  story_content_val.content = new Array();
+		  $('#story_list li:not(.addTextElementAnchor)').each(function(i)
+		  {
+		    if($(this).hasClass('sina'))
+			{
+			  story_content_val.content[i] = new Object;
+			  story_content_val.content[i].id = i;
+			  story_content_val.content[i].type = 'weibo';
+			  story_content_val.content[i].content = $(this).attr('id');
+			}
+			else if($(this).hasClass('tencent'))
+			{
+			  story_content_val.content[i] = new Object;
+			  story_content_val.content[i].id = i;
+			  story_content_val.content[i].type = 'tweibo';
+			  story_content_val.content[i].content = $(this).attr('id');
+			}
+			else if($(this).hasClass('textElement'))
+			{
+			  story_content_val.content[i] = new Object;
+			  story_content_val.content[i].id = i;
+			  story_content_val.content[i].type = 'comment';
+			  story_content_val.content[i].content = $(this).find('.commentBox').html();
+			}
+			else if($(this).hasClass('video_drop'))
+			{
+			  story_content_val.content[i] = new Object;
+			  story_content_val.content[i].id = i;
+			  story_content_val.content[i].type = 'video';
+			  story_content_val.content[i].content = $(this).find('.videoTitle').attr('href');
+			}
+			else if($(this).hasClass('pic_drop'))
+			{
+			  story_content_val.content[i] = new Object;
+			  story_content_val.content[i].id = i;
+			  story_content_val.content[i].type = 'photo';
+			  var photo_title = $(this).find('.pic_title').text();
+			  var photo_author = $(this).find('.pic_author').text();
+			  var photo_per_url = $(this).find('.pic_img').attr('src');
+			  var photo_metadata = {title: photo_title, author: photo_author, url: photo_per_url};
+			  story_content_val.content[i].content = photo_metadata;
+			}
+		  });
+		  var story_content_val_string = JSON.stringify(story_content_val);
+		  
+		  var story_title_val = $('#sto_title').attr('value');
+		  var story_summary_val = $('#sto_summary').val();
+		  var story_tag_val = $('#sto_tag').attr('value');
+		  var postdata = {story_id: story_id_val, story_title: story_title_val, story_summary: story_summary_val, story_tag: story_tag_val, story_content: story_content_val_string};
+		  $.post('preview.php', postdata,
+		  function(data, textStatus)
+		  {
+            //console.log(data);						
+			self.location = data;
+		  });
+			
+		});
+		
+		$('#publishBtn').click(function(e)
+		{
+		  //console.log(post_id);
+		  e.preventDefault();
+		  //console.log('begin publish');
+		  var story_id_val;
+		  if (typeof(post_id)=="undefined" || post_id==null)
+		  {
+		    story_id_val = 0;
+		  }
+		  else
+		  {
+		    story_id_val = post_id;
+		  }
+		  
+		  var story_content_val = new Object;
+		  story_content_val.content = new Array();
+		  /*$('.weibo_drop').each(function(i) 
+		  {
+			story_content_val.content[i] = new Object;
+			story_content_val.content[i].type = 'weibo';
+			story_content_val.content[i].content = $(this).attr('id');
+		  });
+		  var story_content_val_string = JSON.stringify(story_content_val);*/
+		  
+		  $('#story_list li:not(.addTextElementAnchor)').each(function(i)
+		  {
+		    //debugger;
+			if($(this).hasClass('sina'))
+			{
+			  story_content_val.content[i] = new Object;
+			  story_content_val.content[i].id = i;
+			  story_content_val.content[i].type = 'weibo';
+			  story_content_val.content[i].content = $(this).attr('id');
+			}
+			else if($(this).hasClass('tencent'))
+			{
+			  story_content_val.content[i] = new Object;
+			  story_content_val.content[i].id = i;
+			  story_content_val.content[i].type = 'tweibo';
+			  story_content_val.content[i].content = $(this).attr('id');
+			}
+			else if($(this).hasClass('textElement'))
+			{
+			  story_content_val.content[i] = new Object;
+			  story_content_val.content[i].id = i;
+			  story_content_val.content[i].type = 'comment';
+			  story_content_val.content[i].content = $(this).find('.commentBox').html();
+			}
+			else if($(this).hasClass('video_drop'))
+			{
+			  story_content_val.content[i] = new Object;
+			  story_content_val.content[i].id = i;
+			  story_content_val.content[i].type = 'video';
+			  story_content_val.content[i].content = $(this).find('.videoTitle').attr('href');
+			}
+			else if($(this).hasClass('pic_drop'))
+			{
+			  story_content_val.content[i] = new Object;
+			  story_content_val.content[i].id = i;
+			  story_content_val.content[i].type = 'photo';
+			  var photo_title = $(this).find('.pic_title').text();
+			  var photo_author = $(this).find('.pic_author').text();
+			  var photo_per_url = $(this).find('.pic_img').attr('src');
+			  var photo_metadata = {title: photo_title, author: photo_author, url: photo_per_url};
+			  story_content_val.content[i].content = photo_metadata;
+			}
+		  });
+		  var story_content_val_string = JSON.stringify(story_content_val);
+		  
+		  var story_title_val = $('#sto_title').attr('value');
+		  var story_summary_val = $('#sto_summary').val();
+		  var story_tag_val = $('#sto_tag').attr('value');
+		  var postdata = {story_id: story_id_val, story_title: story_title_val, story_summary: story_summary_val, story_tag: story_tag_val, story_content: story_content_val_string};
+		  $.post('publish.php', postdata,
+		  function(data, textStatus)
+		  {
+            //console.log(data);						
+			self.location = data;			
+		  });
+		});
+		
+		$('#source_list').click(function(e)
+		{
+		  if ($(e.target).is('.loadmore a'))
+		  {
+			var selected = $weiboTabs.tabs('option', 'selected'); 
+			var getUrl;
+			var getData;
+			if(0 == selected)
+			{
+			  var words = $('#keywords').val();
+			  if(0 == vtabIndex)
+		      {
+		        getUrl = '../weibo/weibooperation.php';
+				weiboSearhPage++;
+				getData = {operation: 'weibo_search', keywords: words, page: weiboSearhPage};
+		      }
+		      else
+		      {
+		        getUrl = '../tweibo/tweibooperation.php';
+				//weibosearchTimestamp = $('.loadmore span').attr('id');
+				tweibosearchPage++;
+				getData = {operation: 'weibo_search', keywords: words, page: tweibosearchPage}; 
+		      }
+			  $('.loadmore').remove();
+			  //add weibo search function
+			  $.get(getUrl, getData,
+			  function(data, textStatus)
+			  {
+				$('#source_list').append(data);
+				WB.widget.atWhere.searchAndAt(document.getElementById("source_list"));
+			  });
+			}
+			else if(1 == selected)
+			{
+			  if(0 == vtabIndex)
+		      {
+		        getUrl = '../weibo/weibooperation.php';
+				myPage++;
+				getData = {operation: 'my_weibo', page: myPage}
+		      }
+		      else
+		      {
+		        getUrl = '../tweibo/tweibooperation.php';
+				myPageTimestamp = $('.loadmore span').attr('id');
+				getData = {operation: 'my_weibo', page: 1, timestamp: myPageTimestamp}; 
+		      }
+			  $('.loadmore').remove();
+			  $.get(getUrl, getData,
+			  function(data, textStatus)
+			  {
+				$('#source_list').append(data);
+				WB.widget.atWhere.searchAndAt(document.getElementById("source_list"));
+			  });
+			}
+			else if(2 == selected)
+			{
+			  if(0 == vtabIndex)
+		      {
+		        getUrl = '../weibo/weibooperation.php';
+				followPage++;
+				getData = {operation: 'my_follow', page: followPage}
+		      }
+		      else
+		      {
+		        getUrl = '../tweibo/tweibooperation.php';
+				followTimestamp = $('.loadmore span').attr('id');
+				getData = {operation: 'my_follow', page: 1, timestamp: followTimestamp};
+		      }
+			  $('.loadmore').remove();
+			  $.get(getUrl, getData,
+			  function(data, textStatus)
+			  {
+				$('#source_list').append(data);
+				WB.widget.atWhere.searchAndAt(document.getElementById("source_list"));
+			  });
+			}
+			else
+			{
+			  //add user search function
+			  var words = $('#keywords').val();
+			  if(0 == vtabIndex)
+		      {
+		        getUrl = '../weibo/weibooperation.php';
+				userSearchPage++;
+				getData = {operation: 'user_search', keywords: words, page:userSearchPage};
+		      }
+		      else
+		      {
+		        getUrl = '../tweibo/tweibooperation.php';
+				usersearchTimestamp = $('.loadmore span').attr('id');
+				getData = {operation: 'user_search', keywords: words, page: 1, timestamp: usersearchTimestamp};
+		      }
+			  $('.loadmore').remove();
+			  $.get(getUrl, getData,
+			  function(data, textStatus)
+			  {
+				$('#source_list').append(data);
+				WB.widget.atWhere.searchAndAt(document.getElementById("source_list"));
+			  });
+			}
+		  }
+		});
+		
+		$('#story_list').click(function(e)
+		{
+		  if ($(e.target).is('.add_comment'))
+		  {
+		    var $comment_box = $("<li class='textElement editing'><div class='editingDiv'><form class='formTextElement'><textarea class='inputEditor' name='inputEditor'></textarea></form><div class='belowTextEdit'><div class='actions' style='padding-left:305px;'><button class='cancel small cancelEditor' type='reset'>Cancel</button><button class='submit small blue submitComment' type='submit'>Done</button></div></div></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/Storify/img/editcomment.png' border='0'/></a></span></li>");
+		    $(e.target).closest('li').after($comment_box);
+			$(".inputEditor").cleditor({
+			width:415,
+			height:150,
+			controls:"bold italic underline strikethrough link | font size",
+			
+			});
+			//$(e.target).closest('#input').cleditor();
+		  }
+		  
+		  if($(e.target).is('.cancelEditor'))
+		  {
+			$(e.target).closest('.textElement').next('.addTextElementAnchor').remove();
+			$(e.target).closest('.textElement').remove();
+		  }
+		  
+		  if($(e.target).is('.submitComment'))
+		  {
+			var $textElement = $(e.target).closest('.textElement');
+			var comment = $textElement.find('.inputEditor').val();
+			$(e.target).closest('.editingDiv').remove();
+			var $commentDiv = $("<div class='cross' action='delete'><a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='commentBox'>"+comment+"</div>");
+			$textElement.removeClass('editing').addClass('editted').append($commentDiv);
+		  }
+		});
+		
+		
+		
+		var $items = $('#vtab>ul>li');
+		var selWeiboTab = 0;
+        $items.click(function() {
+        $items.removeClass('selected');
+        $(this).addClass('selected');
+        vtabIndex = $items.index($(this));
+		if(1 == vtabIndex)
+		{
+		  $('#my_tab').text('我的广播');
+		  $('#follow_tab').text('我的收听');
+		  if(1 != selWeiboTab)
+		  {
+		    $weiboTabs.tabs( "select" , 0 );
+		    $('#weibo_search').css('display', 'block');
+			$('#source_list').children().remove();
+		  }
+		  selWeiboTab = 1;
+		  $('#vtab>div').hide().eq(vtabIndex-1).show();
+		}
+		else if(2 == vtabIndex)
+		{
+		  if(2 != selWeiboTab)
+		  {
+		    $('#source_list').children().remove();
+		  } 
+		  selWeiboTab = 2;
+		  $('#vtab>div').hide().eq(vtabIndex-1).show();
+		}
+		else if(3 == vtabIndex)
+		{
+		  if(3 != selWeiboTab)
+		  {
+		    $('#source_list').children().remove();
+		  } 
+		  selWeiboTab = 3;
+		  $('#vtab>div').hide().eq(vtabIndex-1).show();
+		}
+        else
+		{
+		  $('#my_tab').text('我的微博');
+		  $('#follow_tab').text('我的关注');
+		  if(0 != selWeiboTab)
+		  {
+		    $weiboTabs.tabs( "select" , 0 );
+		    $('#weibo_search').css('display', 'block');
+			$('#source_list').children().remove();
+		  }
+		  selWeiboTab = 0;
+		  $('#vtab>div').hide().eq(vtabIndex).show();
+		}
+        }).eq(0).click();
+	  
+	});
+</script>
+
+<?php
+include "../include/footer.htm";
+?>

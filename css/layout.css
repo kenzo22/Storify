@@ -95,6 +95,7 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 
 .person_li{
 display: none;
+z-index:10000;
 }
 .left_half{
 float:left;
@@ -151,7 +152,7 @@ list-style-type: decimal;
 .slide p						{ color: #999; font-size: 12px; line-height: 22px; width: 300px; }
 .slide img						{ position: absolute; top: 60px; left: 400px; }
 #slider-stopper					{ position: absolute; top: 1px; right: 20px; background: #438CC3; color: white;
-								  padding: 3px 8px; font-size: 10px; text-transform: uppercase; z-index: 1000; }
+								  padding: 3px 8px; font-size: 10px; text-transform: uppercase;  }
 
 /* source page part */
 #source_ul
@@ -344,6 +345,30 @@ height:16px;
  .title_wrap .title:hover
  {
     background: none repeat scroll 0 0 rgba(100, 100, 100, 0.8);
+ }
+ 
+ /*edit story part */
+ #story_header{
+ border: 1px solid #C9C9C9; padding-bottom:15px; border-bottom:none;
+ }
+ 
+ #story_pic{
+ width:90px;
+ height:110px;
+ border: 1px solid;
+ float:left;
+ }
+ 
+ #sto_title{
+ width:330px; margin:10px; font-weight:bold;
+ }
+ 
+ #sto_summary{
+ width:330px; height:60px; margin:0px 10px;
+ }
+ 
+ #sto_tag{
+ width:430px; margin:10px;
  }
 
 /* publish part*/

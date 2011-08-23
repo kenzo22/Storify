@@ -71,6 +71,8 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 		}
 		if (isset($single_weibo['error_code']) && isset($single_weibo['error'])){
 			echo ('<br/><br/><br/><br/><br/>Error_code: '.$single_weibo['error_code'].';  Error: '.$single_weibo['error'] );
+			echo  $_SESSION['last_key']['oauth_token'];
+			echo $_SESSION['last_key']['oauth_token_secret'];
 			return false;
 		}
 		if (isset($single_weibo['id']) && isset($single_weibo['text'])){
