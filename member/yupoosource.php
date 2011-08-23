@@ -1,1 +1,11 @@
-<?php@header('Content-Type:text/html;charset=utf-8');session_start();require_once( '../yupoo/config.php' );require_once('../yupoo/yupoo.php');$y = new YupooAPI( YB_AKEY , YB_SKEY);$yurl = $y->generate_authurl();echo $yurl;?>
+<?php
+@header('Content-Type:text/html;charset=utf-8');
+session_start();
+require_once( '../yupoo/config.php' );
+require_once('../yupoo/yupoo.php');
+
+$y = new YupooAPI( YB_AKEY , YB_SKEY);
+$yurl = $y->generate_authurl();
+
+echo $yurl;
+?>

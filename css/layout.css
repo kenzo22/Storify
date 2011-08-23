@@ -131,6 +131,25 @@ list-style-type: decimal;
     text-shadow: 0 1px 0 #FFFFFF, 0 1px 0 #EEEEEE;
 }
 
+/*slider part */
+#page-wrap						{ background: white; width: 920px; margin: 0 auto; 
+								  padding: 50px 0; }
+
+#slider							{ background: white url(../img/slider-bg.jpg); height: 227px; overflow: hidden;
+								  position: relative; margin: 50px 0; }
+								  
+                                /* DEFAULT is for three panels in width, adjust as needed
+                                   This only matters if JS is OFF, otherwise JS sets this. */								  
+#mover							{ width: 2760px; position: relative; }
+
+.slide							{ padding: 40px 30px; width: 860px; float: left; position: relative; }
+.slide h1						{ font-family: Helvetica, Sans-Serif; font-size: 30px; letter-spacing: -1px;
+								  color: #ac0000; }
+.slide p						{ color: #999; font-size: 12px; line-height: 22px; width: 300px; }
+.slide img						{ position: absolute; top: 20px; left: 400px; }
+#slider-stopper					{ position: absolute; top: 1px; right: 20px; background: #ac0000; color: white;
+								  padding: 3px 8px; font-size: 10px; text-transform: uppercase; z-index: 1000; }
+
 /* source page part */
 #source_ul
 {
