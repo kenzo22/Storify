@@ -19,10 +19,5 @@ $ms  =  $c->getinfo();
 $user = $ms[data];
 
 $result=$DB->query("update ".$db_prefix."user set tweibo_user_id='".$user[Uid]."', tweibo_access_token='".$_SESSION['last_tkey']['oauth_token']."', tweibo_access_token_secret='".$_SESSION['last_tkey']['oauth_token_secret']."' WHERE id='".$_SESSION['uid']."'");
-
-
+header("location: ../member/source.php"); 
 ?>
-<div class='inner' style='padding-top:50px;'>
-  <div><a href="../member/source.php">添加其他源</a></div>
-  <div><a href="../member/index.php">暂不添加其他源，马上体验口立方</a></div>
-</div>

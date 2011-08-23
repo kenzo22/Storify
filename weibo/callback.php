@@ -33,11 +33,7 @@ if (isset($msg['id'])){
 
 $result=$DB->query("update ".$db_prefix."user set weibo_user_id='".$weibo_uid."', weibo_access_token='".$_SESSION['last_key']['oauth_token']."', weibo_access_token_secret='".$_SESSION['last_key']['oauth_token_secret']."' WHERE id='".$_SESSION['uid']."'");
 
-
+header("location: ../member/source.php"); 
 ?>
-<div class='inner' style='padding-top:50px;'>
-  <div><a href="../member/source.php">添加其他源</a></div>
-  <div><a href="../member/index.php">暂不添加其他源，马上体验口立方</a></div>
-</div>
 <?php include "../include/footer.htm"; ?>
 

@@ -169,8 +169,12 @@ vertical-align:top;
 
 #source_ul li .source_status{
 float:right;
-margin-right:500px;
+margin-right:420px;
 vertical-align:top;
+}
+
+#source_ul li .unbind_source{
+margin-left:70px;
 }
 
 /* topic part */
