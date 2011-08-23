@@ -70,6 +70,8 @@ else
     if(textStatus == 'success')
 	{
 	  $('#sina_weibo').text('添加');
+	  $('.modify_notify').remove();
+	  $('#source_ul').before(data);
 	}
   });
 }
@@ -96,6 +98,8 @@ else
     if(textStatus == 'success')
 	{
 	  $('#tencent_weibo').text('添加');
+	  $('.modify_notify').remove();
+	  $('#source_ul').before(data);
 	}
   });
 }
@@ -122,6 +126,8 @@ else
     if(textStatus == 'success')
 	{
 	  $('#yupoo_pic').text('添加');
+	  $('.modify_notify').remove();
+	  $('#source_ul').before(data);
 	}
   });
 }

@@ -18,6 +18,7 @@ if($operation == 'add')
 else
 {
   $result=$DB->query("update ".$db_prefix."user set tweibo_user_id='0', tweibo_access_token='', tweibo_access_token_secret='' WHERE id='".$_SESSION['uid']."'");
+  echo "<div class='modify_notify' style='width:100%; text-align:center; background-color: #FFF6EE;'><span>更新腾讯微博设置成功</span></div>";
 }
 
 ?>

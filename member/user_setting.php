@@ -18,7 +18,7 @@ $user_set = "<div class='inner' style='padding-top:50px;'>
 				<span class='now'>
 				  <span>基本设置</span>
 				</span>
-				<a href='/storify/member/managesource.php'>第三方应用授权</a>
+				<a href='/storify/member/source.php'>第三方应用授权</a>
 			  </div>
 			</div>
 			<form id='lzform' name='lzform' method='post'>
