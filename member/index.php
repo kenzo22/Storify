@@ -137,7 +137,7 @@ if(isset($_GET['post_id']))
 		</div>
 		<div id='storylist_container'>
 		  <ul id='story_list' class='connectedSortable' style='padding:0;'><li class='addTextElementAnchor'>
-			  <span><a><img class='add_comment' src='/Storify/img/editcomment.png' border='0'/></a></span></li>";
+			  <span><a><img class='add_comment' src='/storify/img/editcomment.png' border='0'/></a></span></li>";
   
   foreach($story_content_array['content'] as $key=>$val)
   {	
@@ -159,31 +159,31 @@ if(isset($_GET['post_id']))
 	  if (isset($single_weibo['id']) && isset($single_weibo['text']))
 	  {
 		$createTime = dateFormat($single_weibo['created_at']);
-		$content .= ("<li class='weibo_drop sina' id='$weibo_per_id'><div class='cross' action='delete'><a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>"
+		$content .= ("<li class='weibo_drop sina' id='$weibo_per_id'><div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>"
 					.$single_weibo['text']."</span></div><div id='story_signature'><span style='float:right;'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
 					.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><span id='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='weibo_from_drop' href='http://weibo.com/"
-					.$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px' src='/Storify/img/sina16.png'/><a>"
-					.$createTime."</a></span></div></span></div></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/Storify/img/editcomment.png' border='0'/></a></span></li>");
+					.$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px' src='/storify/img/sina16.png'/><a>"
+					.$createTime."</a></span></div></span></div></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/storify/img/editcomment.png' border='0'/></a></span></li>");
 	  }
 	}
 	else if($val['type'] === 'tweibo')
 	{
 	  $tweibo_per_id = $val['content'];
 	  $tweibo_id_array[] = $tweibo_per_id;
-	  $content .="<li class='weibo_drop tencent' id='$tweibo_per_id'><div class='cross' action='delete'><a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div></li>
-	  <li class='addTextElementAnchor'><span><a><img class='add_comment' src='/Storify/img/editcomment.png' border='0'/></a></span></li>";
+	  $content .="<li class='weibo_drop tencent' id='$tweibo_per_id'><div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div></li>
+	  <li class='addTextElementAnchor'><span><a><img class='add_comment' src='/storify/img/editcomment.png' border='0'/></a></span></li>";
 	}
 	else if($val['type'] === 'comment')
 	{
 	  $comment_text = $val['content'];
-	  $content .="<li class='textElement editted'><div class='cross' action='delete'><a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='commentBox'>"
-	  .$comment_text."</div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/Storify/img/editcomment.png' border='0'/></a></span></li>";		
+	  $content .="<li class='textElement editted'><div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='commentBox'>"
+	  .$comment_text."</div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/storify/img/editcomment.png' border='0'/></a></span></li>";		
 	}
 	else if($val['type'] === 'video')
 	{
 	  $video_url_php = $val['content'];
-	  $content .="<li class='video_drop'><div class='cross' action='delete'><a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div><a class='videoTitle' target='_blank' href='"
-	  .$video_url_php."'></a></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/Storify/img/editcomment.png' border='0'/></a></span></li>";    	
+	  $content .="<li class='video_drop'><div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div><a class='videoTitle' target='_blank' href='"
+	  .$video_url_php."'></a></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/storify/img/editcomment.png' border='0'/></a></span></li>";    	
 	}
 	else if($val['type'] === 'photo')
 	{
@@ -191,8 +191,8 @@ if(isset($_GET['post_id']))
 	  $photo_title = $photo_meta_data['title'];
 	  $photo_author = $photo_meta_data['author'];
 	  $photo_per_url = $photo_meta_data['url'];	 
-	  $content .="<li class='pic_drop'><div class='cross' action='delete'><a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div style='margin:0px auto; text-align:center; border: 5px solid #FFFFFF; box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); max-width: 260px;'><img class='pic_img' src='"
-				.$photo_per_url."'/><div class='pic_title' style='line-height:1.5;'>".$photo_title."</div><div class='pic_author' style='line-height:1.5;'>".$photo_author."</div></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/Storify/img/editcomment.png' border='0'/></a></span></li>";    	
+	  $content .="<li class='pic_drop'><div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div style='margin:0px auto; text-align:center; border: 5px solid #FFFFFF; box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); max-width: 260px;'><img class='pic_img' src='"
+				.$photo_per_url."'/><div class='pic_title' style='line-height:1.5;'>".$photo_title."</div><div class='pic_author' style='line-height:1.5;'>".$photo_author."</div></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/storify/img/editcomment.png' border='0'/></a></span></li>";    	
 	}
   }
   
@@ -253,7 +253,7 @@ else
 		<div id='storylist_container'>
 		  <ul id='story_list' class='connectedSortable' style='padding:0;'>
 		    <li class='addTextElementAnchor'>
-			  <span><a><img class='add_comment' src='/Storify/img/editcomment.png' border='0'/></a></span>
+			  <span><a><img class='add_comment' src='/storify/img/editcomment.png' border='0'/></a></span>
 		    </li>
 		  </ul>
 		</div>
@@ -559,7 +559,7 @@ $(function() {
 			cancel: ".weibo_drop, .video_drop, .textElement",
 			receive: function(event, ui) 
 			{
-			  var commentContent = ("<li class='addTextElementAnchor'><span><a><img class='add_comment' src='/Storify/img/editcomment.png' border='0'/></a></span></li>");
+			  var commentContent = ("<li class='addTextElementAnchor'><span><a><img class='add_comment' src='/storify/img/editcomment.png' border='0'/></a></span></li>");
 			  if(!ui.item.prev('li').hasClass('addTextElementAnchor'))
 			  {
 			    ui.item.before(commentContent)
@@ -581,10 +581,10 @@ $(function() {
 			    if(ui.item.hasClass('sina'))
 				{
 				  ui.item.removeClass('weibo_drag').addClass('weibo_drop sina').children().remove();
-				  content = ("<div class='cross' action='delete'><a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>"
+				  content = ("<div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>"
 					+weibo_Text+"</span></div><div id='story_signature'><span style='float:right;'><a href='http://weibo.com/"+weibo_from_id+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
 					+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></span><span id='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='weibo_from_drop' href='http://weibo.com/"
-					+weibo_from_id+"' target='_blank'>"+weibo_from+"</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px' src='/Storify/img/sina16.png'/><a>"
+					+weibo_from_id+"' target='_blank'>"+weibo_from+"</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px' src='/storify/img/sina16.png'/><a>"
 					+weibo_time+"</a></span></div></span> </div></div>");
 				  if(ui.item.index() == 1)
 				  {
@@ -594,10 +594,10 @@ $(function() {
 				else
 				{
 				  ui.item.removeClass('weibo_drag').addClass('weibo_drop tencent').children().remove();
-				  content = ("<div class='cross' action='delete'><a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>"
+				  content = ("<div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>"
 					+weibo_Text+"</span></div><div id='story_signature'><span style='float:right;'><a href='http://weibo.com/"+weibo_from_id+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
 					+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></span><span id='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='weibo_from_drop' href='http://weibo.com/"
-					+weibo_from_id+"' target='_blank'>"+weibo_from+"</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px' src='/Storify/img/tencent16.png'/><a>"
+					+weibo_from_id+"' target='_blank'>"+weibo_from+"</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px' src='/storify/img/tencent16.png'/><a>"
 					+weibo_time+"</a></span></div></span> </div></div>");
 				  if(ui.item.index() == 1)
 				  {
@@ -614,7 +614,7 @@ $(function() {
 				var videoUrl = ui.item.find('.videoTitle').attr('href');
 				var videoTitle = ui.item.find('.videoTitle').text();
 				var videoEmbedCode;
-				var videoContent = ("<div class='cross' action='delete'><a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div><a id='"+thumbnailUrl+"' class='videoTitle' target='_blank' href='"
+				var videoContent = ("<div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div><a id='"+thumbnailUrl+"' class='videoTitle' target='_blank' href='"
 				+videoUrl+"'>"+videoTitle+"</a></div>"+embedCode);
 				ui.item.removeClass('video_Drag').addClass('video_drop').children().remove();　
 			    ui.item.append(videoContent);
@@ -634,7 +634,7 @@ $(function() {
 				temp_array[temp_array_length-1] = "small";
 				picUrl = temp_array.join("\/");
 				
-				var picContent = ("<div class='cross' action='delete'><a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div style='margin:0px auto; text-align:center; border: 5px solid #FFFFFF; box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); max-width: 260px;'><img class='pic_img' src='"
+				var picContent = ("<div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div style='margin:0px auto; text-align:center; border: 5px solid #FFFFFF; box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); max-width: 260px;'><img class='pic_img' src='"
 				+picUrl+"'/><div class='pic_title' style='line-height:1.5;'>"+picTitle+"</div><div class='pic_author' style='line-height:1.5;'>"+picAuthor+"</div></div>");
 				ui.item.removeClass('pic_Drag').addClass('pic_drop').children().remove();　
 			    ui.item.append(picContent);
@@ -1077,7 +1077,7 @@ $(function() {
 		{
 		  if ($(e.target).is('.add_comment'))
 		  {
-		    var $comment_box = $("<li class='textElement editing'><div class='editingDiv'><form class='formTextElement'><textarea class='inputEditor' name='inputEditor'></textarea></form><div class='belowTextEdit'><div class='actions' style='padding-left:338px;'><button class='cancel small cancelEditor' type='reset'>Cancel</button><button class='submit small blue submitComment' type='submit'>Done</button></div></div></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/Storify/img/editcomment.png' border='0'/></a></span></li>");
+		    var $comment_box = $("<li class='textElement editing'><div class='editingDiv'><form class='formTextElement'><textarea class='inputEditor' name='inputEditor'></textarea></form><div class='belowTextEdit'><div class='actions' style='padding-left:338px;'><button class='cancel small cancelEditor' type='reset'>Cancel</button><button class='submit small blue submitComment' type='submit'>Done</button></div></div></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/storify/img/editcomment.png' border='0'/></a></span></li>");
 		    $(e.target).closest('li').after($comment_box);
 			$(".inputEditor").cleditor({
 			width:455,
@@ -1099,7 +1099,7 @@ $(function() {
 			var $textElement = $(e.target).closest('.textElement');
 			var comment = $textElement.find('.inputEditor').val();
 			$(e.target).closest('.editingDiv').remove();
-			var $commentDiv = $("<div class='cross' action='delete'><a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='commentBox'>"+comment+"</div>");
+			var $commentDiv = $("<div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='commentBox'>"+comment+"</div>");
 			$textElement.removeClass('editing').addClass('editted').append($commentDiv);
 		  }
 		});

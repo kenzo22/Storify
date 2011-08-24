@@ -111,8 +111,8 @@ if(!islogin())
 			  $post_date = $story_item['post_date'];
 			  $temp_array = explode(" ", $story_item['post_date']);
 			  $post_date = $temp_array[0];
-			  $story_content .= "<li><a class='cover' href='/Storify/member/user.php?post_id=".$story_item['ID']."'><div class='title_wrap'><h1 class='title'>".$post_title."</h1></div></a><div class='story_meta' 
-			  ><span><img border='0' style='position:relative; top:2px' src='/Storify/img/sina16.png'/><a style='margin-left:5px;'>".$userresult['username']."</a><a style='float:right;'>".$post_date."</a></span></div></li>";
+			  $story_content .= "<li><a class='cover' href='/storify/member/user.php?post_id=".$story_item['ID']."'><div class='title_wrap'><h1 class='title'>".$post_title."</h1></div></a><div class='story_meta' 
+			  ><span><img border='0' style='position:relative; top:2px' src='/storify/img/sina16.png'/><a style='margin-left:5px;'>".$userresult['username']."</a><a style='float:right;'>".$post_date."</a></span></div></li>";
 			}
 			echo $story_content;
 			?>
@@ -138,7 +138,7 @@ if(!islogin())
 					//need to fetch the title of the most popular story which has this specific tag
 					$most_popular_title = "测试";
 					$tag_content .= "<li><div class='topic_meta'><span class='topic_title'>#".$tag_name."#</span><span class='story_count'>".$tag_count."</span></div>
-					<a class='topic_cover' style='background-image: url(/Storify/img/iphone.jpg);' href='./topic/topic.php?topic=".$tag_name."'><div class='title_wrap'><h1 class='title'>".$most_popular_title."</h1></div></a></li>";
+					<a class='topic_cover' style='background-image: url(/storify/img/iphone.jpg);' href='./topic/topic.php?topic=".$tag_name."'><div class='title_wrap'><h1 class='title'>".$most_popular_title."</h1></div></a></li>";
 				  }
 				  echo $tag_content;
 				?>
@@ -211,7 +211,7 @@ $(document).ready(function()
 	  {
 	    var weibo_user_id_val = o.id;
 	    var weibo_scree_name_val = o.screen_name;
-	    $.post('/Storify/login/weibo_login.php', {weibo_user_id: weibo_user_id_val, weibo_scree_name: weibo_scree_name_val}, 		
+	    $.post('/storify/login/weibo_login.php', {weibo_user_id: weibo_user_id_val, weibo_scree_name: weibo_scree_name_val}, 		
 	    function(data, textStatus)
 	    {
 		  console.log(data);

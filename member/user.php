@@ -44,13 +44,13 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	  {
 	    $content = "<div id='story_container'><div id='publish_container' class='showborder'>
 			  <div id='story_action'><span>".$story_status."</span><span class='float_r'><a href='#'>通告
-			  </a> | <a href='/Storify/member/user.php?post_id=".$post_id."&action=remove'>删除</a> | <a href='/Storify/member/user.php?post_id=".$post_id."&action=edit'>编辑</a></span></div>";
+			  </a> | <a href='/storify/member/user.php?post_id=".$post_id."&action=remove'>删除</a> | <a href='/storify/member/user.php?post_id=".$post_id."&action=edit'>编辑</a></span></div>";
 	  }
 	  else
 	  {
 	    $content = "<div id='story_container'><div id='publish_container' class='showborder'>
-			  <div id='story_action'><span>".$story_status."</span><span class='float_r'><a href='/Storify/member/user.php?post_id=".$post_id."&action=remove'>删除
-			  </a> | <a href='/Storify/member/user.php?post_id=".$post_id."&action=edit'>编辑</a> | <a href='/Storify/member/user.php?post_id=".$post_id."&action=publish'>发布</a></span></div>";
+			  <div id='story_action'><span>".$story_status."</span><span class='float_r'><a href='/storify/member/user.php?post_id=".$post_id."&action=remove'>删除
+			  </a> | <a href='/storify/member/user.php?post_id=".$post_id."&action=edit'>编辑</a> | <a href='/storify/member/user.php?post_id=".$post_id."&action=publish'>发布</a></span></div>";
 	  }	
 	}
 	$content .="<div style='padding-left:20px;'><h2>".$story_title."</h2></div>
@@ -82,7 +82,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 			<div id='story_signature'><span style='float:right;'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
 			.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><span id='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'>
 			<span ><a class='weibo_from' href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date'  style='text-align:right; height:16px;'><span>
-			<img border='0' style='position:relative; top:2px' src='/Storify/img/sina16.png'/><a>".$createTime."</a></span></div></span> </div></div></li>";
+			<img border='0' style='position:relative; top:2px' src='/storify/img/sina16.png'/><a>".$createTime."</a></span></div></span> </div></div></li>";
 		}
 	  }
 	  else if($val['type'] === 'tweibo')
@@ -284,8 +284,8 @@ else
 	$post_date = $story_item['post_date'];
 	$temp_array = explode(" ", $story_item['post_date']);
 	$post_date = $temp_array[0];
-    $story_content .= "<li><a class='cover' href='/Storify/member/user.php?post_id=".$story_item['ID']."'><div class='title_wrap'><h1 class='title'>".$post_title."</h1></div></a><div class='story_meta' 
-	><span><img border='0' style='position:relative; top:2px' src='/Storify/img/sina16.png'/><a style='margin-left:5px;'>".$_SESSION['username']."</a><a style='margin-left:65px;'>".$post_date."</a></span></div></li>";
+    $story_content .= "<li><a class='cover' href='/storify/member/user.php?post_id=".$story_item['ID']."'><div class='title_wrap'><h1 class='title'>".$post_title."</h1></div></a><div class='story_meta' 
+	><span><img border='0' style='position:relative; top:2px' src='/storify/img/sina16.png'/><a style='margin-left:5px;'>".$_SESSION['username']."</a><a style='margin-left:65px;'>".$post_date."</a></span></div></li>";
   }
 
   $story_content .="</ul></div></div>";
