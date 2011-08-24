@@ -337,6 +337,52 @@ function append_video_content(url)
   });
 }
 
+function remove_item(event)
+{
+	var $temp = $(event.target || event.srcElement).closest('li');
+	if($temp.index() == 1 && !$temp.hasClass('textElement'))
+	{
+      var story_pic_url;
+	  $('#story_list li:not(.addTextElementAnchor, .textElement)').each(function(index)
+	  {
+		if(index > 0)
+		{
+		  if($(this).hasClass('sina'))
+		  {
+		    story_pic_url = $(this).find('.profile_img_drop').attr('src').replace(/(\d+)\/50\/(\d+)/, "$1\/180\/$2");
+			return false;
+		  }
+		  else if($(this).hasClass('tencent'))
+		  {
+		    story_pic_url = $(this).find('.profile_img_drop').attr('src').replace(/50$/, "100");
+			return false;
+		  }
+		  else if($(this).hasClass('pic_drop'))
+		  {
+		    story_pic_url = $(this).find('.pic_img').attr('src');
+			return false;
+		  }
+		  else if($(this).hasClass('video_drop'))
+		  {
+		    story_pic_url = $(this).find('.videoTitle').attr('id');
+			return false;
+		  }
+		}
+	  });
+	  $('#story_thumbnail').attr('src', story_pic_url);
+	}
+	$temp.next('li').remove();
+	$temp.remove();
+}
+
+function find_story_pic(direction)
+{
+  //debugger;
+  var length = $('#story_list li:not(.addTextElementAnchor, .textElement)').length;
+  //var length = $('#story_list li').length;
+  //alert(length);
+}
+
 $(function() {
 		//$( '#story_list' ).scrollFollow();
 		var $weiboTabs = $( '#weiboTabs' ).tabs();
@@ -559,17 +605,23 @@ $(function() {
 				  }
 				}
 				ui.item.append(content);	
+				find_story_pic('prev');
 			    WB.widget.atWhere.searchAndAt(document.getElementById("story_list"));
 			  }
 			  else if(ui.item.hasClass('video_Drag'))
 			  {
-			    var videoUrl = ui.item.find('.videoTitle').attr('href');
+			    var thumbnailUrl = ui.item.find('.youku_thumbnail').attr('src');
+				var videoUrl = ui.item.find('.videoTitle').attr('href');
 				var videoTitle = ui.item.find('.videoTitle').text();
 				var videoEmbedCode;
-				var videoContent = ("<div class='cross' action='delete'><a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div><a class='videoTitle' target='_blank' href='"
+				var videoContent = ("<div class='cross' action='delete'><a><img src='/Storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div><a id='"+thumbnailUrl+"' class='videoTitle' target='_blank' href='"
 				+videoUrl+"'>"+videoTitle+"</a></div>"+embedCode);
 				ui.item.removeClass('video_Drag').addClass('video_drop').children().remove();　
 			    ui.item.append(videoContent);
+				if(ui.item.index() == 1)
+				{
+				  $('#story_thumbnail').attr('src', thumbnailUrl);
+				}
 			  }
 			  else if(ui.item.hasClass('pic_Drag'))
 			  {
@@ -586,6 +638,10 @@ $(function() {
 				+picUrl+"'/><div class='pic_title' style='line-height:1.5;'>"+picTitle+"</div><div class='pic_author' style='line-height:1.5;'>"+picAuthor+"</div></div>");
 				ui.item.removeClass('pic_Drag').addClass('pic_drop').children().remove();　
 			    ui.item.append(picContent);
+				if(ui.item.index() == 1)
+				{
+				  $('#story_thumbnail').attr('src', picUrl.replace(/small$/, "square"));
+				}
 			  }
 			}
 		});/*.disableSelection();*/
@@ -602,7 +658,7 @@ $(function() {
 			videoTitle = oembed.title;
 			var post = "<li class='video_Drag'><div class='urlWrapper'><div><a class='videoTitle' target='_blank' href='"+videoUrl+"'>"+oembed.title+
 			"</a></div><div class='videoContent'><div class='video_domain'><div class='video_favicon' style='display:inline; position:relative; top:4px'><img src='/storify/img/youku.ico'/></div><div class='video_author' style='display:inline; margin-left:3px;'><a target='_blank' href='"
-			+videoUrl+"'>v.youku.com</a></div></div><div><img src='"+oembed.thumbnail_url+"' style='float:left; margin-right:5px; border: 1px solid #E9E9E9; padding:3px;'/><div class='video_description' style='line-height:1.5;'>"+oembed.description+"</div></div></div></div></li>";
+			+videoUrl+"'>v.youku.com</a></div></div><div><img class='youku_thumbnail' src='"+oembed.thumbnail_url+"' style='float:left; margin-right:5px; border: 1px solid #E9E9E9; padding:3px;'/><div class='video_description' style='line-height:1.5;'>"+oembed.description+"</div></div></div></div></li>";
 			$('#source_list').append(post);  
 		  }		  			
           });

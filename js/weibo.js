@@ -125,13 +125,6 @@ function my_follow(page)
   run_timeline_cmd(type, method, args);
 }
 
-function remove_item(event)
-{
-	var $temp = $(event.target || event.srcElement).closest('li');
-	$temp.next('li').remove();
-	$temp.remove();
-}
-
 function display_close(event)
 {
   //alert('over');
