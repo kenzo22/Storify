@@ -5,7 +5,7 @@ $uid=intval($_SESSION['uid']);
 $result=$DB->fetch_one_array("select * from story_user where id=".$uid);
 if(!empty($result['photo']))
 {
-  $userphoto="<img style='float:left;' width='90px' src='".$rooturl."/img/user/".$result['photo']."'> </img><div><a style='margin-left:10px;float:left' href='/storify/member/uploadphoto.php/'>更换头像</a></div>";
+  $userphoto="<img style='float:left;' width='90px' src='".$rooturl."/img/user/".$result['photo']."'> </img><div><a style='margin-left:10px;float:left' href='/storify/member/uploadphoto.php'>更换头像</a></div>";
 }    
 else
 {
@@ -41,7 +41,7 @@ $user_set = "<div class='inner' style='padding-top:50px;'>
 				 <tr>
 				   <td align='right'>登录邮箱: </td>
 				   <td valign='top'>
-					 <span>xinxinzhang22@gmail.com</span>
+					 <span>".$result['email']."</span>
 					 <a href='/accounts/emailchange'>更改</a>
 				   </td>
 				 </tr>

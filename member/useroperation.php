@@ -1,18 +1,18 @@
 <?php
 include "../connect_db.php";
 include "../include/functions.php";
-session_start();
-  
+include "userrelation.php";
+ 
 $operation=$_POST['operation'];
-$uid = $_POST['uid'];
+$follow_uid = $_POST['uid'];
+
 switch($operation)
   {
 	case "follow":
-	  //echo $uid;
-	  echo 'follow';
+                follow($follow_uid);
 		break;
 	case"unfollow":
-	  //echo 'unfollow';
+                unfollow($follow_uid);
 		break;
 	default:
 		break;
