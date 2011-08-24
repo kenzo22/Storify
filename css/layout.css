@@ -191,7 +191,7 @@ margin-left:70px;
 
 /* weibo part*/
 #source_pane{position:fixed; top:120px; width:390px; height:770px; }
-#story_pane{position:relative; margin-left:20px; width:450px; min-height: 770px;}
+#story_pane{position:relative; margin-left:20px; width:510px; min-height: 770px;}
 #source_list{height:635px; overflow:auto;}
 #story_list{position: inherit; margin:0; min-height:617px; border: 1px solid #C9C9C9; height:auto; overflow:hidden; list-style: none outside none;}
 #story {}
@@ -222,7 +222,7 @@ margin-left:70px;
  }
  
   .video_drop{
-  padding:0px 5px 5px 5px;
+  padding:0px 10px 10px 10px;
   border-color:#ababac;
   border-style:solid;
   border-width:2px;
@@ -269,7 +269,7 @@ margin-left:70px;
   }
   
 .cross{
-  padding-left:410px;
+  padding-left:450px;
 }
   
 .addTextElementAnchor{
@@ -349,26 +349,73 @@ height:16px;
  
  /*edit story part */
  #story_header{
- border: 1px solid #C9C9C9; padding-bottom:15px; border-bottom:none;
+ border: 1px solid #C9C9C9; padding: 10px 10px 15px 10px; border-bottom:none;
  }
  
  #story_pic{
- width:90px;
- height:110px;
- border: 1px solid;
+ width:100px;
+ min-height:100px;
  float:left;
+ margin-right:20px;
  }
  
+ #story_pic p {
+ margin:0;
+ width:98px;
+ height:98px;
+position:relative;
+overflow:hidden;
+background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 3px 3px 3px 3px;
+    display: block;
+	padding: 3px;
+    text-align: center;
+ }
+ 
+#story_pic p img
+{
+  background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #BBBEBF;
+	border-radius: 2px 2px 2px 2px;
+    display: block;
+    max-height: 90px;
+    padding: 4px;
+    position: absolute;
+}
+ 
+ #story_pic ul
+ {
+   list-style: none outside none;
+    margin: 4px 2px 2px 5px;
+    overflow: hidden;
+    padding: 0;
+    width: 100%;
+ }
+ 
+#story_pic ul li{
+float:left;
+}
+
+#story_pic ul li *{
+
+    border: 1px solid #BBBEBF;
+    float: left;
+    font-size: 0;
+    height: 16px;
+    width: 46px;
+}
+ 
  #sto_title{
- width:330px; margin:10px; font-weight:bold;
+ width:360px; margin:1px 0 10px; font-weight:bold;height:30px;
  }
  
  #sto_summary{
- width:330px; height:60px; margin:0px 10px;
+ width:360px; height:80px; margin-bottom:10px; 
  }
  
  #sto_tag{
- width:430px; margin:10px;
+ width:480px; margin:0 0px 10px;height:25px;
  }
 
 /* publish part*/

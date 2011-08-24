@@ -235,7 +235,13 @@ if(isset($_GET['post_id']))
 else
 {
   $content .= "<div id='story_header'>
-		  <div id='story_pic'></div>
+		  <div id='story_pic'>
+		    <p><img id='story_thumbnail' width='88' name='story_thumbnail' alt='thumbnail' src='../img/storypic.jpeg'</p>
+			<ul id='imagecontroller'>
+			  <li id='prev_img'><a href='#'>prev</a></li>
+			  <li id='next_img'><a href='#'>next</a></li>
+			</ul>
+		  </div>
 		  <span ><input type='text' value='' name='story_title' id='sto_title'></span>
 		  <div>
 		    <textarea id='sto_summary'></textarea>
@@ -612,7 +618,7 @@ $(function() {
 		
 		if($('#sto_summary').val() =='')
 		{
-		  $('#sto_summary').val('给你的故事写一个简短的描述').css('color', '#d8d8d8').focus(function(){
+		  $('#sto_summary').val('给你的故事写一个简短的描述').css('color', '#999999').focus(function(){
 		  if($(this).val() == '给你的故事写一个简短的描述')
 		  {
 		    $(this).val('').css('color', 'black');
@@ -620,10 +626,25 @@ $(function() {
 		  }).blur(function(){
 		  if($(this).val() == '')
 		  {
-		    $(this).val('给你的故事写一个简短的描述').css('color', '#d8d8d8');
+		    $(this).val('给你的故事写一个简短的描述').css('color', '#999999');
 		  }
 		  });
-		}		
+		}
+
+		if($('#sto_tag').val() =='')
+		{
+		  $('#sto_tag').val('添加故事标签').css('color', '#999999').focus(function(){
+		  if($(this).val() == '添加故事标签')
+		  {
+		    $(this).val('').css('color', 'black');
+		  }		  
+		  }).blur(function(){
+		  if($(this).val() == '')
+		  {
+		    $(this).val('添加故事标签').css('color', '#999999');
+		  }
+		  });
+		}	
 		
 		$('#story_list').hover(function(e){
 		if ($(e.target).is('.weibo_drop'))
@@ -992,10 +1013,10 @@ $(function() {
 		{
 		  if ($(e.target).is('.add_comment'))
 		  {
-		    var $comment_box = $("<li class='textElement editing'><div class='editingDiv'><form class='formTextElement'><textarea class='inputEditor' name='inputEditor'></textarea></form><div class='belowTextEdit'><div class='actions' style='padding-left:305px;'><button class='cancel small cancelEditor' type='reset'>Cancel</button><button class='submit small blue submitComment' type='submit'>Done</button></div></div></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/Storify/img/editcomment.png' border='0'/></a></span></li>");
+		    var $comment_box = $("<li class='textElement editing'><div class='editingDiv'><form class='formTextElement'><textarea class='inputEditor' name='inputEditor'></textarea></form><div class='belowTextEdit'><div class='actions' style='padding-left:338px;'><button class='cancel small cancelEditor' type='reset'>Cancel</button><button class='submit small blue submitComment' type='submit'>Done</button></div></div></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/Storify/img/editcomment.png' border='0'/></a></span></li>");
 		    $(e.target).closest('li').after($comment_box);
 			$(".inputEditor").cleditor({
-			width:415,
+			width:455,
 			height:150,
 			controls:"bold italic underline strikethrough link | font size",
 			
