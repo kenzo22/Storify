@@ -131,8 +131,8 @@ if(isset($_GET['post_id']))
 		  <div id='story_pic'>
 		    <p><img id='story_thumbnail' width='88' alt='thumbnail' src='".$story_pic."'</p>
 			<ul id='imagecontroller'>
-			  <li id='prev_img'><a href='#'>prev</a></li>
-			  <li id='next_img'><a href='#'>next</a></li>
+			  <li><a id='prev_img' href='#'>prev</a></li>
+			  <li><a id='next_img' href='#'>next</a></li>
 			</ul>
 		  </div>
 		  <span > <input type='text' value='".$story_title."' name='story_title' id='sto_title'> </span>
@@ -246,8 +246,8 @@ else
 		  <div id='story_pic'>
 		    <p><img id='story_thumbnail' width='88' alt='thumbnail' src='../img/storypic.jpeg'</p>
 			<ul id='imagecontroller'>
-			  <li id='prev_img'><a href='#'>prev</a></li>
-			  <li id='next_img'><a href='#'>next</a></li>
+			  <li><a id='prev_img' href='#'>prev</a></li>
+			  <li><a id='next_img' href='#'>next</a></li>
 			</ul>
 		  </div>
 		  <span ><input type='text' value='' name='story_title' id='sto_title'></span>
@@ -289,6 +289,16 @@ var usersearchTimestamp;
 var tweibosearchPage = 1;
 
 var vtabIndex;
+
+Array.prototype.getUnique = function()
+{
+  var o = new Object();
+  var i, e;
+  for (i = 0; e = this[i]; i++) {o[e] = 1};
+  var a = new Array();
+  for (e in o) {a.push (e)};
+  return a;
+} 
 
 WB.core.load(['connect', 'client', 'widget.base', 'widget.atWhere'], function() 
 {
@@ -362,12 +372,12 @@ function remove_item(event)
 		  }
 		  else if($(this).hasClass('tencent'))
 		  {
-		    story_pic_url = $(this).find('.profile_img_drop').attr('src').replace(/50$/, "100");
+		    story_pic_url = $(this).find('.profile_img_drop').attr('src').replace(/50$/, "180");
 			return false;
 		  }
 		  else if($(this).hasClass('pic_drop'))
 		  {
-		    story_pic_url = $(this).find('.pic_img').attr('src');
+		    story_pic_url = $(this).find('.pic_img').attr('src').replace(/small$/, "square");
 			return false;
 		  }
 		  /*else if($(this).hasClass('video_drop'))
@@ -383,16 +393,72 @@ function remove_item(event)
 	$temp.remove();
 }
 
-function find_story_pic(direction)
+function change_story_pic(direction)
 {
   //debugger;
-  var length = $('#story_list li:not(.addTextElementAnchor, .textElement)').length;
-  //var length = $('#story_list li').length;
-  //alert(length);
+  var item_pic_url;
+  var story_pic_array = new Array();
+  $('#story_list li:not(.addTextElementAnchor, .textElement, .video_drop)').each(function(index){
+    if($(this).hasClass('sina'))
+    {
+	  item_pic_url = $(this).find('.profile_img_drop').attr('src').replace(/(\d+)\/50\/(\d+)/, "$1\/180\/$2");
+	  story_pic_array.push(item_pic_url);
+    }
+    else if($(this).hasClass('tencent'))
+    {
+	  item_pic_url = $(this).find('.profile_img_drop').attr('src').replace(/50$/, "180");
+	  story_pic_array.push(item_pic_url);
+    }
+    else if($(this).hasClass('pic_drop'))
+    {
+	  item_pic_url = $(this).find('.pic_img').attr('src').replace(/small$/, "square");
+	  story_pic_array.push(item_pic_url);
+    }
+  });
+  story_pic_array = story_pic_array.getUnique();
+  var current_pic_url = $('#story_thumbnail').attr('src');
+  var url_array_length = story_pic_array.length;
+  var i;
+  for(i=0;i<url_array_length ;i++)
+  {
+	if(story_pic_array[i]===current_pic_url)
+    {
+	  break;
+    }
+  }
+  if(direction == 'next')
+  {
+    i = i+1;
+	if(i == url_array_length)
+	{
+	  i=0;
+	}
+	$('#story_thumbnail').attr('src', story_pic_array[i]);
+  }
+  else if(direction == 'prev')
+  {
+    i = i-1;
+	if(i<0)
+	{
+	  i=url_array_length-1;
+	}
+	$('#story_thumbnail').attr('src', story_pic_array[i]);
+  }
 }
 
 $(function() {
-		//$( '#story_list' ).scrollFollow();
+		$('#prev_img').click(function(e)
+		{
+		  e.preventDefault();
+		  change_story_pic('prev');
+		});
+		
+		$('#next_img').click(function(e)
+		{
+		  e.preventDefault();
+		  change_story_pic('next');
+		});
+		
 		var $weiboTabs = $( '#weiboTabs' ).tabs();
 		var $picTabs = $( '#picTabs' ).tabs();
 		/*var $weiboTabs = $( '#weiboTabs' ).tabs({
@@ -613,7 +679,6 @@ $(function() {
 				  }
 				}
 				ui.item.append(content);	
-				find_story_pic('prev');
 			    WB.widget.atWhere.searchAndAt(document.getElementById("story_list"));
 			  }
 			  else if(ui.item.hasClass('video_Drag'))

@@ -26,6 +26,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	$userresult = $DB->fetch_one_array("SELECT username, intro, photo FROM ".$db_prefix."user where id='".$story_author."'");
 	$story_title=$result['post_title'];
 	$story_summary=$result['post_summary'];
+	$story_pic=$result['post_pic_url'];
 	$story_status=$result['post_status'];
 	$story_content=$result['post_content'];
 	$temp_array = json_decode($story_content, true);
@@ -53,9 +54,10 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 			  </a> | <a href='/storify/member/user.php?post_id=".$post_id."&action=edit'>编辑</a> | <a href='/storify/member/user.php?post_id=".$post_id."&action=publish'>发布</a></span></div>";
 	  }	
 	}
-	$content .="<div style='padding-left:20px;'><h2>".$story_title."</h2></div>
+	$content .="<div id='story_header' style='margin:0; padding:0;'><div style='float:right; padding: 10px 10px 0 0'><img src='".$story_pic."' style='width:60px; height:60px;' /></div><div style='padding-left:20px;'><h2>".$story_title."</h2></div>
 			  <div style='padding-left:20px;'>".$_SESSION['username']."</div>
 			  <div style='padding-left:20px; border-bottom:1px solid #C9C9C9;'>".$story_summary."</div>
+			  </div>
 			  <ul id='weibo_ul' style='padding:0;'>";
 	
 	foreach($story_content_array as $key=>$val)
