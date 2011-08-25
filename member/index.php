@@ -121,12 +121,20 @@ if(isset($_GET['post_id']))
   }
   $story_title=$result['post_title'];
   $story_summary=$result['post_summary'];
+  $story_pic=$result['post_pic_url'];
   $story_content=$result['post_content'];
   $story_content_array = json_decode($story_content, true);
   $weibo_id_array = array();
   $tweibo_id_array = array();
 	
   $content .="<div id='story_header'>
+		  <div id='story_pic'>
+		    <p><img id='story_thumbnail' width='88' alt='thumbnail' src='".$story_pic."'</p>
+			<ul id='imagecontroller'>
+			  <li id='prev_img'><a href='#'>prev</a></li>
+			  <li id='next_img'><a href='#'>next</a></li>
+			</ul>
+		  </div>
 		  <span > <input type='text' value='".$story_title."' name='story_title' id='sto_title'> </span>
 		  <div>
 		    <textarea id='sto_summary'>".$story_summary."</textarea>
@@ -236,7 +244,7 @@ else
 {
   $content .= "<div id='story_header'>
 		  <div id='story_pic'>
-		    <p><img id='story_thumbnail' width='88' name='story_thumbnail' alt='thumbnail' src='../img/storypic.jpeg'</p>
+		    <p><img id='story_thumbnail' width='88' alt='thumbnail' src='../img/storypic.jpeg'</p>
 			<ul id='imagecontroller'>
 			  <li id='prev_img'><a href='#'>prev</a></li>
 			  <li id='next_img'><a href='#'>next</a></li>
@@ -343,7 +351,7 @@ function remove_item(event)
 	if($temp.index() == 1 && !$temp.hasClass('textElement'))
 	{
       var story_pic_url;
-	  $('#story_list li:not(.addTextElementAnchor, .textElement)').each(function(index)
+	  $('#story_list li:not(.addTextElementAnchor, .textElement, .video_drop)').each(function(index)
 	  {
 		if(index > 0)
 		{
@@ -362,11 +370,11 @@ function remove_item(event)
 		    story_pic_url = $(this).find('.pic_img').attr('src');
 			return false;
 		  }
-		  else if($(this).hasClass('video_drop'))
+		  /*else if($(this).hasClass('video_drop'))
 		  {
 		    story_pic_url = $(this).find('.videoTitle').attr('id');
 			return false;
-		  }
+		  }*/
 		}
 	  });
 	  $('#story_thumbnail').attr('src', story_pic_url);
@@ -601,7 +609,7 @@ $(function() {
 					+weibo_time+"</a></span></div></span> </div></div>");
 				  if(ui.item.index() == 1)
 				  {
-					$('#story_thumbnail').attr('src', weibo_photo.replace(/50$/, "100"));
+					$('#story_thumbnail').attr('src', weibo_photo.replace(/50$/, "180"));
 				  }
 				}
 				ui.item.append(content);	
@@ -610,18 +618,18 @@ $(function() {
 			  }
 			  else if(ui.item.hasClass('video_Drag'))
 			  {
-			    var thumbnailUrl = ui.item.find('.youku_thumbnail').attr('src');
+			    //var thumbnailUrl = ui.item.find('.youku_thumbnail').attr('src');
 				var videoUrl = ui.item.find('.videoTitle').attr('href');
 				var videoTitle = ui.item.find('.videoTitle').text();
 				var videoEmbedCode;
-				var videoContent = ("<div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div><a id='"+thumbnailUrl+"' class='videoTitle' target='_blank' href='"
+				var videoContent = ("<div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div><a class='videoTitle' target='_blank' href='"
 				+videoUrl+"'>"+videoTitle+"</a></div>"+embedCode);
 				ui.item.removeClass('video_Drag').addClass('video_drop').children().remove();　
 			    ui.item.append(videoContent);
-				if(ui.item.index() == 1)
+				/*if(ui.item.index() == 1)
 				{
 				  $('#story_thumbnail').attr('src', thumbnailUrl);
-				}
+				}*/
 			  }
 			  else if(ui.item.hasClass('pic_Drag'))
 			  {
@@ -641,6 +649,7 @@ $(function() {
 				if(ui.item.index() == 1)
 				{
 				  $('#story_thumbnail').attr('src', picUrl.replace(/small$/, "square"));
+				  //$('#story_thumbnail').attr('src', picUrl);
 				}
 			  }
 			}
@@ -806,7 +815,8 @@ $(function() {
 		  var story_title_val = $('#sto_title').attr('value');
 		  var story_summary_val = $('#sto_summary').val();
 		  var story_tag_val = $('#sto_tag').attr('value');
-		  var postdata = {story_id: story_id_val, story_title: story_title_val, story_summary: story_summary_val, story_tag: story_tag_val, story_content: story_content_val_string};		  
+		  var story_pic_val = $('#story_thumbnail').attr('src');
+		  var postdata = {story_id: story_id_val, story_title: story_title_val, story_summary: story_summary_val, story_pic: story_pic_val, story_tag: story_tag_val, story_content: story_content_val_string};		  
 		  $.post('preview.php', postdata,
 		  function(data, textStatus)
 		  {
@@ -878,7 +888,8 @@ $(function() {
 		  var story_title_val = $('#sto_title').attr('value');
 		  var story_summary_val = $('#sto_summary').val();
 		  var story_tag_val = $('#sto_tag').attr('value');
-		  var postdata = {story_id: story_id_val, story_title: story_title_val, story_summary: story_summary_val, story_tag: story_tag_val, story_content: story_content_val_string};
+		  var story_pic_val = $('#story_thumbnail').attr('src');
+		  var postdata = {story_id: story_id_val, story_title: story_title_val, story_summary: story_summary_val, story_pic: story_pic_val, story_tag: story_tag_val, story_content: story_content_val_string};	
 		  $.post('preview.php', postdata,
 		  function(data, textStatus)
 		  {
@@ -957,11 +968,11 @@ $(function() {
 			}
 		  });
 		  var story_content_val_string = JSON.stringify(story_content_val);
-		  
 		  var story_title_val = $('#sto_title').attr('value');
 		  var story_summary_val = $('#sto_summary').val();
 		  var story_tag_val = $('#sto_tag').attr('value');
-		  var postdata = {story_id: story_id_val, story_title: story_title_val, story_summary: story_summary_val, story_tag: story_tag_val, story_content: story_content_val_string};
+		  var story_pic_val = $('#story_thumbnail').attr('src');
+		  var postdata = {story_id: story_id_val, story_title: story_title_val, story_summary: story_summary_val, story_pic: story_pic_val, story_tag: story_tag_val, story_content: story_content_val_string};	
 		  $.post('publish.php', postdata,
 		  function(data, textStatus)
 		  {

@@ -290,18 +290,13 @@ height:16px;
  }
  
  .cover{
-    background: url(../img/greece.jpg) no-repeat;
     display: block;
     height: 190px;
     overflow: hidden;
     padding: 0;
     position: relative;
     width: 190px;
- }
- 
- #mycarousel .cover{
- width:190px;
- height:190px;
+	
  }
  
  .title_wrap{

@@ -150,7 +150,18 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 		  <div class='avatar'><a style='background-image: url(/storify/img/user/".$userresult['photo'].")' href='#'></a></div>";
 	if(islogin() && $story_author != $_SESSION['uid'])
 	{
-	  $content .="<a href='#' class='follow_btn'>关注</a><a href='#' class='follow_btn' style='display:none;'>取消关注</a>";
+	  $query="select * from ".$db_prefix."follow where user_id=".$_SESSION[uid]." and follow_id=".$story_author;
+      $relationresult=$DB->query($query);
+      $num=$DB->num_rows($relationresult);
+	  if($num > 0)
+	  {
+	    $content .="<a href='#' class='follow_btn'>取消关注</a><a href='#' class='follow_btn' style='display:none;'>关注</a>";
+	  }
+	  else
+	  {
+	    $content .="<a href='#' class='follow_btn'>关注</a><a href='#' class='follow_btn' style='display:none;'>取消关注</a>";
+	  }
+	  
 	}
 	$content .="<div class='user_info'><P>".$userresult['username']."</P><P>".$userresult['intro']."</P></div>
 		  <div class='usersfollowers'>
@@ -281,10 +292,11 @@ else
   {
     //printf ("title: %s  summary: %s", $story_item['post_title'], $story_item['post_summary']);
 	$post_title = $story_item['post_title'];
+	$post_pic_url = $story_item['post_pic_url'];
 	$post_date = $story_item['post_date'];
 	$temp_array = explode(" ", $story_item['post_date']);
 	$post_date = $temp_array[0];
-    $story_content .= "<li><a class='cover' href='/storify/member/user.php?post_id=".$story_item['ID']."'><div class='title_wrap'><h1 class='title'>".$post_title."</h1></div></a><div class='story_meta' 
+    $story_content .= "<li><a class='cover' style='background: url(".$post_pic_url.") no-repeat; background-size: 100%;' href='/storify/member/user.php?post_id=".$story_item['ID']."'><div class='title_wrap'><h1 class='title'>".$post_title."</h1></div></a><div class='story_meta' 
 	><span><img border='0' style='position:relative; top:2px' src='/storify/img/sina16.png'/><a style='margin-left:5px;'>".$_SESSION['username']."</a><a style='margin-left:65px;'>".$post_date."</a></span></div></li>";
   }
 
