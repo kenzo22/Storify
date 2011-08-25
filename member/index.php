@@ -244,7 +244,7 @@ else
 {
   $content .= "<div id='story_header'>
 		  <div id='story_pic'>
-		    <p><img id='story_thumbnail' width='88' alt='thumbnail' src='../img/storypic.jpeg'</p>
+		    <p><img id='story_thumbnail' width='88' height='88' src='' style='background-color:#EFEFEF;'/></p>
 			<ul id='imagecontroller'>
 			  <li><a id='prev_img' href='#'>prev</a></li>
 			  <li><a id='next_img' href='#'>next</a></li>

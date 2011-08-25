@@ -21,11 +21,18 @@
 
 	if(islogin())
     { 
-		/*$content="<span class='user_console'>欢迎，<a href='".$rooturl."/login/forget_passwd.php'><b>".$_SESSION['username']."</b> </a>
-						<a href='".$rooturl."/login/forget_passwd.php'></a> 
-						<a href='".$rooturl."/login/login.php?logout'>&nbsp;&nbsp;[退出]</a></span>";*/
+		$user_profile_img;
+		$userresult=$DB->fetch_one_array("SELECT photo FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
+		if(substr($userresult['photo'], 0, 4) == 'http')
+		{
+		  $user_profile_img = $userresult['photo'];
+		}
+		else
+		{
+		  $user_profile_img = $rooturl."/img/user/".$userresult['photo'];
+		}
 		$content="<ul class='user_console showborder'>
-				    <li class='person_li' style='display:block;'><a class='person_a person_a_display' href='/storify/member/user.php'><img id='person_img' src='/storify/img/person.png'><span id='person_name'>".$_SESSION['username']."</span></a></li>
+				    <li class='person_li' style='display:block;'><a class='person_a person_a_display' href='/storify/member/user.php'><img id='person_img' src='".$user_profile_img."'><span id='person_name'>".$_SESSION['username']."</span></a></li>
 					<li class='person_li'><a class='person_a' href='/storify/member/user.php'>我的主页</a></li>
 					<li class='person_li'><a class='person_a' href='/storify/member/user_setting.php'>设置</a></li>
 					<li class='person_li'><a class='person_a' href='".$rooturl."/login/login.php?logout'>退出</a></li>

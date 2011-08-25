@@ -5,13 +5,13 @@ $uid=intval($_SESSION['uid']);
 $result=$DB->fetch_one_array("select * from story_user where id=".$uid);
 if(!empty($result['photo']))
 {
-  $userphoto="<div id='user_profile_img'><img width='90px' src='".$rooturl."/img/user/".$result['photo']."' /> </div>";
+  $userphoto="<div id='user_profile_img'><img width='50px' height='50px' src='".$rooturl."/img/user/".$result['photo']."' /> </div>";
 }    
 else
 {
 $userphoto="<div id='user_profile_img'>暂无头像</div>";
 }
-$content = "<div class='inner' style='padding-top:50px;'><form name='form1'  method='post'  encType='multipart/form-data' target='hidden_frame' >
+$content = "<div class='inner' style='padding-top:50px; margin-bottom:700px;'><form name='form1'  method='post'  encType='multipart/form-data' target='hidden_frame' >
 <h3>照片</h3>
 <div>".$userphoto."</div>
 <div>
@@ -80,7 +80,7 @@ if($_POST['act'] == 'uploadphoto')
 		chmod($local_file,0755);
 		$DB->query("update ".$db_prefix."user set photo='".$filename."' where  ID=".$uid);
 		echo "<script language='javascript' >
-			$(function()
+			window.onload = function()
 			{
 			  var imgPath = '$local_file_absolute';
 			  $('.user_profile_img').removeChildren().html(<img width='90px' src='"+imgPath+"' />);

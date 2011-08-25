@@ -5,13 +5,21 @@ $uid=intval($_SESSION['uid']);
 $result=$DB->fetch_one_array("select * from story_user where id=".$uid);
 if(!empty($result['photo']))
 {
-  $userphoto="<img style='float:left;' width='90px' src='".$rooturl."/img/user/".$result['photo']."'> </img><div><a style='margin-left:10px;float:left' href='/storify/member/uploadphoto.php'>更换头像</a></div>";
+  if(substr($result['photo'], 0, 4) == 'http')
+  {
+    $userphoto="<img style='float:left;' width='50px' height='50px' src='".$result['photo']."'> </img><div><a style='margin-left:10px;float:left' href='/storify/member/uploadphoto.php'>更换头像</a></div>";
+  }
+  else
+  {
+    $userphoto="<img style='float:left;' width='50px' height='50px' src='".$rooturl."/img/user/".$result['photo']."'> </img><div><a style='margin-left:10px;float:left' href='/storify/member/uploadphoto.php'>更换头像</a></div>";
+  }
+  
 }    
 else
 {
   $userphoto="<a href='/storify/member/uploadphoto.php'>放你的头像上来</a>";
 }			
-$user_set = "<div class='inner' style='padding-top:50px;'>
+$user_set = "<div class='inner' style='padding-top:50px; margin-bottom:220px;'>
 			<div><h2>".$result['username']."的帐号"."</h2></div>
 			<div class='setting_bar'>
 			  <div>
