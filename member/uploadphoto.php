@@ -5,13 +5,30 @@ $uid=intval($_SESSION['uid']);
 $result=$DB->fetch_one_array("select * from story_user where id=".$uid);
 if(!empty($result['photo']))
 {
-  $userphoto="<div id='user_profile_img'><img width='50px' height='50px' src='".$rooturl."/img/user/".$result['photo']."' /> </div>";
+  if(substr($result['photo'], 0, 4) == 'http')
+  {
+     if(substr($userresult['photo'], 11, 4) == 'sina')
+	 {
+	   $pattern = "/(\d+)\/50\/(\d+)/";
+	   $user_profile_img = preg_replace($pattern,"$1/180/$2",$result['photo']);
+	 }
+	 else
+	 {
+	   $pattern = "/50$/";
+	   $user_profile_img = preg_replace($pattern,'100',$result['photo']);
+	 }
+	$userphoto="<div id='user_profile_img'><img width='80px' height='80px' src='".$user_profile_img."' /> </div>";
+  }
+  else
+  {
+    $userphoto="<div id='user_profile_img'><img width='80px' height='80px' src='".$rooturl."/img/user/".$result['photo']."' /> </div>";
+  } 
 }    
 else
 {
 $userphoto="<div id='user_profile_img'>暂无头像</div>";
 }
-$content = "<div class='inner' style='padding-top:50px; margin-bottom:700px;'><form name='form1'  method='post'  encType='multipart/form-data' target='hidden_frame' >
+$content = "<div class='inner' style='padding-top:50px; margin-bottom:640px;'><form name='form1'  method='post'  encType='multipart/form-data' target='hidden_frame' >
 <h3>照片</h3>
 <div>".$userphoto."</div>
 <div>
@@ -79,11 +96,13 @@ if($_POST['act'] == 'uploadphoto')
 		}
 		chmod($local_file,0755);
 		$DB->query("update ".$db_prefix."user set photo='".$filename."' where  ID=".$uid);
+		echo $filename;
 		echo "<script language='javascript' >
 			window.onload = function()
 			{
+			  debugger;
 			  var imgPath = '$local_file_absolute';
-			  $('.user_profile_img').removeChildren().html(<img width='90px' src='"+imgPath+"' />);
+			  $('.user_profile_img').removeChildren().html(<img width='80px' src='"+imgPath+"' />);
 			};
 			</script>";
 	}

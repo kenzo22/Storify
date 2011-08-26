@@ -170,7 +170,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	<div id='userinfo_container' class='showborder'>
 	  <div class='user_profiles'>
 	    <div class='user_box'>
-		  <div class='avatar'><a style='background-image: url(".$user_profile_img.")' href='#'></a></div>";
+		  <div class='avatar'><a><img style='' width='80px' height='80px' src='".$user_profile_img."'></a></div>";
 	if(islogin() && $story_author != $_SESSION['uid'])
 	{
 	  $query="select * from ".$db_prefix."follow where user_id=".$_SESSION[uid]." and follow_id=".$story_author;

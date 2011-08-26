@@ -7,13 +7,22 @@ if(!empty($result['photo']))
 {
   if(substr($result['photo'], 0, 4) == 'http')
   {
-    $userphoto="<img style='float:left;' width='50px' height='50px' src='".$result['photo']."'> </img><div><a style='margin-left:10px;float:left' href='/storify/member/uploadphoto.php'>更换头像</a></div>";
+     if(substr($userresult['photo'], 11, 4) == 'sina')
+	 {
+	   $pattern = "/(\d+)\/50\/(\d+)/";
+	   $user_profile_img = preg_replace($pattern,"$1/180/$2",$result['photo']);
+	 }
+	 else
+	 {
+	   $pattern = "/50$/";
+	   $user_profile_img = preg_replace($pattern,'100',$result['photo']);
+	 }
+	$userphoto="<img style='float:left;' width='80px' height='80px' src='".$user_profile_img."'> </img><div><a style='margin-left:10px;float:left' href='/storify/member/uploadphoto.php'>更换头像</a></div>";
   }
   else
   {
-    $userphoto="<img style='float:left;' width='50px' height='50px' src='".$rooturl."/img/user/".$result['photo']."'> </img><div><a style='margin-left:10px;float:left' href='/storify/member/uploadphoto.php'>更换头像</a></div>";
-  }
-  
+    $userphoto="<img style='float:left;' width='80px' height='80px' src='".$rooturl."/img/user/".$result['photo']."'> </img><div><a style='margin-left:10px;float:left' href='/storify/member/uploadphoto.php'>更换头像</a></div>";
+  } 
 }    
 else
 {
