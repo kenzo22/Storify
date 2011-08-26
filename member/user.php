@@ -289,7 +289,16 @@ else
 {
   $story_content = "<div id='userstory_container' class='inner'><div class='userstory_list'><ul>";
   $result=$DB->query("SELECT * FROM ".$db_prefix."posts where post_author='".$_SESSION['uid']."'");
-  //$userresult = $DB->fetch_one_array("SELECT photo FROM ".$db_prefix."user where id='".$story_author."'");
+  $userresult = $DB->fetch_one_array("SELECT photo FROM ".$db_prefix."user where id='".$_SESSION[uid]."'");
+  $user_profile_img;
+  if(substr($userresult['photo'], 0, 4) == 'http')
+  {
+	$user_profile_img = $userresult['photo'];
+  }
+  else
+  {
+	$user_profile_img = $rooturl."/img/user/".$userresult['photo'];
+  }
   while ($story_item = mysql_fetch_array($result))
   {
     //printf ("title: %s  summary: %s", $story_item['post_title'], $story_item['post_summary']);
@@ -299,7 +308,7 @@ else
 	$temp_array = explode(" ", $story_item['post_date']);
 	$post_date = $temp_array[0];
     $story_content .= "<li><a class='cover' style='background: url(".$post_pic_url.") no-repeat; background-size: 100%;' href='/storify/member/user.php?post_id=".$story_item['ID']."'><div class='title_wrap'><h1 class='title'>".$post_title."</h1></div></a><div class='story_meta' 
-	><span><img border='0' style='position:relative; top:2px' src='/storify/img/sina16.png'/><a style='margin-left:5px;'>".$_SESSION['username']."</a><a style='margin-left:65px;'>".$post_date."</a></span></div></li>";
+	><span><img border='0' style='position:relative; top:3px; width: 20px; height:20px;' src='".$user_profile_img."'/><a style='margin-left:5px; vertical-align:top;'>".$_SESSION['username']."</a><a style='margin-left:65px; vertical-align:top;'>".$post_date."</a></span></div></li>";
   }
 
   $story_content .="</ul></div></div>";

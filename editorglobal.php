@@ -25,21 +25,29 @@
         $GLOBALS = stripslashes_array($GLOBALS);
    } 
    set_magic_quotes_runtime(0); //关闭magic_quotes_gpc
-
-  
-    //if(!empty($_SESSION['username']))
-	//if(isloggedin())
 	if(islogin())
     { 
-		/*$content="<span class='user_console'>欢迎，<a href='".$rooturl."/login/forget_passwd.php'><b>".$_SESSION['username']."</b> </a>
-						<a href='".$rooturl."/login/forget_passwd.php'></a> 
-						<a href='".$rooturl."/login/login.php?logout'>&nbsp;&nbsp;[退出]</a></span>";*/
-		$content="<ul class='user_console showborder'>
-				    <li class='person_li' style='display:block;'><a class='person_a person_a_display' href='/storify/member/user.php'><img id='person_img' src='/storify/img/person.png'><span id='person_name'>".$_SESSION['username']."</span></a></li>
+		$user_profile_img;
+		$userresult=$DB->fetch_one_array("SELECT photo FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
+		if(substr($userresult['photo'], 0, 4) == 'http')
+		{
+		  $user_profile_img = $userresult['photo'];
+		}
+		else
+		{
+		  $user_profile_img = $rooturl."/img/user/".$userresult['photo'];
+		}
+		/*$content="<ul class='user_console showborder'>
+				    <li class='person_li' style='display:block;'><a class='person_a person_a_display' href='/storify/member/user.php'><img id='person_img' src='".$user_profile_img."'><span id='person_name'>".$_SESSION['username']."</span></a></li>
 					<li class='person_li'><a class='person_a' href='/storify/member/user.php'>我的主页</a></li>
 					<li class='person_li'><a class='person_a' href='/storify/member/user_setting.php'>设置</a></li>
 					<li class='person_li'><a class='person_a' href='".$rooturl."/login/login.php?logout'>退出</a></li>
-		          </ul>";
+		          </ul>";*/
+		$content="<div id='actions' style='position:absolute; top:0; right:0;'>
+					<span><a id='draftBtn' href='./' >保存草稿</a></span> | 
+					<span><a id='previewBtn' href='./' >预览</a></span> |
+					<span><a id='publishBtn' href='./' >发布</a></span>
+				  </div>";
 	  echo "<div id='global_bar'><div></div></div><div id='top_bar'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='/storify/img/logo.png' border='0'></a></span>
 	  <span id='user_action'><a href='".$rooturl."/index.php'>主页</a> | <a href='".$rooturl."/member/user.php'>我的故事</a> | <a href='".$rooturl."/member'>创建故事</a>
 	  </span>".$content."</div></div><BR>";

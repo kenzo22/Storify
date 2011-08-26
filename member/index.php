@@ -17,11 +17,7 @@ include_once( '../tweibo/txwboauth.php' );
 <script type='text/javascript' src='/storify/js/jquery.scrollfollow.js'></script>
 
 <?php
-$content = "<div class='inner' style='position:fixed; top:90px; left:520px;'><div id='actions'>
-<span><a id='draftBtn' href='./' >保存草稿</a></span>
-<span style='margin-left:30px;'><a id='previewBtn' href='./' >预览</a></span>
-<span style='margin-left:30px;'><a id='publishBtn' href='./' >发布</a></span>
-</div></div>
+$content = "
 <div id='storyContent' style='margin-bottom:0;'>
   <div class='inner'>
 	<div class='left_half'>
@@ -97,7 +93,7 @@ $content = "<div class='inner' style='position:fixed; top:90px; left:520px;'><di
 		  </div>
 		  
 		</div>
-		<ul id='source_list' class='connectedSortable' style='padding:0; margin:0; border: 1px solid #C9C9C9; border-top: none;'>
+		<ul id='source_list' class='connectedSortable'>
 		</ul>    	
 	  </div>
 	</div>
@@ -140,8 +136,8 @@ if(isset($_GET['post_id']))
 		    <textarea id='sto_summary'>".$story_summary."</textarea>
 		  </div>
 		  <div>
-		  <span ><input type='text' value='' name='story_tag' id='sto_tag'></span>
-		  <div>
+		    <span ><input type='text' value='' name='story_tag' id='sto_tag'></span>
+		  </div>
 		</div>
 		<div id='storylist_container'>
 		  <ul id='story_list' class='connectedSortable' style='padding:0;'><li class='addTextElementAnchor'>
@@ -255,8 +251,8 @@ else
 		    <textarea id='sto_summary'></textarea>
 		  </div>
 		  <div>
-		  <span ><input type='text' value='' name='story_tag' id='sto_tag'></span>
-		  <div>
+		    <span ><input type='text' value='' name='story_tag' id='sto_tag'></span>
+		  </div>
 		</div>
 		<div id='storylist_container'>
 		  <ul id='story_list' class='connectedSortable' style='padding:0;'>
@@ -479,7 +475,7 @@ $(function() {
 		{
 		  $('.weibo_drag').remove();
 		  $('.loadmore').remove();
-		  $('#source_list').css('height', '693px');
+		  $('#source_list').css('height', '722px');
 		  $('#weibo_search').css('display', 'none');
 		  myPage = 1;
 		  myPageTimestamp = 0;
@@ -508,7 +504,7 @@ $(function() {
 		{
 		  $('.weibo_drag').remove();
 		  $('.loadmore').remove();
-		  $('#source_list').css('height', '693px');
+		  $('#source_list').css('height', '722px');
 		  $('#weibo_search').css('display', 'none');
 		  followPage = 1;
 		  followTimestamp = 0;
@@ -535,7 +531,7 @@ $(function() {
 		
 		$('#search_tab').click(function()
 		{
-		  $('#source_list').css('height', '635px');
+		  $('#source_list').css('height', '664px');
 		  weiboSearhPage = 1;
 		  tweibosearchPage = 1;
 		  display_search();
@@ -543,7 +539,7 @@ $(function() {
 		
 		$('#user_tab').click(function()
 		{
-		  $('#source_list').css('height', '635px');
+		  $('#source_list').css('height', '664px');
 		  userSearchPage = 1;
 		  usersearchTimestamp = 0;
 		  display_user_search();
