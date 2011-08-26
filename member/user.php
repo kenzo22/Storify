@@ -29,6 +29,26 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	$story_pic=$result['post_pic_url'];
 	$story_status=$result['post_status'];
 	$story_content=$result['post_content'];
+	//get the profile image of the story author
+	$user_profile_img;
+    if(substr($userresult['photo'], 0, 4) == 'http')
+    {
+	  if(substr($userresult['photo'], 11, 4) == 'sina')
+	  {
+		$pattern = "/(\d+)\/50\/(\d+)/";
+		$user_profile_img = preg_replace($pattern,"$1/180/$2",$userresult['photo']);
+	  }
+	  else
+	  {
+	    $pattern = "/50$/";
+		$user_profile_img = preg_replace($pattern,'100',$userresult['photo']);
+	  }
+    }
+    else
+    {
+	  $user_profile_img = $rooturl."/img/user/".$userresult['photo'];
+    }
+	
 	$temp_array = json_decode($story_content, true);
 	$items_perpage = 10;
 	$story_content_array = array_slice($temp_array['content'], 0, $items_perpage, true);
@@ -145,11 +165,12 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	{
 	  $content .="</ul>";
 	}
+	
 	$content .="<div style='display: block; padding:0 10px 0 5px; text-align:right;'>Powered by <a name='poweredby' target='_blank' href='http://koulifang.com'>口立方</a></div></div>
 	<div id='userinfo_container' class='showborder'>
 	  <div class='user_profiles'>
 	    <div class='user_box'>
-		  <div class='avatar'><a style='background-image: url(/storify/img/user/".$userresult['photo'].")' href='#'></a></div>";
+		  <div class='avatar'><a style='background-image: url(".$user_profile_img.")' href='#'></a></div>";
 	if(islogin() && $story_author != $_SESSION['uid'])
 	{
 	  $query="select * from ".$db_prefix."follow where user_id=".$_SESSION[uid]." and follow_id=".$story_author;
