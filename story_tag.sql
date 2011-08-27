@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS story_tag (
   name varchar(100) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-INSERT INTO `story_tag` (`id`, `name`) VALUES 
+INSERT INTO story_tag (id, name) VALUES
 (1, '新闻'),
 (2, '微博'),
 (3, '娱乐'),
