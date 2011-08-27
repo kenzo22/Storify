@@ -475,7 +475,7 @@ $(function() {
 		{
 		  $('.weibo_drag').remove();
 		  $('.loadmore').remove();
-		  $('#source_list').css('height', '722px');
+		  $('#source_list').css('height', '723px');
 		  $('#weibo_search').css('display', 'none');
 		  myPage = 1;
 		  myPageTimestamp = 0;
@@ -492,11 +492,22 @@ $(function() {
 		    getUrl = '../tweibo/tweibooperation.php';
 			getData = {operation: 'my_weibo', page: 0, timestamp: myPageTimestamp};
 		  }
-		  $.get(getUrl, getData,
-		  function(data, textStatus)
+		  
+		  $.ajax({
+		  type: 'GET',
+		  url: getUrl,
+		  data: getData, 
+		  beforeSend:function() 
 		  {
-            $('#source_list').html(data);
+		    var imgpath = '../img/loading.gif';
+		    var imgloading = $("<span style='padding-left:180px;'><img src='../img/loading.gif' /></span>");
+		    $('#source_list').html(imgloading);
+		  },
+		  success: function(data)
+		  {
+			$('#source_list').html(data);
 			WB.widget.atWhere.searchAndAt(document.getElementById("source_list"));
+		  }
 		  });
 		});
 		
@@ -504,7 +515,7 @@ $(function() {
 		{
 		  $('.weibo_drag').remove();
 		  $('.loadmore').remove();
-		  $('#source_list').css('height', '722px');
+		  $('#source_list').css('height', '723px');
 		  $('#weibo_search').css('display', 'none');
 		  followPage = 1;
 		  followTimestamp = 0;
@@ -521,11 +532,22 @@ $(function() {
 		    getUrl = '../tweibo/tweibooperation.php';
 			getData = {operation: 'my_follow', page: 0, timestamp: followTimestamp};
 		  }
-		  $.get(getUrl, getData,
-		  function(data, textStatus)
+		  
+		  $.ajax({
+		  type: 'GET',
+		  url: getUrl,
+		  data: getData, 
+		  beforeSend:function() 
+		  {
+		    var imgpath = '../img/loading.gif';
+		    var imgloading = $("<span style='padding-left:180px;'><img src='../img/loading.gif' /></span>");
+		    $('#source_list').html(imgloading);
+		  },
+		  success: function(data)
 		  {
 			$('#source_list').html(data);
 			WB.widget.atWhere.searchAndAt(document.getElementById("source_list"));
+		  }
 		  });
 		});
 		
@@ -578,11 +600,22 @@ $(function() {
 			  getData = {operation: 'user_search', keywords: words, page: 0, timestamp: usersearchTimestamp};
 		    }	
 		  }
-		  $.get(getUrl, getData,
-		  function(data, textStatus)
+		  
+		  $.ajax({
+		  type: 'GET',
+		  url: getUrl,
+		  data: getData, 
+		  beforeSend:function() 
 		  {
-            $('#source_list').html(data);
+		    var imgpath = '../img/loading.gif';
+		    var imgloading = $("<span style='padding-left:180px;'><img src='../img/loading.gif' /></span>");
+		    $('#source_list').html(imgloading);
+		  },
+		  success: function(data)
+		  {
+			$('#source_list').html(data);
 			WB.widget.atWhere.searchAndAt(document.getElementById("source_list"));
+		  }
 		  });
 		});
 		
@@ -617,10 +650,21 @@ $(function() {
 		  {
 		    getData = {operation: 'user_search', keywords: words, page: userpicSearchPage};
 		  }
-		  $.get(getUrl, getData,
-		  function(data, textStatus)
+		  
+		  $.ajax({
+		  type: 'GET',
+		  url: getUrl,
+		  data: getData, 
+		  beforeSend:function() 
 		  {
-            $('#source_list').html(data);
+		    var imgpath = '../img/loading.gif';
+		    var imgloading = $("<span style='padding-left:180px;'><img src='../img/loading.gif' /></span>");
+		    $('#source_list').html(imgloading);
+		  },
+		  success: function(data)
+		  {
+			$('#source_list').html(data);
+		  }
 		  });
 		});
 		
@@ -718,9 +762,12 @@ $(function() {
 		
 		$('#embedVideo').click(function(e)
 		{
+		  var imgpath = '../img/loading.gif';
+		  var imgloading = $("<span style='padding-left:180px;'><img src='../img/loading.gif' /></span>");
+		  $('#source_list').html(imgloading);
+		  
 		  var videoTitle;
 		  var videoUrl = $('#videoUrl').val();
-		  //var videoUrl = 'http://v.youku.com/v_show/id_XMjgxMjIxNjUy.html';
 		  $.embedly(videoUrl, {key: '4ac512dca79011e0aeec4040d3dc5c07', maxWidth: 420, wrapElement: 'div', method : "afterParent"  }, function(oembed){				
           if (oembed != null)
 		  {
@@ -729,7 +776,7 @@ $(function() {
 			var post = "<li class='video_Drag'><div class='urlWrapper'><div><a class='videoTitle' target='_blank' href='"+videoUrl+"'>"+oembed.title+
 			"</a></div><div class='videoContent'><div class='video_domain'><div class='video_favicon' style='display:inline; position:relative; top:4px'><img src='/storify/img/youku.ico'/></div><div class='video_author' style='display:inline; margin-left:3px;'><a target='_blank' href='"
 			+videoUrl+"'>v.youku.com</a></div></div><div><img class='youku_thumbnail' src='"+oembed.thumbnail_url+"' style='float:left; margin-right:5px; border: 1px solid #E9E9E9; padding:3px;'/><div class='video_description' style='line-height:1.5;'>"+oembed.description+"</div></div></div></div></li>";
-			$('#source_list').append(post);  
+			$('#source_list').html(post);  
 		  }		  			
           });
 		})
@@ -1067,6 +1114,7 @@ $(function() {
 		      }
 			  $('.loadmore').remove();
 			  //add weibo search function
+			  
 			  $.get(getUrl, getData,
 			  function(data, textStatus)
 			  {
@@ -1089,6 +1137,24 @@ $(function() {
 				getData = {operation: 'my_weibo', page: 1, timestamp: myPageTimestamp}; 
 		      }
 			  $('.loadmore').remove();
+			  
+			  /*$.ajax({
+			  type: 'GET',
+			  url: getUrl,
+			  data: getData, 
+			  beforeSend:function() 
+			  {
+				var imgpath = '../img/loading.gif';
+				var imgloading = $("<span style='padding-left:180px;'><img src='../img/loading.gif' /></span>");
+				$('.loadmore').append(imgloading);
+			  },
+			  success: function(data)
+			  {
+				$('#source_list').append(data);
+				WB.widget.atWhere.searchAndAt(document.getElementById("source_list"));
+			  }
+			  });*/
+			  
 			  $.get(getUrl, getData,
 			  function(data, textStatus)
 			  {
@@ -1192,7 +1258,7 @@ $(function() {
 		  {
 		    $weiboTabs.tabs( "select" , 0 );
 		    $('#weibo_search').css('display', 'block');
-			$('#source_list').children().remove();
+			$('#source_list').css('height', '665px').children().remove();
 		  }
 		  selWeiboTab = 1;
 		  $('#vtab>div').hide().eq(vtabIndex-1).show();
@@ -1201,7 +1267,7 @@ $(function() {
 		{
 		  if(2 != selWeiboTab)
 		  {
-		    $('#source_list').children().remove();
+		    $('#source_list').css('height', '665px').children().remove();
 		  } 
 		  selWeiboTab = 2;
 		  $('#vtab>div').hide().eq(vtabIndex-1).show();
@@ -1210,7 +1276,7 @@ $(function() {
 		{
 		  if(3 != selWeiboTab)
 		  {
-		    $('#source_list').children().remove();
+		    $('#source_list').css('height', '665px').children().remove();
 		  } 
 		  selWeiboTab = 3;
 		  $('#vtab>div').hide().eq(vtabIndex-1).show();
@@ -1223,7 +1289,7 @@ $(function() {
 		  {
 		    $weiboTabs.tabs( "select" , 0 );
 		    $('#weibo_search').css('display', 'block');
-			$('#source_list').children().remove();
+			$('#source_list').css('height', '665px').children().remove();
 		  }
 		  selWeiboTab = 0;
 		  $('#vtab>div').hide().eq(vtabIndex).show();

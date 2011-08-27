@@ -28,89 +28,108 @@ else
 {
 $userphoto="<div id='user_profile_img'>暂无头像</div>";
 }
-$content = "<div class='inner' style='padding-top:50px; margin-bottom:640px;'><form name='form1'  method='post'  encType='multipart/form-data' target='hidden_frame' >
-<h3>照片</h3>
-<div>".$userphoto."</div>
-<div>
-<span>
-  <input type='hidden' name='MAX_FILE_SIZE' value='1000000' />  
-  <input type='file' id='upfile' name='photofile' value='".$result['username']."' />
-  <input id='upload_btn' type='submit' value='上传照片'/>
-  <input type='hidden' name='act' value='uploadphoto' />
-</span> 
-</div> 
+$content = "<div class='inner' style='padding-top:50px; margin-bottom:540px;'><form name='form1'  method='post'  encType='multipart/form-data' target='hidden_frame' >
+<h1>添加或更改您的头像</h1>
+<h3>头像将会显示在故事的作者信息中</h3>
+<div style='float:left; margin-right:40px;'>".$userphoto."</div>
+<div style='margin-left:120px;'>
+  <div>从电脑中选择您喜欢的照片</div><br />
+  <div>你可以上传JPG、JPEG、GIF、PNG或BMP文件。</div><br />
+  <div style=''>
+    <input type='hidden' name='MAX_FILE_SIZE' value='1000000' />  
+    <input type='file' id='upfile' name='photofile' value='".$result['username']."' style='height:22px;' />
+  </div> 
+  <div style='margin-top:20px;'>
+    <input id='upload_btn' type='submit' value='上传照片'/>
+    <input type='hidden' name='act' value='uploadphoto' />
+  </div> 
+</div>
+<div></div> 
 </form></div>";
 echo $content;
 
 if($_POST['act'] == 'uploadphoto')
 {
 	if(!islogin())  
-		go($rooturl."/login","请先登录..",2);			
+		go($rooturl."/login","请先登录..",2);
 
-	$err_code=$_FILESs['photofile']['error'];
-	if($err_code != 0 ){
-			echo 'Problems:';
-			switch($err_code) 
-			{
-				case 1: echo "File exceeded upload_max_filesize";
-						break;
-				case 2: echo "File exceeded max_file_size";
-						break;
-				case 3: echo "File only partially uploaded";
-						break;
-				case 4: echo "No File uploaded";
-						break;
-				case 6: echo "Cannot upload File: No temp directory specified";
-						break;
-				case 7: echo "Upload failed: Cannot write to disk";
-						break;
-			}
-			exit;
-	}
-
-	$original=htmlspecialchars(trim($_FILES['photofile']['name']));
-	$type=$_FILES['photofile']['type'];
-	$size=$_FILES['photofile']['size'];
-
-	$upload_dir= "../img/user/"; 
-
-	$ftype=explode("/",$type);
-
-	if($ftype[0] != "image"){
-			echo "文件类型错误";
-			exit;
-	}
-
-	if (is_uploaded_file($_FILES['photofile']['tmp_name']) )
+    if ((($_FILES["photofile"]["type"] == "image/png") || ($_FILES["photofile"]["type"] == "image/gif") || ($_FILES["photofile"]["type"] == "image/jpeg") || 
+	($_FILES["photofile"]["type"] == "image/pjpeg") || ($_FILES["photofile"]["type"] == "image/bmp")) && ($_FILES["photofile"]["size"] < 200000))	
 	{
-		$reslut=$DB->fetch_one_array("select photo from ".$db_prefix."user where ID=".$uid);
-		if(!empty($reslut['Photo']))
-			unlink($upload_dir.$reslut['photo']);
-
-		$filename=$uid.substr($original,-4,4);
-		$local_file=$upload_dir.$filename;
-		$local_file_absolute = "/storify/img/".$filename;
-		if(!move_uploaded_file($_FILES['photofile']['tmp_name'],$local_file))
+	  $err_code=$_FILESs['photofile']['error'];
+	  if ($err_code > 0)
+      {
+        echo 'Problems:';
+		switch($err_code) 
 		{
-		  echo "无法将文件移到目的位置";
+			case 1: echo "File exceeded upload_max_filesize";
+					break;
+			case 2: echo "File exceeded max_file_size";
+					break;
+			case 3: echo "File only partially uploaded";
+					break;
+			case 4: echo "No File uploaded";
+					break;
+			case 6: echo "Cannot upload File: No temp directory specified";
+					break;
+			case 7: echo "Upload failed: Cannot write to disk";
+					break;
 		}
-		chmod($local_file,0755);
-		$DB->query("update ".$db_prefix."user set photo='".$filename."' where  ID=".$uid);
-		echo $filename;
-		echo "<script language='javascript' >
-			window.onload = function()
+		exit;
+      }
+	  else
+	  {
+	    $upload_dir= "../img/user/"; 
+		$original=htmlspecialchars(trim($_FILES['photofile']['name']));
+		$type=$_FILES['photofile']['type'];
+		$size=$_FILES['photofile']['size'];
+		if (is_uploaded_file($_FILES['photofile']['tmp_name']) )
+		{
+			$reslut=$DB->fetch_one_array("select photo from ".$db_prefix."user where ID=".$uid);
+			if(!empty($reslut['Photo']))
 			{
-			  debugger;
-			  var imgPath = '$local_file_absolute';
-			  $('.user_profile_img').removeChildren().html(<img width='80px' src='"+imgPath+"' />);
-			};
-			</script>";
+			  if(substr($result['photo'], 0, 4) == 'http')
+			  {
+				 
+			  }
+			  else
+			  {
+			    unlink($upload_dir.$reslut['photo']);
+			  }
+			}		
+			$temp_array = explode(".",$original);
+			$length = count($temp_array);
+			$image_extention = $temp_array[$length - 1];
+			$filename=$uid.".".$image_extention;
+			$local_file=$upload_dir.$filename;
+			$local_file_absolute = "/storify/img/".$filename;
+			if(!move_uploaded_file($_FILES['photofile']['tmp_name'],$local_file))
+			{
+			  echo "无法将文件移到目的位置";
+			}
+			chmod($local_file,0755);
+			$DB->query("update ".$db_prefix."user set photo='".$filename."' where  ID=".$uid);
+			header("location: ./uploadphoto.php"); 
+			/*echo "<script language='javascript' >
+				window.onload = function()
+				{
+				  debugger;
+				  var imgPath = '$local_file_absolute';
+				  $('.user_profile_img').removeChildren().html(<img width='80px' src='"+imgPath+"' />);
+				};
+				</script>";*/
+		}
+		else
+		{
+			echo "可能出现文件上传攻击。文件名:";
+			echo $_FILES['photofile']['name'];
+			exit;
+		}
+	  }
 	}
 	else
-	{
-		echo "可能出现文件上传攻击。文件名:";
-		echo $_FILES['photofile']['name'];
-		exit;
+	{ 
+	  echo "Invalid file";
 	}
 }
 

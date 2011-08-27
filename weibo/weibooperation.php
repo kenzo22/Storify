@@ -40,7 +40,7 @@ foreach( $weibo as $item )
   style = 'display:block;'><span class='weibo_from'>".$item['user']['screen_name']."</span></a><span class='weibo_text'>".$item['text']."</span><div><span class='create_time'>".$createTime."</span>
   <span style='float:right;'><a>[转发]</a></span></div></div></div></li>";
 }
-$weiboContent .="<div class='loadmore'><a>load more</a></div>";
+$weiboContent .="<div class='loadmore'><a>更多</a></div>";
 echo $weiboContent;
 
 ?>

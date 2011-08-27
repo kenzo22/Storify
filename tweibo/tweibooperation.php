@@ -71,7 +71,7 @@ else
     style = 'display:block;'><span class='weibo_from'>".$item['nick']."</span></a><span class='weibo_text'>".$item['text']."</span><div><span class='create_time'>".$create_time."</span>
     <span style='float:right;'><a>[转发]</a></span></div></div></div></li>";
   }
-  $weiboContent .="<div class='loadmore'><a>load more</a><span id='".$lastTimestamp."'></span></div>";
+  $weiboContent .="<div class='loadmore'><a>更多</a><span id='".$lastTimestamp."'></span></div>";
 }
 echo $weiboContent;
 ?>

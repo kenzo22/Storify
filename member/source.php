@@ -42,7 +42,9 @@ $content = "<div class='inner' style='padding-top:50px;'>
   <li><a href='#'><img src='/storify/img/yupoologo.png'/><span style='margin-left:102px;' class='source_name'>又拍社区</span></a><span class='source_status'>".$yupoo_status."<a id='yupoo_pic' class='unbind_source'>".$yupoo_action."</a></span></li>
   <li><a id='youku_video' href='#'><img src='/storify/img/youkulogo.gif'/><span style='margin-left:94px;' class='source_name'>优酷视频</span></a><span class='source_status'>无需添加帐号</span></li>
 </ul>
-<ul id='source_info'></ul>
+<div class='float_r'>
+  <span>&gt;&nbsp;<a href='./user_setting.php'>回到基本设置</a></span>
+</div>
 </div>";
 echo $content;
 ?>

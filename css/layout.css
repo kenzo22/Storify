@@ -192,9 +192,9 @@ margin-left:70px;
 
 /* weibo part*/
 #source_pane{position:fixed; top:70px; width:390px; height:800px; }
-#story_pane{width:510px; min-height: 744px;}
+#story_pane{width:510px; min-height: 754px;}
 #source_list{height:665px; overflow:auto; padding:0; margin:0; border: 1px solid #C9C9C9; border-top: none; border-radius:5px 5px 5px 5px;}
-#story_list{position: inherit; margin:0; min-height:593px; border: 1px solid #C9C9C9; height:auto; overflow:hidden; list-style: none outside none;}
+#story_list{position: inherit; margin:0; min-height:603px; border: 1px solid #C9C9C9; border-radius:0px 0px 5px 5px; height:auto; overflow:hidden; list-style: none outside none;}
 #story {}
 #storylist_container {}
 .loadmore {padding: 0 150px 0 150px;}
@@ -269,7 +269,7 @@ margin-left:70px;
   }
   
 .cross{
-  padding-left:450px;
+  padding-left:465px;
 }
   
 .addTextElementAnchor{
@@ -344,7 +344,7 @@ height:16px;
  
  /*edit story part */
  #story_header{
- border: 1px solid #C9C9C9; border-radius: 5px 5px 5px 5px; padding: 10px 10px 15px 10px; 
+ border: 1px solid #C9C9C9; border-radius: 5px 5px 0px 0px; border-bottom:none; padding: 10px 10px 15px 10px; 
  }
  
  #story_pic{
@@ -408,9 +408,31 @@ float:left;
  }
  
  #sto_tag{
- width:480px; margin:0 0px 10px;height:25px;
+ width:480px; margin:0; height:25px;
  }
 
+.loadmore {
+	background-color:#FFFFFF;
+	background-image:url("../img/more.gif");
+	background-position:left top;
+	background-repeat:repeat-x;
+	border-color:#DDDDDD #AAAAAA #AAAAAA #DDDDDD;
+	border-style:solid;
+	border-width:1px;
+	display:block;
+	font-size:14px;
+	font-weight:bold;
+	height:15px;
+	line-height:1.5em;
+	outline:medium none;
+	padding:6px 0;
+	text-align:center;
+	text-shadow:1px 1px 1px #FFFFFF;
+	width:95%;
+	margin: 0 auto;
+	margin-bottom:6px;
+}
+ 
 /* publish part*/
 .load_more {
 	background-color:#FFFFFF;
