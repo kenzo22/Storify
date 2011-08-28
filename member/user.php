@@ -288,6 +288,22 @@ else if(isset($_GET['post_id']) && isset($_GET['action']))
 	$story_action = $_GET['action'];
 	if(0 == strcmp($story_action, 'remove'))
 	{
+        $query="select tag_id from ".$db_prefix."tag_story where story_id=".$story_id;
+        $results=$DB->query($query);
+        
+        $query="delete from ".$db_prefix."tag_story where story_id=".$story_id;
+        $DB->query($query);
+        
+        // delete tag if no story is bined
+        while($item=$DB->fetch_array($results)){
+            $query="select * from ".$db_prefix."tag_story where tag_id=".$item['tag_id'];
+            $res=$DB->query($query);
+            if($DB->num_rows($res) == 0){
+                $query="delete from ".$db_prefix."tag where id=".$item['tag_id'];
+                $DB->query($query);
+            }
+        }
+        
 	  $result=$DB->query("DELETE FROM ".$db_prefix."posts where ID='".$story_id."'");
 	  go($rooturl.'/member/user.php');
 	}
