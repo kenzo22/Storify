@@ -25,7 +25,6 @@ if(0 == $story_id)
     $post_id = intval($result['ID']);
     $story_id=$post_id;
 
-
 // insert tags into database
     $tag_array=preg_split('/[:;,\s]+/',$story_tag);
     foreach($tag_array as $element){

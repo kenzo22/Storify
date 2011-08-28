@@ -1,5 +1,6 @@
 <?php
 include "global.php"; 
+include "member/tagoperation.php";
 //select a random item from the publictoken pool
 if(!islogin())
 {
@@ -136,12 +137,15 @@ if(!islogin())
 			  <ul>
 			    <?php
 				  //get the tag information from the tag table
-				  $tag_content = '';
+				$tag_content = '';
 				  //need change to fetch the most popular topic from the database
-				  $tagresult=$DB->query("SELECT * FROM ".$db_prefix."tag limit 4");
-				  while ($tag_item = mysql_fetch_array($tagresult))
+                $tags=getPopularTags(4);
+                foreach($tags as $tag_id)
 				  {
-					$tag_id = $tag_item['id'];
+                    $query = "select * from ".$db_prefix."tag where id=".$tag_id;
+                    $results=$DB->query($query);
+                    $tag_item=$DB->fetch_array($results);
+
 					$tag_name = $tag_item['name'];
 					$relationresult = $DB->query("select * from ".$db_prefix."tag_story where tag_id='".$tag_id."'");
 					$tag_count = $DB->num_rows($relationresult);
