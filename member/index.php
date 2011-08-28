@@ -277,7 +277,7 @@ var myPage;
 var userSearchPage;
 var weiboSearhPage = 1;
 var picSearchPage = 1;
-var userpicSearchPage;
+var userpicSearchPage =1;
 
 var myPageTimestamp;
 var followTimestamp;
@@ -1091,27 +1091,47 @@ $(function() {
 		
 		$('#source_list').click(function(e)
 		{
+		  //debugger;
+		  var selected;
+		  if(0 == vtabIndex || 1 == vtabIndex)
+		  {
+		    selected = $weiboTabs.tabs('option', 'selected'); 
+		  }
+		  else if(3 == vtabIndex)
+		  {
+		    selected = $picTabs.tabs('option', 'selected'); 
+		  }
 		  if ($(e.target).is('.loadmore a'))
 		  {
-			var selected = $weiboTabs.tabs('option', 'selected'); 
+			//var selected = $weiboTabs.tabs('option', 'selected'); 
+			//var yupoo_selected = $picTabs.tabs('option', 'selected'); 
 			var getUrl;
 			var getData;
 			if(0 == selected)
 			{
-			  var words = $('#keywords').val();
+			  var words;
 			  if(0 == vtabIndex)
 		      {
-		        getUrl = '../weibo/weibooperation.php';
+		        words = $('#keywords').val();
+				getUrl = '../weibo/weibooperation.php';
 				weiboSearhPage++;
 				getData = {operation: 'weibo_search', keywords: words, page: weiboSearhPage};
 		      }
-		      else
+		      else if(1 == vtabIndex)
 		      {
-		        getUrl = '../tweibo/tweibooperation.php';
+		        words = $('#keywords').val();
+				getUrl = '../tweibo/tweibooperation.php';
 				//weibosearchTimestamp = $('.loadmore span').attr('id');
 				tweibosearchPage++;
 				getData = {operation: 'weibo_search', keywords: words, page: tweibosearchPage}; 
 		      }
+			  else if(3 == vtabIndex)
+			  {
+			    words = $('#pic_keywords').val();
+				getUrl = '../yupoo/yupoooperation.php';
+				picSearchPage++;
+				getData = {operation: 'pic_search', keywords: words, page: picSearchPage};
+			  }
 			  $('.loadmore').remove();
 			  //add weibo search function
 			  
@@ -1130,12 +1150,19 @@ $(function() {
 				myPage++;
 				getData = {operation: 'my_weibo', page: myPage}
 		      }
-		      else
+		      else if(1 == vtabIndex)
 		      {
 		        getUrl = '../tweibo/tweibooperation.php';
 				myPageTimestamp = $('.loadmore span').attr('id');
 				getData = {operation: 'my_weibo', page: 1, timestamp: myPageTimestamp}; 
 		      }
+			  else if(3 == vtabIndex)
+			  {
+			    words = $('#pic_keywords').val();
+				getUrl = '../yupoo/yupoooperation.php';
+				userpicSearchPage++;
+				getData = {operation: 'user_search', keywords: words, page: userpicSearchPage};
+			  }
 			  $('.loadmore').remove();
 			  
 			  /*$.ajax({

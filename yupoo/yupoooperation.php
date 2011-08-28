@@ -35,7 +35,7 @@ foreach($picArray as $item)
 
 //$picContent = "<div style='padding-left:30px;'>".count($picData[result][photos])."</div><div style='padding-left:30px;'>".$picData[result][photos][0][bucket]."</div>";
 
-$picContent .="<div class='loadmore'><a>load more</a></div>";
+$picContent .="<div class='loadmore'><a>更多</a></div>";
 echo $picContent;
 
 ?>
