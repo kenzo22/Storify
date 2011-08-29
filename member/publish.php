@@ -19,7 +19,7 @@ $post_id = $story_id;
 if(0 == $story_id)
 {
     $DB->query("insert into ".$db_prefix."posts values
-                         (null, '".$_SESSION['uid']."', '".$pulish_time."', '".$pulish_time."', '".$story_title."', '".$story_summary."', '".$story_pic."','".$story_content."', '".Published."', '".$pulish_time."', '".$pulish_time."')");
+                         (null, '".$_SESSION['uid']."', '".$pulish_time."', '".$pulish_time."', '".$story_title."', '".$story_summary."', '".$story_pic."','".$story_content."', '".Published."', '".$pulish_time."', '".$pulish_time."', 0)");
 
 //get the post_id
     $result=$DB->fetch_one_array("SELECT ID FROM ".$db_prefix."posts where post_author='".$_SESSION['uid']."' AND post_title='".$story_title."' AND post_date='".$pulish_time."'" );

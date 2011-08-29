@@ -29,6 +29,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	$story_pic=$result['post_pic_url'];
 	$story_status=$result['post_status'];
 	$story_content=$result['post_content'];
+	$story_digg_count=$result['post_digg_count'];
 	//get the profile image of the story author
 	$user_profile_img;
     if(substr($userresult['photo'], 0, 4) == 'http')
@@ -57,20 +58,20 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	
 	if(!islogin() || $story_author != $_SESSION['uid'])
 	{
-	  $content = "<div id='story_container'><div id='publish_container' class='showborder'>";
+	  $content = "<div id='story_container'><div><a id='".$post_id."_act_digg' class='act_digg'>顶一下<span id='".$post_id."_digg_count' style='margin-left:20px;'>".$story_digg_count."</span></a></div><div id='publish_container' class='showborder'>";
 	}
 	else
 	{
 	  if(0 == strcmp($story_status, 'Published'))
 	  {
-	    $content = "<div id='story_container'><div id='publish_container' class='showborder'>
-			  <div id='story_action'><span>".$story_status."</span><span class='float_r'><a href='#'>通告
+	    $content = "<div id='story_container'><div><a id='".$post_id."_act_digg' class='act_digg'>顶一下<span id='".$post_id."_digg_count' style='margin-left:20px;'>".$story_digg_count."</span></a></div><div id='publish_container' class='showborder'>
+			  <div id='story_action'><span>已发布</span><span class='float_r'><a href='#'>通告
 			  </a> | <a href='/storify/member/user.php?post_id=".$post_id."&action=remove'>删除</a> | <a href='/storify/member/user.php?post_id=".$post_id."&action=edit'>编辑</a></span></div>";
 	  }
 	  else
 	  {
 	    $content = "<div id='story_container'><div id='publish_container' class='showborder'>
-			  <div id='story_action'><span>".$story_status."</span><span class='float_r'><a href='/storify/member/user.php?post_id=".$post_id."&action=remove'>删除
+			  <div id='story_action'><span>草稿</span><span class='float_r'><a href='/storify/member/user.php?post_id=".$post_id."&action=remove'>删除
 			  </a> | <a href='/storify/member/user.php?post_id=".$post_id."&action=edit'>编辑</a> | <a href='/storify/member/user.php?post_id=".$post_id."&action=publish'>发布</a></span></div>";
 	  }	
 	}
@@ -339,13 +340,27 @@ else
   while ($story_item = mysql_fetch_array($result))
   {
     //printf ("title: %s  summary: %s", $story_item['post_title'], $story_item['post_summary']);
+	$post_id = $story_item['ID'];
 	$post_title = $story_item['post_title'];
 	$post_pic_url = $story_item['post_pic_url'];
+	$post_status = $story_item['post_status'];
 	$post_date = $story_item['post_date'];
 	$temp_array = explode(" ", $story_item['post_date']);
 	$post_date = $temp_array[0];
-    $story_content .= "<li><a class='cover' style='background: url(".$post_pic_url.") no-repeat; background-size: 100%;' href='/storify/member/user.php?post_id=".$story_item['ID']."'><div class='title_wrap'><h1 class='title'>".$post_title."</h1></div></a><div class='story_meta' 
-	><span><img border='0' style='position:relative; top:3px; width: 20px; height:20px;' src='".$user_profile_img."'/><a style='margin-left:5px; vertical-align:top;'>".$_SESSION['username']."</a><a style='margin-left:65px; vertical-align:top;'>".$post_date."</a></span></div></li>";
+    $story_content .= "<li><div class='story_wrap'><a class='cover' style='background: url(".$post_pic_url.") no-repeat; background-size: 100%;' href='/storify/member/user.php?post_id=".$story_item['ID']."'><div class='title_wrap'><h1 class='title'>".$post_title."</h1></div></a><div class='editable'>
+  <div class='status'>
+    <div class='".$post_status."'>
+	  <div class='icon'></div>
+	  <span>".$post_status."</span>
+	</div>
+  </div>
+  <div class='actions'>
+    <a id='".$post_id."' class='icon delete' title='delete' href='#'>delete</a>
+	<a class='icon edit' title='Edit' href='".$rooturl."/member/index.php?post_id=".$post_id."'>edit</a>
+  </div>
+  <div class='clear'></div>
+</div></div>
+	<div class='story_meta'><span><img border='0' style='position:relative; top:3px; width: 20px; height:20px;' src='".$user_profile_img."'/><a style='margin-left:5px; vertical-align:top;'>".$_SESSION['username']."</a><a style='margin-left:65px; vertical-align:top;'>".$post_date."</a></span></div></li>";
   }
 
   $story_content .="</ul></div></div>";
@@ -375,6 +390,44 @@ $(function(){
 	{
 	  var videoUrl = $(this).find('.videoTitle').attr('href');
 	  append_video_content(videoUrl);
+	});
+	
+	$('.delete').click(function(e){
+	  e.preventDefault();
+	  var post_id_val = $(this).attr('id');
+	  var getData = {post_id: post_id_val};
+	  $.get('removestory.php', getData,
+	  function(data, textStatus)
+	  {
+		if(textStatus == 'success')
+		{
+          $('#'+post_id_val).closest('li').remove();
+		}
+	  });
+	});
+	
+	$('.act_digg').click(function(e)
+	{
+	  e.preventDefault();
+	  var temp_array = $(this).attr('id').split('_');
+	  var post_id_val = temp_array[0]; 
+	  var getData = {post_id: post_id_val};
+	  $.get('diggoperation.php', getData,
+	  function(data, textStatus)
+	  {
+		if(textStatus == 'success')
+		{
+		  if(data == 0)
+		  {
+		    alert('您已经投票过了');
+		  }
+		  else
+		  {
+			var temp = $('#'+post_id_val+'_digg_count').text();
+		    $('#'+post_id_val+'_digg_count').text(1+parseInt(temp));
+		  }
+		}
+	  });
 	});
 });
 	

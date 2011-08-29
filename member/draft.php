@@ -17,7 +17,7 @@ $weibo_type = "normal";
 if(0 == $story_id)
 {
   $DB->query("insert into ".$db_prefix."posts values
-                         (null, '".$_SESSION['uid']."', '".$pulish_time."', '".$pulish_time."', '".$story_title."', '".$story_summary."', '".$story_pic."', '".$story_content."', '".Draft."', '".$pulish_time."', '".$pulish_time."', 0)");
+                         (null, '".$_SESSION['uid']."', '".$pulish_time."', '".$pulish_time."', '".$story_title."', '".$story_summary."', '".$story_pic."', '".$story_content."', '".Draft."', '".$pulish_time."', '".$pulish_time."')");
   $result=$DB->fetch_one_array("SELECT ID FROM ".$db_prefix."posts where post_author='".$_SESSION['uid']."' AND post_title='".$story_title."' AND post_date='".$pulish_time."'" );
   $post_id = intval($result['ID']); 
 }
@@ -27,7 +27,7 @@ else
   post_modified='".$pulish_time."', post_modified_gmt='".$pulish_time."' WHERE ID='".$post_id."'");
 }
 
-$redirect_url = "/storify/member/user.php?post_id=".$post_id;
+$redirect_url = "/storify/member/user.php";
 echo $redirect_url;
 
 ?>

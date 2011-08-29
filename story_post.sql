@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS story_posts (
   post_status varchar(20) NOT NULL DEFAULT 'draft',
   post_modified datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   post_modified_gmt datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  post_digg_count smallint unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID`),
   KEY `post_title` (`post_title`),
   KEY `status_date` (`post_status`,`post_date`,`ID`),

@@ -606,6 +606,45 @@ margin-left:30px;
 }
 
 /* List all the story part*/
+.story_wrap{
+position: relative;
+}
+
+.editable{
+background: none repeat scroll 0 0 rgba(0, 0, 0, 0.6);
+    padding: 4px 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.editable .status{
+float: left;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.editable .status .Draft{
+color: #F3AE05;
+}
+
+.editable .status .Published{
+color: #AAC400;
+}
+
+.editable .status .icon {
+    background: url("img/storystatus.png") no-repeat scroll 0 0 transparent;
+    margin-right: 5px;
+}
+
+.editable .actions {
+    float: right;
+}
+
+.editable .actions, .editable .status {
+    padding: 0 4px;
+}
+
 #userstory_container{margin-top:30px; margin-bottom:30px; overflow:auto; zoom:1;}
 .userstory_list {}
 .userstory_list ul {padding:0;}

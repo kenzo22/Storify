@@ -925,7 +925,7 @@ $(function() {
 		  var story_tag_val = $('#sto_tag').attr('value');
 		  var story_pic_val = $('#story_thumbnail').attr('src');
 		  var postdata = {story_id: story_id_val, story_title: story_title_val, story_summary: story_summary_val, story_pic: story_pic_val, story_tag: story_tag_val, story_content: story_content_val_string};		  
-		  $.post('preview.php', postdata,
+		  $.post('draft.php', postdata,
 		  function(data, textStatus)
 		  {
             //console.log(data);						
