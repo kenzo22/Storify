@@ -682,6 +682,7 @@ $(function() {
 			  {
 			    ui.item.after(commentContent)
 			  }
+			  var list_item_have_pic = $('#story_list li:not(.addTextElementAnchor, .textElement, .video_drop)');
 			  if(ui.item.hasClass('weibo_drag'))
 			  {
 			    var position = ui.position;
@@ -700,7 +701,7 @@ $(function() {
 					+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></span><span id='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='weibo_from_drop' href='http://weibo.com/"
 					+weibo_from_id+"' target='_blank'>"+weibo_from+"</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px' src='/storify/img/sina16.png'/><a>"
 					+weibo_time+"</a></span></div></span> </div></div>");
-				  if(ui.item.index() == 1)
+				  if(ui.item.index(list_item_have_pic) == 0)
 				  {
 				    $('#story_thumbnail').attr('src', weibo_photo.replace(/(\d+)\/50\/(\d+)/, "$1\/180\/$2"));
 				  }
@@ -713,7 +714,7 @@ $(function() {
 					+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></span><span id='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='weibo_from_drop' href='http://weibo.com/"
 					+weibo_from_id+"' target='_blank'>"+weibo_from+"</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px' src='/storify/img/tencent16.png'/><a>"
 					+weibo_time+"</a></span></div></span> </div></div>");
-				  if(ui.item.index() == 1)
+				  if(ui.item.index(list_item_have_pic) == 0)
 				  {
 					$('#story_thumbnail').attr('src', weibo_photo.replace(/50$/, "180"));
 				  }
@@ -751,7 +752,7 @@ $(function() {
 				+picUrl+"'/><div class='pic_title' style='line-height:1.5;'>"+picTitle+"</div><div class='pic_author' style='line-height:1.5;'>"+picAuthor+"</div></div>");
 				ui.item.removeClass('pic_Drag').addClass('pic_drop').children().remove();　
 			    ui.item.append(picContent);
-				if(ui.item.index() == 1)
+				if(ui.item.index(list_item_have_pic) == 0)
 				{
 				  $('#story_thumbnail').attr('src', picUrl.replace(/small$/, "square"));
 				  //$('#story_thumbnail').attr('src', picUrl);
@@ -827,7 +828,7 @@ $(function() {
 		  });
 		}	
 		
-		$('#story_list').hover(function(e){
+		/*$('#story_list').hover(function(e){
 		if ($(e.target).is('.weibo_drop'))
 		{
 		  //$('.cross').css('visibility', 'hidden');
@@ -841,7 +842,7 @@ $(function() {
 		    //$('.cross').css('visibility', 'hidden');
 			$(ev.target).children('.cross').css('visibility', 'hidden');
 		  }
-		});
+		});*/
 		
 		
 		/*$('#story_list').mouseover(function(e)
@@ -1263,9 +1264,17 @@ $(function() {
 		  {
 			var $textElement = $(e.target).closest('.textElement');
 			var comment = $textElement.find('.inputEditor').val();
-			$(e.target).closest('.editingDiv').remove();
-			var $commentDiv = $("<div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='commentBox'>"+comment+"</div>");
-			$textElement.removeClass('editing').addClass('editted').append($commentDiv);
+			if(comment == '')
+			{
+			  $(e.target).closest('.textElement').next('.addTextElementAnchor').remove();
+			  $(e.target).closest('.textElement').remove();
+			}
+			else
+			{
+			  $(e.target).closest('.editingDiv').remove();
+			  var $commentDiv = $("<div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='commentBox'>"+comment+"</div>");
+			  $textElement.removeClass('editing').addClass('editted').append($commentDiv);
+			}
 		  }
 		});
 		

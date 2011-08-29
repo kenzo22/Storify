@@ -50,10 +50,10 @@ if(isset($_GET['weibo_ids']))
     $time = getdate($item['timestamp']);
     $create_time = $time[year]."-".$time[mon]."-".$time[mday]." ".$time[hours].":".$time[minutes];
     $profileImgUrl = $item['head']."/50";
-    $weiboContent .="<li class='weibo_drop tencent' id='".$item['id']."' style='border:none;'><div class='story_wrapper'><div><span class='weibo_text'>".$item['text']."</span></div>
-    <div id='story_signature'><span style='float:right;'><a href='http://t.qq.com/".$item['name']."' target='_blank'><img class='profile_img' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
+    $weiboContent .="<li class='weibo_drop tencent' id='".$item['id']."' style='border:none;'><div class='story_wrapper'><div><span class='weibo_text_drop'>".$item['text']."</span></div>
+    <div id='story_signature'><span style='float:right;'><a href='http://t.qq.com/".$item['name']."' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
     .$profileImgUrl."' alt='".$item['nick']."' border=0 /></a></span><span id='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'>
-    <span ><a class='weibo_from' href='http://t.qq.com/".$item['name']."' target='_blank'>".$item['nick']."</a></span></div><div class='weibo_date'  style='text-align:right; height:16px;'><span>
+    <span ><a class='weibo_from_drop' href='http://t.qq.com/".$item['name']."' target='_blank'>".$item['nick']."</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span>
     <img border='0' style='position:relative; top:2px' src='/Storify/img/tencent16.png'/><a>".$create_time."</a></span></div></span> </div></div></li>";
   }
   $weiboContent .= "</div>";
