@@ -5,6 +5,7 @@ include_once( '../weibo/config.php' );
 include_once( '../weibo/sinaweibo.php' );
 include_once( '../tweibo/config.php' );
 include_once( '../tweibo/txwboauth.php' );
+include_once "userrelation.php";
 ?>
 <link type="text/css" href="/storify/css/jquery.ui.theme.css" rel="stylesheet" />
 <link type="text/css" href="/storify/css/jquery.ui.button.css" rel="stylesheet" />
@@ -187,39 +188,34 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	  }
 	  
 	}
+    // get the following and follower info
+    $following_list = getFollowing();
+    $follower_list=getFollower();
+
 	$content .="<div class='user_info'><P>".$userresult['username']."</P><P>".$userresult['intro']."</P></div>
 		  <div class='usersfollowers'>
-		    <span>粉丝</span><span class='count'>10000</span>
-		    <div class='kusers'>
-			  <a class='follow_mini_icon' style='background-image: url(/storify/img/person.png)' href='#'></a>
-			  <a class='follow_mini_icon' style='background-image: url(/storify/img/person.png)' href='#'></a>
-			  <a class='follow_mini_icon' style='background-image: url(/storify/img/person.png)' href='#'></a>
-			  <a class='follow_mini_icon' style='background-image: url(/storify/img/person.png)' href='#'></a>
-			  <a class='follow_mini_icon' style='background-image: url(/storify/img/person.png)' href='#'></a>
-			  <a class='follow_mini_icon' style='background-image: url(/storify/img/person.png)' href='#'></a>
-			  <a class='follow_mini_icon' style='background-image: url(/storify/img/person.png)' href='#'></a>
-			  <a class='follow_mini_icon' style='background-image: url(/storify/img/person.png)' href='#'></a>
-			  <a class='follow_mini_icon' style='background-image: url(/storify/img/person.png)' href='#'></a>
-			  <a class='follow_mini_icon' style='background-image: url(/storify/img/person.png)' href='#'></a>
-			  <a class='follow_mini_icon' style='background-image: url(/storify/img/person.png)' href='#'></a>
-			  <a class='follow_mini_icon' style='background-image: url(/storify/img/person.png)' href='#'></a>
-			</div>
-		  </div>		  
+		    <span>粉丝</span><span class='count'>".sizeof($follower_list)."</span>
+		    <div class='kusers'>";
+    foreach($follower_list as $fower){
+        $query="select photo from ".$db_prefix."user where id=".$fower;
+        $result=$DB->query($query);
+        $item=$DB->fetch_array($result);
+        $usr_img=$rooturl."/img/user/".$item['photo'];
+        $content .="<a class='follow_mini_icon' href='#'><img style='' width='18px' htight='18px' src='".$usr_img."'></a>";
+    }
+    $content .= "</div>
+                </div>
 		  <div class='usersfollowing'>
-		    <span>关注</span><span class='count'>100</span>
-			<div class='kusers'>
-			  <a class='follow_mini_icon' style='background-image: url(/storify/img/person.png)' href='#'></a>
-			  <a class='follow_mini_icon' style='background-image: url(/storify/img/person.png)' href='#'></a>
-			  <a class='follow_mini_icon' style='background-image: url(/storify/img/person.png)' href='#'></a>
-			  <a class='follow_mini_icon' style='background-image: url(/storify/img/person.png)' href='#'></a>
-			  <a class='follow_mini_icon' style='background-image: url(/storify/img/person.png)' href='#'></a>
-			  <a class='follow_mini_icon' style='background-image: url(/storify/img/person.png)' href='#'></a>
-			  <a class='follow_mini_icon' style='background-image: url(/storify/img/person.png)' href='#'></a>
-			  <a class='follow_mini_icon' style='background-image: url(/storify/img/person.png)' href='#'></a>
-			  <a class='follow_mini_icon' style='background-image: url(/storify/img/person.png)' href='#'></a>
-			  <a class='follow_mini_icon' style='background-image: url(/storify/img/person.png)' href='#'></a>
-			  <a class='follow_mini_icon' style='background-image: url(/storify/img/person.png)' href='#'></a>
-			  <a class='follow_mini_icon' style='background-image: url(/storify/img/person.png)' href='#'></a>
+		    <span>关注</span><span class='count'>".sizeof($following_list)."</span>
+			<div class='kusers'>";
+    foreach($following_list as $fowing){
+        $query="select photo from ".$db_prefix."user where id=".$fowing;
+        $result=$DB->query($query);
+        $item=$DB->fetch_array($result);
+        $usr_img=$rooturl."/img/user/".$item['photo'];
+        $content .="<a class='follow_mini_icon' href='#'><img style='' width='18px' htight='18px' src='".$usr_img."'></a>";
+    }
+    $content .= "
 			</div>
 		  </div>
 		</div>
