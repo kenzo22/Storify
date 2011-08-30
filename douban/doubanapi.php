@@ -21,12 +21,32 @@ class DoubanClient
     function __construct( $akey , $skey , $accecss_token , $accecss_token_secret ) 
     { 
         $this->oauth = new DoubanOAuth( $akey , $skey , $accecss_token , $accecss_token_secret ); 
-    } 
+    }
+	
+	/*$param = array(); 
+        if( is_numeric( $uid_or_name ) ) $param['target_id'] = $uid_or_name; 
+        else $param['target_screen_name'] = $uid_or_name; 
+
+        return $this->oauth->get( 'http://api.t.sina.com.cn/friendships/show.json' , $param ); */
 	
 	function verify_credentials()
 	{
-	  return $this->oauth->get('http://api.douban.com/people@me?alt=json'); 
+	  $param = array();
+	  $param['alt'] = 'json';
+	  return $this->oauth->get('http://api.douban.com/people/%40me' , $param); 
 	}
+	
+	function get_user()
+	{
+	  $param = array();
+	  $param['alt'] = 'json';
+	  return $this->oauth->get('http://api.douban.com/people/ahbei' , $param); 
+	}
+	
+	/*function last_status()
+	{
+	  return $this->oauth->lastStatusCode();
+	}*/
 
     /** 
      * 最新公共微博 

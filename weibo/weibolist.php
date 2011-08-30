@@ -10,12 +10,15 @@ $_SESSION['last_key']['oauth_token']=$result['weibo_access_token'];
 $_SESSION['last_key']['oauth_token_secret']=$result['weibo_access_token_secret'];
 $c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_key']['oauth_token'] , $_SESSION['last_key']['oauth_token_secret']  );
 $ms  = $c->home_timeline(); // done
+
 $me = $c->verify_credentials();
+echo "<br /><br /><br /><br /><br />";
+var_dump($me);
 //$single_weibo  = $c->show_status(1189591617);
 
 
 ?>
-<div class='div_center' >
+<!--<div class='div_center' >
 <h2><?=$me['name']?> 你好~ 要换头像么?</h2>
 <form action="weibolist.php" >
 <input type="text" name="avatar" style="width:300px" value="头像url" />
@@ -33,10 +36,9 @@ $me = $c->verify_credentials();
 <input type="text" name="pic" style="width:300px" value="图片url" />
 &nbsp;<input type="submit" />
 </form>
-</div>
+</div>-->
 <?php
-
-if( isset($_REQUEST['text']) || isset($_REQUEST['avatar']) )
+/*if( isset($_REQUEST['text']) || isset($_REQUEST['avatar']) )
 {
 
 if( isset($_REQUEST['pic']) )
@@ -50,7 +52,7 @@ else
 
 }
 
-$msg = $c->show_status(15114058604);
+$msg = $c->show_status(3351803345848198);
 	if ($msg === false || $msg === null){
 		echo "Error occured";
 		return false;
@@ -61,8 +63,7 @@ $msg = $c->show_status(15114058604);
 	}
 	if (isset($msg['id']) && isset($msg['text'])){
 		echo($msg['id'].' : '.$msg['text']);
-	}
-
+	}*/
 ?>
 
 
