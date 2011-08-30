@@ -28,7 +28,7 @@
 	if(islogin())
     { 
 		$user_profile_img;
-		$userresult=$DB->fetch_one_array("SELECT photo FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
+		$userresult=$DB->fetch_one_array("SELECT id, photo FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
 		if(substr($userresult['photo'], 0, 4) == 'http')
 		{
 		  $user_profile_img = $userresult['photo'];
@@ -49,7 +49,7 @@
 					<span><a id='publishBtn' href='./' >发布</a></span>
 				  </div>";
 	  echo "<div id='global_bar'><div></div></div><div id='top_bar'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='/storify/img/logo.png' border='0'></a></span>
-	  <span id='user_action'><a href='".$rooturl."/index.php'>主页</a> | <a href='".$rooturl."/member/user.php'>我的故事</a> | <a href='".$rooturl."/member'>创建故事</a>
+	  <span id='user_action'><a href='".$rooturl."/index.php'>主页</a> | <a href='".$rooturl."/member/user.php/?user_id=".$userresult['id']."'>我的故事</a> | <a href='".$rooturl."/member'>创建故事</a>
 	  </span>".$content."</div></div><BR>";
     }
 	else

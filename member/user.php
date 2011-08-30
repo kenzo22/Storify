@@ -59,13 +59,13 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	
 	if(!islogin() || $story_author != $_SESSION['uid'])
 	{
-	  $content = "<div id='story_container'><div><a id='".$post_id."_act_digg' class='act_digg'>顶一下<span id='".$post_id."_digg_count' style='margin-left:20px;'>".$story_digg_count."</span></a></div><div id='publish_container' class='showborder'>";
+	  $content = "<div id='story_container'><div class='digg_wrap'><div id='".$post_id."_digg_count' style='margin-top:10px;'>".$story_digg_count."</div><a id='".$post_id."_act_digg' class='act_digg'>顶一下</a></div><div id='publish_container' class='showborder'>";
 	}
 	else
 	{
 	  if(0 == strcmp($story_status, 'Published'))
 	  {
-	    $content = "<div id='story_container'><div><a id='".$post_id."_act_digg' class='act_digg'>顶一下<span id='".$post_id."_digg_count' style='margin-left:20px;'>".$story_digg_count."</span></a></div><div id='publish_container' class='showborder'>
+	    $content = "<div id='story_container'><div class='digg_wrap'><div id='".$post_id."_digg_count' style='margin-top:10px;'>".$story_digg_count."</div><a id='".$post_id."_act_digg' class='act_digg'>顶一下</a></div><div id='publish_container' class='showborder'>
 			  <div id='story_action'><span>已发布</span><span class='float_r'><a href='#'>通告
 			  </a> | <a href='/storify/member/user.php?post_id=".$post_id."&action=remove'>删除</a> | <a href='/storify/member/user.php?post_id=".$post_id."&action=edit'>编辑</a></span></div>";
 	  }
@@ -175,6 +175,8 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 		  <div class='avatar'><a><img style='' width='80px' height='80px' src='".$user_profile_img."'></a></div>";
 	if(islogin() && $story_author != $_SESSION['uid'])
 	{
+	  $login_user_id = $_SESSION['uid'];
+	  
 	  $query="select * from ".$db_prefix."follow where user_id=".$_SESSION[uid]." and follow_id=".$story_author;
       $relationresult=$DB->query($query);
       $num=$DB->num_rows($relationresult);
@@ -195,10 +197,10 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	$content .="<div class='user_info'><P>".$userresult['username']."</P><P>".$userresult['intro']."</P></div>
 		  <div class='usersfollowers'>
 		    <span style='vertical-align:top'>粉丝</span><span style='vertical-align:top' class='count'>".sizeof($follower_list)."</span>
-		    <div class='kusers'>";
+		    <ul class='follower_list'>";
     $usr_img;
 	foreach($follower_list as $fower){
-        $query="select username, photo from ".$db_prefix."user where id=".$fower;
+        $query="select id, username, photo from ".$db_prefix."user where id=".$fower;
         $result=$DB->query($query);
         $item=$DB->fetch_array($result);
 		if(substr($item['photo'], 0, 4) == 'http')
@@ -209,15 +211,15 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 		{
 		  $usr_img=$rooturl."/img/user/".$item['photo'];
 		}
-        $content .="<a class='follow_mini_icon' href='#'><img title='".$item['username']."' src='".$usr_img."'></a>";
+        $content .="<li id='follower_id_".$item['id']."'><a class='follow_mini_icon' href='/storify/member/user.php/?user_id=".$item['id']."'><img title='".$item['username']."' src='".$usr_img."'></a></li>";
     }
-    $content .= "</div>
+    $content .= "</ul>
                 </div>
 		  <div class='usersfollowing'>
 		    <span style='vertical-align:top'>关注</span><span style='vertical-align:top' class='count'>".sizeof($following_list)."</span>
-			<div class='kusers'>";
+			<ul class='following_list'>";
     foreach($following_list as $fowing){
-        $query="select username, photo from ".$db_prefix."user where id=".$fowing;
+        $query="select id, username, photo from ".$db_prefix."user where id=".$fowing;
         $result=$DB->query($query);
         $item=$DB->fetch_array($result);
         if(substr($item['photo'], 0, 4) == 'http')
@@ -228,10 +230,10 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 		{
 		  $usr_img=$rooturl."/img/user/".$item['photo'];
 		}
-        $content .="<a class='follow_mini_icon' href='#'><img title='".$item['username']."' src='".$usr_img."'></a>";
+        $content .="<li id='following_id_".$item['id']."'><a class='follow_mini_icon' href='/storify/member/user.php/?user_id=".$item['id']."'><img title='".$item['username']."' src='".$usr_img."'></a></li>";
     }
     $content .= "
-			</div>
+			</ul>
 		  </div>
 		</div>
 	  </div>
@@ -261,6 +263,19 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 					  {
 						if('success'==textStatus)
 						{
+						  if(operation_val == 'follow')
+						  {
+						    var temp = $('.usersfollowers .count').text();
+							$('.usersfollowers .count').text(parseInt(temp)+1);
+							$('.follower_list').append(data);
+						  }
+						  else
+						  {
+							var user_id='$login_user_id';
+							$(\"#follower_id_\"+user_id).remove();
+							var temp = $('.usersfollowers .count').text();
+							$('.usersfollowers .count').text(parseInt(temp)-1);
+						  }
 						  $('.follow_btn').toggle();
 						}
 						console.log(data);						
@@ -334,11 +349,12 @@ else if(isset($_GET['post_id']) && isset($_GET['action']))
 	}
 }
 
-else
+else if(isset($_GET['user_id']))
 {
+  $user_id = $_GET['user_id'];
   $story_content = "<div id='userstory_container' class='inner'><div class='userstory_list'><ul>";
-  $result=$DB->query("SELECT * FROM ".$db_prefix."posts where post_author='".$_SESSION['uid']."'");
-  $userresult = $DB->fetch_one_array("SELECT photo FROM ".$db_prefix."user where id='".$_SESSION[uid]."'");
+  $result=$DB->query("SELECT * FROM ".$db_prefix."posts where post_author='".$user_id."'");
+  $userresult = $DB->fetch_one_array("SELECT username, photo FROM ".$db_prefix."user where id='".$user_id."'");
   $user_profile_img;
   if(substr($userresult['photo'], 0, 4) == 'http')
   {
@@ -371,7 +387,7 @@ else
   </div>
   <div class='clear'></div>
 </div></div>
-	<div class='story_meta'><span><img border='0' style='position:relative; top:3px; width: 20px; height:20px;' src='".$user_profile_img."'/><a style='margin-left:5px; vertical-align:top;'>".$_SESSION['username']."</a><a style='margin-left:65px; vertical-align:top;'>".$post_date."</a></span></div></li>";
+	<div class='story_meta'><span><img border='0' style='position:relative; top:3px; width: 20px; height:20px;' src='".$user_profile_img."'/><a style='margin-left:5px; vertical-align:top;'>".$userresult['username']."</a><a style='margin-left:65px; vertical-align:top;'>".$post_date."</a></span></div></li>";
   }
 
   $story_content .="</ul></div></div>";

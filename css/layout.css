@@ -477,8 +477,29 @@ width:70%;
 }
 
 #story_container{
-width:920px; margin:0 auto; padding-top:50px; min-height:650px;
+width:920px; margin:0 auto; padding-top:50px; min-height:650px; position:relative;
 }
+
+.follower_list, .following_list
+{
+padding:0;
+list-style-type:none;
+}
+
+.digg_wrap
+{
+  position:absolute;
+  top:50px;
+  left:-58px;
+  height:68px;
+  width:54px;
+  border-color:#ababac;
+  border-style:solid;
+  border-width:1px;
+  border-radius:5px;
+  text-align:center;
+}
+
 #publish_container{
   border-color:#ababac;
   border-style:solid;
