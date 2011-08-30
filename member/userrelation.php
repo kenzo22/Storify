@@ -63,13 +63,13 @@ function unfollow($follow_uid)
                 echo "数据库表格删除记录失败:".$query;
 }
 
-function getFollowing()
+function getFollowing($author_id)
 {
         global $DB;
         global $ftable;
-        global $uid;
+        //global $uid;
 
-        $query="select follow_id from ".$ftable." where user_id=".$uid;
+        $query="select follow_id from ".$ftable." where user_id=".$author_id;
         $results=$DB->query($query);
         if(!$results){
                 echo "数据库查询失败:".$results;
@@ -82,13 +82,13 @@ function getFollowing()
         return $followings;
 }
 
-function getFollower()
+function getFollower($author_id)
 {
         global $DB;
         global $ftable;
-        global $uid;
+        //global $uid;
 
-        $query="select user_id from ".$ftable." where follow_id=".$uid;
+        $query="select user_id from ".$ftable." where follow_id=".$author_id;
         $results=$DB->query($query);
         if(!$results){
                 echo "数据库查询失败:".$resultsp;

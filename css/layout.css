@@ -557,8 +557,7 @@ font-weight: normal;
     top: 1px;
 }
 
-.follow_mini_icon {
-    background-color: #D9D9D9;
+.follow_mini_icon img {
     display: block;
     float: left;
     height: 24px;

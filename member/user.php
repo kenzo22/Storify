@@ -77,7 +77,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	  }	
 	}
 	$content .="<div id='story_header' style='margin:0; padding:0;'><div style='float:right; padding: 10px 10px 0 0'><img src='".$story_pic."' style='width:60px; height:60px;' /></div><div style='padding-left:20px;'><h2>".$story_title."</h2></div>
-			  <div style='padding-left:20px;'>".$_SESSION['username']."</div>
+			  <div style='padding-left:20px;'>".$userresult['username']."</div>
 			  <div style='padding-left:20px; border-bottom:1px solid #C9C9C9;'>".$story_summary."</div>
 			  </div>
 			  <ul id='weibo_ul' style='padding:0;'>";
@@ -189,31 +189,46 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	  
 	}
     // get the following and follower info
-    $following_list = getFollowing();
-    $follower_list=getFollower();
+    $following_list = getFollowing($story_author);
+    $follower_list=getFollower($story_author);
 
 	$content .="<div class='user_info'><P>".$userresult['username']."</P><P>".$userresult['intro']."</P></div>
 		  <div class='usersfollowers'>
-		    <span>粉丝</span><span class='count'>".sizeof($follower_list)."</span>
+		    <span style='vertical-align:top'>粉丝</span><span style='vertical-align:top' class='count'>".sizeof($follower_list)."</span>
 		    <div class='kusers'>";
-    foreach($follower_list as $fower){
-        $query="select photo from ".$db_prefix."user where id=".$fower;
+    $usr_img;
+	foreach($follower_list as $fower){
+        $query="select username, photo from ".$db_prefix."user where id=".$fower;
         $result=$DB->query($query);
         $item=$DB->fetch_array($result);
-        $usr_img=$rooturl."/img/user/".$item['photo'];
-        $content .="<a class='follow_mini_icon' href='#'><img style='' width='18px' htight='18px' src='".$usr_img."'></a>";
+		if(substr($item['photo'], 0, 4) == 'http')
+		{
+		  $usr_img = $item['photo'];
+		}
+		else
+		{
+		  $usr_img=$rooturl."/img/user/".$item['photo'];
+		}
+        $content .="<a class='follow_mini_icon' href='#'><img title='".$item['username']."' src='".$usr_img."'></a>";
     }
     $content .= "</div>
                 </div>
 		  <div class='usersfollowing'>
-		    <span>关注</span><span class='count'>".sizeof($following_list)."</span>
+		    <span style='vertical-align:top'>关注</span><span style='vertical-align:top' class='count'>".sizeof($following_list)."</span>
 			<div class='kusers'>";
     foreach($following_list as $fowing){
-        $query="select photo from ".$db_prefix."user where id=".$fowing;
+        $query="select username, photo from ".$db_prefix."user where id=".$fowing;
         $result=$DB->query($query);
         $item=$DB->fetch_array($result);
-        $usr_img=$rooturl."/img/user/".$item['photo'];
-        $content .="<a class='follow_mini_icon' href='#'><img style='' width='18px' htight='18px' src='".$usr_img."'></a>";
+        if(substr($item['photo'], 0, 4) == 'http')
+		{
+		  $usr_img = $item['photo'];
+		}
+		else
+		{
+		  $usr_img=$rooturl."/img/user/".$item['photo'];
+		}
+        $content .="<a class='follow_mini_icon' href='#'><img title='".$item['username']."' src='".$usr_img."'></a>";
     }
     $content .= "
 			</div>
