@@ -1,6 +1,6 @@
 <?php
 include "../global.php";
-$result=$DB->fetch_one_array("SELECT weibo_user_id, tweibo_access_token, yupoo_token FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
+$result=$DB->fetch_one_array("SELECT weibo_user_id, tweibo_access_token, douban_access_token, yupoo_token FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
 if(intval($result['weibo_user_id']) == 0)
 {
   $weibo_status = "未添加帐号";
@@ -21,6 +21,18 @@ else
   $tweibo_status = "已添加帐号";
   $tweibo_action = "删除";
 }
+
+if($result['douban_access_token'] == '')
+{
+  $douban_status = "未添加帐号";
+  $douban_action = "添加";
+}
+else
+{
+  $douban_status = "已添加帐号";
+  $douban_action = "删除";
+}
+
 if($result['yupoo_token'] == '')
 {
   $yupoo_status = "未添加帐号";
@@ -39,6 +51,7 @@ $content = "<div class='inner' style='padding-top:50px;'>
 <ul id='source_ul'>
   <li><a href='#'><img src='/storify/img/sina32.png'/><span style='margin-left:150px;' class='source_name'>新浪微博</span></a><span class='source_status'>".$weibo_status."<a id='sina_weibo' class='unbind_source'>".$weibo_action."</a></span></li>
   <li><a href='#'><img src='/storify/img/tencent32.png'/><span style='margin-left:150px;' class='source_name'>腾讯微博</span></a><span class='source_status'>".$tweibo_status."<a id='tencent_weibo' class='unbind_source'>".$tweibo_action."</a></span></li>
+  <li><a href='#'><img src='/storify/img/logo_douban.png' width='32px' height='32px'/><span style='margin-left:150px;' class='source_name'>豆瓣社区</span></a><span class='source_status'>".$douban_status."<a id='douban_forum' class='unbind_source'>".$douban_action."</a></span></li>
   <li><a href='#'><img src='/storify/img/yupoologo.png'/><span style='margin-left:102px;' class='source_name'>又拍社区</span></a><span class='source_status'>".$yupoo_status."<a id='yupoo_pic' class='unbind_source'>".$yupoo_action."</a></span></li>
   <li><a id='youku_video' href='#'><img src='/storify/img/youkulogo.gif'/><span style='margin-left:94px;' class='source_name'>优酷视频</span></a><span class='source_status'>无需添加帐号</span></li>
 </ul>
@@ -100,6 +113,34 @@ else
     if(textStatus == 'success')
 	{
 	  $('#tencent_weibo').text('添加');
+	  $('.modify_notify').remove();
+	  $('#source_ul').before(data);
+	}
+  });
+}
+});
+
+$('#douban_forum').click(function(e){
+e.preventDefault();
+var postdata;
+if($(this).text() == '添加')
+{
+  postdata = {operation: 'add'};
+  $.post('doubansource.php', postdata,
+  function(data, textStatus)
+  {					
+	self.location = data;
+  });
+}
+else
+{
+  postdata = {operation: 'delete'};
+  $.post('doubansource.php', postdata,
+  function(data, textStatus)
+  {	
+    if(textStatus == 'success')
+	{
+	  $('#douban_forum').text('添加');
 	  $('.modify_notify').remove();
 	  $('#source_ul').before(data);
 	}
