@@ -49,7 +49,7 @@
 					<span><a id='publishBtn' href='./' >发布</a></span>
 				  </div>";
 	  echo "<div id='global_bar'><div></div></div><div id='top_bar'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='/storify/img/logo.png' border='0'></a></span>
-	  <span id='user_action'><a href='".$rooturl."/index.php'>主页</a> | <a href='".$rooturl."/member/user.php/?user_id=".$userresult['id']."'>我的故事</a> | <a href='".$rooturl."/member'>创建故事</a>
+	  <span id='user_action'><a href='".$rooturl."/index.php'>主页</a> | <a href='".$rooturl."/member/user.php?user_id=".$userresult['id']."'>我的故事</a> | <a href='".$rooturl."/member'>创建故事</a>
 	  </span>".$content."</div></div><BR>";
     }
 	else

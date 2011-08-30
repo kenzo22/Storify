@@ -211,7 +211,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 		{
 		  $usr_img=$rooturl."/img/user/".$item['photo'];
 		}
-        $content .="<li id='follower_id_".$item['id']."'><a class='follow_mini_icon' href='/storify/member/user.php/?user_id=".$item['id']."'><img title='".$item['username']."' src='".$usr_img."'></a></li>";
+        $content .="<li id='follower_id_".$item['id']."'><a class='follow_mini_icon' href='/storify/member/user.php?user_id=".$item['id']."'><img title='".$item['username']."' src='".$usr_img."'></a></li>";
     }
     $content .= "</ul>
                 </div>
@@ -230,7 +230,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 		{
 		  $usr_img=$rooturl."/img/user/".$item['photo'];
 		}
-        $content .="<li id='following_id_".$item['id']."'><a class='follow_mini_icon' href='/storify/member/user.php/?user_id=".$item['id']."'><img title='".$item['username']."' src='".$usr_img."'></a></li>";
+        $content .="<li id='following_id_".$item['id']."'><a class='follow_mini_icon' href='/storify/member/user.php?user_id=".$item['id']."'><img title='".$item['username']."' src='".$usr_img."'></a></li>";
     }
     $content .= "
 			</ul>

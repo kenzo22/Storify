@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS story_user (
   KEY `user_name_key` (`username`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
-INSERT INTO `story_User` (`id`, `username`, `passwd`, `email`) VALUES 
+INSERT INTO `story_user` (`id`, `username`, `passwd`, `email`) VALUES 
 (1, '张辛欣', 'e10adc3949ba59abbe56e057f20f883e','xinxinzhang22@gmail.com'),
 (2, '源源', 'e10adc3949ba59abbe56e057f20f883e','yuan0320@gmail.com'),
 (3, 'test3', 'e10adc3949ba59abbe56e057f20f883e','test3@gmail.com'),

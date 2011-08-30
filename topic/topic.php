@@ -24,7 +24,6 @@ while ($story_item = mysql_fetch_array($result))
 }
 $content .="</ul></div>";
 echo $content;
-echo $tag_id;
 ?>
 
 

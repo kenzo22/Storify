@@ -102,7 +102,7 @@ if(!islogin())
 		    <ul id='mycarousel' class='jcarousel-skin-tango'>
 			<?php
 			$story_content = '';
-			$result=$DB->query("SELECT * FROM ".$db_prefix."posts limit 8");
+			$result=$DB->query("SELECT * FROM ".$db_prefix."posts order by post_digg_count desc limit 4");
 			while ($story_item = mysql_fetch_array($result))
 			{
 			  //printf ("title: %s  summary: %s", $story_item['post_title'], $story_item['post_summary']);
@@ -149,10 +149,15 @@ if(!islogin())
 					$tag_name = $tag_item['name'];
 					$relationresult = $DB->query("select * from ".$db_prefix."tag_story where tag_id='".$tag_id."'");
 					$tag_count = $DB->num_rows($relationresult);
-					//need to fetch the title of the most popular story which has this specific tag
-					$most_popular_title = "测试";
+					
+                    //need to fetch the title of the most popular story which has this specific tag
+                    $query="select ".$db_prefix."posts.post_title,".$db_prefix."posts.post_pic_url from ".$db_prefix."tag_story,".$db_prefix."posts where tag_id=".$tag_id." and story_id=".$db_prefix."posts.id order by ".$db_prefix."posts.post_digg_count desc";
+                    $result=$DB->query($query);
+                    $item=$DB->fetch_array($result);
+
+
 					$tag_content .= "<li><div class='topic_meta'><span class='topic_title'>#".$tag_name."#</span><span class='story_count'>".$tag_count."</span></div>
-					<a class='topic_cover' style='background-image: url(/storify/img/iphone.jpg);' href='./topic/topic.php?topic=".$tag_name."'><div class='title_wrap'><h1 class='title'>".$most_popular_title."</h1></div></a></li>";
+					<a class='topic_cover' style='background-image: url(".$item['post_pic_url'].");' href='./topic/topic.php?topic=".$tag_name."'><div class='title_wrap'><h1 class='title'>".$item['post_title']."</h1></div></a></li>";
 				  }
 				  echo $tag_content;
 				?>
