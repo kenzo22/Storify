@@ -102,7 +102,7 @@ if(!islogin())
 		    <ul id='mycarousel' class='jcarousel-skin-tango'>
 			<?php
 			$story_content = '';
-			$result=$DB->query("SELECT * FROM ".$db_prefix."posts order by post_digg_count desc limit 4");
+			$result=$DB->query("SELECT * FROM ".$db_prefix."posts order by post_digg_count desc limit 10");
 			while ($story_item = mysql_fetch_array($result))
 			{
 			  //printf ("title: %s  summary: %s", $story_item['post_title'], $story_item['post_summary']);

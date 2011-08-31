@@ -343,6 +343,22 @@ height:16px;
  }
  
  /*edit story part */
+ #weibo_search .sep,  #douban_search .sep,  #pic_search .sep{
+   padding-top:52px;
+ }
+ 
+ #weibo_search input,  #douban_search input,  #pic_search input, #videoTabs input{
+   width: 260px; vertical-align:top;
+ }
+ 
+ #weibo_search_btn, #douban_search_btn, #pic_search_btn, #embedVideo{
+   vertical-align:top;
+ }
+ 
+#douban_search_btn, #pic_search_btn{
+   width: 76px;
+ }
+ 
  #story_header{
  border: 1px solid #C9C9C9; border-radius: 5px 5px 0px 0px; border-bottom:none; padding: 10px 10px 15px 10px; 
  }

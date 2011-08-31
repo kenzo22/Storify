@@ -27,6 +27,7 @@ $content = "
 		  <ul>
 		    <li class='weiboLi' style='padding:5px 0 5px 5px;'><a><img style='height:24px; border:0px; width:24px;' src='/storify/img/sina24.png' /></a></li>
 			<li class='tweiboLi' style='padding:5px 0 5px 5px;'><a><img src='/storify/img/tencent24.png' /></a></a></li>
+			<li class='doubanLi' style='padding:5px 0 5px 5px;'><a><img style='height:24px; border:0px; width:24px;' src='/storify/img/logo_douban.png' /></a></a></li>
 		    <li class='videoLi' style='padding:5px 0 5px 5px;'><a><img style='height:24px; border:0px; width:24px;' src='/storify/img/icon-youku.png' /></a></li>
 			<li class='yupooLi' style='padding:5px 0 5px 5px;'><a><img style='height:24px; border:0px; width:24px;' src='/storify/img/yupoo-logo.png' /></a></li>
 		  </ul>
@@ -49,24 +50,50 @@ $content = "
 	        <div id='tabs-4'> 
 		      
 	        </div>
-			<div id='weibo_search' style='padding-left:10px;'>
+			<div id='weibo_search' style='padding-left:4px;'>
 		      <form id='source_controller_form' action='#'>
-		        <p class='sep'>
-				  <label for='keywords'>关键字:</label><br />           
-			      <input style='width: 250px;' id='keywords' name='keywords' type='text'>
+		        <div class='sep'>         
+			      <input id='keywords' name='keywords' type='text'>
 			      <button id='weibo_search_btn' type='button' value='search'>搜索微博</button>
-                </p>
-			    <p></p>
+                </div>
+		      </form>
+		    </div>
+		  </div>
+		  <div id='doubanTabs'>
+		    <ul>
+			  <li><a id='book_tab' href='#dtabs-1'>图书</a></li>
+		      <li><a id='movie_tab' href='#dtabs-2'>电影</a></li>
+		      <li><a id='music_tab' href='#dtabs-3'>音乐</a></li>
+		      <li><a id='event_tab' href='#dtabs-4'>活动</a></li>
+	        </ul> 
+			<div id='dtabs-1'> 
+
+	        </div> 
+	        <div id='dtabs-2'> 
+
+	        </div> 
+	        <div id='dtabs-3'> 
+
+	        </div> 
+	        <div id='dtabs-4'> 
+		      
+	        </div>
+			<div id='douban_search' style='padding-left:4px;'>
+		      <form action='#'>
+		        <div class='sep'>        
+			      <input id='d_keywords' name='d_keywords' type='text'>
+			      <button id='douban_search_btn' type='button' value='search'>搜索</button>
+                </div>
 		      </form>
 		    </div>
 		  </div>
 		  <div id='videoTabs'>
-		    <form action='#' style='padding-bottom:33px;'>
-		    <p>
-			  <label for='videoUrl'>视频地址:</label><br />           
-			  <input style='width: 250px;' id='videoUrl' name='videoUrl' type='text'>
-			  <button type='button' value='嵌入视频' id='embedVideo'>嵌入视频</button>
-            </p>
+		    <form action='#' style='padding-top:15px; padding-bottom:33px;'>
+		    <div>
+			  <label for='videoUrl'>优酷视频地址:</label><br />           
+			  <input style='margin-top:13px;' id='videoUrl' name='videoUrl' type='text'>
+			  <button style='margin-top:13px;' type='button' value='嵌入视频' id='embedVideo'>嵌入视频</button>
+            </div>
 		    </form>
 		  </div>
 		  <div id='picTabs'>
@@ -80,14 +107,12 @@ $content = "
 	        <div id='pictabs-2'> 
 
 	        </div> 
-			<div id='pic_search' style='padding-left:10px;'>
+			<div id='pic_search' style='padding-left:4px;'>
 		      <form action='#'>
-		        <p class='sep'>
-				  <label id='pic_label' for='pic_keywords'>关键字:</label><br />           
-			      <input style='width: 250px;' id='pic_keywords' name='pic_keywords' type='text'>
+		        <div class='sep'>           
+			      <input id='pic_keywords' name='pic_keywords' type='text'>
 			      <button id='pic_search_btn' type='button' value='search'>搜索</button>
-                </p>
-			    <p></p>
+                </div>
 		      </form>
 		    </div>
 		  </div>
@@ -312,7 +337,7 @@ function display_search()
   //$('.weibo_drag').remove();
   //need to compare the performance of this two remove method
   $('#source_list').children().remove();
-  $('#keywords').val('');
+  //$('#keywords').val('');
   $('#weibo_search button').text('搜索微博');
   $('#weibo_search').css('display', 'block');
 }
@@ -320,7 +345,7 @@ function display_search()
 function display_user_search()
 {
   $('#source_list').children().remove();
-  $('#keywords').val('');
+  //$('#keywords').val('');
   $('#weibo_search button').text('搜索用户');
   $('#weibo_search').css('display', 'block');
 }
@@ -456,6 +481,7 @@ $(function() {
 		});
 		
 		var $weiboTabs = $( '#weiboTabs' ).tabs();
+		var $doubanTabs = $( '#doubanTabs' ).tabs();
 		var $picTabs = $( '#picTabs' ).tabs();
 		/*var $weiboTabs = $( '#weiboTabs' ).tabs({
 			ajaxOptions: {
@@ -471,11 +497,136 @@ $(function() {
 			}
 		});*/
 		
+		$('#sto_tag').val('添加故事标签').css('color', '#999999').focus(function(){
+		  if($(this).val() == '添加故事标签')
+		  {
+		    $(this).val('').css('color', 'black');
+		  }		  
+		  }).blur(function(){
+		  if($(this).val() == '')
+		  {
+		    $(this).val('添加故事标签').css('color', '#999999');
+		  }
+		  });
+		  
+		$('#keywords').val('关键字').css('color', '#999999');
+		
+		$('#keywords').blur(function(){
+		    if($(this).val() == '')
+		    {
+		      var weibo_selected = $weiboTabs.tabs('option', 'selected');
+			  if(weibo_selected == 0)
+			  {
+			    $(this).val('关键字').css('color', '#999999');
+			  }
+			  else if(weibo_selected == 3)
+			  {
+			    $(this).val('微博用户名').css('color', '#999999');
+			  }
+		    }
+		  }).focus(function(){
+		    var weibo_selected = $weiboTabs.tabs('option', 'selected');
+			if(weibo_selected == 0 && $(this).val() == '关键字')
+			{
+			  $(this).val('').css('color', 'black');
+			}
+			else if(weibo_selected == 3 && $(this).val() == '微博用户名')
+			{
+			  $(this).val('').css('color', 'black');
+			}
+		  });
+		  
+		$('#d_keywords').val('书名').css('color', '#999999');
+		
+		$('#book_tab').click(function(){
+		  $('#d_keywords').val('书名').css('color', '#999999');
+		});
+		
+		$('#movie_tab').click(function(){
+		  $('#d_keywords').val('电影名').css('color', '#999999');
+		});
+		
+		$('#music_tab').click(function(){
+		  $('#d_keywords').val('歌曲名').css('color', '#999999');
+		});
+		
+		$('#event_tab').click(function(){
+		  $('#d_keywords').val('搜活动').css('color', '#999999');
+		});
+		
+		$('#d_keywords').blur(function(){
+		    if($(this).val() == '')
+		    {
+		      var douban_selected = $doubanTabs.tabs('option', 'selected');
+			  if(douban_selected == 0)
+			  {
+			    $(this).val('书名').css('color', '#999999');
+			  }
+			  else if(douban_selected == 1)
+			  {
+			    $(this).val('电影名').css('color', '#999999');
+			  }
+			  else if(douban_selected == 2)
+			  {
+			    $(this).val('歌曲名').css('color', '#999999');
+			  }
+			  else if(douban_selected == 3)
+			  {
+			    $(this).val('搜活动').css('color', '#999999');
+			  }
+		    }
+		  }).focus(function(){
+		    var douban_selected = $doubanTabs.tabs('option', 'selected');
+			if(douban_selected == 0 && $(this).val() == '书名')
+			{
+			  $(this).val('').css('color', 'black');
+			}
+			else if(douban_selected == 1 && $(this).val() == '电影名')
+			{
+			  $(this).val('').css('color', 'black');
+			}
+			else if(douban_selected == 2 && $(this).val() == '歌曲名')
+			{
+			  $(this).val('').css('color', 'black');
+			}
+			else if(douban_selected == 3 && $(this).val() == '搜活动')
+			{
+			  $(this).val('').css('color', 'black');
+			}
+		  });
+		
+		$('#pic_keywords').val('关键字').css('color', '#999999');
+		
+		$('#pic_keywords').blur(function(){
+		    if($(this).val() == '')
+		    {
+		      var yupoo_selected = $picTabs.tabs('option', 'selected');
+			  if(yupoo_selected == 0)
+			  {
+			    $(this).val('关键字').css('color', '#999999');
+			  }
+			  else if(yupoo_selected == 1)
+			  {
+			    $(this).val('又拍用户名').css('color', '#999999');
+			  }
+		    }
+		  }).focus(function(){
+		    var yupoo_selected = $picTabs.tabs('option', 'selected');
+			if(yupoo_selected == 0 && $(this).val() == '关键字')
+			{
+			  $(this).val('').css('color', 'black');
+			}
+			else if(yupoo_selected == 1 && $(this).val() == '又拍用户名')
+			{
+			  $(this).val('').css('color', 'black');
+			}
+		  });
+		
 		$('#my_tab').click(function()
 		{
 		  $('.weibo_drag').remove();
 		  $('.loadmore').remove();
-		  $('#source_list').css('height', '723px');
+		  $('#source_list').css('height', '722px');
 		  $('#weibo_search').css('display', 'none');
 		  myPage = 1;
 		  myPageTimestamp = 0;
@@ -515,7 +666,7 @@ $(function() {
 		{
 		  $('.weibo_drag').remove();
 		  $('.loadmore').remove();
-		  $('#source_list').css('height', '723px');
+		  $('#source_list').css('height', '722px');
 		  $('#weibo_search').css('display', 'none');
 		  followPage = 1;
 		  followTimestamp = 0;
@@ -554,6 +705,7 @@ $(function() {
 		$('#search_tab').click(function()
 		{
 		  $('#source_list').css('height', '664px');
+		  $('#keywords').val('关键字').css('color', '#999999');
 		  weiboSearhPage = 1;
 		  tweibosearchPage = 1;
 		  display_search();
@@ -562,6 +714,7 @@ $(function() {
 		$('#user_tab').click(function()
 		{
 		  $('#source_list').css('height', '664px');
+		  $('#keywords').val('微博用户名').css('color', '#999999');
 		  userSearchPage = 1;
 		  usersearchTimestamp = 0;
 		  display_user_search();
@@ -624,7 +777,7 @@ $(function() {
 		  picSearchPage = 1;
 		  $('#source_list').children().remove();
 		  $('#source_list').css('height', '615px');
-		  $('#pic_label').text('关键字');
+		  $('#pic_keywords').val('关键字').css('color', '#999999');
 		});
 		
 		$('#user_tab_pic').click(function()
@@ -632,7 +785,7 @@ $(function() {
 		  userpicSearchPage = 1;
 		  $('#source_list').children().remove();
 		  $('#source_list').css('height', '615px');
-		  $('#pic_label').text('用户名');
+		  $('#pic_keywords').val('又拍用户名').css('color', '#999999');
 		});
 		
 		$('#pic_search_btn').click(function()
@@ -1098,7 +1251,7 @@ $(function() {
 		  {
 		    selected = $weiboTabs.tabs('option', 'selected'); 
 		  }
-		  else if(3 == vtabIndex)
+		  else if(4 == vtabIndex)
 		  {
 		    selected = $picTabs.tabs('option', 'selected'); 
 		  }
@@ -1126,7 +1279,7 @@ $(function() {
 				tweibosearchPage++;
 				getData = {operation: 'weibo_search', keywords: words, page: tweibosearchPage}; 
 		      }
-			  else if(3 == vtabIndex)
+			  else if(4 == vtabIndex)
 			  {
 			    words = $('#pic_keywords').val();
 				getUrl = '../yupoo/yupoooperation.php';
@@ -1157,7 +1310,7 @@ $(function() {
 				myPageTimestamp = $('.loadmore span').attr('id');
 				getData = {operation: 'my_weibo', page: 1, timestamp: myPageTimestamp}; 
 		      }
-			  else if(3 == vtabIndex)
+			  else if(4 == vtabIndex)
 			  {
 			    words = $('#pic_keywords').val();
 				getUrl = '../yupoo/yupoooperation.php';
@@ -1281,7 +1434,7 @@ $(function() {
 		
 		
 		var $items = $('#vtab>ul>li');
-		var selWeiboTab = 0;
+		var selVTab = 0;
         $items.click(function() {
         $items.removeClass('selected');
         $(this).addClass('selected');
@@ -1290,44 +1443,53 @@ $(function() {
 		{
 		  $('#my_tab').text('我的广播');
 		  $('#follow_tab').text('我的收听');
-		  if(1 != selWeiboTab)
+		  if(1 != selVTab)
 		  {
 		    $weiboTabs.tabs( "select" , 0 );
 		    $('#weibo_search').css('display', 'block');
 			$('#source_list').css('height', '665px').children().remove();
 		  }
-		  selWeiboTab = 1;
+		  selVTab = 1;
 		  $('#vtab>div').hide().eq(vtabIndex-1).show();
 		}
 		else if(2 == vtabIndex)
 		{
-		  if(2 != selWeiboTab)
+		  if(2 != selVTab)
 		  {
 		    $('#source_list').css('height', '665px').children().remove();
 		  } 
-		  selWeiboTab = 2;
+		  selVTab = 2;
 		  $('#vtab>div').hide().eq(vtabIndex-1).show();
 		}
 		else if(3 == vtabIndex)
 		{
-		  if(3 != selWeiboTab)
+		  if(3 != selVTab)
 		  {
 		    $('#source_list').css('height', '665px').children().remove();
 		  } 
-		  selWeiboTab = 3;
+		  selVTab = 3;
+		  $('#vtab>div').hide().eq(vtabIndex-1).show();
+		}
+		else if(4 == vtabIndex)
+		{
+		  if(4 != selVTab)
+		  {
+		    $('#source_list').css('height', '665px').children().remove();
+		  } 
+		  selVTab = 4;
 		  $('#vtab>div').hide().eq(vtabIndex-1).show();
 		}
         else
 		{
 		  $('#my_tab').text('我的微博');
 		  $('#follow_tab').text('我的关注');
-		  if(0 != selWeiboTab)
+		  if(0 != selVTab)
 		  {
 		    $weiboTabs.tabs( "select" , 0 );
 		    $('#weibo_search').css('display', 'block');
 			$('#source_list').css('height', '665px').children().remove();
 		  }
-		  selWeiboTab = 0;
+		  selVTab = 0;
 		  $('#vtab>div').hide().eq(vtabIndex).show();
 		}
         }).eq(0).click();
