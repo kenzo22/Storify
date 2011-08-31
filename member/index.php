@@ -25,11 +25,11 @@ $content = "
 	  <div id='sourcelist_container'>
 	    <div id='vtab'>
 		  <ul>
-		    <li class='weiboLi' style='padding:5px 0 5px 5px;'><a><img style='height:24px; border:0px; width:24px;' src='/storify/img/sina24.png' /></a></li>
-			<li class='tweiboLi' style='padding:5px 0 5px 5px;'><a><img src='/storify/img/tencent24.png' /></a></a></li>
-			<li class='doubanLi' style='padding:5px 0 5px 5px;'><a><img style='height:24px; border:0px; width:24px;' src='/storify/img/logo_douban.png' /></a></a></li>
-		    <li class='videoLi' style='padding:5px 0 5px 5px;'><a><img style='height:24px; border:0px; width:24px;' src='/storify/img/icon-youku.png' /></a></li>
-			<li class='yupooLi' style='padding:5px 0 5px 5px;'><a><img style='height:24px; border:0px; width:24px;' src='/storify/img/yupoo-logo.png' /></a></li>
+		    <li class='weiboLi'><a><img class='source_img' title='新浪微博' src='/storify/img/sina24.png' /></a></li>
+			<li class='tweiboLi'><a><img class='source_img' title='腾讯微博' src='/storify/img/tencent24.png' /></a></a></li>
+			<li class='doubanLi'><a><img class='source_img' title='豆瓣社区' src='/storify/img/logo_douban.png' /></a></a></li>
+		    <li class='videoLi'><a><img class='source_img' title='优酷视频' src='/storify/img/icon-youku.png' /></a></li>
+			<li class='yupooLi'><a><img class='source_img' title='又拍社区' src='/storify/img/yupoo-logo.png' /></a></li>
 		  </ul>
 		  <div id='weiboTabs'>
 		    <ul>
@@ -50,7 +50,7 @@ $content = "
 	        <div id='tabs-4'> 
 		      
 	        </div>
-			<div id='weibo_search' style='padding-left:4px;'>
+			<div id='weibo_search'>
 		      <form id='source_controller_form' action='#'>
 		        <div class='sep'>         
 			      <input id='keywords' name='keywords' type='text'>
@@ -78,7 +78,7 @@ $content = "
 	        <div id='dtabs-4'> 
 		      
 	        </div>
-			<div id='douban_search' style='padding-left:4px;'>
+			<div id='douban_search'>
 		      <form action='#'>
 		        <div class='sep'>        
 			      <input id='d_keywords' name='d_keywords' type='text'>
@@ -107,7 +107,7 @@ $content = "
 	        <div id='pictabs-2'> 
 
 	        </div> 
-			<div id='pic_search' style='padding-left:4px;'>
+			<div id='pic_search'>
 		      <form action='#'>
 		        <div class='sep'>           
 			      <input id='pic_keywords' name='pic_keywords' type='text'>

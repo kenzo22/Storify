@@ -343,6 +343,18 @@ height:16px;
  }
  
  /*edit story part */
+.weiboLi, .tweiboLi, .doubanLi, .videoLi, .yupooLi{
+ padding:5px 0 5px 5px;
+ }
+ 
+ .source_img{
+    height:24px; border:0px; width:24px;
+ }
+ 
+ #weibo_search ,  #douban_search,  #pic_search{
+   padding-left:4px;
+ }
+
  #weibo_search .sep,  #douban_search .sep,  #pic_search .sep{
    padding-top:52px;
  }
