@@ -94,10 +94,15 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 		//return false;
 		}
 		if (isset($single_weibo['error_code']) && isset($single_weibo['error'])){
-			echo ('<br/><br/><br/><br/><br/>Error_code: '.$single_weibo['error_code'].';  Error: '.$single_weibo['error'] );
+            // skip deleted weibo
+            $content .="<li class='weibo_drop sina' id='$weibo_per_id' style='border:none;'><div class='story_wrapper'><div><span class='weibo_text'>此微博已被删除</span></div>";
+            continue;
+			/*
+            echo ('<br/><br/><br/><br/><br/>Error_code: '.$single_weibo['error_code'].';  Error: '.$single_weibo['error'] );
 			echo  $_SESSION['last_key']['oauth_token'];
 			echo $_SESSION['last_key']['oauth_token_secret'];
 			return false;
+            */
 		}
 		if (isset($single_weibo['id']) && isset($single_weibo['text'])){
 			$createTime = dateFormat($single_weibo['created_at']);
