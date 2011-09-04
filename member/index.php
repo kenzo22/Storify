@@ -190,11 +190,23 @@ if(isset($_GET['post_id']))
 	  if (isset($single_weibo['id']) && isset($single_weibo['text']))
 	  {
 		$createTime = dateFormat($single_weibo['created_at']);
-		$content .= ("<li class='weibo_drop sina' id='$weibo_per_id'><div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>"
-					.$single_weibo['text']."</span></div><div id='story_signature'><span style='float:right;'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
+		$content .= "<li class='weibo_drop sina' id='$weibo_per_id'><div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>".$single_weibo['text'];
+
+    	if (isset($single_weibo['retweeted_status'])){
+		    $content .= "//@".$single_weibo['retweeted_status']['user']['name'].":".$single_weibo['retweeted_status']['text'];
+            if(isset($single_weibo['retweeted_status']['bmiddle_pic'])){
+                $content .= "</span><img src='".$single_weibo['retweeted_status']['bmiddle_pic']."' >";
+            }
+        }
+        if (isset($single_weibo['bmiddle_pic']))
+            $content .= "</span><img src='".$single_weibo['bmiddle_pic']."' >";
+
+        $content .= "</div>";
+
+        $content .= "<div id='story_signature'><span style='float:right;'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
 					.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><span id='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='weibo_from_drop' href='http://weibo.com/"
 					.$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px' src='/storify/img/sina16.png'/><a>"
-					.$createTime."</a></span></div></span></div></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/storify/img/editcomment.png' border='0'/></a></span></li>");
+					.$createTime."</a></span></div></span></div></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/storify/img/editcomment.png' border='0'/></a></span></li>";
 	  }
 	}
 	else if($val['type'] === 'tweibo')
