@@ -5,41 +5,42 @@ session_start();
 include_once( 'config.php' );
 include_once( 'doubanapi.php' );
   
-/*$operation=$_GET['operation'];
-$page = $_GET['page'];
+$operation=$_GET['operation'];
+//$page = $_GET['page'];
 
-$c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_key']['oauth_token'] , $_SESSION['last_key']['oauth_token_secret']  );
-$weibo;
+$c = new DoubanClient( DB_AKEY , DB_SKEY , $_SESSION['last_dkey']['oauth_token'] , $_SESSION['last_dkey']['oauth_token_secret']  );
+$doubanReturn;
 $keywords;
-if('my_weibo' == $operation)
-{
-  $weibo  = $c->user_timeline($page, 20, null);
-}
-else if('my_follow' == $operation)
-{
-  $weibo  = $c->friends_timeline($page, 20);
-}
-else if('weibo_search' == $operation)
+if('book' == $operation)
 {
   $keywords = $_GET['keywords'];
-  $weibo  = $c->search_weibo($page, 20, $keywords);
+  $doubanReturn  = $c->search_book($keywords);
 }
-else if('user_search' == $operation)
+else if('movie' == $operation)
 {
   $keywords = $_GET['keywords'];
-  $weibo  = $c->user_timeline($page, 20, $keywords);
+  $doubanReturn  = $c->search_movie($keywords);
+}
+else if('music' == $operation)
+{
+  $keywords = $_GET['keywords'];
+  $doubanReturn  = $c->search_music($keywords);
+}
+else if('event' == $operation)
+{
+  $keywords = $_GET['keywords'];
+  $doubanReturn  = $c->search_event($keywords);
 }
 
-foreach( $weibo as $item )
+foreach( $doubanReturn['entry'] as $item )
 {
-  $createTime = dateFormat($item['created_at']);
-  $weibo_per_id = number_format($item['id'], 0, '', '');
-  $weiboContent .= "<li class='weibo_drag sina' id='".$weibo_per_id."'><div class='story_wrapper'><img class='profile_img' style='width: 32px; height: 32px; float:left; overflow: hidden; margin-top:3px;' 
-  src='".$item['user']['profile_image_url']."' alt='".$item['user']['screen_name']."' border=0 /><div class='weibo_content'><a class='user_page' href='http://weibo.com/".$item['user']['id']."' target='_blank' 
-  style = 'display:block;'><span class='weibo_from'>".$item['user']['screen_name']."</span></a><span class='weibo_text'>".$item['text']."</span><div><span class='create_time'>".$createTime."</span>
-  <span style='float:right;'><a>[转发]</a></span></div></div></div></li>";
+  $temp_array = explode("/", $item['id']['$t']);
+  $length = count($temp_array);
+  $douban_per_id = $temp_array[$length-1];
+
+  $doubanContent .= "<li class='douban_drag douban' id='".$douban_per_id."'><div class='douban_wrapper'><div class=douban_title>".$item['title']['$t']."</div><div class=douban_author>".$item['author'][0]['name']['$t']."</div></div></li>";
 }
-$weiboContent .="<div class='loadmore'><a>更多</a></div>";
-echo $weiboContent;*/
+$doubanContent .="<div class='loadmore'><a>更多</a></div>";
+echo $doubanContent;
 
 ?>

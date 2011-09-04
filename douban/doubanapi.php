@@ -43,37 +43,73 @@ class DoubanClient
 	  return $this->oauth->get('http://api.douban.com/people/ahbei' , $param); 
 	}
 	
-	/*function last_status()
+	function search_book($keywords)
 	{
-	  return $this->oauth->lastStatusCode();
-	}*/
-
-    /** 
-     * 最新公共微博 
-     *  
-     * @access public 
-     * @return array 
-     */ 
-    function public_timeline() 
-    { 
-        return $this->oauth->get('http://api.t.sina.com.cn/statuses/public_timeline.json'); 
-    } 
-
-    /** 
-     * 最新关注人微博 
-     *  
-     * @access public 
-     * @return array 
-     */ 
-    /*function friends_timeline() 
-    { 
-        return $this->home_timeline(); 
-    }*/
+	  $param = array();
+	  $param['alt'] = 'json';
+	  $param['q'] = $keywords;
+	  $param['start-index'] = 1;
+	  $param['max-results'] = 10;
+	  return $this->oauth->get('http://api.douban.com/book/subjects' , $param); 
+	}
 	
-	function friends_timeline($page = 1 , $count = 20) 
-    { 
-        return $this->request_with_pager( 'http://api.t.sina.com.cn/statuses/friends_timeline.json' , $page , $count );  
-    }
+	function search_movie($keywords)
+	{
+	  $param = array();
+	  $param['alt'] = 'json';
+	  $param['q'] = $keywords;
+	  $param['start-index'] = 1;
+	  $param['max-results'] = 10;
+	  return $this->oauth->get('http://api.douban.com/movie/subjects' , $param); 
+	}
+	
+	function search_music($keywords)
+	{
+	  $param = array();
+	  $param['alt'] = 'json';
+	  $param['q'] = $keywords;
+	  $param['start-index'] = 1;
+	  $param['max-results'] = 10;
+	  return $this->oauth->get('http://api.douban.com/music/subjects' , $param); 
+	}
+	
+	function search_event($keywords)
+	{
+	  $param = array();
+	  $param['alt'] = 'json';
+	  $param['q'] = $keywords;
+	  $param['location'] = 'all';
+	  $param['start-index'] = 1;
+	  $param['max-results'] = 10;
+	  return $this->oauth->get('http://api.douban.com/events' , $param); 
+	}
+	
+	function search_book_reviews($subjectID)
+	{
+	  $param = array();
+	  $param['alt'] = 'json';
+	  $param['start-index'] = 1;
+	  $param['max-results'] = 10;
+	  return $this->oauth->get('http://api.douban.com/book/subject/'.$subjectID.'/reviews' , $param); 
+	}
+	
+	function search_movie_reviews($subjectID)
+	{
+	  $param = array();
+	  $param['alt'] = 'json';
+	  $param['start-index'] = 1;
+	  $param['max-results'] = 10;
+	  return $this->oauth->get('http://api.douban.com/movie/subject/'.$subjectID.'/reviews' , $param); 
+	}
+	
+	function search_music_reviews($subjectID)
+	{
+	  $param = array();
+	  $param['alt'] = 'json';
+	  $param['start-index'] = 1;
+	  $param['max-results'] = 10;
+	  return $this->oauth->get('http://api.douban.com/music/subject/'.$subjectID.'/reviews' , $param); 
+	}
 } 
 
 ?>

@@ -82,7 +82,7 @@ $autologin=$_POST["autologin"];
 
 if($email && $passwd)
 {
-  $result=$DB->fetch_one_array("SELECT id, username, weibo_user_id, weibo_access_token, weibo_access_token_secret, tweibo_user_id, tweibo_access_token, tweibo_access_token_secret, yupoo_token FROM ".$db_prefix."user WHERE email='".$email."' AND passwd='".$passwd."' AND activate='1'" );
+  $result=$DB->fetch_one_array("SELECT * FROM ".$db_prefix."user WHERE email='".$email."' AND passwd='".$passwd."' AND activate='1'" );
 
   if(!empty($result))
   {
@@ -104,6 +104,8 @@ if($email && $passwd)
 	  $_SESSION['last_key']['oauth_token_secret']=$result['weibo_access_token_secret'];
 	  $_SESSION['last_tkey']['oauth_token']=$result['tweibo_access_token'];
 	  $_SESSION['last_tkey']['oauth_token_secret']=$result['tweibo_access_token_secret'];
+	  $_SESSION['last_dkey']['oauth_token']=$result['douban_access_token'];
+	  $_SESSION['last_dkey']['oauth_token_secret']=$result['douban_access_token_secret'];
 	  $_SESSION['yupoo_token'] = $result['yupoo_token'];
 	  
 	  if(isset($_GET['next']) && !empty($_GET['next']) && isLocalURL($_GET['next']))

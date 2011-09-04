@@ -14,27 +14,16 @@ $accessTokenSecret = $_SESSION['last_dkey']['oauth_token_secret'];
 
 $c = new DoubanClient( DB_AKEY , DB_SKEY , $accessToken , $accessTokenSecret);
 					  
-$msg1 = $c->verify_credentials();
+//$msg1 = $c->verify_credentials();
 
-$msg2 = $c->get_user();
+//$msg2 = $c->get_user();
+
+//$msg3 = $c->search_music_reviews(2272292);
+
+$msg3 = $c->search_event('秋天');
 echo "<br/><br/><br/><br/><br/>";
-var_dump($msg1);
-//$temp = $c->last_status();
-//echo "text".$temp;
+var_dump($msg3);
 
-/*$msg = $c->verify_credentials();
-if ($msg === false || $msg === null){
-	echo "Error occured";
-	return false;
-}
-if (isset($msg['error_code']) && isset($msg['error'])){
-	echo ('Error_code: '.$msg['error_code'].';  Error: '.$msg['error'] );
-	return false;
-}
-if (isset($msg['id'])){
-	$weibo_uid = $msg['id'];
-	$profile_img_url = $msg['profile_image_url'];
-}*/
 ?>
 <?php include "../include/footer.htm"; ?>
 

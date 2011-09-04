@@ -199,7 +199,7 @@ margin-left:70px;
 #storylist_container {}
 .loadmore {padding: 0 150px 0 150px;}
 .weibo_content{margin-left:36px;}
-.weibo_drag, .video_Drag, .pic_Drag{padding:5px; margin:8px; border-color:#ababac;
+.weibo_drag, .video_Drag, .pic_Drag, .douban_drag{padding:5px; margin:8px; border-color:#ababac;
   border-style:solid;
   border-width:2px;
   border-radius: 5px;

@@ -772,6 +772,48 @@ $(function() {
 		  });
 		});
 		
+		//Douban part
+		$('#douban_search_btn').click(function(){
+		  //$('#source_list').css('height', '722px');
+		  var doubanSelected = $doubanTabs.tabs('option', 'selected');
+		  var getUrl = '../douban/doubanoperation.php';
+		  var keywords_val = $('#d_keywords').val();
+		  var getData;
+		  if(0 == doubanSelected)
+		  {
+		    getData = {operation: 'book', keywords: keywords_val};
+		  }
+		  else if(1 == doubanSelected)
+		  {
+		    getData = {operation: 'movie', keywords: keywords_val};
+		  }
+		  else if(2 == doubanSelected)
+		  {
+		    getData = {operation: 'music', keywords: keywords_val};
+		  }
+		  else if(3 == doubanSelected)
+		  {
+		    getData = {operation: 'event', keywords: keywords_val};
+		  }
+		  
+		  $.ajax({
+		  type: 'GET',
+		  url: getUrl,
+		  data: getData, 
+		  beforeSend:function() 
+		  {
+		    var imgpath = '../img/loading.gif';
+		    var imgloading = $("<span style='padding-left:180px;'><img src='../img/loading.gif' /></span>");
+		    $('#source_list').html(imgloading);
+		  },
+		  success: function(data)
+		  {
+			$('#source_list').html(data);
+		  }
+		  });
+		});
+		
+		//Yupoo part
 		$('#search_tab_pic').click(function()
 		{
 		  picSearchPage = 1;
