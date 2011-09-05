@@ -37,8 +37,42 @@ foreach( $doubanReturn['entry'] as $item )
   $temp_array = explode("/", $item['id']['$t']);
   $length = count($temp_array);
   $douban_per_id = $temp_array[$length-1];
-
-  $doubanContent .= "<li class='douban_drag douban' id='".$douban_per_id."'><div class='douban_wrapper'><div class=douban_title>".$item['title']['$t']."</div><div class=douban_author>".$item['author'][0]['name']['$t']."</div></div></li>";
+  //fetch all comments of this item
+  $commentsReturn="";
+  $comments="";
+  if('book' == $operation)
+  {
+    $commentsReturn = $c->search_book_reviews($douban_per_id);
+  }
+  else if('movie' == $operation)
+  {
+    $commentsReturn = $c->search_movie_reviews($douban_per_id);
+  }
+  else if('music' == $operation)
+  {
+    $commentsReturn = $c->search_music_reviews($douban_per_id);
+  }
+  
+  foreach( $commentsReturn['entry'] as $commentItem )
+  {
+    $comments.=$commentItem['summary']['$t']."<br /><br />";
+  }
+  //$comments="";
+  $author_count = count($item['author']);
+  $author="";
+  if($author_count == 1)
+  {
+    $author = $item['author'][0]['name']['$t'];
+  }
+  else if($author_count > 1)
+  {
+    for($i=0; $i<$author_count; $i++)
+	{
+	  $author .= $item['author'][$i]['name']['$t']." ";
+	}
+  }
+  $doubanContent .= "<li class='douban_drag douban' id='".$douban_per_id."'><div class='douban_wrapper'><div class=douban_title>".$item['title']['$t']."</div><div class=douban_author>".$author."</div>
+  <div class='douban_img'><img src='".$item['link'][2]['@href']."' /></div><div class='douban_comments'>".$comments."</div></div></li>";
 }
 $doubanContent .="<div class='loadmore'><a>更多</a></div>";
 echo $doubanContent;
