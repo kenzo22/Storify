@@ -110,11 +110,17 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
     		if (isset($single_weibo['retweeted_status'])){
                 $content .="//@".$single_weibo['retweeted_status']['user']['name'].":".$single_weibo['retweeted_status']['text'];
                 if(isset($single_weibo['retweeted_status']['bmiddle_pic'])){
-                    $content .= "</span><img src='".$single_weibo['retweeted_status']['bmiddle_pic']."' >";
+                    $content .= "</span><div class='weibo_retweet_img' style='text-align:center;'><img src='".$single_weibo['retweeted_status']['bmiddle_pic']."' /></div>";
                 }
+				else
+				{
+				  $content .= "</span>";
+				}
             }
             if (isset($single_weibo['bmiddle_pic']))
-                $content .= "</span><img src='".$single_weibo['bmiddle_pic']."'>";
+			{
+			  $content .= "<div class='weibo_img' style='text-align:center;'><img src='".$single_weibo['bmiddle_pic']."'/></div>";
+			}
             $content .= "</div>";
             $content .= "<div id='story_signature'><span style='float:right;'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
 			.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><span id='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'>

@@ -199,6 +199,10 @@ margin-left:70px;
 #storylist_container {}
 .loadmore {padding: 0 150px 0 150px;}
 .weibo_content{margin-left:36px;}
+.create_time{padding-left:36px;}
+.weibo_img, .weibo_retweet_img{margin:3px 0;}
+.weibo_img_drop, .weibo_retweet_img_drop{margin:3px 0; text-align:center;}
+
 .weibo_drag, .video_Drag, .pic_Drag{padding:5px; margin:8px; border-color:#ababac;
   border-style:solid;
   border-width:2px;

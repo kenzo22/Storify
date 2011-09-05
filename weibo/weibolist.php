@@ -12,6 +12,7 @@ $c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_key']['oauth_token'] ,
 $ms  = $c->home_timeline(); // done
 
 $me = $c->verify_credentials();
+$me = $c->show_status('3354263481034421');
 echo "<br /><br /><br /><br /><br />";
 var_dump($me);
 //$single_weibo  = $c->show_status(1189591617);
