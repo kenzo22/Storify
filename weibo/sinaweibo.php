@@ -31,6 +31,12 @@ class WeiboClient
      * @access public 
      * @return array 
      */ 
+	
+	function get_emotions()
+	{
+	    return $this->oauth->get('http://api.t.sina.com.cn/emotions.json'); 
+	}
+	 
     function public_timeline() 
     { 
         return $this->oauth->get('http://api.t.sina.com.cn/statuses/public_timeline.json'); 
