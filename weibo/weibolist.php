@@ -11,12 +11,11 @@ $_SESSION['last_key']['oauth_token_secret']=$result['weibo_access_token_secret']
 $c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_key']['oauth_token'] , $_SESSION['last_key']['oauth_token_secret']  );
 $ms  = $c->home_timeline(); // done
 
-$me = $c->verify_credentials();
-$me = $c->show_status('3354263481034421');
+//$me = $c->verify_credentials();
+//$me = $c->show_status('3354263481034421');
+$me = $c->get_emotions();
 echo "<br /><br /><br /><br /><br />";
 var_dump($me);
-//$single_weibo  = $c->show_status(1189591617);
-
 
 ?>
 <!--<div class='div_center' >
