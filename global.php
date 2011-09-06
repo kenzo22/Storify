@@ -23,14 +23,7 @@
     { 
 		$user_profile_img;
 		$userresult=$DB->fetch_one_array("SELECT id, photo FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
-		if(substr($userresult['photo'], 0, 4) == 'http')
-		{
-		  $user_profile_img = $userresult['photo'];
-		}
-		else
-		{
-		  $user_profile_img = $rooturl."/img/user/".$userresult['photo'];
-		}
+		$user_profile_img = $userresult['photo'];
 		$content="<ul class='user_console showborder'>
 				    <li class='person_li' style='display:block;'><a class='person_a person_a_display' href='/storify/member/user.php'><img id='person_img' src='".$user_profile_img."'><span id='person_name'>".$_SESSION['username']."</span></a></li>
 					<li class='person_li'><a class='person_a' href='/storify/member/user.php?user_id=".$userresult['id']."'>我的主页</a></li>

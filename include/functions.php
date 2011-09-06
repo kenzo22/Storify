@@ -1,4 +1,40 @@
 <?php
+
+//produce fixed size random string(include digital)
+function produce_random_strdig($length=6)
+{
+	try{
+		$chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+		$invite_code='';
+		for($i = 0 ; $i < $length ; $i++)
+		{
+			$invite_code .= $chars[mt_rand(0, strlen($chars)-1)];
+		}
+		return $invite_code;
+	}
+	catch(Exception $e){
+		$e->getMessage();
+		exit;
+	}
+}
+
+function produce_random_string($length=6)
+{
+	try{
+		$chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$invite_code='';
+		for($i = 0 ; $i < $length ; $i++)
+		{
+			$invite_code .= $chars[mt_rand(0, strlen($chars)-1)];
+		}
+		return $invite_code;
+	}
+	catch(Exception $e){
+		$e->getMessage();
+		exit;
+	}
+}
+
 function isLocalURL($url) 
 {
   $parts = parse_url($url);

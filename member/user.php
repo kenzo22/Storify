@@ -51,7 +51,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
     }
     else
     {
-	  $user_profile_img = $rooturl."/img/user/".$userresult['photo'];
+	  $user_profile_img =$userresult['photo'];
     }
 	
 	$temp_array = json_decode($story_content, true);
@@ -297,14 +297,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
         $query="select id, username, photo from ".$db_prefix."user where id=".$fower;
         $result=$DB->query($query);
         $item=$DB->fetch_array($result);
-		if(substr($item['photo'], 0, 4) == 'http')
-		{
-		  $usr_img = $item['photo'];
-		}
-		else
-		{
-		  $usr_img=$rooturl."/img/user/".$item['photo'];
-		}
+		$usr_img = $item['photo'];
         $content .="<li id='follower_id_".$item['id']."'><a class='follow_mini_icon' href='/storify/member/user.php?user_id=".$item['id']."'><img title='".$item['username']."' src='".$usr_img."'></a></li>";
     }
     $content .= "</ul>
@@ -316,14 +309,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
         $query="select id, username, photo from ".$db_prefix."user where id=".$fowing;
         $result=$DB->query($query);
         $item=$DB->fetch_array($result);
-        if(substr($item['photo'], 0, 4) == 'http')
-		{
-		  $usr_img = $item['photo'];
-		}
-		else
-		{
-		  $usr_img=$rooturl."/img/user/".$item['photo'];
-		}
+		$usr_img = $item['photo'];
         $content .="<li id='following_id_".$item['id']."'><a class='follow_mini_icon' href='/storify/member/user.php?user_id=".$item['id']."'><img title='".$item['username']."' src='".$usr_img."'></a></li>";
     }
     $content .= "
@@ -449,15 +435,7 @@ else if(isset($_GET['user_id']))
   $story_content = "<div id='userstory_container' class='inner'><div class='userstory_list'><ul>";
   $result=$DB->query("SELECT * FROM ".$db_prefix."posts where post_author='".$user_id."'");
   $userresult = $DB->fetch_one_array("SELECT username, photo FROM ".$db_prefix."user where id='".$user_id."'");
-  $user_profile_img;
-  if(substr($userresult['photo'], 0, 4) == 'http')
-  {
-	$user_profile_img = $userresult['photo'];
-  }
-  else
-  {
-	$user_profile_img = $rooturl."/img/user/".$userresult['photo'];
-  }
+  $user_profile_img = $userresult['photo'];
   while ($story_item = mysql_fetch_array($result))
   {
     //printf ("title: %s  summary: %s", $story_item['post_title'], $story_item['post_summary']);

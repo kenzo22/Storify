@@ -21,7 +21,7 @@ if(!empty($result['photo']))
   }
   else
   {
-    $userphoto="<div id='user_profile_img'><img width='80px' height='80px' src='".$rooturl."/img/user/".$result['photo']."' /> </div>";
+    $userphoto="<div id='user_profile_img'><img width='80px' height='80px' src='".$result['photo']."' /> </div>";
   } 
 }    
 else
@@ -86,13 +86,9 @@ if($_POST['act'] == 'uploadphoto')
 		if (is_uploaded_file($_FILES['photofile']['tmp_name']) )
 		{
 			$reslut=$DB->fetch_one_array("select photo from ".$db_prefix."user where ID=".$uid);
-			if(!empty($reslut['Photo']))
+			if(!empty($reslut['photo']))
 			{
-			  if(substr($result['photo'], 0, 4) == 'http')
-			  {
-				 
-			  }
-			  else
+			  if(substr($result['photo'], 0, 4) != 'http')
 			  {
 			    unlink($upload_dir.$reslut['photo']);
 			  }
@@ -100,16 +96,17 @@ if($_POST['act'] == 'uploadphoto')
 			$temp_array = explode(".",$original);
 			$length = count($temp_array);
 			$image_extention = $temp_array[$length - 1];
-			$filename=$uid.".".$image_extention;
+            $ranstr=produce_random_string();
+			$filename=$ranstr.$uid.".".$image_extention;
 			$local_file=$upload_dir.$filename;
-			$local_file_absolute = "/storify/img/".$filename;
+            $stored_file="/storify/img/user/".$filename;
 			if(!move_uploaded_file($_FILES['photofile']['tmp_name'],$local_file))
 			{
 			  echo "无法将文件移到目的位置";
 			}
 			chmod($local_file,0755);
-			$DB->query("update ".$db_prefix."user set photo='".$filename."' where  ID=".$uid);
-			header("location: ./uploadphoto.php"); 
+			$DB->query("update ".$db_prefix."user set photo='".$stored_file."' where  ID=".$uid);
+			header("location: ./user_setting.php"); 
 			/*echo "<script language='javascript' >
 				window.onload = function()
 				{

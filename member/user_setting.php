@@ -21,7 +21,7 @@ if(!empty($result['photo']))
   }
   else
   {
-    $userphoto="<img style='float:left;' width='80px' height='80px' src='".$rooturl."/img/user/".$result['photo']."'> </img><div><a class='update_profile_img' style='margin-left:10px;float:left' href='/storify/member/uploadphoto.php'>更换头像</a></div>";
+    $userphoto="<img style='float:left;' width='80px' height='80px' src='".$result['photo']."'> </img><div><a class='update_profile_img' style='margin-left:10px;float:left' href='/storify/member/uploadphoto.php'>更换头像</a></div>";
   } 
 }    
 else

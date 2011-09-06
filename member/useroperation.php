@@ -10,14 +10,7 @@ $follow_uid = $_POST['uid'];
 $query="select id, username, photo from ".$db_prefix."user where id=".$_SESSION['uid'];
 $result=$DB->query($query);
 $item=$DB->fetch_array($result);
-if(substr($item['photo'], 0, 4) == 'http')
-{
-  $usr_img = $item['photo'];
-}
-else
-{
-  $usr_img=$rooturl."/img/user/".$item['photo'];
-}
+$usr_img = $item['photo'];
 
 $content;
 switch($operation)

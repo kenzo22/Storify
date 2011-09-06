@@ -37,7 +37,7 @@
 		// Generate the random sting and insert into the table, the upper limit is $icode_max	
 		for($i=0;$i < $icode_max - $num; $i++)
 		{
-			$string=produce_invite_code($icode_len);
+			$string=produce_random_strdig($icode_len);
 			// skip the same invite code
 			$results=$DB->query("select * from ".$icode_table." where ic_code='".$string."'");
 			if($DB->num_rows($results) != 0)
@@ -58,24 +58,6 @@
 	}
   }
   
-  //produce random invitation code
-  function produce_invite_code($length=6)
-  {
-	try{
-		$chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-		$invite_code='';
-		for($i = 0 ; $i < $length ; $i++)
-		{
-			$invite_code .= $chars[mt_rand(0, strlen($chars)-1)];
-		}
-		return $invite_code;
-	}
-	catch(Exception $e){
-		$e->getMessage();
-		exit;
-	}
-  }
-
   try{
         if(! $email ){
                 echo "请输入邮箱地址。<br>";
