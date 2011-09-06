@@ -43,6 +43,13 @@ class DoubanClient
 	  return $this->oauth->get('http://api.douban.com/people/ahbei' , $param); 
 	}
 	
+	function get_comment($commentID)
+	{
+	  $param = array();
+	  $param['alt'] = 'json';
+	  return $this->oauth->get('http://api.douban.com/review/'.$commentID , $param); 
+	}
+	
 	function search_book($keywords)
 	{
 	  $param = array();

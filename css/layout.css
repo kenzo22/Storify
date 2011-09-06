@@ -517,7 +517,7 @@ float:left;
 margin-top:25px;
 }
 
-#weibo_ul .weibo_drop{
+#weibo_ul .weibo_drop, #weibo_ul .douban_drop{
 width:70%;
 }
 

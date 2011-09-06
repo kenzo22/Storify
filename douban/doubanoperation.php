@@ -37,6 +37,7 @@ foreach( $doubanReturn['entry'] as $item )
   $temp_array = explode("/", $item['id']['$t']);
   $length = count($temp_array);
   $douban_per_id = $temp_array[$length-1];
+  $douban_per_url = $item['link'][1]['@href'];
   $author_count = count($item['author']);
   $author="";
   if($author_count == 1)
@@ -94,8 +95,9 @@ foreach( $doubanReturn['entry'] as $item )
   <div style='margin-left:36px;'><a href='".$commentItem['author']['link'][1]['@href']."' target='_blank' class='douban_from'
   style = 'display:block;'><span>".$comment_author."</span></a>
   <div class='douban_comments'><div class=item_rating>".$commentItem['gd:rating']['@value']."</div><div class='comment_title' style='font-weight:bold;'>".$comments_title."</div>
-  <div class='comment_summary'>".$comments_summary."</div><div style='text-align:right;'><a href='".$fulltext_url."' target='_blank'>查看评论全文</a></div><div class='comment_date' style='text-align:right;'>".$time_array[0]."</div></div>
-  <div class='item_info'><img class='item_img' src='".$item['link'][2]['@href']."' style='float:left;' /><div class='item_meta' style='margin-left:100px;'><div class=item_title>".$item['title']['$t']."</div>
+  <div class='comment_summary'>".$comments_summary."</div><div style='text-align:right;'><a class='comment_full_url' href='".$fulltext_url."' target='_blank'>查看评论全文</a></div>
+  <div class='comment_date' style='text-align:right;'>".$time_array[0]."</div></div><div class='item_info'><a href='".$douban_per_url."' target='_blank'>
+  <img class='item_img' src='".$item['link'][2]['@href']."' style='float:left;' /></a><div class='item_meta' style='margin-left:100px;'><div><a class='item_title' href='".$douban_per_url."' target='_blank'>".$item['title']['$t']."</a></div>
   <div class='item_author'>".$item_owner."</div><div class='item_date'>".$item_date."</div><div class='average_rating'>评分：".$item['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$item['gd:rating']['@numRaters']."人参与投票</div>
   </div></div></div></div></li>";
   }

@@ -5,6 +5,8 @@ include_once( '../weibo/config.php' );
 include_once( '../weibo/sinaweibo.php' );
 include_once( '../tweibo/config.php' );
 include_once( '../tweibo/txwboauth.php' );
+include_once( '../douban/config.php' );
+include_once( '../douban/doubanapi.php' );
 include_once "userrelation.php";
 ?>
 <link type="text/css" href="/storify/css/jquery.ui.theme.css" rel="stylesheet" />
@@ -17,6 +19,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 {
 	$c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_key']['oauth_token'] , $_SESSION['last_key']['oauth_token_secret']  );
 	$t = new TWeiboClient( MB_AKEY , MB_SKEY , $_SESSION['last_tkey']['oauth_token'] , $_SESSION['last_tkey']['oauth_token_secret']  );
+	$d = new DoubanClient( DB_AKEY , DB_SKEY , $_SESSION['last_dkey']['oauth_token'] , $_SESSION['last_dkey']['oauth_token_secret']  );
 	$post_id = $_GET['post_id'];
 	$result = $DB->fetch_one_array("select * from ".$db_prefix."posts where ID='".$post_id."'");
 	if(!$result)
@@ -133,6 +136,21 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	    $tweibo_per_id = $val['content'];
 		$tweibo_id_array[] = $tweibo_per_id;
 		$content .="<li class='weibo_drop tencent' id='$tweibo_per_id' style='border:none;'></li>";
+	  }
+	  else if($val['type'] === 'douban')
+	  {
+	    $douban_per_id = $val['content'];	
+		$doubanElement = $d->get_comment($douban_per_id);
+		$douban_per_url = $doubanElement['db:subject']['link'][1]['@href'];
+		$time_array = explode("T", $doubanElement['updated']['$t']);
+		$content .="<li class='douban_drop douban' id='$douban_per_id' style='border:none;'><div class='douban_wrapper'><div class='item_info' style='overflow:auto;'><a href='".$douban_per_url."' target='_blank'><img class='item_img' src='"
+				.$doubanElement['db:subject']['link'][2]['@href']."' style='float:left;' /></a><div class='item_meta' style='margin-left:100px;'><div><a class='item_title' href='".$douban_per_url."' target='_blank'>".$doubanElement['db:subject']['title']['$t']."</a></div><div class='item_author'>"
+				.$doubanElement['db:subject']['author']['name']['$t']."</div><div class='item_date'></div><div class='average_rating'></div></div></div><div style='margin-top:10px;'><div class=item_rating>".$doubanElement['gd:rating']['@value']."</div><div class='comment_title' style='font-weight:bold;'>"
+					.$doubanElement['title']['$t']."</div><div class='comment_summary'>".$doubanElement['summary']['$t']."</div><div style='text-align:right;'><a href='".$doubanElement['link'][1]['@href']."' target='_blank'>查看评论全文</a></div></div>
+					<div id='douban_signature'><span style='float:right;'><a href='".$doubanElement['author']['link'][1]['@href']."' target='_blank'><img class='profile_img' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
+					.$doubanElement['author']['link'][2]['@href']."' alt='".$doubanElement['author']['name']['$t']."' border=0 /></a></span><span class='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='douban_from' href='"
+					.$doubanElement['author']['link'][1]['@href']."' target='_blank'>".$doubanElement['author']['name']['$t']."</a></span></div><div class='douban_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px; width:16px; height:16px;' src='/storify/img/logo_douban.png'/><a>"
+					.$time_array[0]."</a></span></div></span> </div></div></li>";
 	  }
 	  else if($val['type'] === 'comment')
 	  {
