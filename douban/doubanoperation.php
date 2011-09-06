@@ -38,6 +38,20 @@ foreach( $doubanReturn['entry'] as $item )
   $length = count($temp_array);
   $douban_per_id = $temp_array[$length-1];
   $douban_per_url = $item['link'][1]['@href'];
+  $url_array  = explode("/", $douban_per_url);
+  $item_type;
+  if($url_array[2] == 'book.douban.com')
+  {
+    $item_type = 'book';
+  }
+  else if($url_array[2] == 'movie.douban.com')
+  {
+    $item_type = 'movie';
+  }
+  else if($url_array[2] == 'music.douban.com')
+  {
+    $item_type = 'music';
+  }
   $author_count = count($item['author']);
   $author="";
   if($author_count == 1)
@@ -89,16 +103,17 @@ foreach( $doubanReturn['entry'] as $item )
 	$comments_title = $commentItem['title']['$t'];
 	$comments_summary = $commentItem['summary']['$t'];
 	$comment_author = $commentItem['author']['name']['$t'];
+	$comment_rating = 2*$commentItem['gd:rating']['@value'];
 	$time_array = explode("T", $commentItem['updated']['$t']);
-	$doubanContent .= "<li class='douban_drag douban' id='".$comment_per_id."'><div class='douban_wrapper'><img class='profile_img' style='width: 32px; height: 32px; float:left; overflow: hidden; margin-top:3px;' 
+	$doubanContent .= "<li class='douban_drag douban ".$item_type."' id='".$comment_per_id."'><div class='douban_wrapper'><img class='profile_img' style='width: 32px; height: 32px; float:left; overflow: hidden; margin-top:3px;' 
   src='".$commentItem['author']['link'][2]['@href']."' title='".$comment_author."' alt='".$comment_author."' border=0 />
   <div style='margin-left:36px;'><a href='".$commentItem['author']['link'][1]['@href']."' target='_blank' class='douban_from'
   style = 'display:block;'><span>".$comment_author."</span></a>
-  <div class='douban_comments'><div class=item_rating>".$commentItem['gd:rating']['@value']."</div><div class='comment_title' style='font-weight:bold;'>".$comments_title."</div>
+  <div class='douban_comments'><div class=item_rating>评分:".$comment_rating."</div><div class='comment_title' style='font-weight:bold;'>".$comments_title."</div>
   <div class='comment_summary'>".$comments_summary."</div><div style='text-align:right;'><a class='comment_full_url' href='".$fulltext_url."' target='_blank'>查看评论全文</a></div>
   <div class='comment_date' style='text-align:right;'>".$time_array[0]."</div></div><div class='item_info'><a href='".$douban_per_url."' target='_blank'>
   <img class='item_img' src='".$item['link'][2]['@href']."' style='float:left;' /></a><div class='item_meta' style='margin-left:100px;'><div><a class='item_title' href='".$douban_per_url."' target='_blank'>".$item['title']['$t']."</a></div>
-  <div class='item_author'>".$item_owner."</div><div class='item_date'>".$item_date."</div><div class='average_rating'>评分：".$item['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$item['gd:rating']['@numRaters']."人参与投票</div>
+  <div class='item_author'>".$item_owner."</div><div class='item_date'>".$item_date."</div><div class='average_rating'>豆瓣评分：".$item['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$item['gd:rating']['@numRaters']."人参与投票</div>
   </div></div></div></div></li>";
   }
   //$doubanContent .="<div class='loadmore_comments' style='text-align:center;'><a>查看更多该条目的评论</a></div>";

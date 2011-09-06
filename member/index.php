@@ -5,6 +5,8 @@ include_once( '../weibo/config.php' );
 include_once( '../weibo/sinaweibo.php' );
 include_once( '../tweibo/config.php' );
 include_once( '../tweibo/txwboauth.php' );
+include_once( '../douban/config.php' );
+include_once( '../douban/doubanapi.php' );
 ?>
 <link type="text/css" href="/storify/css/jquery.ui.theme.css" rel="stylesheet" />
 <link type="text/css" href="/storify/css/jquery.ui.tabs.css" rel="stylesheet" />
@@ -131,6 +133,7 @@ if(isset($_GET['post_id']))
 {  
   $c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_key']['oauth_token'] , $_SESSION['last_key']['oauth_token_secret']  );
   $t = new TWeiboClient( MB_AKEY , MB_SKEY , $_SESSION['last_tkey']['oauth_token'] , $_SESSION['last_tkey']['oauth_token_secret']  );
+  $d = new DoubanClient( DB_AKEY , DB_SKEY , $_SESSION['last_dkey']['oauth_token'] , $_SESSION['last_dkey']['oauth_token_secret']  );
   $post_id = $_GET['post_id'];
   echo "<script language=javascript >
   var post_id=$post_id;
@@ -221,6 +224,79 @@ if(isset($_GET['post_id']))
 	  $content .="<li class='weibo_drop tencent' id='$tweibo_per_id'><div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div></li>
 	  <li class='addTextElementAnchor'><span><a><img class='add_comment' src='/storify/img/editcomment.png' border='0'/></a></span></li>";
 	}
+    else if($val['type'] === 'douban')
+    {
+	  $douban_comment_per_id = $val['content']['comment_id'];	
+	  $doubanElement = $d->get_comment($douban_comment_per_id);
+	
+	  $douban_per_url = $doubanElement['db:subject']['link'][1]['@href'];
+	  $url_array  = explode("/", $douban_per_url);
+	  $douban_item_per_id = $url_array[4];
+	  $douban_item_meta;
+	  $douban_item_date;
+	  $douban_item_author;
+	  if($val['content']['comment_type'] == 'book')
+	  {
+	    $douban_item_meta = $d->get_book($douban_item_per_id);
+	    $douban_item_date = "出版年：".$douban_item_meta['db:attribute'][$j]['$t'];
+	  }
+	  else if($val['content']['comment_type'] == 'movie')
+	  {
+	    $douban_item_meta = $d->get_movie($douban_item_per_id);
+	    $douban_item_date = "上映日期：".$douban_item_meta['db:attribute'][$j]['$t'];
+	  }
+	  else if($val['content']['comment_type'] == 'music')
+	  {
+	    $douban_item_meta = $d->get_music($douban_item_per_id);
+	    $douban_item_date = "发行时间：".$douban_item_meta['db:attribute'][$j]['$t'];
+	  }
+	  for($j=0;$j<count($douban_item_meta['db:attribute']); $j++)
+	  {
+	    if($douban_item_meta['db:attribute'][$j]['@name'] == 'pubdate')
+	    break;
+	  }
+	
+	  $author_count = count($douban_item_meta['author']);
+	  $author="";
+	  if($author_count == 1)
+	  {
+	    $author = $douban_item_meta['author'][0]['name']['$t'];
+	  }
+	  else if($author_count > 1)
+	  {
+	    for($i=0; $i<$author_count; $i++)
+	    {
+		  $author .= $douban_item_meta['author'][$i]['name']['$t']." ";
+	    }
+	  }
+	
+	  if($val['content']['comment_type'] == 'book')
+	  {
+	    $douban_item_author = "作者：".$author;
+	    $douban_item_date = "出版年：".$douban_item_meta['db:attribute'][$j]['$t'];
+	  }
+	  else if($val['content']['comment_type'] == 'movie')
+	  {
+	    $douban_item_author = "导演：".$author;
+	    $douban_item_date = "上映日期：".$douban_item_meta['db:attribute'][$j]['$t'];
+	  }
+	  else if($val['content']['comment_type'] == 'music')
+	  {
+	    $douban_item_author = "表演者：".$author;
+	    $douban_item_date = "发行时间：".$douban_item_meta['db:attribute'][$j]['$t'];
+	  }
+	  $comment_rating = 2*$doubanElement['gd:rating']['@value'];
+	  $time_array = explode("T", $doubanElement['updated']['$t']);
+	  $content .="<li class='douban_drop douban' id='$douban_comment_per_id'><div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='douban_wrapper'><div class='item_info' style='overflow:auto;'><a href='".$douban_per_url."' target='_blank'><img class='item_img' src='"
+			.$doubanElement['db:subject']['link'][2]['@href']."' style='float:left;' /></a><div class='item_meta' style='margin-left:100px;'><div><a class='item_title' href='".$douban_per_url."' target='_blank'>".$doubanElement['db:subject']['title']['$t']."</a></div><div class='item_author'>"
+			.$douban_item_author."</div><div class='item_date'>".$douban_item_date."</div><div class='average_rating'>豆瓣评分:".$douban_item_meta['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$douban_item_meta['gd:rating']['@numRaters']."人参与投票</div></div></div>
+			<div style='margin-top:10px;'><div class=item_rating>".$doubanElement['author']['name']['$t']."评分:".$comment_rating."</div><div class='comment_title' style='font-weight:bold;'>"
+				.$doubanElement['title']['$t']."</div><div class='comment_summary'>".$doubanElement['summary']['$t']."</div><div style='text-align:right;'><a href='".$doubanElement['link'][1]['@href']."' target='_blank'>查看评论全文</a></div></div>
+				<div id='douban_signature'><span style='float:right;'><a href='".$doubanElement['author']['link'][1]['@href']."' target='_blank'><img class='profile_img' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
+				.$doubanElement['author']['link'][2]['@href']."' alt='".$doubanElement['author']['name']['$t']."' border=0 /></a></span><span class='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='douban_from' href='"
+				.$doubanElement['author']['link'][1]['@href']."' target='_blank'>".$doubanElement['author']['name']['$t']."</a></span></div><div class='douban_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px; width:16px; height:16px;' src='/storify/img/logo_douban.png'/><a>"
+				.$time_array[0]."</a></span></div></span> </div></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/storify/img/editcomment.png' border='0'/></a></span></li>";
+    }	
 	else if($val['type'] === 'comment')
 	{
 	  $comment_text = $val['content'];
@@ -559,18 +635,22 @@ $(function() {
 		
 		$('#book_tab').click(function(){
 		  $('#d_keywords').val('书名').css('color', '#999999');
+		  $('#source_list').children().remove();
 		});
 		
 		$('#movie_tab').click(function(){
 		  $('#d_keywords').val('电影名').css('color', '#999999');
+		  $('#source_list').children().remove();
 		});
 		
 		$('#music_tab').click(function(){
 		  $('#d_keywords').val('歌曲名').css('color', '#999999');
+		  $('#source_list').children().remove();
 		});
 		
 		$('#event_tab').click(function(){
-		  $('#d_keywords').val('搜活动').css('color', '#999999');
+		   $('#d_keywords').val('搜活动').css('color', '#999999');
+		   $('#source_list').children().remove();
 		});
 		
 		$('#d_keywords').blur(function(){
@@ -1152,8 +1232,23 @@ $(function() {
 			{
 			  story_content_val.content[i] = new Object;
 			  story_content_val.content[i].id = i;
+			  var comment_type_val;
+			  if($(this).hasClass('book'))
+			  {
+			    comment_type_val='book';
+			  }
+			  else if($(this).hasClass('movie'))
+			  {
+			    comment_type_val='movie';
+			  }
+			  else if($(this).hasClass('music'))
+			  {
+			    comment_type_val='music';
+			  }
 			  story_content_val.content[i].type = 'douban';
-			  story_content_val.content[i].content = $(this).attr('id');
+			  var comment_per_id = $(this).attr('id');
+			  var douban_metadata = {comment_type: comment_type_val, comment_id: comment_per_id};
+			  story_content_val.content[i].content = douban_metadata;
 			}
 			else if($(this).hasClass('textElement'))
 			{
@@ -1232,8 +1327,23 @@ $(function() {
 			{
 			  story_content_val.content[i] = new Object;
 			  story_content_val.content[i].id = i;
+			  var comment_type_val;
+			  if($(this).hasClass('book'))
+			  {
+			    comment_type_val='book';
+			  }
+			  else if($(this).hasClass('movie'))
+			  {
+			    comment_type_val='movie';
+			  }
+			  else if($(this).hasClass('music'))
+			  {
+			    comment_type_val='music';
+			  }
 			  story_content_val.content[i].type = 'douban';
-			  story_content_val.content[i].content = $(this).attr('id');
+			  var comment_per_id = $(this).attr('id');
+			  var douban_metadata = {comment_type: comment_type_val, comment_id: comment_per_id};
+			  story_content_val.content[i].content = douban_metadata;
 			}
 			else if($(this).hasClass('textElement'))
 			{
@@ -1323,8 +1433,23 @@ $(function() {
 			{
 			  story_content_val.content[i] = new Object;
 			  story_content_val.content[i].id = i;
+			  var comment_type_val;
+			  if($(this).hasClass('book'))
+			  {
+			    comment_type_val='book';
+			  }
+			  else if($(this).hasClass('movie'))
+			  {
+			    comment_type_val='movie';
+			  }
+			  else if($(this).hasClass('music'))
+			  {
+			    comment_type_val='music';
+			  }
 			  story_content_val.content[i].type = 'douban';
-			  story_content_val.content[i].content = $(this).attr('id');
+			  var comment_per_id = $(this).attr('id');
+			  var douban_metadata = {comment_type: comment_type_val, comment_id: comment_per_id};
+			  story_content_val.content[i].content = douban_metadata;
 			}
 			else if($(this).hasClass('textElement'))
 			{

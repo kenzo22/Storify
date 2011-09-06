@@ -139,13 +139,70 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	  }
 	  else if($val['type'] === 'douban')
 	  {
-	    $douban_per_id = $val['content'];	
-		$doubanElement = $d->get_comment($douban_per_id);
+	    $douban_comment_per_id = $val['content']['comment_id'];	
+		$doubanElement = $d->get_comment($douban_comment_per_id);
+		
 		$douban_per_url = $doubanElement['db:subject']['link'][1]['@href'];
+		$url_array  = explode("/", $douban_per_url);
+		$douban_item_per_id = $url_array[4];
+		$douban_item_meta;
+		$douban_item_date;
+		$douban_item_author;
+		if($val['content']['comment_type'] == 'book')
+		{
+		  $douban_item_meta = $d->get_book($douban_item_per_id);
+		  $douban_item_date = "出版年：".$douban_item_meta['db:attribute'][$j]['$t'];
+		}
+		else if($val['content']['comment_type'] == 'movie')
+		{
+		  $douban_item_meta = $d->get_movie($douban_item_per_id);
+		  $douban_item_date = "上映日期：".$douban_item_meta['db:attribute'][$j]['$t'];
+		}
+		else if($val['content']['comment_type'] == 'music')
+		{
+		  $douban_item_meta = $d->get_music($douban_item_per_id);
+		  $douban_item_date = "发行时间：".$douban_item_meta['db:attribute'][$j]['$t'];
+		}
+		for($j=0;$j<count($douban_item_meta['db:attribute']); $j++)
+		{
+		  if($douban_item_meta['db:attribute'][$j]['@name'] == 'pubdate')
+		  break;
+		}
+		
+		$author_count = count($douban_item_meta['author']);
+	    $author="";
+	    if($author_count == 1)
+	    {
+		  $author = $douban_item_meta['author'][0]['name']['$t'];
+	    }
+	    else if($author_count > 1)
+	    {
+		  for($i=0; $i<$author_count; $i++)
+		  {
+		    $author .= $douban_item_meta['author'][$i]['name']['$t']." ";
+		  }
+	    }
+		
+		if($val['content']['comment_type'] == 'book')
+		{
+		  $douban_item_author = "作者：".$author;
+		  $douban_item_date = "出版年：".$douban_item_meta['db:attribute'][$j]['$t'];
+		}
+		else if($val['content']['comment_type'] == 'movie')
+		{
+		  $douban_item_author = "导演：".$author;
+		  $douban_item_date = "上映日期：".$douban_item_meta['db:attribute'][$j]['$t'];
+		}
+		else if($val['content']['comment_type'] == 'music')
+		{
+		  $douban_item_author = "表演者：".$author;
+		  $douban_item_date = "发行时间：".$douban_item_meta['db:attribute'][$j]['$t'];
+		}
+		$comment_rating = 2*$doubanElement['gd:rating']['@value'];
 		$time_array = explode("T", $doubanElement['updated']['$t']);
-		$content .="<li class='douban_drop douban' id='$douban_per_id' style='border:none;'><div class='douban_wrapper'><div class='item_info' style='overflow:auto;'><a href='".$douban_per_url."' target='_blank'><img class='item_img' src='"
+		$content .="<li class='douban_drop douban' id='$douban_comment_per_id' style='border:none;'><div class='douban_wrapper'><div class='item_info' style='overflow:auto;'><a href='".$douban_per_url."' target='_blank'><img class='item_img' src='"
 				.$doubanElement['db:subject']['link'][2]['@href']."' style='float:left;' /></a><div class='item_meta' style='margin-left:100px;'><div><a class='item_title' href='".$douban_per_url."' target='_blank'>".$doubanElement['db:subject']['title']['$t']."</a></div><div class='item_author'>"
-				.$doubanElement['db:subject']['author']['name']['$t']."</div><div class='item_date'></div><div class='average_rating'></div></div></div><div style='margin-top:10px;'><div class=item_rating>".$doubanElement['gd:rating']['@value']."</div><div class='comment_title' style='font-weight:bold;'>"
+				.$douban_item_author."</div><div class='item_date'>".$douban_item_date."</div><div class='average_rating'>豆瓣评分:".$douban_item_meta['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$douban_item_meta['gd:rating']['@numRaters']."人参与投票</div></div></div><div style='margin-top:10px;'><div class=item_rating>".$doubanElement['author']['name']['$t']."评分:".$comment_rating."</div><div class='comment_title' style='font-weight:bold;'>"
 					.$doubanElement['title']['$t']."</div><div class='comment_summary'>".$doubanElement['summary']['$t']."</div><div style='text-align:right;'><a href='".$doubanElement['link'][1]['@href']."' target='_blank'>查看评论全文</a></div></div>
 					<div id='douban_signature'><span style='float:right;'><a href='".$doubanElement['author']['link'][1]['@href']."' target='_blank'><img class='profile_img' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
 					.$doubanElement['author']['link'][2]['@href']."' alt='".$doubanElement['author']['name']['$t']."' border=0 /></a></span><span class='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='douban_from' href='"

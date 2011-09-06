@@ -50,6 +50,27 @@ class DoubanClient
 	  return $this->oauth->get('http://api.douban.com/review/'.$commentID , $param); 
 	}
 	
+	function get_book($subjectID)
+	{
+	  $param = array();
+	  $param['alt'] = 'json';
+	  return $this->oauth->get('http://api.douban.com/book/subject/'.$subjectID , $param); 
+	}
+	
+	function get_movie($subjectID)
+	{
+	  $param = array();
+	  $param['alt'] = 'json';
+	  return $this->oauth->get('http://api.douban.com/movie/subject/'.$subjectID , $param);  
+	}
+	
+	function get_music($subjectID)
+	{
+	  $param = array();
+	  $param['alt'] = 'json';
+	  return $this->oauth->get('http://api.douban.com/music/subject/'.$subjectID , $param); 
+	}
+	
 	function search_book($keywords)
 	{
 	  $param = array();
