@@ -37,27 +37,6 @@ foreach( $doubanReturn['entry'] as $item )
   $temp_array = explode("/", $item['id']['$t']);
   $length = count($temp_array);
   $douban_per_id = $temp_array[$length-1];
-  //fetch all comments of this item
-  $commentsReturn="";
-  $comments="";
-  if('book' == $operation)
-  {
-    $commentsReturn = $c->search_book_reviews($douban_per_id);
-  }
-  else if('movie' == $operation)
-  {
-    $commentsReturn = $c->search_movie_reviews($douban_per_id);
-  }
-  else if('music' == $operation)
-  {
-    $commentsReturn = $c->search_music_reviews($douban_per_id);
-  }
-  
-  foreach( $commentsReturn['entry'] as $commentItem )
-  {
-    $comments.=$commentItem['summary']['$t']."<br /><br />";
-  }
-  //$comments="";
   $author_count = count($item['author']);
   $author="";
   if($author_count == 1)
@@ -71,8 +50,56 @@ foreach( $doubanReturn['entry'] as $item )
 	  $author .= $item['author'][$i]['name']['$t']." ";
 	}
   }
-  $doubanContent .= "<li class='douban_drag douban' id='".$douban_per_id."'><div class='douban_wrapper'><div class=douban_title>".$item['title']['$t']."</div><div class=douban_author>".$author."</div>
-  <div class='douban_img'><img src='".$item['link'][2]['@href']."' /></div><div class='douban_comments'>".$comments."</div></div></li>";
+  
+  //fetch all comments of this item
+  $commentsReturn="";
+  $item_owner="";
+  $item_date="";
+  $j=0;
+  for($j=0;$j<count($item['db:attribute']); $j++)
+  {
+	if($item['db:attribute'][$j]['@name'] == 'pubdate')
+	break;
+  }
+  if('book' == $operation)
+  {
+    $item_owner = "作者：".$author;
+	$item_date = "出版年：".$item['db:attribute'][$j]['$t'];
+	$commentsReturn = $c->search_book_reviews($douban_per_id);
+  }
+  else if('movie' == $operation)
+  {
+    $item_owner = "导演：".$author;
+	$item_date = "上映日期：".$item['db:attribute'][$j]['$t'];
+	$commentsReturn = $c->search_movie_reviews($douban_per_id);
+  }
+  else if('music' == $operation)
+  {
+    $item_owner = "表演者：".$author;
+	$item_date = "发行时间：".$item['db:attribute'][$j]['$t'];
+	$commentsReturn = $c->search_music_reviews($douban_per_id);
+  }
+  
+  foreach( $commentsReturn['entry'] as $commentItem )
+  {
+	$comment_temp_array = explode("/", $commentItem['id']['$t']);
+    $comment_per_id = $comment_temp_array[count($comment_temp_array)-1];
+	$fulltext_url = $commentItem['link'][1]['@href'];
+	$comments_title = $commentItem['title']['$t'];
+	$comments_summary = $commentItem['summary']['$t'];
+	$comment_author = $commentItem['author']['name']['$t'];
+	$time_array = explode("T", $commentItem['updated']['$t']);
+	$doubanContent .= "<li class='douban_drag douban' id='".$comment_per_id."'><div class='douban_wrapper'><img class='profile_img' style='width: 32px; height: 32px; float:left; overflow: hidden; margin-top:3px;' 
+  src='".$commentItem['author']['link'][2]['@href']."' title='".$comment_author."' alt='".$comment_author."' border=0 />
+  <div style='margin-left:36px;'><a href='".$commentItem['author']['link'][1]['@href']."' target='_blank' class='douban_from'
+  style = 'display:block;'><span>".$comment_author."</span></a>
+  <div class='douban_comments'><div class=item_rating>".$commentItem['gd:rating']['@value']."</div><div class='comment_title' style='font-weight:bold;'>".$comments_title."</div>
+  <div class='comment_summary'>".$comments_summary."</div><div style='text-align:right;'><a href='".$fulltext_url."' target='_blank'>查看评论全文</a></div><div class='comment_date' style='text-align:right;'>".$time_array[0]."</div></div>
+  <div class='item_info'><img class='item_img' src='".$item['link'][2]['@href']."' style='float:left;' /><div class='item_meta' style='margin-left:100px;'><div class=item_title>".$item['title']['$t']."</div>
+  <div class='item_author'>".$item_owner."</div><div class='item_date'>".$item_date."</div><div class='average_rating'>评分：".$item['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$item['gd:rating']['@numRaters']."人参与投票</div>
+  </div></div></div></div></li>";
+  }
+  //$doubanContent .="<div class='loadmore_comments' style='text-align:center;'><a>查看更多该条目的评论</a></div>";
 }
 $doubanContent .="<div class='loadmore'><a>更多</a></div>";
 echo $doubanContent;

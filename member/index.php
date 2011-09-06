@@ -949,6 +949,31 @@ $(function() {
 				ui.item.append(content);	
 			    WB.widget.atWhere.searchAndAt(document.getElementById("story_list"));
 			  }
+			  else if(ui.item.hasClass('douban_drag'))
+			  {
+			    //debugger;
+				var douban_profile_img = ui.item.find('.profile_img').attr('src');
+				var douban_profile_name = ui.item.find('.profile_img').attr('title');
+				var douban_profile_url = ui.item.find('.douban_from').attr('href');
+				var douban_comment_title = ui.item.find('.comment_title').text();
+				var douban_comment_summary = ui.item.find('.comment_summary').text();
+				var douban_comment_date = ui.item.find('.comment_date').text();
+				var douban_comment_rating = ui.item.find('.item_rating').text();
+				var douban_item_img = ui.item.find('.item_img').attr('src');
+				var douban_item_title = ui.item.find('.item_title').text();
+				var douban_item_author = ui.item.find('.item_author').text();
+				var douban_item_date = ui.item.find('.item_date').text();
+				var douban_item_rating = ui.item.find('.average_rating').text();
+				var doubanContent = ("<div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='douban_wrapper'><div class='item_info_drop' style='overflow:auto;'><img class='item_img_drop' src='"
+				+douban_item_img+"' style='float:left;' /><div class='item_meta_drop' style='margin-left:100px;'><div class=item_title_drop>"+douban_item_title+"</div><div class='item_author_drop'>"
+				+douban_item_author+"</div><div class='item_date_drop'>"+douban_item_date+"</div><div class='average_rating_drop'>"+douban_item_rating+"</div></div></div><div style='margin-top:10px;'><div class='comment_title_drop' style='font-weight:bold;'>"
+					+douban_comment_title+"</div><div class='comment_summary_drop'>"+douban_comment_summary+"</div></div><div id='douban_signature'><span style='float:right;'><a href='"+douban_profile_url+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
+					+douban_profile_img+"' alt='"+douban_profile_name+"' border=0 /></a></span><span class='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='douban_from_drop' href='"
+					+douban_profile_url+"' target='_blank'>"+douban_profile_name+"</a></span></div><div class='douban_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px; width:16px; height:16px;' src='/storify/img/logo_douban.png'/><a>"
+					+douban_comment_date+"</a></span></div></span> </div></div>");
+				ui.item.removeClass('douban_drag').addClass('douban_drop').children().remove();　
+			    ui.item.append(doubanContent);
+			  }
 			  else if(ui.item.hasClass('video_Drag'))
 			  {
 			    //var thumbnailUrl = ui.item.find('.youku_thumbnail').attr('src');
