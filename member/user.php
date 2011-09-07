@@ -548,7 +548,10 @@ else if(isset($_GET['post_id']) && isset($_GET['action']))
 	  $result=$DB->query("update ".$db_prefix."posts set post_status='Published'  WHERE ID='".$story_id."'");
 	  go($rooturl.'/member/user.php?post_id='.$story_id);
 	}
-	else
+	
+	
+	
+	
 	{
 	  throw new Exception('Undefined story action.');
 	}
@@ -571,18 +574,23 @@ else if(isset($_GET['user_id']))
 	$post_date = $story_item['post_date'];
 	$temp_array = explode(" ", $story_item['post_date']);
 	$post_date = $temp_array[0];
+	//if(!islogin() || $story_author != $_SESSION['uid'])
     $story_content .= "<li><div class='story_wrap'><a class='cover' style='background: url(".$post_pic_url.") no-repeat; background-size: 100%;' href='/storify/member/user.php?post_id=".$story_item['ID']."'><div class='title_wrap'><h1 class='title'>".$post_title."</h1></div></a><div class='editable'>
   <div class='status'>
     <div class='".$post_status."'>
 	  <div class='icon'></div>
 	  <span>".$post_status."</span>
 	</div>
-  </div>
-  <div class='actions'>
-    <a id='".$post_id."' class='icon delete' title='删除' href='#'><img src='../img/delete.gif' style='width:16px; height:16px;'/></a>
-	<a class='icon edit' title='编辑' href='".$rooturl."/member/index.php?post_id=".$post_id."'><img src='../img/edit.png' style='width:16px; height:16px;'/></a>
-  </div>
-  <div class='clear'></div>
+  </div>";
+  if(islogin() && $user_id == $_SESSION['uid'])
+  {
+    $story_content .="
+    <div class='actions'>
+      <a id='".$post_id."' class='icon delete' title='删除' href='#'><img src='../img/delete.gif' style='width:16px; height:16px;'/></a>
+	  <a class='icon edit' title='编辑' href='".$rooturl."/member/index.php?post_id=".$post_id."'><img src='../img/edit.png' style='width:16px; height:16px;'/></a>
+    </div>";
+  }
+   $story_content .="<div class='clear'></div>
 </div></div>
 	<div class='story_meta'><span><img border='0' style='position:relative; top:3px; width: 20px; height:20px;' src='".$user_profile_img."'/><a style='margin-left:5px; vertical-align:top;'>".$userresult['username']."</a><a style='margin-left:65px; vertical-align:top;'>".$post_date."</a></span></div></li>";
   }
