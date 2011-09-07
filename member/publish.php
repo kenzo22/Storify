@@ -4,6 +4,18 @@ require_once "../connect_db.php";
 require_once "../include/functions.php";
 session_start();
 
+
+function binhex($str) 
+{
+    $hex = "";
+    $i = 0;
+    do {
+        $hex .= sprintf("%02x", ord($str{$i}));
+        $i++;
+    } while ($i < strlen($str));
+    return $hex;
+}
+
 $story_id=$_POST['story_id'];
 $story_title=$_POST['story_title'];
 $story_summary=$_POST['story_summary'];
@@ -16,6 +28,9 @@ $tag_story_table=$db_prefix."tag_story";
 
 $pulish_time=date("Y-m-d H:i:s");
 $post_id = $story_id;
+
+mb_regex_encoding("utf-8");
+
 if(0 == $story_id)
 {
     $DB->query("insert into ".$db_prefix."posts values
@@ -26,8 +41,7 @@ if(0 == $story_id)
     $post_id = intval($result['ID']);
     $story_id=$post_id;
 
-// insert tags into database
-    $tag_array=preg_split('/[:;,\s；，]+/',$story_tag);
+    $tag_array=mb_split('[:;,\s，：；]+',$story_tag);
     foreach($tag_array as $element){
         $query="select id from ".$tag_table." where name='".$element."'";
         $result=$DB->query($query);
@@ -38,8 +52,11 @@ if(0 == $story_id)
 
         $query="select id from ".$tag_table." where name='".$element."'";
         $result=$DB->query($query);
-        if($DB->num_rows($result) != 1)
+        if($DB->num_rows($result) > 1)
             echo "标签必须是唯一的";
+        elseif($DB->num_rows($result) < 1 )
+            echo "插入标签失败: ".$element;
+
         $row=$DB->fetch_array($result);
         $tag_id=$row[0];
 
@@ -57,7 +74,7 @@ else
 
 
     // update tags in the database
-    $tag_array=preg_split('/[:;,\s；，]+/',$story_tag);
+    $tag_array=mb_split('[:;,\s，：；]+',$story_tag);
 
     // get the array for current story_id
     $query="select tag_id from ".$tag_story_table. " where story_id=".$story_id;

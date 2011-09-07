@@ -54,7 +54,7 @@ if($_POST['act'] == 'uploadphoto')
 		go($rooturl."/login","请先登录..",2);
 
     if ((($_FILES["photofile"]["type"] == "image/png") || ($_FILES["photofile"]["type"] == "image/gif") || ($_FILES["photofile"]["type"] == "image/jpeg") || 
-	($_FILES["photofile"]["type"] == "image/pjpeg") || ($_FILES["photofile"]["type"] == "image/bmp")) && ($_FILES["photofile"]["size"] < 200000))	
+	($_FILES["photofile"]["type"] == "image/pjpeg") || ($_FILES["photofile"]["type"] == "image/bmp")) && ($_FILES["photofile"]["size"] < 500000))	
 	{
 	  $err_code=$_FILESs['photofile']['error'];
 	  if ($err_code > 0)
