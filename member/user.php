@@ -579,8 +579,8 @@ else if(isset($_GET['user_id']))
 	</div>
   </div>
   <div class='actions'>
-    <a id='".$post_id."' class='icon delete' title='delete' href='#'>delete</a>
-	<a class='icon edit' title='Edit' href='".$rooturl."/member/index.php?post_id=".$post_id."'>edit</a>
+    <a id='".$post_id."' class='icon delete' title='删除' href='#'><img src='../img/delete.gif' style='width:16px; height:16px;'/></a>
+	<a class='icon edit' title='编辑' href='".$rooturl."/member/index.php?post_id=".$post_id."'><img src='../img/edit.png' style='width:16px; height:16px;'/></a>
   </div>
   <div class='clear'></div>
 </div></div>
