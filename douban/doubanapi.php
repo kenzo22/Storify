@@ -71,6 +71,13 @@ class DoubanClient
 	  return $this->oauth->get('http://api.douban.com/music/subject/'.$subjectID , $param); 
 	}
 	
+	function get_event($subjectID)
+	{
+	  $param = array();
+	  $param['alt'] = 'json';
+	  return $this->oauth->get('http://api.douban.com/event/'.$subjectID , $param); 
+	}
+	
 	function search_book($keywords)
 	{
 	  $param = array();
