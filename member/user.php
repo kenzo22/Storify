@@ -79,11 +79,21 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 			  </a> | <a href='/storify/member/user.php?post_id=".$post_id."&action=edit'>编辑</a> | <a href='/storify/member/user.php?post_id=".$post_id."&action=publish'>发布</a></span></div>";
 	  }	
 	}
+
+    // get tags for this story
+    $tag_query = "select name from story_tag,story_tag_story where story_tag.id=tag_id and story_id=".$post_id;
+    $tag_names = $DB->query($tag_query);
+    if($DB->num_rows($tag_names) > 0){
+        while($tag_name_row = $DB->fetch_array($tag_names)){
+            $tags .= $tag_name_row['name']." ";
+        }
+    }
+
 	$content .="<div id='story_header' style='margin:0; padding:0;'><div style='float:right; padding: 10px 10px 0 0'><img src='".$story_pic."' style='width:60px; height:60px;' /></div><div style='padding-left:20px;'><h2>".$story_title."</h2></div>
 			  <div style='padding-left:20px;'>".$userresult['username']."</div>
-			  <div style='padding-left:20px; border-bottom:1px solid #C9C9C9;'>".$story_summary."</div>
-			  </div>
-			  <ul id='weibo_ul' style='padding:0;'>";
+			  <div style='padding-left:20px; '>".$story_summary."</div>
+              <div style='padding-left:20px; border-bottom:1px solid #C9C9C9;'>".$tags."</div>
+			  </div><ul id='weibo_ul' style='padding:0;'>";
 	
 	foreach($story_content_array as $key=>$val)
 	{
@@ -548,9 +558,6 @@ else if(isset($_GET['post_id']) && isset($_GET['action']))
 	  $result=$DB->query("update ".$db_prefix."posts set post_status='Published'  WHERE ID='".$story_id."'");
 	  go($rooturl.'/member/user.php?post_id='.$story_id);
 	}
-	
-	
-	
 	
 	{
 	  throw new Exception('Undefined story action.');
