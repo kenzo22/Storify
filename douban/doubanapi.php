@@ -5,7 +5,119 @@ require_once 'doubanoauth.php';
  * 豆瓣操作类 
  * 
  * 
- */ 
+ */  
+function getPubDate($attArray) 
+{
+  for($i=0;$i<count($attArray); $i++)
+  {
+	if($attArray[$i]['@name'] == 'pubdate')
+	break;
+  }
+  if($i == count($attArray))
+  {
+    return "";
+  }
+  else
+  {
+    return $attArray[$i]['$t'];
+  }
+}
+ 
+function getAuthors($doubanArray) 
+{
+  $author_count = count($doubanArray);
+  $author="";
+  if($author_count == 1)
+  {
+    $author = $doubanArray[0]['name']['$t'];
+  }
+  else if($author_count > 1)
+  {
+    for($i=0; $i<$author_count; $i++)
+    {
+	  $author .= $doubanArray[$i]['name']['$t']." ";
+    }
+  }
+  return $author;
+}
+ 
+function getAuthorLink($authorArray)
+{
+  for($i=0; $i<count($authorArray); $i++)
+  {
+    if($authorArray[$i]['@rel'] == 'alternate')
+    {
+	  break;
+    }
+  }
+  if($i == count($authorArray))
+  {
+    return "";
+  }
+  else
+  {
+    return $authorArray[$i]['@href'];
+  }
+}
+
+function getAuthorPic($authorArray)
+{
+  for($i=0; $i<count($authorArray); $i++)
+  {
+    if($authorArray[$i]['@rel'] == 'icon')
+    {
+	  break;
+    }
+  }
+  if($i == count($authorArray))
+  {
+    return "../img/douban_user_dft.jpg";
+  }
+  else
+  {
+    return $authorArray[$i]['@href'];
+  }
+}
+
+function getItemLink($itemArray)
+{
+  for($i=0; $i<count($itemArray); $i++)
+  {
+    if($itemArray[$i]['@rel'] == 'alternate')
+    {
+	  break;
+    }
+  }
+  if($i == count($itemArray))
+  {
+    return "";
+  }
+  else
+  {
+    return $itemArray[$i]['@href'];
+  }
+}
+
+function getItemPic($itemArray)
+{
+  for($i=0; $i<count($itemArray); $i++)
+  {
+    if($itemArray[$i]['@rel'] == 'image')
+    {
+	  break;
+    }
+  }
+  if($i == count($itemArray))
+  {
+    return "../img/event_dft.jpg";
+  }
+  else
+  {
+    return $itemArray[$i]['@href'];
+  }
+}
+ 
+ 
 class DoubanClient 
 { 
     function __construct( $akey , $skey , $accecss_token , $accecss_token_secret ) 

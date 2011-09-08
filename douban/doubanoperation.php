@@ -44,7 +44,7 @@ if($eventFlag == 0)
 	  $temp_array = explode("/", $item['id']['$t']);
 	  $length = count($temp_array);
 	  $douban_per_id = $temp_array[$length-1];
-	  $douban_per_url = $item['link'][1]['@href'];
+	  $douban_per_url = getItemLink($item['link']);
 	  $url_array  = explode("/", $douban_per_url);
 	  $item_type;
 	  if($url_array[2] == 'book.douban.com')
@@ -59,49 +59,32 @@ if($eventFlag == 0)
 	  {
 		$item_type = 'music';
 	  }
-	  $author_count = count($item['author']);
-	  $author="";
-	  if($author_count == 1)
-	  {
-		$author = $item['author'][0]['name']['$t'];
-	  }
-	  else if($author_count > 1)
-	  {
-		for($i=0; $i<$author_count; $i++)
-		{
-		  $author .= $item['author'][$i]['name']['$t']." ";
-		}
-	  }
 
+	  $author = getAuthors($item['author']);
+	  $item_pic = getItemPic($item['link']);
 	  $item_owner="";
 	  $item_date="";
 	  $item_review_text="";
 	  $load_more_text="";
-
-	  $j=0;
-	  for($j=0;$j<count($item['db:attribute']); $j++)
-	  {
-		if($item['db:attribute'][$j]['@name'] == 'pubdate')
-		break;
-	  }
+	  $pubDate = getPubDate($item['db:attribute']);
 	  if('book' == $operation)
 	  {
 		$item_owner = "作者：".$author;
-		$item_date = "出版年：".$item['db:attribute'][$j]['$t'];
+		$item_date = "出版年：".$pubDate;
 		$item_review_text = "查看豆瓣书评";
 		$load_more_text = "更多图书";
 	  }
 	  else if('movie' == $operation)
 	  {
 		$item_owner = "导演：".$author;
-		$item_date = "上映日期：".$item['db:attribute'][$j]['$t'];
+		$item_date = "上映日期：".$pubDate;
 		$item_review_text = "查看豆瓣影评";
 		$load_more_text = "更多电影";
 	  }
 	  else if('music' == $operation)
 	  {
 		$item_owner = "表演者：".$author;
-		$item_date = "发行时间：".$item['db:attribute'][$j]['$t'];
+		$item_date = "发行时间：".$pubDate;
 		$item_review_text = "查看豆瓣乐评";
 		$load_more_text = "更多音乐";
 	  }
@@ -110,7 +93,7 @@ if($eventFlag == 0)
 		"<li class='douban_drag douban ".$item_type."' id='".$douban_per_id."'>
 		  <div class='douban_wrapper'>
 			<div class='item_info'>
-			  <a href='".$douban_per_url."' target='_blank'><img class='item_img' src='".$item['link'][2]['@href']."' style='float:left;' /></a>
+			  <a href='".$douban_per_url."' target='_blank'><img class='item_img' src='".$item_pic."' style='float:left;' /></a>
 			  <div class='item_meta' style='margin-left:100px;'>
 				<div><a class='item_title' href='".$douban_per_url."' target='_blank'>".$item['title']['$t']."</a></div>
 				<div class='item_author'>".$item_owner."</div>
@@ -118,6 +101,9 @@ if($eventFlag == 0)
 				<div class='average_rating'>豆瓣评分：".$item['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$item['gd:rating']['@numRaters']."人参与投票</div>
 				<div style='text-align:right;'><a class='douban_review ".$item_type."' href='#'>".$item_review_text."</a></div>
 			  </div>
+			</div>
+			<div class='douban_signature' style='text-align:right;'>
+			  <img border='0' style='width:16px; height:16px;' src='/storify/img/logo_douban.png'/>
 			</div>
 		  </div>
 		</li>";
@@ -137,7 +123,7 @@ else if($eventFlag == 1)
 	$temp_array = explode("/", $eventItem['id']['$t']);
 	$length = count($temp_array);
 	$douban_per_id = $temp_array[$length-1];
-	$eventLink = $eventItem['link'][1]['@href'];
+	$eventLink = getItemLink($eventItem['link']);
 	$eventTitle = $eventItem['title']['$t'];
 	$eventSummary = $eventItem['summary'][0]['$t'];
 	$eventContent = $eventItem['content']['$t'];
@@ -145,49 +131,13 @@ else if($eventFlag == 1)
 	$eventWhere = $eventItem['gd:where']['@valueString'];
 	$eventStart = $eventItem['gd:when']['@startTime'];
 	$eventEnd = $eventItem['gd:when']['@endTime'];
-	for($i=0;$i<count($eventItem['link']); $i++)
-	{
-	  if($eventItem['link'][$i]['@rel'] == 'image')
-	  {
-	    $eventImgFlag = 1;
-	    break;
-	  }
-	}
-	if($eventImgFlag == 1)
-	{
-	  $eventImg = $eventItem['link'][$i]['@href'];
-	}
-	else if($eventImgFlag == 0)
-	{
-	  $eventImg = "../img/event_dft.jpg";
-	}
+	$eventImg = getItemPic($eventItem['link']);
 	$eventDetail = $c->get_event($douban_per_id);
-	for($j=0;$j<count($eventDetail['author']['link']); $j++)
-	{
-	  if($eventDetail['author']['link'][$j]['@rel'] == 'alternate')
-	  {
-	    break;
-	  }
-	}
-	$eventInitiator_url = $eventDetail['author']['link'][$j]['@href'];
-	$eventInitiator_name = $eventDetail['author']['name']['$t'];
 	
-	for($k=0;$k<count($eventDetail['author']['link']); $k++)
-	{
-	  if($eventDetail['author']['link'][$k]['@rel'] == 'icon')
-	  {
-	    $userImgFlag = 1;
-	    break;
-	  }
-	}
-	if($userImgFlag == 1)
-	{
-	  $eventInitiator_pic = $eventDetail['author']['link'][$k]['@href'];
-	}
-	else if($userImgFlag == 0)
-	{
-	  $eventInitiator_pic = "../img/douban_user_dft.jpg";
-	}
+	$eventInitiator_url = getAuthorLink($eventDetail['author']['link']);
+	$eventInitiator_name = $eventDetail['author']['name']['$t'];
+	$eventInitiator_pic = getAuthorPic($eventDetail['author']['link']);
+	
 	$doubanContent .=
 	"<li class='douban_drag douban event' id='".$douban_per_id."'>
 	  <div class='douban_wrapper'>

@@ -38,54 +38,28 @@ else if('musicReviews' == $operation)
   $doubanItemMeta = $c->get_music($subjectID);
 }
 
-for($j=0;$j<count($doubanItemMeta['db:attribute']); $j++)
-{
-  if($doubanItemMeta['db:attribute'][$j]['@name'] == 'pubdate')
-  break;
-}
+$pubDate = getPubDate($doubanItemMeta['db:attribute']);
+$itemPic = getItemPic($doubanItemMeta['link']);
+$itemLink = getItemLink($doubanItemMeta['link']);
 
-for($k=0;$k<count($doubanItemMeta['link']); $k++)
-{
-  if($doubanItemMeta['link'][$k]['@rel'] == 'image')
-  break;
-}
-
-for($t=0;$t<count($doubanItemMeta['link']); $t++)
-{
-  if($doubanItemMeta['link'][$t]['@rel'] == 'alternate')
-  break;
-}
-
-$author_count = count($doubanItemMeta['author']);
-$author="";
-if($author_count == 1)
-{
-  $author = $doubanItemMeta['author'][0]['name']['$t'];
-}
-else if($author_count > 1)
-{
-  for($i=0; $i<$author_count; $i++)
-  {
-	$author .= $doubanItemMeta['author'][$i]['name']['$t']." ";
-  }
-}
+$author = getAuthors($doubanItemMeta['author']);
 
 if('bookReviews' == $operation)
 {
   $item_owner = "作者：".$author;
-  $item_date = "出版年：".$item['db:attribute'][$j]['$t'];
+  $item_date = "出版年：".$pubDate;
   $load_more_text = "更多书评";
 }
 else if('movieReviews' == $operation)
 {
   $item_owner = "导演：".$author;
-  $item_date = "上映日期：".$item['db:attribute'][$j]['$t'];
+  $item_date = "上映日期：".$pubDate;
   $load_more_text = "更多影评";
 }
 else if('musicReviews' == $operation)
 {
   $item_owner = "表演者：".$author;
-  $item_date = "发行时间：".$item['db:attribute'][$j]['$t'];
+  $item_date = "发行时间：".$pubDate;
   $load_more_text = "更多乐评";
 }
 
@@ -98,15 +72,17 @@ foreach( $doubanCommentsReturn['entry'] as $commentItem )
   $comments_title = $commentItem['title']['$t'];
   $comments_summary = $commentItem['summary']['$t'];
   $comment_author = $commentItem['author']['name']['$t'];
+  $comment_author_link = getAuthorLink($commentItem['author']['link']);
+  $comment_author_pic = getAuthorPic($commentItem['author']['link']);
   $comment_rating = 2*$commentItem['gd:rating']['@value'];
   $time_array = explode("T", $commentItem['updated']['$t']);
 
   $doubanContent.=
 		"<li class='douban_drag douban ".$item_type."' id='".$comment_per_id."'>
 		  <div class='douban_wrapper'>
-			<img class='profile_img' style='width: 32px; height: 32px; float:left; overflow: hidden; margin-top:3px;' src='".$commentItem['author']['link'][2]['@href']."' title='".$comment_author."' alt='".$comment_author."' border=0 />
+			<img class='profile_img' style='width: 32px; height: 32px; float:left; overflow: hidden; margin-top:3px;' src='".$comment_author_pic."' title='".$comment_author."' alt='".$comment_author."' border=0 />
 			<div style='margin-left:36px;'>
-			  <a href='".$commentItem['author']['link'][1]['@href']."' target='_blank' class='douban_from' style = 'display:block;'>
+			  <a href='".$comment_author_link."' target='_blank' class='douban_from' style = 'display:block;'>
 				<span>".$comment_author."</span>
 			  </a>
 			  <div class='douban_comments'>
@@ -119,9 +95,9 @@ foreach( $doubanCommentsReturn['entry'] as $commentItem )
 				<div class='comment_date' style='text-align:right;'>".$time_array[0]."</div>
 			  </div>
 			  <div class='item_info'>
-				<a href='".$doubanItemMeta['link'][$t]['@href']."' target='_blank'><img class='item_img' src='".$doubanItemMeta['link'][$k]['@href']."' style='float:left;' /></a>
+				<a href='".$itemLink."' target='_blank'><img class='item_img' src='".$itemPic."' style='float:left;' /></a>
 				<div class='item_meta' style='margin-left:100px;'>
-				  <div><a class='item_title' href='".$doubanItemMeta['link'][$t]['@href']."' target='_blank'>".$doubanItemMeta['title']['$t']."</a></div>
+				  <div><a class='item_title' href='".$itemLink."' target='_blank'>".$doubanItemMeta['title']['$t']."</a></div>
 				  <div class='item_author'>".$item_owner."</div>
 				  <div class='item_date'>".$item_date."</div>
 				  <div class='average_rating'>豆瓣评分：".$doubanItemMeta['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$doubanItemMeta['gd:rating']['@numRaters']."人参与投票</div>
