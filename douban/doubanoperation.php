@@ -6,7 +6,8 @@ include_once( 'config.php' );
 include_once( 'doubanapi.php' );
   
 $operation=$_GET['operation'];
-//$page = $_GET['page'];
+$startIndex = $_GET['startIndex'];
+$numResults = $_GET['numResults'];
 
 $c = new DoubanClient( DB_AKEY , DB_SKEY , $_SESSION['last_dkey']['oauth_token'] , $_SESSION['last_dkey']['oauth_token_secret']  );
 $doubanReturn;
@@ -16,27 +17,28 @@ $keywords;
 if('book' == $operation)
 {
   $keywords = $_GET['keywords'];
-  $doubanReturn  = $c->search_book($keywords);
+  $doubanReturn  = $c->search_book($keywords, $startIndex, $numResults);
 }
 else if('movie' == $operation)
 {
   $keywords = $_GET['keywords'];
-  $doubanReturn  = $c->search_movie($keywords);
+  $doubanReturn  = $c->search_movie($keywords, $startIndex, $numResults);
 }
 else if('music' == $operation)
 {
   $keywords = $_GET['keywords'];
-  $doubanReturn  = $c->search_music($keywords);
+  $doubanReturn  = $c->search_music($keywords, $startIndex, $numResults);
 }
 else if('event' == $operation)
 {
   $keywords = $_GET['keywords'];
-  $eventReturn  = $c->search_event($keywords);
+  $eventReturn  = $c->search_event($keywords, $startIndex, $numResults);
   $eventFlag = 1;
 }
 
 if($eventFlag == 0)
 {
+	$totalResults = $doubanReturn['opensearch:totalResults']['$t'];
 	foreach( $doubanReturn['entry'] as $item )
 	{
 	  $temp_array = explode("/", $item['id']['$t']);
@@ -70,10 +72,12 @@ if($eventFlag == 0)
 		  $author .= $item['author'][$i]['name']['$t']." ";
 		}
 	  }
-	  //fetch all comments of this item
-	  $commentsReturn="";
+
 	  $item_owner="";
 	  $item_date="";
+	  $item_review_text="";
+	  $load_more_text="";
+
 	  $j=0;
 	  for($j=0;$j<count($item['db:attribute']); $j++)
 	  {
@@ -84,62 +88,44 @@ if($eventFlag == 0)
 	  {
 		$item_owner = "作者：".$author;
 		$item_date = "出版年：".$item['db:attribute'][$j]['$t'];
-		$commentsReturn = $c->search_book_reviews($douban_per_id);
+		$item_review_text = "查看豆瓣书评";
+		$load_more_text = "更多图书";
 	  }
 	  else if('movie' == $operation)
 	  {
 		$item_owner = "导演：".$author;
 		$item_date = "上映日期：".$item['db:attribute'][$j]['$t'];
-		$commentsReturn = $c->search_movie_reviews($douban_per_id);
+		$item_review_text = "查看豆瓣影评";
+		$load_more_text = "更多电影";
 	  }
 	  else if('music' == $operation)
 	  {
 		$item_owner = "表演者：".$author;
 		$item_date = "发行时间：".$item['db:attribute'][$j]['$t'];
-		$commentsReturn = $c->search_music_reviews($douban_per_id);
+		$item_review_text = "查看豆瓣乐评";
+		$load_more_text = "更多音乐";
 	  }
-	  
-	  foreach( $commentsReturn['entry'] as $commentItem )
-	  {
-		$comment_temp_array = explode("/", $commentItem['id']['$t']);
-		$comment_per_id = $comment_temp_array[count($comment_temp_array)-1];
-		$fulltext_url = $commentItem['link'][1]['@href'];
-		$comments_title = $commentItem['title']['$t'];
-		$comments_summary = $commentItem['summary']['$t'];
-		$comment_author = $commentItem['author']['name']['$t'];
-		$comment_rating = 2*$commentItem['gd:rating']['@value'];
-		$time_array = explode("T", $commentItem['updated']['$t']);
-		$doubanContent .= 
-		"<li class='douban_drag douban ".$item_type."' id='".$comment_per_id."'>
+	 
+	  $doubanContent .= 
+		"<li class='douban_drag douban ".$item_type."' id='".$douban_per_id."'>
 		  <div class='douban_wrapper'>
-			<img class='profile_img' style='width: 32px; height: 32px; float:left; overflow: hidden; margin-top:3px;' src='".$commentItem['author']['link'][2]['@href']."' title='".$comment_author."' alt='".$comment_author."' border=0 />
-			<div style='margin-left:36px;'>
-			  <a href='".$commentItem['author']['link'][1]['@href']."' target='_blank' class='douban_from' style = 'display:block;'>
-				<span>".$comment_author."</span>
-			  </a>
-			  <div class='douban_comments'>
-				<div class=item_rating>评分:".$comment_rating."</div>
-				<div class='comment_title' style='font-weight:bold;'>".$comments_title."</div>
-				<div class='comment_summary'>".$comments_summary."</div>
-				<div style='text-align:right;'>
-				  <a class='comment_full_url' href='".$fulltext_url."' target='_blank'>查看评论全文</a>
-				</div>
-				<div class='comment_date' style='text-align:right;'>".$time_array[0]."</div>
-			  </div>
-			  <div class='item_info'>
-				<a href='".$douban_per_url."' target='_blank'><img class='item_img' src='".$item['link'][2]['@href']."' style='float:left;' /></a>
-				<div class='item_meta' style='margin-left:100px;'>
-				  <div><a class='item_title' href='".$douban_per_url."' target='_blank'>".$item['title']['$t']."</a></div>
-				  <div class='item_author'>".$item_owner."</div>
-				  <div class='item_date'>".$item_date."</div>
-				  <div class='average_rating'>豆瓣评分：".$item['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$item['gd:rating']['@numRaters']."人参与投票</div>
-				</div>
+			<div class='item_info'>
+			  <a href='".$douban_per_url."' target='_blank'><img class='item_img' src='".$item['link'][2]['@href']."' style='float:left;' /></a>
+			  <div class='item_meta' style='margin-left:100px;'>
+				<div><a class='item_title' href='".$douban_per_url."' target='_blank'>".$item['title']['$t']."</a></div>
+				<div class='item_author'>".$item_owner."</div>
+				<div class='item_date'>".$item_date."</div>
+				<div class='average_rating'>豆瓣评分：".$item['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$item['gd:rating']['@numRaters']."人参与投票</div>
+				<div style='text-align:right;'><a class='douban_review ".$item_type."' href='#'>".$item_review_text."</a></div>
 			  </div>
 			</div>
 		  </div>
 		</li>";
-	  }
-	  //$doubanContent .="<div class='loadmore_comments' style='text-align:center;'><a>查看更多该条目的评论</a></div>";
+	  
+	}
+	if($startIndex+$numResults < $totalResults)
+	{
+	  $doubanContent .="<div class='loadmore ".$item_type."'><a>".$load_more_text."</a></div>";
 	}
 }
 else if($eventFlag == 1)
@@ -225,10 +211,10 @@ else if($eventFlag == 1)
 		</div>
 	  </div>
 	</li>";
+	$doubanContent .="<div class='loadmore event'><a>更多</a></div>";
   }
 }
 
-$doubanContent .="<div class='loadmore'><a>更多</a></div>";
 echo $doubanContent;
 
 ?>

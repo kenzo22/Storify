@@ -332,109 +332,190 @@ if(isset($_GET['post_id']))
 	  }
 	  else
 	  {
-	    $douban_per_url = $doubanElement['db:subject']['link'][1]['@href'];
-	    $url_array  = explode("/", $douban_per_url);
-	    $douban_item_per_id = $url_array[4];
-	    $douban_item_meta;
-	    $douban_item_date;
-	    $douban_item_author;
-	    if($val['content']['item_type'] == 'book')
-	    {
-	      $douban_item_meta = $d->get_book($douban_item_per_id);
-	      $douban_item_date = "出版年：".$douban_item_meta['db:attribute'][$j]['$t'];
-	    }
-	    else if($val['content']['item_type'] == 'movie')
-	    {
-	      $douban_item_meta = $d->get_movie($douban_item_per_id);
-	      $douban_item_date = "上映日期：".$douban_item_meta['db:attribute'][$j]['$t'];
-	    }
-	    else if($val['content']['item_type'] == 'music')
-	    {
-	      $douban_item_meta = $d->get_music($douban_item_per_id);
-	      $douban_item_date = "发行时间：".$douban_item_meta['db:attribute'][$j]['$t'];
-	    }
-	    for($j=0;$j<count($douban_item_meta['db:attribute']); $j++)
-	    {
-	      if($douban_item_meta['db:attribute'][$j]['@name'] == 'pubdate')
-	      break;
-	    }
-	
-	    $author_count = count($douban_item_meta['author']);
-	    $author="";
-	    if($author_count == 1)
-	    {
-	      $author = $douban_item_meta['author'][0]['name']['$t'];
-	    }
-	    else if($author_count > 1)
-	    {
-	      for($i=0; $i<$author_count; $i++)
-	      {
-		    $author .= $douban_item_meta['author'][$i]['name']['$t']." ";
-	      }
-	    }
-	
-	    if($val['content']['item_type'] == 'book')
-	    {
-	      $douban_item_author = "作者：".$author;
-	      $douban_item_date = "出版年：".$douban_item_meta['db:attribute'][$j]['$t'];
-	    }
-	    else if($val['content']['item_type'] == 'movie')
-	    {
-	      $douban_item_author = "导演：".$author;
-	      $douban_item_date = "上映日期：".$douban_item_meta['db:attribute'][$j]['$t'];
-	    }
-	    else if($val['content']['item_type'] == 'music')
-	    {
-	      $douban_item_author = "表演者：".$author;
-	      $douban_item_date = "发行时间：".$douban_item_meta['db:attribute'][$j]['$t'];
-	    }
-	    $comment_rating = 2*$doubanElement['gd:rating']['@value'];
-	    $time_array = explode("T", $doubanElement['updated']['$t']);
-	    $content .=
-		  "<li class='douban_drop douban' id='$douban_save_per_id'>
-			<div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div>
-			<div class='douban_wrapper'>
-			  <div>
-				<div class=item_rating_drop>".$doubanElement['author']['name']['$t']."评分:".$comment_rating."</div>
-				<div class='comment_title_drop' style='font-weight:bold;'>".$doubanElement['title']['$t']."</div>
-				<div class='comment_summary_drop'>".$doubanElement['summary']['$t']."</div>
-				<div style='text-align:right;'>
-				  <a href='".$doubanElement['link'][1]['@href']."' target='_blank'>查看评论全文</a>
-				</div>
-			  </div>
-			  <div class='item_info_drop' style='overflow:auto;'>
-				<a href='".$douban_per_url."' target='_blank'><img class='item_img_drop' src='".$doubanElement['db:subject']['link'][2]['@href']."' style='float:left;' /></a>
-				<div class='item_meta_drop' style='margin-left:100px;'>
+	    if($val['content']['item_type'] == 'bookReviews' || $val['content']['item_type'] == 'movieReviews' || $val['content']['item_type'] == 'musicReviews')
+		{
+			$douban_per_url = $doubanElement['db:subject']['link'][1]['@href'];
+			$url_array  = explode("/", $douban_per_url);
+			$douban_item_per_id = $url_array[4];
+			$douban_item_meta;
+			$douban_item_date;
+			$douban_item_author;
+			if($val['content']['item_type'] == 'bookReviews')
+			{
+			  $douban_item_meta = $d->get_book($douban_item_per_id);
+			  $douban_item_date = "出版年：".$douban_item_meta['db:attribute'][$j]['$t'];
+			}
+			else if($val['content']['item_type'] == 'movieReviews')
+			{
+			  $douban_item_meta = $d->get_movie($douban_item_per_id);
+			  $douban_item_date = "上映日期：".$douban_item_meta['db:attribute'][$j]['$t'];
+			}
+			else if($val['content']['item_type'] == 'musicReviews')
+			{
+			  $douban_item_meta = $d->get_music($douban_item_per_id);
+			  $douban_item_date = "发行时间：".$douban_item_meta['db:attribute'][$j]['$t'];
+			}
+			for($j=0;$j<count($douban_item_meta['db:attribute']); $j++)
+			{
+			  if($douban_item_meta['db:attribute'][$j]['@name'] == 'pubdate')
+			  break;
+			}
+		
+			$author_count = count($douban_item_meta['author']);
+			$author="";
+			if($author_count == 1)
+			{
+			  $author = $douban_item_meta['author'][0]['name']['$t'];
+			}
+			else if($author_count > 1)
+			{
+			  for($i=0; $i<$author_count; $i++)
+			  {
+				$author .= $douban_item_meta['author'][$i]['name']['$t']." ";
+			  }
+			}
+		
+			if($val['content']['item_type'] == 'bookReviews')
+			{
+			  $douban_item_author = "作者：".$author;
+			  $douban_item_date = "出版年：".$douban_item_meta['db:attribute'][$j]['$t'];
+			}
+			else if($val['content']['item_type'] == 'movieReviews')
+			{
+			  $douban_item_author = "导演：".$author;
+			  $douban_item_date = "上映日期：".$douban_item_meta['db:attribute'][$j]['$t'];
+			}
+			else if($val['content']['item_type'] == 'musicReviews')
+			{
+			  $douban_item_author = "表演者：".$author;
+			  $douban_item_date = "发行时间：".$douban_item_meta['db:attribute'][$j]['$t'];
+			}
+			$comment_rating = 2*$doubanElement['gd:rating']['@value'];
+			$time_array = explode("T", $doubanElement['updated']['$t']);
+			$content .=
+			  "<li class='douban_drop douban' id='$douban_save_per_id'>
+				<div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div>
+				<div class='douban_wrapper'>
 				  <div>
-					<a class='item_title_drop' href='".$douban_per_url."' target='_blank'>".$doubanElement['db:subject']['title']['$t']."</a>
+					<div class=item_rating_drop>".$doubanElement['author']['name']['$t']."评分:".$comment_rating."</div>
+					<div class='comment_title_drop' style='font-weight:bold;'>".$doubanElement['title']['$t']."</div>
+					<div class='comment_summary_drop'>".$doubanElement['summary']['$t']."</div>
+					<div style='text-align:right;'>
+					  <a href='".$doubanElement['link'][1]['@href']."' target='_blank'>查看评论全文</a>
+					</div>
 				  </div>
-				  <div class='item_author_drop'>".$douban_item_author."</div>
-				  <div class='item_date_drop'>".$douban_item_date."</div>
-				  <div class='average_rating_drop'>豆瓣评分:".$douban_item_meta['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$douban_item_meta['gd:rating']['@numRaters']."人参与投票</div>
+				  <div class='item_info_drop' style='overflow:auto;'>
+					<a href='".$douban_per_url."' target='_blank'><img class='item_img_drop' src='".$doubanElement['db:subject']['link'][2]['@href']."' style='float:left;' /></a>
+					<div class='item_meta_drop' style='margin-left:100px;'>
+					  <div>
+						<a class='item_title_drop' href='".$douban_per_url."' target='_blank'>".$doubanElement['db:subject']['title']['$t']."</a>
+					  </div>
+					  <div class='item_author_drop'>".$douban_item_author."</div>
+					  <div class='item_date_drop'>".$douban_item_date."</div>
+					  <div class='average_rating_drop'>豆瓣评分:".$douban_item_meta['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$douban_item_meta['gd:rating']['@numRaters']."人参与投票</div>
+					</div>
+				  </div>
+				  <div id='douban_signature'>
+					<span style='float:right;'>
+					  <a href='".$doubanElement['author']['link'][1]['@href']."' target='_blank'>
+						<img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='".$doubanElement['author']['link'][2]['@href']."' alt='".$doubanElement['author']['name']['$t']."' border=0 />
+					  </a>
+					</span>
+					<span class='signature_text_drop' style=' margin-right:5px; float:right;' >
+					  <div style='text-align:right; height:16px;'>
+						<span >
+						  <a class='douban_from_drop' href='".$doubanElement['author']['link'][1]['@href']."' target='_blank'>".$doubanElement['author']['name']['$t']."</a>
+						</span>
+					  </div>
+					  <div class='douban_date_drop'  style='text-align:right; height:16px;'>
+						<span> 
+						  <img border='0' style='position:relative; top:2px; width:16px; height:16px;' src='/storify/img/logo_douban.png'/>
+						  <a>".$time_array[0]."</a>
+						</span>
+					  </div>
+					</span> 
+				  </div>
+				</div>
+			  </li>";
+		}
+		else if($val['content']['item_type'] == 'book' || $val['content']['item_type'] == 'movie' || $val['content']['item_type'] == 'music')
+		{
+		    if($val['content']['item_type'] == 'book')
+			{
+			  $douban_item_meta = $d->get_book($douban_save_per_id);
+			}
+			else if($val['content']['item_type'] == 'movie')
+			{
+			  $douban_item_meta = $d->get_movie($douban_save_per_id);
+			}
+			else if($val['content']['item_type'] == 'music')
+			{
+			  $douban_item_meta = $d->get_music($douban_save_per_id);
+			}
+			
+			for($l=0;$l<count($douban_item_meta['db:attribute']); $l++)
+			{
+			  if($douban_item_meta['db:attribute'][$l]['@name'] == 'pubdate')
+			  break;
+			}
+			
+			for($k=0;$k<count($douban_item_meta['link']); $k++)
+			{
+			  if($douban_item_meta['link'][$k]['@rel'] == 'image')
+			  break;
+			}
+
+			for($t=0;$t<count($douban_item_meta['link']); $t++)
+			{
+			  if($douban_item_meta['link'][$t]['@rel'] == 'alternate')
+			  break;
+			}
+			
+			$author_count = count($douban_item_meta['author']);
+			$author="";
+			if($author_count == 1)
+			{
+			  $author = $douban_item_meta['author'][0]['name']['$t'];
+			}
+			else if($author_count > 1)
+			{
+			  for($i=0; $i<$author_count; $i++)
+			  {
+				$author .= $douban_item_meta['author'][$i]['name']['$t']." ";
+			  }
+			}
+			
+			if($val['content']['item_type'] == 'book')
+			{
+			  $douban_item_author = "作者：".$author;
+			  $douban_item_date = "出版年：".$douban_item_meta['db:attribute'][$j]['$t'];
+			}
+			else if($val['content']['item_type'] == 'movie')
+			{
+			  $douban_item_author = "导演：".$author;
+			  $douban_item_date = "上映日期：".$douban_item_meta['db:attribute'][$j]['$t'];
+			}
+			else if($val['content']['item_type'] == 'music')
+			{
+			  $douban_item_author = "表演者：".$author;
+			  $douban_item_date = "发行时间：".$douban_item_meta['db:attribute'][$j]['$t'];
+			}
+			$content .=
+			"<li class='douban_drop douban' id='$douban_save_per_id'>
+			  <div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div>
+			  <div class='douban_wrapper'>
+				<div class='item_info' style='overflow:auto;'>
+				  <a href='".$douban_item_meta['link'][$t]['@href']."' target='_blank'><img class='item_img' src='".$douban_item_meta['link'][$k]['@href']."' style='float:left;' /></a>
+				  <div class='item_meta' style='margin-left:100px;'>
+					<div><a class='item_title' href='".$douban_item_meta['link'][$t]['@href']."' target='_blank'>".$douban_item_meta['title']['$t']."</a></div>
+					<div class='item_author'>".$douban_item_author."</div>
+					<div class='item_date'>".$douban_item_date."</div>
+					<div class='average_rating'>豆瓣评分:".$douban_item_meta['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$douban_item_meta['gd:rating']['@numRaters']."人参与投票</div>
+				  </div>
 				</div>
 			  </div>
-			  <div id='douban_signature'>
-				<span style='float:right;'>
-				  <a href='".$doubanElement['author']['link'][1]['@href']."' target='_blank'>
-					<img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='".$doubanElement['author']['link'][2]['@href']."' alt='".$doubanElement['author']['name']['$t']."' border=0 />
-				  </a>
-				</span>
-				<span class='signature_text_drop' style=' margin-right:5px; float:right;' >
-				  <div style='text-align:right; height:16px;'>
-					<span >
-					  <a class='douban_from_drop' href='".$doubanElement['author']['link'][1]['@href']."' target='_blank'>".$doubanElement['author']['name']['$t']."</a>
-					</span>
-				  </div>
-				  <div class='douban_date_drop'  style='text-align:right; height:16px;'>
-					<span> 
-					  <img border='0' style='position:relative; top:2px; width:16px; height:16px;' src='/storify/img/logo_douban.png'/>
-					  <a>".$time_array[0]."</a>
-					</span>
-				  </div>
-				</span> 
-			  </div>
-			</div>
-		  </li>";
+			</li>";
+		}
 	  }
 	  $content .="<li class='addTextElementAnchor'><span><a><img class='add_comment' src='/storify/img/editcomment.png' border='0'/></a></span></li>";
     }	
@@ -545,6 +626,16 @@ var followTimestamp;
 var usersearchTimestamp;
 var tweibosearchPage = 1;
 
+var doubanItemCounts = 10;
+var commentsPerQuery = 5;
+var eventStartIndex = 1;
+var bookStartIndex = 1;
+var bookReviewStartIndex = 1;
+var movieStartIndex = 1;
+var movieReviewStartIndex = 1;
+var musicStartIndex = 1;
+var musicReviewStartIndex = 1;
+
 var vtabIndex;
 
 Array.prototype.getUnique = function()
@@ -634,7 +725,14 @@ function remove_item(event)
 		  }
 		  else if($(this).hasClass('douban'))
 		  {
-		    story_pic_url = $(this).find('.profile_img_drop').attr('src');
+		    if($(this).hasClass('book') || $(this).hasClass('movie') || $(this).hasClass('music'))
+			{
+			  story_pic_url = $(this).find('.item_img').attr('src');
+			}
+			else
+			{
+			  story_pic_url = $(this).find('.profile_img_drop').attr('src');
+			}
 			return false;
 		  }
 		  else if($(this).hasClass('pic_drop'))
@@ -673,7 +771,14 @@ function change_story_pic(direction)
     }
 	else if($(this).hasClass('douban'))
     {
-	  item_pic_url = $(this).find('.profile_img_drop').attr('src');
+	  if($(this).hasClass('book') || $(this).hasClass('movie') || $(this).hasClass('music'))
+	  {
+	    item_pic_url = $(this).find('.item_img').attr('src');
+	  }
+	  else
+	  {
+	    item_pic_url = $(this).find('.profile_img_drop').attr('src');
+	  }
 	  story_pic_array.push(item_pic_url);
     }
     else if($(this).hasClass('pic_drop'))
@@ -773,21 +878,25 @@ $(function() {
 		$('#d_keywords').val('书名').css('color', '#999999');
 		
 		$('#book_tab').click(function(){
+		  bookStartIndex = 1;
 		  $('#d_keywords').val('书名').css('color', '#999999');
 		  $('#source_list').children().remove();
 		});
 		
 		$('#movie_tab').click(function(){
+		  movieStartIndex = 1;
 		  $('#d_keywords').val('电影名').css('color', '#999999');
 		  $('#source_list').children().remove();
 		});
 		
 		$('#music_tab').click(function(){
+		  musicStartIndex = 1;
 		  $('#d_keywords').val('歌曲名').css('color', '#999999');
 		  $('#source_list').children().remove();
 		});
 		
-		$('#event_tab').click(function(){
+		$('#event_tab').click(function(e){
+		   eventStartIndex = 1;
 		   $('#d_keywords').val('搜活动').css('color', '#999999');
 		   $('#source_list').children().remove();
 		});
@@ -1019,19 +1128,19 @@ $(function() {
 		  var getData;
 		  if(0 == doubanSelected)
 		  {
-		    getData = {operation: 'book', keywords: keywords_val};
+		    getData = {operation: 'book', keywords: keywords_val, startIndex: bookStartIndex, numResults: doubanItemCounts};
 		  }
 		  else if(1 == doubanSelected)
 		  {
-		    getData = {operation: 'movie', keywords: keywords_val};
+		    getData = {operation: 'movie', keywords: keywords_val, startIndex: movieStartIndex, numResults: doubanItemCounts};
 		  }
 		  else if(2 == doubanSelected)
 		  {
-		    getData = {operation: 'music', keywords: keywords_val};
+		    getData = {operation: 'music', keywords: keywords_val, startIndex: musicStartIndex, numResults: doubanItemCounts};
 		  }
 		  else if(3 == doubanSelected)
 		  {
-		    getData = {operation: 'event', keywords: keywords_val};
+		    getData = {operation: 'event', keywords: keywords_val, startIndex: eventStartIndex, numResults: doubanItemCounts};
 		  }
 		  
 		  $.ajax({
@@ -1194,8 +1303,15 @@ $(function() {
 				  +event_city+"</div><div class='event_location_drop'>"+event_location+"</div></div></div><div id='douban_signature'><span style='float:right;'><a href='"+douban_profile_url+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
 					+douban_profile_img+"' alt='"+douban_profile_name+"' border=0 /></a></span><span class='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='douban_from_drop' href='"
 					+douban_profile_url+"' target='_blank'>"+douban_profile_name+"</a></span></div><div class='douban_date_drop'  style='text-align:right; height:16px;'><span><img border='0' style='position:relative; top:2px; width:16px; height:16px;' src='/storify/img/logo_douban.png'/></span></div></span> </div></div>");
+				  
+				  ui.item.removeClass('douban_drag').addClass('douban_drop').children().remove();
+				  if(ui.item.index(list_item_have_pic) == 0)
+				  {
+				    $('#story_thumbnail').attr('src', douban_profile_img);
+				  }　
+			      ui.item.append(doubanContent);
 				}
-				else
+				else if(ui.item.hasClass('bookReviews') || ui.item.hasClass('movieReviews') || ui.item.hasClass('musicReviews'))
 				{
 				  var douban_per_url = ui.item.find('.item_title').attr('href');
 				  var douban_comment_title = ui.item.find('.comment_title').text();
@@ -1216,13 +1332,23 @@ $(function() {
 					+douban_profile_img+"' alt='"+douban_profile_name+"' border=0 /></a></span><span class='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='douban_from_drop' href='"
 					+douban_profile_url+"' target='_blank'>"+douban_profile_name+"</a></span></div><div class='douban_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px; width:16px; height:16px;' src='/storify/img/logo_douban.png'/><a>"
 					+douban_comment_date+"</a></span></div></span> </div></div>");
+				  ui.item.removeClass('douban_drag').addClass('douban_drop').children().remove();
+				  if(ui.item.index(list_item_have_pic) == 0)
+				  {
+				    $('#story_thumbnail').attr('src', douban_profile_img);
+				  }　
+			      ui.item.append(doubanContent);
 				}
-				ui.item.removeClass('douban_drag').addClass('douban_drop').children().remove();
-				if(ui.item.index(list_item_have_pic) == 0)
+				else
 				{
-				  $('#story_thumbnail').attr('src', douban_profile_img);
-				}　
-			    ui.item.append(doubanContent);
+				  if(ui.item.index(list_item_have_pic) == 0)
+				  {
+					$('#story_thumbnail').attr('src', ui.item.find('.item_img').attr('src'));
+				  }　
+				  ui.item.removeClass('douban_drag').addClass('douban_drop');
+				  ui.item.find('.douban_review').closest('div').remove();
+				  ui.item.prepend("<div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div>");
+				}
 			  }
 			  else if(ui.item.hasClass('video_Drag'))
 			  {
@@ -1404,13 +1530,25 @@ $(function() {
 			  {
 			    item_type_val='book';
 			  }
+			  else if($(this).hasClass('bookReviews'))
+			  {
+			    item_type_val='bookReviews';
+			  }
 			  else if($(this).hasClass('movie'))
 			  {
 			    item_type_val='movie';
 			  }
+			  else if($(this).hasClass('movieReviews'))
+			  {
+			    item_type_val='movieReviews';
+			  }
 			  else if($(this).hasClass('music'))
 			  {
 			    item_type_val='music';
+			  }
+			  else if($(this).hasClass('musicReviews'))
+			  {
+			    item_type_val='musicReviews';
 			  }
 			  else if($(this).hasClass('event'))
 			  {
@@ -1503,13 +1641,25 @@ $(function() {
 			  {
 			    item_type_val='book';
 			  }
+			  else if($(this).hasClass('bookReviews'))
+			  {
+			    item_type_val='bookReviews';
+			  }
 			  else if($(this).hasClass('movie'))
 			  {
 			    item_type_val='movie';
 			  }
+			  else if($(this).hasClass('movieReviews'))
+			  {
+			    item_type_val='movieReviews';
+			  }
 			  else if($(this).hasClass('music'))
 			  {
 			    item_type_val='music';
+			  }
+			  else if($(this).hasClass('musicReviews'))
+			  {
+			    item_type_val='musicReviews';
 			  }
 			  else if($(this).hasClass('event'))
 			  {
@@ -1613,13 +1763,25 @@ $(function() {
 			  {
 			    item_type_val='book';
 			  }
+			  else if($(this).hasClass('bookReviews'))
+			  {
+			    item_type_val='bookReviews';
+			  }
 			  else if($(this).hasClass('movie'))
 			  {
 			    item_type_val='movie';
 			  }
+			  else if($(this).hasClass('movieReviews'))
+			  {
+			    item_type_val='movieReviews';
+			  }
 			  else if($(this).hasClass('music'))
 			  {
 			    item_type_val='music';
+			  }
+			  else if($(this).hasClass('musicReviews'))
+			  {
+			    item_type_val='musicReviews';
 			  }
 			  else if($(this).hasClass('event'))
 			  {
@@ -1670,6 +1832,42 @@ $(function() {
 		  });
 		});
 		
+		//douban reviews part
+		$('.douban_review').live('click', function(e){
+		  e.preventDefault();
+		  var getUrl = '../douban/doubanreviewsoperation.php';
+		  var getData;
+		  var itemSubjectId = $(this).closest('.douban_drag').attr('id');
+		  if($(this).hasClass('book'))
+		  {
+		    getData = {operation: 'bookReviews', subjectID: itemSubjectId, startIndex: bookReviewStartIndex, numResults: commentsPerQuery};
+		  }
+		  else if($(this).hasClass('movie'))
+		  {
+		    getData = {operation: 'movieReviews', subjectID: itemSubjectId, startIndex: movieReviewStartIndex, numResults: commentsPerQuery};
+		  }
+		  else if($(this).hasClass('music'))
+		  {
+		    getData = {operation: 'musicReviews', subjectID: itemSubjectId, startIndex: musicReviewStartIndex, numResults: commentsPerQuery};
+		  } 
+		  
+		  $.ajax({
+		  type: 'GET',
+		  url: getUrl,
+		  data: getData, 
+		  beforeSend:function() 
+		  {
+		    var imgpath = '../img/loading.gif';
+		    var imgloading = $("<span style='padding-left:180px;'><img src='../img/loading.gif' /></span>");
+		    $('#source_list').html(imgloading);
+		  },
+		  success: function(data)
+		  {
+			$('#source_list').html(data);
+		  }
+		  }); 
+		});
+		
 		$('#source_list').click(function(e)
 		{
 		  //debugger;
@@ -1677,6 +1875,10 @@ $(function() {
 		  if(0 == vtabIndex || 1 == vtabIndex)
 		  {
 		    selected = $weiboTabs.tabs('option', 'selected'); 
+		  }
+		  else if(2 == vtabIndex)
+		  {
+		    selected = $doubanTabs.tabs('option', 'selected'); 
 		  }
 		  else if(4 == vtabIndex)
 		  {
@@ -1686,6 +1888,7 @@ $(function() {
 		  {
 			//var selected = $weiboTabs.tabs('option', 'selected'); 
 			//var yupoo_selected = $picTabs.tabs('option', 'selected'); 
+			//debugger;
 			var getUrl;
 			var getData;
 			if(0 == selected)
@@ -1705,6 +1908,22 @@ $(function() {
 				//weibosearchTimestamp = $('.loadmore span').attr('id');
 				tweibosearchPage++;
 				getData = {operation: 'weibo_search', keywords: words, page: tweibosearchPage}; 
+		      }
+			  else if(2 == vtabIndex)
+		      {
+				var loadMoreItem = $('.loadmore');
+				if(loadMoreItem.hasClass('book'))
+				{
+				  getUrl = '../douban/doubanoperation.php';
+				  bookStartIndex = bookStartIndex+doubanItemCounts;
+				  getData = {operation: 'book', keywords: $('#d_keywords').val(), startIndex: bookStartIndex, numResults: doubanItemCounts};
+				}
+				else if(loadMoreItem.hasClass('bookReviews'))
+				{
+				  getUrl = '../douban/doubanreviewsoperation.php';
+				  bookReviewStartIndex = bookReviewStartIndex+commentsPerQuery;
+				  getData = {operation: 'bookReviews', subjectID: loadMoreItem.attr('id'), startIndex: bookReviewStartIndex, numResults: commentsPerQuery};
+				}
 		      }
 			  else if(4 == vtabIndex)
 			  {
@@ -1736,6 +1955,22 @@ $(function() {
 		        getUrl = '../tweibo/tweibooperation.php';
 				myPageTimestamp = $('.loadmore span').attr('id');
 				getData = {operation: 'my_weibo', page: 1, timestamp: myPageTimestamp}; 
+		      }
+			  else if(2 == vtabIndex)
+		      {
+				var loadMoreItem = $('.loadmore');
+				if(loadMoreItem.hasClass('movie'))
+				{
+				  getUrl = '../douban/doubanoperation.php';
+				  movieStartIndex = movieStartIndex+doubanItemCounts;
+				  getData = {operation: 'movie', keywords: $('#d_keywords').val(), startIndex: movieStartIndex, numResults: doubanItemCounts};
+				}
+				else if(loadMoreItem.hasClass('movieReviews'))
+				{
+				  getUrl = '../douban/doubanreviewsoperation.php';
+				  movieReviewStartIndex = movieReviewStartIndex+commentsPerQuery;
+				  getData = {operation: 'movieReviews', subjectID: loadMoreItem.attr('id'), startIndex: movieReviewStartIndex, numResults: commentsPerQuery};
+				}
 		      }
 			  else if(4 == vtabIndex)
 			  {
@@ -1778,11 +2013,27 @@ $(function() {
 				followPage++;
 				getData = {operation: 'my_follow', page: followPage}
 		      }
-		      else
+		      else if(1 == vtabIndex)
 		      {
 		        getUrl = '../tweibo/tweibooperation.php';
 				followTimestamp = $('.loadmore span').attr('id');
 				getData = {operation: 'my_follow', page: 1, timestamp: followTimestamp};
+		      }
+			  else if(2 == vtabIndex)
+		      {
+				var loadMoreItem = $('.loadmore');
+				if(loadMoreItem.hasClass('music'))
+				{
+				  getUrl = '../douban/doubanoperation.php';
+				  musicStartIndex = musicStartIndex+doubanItemCounts;
+				  getData = {operation: 'music', keywords: $('#d_keywords').val(), startIndex: musicStartIndex, numResults: doubanItemCounts};
+				}
+				else if(loadMoreItem.hasClass('musicReviews'))
+				{
+				  getUrl = '../douban/doubanreviewsoperation.php';
+				  musicReviewStartIndex = musicReviewStartIndex+commentsPerQuery;
+				  getData = {operation: 'musicReviews', subjectID: loadMoreItem.attr('id'), startIndex: musicReviewStartIndex, numResults: commentsPerQuery};
+				}
 		      }
 			  $('.loadmore').remove();
 			  $.get(getUrl, getData,
@@ -1795,18 +2046,24 @@ $(function() {
 			else
 			{
 			  //add user search function
-			  var words = $('#keywords').val();
+			  //var words = $('#keywords').val();
 			  if(0 == vtabIndex)
 		      {
 		        getUrl = '../weibo/weibooperation.php';
 				userSearchPage++;
-				getData = {operation: 'user_search', keywords: words, page:userSearchPage};
+				getData = {operation: 'user_search', keywords: $('#keywords').val(), page:userSearchPage};
 		      }
-		      else
+		      else if(1 == vtabIndex)
 		      {
 		        getUrl = '../tweibo/tweibooperation.php';
 				usersearchTimestamp = $('.loadmore span').attr('id');
-				getData = {operation: 'user_search', keywords: words, page: 1, timestamp: usersearchTimestamp};
+				getData = {operation: 'user_search', keywords: $('#keywords').val(), page: 1, timestamp: usersearchTimestamp};
+		      }
+			  else if(2 == vtabIndex)
+		      {
+		        getUrl = '../douban/doubanoperation.php';
+				eventStartIndex = eventStartIndex+doubanItemCounts;
+				getData = {operation: 'event', keywords: $('#d_keywords').val(), startIndex: eventStartIndex, numResults: doubanItemCounts};
 		      }
 			  $('.loadmore').remove();
 			  $.get(getUrl, getData,

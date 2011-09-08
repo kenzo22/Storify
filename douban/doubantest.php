@@ -20,9 +20,9 @@ $c = new DoubanClient( DB_AKEY , DB_SKEY , $accessToken , $accessTokenSecret);
 
 //$msg3 = $c->search_music_reviews(2272292);
 
-$msg3 = $c->search_event('中秋');
+//$msg3 = $c->search_event('中秋');
 //$msg3 = $c->search_movie_reviews(1424406);
-//$msg3 = $c->search_book_reviews(3259440);
+$msg3 = $c->search_book_reviews(3259440);
 //$msg3 = $c->get_comment(2023817);
 //$msg3 = $c->get_book(3259440);
 

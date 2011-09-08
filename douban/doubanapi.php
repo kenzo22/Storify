@@ -8,26 +8,10 @@ require_once 'doubanoauth.php';
  */ 
 class DoubanClient 
 { 
-    /** 
-     * 构造函数 
-     *  
-     * @access public 
-     * @param mixed $akey 应用APP KEY 
-     * @param mixed $skey 应用APP SECRET 
-     * @param mixed $accecss_token OAuth认证返回的token 
-     * @param mixed $accecss_token_secret OAuth认证返回的token secret 
-     * @return void 
-     */ 
     function __construct( $akey , $skey , $accecss_token , $accecss_token_secret ) 
     { 
         $this->oauth = new DoubanOAuth( $akey , $skey , $accecss_token , $accecss_token_secret ); 
     }
-	
-	/*$param = array(); 
-        if( is_numeric( $uid_or_name ) ) $param['target_id'] = $uid_or_name; 
-        else $param['target_screen_name'] = $uid_or_name; 
-
-        return $this->oauth->get( 'http://api.t.sina.com.cn/friendships/show.json' , $param ); */
 	
 	function verify_credentials()
 	{
@@ -78,71 +62,71 @@ class DoubanClient
 	  return $this->oauth->get('http://api.douban.com/event/'.$subjectID , $param); 
 	}
 	
-	function search_book($keywords)
+	function search_book($keywords, $startIndex, $numResults)
 	{
 	  $param = array();
 	  $param['alt'] = 'json';
 	  $param['q'] = $keywords;
-	  $param['start-index'] = 1;
-	  $param['max-results'] = 10;
+	  $param['start-index'] = $startIndex;
+	  $param['max-results'] = $numResults;
 	  return $this->oauth->get('http://api.douban.com/book/subjects' , $param); 
 	}
 	
-	function search_movie($keywords)
+	function search_movie($keywords, $startIndex, $numResults)
 	{
 	  $param = array();
 	  $param['alt'] = 'json';
 	  $param['q'] = $keywords;
-	  $param['start-index'] = 1;
-	  $param['max-results'] = 10;
+	  $param['start-index'] = $startIndex;
+	  $param['max-results'] = $numResults;
 	  return $this->oauth->get('http://api.douban.com/movie/subjects' , $param); 
 	}
 	
-	function search_music($keywords)
+	function search_music($keywords, $startIndex, $numResults)
 	{
 	  $param = array();
 	  $param['alt'] = 'json';
 	  $param['q'] = $keywords;
-	  $param['start-index'] = 1;
-	  $param['max-results'] = 10;
+	  $param['start-index'] = $startIndex;
+	  $param['max-results'] = $numResults;
 	  return $this->oauth->get('http://api.douban.com/music/subjects' , $param); 
 	}
 	
-	function search_event($keywords)
+	function search_event($keywords, $startIndex, $numResults)
 	{
 	  $param = array();
 	  $param['alt'] = 'json';
 	  $param['q'] = $keywords;
 	  $param['location'] = 'all';
-	  $param['start-index'] = 1;
-	  $param['max-results'] = 10;
+	  $param['start-index'] = $startIndex;
+	  $param['max-results'] = $numResults;
 	  return $this->oauth->get('http://api.douban.com/events' , $param); 
 	}
 	
-	function search_book_reviews($subjectID)
+	function search_book_reviews($subjectID, $startIndex, $numResults)
 	{
 	  $param = array();
 	  $param['alt'] = 'json';
-	  $param['start-index'] = 1;
-	  $param['max-results'] = 10;
+	  $param['start-index'] = $startIndex;
+	  $param['max-results'] = $numResults;
 	  return $this->oauth->get('http://api.douban.com/book/subject/'.$subjectID.'/reviews' , $param); 
 	}
 	
-	function search_movie_reviews($subjectID)
+	function search_movie_reviews($subjectID, $startIndex, $numResults)
 	{
 	  $param = array();
 	  $param['alt'] = 'json';
-	  $param['start-index'] = 1;
-	  $param['max-results'] = 10;
+	  $param['start-index'] = $startIndex;
+	  $param['max-results'] = $numResults;
 	  return $this->oauth->get('http://api.douban.com/movie/subject/'.$subjectID.'/reviews' , $param); 
 	}
 	
-	function search_music_reviews($subjectID)
+	function search_music_reviews($subjectID, $startIndex, $numResults)
 	{
 	  $param = array();
 	  $param['alt'] = 'json';
-	  $param['start-index'] = 1;
-	  $param['max-results'] = 10;
+	  $param['start-index'] = $startIndex;
+	  $param['max-results'] = $numResults;
 	  return $this->oauth->get('http://api.douban.com/music/subject/'.$subjectID.'/reviews' , $param); 
 	}
 } 
