@@ -146,6 +146,17 @@ if(isset($_GET['post_id']))
   $story_title=$result['post_title'];
   $story_summary=$result['post_summary'];
   $story_pic=$result['post_pic_url'];
+  
+  $tag_query = "select name from story_tag,story_tag_story where story_tag.id=tag_id and story_id=".$post_id;
+  $tag_names = $DB->query($tag_query);
+  if($DB->num_rows($tag_names) > 0)
+  {
+    while($tag_name_row = $DB->fetch_array($tag_names))
+	{
+      $tags .= $tag_name_row['name']." ";
+    }
+  }
+  
   $story_content=$result['post_content'];
   $story_content_array = json_decode($story_content, true);
   $weibo_id_array = array();
@@ -164,7 +175,7 @@ if(isset($_GET['post_id']))
 		    <textarea id='sto_summary'>".$story_summary."</textarea>
 		  </div>
 		  <div>
-		    <span ><input type='text' value='' name='story_tag' id='sto_tag'></span>
+		    <span ><input type='text' value='".$tags."' name='story_tag' id='sto_tag'></span>
 		  </div>
 		</div>
 		<div id='storylist_container'>
@@ -731,18 +742,6 @@ $(function() {
 				}
 			}
 		});*/
-		
-		$('#sto_tag').val('添加故事标签').css('color', '#999999').focus(function(){
-		  if($(this).val() == '添加故事标签')
-		  {
-		    $(this).val('').css('color', 'black');
-		  }		  
-		  }).blur(function(){
-		  if($(this).val() == '')
-		  {
-		    $(this).val('添加故事标签').css('color', '#999999');
-		  }
-		  });
 		  
 		$('#keywords').val('关键字').css('color', '#999999');
 		

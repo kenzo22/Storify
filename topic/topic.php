@@ -24,22 +24,17 @@ while ($story_item = mysql_fetch_array($result))
   $post_date = $temp_array[0];
   $content .=   "<li class='tagstory_li'>
                     <div class='wrapper'>
-                        <div class='timestamp'>
-                            <span class='update_at'>.".$post_date."</span>
-                            <div class='author'>
-                                <a href='".$rooturl."/member/user.php?user_id=".$post_author."' muse_scanned='true'>".$userresult['username']."</a> 
-                            </div>
-                        </div>
                         <a href='".$rooturl."/member/user.php?post_id=".$story_id."'>
-                          <img src='".$post_pic_url."' style='width:60px; height:60px;' />
+                          <img src='".$post_pic_url."' style='width:80px; height:80px; float:left;' />
                         </a>
-                        <div class='text'>
-                            <a href='".$rooturl."/member/user.php?post_id=".$story_id."'class='title'>".$post_title."</a>
-                            <p class='summary'>
-                                ".$post_summary."
-                                <a href='".$rooturl."/member/user.php?post_id=".$story_id."'>[read more]</a> 
-                            </p>
-                        </div>
+						<div class='text' style='margin-left:100px;'>
+                          <div class='update_at'>".$post_date."</div>
+						  <a href='".$rooturl."/member/user.php?post_id=".$story_id."'class='title'>".$post_title."</a>
+                          <div class='summary'>".$post_summary."<a href='".$rooturl."/member/user.php?post_id=".$story_id."'>[read more]</a> </div>
+						  <div class='author'>
+                            <a href='".$rooturl."/member/user.php?user_id=".$post_author."' muse_scanned='true'>".$userresult['username']."</a> 
+                          </div>
+                        </div> 
                     </div>
                 </li>";
 }
