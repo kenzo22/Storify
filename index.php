@@ -110,14 +110,6 @@ if(!islogin())
 			  $post_pic_url = $story_item['post_pic_url'];
 			  $userresult = $DB->fetch_one_array("SELECT username, photo FROM ".$db_prefix."user where id='".$post_author."'");
 			  $user_profile_img = $userresult['photo'];
-			  /*if(substr($userresult['photo'], 0, 4) == 'http')
-			  {
-			    $user_profile_img = $userresult['photo'];
-			  }
-			  else
-			  {
-			    $user_profile_img = $rooturl."/img/user/".$userresult['photo'];
-			  }*/
 			  $post_title = $story_item['post_title'];
 			  $post_date = $story_item['post_date'];
 			  $temp_array = explode(" ", $story_item['post_date']);

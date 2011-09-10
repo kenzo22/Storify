@@ -8,12 +8,13 @@ require_once 'doubanoauth.php';
  */  
 function getPubDate($attArray) 
 {
-  for($i=0;$i<count($attArray); $i++)
+  $arrayLength = count($attArray);
+  for($i=0;$i<$arrayLength; $i++)
   {
 	if($attArray[$i]['@name'] == 'pubdate')
 	break;
   }
-  if($i == count($attArray))
+  if($i == $arrayLength)
   {
     return "";
   }
@@ -43,14 +44,15 @@ function getAuthors($doubanArray)
  
 function getAuthorLink($authorArray)
 {
-  for($i=0; $i<count($authorArray); $i++)
+  $arrayLength = count($authorArray);
+  for($i=0; $i<$arrayLength; $i++)
   {
     if($authorArray[$i]['@rel'] == 'alternate')
     {
 	  break;
     }
   }
-  if($i == count($authorArray))
+  if($i == $arrayLength)
   {
     return "";
   }
@@ -62,14 +64,15 @@ function getAuthorLink($authorArray)
 
 function getAuthorPic($authorArray)
 {
-  for($i=0; $i<count($authorArray); $i++)
+  $arrayLength = count($authorArray);
+  for($i=0; $i<$arrayLength; $i++)
   {
     if($authorArray[$i]['@rel'] == 'icon')
     {
 	  break;
     }
   }
-  if($i == count($authorArray))
+  if($i == $arrayLength)
   {
     return "../img/douban_user_dft.jpg";
   }
@@ -81,14 +84,15 @@ function getAuthorPic($authorArray)
 
 function getItemLink($itemArray)
 {
-  for($i=0; $i<count($itemArray); $i++)
+  $arrayLength = count($itemArray);
+  for($i=0; $i<$arrayLength; $i++)
   {
     if($itemArray[$i]['@rel'] == 'alternate')
     {
 	  break;
     }
   }
-  if($i == count($itemArray))
+  if($i == $arrayLength)
   {
     return "";
   }
@@ -100,14 +104,15 @@ function getItemLink($itemArray)
 
 function getItemPic($itemArray)
 {
-  for($i=0; $i<count($itemArray); $i++)
+  $arrayLength = count($itemArray);
+  for($i=0; $i<$arrayLength; $i++)
   {
     if($itemArray[$i]['@rel'] == 'image')
     {
 	  break;
     }
   }
-  if($i == count($itemArray))
+  if($i == $arrayLength)
   {
     return "../img/event_dft.jpg";
   }

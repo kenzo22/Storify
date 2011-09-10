@@ -97,9 +97,10 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	
 	foreach($story_content_array as $key=>$val)
 	{
-	  if($val['type'] === 'weibo')
+	  switch($val['type'])
 	  {
-	    $weibo_per_id = $val['content'];
+	    case "weibo":{
+		$weibo_per_id = $val['content'];
 		$single_weibo  = $c->show_status($weibo_per_id );
 		
 		if ($single_weibo === false || $single_weibo === null){
@@ -109,13 +110,8 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 		if (isset($single_weibo['error_code']) && isset($single_weibo['error'])){
             // skip deleted weibo
             $content .="<li class='weibo_drop sina' id='$weibo_per_id' style='border:none;'><div class='story_wrapper'><div><span class='weibo_text'>此微博已被删除</span></div>";
+			//$content .="<li class='weibo_drop sina' id='$weibo_per_id' style='border:none;'><div class='story_wrapper'><div><span class='weibo_text'>errorcode:".$single_weibo['error_code']."error".$single_weibo['error']."</span></div>";
             continue;
-			/*
-            echo ('<br/><br/><br/><br/><br/>Error_code: '.$single_weibo['error_code'].';  Error: '.$single_weibo['error'] );
-			echo  $_SESSION['last_key']['oauth_token'];
-			echo $_SESSION['last_key']['oauth_token_secret'];
-			return false;
-            */
 		}
 		if (isset($single_weibo['id']) && isset($single_weibo['text'])){
 			$createTime = dateFormat($single_weibo['created_at']);
@@ -140,16 +136,16 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 			<span ><a class='weibo_from' href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date'  style='text-align:right; height:16px;'><span>
 			<img border='0' style='position:relative; top:2px' src='/storify/img/sina16.png'/><a>".$createTime."</a></span></div></span> </div></div></li>";
 		}
-	  }
-	  else if($val['type'] === 'tweibo')
-	  {
-	    $tweibo_per_id = $val['content'];
+		break;}
+		 
+		case "tweibo":{
+		$tweibo_per_id = $val['content'];
 		$tweibo_id_array[] = $tweibo_per_id;
-		$content .="<li class='weibo_drop tencent' id='$tweibo_per_id' style='border:none;'></li>";
-	  }
-	  else if($val['type'] === 'douban')
-	  {
-	    $douban_save_per_id = $val['content']['item_id'];
+		$content .="<li class='weibo_drop tencent' id='$tweibo_per_id' style='border:none;'></li>"; 
+		break;}
+		 
+		case "douban":{
+		$douban_save_per_id = $val['content']['item_id'];
 		if($val['content']['item_type'] == 'event')
 		{
 		  $doubanElement = $d->get_event($douban_save_per_id);
@@ -343,25 +339,29 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 			</li>";
 		  }
 		}
-	  }
-	  else if($val['type'] === 'comment')
-	  {
-	    $comment_text = $val['content'];
+		break;}
+		 
+		case "comment":{
+		$comment_text = $val['content'];
 		$content .="<li class='textElement'><div class='commentBox'>".$comment_text."</div></li>";	
-	  }
-	  else if($val['type'] === 'video')
-	  {
-	    $video_url = $val['content'];
-		$content .="<li class='video_element'><div><a class='videoTitle' target='_blank' href='".$video_url."'></a></div></li>";	
-	  }
-	  else if($val['type'] === 'photo')
-	  {
-	    $photo_meta_data = $val['content'];
+		break;}
+		 
+		case "video":{
+		$video_url = $val['content'];
+		$content .="<li class='video_element'><div><a class='videoTitle' target='_blank' href='".$video_url."'></a></div></li>";
+		break;}
+		 
+		case "photo":{
+		$photo_meta_data = $val['content'];
 		$photo_title = $photo_meta_data['title'];
 		$photo_author = $photo_meta_data['author'];
 		$photo_per_url = $photo_meta_data['url'];
 		$content .="<li class='photo_element'><div style='margin:0px auto; text-align:center; border: 5px solid #FFFFFF; box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); max-width: 260px;'><img src='"
-				.$photo_per_url."'/><div class='pic_title' style='line-height:1.5;'>".$photo_title."</div><div class='pic_author' style='line-height:1.5;'>".$photo_author."</div></div></li>";	
+				.$photo_per_url."'/><div class='pic_title' style='line-height:1.5;'>".$photo_title."</div><div class='pic_author' style='line-height:1.5;'>".$photo_author."</div></div></li>";	 
+		break;}
+		 
+		default:
+		break;
 	  }
 	}
 	if(count($tweibo_id_array) > 0)
@@ -401,7 +401,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	<div id='userinfo_container' class='showborder'>
 	  <div class='user_profiles'>
 	    <div class='user_box'>
-		  <div class='avatar'><a><img style='' width='80px' height='80px' src='".$user_profile_img."'></a></div>";
+		  <div class='avatar'><a href='".$rooturl."/member/user.php?user_id=".$story_author."'><img style='' width='80px' height='80px' src='".$user_profile_img."'></a></div>";
 	if(islogin() && $story_author != $_SESSION['uid'])
 	{
 	  $login_user_id = $_SESSION['uid'];
@@ -423,7 +423,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
     $following_list = getFollowing($story_author);
     $follower_list=getFollower($story_author);
 
-	$content .="<div class='user_info'><P>".$userresult['username']."</P><P>".$userresult['intro']."</P></div>
+	$content .="<div class='user_info'><a href='".$rooturl."/member/user.php?user_id=".$story_author."'><P>".$userresult['username']."</P></a><P>".$userresult['intro']."</P></div>
 		  <div class='usersfollowers'>
 		    <span style='vertical-align:top'>粉丝</span><span style='vertical-align:top' class='count'>".sizeof($follower_list)."</span>
 		    <ul class='follower_list'>";
@@ -673,5 +673,9 @@ $(function(){
 </script>
 
 <?php
+ /*echo  "sina".$_SESSION['last_key']['oauth_token']."<br />";
+ echo  "sina".$_SESSION['last_key']['oauth_token_secret']."<br />";
+ echo  "tencent".$_SESSION['last_tkey']['oauth_token']."<br />";
+ echo  "tencent".$_SESSION['last_tkey']['oauth_token_secret']."<br />";*/
 include "../include/footer.htm";
 ?>
