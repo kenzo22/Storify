@@ -60,76 +60,49 @@ function prepare_story_data()
   story_content_val.content = [];
   $('#story_list li:not(.addTextElementAnchor)').each(function(i)
   {
+	story_content_val.content[i] = new Object;
+	story_content_val.content[i].id = i;
 	if($(this).hasClass('sina'))
 	{
-	  story_content_val.content[i] = new Object;
-	  story_content_val.content[i].id = i;
 	  story_content_val.content[i].type = 'weibo';
 	  story_content_val.content[i].content = $(this).attr('id');
 	}
 	else if($(this).hasClass('tencent'))
 	{
-	  story_content_val.content[i] = new Object;
-	  story_content_val.content[i].id = i;
 	  story_content_val.content[i].type = 'tweibo';
 	  story_content_val.content[i].content = $(this).attr('id');
 	}
+	else if($(this).hasClass('textElement'))
+	{
+	  story_content_val.content[i].type = 'comment';
+	  story_content_val.content[i].content = $(this).find('.commentBox').html();
+	}
 	else if($(this).hasClass('douban'))
 	{
-	  story_content_val.content[i] = new Object;
-	  story_content_val.content[i].id = i;
+	  debugger;
+	  var doubanclass = $(this).attr('class');
+	  var temp_douban = doubanclass.split(' ');
+	  var temp_douban_length = temp_douban.length;
+	  var j;
+	  for(j=0; j<temp_douban_length; j++)
+	  {
+	    if(temp_douban[j]!='douban' && temp_douban[j]!='douban_drop')
+		break;
+	  }
 	  var item_type_val;
-	  if($(this).hasClass('book'))
-	  {
-		item_type_val='book';
-	  }
-	  else if($(this).hasClass('bookReviews'))
-	  {
-		item_type_val='bookReviews';
-	  }
-	  else if($(this).hasClass('movie'))
-	  {
-		item_type_val='movie';
-	  }
-	  else if($(this).hasClass('movieReviews'))
-	  {
-		item_type_val='movieReviews';
-	  }
-	  else if($(this).hasClass('music'))
-	  {
-		item_type_val='music';
-	  }
-	  else if($(this).hasClass('musicReviews'))
-	  {
-		item_type_val='musicReviews';
-	  }
-	  else if($(this).hasClass('event'))
-	  {
-		item_type_val='event';
-	  }
+	  item_type_val = temp_douban[j];
 	  story_content_val.content[i].type = 'douban';
 	  var item_per_id = $(this).attr('id');
 	  var douban_metadata = {item_type: item_type_val, item_id: item_per_id};
 	  story_content_val.content[i].content = douban_metadata;
 	}
-	else if($(this).hasClass('textElement'))
-	{
-	  story_content_val.content[i] = new Object;
-	  story_content_val.content[i].id = i;
-	  story_content_val.content[i].type = 'comment';
-	  story_content_val.content[i].content = $(this).find('.commentBox').html();
-	}
 	else if($(this).hasClass('video_drop'))
 	{
-	  story_content_val.content[i] = new Object;
-	  story_content_val.content[i].id = i;
 	  story_content_val.content[i].type = 'video';
 	  story_content_val.content[i].content = $(this).find('.videoTitle').attr('href');
 	}
 	else if($(this).hasClass('pic_drop'))
 	{
-	  story_content_val.content[i] = new Object;
-	  story_content_val.content[i].id = i;
 	  story_content_val.content[i].type = 'photo';
 	  var photo_title = $(this).find('.pic_title').text();
 	  var photo_author = $(this).find('.pic_author').text();

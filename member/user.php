@@ -172,7 +172,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 				  <div class='event_location'>".$doubanElement['gd:where']['@valueString']."</div>
 				</div>
 			  </div>
-			  <div id='douban_signature'>
+			  <div id='douban_signature' style='overflow:auto;'>
 			    <span style='float:right;'>
 				  <a href='".$eventInitiator_url."' target='_blank'>
 				    <img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='".$eventInitiator_pic."' alt='".$eventInitiator_name."' border=0 />
@@ -262,7 +262,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 					<div class='average_rating'>豆瓣评分:".$douban_item_meta['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$douban_item_meta['gd:rating']['@numRaters']."人参与投票</div>
 				  </div>
 				</div>
-				<div id='douban_signature'>
+				<div id='douban_signature' style='overflow:auto;'>
 				  <span style='float:right;'>
 					<a href='".$comment_author_link."' target='_blank'>
 					  <img class='profile_img' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='".$comment_author_pic."' alt='".$doubanElement['author']['name']['$t']."' border=0 />
@@ -332,7 +332,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 					<div class='average_rating'>豆瓣评分:".$douban_item_meta['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$douban_item_meta['gd:rating']['@numRaters']."人参与投票</div>
 				  </div>
 				</div>
-				<div class='douban_signature' style='text-align:right;'>
+				<div class='douban_signature' style='text-align:right; overflow:auto;'>
 				  <img border='0' style='width:16px; height:16px;' src='/storify/img/logo_douban.png'/>
 				</div>
 			  </div>
