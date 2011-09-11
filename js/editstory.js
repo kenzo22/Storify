@@ -1,42 +1,20 @@
-var embedCode;
-var followPage;
-var myPage;
-var userSearchPage;
-var weiboSearhPage = 1;
-var picSearchPage = 1;
-var userpicSearchPage =1;
-
-var myPageTimestamp;
-var followTimestamp;
-var usersearchTimestamp;
-var tweibosearchPage = 1;
-
-var doubanItemCounts = 10;
-var commentsPerQuery = 5;
-var eventStartIndex = 1;
-var bookStartIndex = 1;
-var bookReviewStartIndex = 1;
-var movieStartIndex = 1;
-var movieReviewStartIndex = 1;
-var musicStartIndex = 1;
-var musicReviewStartIndex = 1;
-
-var vtabIndex;
+var embedCode, vtabIndex, followPage, myPage, userSearchPage, myPageTimestamp, followTimestamp, usersearchTimestamp;
+var weiboSearhPage = 1, picSearchPage = 1, userpicSearchPage =1, tweibosearchPage = 1, doubanItemCounts = 10, commentsPerQuery = 5, eventStartIndex = 1, bookStartIndex = 1, bookReviewStartIndex = 1, movieStartIndex = 1, movieReviewStartIndex = 1, musicStartIndex = 1, musicReviewStartIndex = 1;
 
 Array.prototype.getUnique = function()
 {
-  var o = new Object();
+  var o = {};
   var i, e;
-  for (i = 0; e = this[i]; i++) {o[e] = 1};
-  var a = new Array();
-  for (e in o) {a.push (e)};
+  for (i=0; e=this[i]; i++) {o[e]=1};
+  var a=new Array();
+  for (e in o)
+  {a.push (e)};
   return a;
 } 
 
 WB.core.load(['connect', 'client', 'widget.base', 'widget.atWhere'], function() 
 {
   var cfg = {
-              //key: '314237338',
 			  key: '2417356638',
 			  xdpath: 'http://story.com/storify/html/xd.html'
 			};
@@ -60,7 +38,7 @@ function prepare_story_data()
   story_content_val.content = [];
   $('#story_list li:not(.addTextElementAnchor)').each(function(i)
   {
-	story_content_val.content[i] = new Object;
+	story_content_val.content[i] = {};
 	story_content_val.content[i].id = i;
 	if($(this).hasClass('sina'))
 	{
@@ -118,22 +96,6 @@ function prepare_story_data()
   var story_pic_val = $('#story_thumbnail').attr('src');
   var storydata = {story_id: story_id_val, story_title: story_title_val, story_summary: story_summary_val, story_pic: story_pic_val, story_tag: story_tag_val, story_content: story_content_val_string};	
   return storydata;
-}
-
-function display_search()
-{
-  //$('.weibo_drag').remove();
-  //need to compare the performance of this two remove method
-  $('#source_list').children().remove();
-  $('#weibo_search button').text('搜索微博');
-  $('#weibo_search').css('display', 'block');
-}
-
-function display_user_search()
-{
-  $('#source_list').children().remove();
-  $('#weibo_search button').text('搜索用户');
-  $('#weibo_search').css('display', 'block');
 }
 
 function append_content(id_array, content_array)
@@ -246,9 +208,10 @@ function change_story_pic(direction)
     }
   });
   story_pic_array = story_pic_array.getUnique();
+  var unique_array_length = story_pic_array.length;
   var current_pic_url = $('#story_thumbnail').attr('src');
   var i;
-  for(i=0;i<url_array_length ;i++)
+  for(i=0;i<unique_array_length ;i++)
   {
 	if(story_pic_array[i]===current_pic_url)
     {
@@ -258,7 +221,7 @@ function change_story_pic(direction)
   if(direction == 'next')
   {
     i = i+1;
-	if(i == url_array_length)
+	if(i == unique_array_length)
 	{
 	  i=0;
 	}
@@ -269,7 +232,7 @@ function change_story_pic(direction)
     i = i-1;
 	if(i<0)
 	{
-	  i=url_array_length-1;
+	  i=unique_array_length-1;
 	}
 	$('#story_thumbnail').attr('src', story_pic_array[i]);
   }
@@ -305,7 +268,7 @@ $(function() {
 			}
 		});*/
 		  
-		$('#keywords').val('关键字').css('color', '#999999');
+		$('#keywords').val('关键字').addClass('imply_color');
 		
 		$('#keywords').blur(function(){
 		    if($(this).val() == '')
@@ -313,55 +276,83 @@ $(function() {
 		      var weibo_selected = $weiboTabs.tabs('option', 'selected');
 			  if(weibo_selected == 0)
 			  {
-			    $(this).val('关键字').css('color', '#999999');
+			    $(this).val('关键字').addClass('imply_color');
 			  }
 			  else if(weibo_selected == 3)
 			  {
-			    $(this).val('微博用户名').css('color', '#999999');
+			    $(this).val('微博用户名').addClass('imply_color');
 			  }
 		    }
 		  }).focus(function(){
 		    var weibo_selected = $weiboTabs.tabs('option', 'selected');
-			if(weibo_selected == 0 && $(this).val() == '关键字')
+			if((weibo_selected == 0 && $(this).val() == '关键字') || (weibo_selected == 3 && $(this).val() == '微博用户名'))
 			{
-			  $(this).val('').css('color', 'black');
-			}
-			else if(weibo_selected == 3 && $(this).val() == '微博用户名')
-			{
-			  $(this).val('').css('color', 'black');
+			  $(this).val('').removeClass('imply_color');
 			}
 		  });
 		  
-		$('#d_keywords').val('书名').css('color', '#999999');
+		$('#d_keywords').val('书名').addClass('imply_color');
+		
+		/*$('#doubanTabs').click(function(e){
+		  debugger;
+		  var target=e.target?e.target:e.srcElement;
+		  if($(e.target).is('#doubanTabs ul li a'))
+		  {
+		    $('#source_list').children().remove();
+			$('#d_keywords').css('color', '#999999');
+			var atrClass = $(target).attr('class');
+			switch(artClass)
+			{
+			  case('book_tab'): 
+			  bookStartIndex = 1;
+			  $('#d_keywords').val('书名');
+			  break;
+			  case('movie_tab'): 
+			  movieStartIndex = 1;
+			  $('#d_keywords').val('电影名');
+			  break;
+			  case('music_tab'): 
+			  musicStartIndex = 1;
+			  $('#d_keywords').val('歌曲名');
+			  break;
+			  case('event_tab'): 
+			  eventStartIndex = 1;
+			  $('#d_keywords').val('搜活动');
+			  break;
+			  default:
+			  break;
+			}
+		  }
+		});*/
 		
 		$('#book_tab').click(function(){
 		  bookStartIndex = 1;
-		  $('#d_keywords').val('书名').css('color', '#999999');
+		  $('#d_keywords').val('书名').addClass('imply_color');
 		  $('#source_list').children().remove();
 		});
 		
 		$('#movie_tab').click(function(){
 		  movieStartIndex = 1;
-		  $('#d_keywords').val('电影名').css('color', '#999999');
+		  $('#d_keywords').val('电影名').addClass('imply_color');
 		  $('#source_list').children().remove();
 		});
 		
 		$('#music_tab').click(function(){
 		  musicStartIndex = 1;
-		  $('#d_keywords').val('歌曲名').css('color', '#999999');
+		  $('#d_keywords').val('歌曲名').addClass('imply_color');
 		  $('#source_list').children().remove();
 		});
 		
 		$('#event_tab').click(function(e){
 		   eventStartIndex = 1;
-		   $('#d_keywords').val('搜活动').css('color', '#999999');
+		   $('#d_keywords').val('搜活动').addClass('imply_color');
 		   $('#source_list').children().remove();
 		});
 		
 		$('#d_keywords').blur(function(){
 		    if($(this).val() == '')
 		    {
-			  $(this).css('color', '#999999');
+			  $(this).addClass('imply_color');
 			  var douban_selected = $doubanTabs.tabs('option', 'selected');
 			  switch(douban_selected)
 			  {
@@ -380,16 +371,16 @@ $(function() {
 			var input_txt = $(this).val();
 			if((douban_selected == 0 && input_txt == '书名') || (douban_selected == 1 && input_txt == '电影名') || (douban_selected == 2 && input_txt == '歌曲名') || (douban_selected == 3 && input_txt == '搜活动'))
 			{
-			  $(this).val('').css('color', 'black');
+			  $(this).val('').removeClass('imply_color');
 			}
 		  });
 		
-		$('#pic_keywords').val('关键字').css('color', '#999999');
+		$('#pic_keywords').val('关键字').addClass('imply_color');
 		
 		$('#pic_keywords').blur(function(){
 		    if($(this).val() == '')
 		    {
-		      $(this).css('color', '#999999');
+		      $(this).addClass('imply_color');
 			  var yupoo_selected = $picTabs.tabs('option', 'selected');
 			  if(yupoo_selected == 0)
 			  {
@@ -405,7 +396,7 @@ $(function() {
 			var yupoo_txt = $(this).val();
 			if((yupoo_selected == 0 && yupoo_txt == '关键字') || (yupoo_selected == 1 && yupoo_txt == '又拍用户名'))
 			{
-			  $(this).val('').css('color', 'black');
+			  $(this).val('').removeClass('imply_color');
 			}
 		  });
 		
@@ -414,7 +405,7 @@ $(function() {
 		  $('.weibo_drag').remove();
 		  $('.loadmore').remove();
 		  $('#source_list').css('height', '722px');
-		  $('#weibo_search').css('display', 'none');
+		  $('#weibo_search').addClass('none');
 		  myPage = 1;
 		  myPageTimestamp = 0;
 		  var getUrl;
@@ -453,7 +444,7 @@ $(function() {
 		  $('.weibo_drag').remove();
 		  $('.loadmore').remove();
 		  $('#source_list').css('height', '722px');
-		  $('#weibo_search').css('display', 'none');
+		  $('#weibo_search').addClass('none');
 		  followPage = 1;
 		  followTimestamp = 0;
 		  var getUrl;
@@ -489,20 +480,24 @@ $(function() {
 		
 		$('#search_tab').click(function()
 		{
-		  $('#source_list').css('height', '664px');
-		  $('#keywords').val('关键字').css('color', '#999999');
 		  weiboSearhPage = 1;
 		  tweibosearchPage = 1;
-		  display_search();
+		  $('#source_list').css('height', '664px');
+		  $('#keywords').val('关键字');
+		  $('#source_list').children().remove();
+		  $('#weibo_search button').text('搜索微博');
+		  $('#weibo_search').addClass('imply_color').removeClass('none');
 		});
 		
 		$('#user_tab').click(function()
 		{
-		  $('#source_list').css('height', '664px');
-		  $('#keywords').val('微博用户名').css('color', '#999999');
 		  userSearchPage = 1;
 		  usersearchTimestamp = 0;
-		  display_user_search();
+		  $('#source_list').css('height', '664px');
+		  $('#keywords').val('微博用户名');
+		  $('#source_list').children().remove();
+		  $('#weibo_search button').text('搜索用户');
+		  $('#weibo_search').addClass('imply_color').removeClass('none');
 		});
 		
 		$('#weibo_search_btn').click(function(){
@@ -563,23 +558,19 @@ $(function() {
 		  var getUrl = '../douban/doubanoperation.php';
 		  var keywords_val = $('#d_keywords').val();
 		  var getData;
-		  if(0 == doubanSelected)
+		  switch(doubanSelected)
 		  {
-		    getData = {operation: 'book', keywords: keywords_val, startIndex: bookStartIndex, numResults: doubanItemCounts};
-		  }
-		  else if(1 == doubanSelected)
-		  {
-		    getData = {operation: 'movie', keywords: keywords_val, startIndex: movieStartIndex, numResults: doubanItemCounts};
-		  }
-		  else if(2 == doubanSelected)
-		  {
-		    getData = {operation: 'music', keywords: keywords_val, startIndex: musicStartIndex, numResults: doubanItemCounts};
-		  }
-		  else if(3 == doubanSelected)
-		  {
-		    getData = {operation: 'event', keywords: keywords_val, startIndex: eventStartIndex, numResults: doubanItemCounts};
-		  }
-		  
+		    case 0: getData = {operation: 'book', keywords: keywords_val, startIndex: bookStartIndex, numResults: doubanItemCounts};
+			break;
+			case 1: getData = {operation: 'movie', keywords: keywords_val, startIndex: movieStartIndex, numResults: doubanItemCounts};
+			break;
+			case 2: getData = {operation: 'music', keywords: keywords_val, startIndex: musicStartIndex, numResults: doubanItemCounts};
+			break;
+			case 3: getData = {operation: 'event', keywords: keywords_val, startIndex: eventStartIndex, numResults: doubanItemCounts};
+			break;
+			default:
+			break;
+		  }		  
 		  $.ajax({
 		  type: 'GET',
 		  url: getUrl,
@@ -603,7 +594,7 @@ $(function() {
 		  picSearchPage = 1;
 		  $('#source_list').children().remove();
 		  $('#source_list').css('height', '615px');
-		  $('#pic_keywords').val('关键字').css('color', '#999999');
+		  $('#pic_keywords').val('关键字').addClass('imply_color');
 		});
 		
 		$('#user_tab_pic').click(function()
@@ -611,7 +602,7 @@ $(function() {
 		  userpicSearchPage = 1;
 		  $('#source_list').children().remove();
 		  $('#source_list').css('height', '615px');
-		  $('#pic_keywords').val('又拍用户名').css('color', '#999999');
+		  $('#pic_keywords').val('又拍用户名').addClass('imply_color');
 		});
 		
 		$('#pic_search_btn').click(function()
@@ -652,86 +643,87 @@ $(function() {
 			cancel: ".weibo_drop, .douban_drop, .video_drop, .textElement",
 			receive: function(event, ui) 
 			{
+			  var dragItem = ui.item;
 			  var commentContent = ("<li class='addTextElementAnchor'><span><a><img class='add_comment' src='/storify/img/editcomment.png' border='0'/></a></span></li>");
-			  if(!ui.item.prev('li').hasClass('addTextElementAnchor'))
+			  if(!dragItem.prev('li').hasClass('addTextElementAnchor'))
 			  {
-			    ui.item.before(commentContent)
+			    dragItem.before(commentContent)
 			  }
-			  if(!ui.item.next('li').hasClass('addTextElementAnchor'))
+			  if(!dragItem.next('li').hasClass('addTextElementAnchor'))
 			  {
-			    ui.item.after(commentContent)
+			    dragItem.after(commentContent)
 			  }
 			  var list_item_have_pic = $('#story_list li:not(.addTextElementAnchor, .textElement, .video_drop)');
-			  if(ui.item.hasClass('weibo_drag'))
+			  if(dragItem.hasClass('weibo_drag'))
 			  {
 			    //debugger;
 				var weibo_img_content = "";
 				var weibo_retweet_img_content = "";
 				var position = ui.position;
-			　  var weibo_id = ui.item.find('.weibo_drag').attr('id');
-			　  var weibo_Text= ui.item.find('.weibo_text').text();
-				if(ui.item.find('.weibo_img img').length != 0)
+			　  var weibo_id = dragItem.find('.weibo_drag').attr('id');
+			　  var weibo_Text= dragItem.find('.weibo_text').text();
+				if(dragItem.find('.weibo_img img').length != 0)
 				{
-				  var weibo_img = ui.item.find('.weibo_img img').attr('src').replace(/thumbnail/,"bmiddle");
+				  var weibo_img = dragItem.find('.weibo_img img').attr('src').replace(/thumbnail/,"bmiddle");
 				  weibo_img_content = "<div class='weibo_img_drop'><img src='"+weibo_img+"' /></div>";
 				}
-				if(ui.item.find('.weibo_retweet_img img').length != 0)
+				if(dragItem.find('.weibo_retweet_img img').length != 0)
 				{
-				  var weibo_retweet_img = ui.item.find('.weibo_retweet_img img').attr('src').replace(/thumbnail/,"bmiddle");
+				  var weibo_retweet_img = dragItem.find('.weibo_retweet_img img').attr('src').replace(/thumbnail/,"bmiddle");
 				  weibo_retweet_img_content = "<div class='weibo_retweet_img_drop'><img src='"+weibo_retweet_img+"' /></div>";
 				}
-			　  var weibo_from = ui.item.find('.weibo_from').text();
-			　  var weibo_from_id = ui.item.find('.user_page').attr('href').replace(/http:\/\/weibo.com\//,"");
-			  　var weibo_time = ui.item.find('.create_time').text();
-			　  var weibo_photo = ui.item.find('.profile_img').attr('src');
+			　  var weibo_from = dragItem.find('.weibo_from').text();
+			　  var weibo_from_id = dragItem.find('.user_page').attr('href').replace(/http:\/\/weibo.com\//,"");
+			  　var weibo_time = dragItem.find('.create_time').text();
+			　  var weibo_photo = dragItem.find('.profile_img').attr('src');
 				var content;	
-			    if(ui.item.hasClass('sina'))
+			    if(dragItem.hasClass('sina'))
 				{
-				  ui.item.removeClass('weibo_drag').addClass('weibo_drop sina').children().remove();
+				  dragItem.removeClass('weibo_drag').addClass('weibo_drop sina').children().remove();
 				  content = ("<div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>"
 					+weibo_Text+"</span>"+weibo_retweet_img_content+weibo_img_content+"</div><div id='story_signature'><span style='float:right;'><a href='http://weibo.com/"+weibo_from_id+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
 					+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></span><span id='signature_text_drop' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='weibo_from_drop' href='http://weibo.com/"
 					+weibo_from_id+"' target='_blank'>"+weibo_from+"</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px' src='/storify/img/sina16.png'/><a>"
 					+weibo_time+"</a></span></div></span> </div></div>");
-				  if(ui.item.index(list_item_have_pic) == 0)
+				  if(dragItem.index(list_item_have_pic) == 0)
 				  {
 				    $('#story_thumbnail').attr('src', weibo_photo.replace(/(\d+)\/50\/(\d+)/, "$1\/180\/$2"));
 				  }
 				}
 				else
 				{
-				  ui.item.removeClass('weibo_drag').addClass('weibo_drop tencent').children().remove();
+				  dragItem.removeClass('weibo_drag').addClass('weibo_drop tencent').children().remove();
 				  content = ("<div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>"
 					+weibo_Text+"</span>"+weibo_retweet_img_content+weibo_img_content+"</div><div id='story_signature'><span style='float:right;'><a href='http://weibo.com/"+weibo_from_id+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
 					+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></span><span id='signature_text_drop' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='weibo_from_drop' href='http://weibo.com/"
 					+weibo_from_id+"' target='_blank'>"+weibo_from+"</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px' src='/storify/img/tencent16.png'/><a>"
 					+weibo_time+"</a></span></div></span> </div></div>");
-				  if(ui.item.index(list_item_have_pic) == 0)
+				  if(dragItem.index(list_item_have_pic) == 0)
 				  {
 					$('#story_thumbnail').attr('src', weibo_photo.replace(/50$/, "180"));
 				  }
 				}
-				ui.item.append(content);	
+				dragItem.append(content);	
 			    WB.widget.atWhere.searchAndAt(document.getElementById("story_list"));
 			  }
-			  else if(ui.item.hasClass('douban_drag'))
+			  else if(dragItem.hasClass('douban_drag'))
 			  {
 				var doubanContent = "";
-				var douban_profile_img = ui.item.find('.profile_img').attr('src');
-				var douban_profile_name = ui.item.find('.profile_img').attr('title');
-				var douban_profile_url = ui.item.find('.douban_from').attr('href');
-				if(ui.item.hasClass('event'))
+				var douban_profile_img = dragItem.find('.profile_img').attr('src');
+				var douban_profile_name = dragItem.find('.profile_img').attr('title');
+				var douban_profile_url = dragItem.find('.douban_from').attr('href');
+				if(dragItem.hasClass('event'))
 				{
-				  var event_title = ui.item.find('.event_title a').text();
-				  var event_summary = ui.item.find('.event_summary').text();
-				  var event_initiator_name = ui.item.find('.event_initiator a').text();
-				  var event_initiator_url = ui.item.find('.event_initiator a').attr('href');
-				  var event_start_time = ui.item.find('.start_time').text();
-				  var event_end_time = ui.item.find('.end_time').text();
-				  var event_link = ui.item.find('.event_title a').attr('href');
-				  var event_pic = ui.item.find('.event_img_wrapper img').attr('src');
-				  var event_location = ui.item.find('.event_location').text();
-				  var event_city = ui.item.find('.event_city').text();
+				  var event_title = dragItem.find('.event_title a').text();
+				  var event_summary = dragItem.find('.event_summary').text();
+				  var event_initiator_name = dragItem.find('.event_initiator a').text();
+				  var event_initiator_url = dragItem.find('.event_initiator a').attr('href');
+				  var event_start_time = dragItem.find('.start_time').text();
+				  var event_end_time = dragItem.find('.end_time').text();
+				  var event_link = dragItem.find('.event_title a').attr('href');
+				  var event_pic = dragItem.find('.event_img_wrapper img').attr('src');
+				  var event_location = dragItem.find('.event_location').text();
+				  var event_city = dragItem.find('.event_city').text();
 				  doubanContent=("<div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='douban_wrapper'><div class='event_summary_drop'>"+event_summary+"</div><div style='margin-top:10px; overflow:auto;'><a href='"
 				  +event_link+"' target='_blank'><img class='item_img_drop' src='"+event_pic+"' style='float:left;' /></a><div class='item_meta_drop' style='margin-left:220px;'><div class='event_title_drop'>活动：<a href='"
 				  +event_link+"' target='_blank'>"+event_title+"</a></div><div class='event_initiator_drop'>发起人：<a href='"+event_initiator_url+"' target='_blank'>"
@@ -740,27 +732,27 @@ $(function() {
 					+douban_profile_img+"' alt='"+douban_profile_name+"' border=0 /></a></span><span class='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='douban_from_drop' href='"
 					+douban_profile_url+"' target='_blank'>"+douban_profile_name+"</a></span></div><div class='douban_date_drop'  style='text-align:right; height:16px;'><span><img border='0' style='position:relative; top:2px; width:16px; height:16px;' src='/storify/img/logo_douban.png'/></span></div></span> </div></div>");
 				  
-				  ui.item.removeClass('douban_drag').addClass('douban_drop').children().remove();
-				  if(ui.item.index(list_item_have_pic) == 0)
+				  dragItem.removeClass('douban_drag').addClass('douban_drop').children().remove();
+				  if(dragItem.index(list_item_have_pic) == 0)
 				  {
 				    $('#story_thumbnail').attr('src', douban_profile_img);
 				  }　
-			      ui.item.append(doubanContent);
+			      dragItem.append(doubanContent);
 				}
-				else if(ui.item.hasClass('bookReviews') || ui.item.hasClass('movieReviews') || ui.item.hasClass('musicReviews'))
+				else if(dragItem.hasClass('bookReviews') || dragItem.hasClass('movieReviews') || dragItem.hasClass('musicReviews'))
 				{
-				  var douban_per_url = ui.item.find('.item_title').attr('href');
-				  var douban_comment_title = ui.item.find('.comment_title').text();
-				  var douban_comment_summary = ui.item.find('.comment_summary').text();
-				  var douban_comment_date = ui.item.find('.comment_date').text();
-				  var douban_comment_rating = ui.item.find('.item_rating').text();
-				  var douban_comment_url = ui.item.find('.comment_full_url').attr('href');
-				  var douban_item_img = ui.item.find('.item_img').attr('src');
-				  var douban_item_title = ui.item.find('.item_title').text();
-				  var douban_item_author = ui.item.find('.item_author').text();
-				  var douban_item_date = ui.item.find('.item_date').text();
-				  var douban_average_rating = ui.item.find('.average_rating').text();
-				  var douban_item_rating = ui.item.find('.item_rating').text();
+				  var douban_per_url = dragItem.find('.item_title').attr('href');
+				  var douban_comment_title = dragItem.find('.comment_title').text();
+				  var douban_comment_summary = dragItem.find('.comment_summary').text();
+				  var douban_comment_date = dragItem.find('.comment_date').text();
+				  var douban_comment_rating = dragItem.find('.item_rating').text();
+				  var douban_comment_url = dragItem.find('.comment_full_url').attr('href');
+				  var douban_item_img = dragItem.find('.item_img').attr('src');
+				  var douban_item_title = dragItem.find('.item_title').text();
+				  var douban_item_author = dragItem.find('.item_author').text();
+				  var douban_item_date = dragItem.find('.item_date').text();
+				  var douban_average_rating = dragItem.find('.average_rating').text();
+				  var douban_item_rating = dragItem.find('.item_rating').text();
 				  doubanContent = ("<div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='douban_wrapper'><div><div class=item_rating_drop>"+douban_item_rating+"</div><div class='comment_title_drop' style='font-weight:bold;'>"
 					+douban_comment_title+"</div><div class='comment_summary_drop'>"+douban_comment_summary+"</div><div style='text-align:right;'><a href='"+douban_comment_url+"' target='_blank'>查看评论全文</a></div></div><div class='item_info_drop' style='overflow:auto;'><a href='"+douban_per_url+"' target='_blank'><img class='item_img_drop' src='"
 				  +douban_item_img+"' style='float:left;' /></a><div class='item_meta_drop' style='margin-left:100px;'><div><a class='item_title_drop' href='"+douban_per_url+"' target='_blank'>"+douban_item_title+"</a></div><div class='item_author_drop'>"
@@ -768,44 +760,44 @@ $(function() {
 					+douban_profile_img+"' alt='"+douban_profile_name+"' border=0 /></a></span><span class='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='douban_from_drop' href='"
 					+douban_profile_url+"' target='_blank'>"+douban_profile_name+"</a></span></div><div class='douban_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px; width:16px; height:16px;' src='/storify/img/logo_douban.png'/><a>"
 					+douban_comment_date+"</a></span></div></span> </div></div>");
-				  ui.item.removeClass('douban_drag').addClass('douban_drop').children().remove();
-				  if(ui.item.index(list_item_have_pic) == 0)
+				  dragItem.removeClass('douban_drag').addClass('douban_drop').children().remove();
+				  if(dragItem.index(list_item_have_pic) == 0)
 				  {
 				    $('#story_thumbnail').attr('src', douban_profile_img);
 				  }　
-			      ui.item.append(doubanContent);
+			      dragItem.append(doubanContent);
 				}
 				else
 				{
-				  if(ui.item.index(list_item_have_pic) == 0)
+				  if(dragItem.index(list_item_have_pic) == 0)
 				  {
-					$('#story_thumbnail').attr('src', ui.item.find('.item_img').attr('src'));
+					$('#story_thumbnail').attr('src', dragItem.find('.item_img').attr('src'));
 				  }　
-				  ui.item.removeClass('douban_drag').addClass('douban_drop');
-				  ui.item.find('.douban_review').closest('div').remove();
-				  ui.item.prepend("<div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div>");
+				  dragItem.removeClass('douban_drag').addClass('douban_drop');
+				  dragItem.find('.douban_review').closest('div').remove();
+				  dragItem.prepend("<div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div>");
 				}
 			  }
-			  else if(ui.item.hasClass('video_Drag'))
+			  else if(dragItem.hasClass('video_Drag'))
 			  {
-			    //var thumbnailUrl = ui.item.find('.youku_thumbnail').attr('src');
-				var videoUrl = ui.item.find('.videoTitle').attr('href');
-				var videoTitle = ui.item.find('.videoTitle').text();
+			    //var thumbnailUrl = dragItem.find('.youku_thumbnail').attr('src');
+				var videoUrl = dragItem.find('.videoTitle').attr('href');
+				var videoTitle = dragItem.find('.videoTitle').text();
 				var videoEmbedCode;
 				var videoContent = ("<div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div><a class='videoTitle' target='_blank' href='"
 				+videoUrl+"'>"+videoTitle+"</a></div>"+embedCode);
-				ui.item.removeClass('video_Drag').addClass('video_drop').children().remove();　
-			    ui.item.append(videoContent);
-				/*if(ui.item.index() == 1)
+				dragItem.removeClass('video_Drag').addClass('video_drop').children().remove();　
+			    dragItem.append(videoContent);
+				/*if(dragItem.index() == 1)
 				{
 				  $('#story_thumbnail').attr('src', thumbnailUrl);
 				}*/
 			  }
-			  else if(ui.item.hasClass('pic_Drag'))
+			  else if(dragItem.hasClass('pic_Drag'))
 			  {
-				var picUrl = ui.item.find('img').attr('src');
-				var picTitle = ui.item.find('.pic_title').text();
-				var picAuthor = ui.item.find('.pic_author').text();
+				var picUrl = dragItem.find('img').attr('src');
+				var picTitle = dragItem.find('.pic_title').text();
+				var picAuthor = dragItem.find('.pic_author').text();
 				var temp_array = picUrl.split("\/");
 				var temp_array_length = temp_array.length;
 				temp_array[temp_array_length-1] = "small";
@@ -813,9 +805,9 @@ $(function() {
 				
 				var picContent = ("<div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div style='margin:0px auto; text-align:center; border: 5px solid #FFFFFF; box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); max-width: 260px;'><img class='pic_img' src='"
 				+picUrl+"'/><div class='pic_title' style='line-height:1.5;'>"+picTitle+"</div><div class='pic_author' style='line-height:1.5;'>"+picAuthor+"</div></div>");
-				ui.item.removeClass('pic_Drag').addClass('pic_drop').children().remove();　
-			    ui.item.append(picContent);
-				if(ui.item.index(list_item_have_pic) == 0)
+				dragItem.removeClass('pic_Drag').addClass('pic_drop').children().remove();　
+			    dragItem.append(picContent);
+				if(dragItem.index(list_item_have_pic) == 0)
 				{
 				  $('#story_thumbnail').attr('src', picUrl.replace(/small$/, "square"));
 				  //$('#story_thumbnail').attr('src', picUrl);
@@ -847,15 +839,15 @@ $(function() {
 		
 		if($('#sto_title').val() =='')
 		{
-		  $('#sto_title').val('写下你的故事标题吧(这将会是你故事的链接地址)').css('color', 'black').focus(function(){
+		  $('#sto_title').val('写下你的故事标题吧(这将会是你故事的链接地址)').removeClass('imply_color').focus(function(){
 		  if($(this).val() == '写下你的故事标题吧(这将会是你故事的链接地址)')
 		  {
-		    $(this).val('').css('color', 'black');
+		    $(this).val('').removeClass('imply_color');
 		  }
 		  }).blur(function(){
 		  if($(this).val() == '')
 		  {
-		    $(this).val('写下你的故事标题吧(这将会是你故事的链接地址)').css('color', 'black');
+		    $(this).val('写下你的故事标题吧(这将会是你故事的链接地址)').removeClass('imply_color');
 		  }
 		  });
 		}
@@ -863,30 +855,30 @@ $(function() {
 		
 		if($('#sto_summary').val() =='')
 		{
-		  $('#sto_summary').val('给你的故事写一个简短的描述').css('color', '#999999').focus(function(){
+		  $('#sto_summary').val('给你的故事写一个简短的描述').addClass('imply_color').focus(function(){
 		  if($(this).val() == '给你的故事写一个简短的描述')
 		  {
-		    $(this).val('').css('color', 'black');
+		    $(this).val('').removeClass('imply_color');
 		  }		  
 		  }).blur(function(){
 		  if($(this).val() == '')
 		  {
-		    $(this).val('给你的故事写一个简短的描述').css('color', '#999999');
+		    $(this).val('给你的故事写一个简短的描述').addClass('imply_color');
 		  }
 		  });
 		}
 
 		if($('#sto_tag').val() =='')
 		{
-		  $('#sto_tag').val('添加故事标签').css('color', '#999999').focus(function(){
+		  $('#sto_tag').val('添加故事标签').addClass('imply_color').focus(function(){
 		  if($(this).val() == '添加故事标签')
 		  {
-		    $(this).val('').css('color', 'black');
+		    $(this).val('').removeClass('imply_color');
 		  }		  
 		  }).blur(function(){
 		  if($(this).val() == '')
 		  {
-		    $(this).val('添加故事标签').css('color', '#999999');
+		    $(this).val('添加故事标签').addClass('imply_color');
 		  }
 		  });
 		}	
