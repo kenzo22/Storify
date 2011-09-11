@@ -30,8 +30,22 @@ else if('user_search' == $operation)
   $weibo  = $c->user_timeline($page, 20, $keywords);
 }
 
+$cwd=getcwd();
+preg_match("/(.*?)\/storify/",$cwd,$mat);
 foreach( $weibo as $item )
 {
+    // show emotions in text
+    preg_match_all("/\[(.*?)\]/",$item['text'],$matches,PREG_SET_ORDER);
+    if($matches){
+        foreach($matches as $lu){
+            $local_file="/storify/img/weibo/".$lu[1].".gif";
+            if(is_readable($mat[1].$local_file)){
+                $replace="<img src='".$local_file."'>";
+                $item['text']=str_replace($lu[0],$replace,$item['text']);
+            }
+        }
+    }
+
   $createTime = dateFormat($item['created_at']);
   //$weibo_per_id = sprintf("%.0f", $item['id']);
   $weibo_per_id = number_format($item['id'], 0, '', '');
@@ -40,6 +54,20 @@ foreach( $weibo as $item )
   style = 'display:block;'><span class='weibo_from'>".$item['user']['screen_name']."</span></a><span class='weibo_text'>".$item['text'];
     
     if (isset($item['retweeted_status'])){
+        // show emotions in text
+        preg_match_all("/\[(.*?)\]/",$item['retweeted_status']['text'],$matches,PREG_SET_ORDER);
+        if($matches){
+            foreach($matches as $lu){
+                $local_file="/storify/img/weibo/".$lu[1].".gif";
+                if(is_readable($mat[1].$local_file)){
+                    $replace="<img src='".$local_file."'>";
+                    $item['retweeted_status']['text']=str_replace($lu[0],$replace,$item['retweeted_status']['text']);
+                }
+            }
+        }
+
+        $createTime = dateFormat($item['created_at']);
+
 		$weiboContent .= "//@".$item['retweeted_status']['user']['name'].":".$item['retweeted_status']['text'];
         if(isset($item['retweeted_status']['thumbnail_pic'])){
             $weiboContent .= "</span><div class='weibo_retweet_img'><img src='".$item['retweeted_status']['thumbnail_pic']."' /></div>";

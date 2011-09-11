@@ -15,7 +15,43 @@ $ms  = $c->home_timeline(); // done
 //$me = $c->show_status('3354263481034421');
 $me = $c->get_emotions();
 echo "<br /><br /><br /><br /><br />";
-var_dump($me);
+
+$ab="[嘿嘿][哈哈]";
+preg_match_all("/\[(.*?)\]/",$ab,$matches,PREG_SET_ORDER);
+foreach ($matches as $me){
+    echo $me[0]."<br />";
+    echo $me[1]."<br />";
+}
+
+preg_match("/(.*)\/storify/",getcwd(),$matches);
+echo $matches[1]."<br />";
+if(is_readable($matches[1]."/storify/img/weibo/哈哈.gif")){
+    echo "readable";
+}else{
+    echo  "where";
+}
+
+/*
+$prefix="../img/weibo/";
+if (!is_dir($prefix)){
+    mkdir($prefix);
+}
+set_time_limit(0);
+foreach ($me as $element){
+    $url=$element['url'];
+    $name=$element['phrase'];
+    preg_match("/\[(.*?)\]/",$name,$matches);
+    $array=preg_split("/\./",basename($url));
+    $local_file=$prefix.$matches[1].".".$array[1];
+    if(file_put_contents($local_file,file_get_contents($url))){
+        chmod($local_file,0755);
+    }
+}
+*/
+
+
+//var_dump($me);
+
 
 ?>
 <!--<div class='div_center' >

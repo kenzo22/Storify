@@ -15,6 +15,10 @@ include_once "userrelation.php";
 <script type="text/javascript" src="/storify/js/jquery.embedly.min.js"></script>
 
 <?php
+
+$cwd=getcwd();
+preg_match("/(.*?)\/storify/",$cwd,$mat);
+
 if(isset($_GET['post_id']) && !isset($_GET['action']))
 {
 	$c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_key']['oauth_token'] , $_SESSION['last_key']['oauth_token_secret']  );
@@ -114,9 +118,36 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
             continue;
 		}
 		if (isset($single_weibo['id']) && isset($single_weibo['text'])){
+            
+            // show emotions in text
+            preg_match_all("/\[(.*?)\]/",$single_weibo['text'],$matches,PREG_SET_ORDER);
+            if($matches){
+                foreach($matches as $lu){
+                    echo $lu[1];
+                    $local_file="/storify/img/weibo/".$lu[1].".gif";
+                    if(is_readable($mat[1].$local_file)){
+                        $replace="<img src='".$local_file."'>";
+                        $single_weibo['text']=str_replace($lu[0],$replace,$single_weibo['text']);
+                    }
+                }
+            }
+
 			$createTime = dateFormat($single_weibo['created_at']);
 			$content .="<li class='weibo_drop sina' id='$weibo_per_id' style='border:none;'><div class='story_wrapper'><div><span class='weibo_text'>".$single_weibo['text'];
     		if (isset($single_weibo['retweeted_status'])){
+                
+                // show emotions in text
+                preg_match_all("/\[(.*?)\]/",$single_weibo['retweeted_status']['text'],$matches,PREG_SET_ORDER);
+                if($matches){
+                    foreach($matches as $lu){
+                        $local_file="/storify/img/weibo/".$lu[1].".gif";
+                        if(is_readable($mat[1].$local_file)){
+                            $replace="<img src='".$local_file."'>";
+                            $single_weibo['retweeted_status']['text']=str_replace($lu[0],$replace,$single_weibo['retweeted_status']['text']);
+                        }
+                    }
+                }
+
                 $content .="//@".$single_weibo['retweeted_status']['user']['name'].":".$single_weibo['retweeted_status']['text'];
                 if(isset($single_weibo['retweeted_status']['bmiddle_pic'])){
                     $content .= "</span><div class='weibo_retweet_img' style='text-align:center;'><img src='".$single_weibo['retweeted_status']['bmiddle_pic']."' width='280px;' /></div>";
