@@ -9,27 +9,13 @@ $result=$DB->fetch_one_array("SELECT weibo_access_token, weibo_access_token_secr
 $_SESSION['last_key']['oauth_token']=$result['weibo_access_token'];
 $_SESSION['last_key']['oauth_token_secret']=$result['weibo_access_token_secret'];
 $c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_key']['oauth_token'] , $_SESSION['last_key']['oauth_token_secret']  );
-$ms  = $c->home_timeline(); // done
+$ms  = $c->friends_timeline(); // done
 
 //$me = $c->verify_credentials();
 //$me = $c->show_status('3354263481034421');
-$me = $c->get_emotions();
+//$me = $c->get_emotions();
 echo "<br /><br /><br /><br /><br />";
-
-$ab="[嘿嘿][哈哈]";
-preg_match_all("/\[(.*?)\]/",$ab,$matches,PREG_SET_ORDER);
-foreach ($matches as $me){
-    echo $me[0]."<br />";
-    echo $me[1]."<br />";
-}
-
-preg_match("/(.*)\/storify/",getcwd(),$matches);
-echo $matches[1]."<br />";
-if(is_readable($matches[1]."/storify/img/weibo/哈哈.gif")){
-    echo "readable";
-}else{
-    echo  "where";
-}
+var_dump($ms);
 
 /*
 $prefix="../img/weibo/";

@@ -11,6 +11,11 @@ $page = $_GET['page'];
 $c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_key']['oauth_token'] , $_SESSION['last_key']['oauth_token_secret']  );
 $weibo;
 $keywords;
+
+
+preg_match("/(.*?)\/storify/",getcwd(),$abs_path_matches);
+$story_img_path="/storify/img/";
+
 if('my_weibo' == $operation)
 {
   $weibo  = $c->user_timeline($page, 20, null);
@@ -30,18 +35,17 @@ else if('user_search' == $operation)
   $weibo  = $c->user_timeline($page, 20, $keywords);
 }
 
-$cwd=getcwd();
-preg_match("/(.*?)\/storify/",$cwd,$mat);
 foreach( $weibo as $item )
 {
     // show emotions in text
-    preg_match_all("/\[(.*?)\]/",$item['text'],$matches,PREG_SET_ORDER);
-    if($matches){
-        foreach($matches as $lu){
-            $local_file="/storify/img/weibo/".$lu[1].".gif";
-            if(is_readable($mat[1].$local_file)){
-                $replace="<img src='".$local_file."'>";
-                $item['text']=str_replace($lu[0],$replace,$item['text']);
+    preg_match_all("/\[(.*?)\]/",$item['text'],$face_matches,PREG_SET_ORDER);
+    if($face_matches){
+        foreach($face_matches as $element){
+            $story_file="/storify/img/weibo/".$element[1].".gif";
+            $local_file=$abs_path_matches[1].$story_file;
+            if($local_file){
+                $img_replace="<img src='".$story_file."'>";
+                $item['text']=str_replace($element[0],$img_replace,$item['text']);
             }
         }
     }
@@ -55,13 +59,14 @@ foreach( $weibo as $item )
     
     if (isset($item['retweeted_status'])){
         // show emotions in text
-        preg_match_all("/\[(.*?)\]/",$item['retweeted_status']['text'],$matches,PREG_SET_ORDER);
-        if($matches){
-            foreach($matches as $lu){
-                $local_file="/storify/img/weibo/".$lu[1].".gif";
-                if(is_readable($mat[1].$local_file)){
-                    $replace="<img src='".$local_file."'>";
-                    $item['retweeted_status']['text']=str_replace($lu[0],$replace,$item['retweeted_status']['text']);
+        preg_match_all("/\[(.*?)\]/",$item['retweeted_status']['text'],$face_matches,PREG_SET_ORDER);
+        if($face_matches){
+            foreach($face_matches as $element){
+                $story_file="/storify/img/weibo/".$element[1].".gif";
+                $local_file=$abs_path_matches[1].$story_file;
+                if(is_readable($local_file)){
+                    $img_replace="<img src='".$story_file."'>";
+                    $item['retweeted_status']['text']=str_replace($element[0],$img_replace,$item['retweeted_status']['text']);
                 }
             }
         }
