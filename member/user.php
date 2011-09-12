@@ -16,8 +16,7 @@ include_once "userrelation.php";
 
 <?php
 
-$cwd=getcwd();
-preg_match("/(.*?)\/storify/",$cwd,$mat);
+preg_match("/(.*?)\/storify/",getcwd(),$abs_path_matches);
 
 if(isset($_GET['post_id']) && !isset($_GET['action']))
 {
@@ -120,33 +119,14 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 		if (isset($single_weibo['id']) && isset($single_weibo['text'])){
             
             // show emotions in text
-            preg_match_all("/\[(.*?)\]/",$single_weibo['text'],$matches,PREG_SET_ORDER);
-            if($matches){
-                foreach($matches as $lu){
-                    echo $lu[1];
-                    $local_file="/storify/img/weibo/".$lu[1].".gif";
-                    if(is_readable($mat[1].$local_file)){
-                        $replace="<img src='".$local_file."'>";
-                        $single_weibo['text']=str_replace($lu[0],$replace,$single_weibo['text']);
-                    }
-                }
-            }
+            $single_weibo['text'] = subs_emotions($single_weibo['text'],"weibo");
 
 			$createTime = dateFormat($single_weibo['created_at']);
 			$content .="<li class='weibo_drop sina' id='$weibo_per_id' style='border:none;'><div class='story_wrapper'><div><span class='weibo_text'>".$single_weibo['text'];
     		if (isset($single_weibo['retweeted_status'])){
                 
                 // show emotions in text
-                preg_match_all("/\[(.*?)\]/",$single_weibo['retweeted_status']['text'],$matches,PREG_SET_ORDER);
-                if($matches){
-                    foreach($matches as $lu){
-                        $local_file="/storify/img/weibo/".$lu[1].".gif";
-                        if(is_readable($mat[1].$local_file)){
-                            $replace="<img src='".$local_file."'>";
-                            $single_weibo['retweeted_status']['text']=str_replace($lu[0],$replace,$single_weibo['retweeted_status']['text']);
-                        }
-                    }
-                }
+                $single_weibo['retweeted_status']['text']=subs_emotions($single_weibo['retweeted_status']['text'],"weibo");
 
                 $content .="//@".$single_weibo['retweeted_status']['user']['name'].":".$single_weibo['retweeted_status']['text'];
                 if(isset($single_weibo['retweeted_status']['bmiddle_pic'])){

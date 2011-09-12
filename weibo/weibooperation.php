@@ -1,6 +1,7 @@
 <?php
 include "../connect_db.php";
 include "../include/functions.php";
+include_once "../include/weibo_functions.php";
 session_start();
 include_once( 'config.php' );
 include_once( 'sinaweibo.php' );
@@ -11,10 +12,6 @@ $page = $_GET['page'];
 $c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_key']['oauth_token'] , $_SESSION['last_key']['oauth_token_secret']  );
 $weibo;
 $keywords;
-
-
-preg_match("/(.*?)\/storify/",getcwd(),$abs_path_matches);
-$story_img_path="/storify/img/";
 
 if('my_weibo' == $operation)
 {
@@ -37,18 +34,8 @@ else if('user_search' == $operation)
 
 foreach( $weibo as $item )
 {
-    // show emotions in text
-    preg_match_all("/\[(.*?)\]/",$item['text'],$face_matches,PREG_SET_ORDER);
-    if($face_matches){
-        foreach($face_matches as $element){
-            $story_file="/storify/img/weibo/".$element[1].".gif";
-            $local_file=$abs_path_matches[1].$story_file;
-            if($local_file){
-                $img_replace="<img src='".$story_file."'>";
-                $item['text']=str_replace($element[0],$img_replace,$item['text']);
-            }
-        }
-    }
+    //show emotions
+    $item['text'] = subs_emotions($item['text'],"weibo");
 
   $createTime = dateFormat($item['created_at']);
   //$weibo_per_id = sprintf("%.0f", $item['id']);
@@ -59,17 +46,7 @@ foreach( $weibo as $item )
     
     if (isset($item['retweeted_status'])){
         // show emotions in text
-        preg_match_all("/\[(.*?)\]/",$item['retweeted_status']['text'],$face_matches,PREG_SET_ORDER);
-        if($face_matches){
-            foreach($face_matches as $element){
-                $story_file="/storify/img/weibo/".$element[1].".gif";
-                $local_file=$abs_path_matches[1].$story_file;
-                if(is_readable($local_file)){
-                    $img_replace="<img src='".$story_file."'>";
-                    $item['retweeted_status']['text']=str_replace($element[0],$img_replace,$item['retweeted_status']['text']);
-                }
-            }
-        }
+        $item['retweeted_status']['text'] = subs_emotions($item['retweeted_status']['text'],"weibo");
 
         $createTime = dateFormat($item['created_at']);
 

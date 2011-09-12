@@ -4,7 +4,6 @@ require_once "../connect_db.php";
 require_once "../include/functions.php";
 session_start();
 
-
 function binhex($str) 
 {
     $hex = "";
