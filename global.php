@@ -8,7 +8,9 @@
    //unset($debug); //不允许调试
    session_start();
    $debug=1;
-    
+   
+   $MAX_DAYS=30;
+ 
    if (!empty($_SERVER[HTTP_REFERER])) $url=htmlspecialchars($_SERVER[HTTP_REFERER]); 
    
    if (get_magic_quotes_gpc()) {  //magic_quotes_gpc开了会加"\" 先去掉

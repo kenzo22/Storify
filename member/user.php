@@ -1,5 +1,6 @@
 <?php
 include "../global.php";
+include_once "../include/weibo_functions.php";
 session_start();
 include_once( '../weibo/config.php' );
 include_once( '../weibo/sinaweibo.php' );
@@ -558,7 +559,7 @@ else if(isset($_GET['post_id']) && isset($_GET['action']))
         }
         
 	  $result=$DB->query("DELETE FROM ".$db_prefix."posts where ID='".$story_id."'");
-	  go($rooturl.'/member/user.php');
+	  go($rooturl.'/member/user.php?user_id='.$_SESSION['uid']);
 	}
 	else if(0 == strcmp($story_action, 'edit'))
 	{

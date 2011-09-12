@@ -139,11 +139,12 @@ if(!islogin())
                     $tag_item=$DB->fetch_array($results);
 
 					$tag_name = $tag_item['name'];
-					$relationresult = $DB->query("select * from ".$db_prefix."tag_story where tag_id='".$tag_id."'");
+                    $query = "select * from ".$db_prefix."tag_story,story_posts where tag_id='".$tag_id."' and story_id=story_posts.id and post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_modified) <=$MAX_DAYS";
+					$relationresult = $DB->query($query);
 					$tag_count = $DB->num_rows($relationresult);
 					
                     //need to fetch the title of the most popular story which has this specific tag
-                    $query="select ".$db_prefix."posts.post_title,".$db_prefix."posts.post_pic_url from ".$db_prefix."tag_story,".$db_prefix."posts where tag_id=".$tag_id." and story_id=".$db_prefix."posts.id order by ".$db_prefix."posts.post_digg_count desc";
+                    $query="select ".$db_prefix."posts.post_title,".$db_prefix."posts.post_pic_url from ".$db_prefix."tag_story,".$db_prefix."posts where tag_id=".$tag_id." and story_id=".$db_prefix."posts.id and story_posts.post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_modified) <=$MAX_DAYS order by ".$db_prefix."posts.post_digg_count desc";
                     $result=$DB->query($query);
                     $item=$DB->fetch_array($result);
 

@@ -7,7 +7,7 @@ if(isset($_GET['topic']))
 }
 $tagresult = $DB->fetch_one_array("SELECT id FROM ".$db_prefix."tag where name='".$topic."'");
 $tag_id = $tagresult['id'];
-$query="select ".$db_prefix."posts.* from ".$db_prefix."tag_story,".$db_prefix."posts where tag_id=".$tag_id." and story_id=".$db_prefix."posts.id and TO_DAYS(NOW())-TO_DAYS(post_modified) <=30 order by ".$db_prefix."posts.post_digg_count desc limit 10";
+$query="select ".$db_prefix."posts.* from ".$db_prefix."tag_story,".$db_prefix."posts where tag_id=".$tag_id." and story_id=".$db_prefix."posts.id and TO_DAYS(NOW())-TO_DAYS(post_modified) <=$MAX_DAYS order by ".$db_prefix."posts.post_digg_count desc limit 10";
 $result=$DB->query($query);
 
 $content = "<div class='inner' style='padding-top:50px;'><h2>#".$topic."# - 最热门</h2><ul id='tagstory_ul'>";

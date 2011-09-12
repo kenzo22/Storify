@@ -41,6 +41,7 @@ if(0 == $story_id)
     $story_id=$post_id;
 
     $tag_array=mb_split('[:;,\s，：；]+',$story_tag);
+    $tag_array = array_unique($tag_array);
     foreach($tag_array as $element){
         $query="select id from ".$tag_table." where name='".$element."'";
         $result=$DB->query($query);
