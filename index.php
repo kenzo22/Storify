@@ -132,6 +132,8 @@ if(!islogin())
 				$tag_content = '';
 				  //need change to fetch the most popular topic from the database
                 $tags=getPopularTags(4);
+                $used_story=array();
+                $s_query='';
                 foreach($tags as $tag_id)
 				  {
                     $query = "select * from ".$db_prefix."tag where id=".$tag_id;
@@ -143,11 +145,16 @@ if(!islogin())
 					$relationresult = $DB->query($query);
 					$tag_count = $DB->num_rows($relationresult);
 					
+                    if($used_story){
+                        foreach($used_story as $sid){
+                            $s_query = " and story_posts.id !=".$sid;
+                        }
+                    }
                     //need to fetch the title of the most popular story which has this specific tag
-                    $query="select ".$db_prefix."posts.post_title,".$db_prefix."posts.post_pic_url from ".$db_prefix."tag_story,".$db_prefix."posts where tag_id=".$tag_id." and story_id=".$db_prefix."posts.id and story_posts.post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_modified) <=$MAX_DAYS order by ".$db_prefix."posts.post_digg_count desc";
+                    $query="select story_posts.id,".$db_prefix."posts.post_title,".$db_prefix."posts.post_pic_url from ".$db_prefix."tag_story,".$db_prefix."posts where tag_id=".$tag_id." and story_id=".$db_prefix."posts.id ".$s_query." and story_posts.post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_modified) <=$MAX_DAYS order by ".$db_prefix."posts.post_digg_count desc";
                     $result=$DB->query($query);
                     $item=$DB->fetch_array($result);
-
+                    $used_story[] = $item['id'];
 
 					$tag_content .= "<li><div class='topic_meta'><span class='topic_title'>#".$tag_name."#</span><span class='story_count'>".$tag_count."</span></div>
 					<a class='topic_cover' style='background-image: url(".$item['post_pic_url'].");' href='./topic/topic.php?topic=".$tag_name."'><div class='title_wrap'><h1 class='title'>".$item['post_title']."</h1></div></a></li>";
