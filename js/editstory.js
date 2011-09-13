@@ -1213,7 +1213,7 @@ $(function() {
 		  if(1 != selVTab)
 		  {
 		    $weiboTabs.tabs( "select" , 0 );
-		    $('#weibo_search').css('display', 'block');
+		    $('#weibo_search').removeClass('none');
 			$('#source_list').css('height', '665px').children().remove();
 		  }
 		  selVTab = 1;
@@ -1253,7 +1253,7 @@ $(function() {
 		  if(0 != selVTab)
 		  {
 		    $weiboTabs.tabs( "select" , 0 );
-		    $('#weibo_search').css('display', 'block');
+		    $('#weibo_search').removeClass('none');
 			$('#source_list').css('height', '665px').children().remove();
 		  }
 		  selVTab = 0;
