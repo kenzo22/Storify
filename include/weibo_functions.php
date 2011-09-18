@@ -1,8 +1,23 @@
 <?php
 
+function binhex($str)
+{
+    $hex = ""; 
+    $i = 0;
+    do {
+        $hex .= sprintf("%02x", ord($str{$i}));
+        $i++;
+    } while ($i < strlen($str));
+    return $hex;
+}
+
 function subs_emotions($string,$img_parent_dir)
 {
-    preg_match("/(.*?)\/storify/",getcwd(),$abs_path_matches);
+	$OS=php_uname('s');
+	$cwd = getcwd();
+	if(strstr($OS,'Windows'))
+		$cwd = str_replace("\\",'/',$cwd);
+    preg_match("/(.*?)\/storify/",$cwd,$abs_path_matches);
     $story_img_path="/storify/img/";
 
     // show emotions in text
@@ -15,19 +30,34 @@ function subs_emotions($string,$img_parent_dir)
     if($face_matches){
         foreach($face_matches as $element){
             if($img_parent_dir == "tweibo"){
-                for($i=1; $i<=strlen($element[1]); $i++){
-                    $story_file =  $story_img_path."tweibo/".substr($element[1],0,$i).".gif";
+				// utf-8 汉字都是3字节的
+                for($i=3; $i<=strlen($element[1]); $i+=3){
+					$fn = substr($element[1],0,$i);
+					if(strstr($OS,"Windows"))
+						$fn = iconv("UTF-8","GBK",$fn);
+                    $story_file =  $story_img_path."tweibo/".$fn.".gif";
                     $local_file = $abs_path_matches[1].$story_file;
                     if(is_readable($local_file)){
+						if(strstr($OS,'Windows')){
+							$fn = iconv('GBK','UTF-8',$fn);
+							$story_file =  $story_img_path."tweibo/".$fn.".gif";
+						}	
                         $img_replace = "<img src='".$story_file."'>";
                         $string= str_replace(substr($element[0],0,$i+1),$img_replace,$string);
                         break;
                     }
                 }
             }elseif($img_parent_dir == "weibo"){
-                $story_file=$story_img_path."weibo/".$element[1].".gif";
+				$fn = $element[1];
+				if(strstr($OS,"Windows"))
+					$fn = iconv("UTF-8","GBK",$fn);		
+                $story_file=$story_img_path."weibo/".$fn.".gif";
                 $local_file=$abs_path_matches[1].$story_file;
                 if(is_readable($local_file)){
+					if(strstr($OS,'Windows')){
+						$fn = iconv('GBK','UTF-8',$fn);
+						$story_file =  $story_img_path."weibo/".$fn.".gif";
+					}
                     $img_replace="<img src='".$story_file."'>";
                     $string=str_replace($element[0],$img_replace,$string);
                 }
