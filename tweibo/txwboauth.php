@@ -465,7 +465,7 @@ $ip = "Unknown";
     } 
 
 //2.Search/t 搜索微博
-    function search_t($keyword,$page=1,$pagesize=10,$format='json')
+    function search_t($keyword,$page=1,$pagesize=20,$format='json')
 	   {
     	$param['format']=$format;
     	$param['page']=$page;

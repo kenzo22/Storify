@@ -11,7 +11,8 @@ $c = new TWeiboClient( MB_AKEY , MB_SKEY , $_SESSION['last_key']['oauth_token'] 
 
 echo "<br /><br /><br />";
 
-$me=$c->t_show("15656096264731");
+//$me=$c->t_show("15656096264731");
+$me=$c->search_t("微博");
 
 echo "<pre>";
 foreach($me as $key => $value){

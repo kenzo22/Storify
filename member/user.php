@@ -12,8 +12,6 @@ include_once "userrelation.php";
 ?>
 <link type="text/css" href="/storify/css/jquery.ui.theme.css" rel="stylesheet" />
 <link type="text/css" href="/storify/css/jquery.ui.button.css" rel="stylesheet" />
-<script type='text/javascript' src='/storify/js/jquery-ui-1.8.12.custom.min.js'></script>
-<script type="text/javascript" src="/storify/js/jquery.embedly.min.js"></script>
 
 <?php
 
@@ -64,23 +62,33 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	$weibo_id_array = array();
 	$tweibo_id_array = array();
 	
+	$content = "<div id='jiathis_style_32x32'>
+				  <a class='jiathis_button_qzone'></a>
+				  <a class='jiathis_button_tsina'></a>
+				  <a class='jiathis_button_tqq'></a>
+				  <a class='jiathis_button_renren'></a>
+				  <a class='jiathis_button_kaixin001'></a>
+				  <a href='http://www.jiathis.com/share' class='jiathis jiathis_txt jtico jtico_jiathis' target='_blank'></a>
+				  <a class='jiathis_counter_style'></a>
+			    </div>";
+	
 	if(!islogin() || $story_author != $_SESSION['uid'])
 	{
-	  $content = "<div id='story_container'><div class='digg_wrap'><div id='".$post_id."_digg_count' style='margin-top:10px;'>".$story_digg_count."</div><a id='".$post_id."_act_digg' class='act_digg'>顶一下</a></div><div id='publish_container' class='showborder'>";
+	  $content = "<div id='story_container'><div class='digg_wrap'><div id='".$post_id."_digg_count' style='margin-top:10px;'>".$story_digg_count."</div><a id='".$post_id."_act_digg' class='act_digg'><img src='../img/ding.ico' /></a></div><div id='publish_container' class='showborder'>";
 	}
 	else
 	{
 	  if(0 == strcmp($story_status, 'Published'))
 	  {
-	    $content = "<div id='story_container'><div class='digg_wrap'><div id='".$post_id."_digg_count' style='margin-top:10px;'>".$story_digg_count."</div><a id='".$post_id."_act_digg' class='act_digg'>顶一下</a></div><div id='publish_container' class='showborder'>
-			  <div id='story_action'><span>已发布</span><span class='float_r'><a href='#'>通告
-			  </a> | <a href='/storify/member/user.php?post_id=".$post_id."&action=remove'>删除</a> | <a href='/storify/member/user.php?post_id=".$post_id."&action=edit'>编辑</a></span></div>";
+	    $content = "<div id='story_container'><div class='digg_wrap'><div id='".$post_id."_digg_count' style='margin-top:10px;'>".$story_digg_count."</div><a id='".$post_id."_act_digg' class='act_digg'><img src='../img/ding.ico' /></a></div><div id='publish_container' class='showborder'>
+			  <div id='story_action'><span>已发布</span><span class='float_r'><a href='#'><img src='../img/guangbo.ico' title='通告' style='width:16px; height:16px;'/>
+			  </a>&nbsp<a href='/storify/member/user.php?post_id=".$post_id."&action=remove'><img src='../img/delete.gif' title='删除' style='width:16px; height:16px;'/></a>&nbsp<a href='/storify/member/user.php?post_id=".$post_id."&action=edit'><img src='../img/edit.png' title='编辑' style='width:16px; height:16px;'/></a></span></div>";
 	  }
 	  else
 	  {
 	    $content = "<div id='story_container'><div id='publish_container' class='showborder'>
-			  <div id='story_action'><span>草稿</span><span class='float_r'><a href='/storify/member/user.php?post_id=".$post_id."&action=remove'>删除
-			  </a> | <a href='/storify/member/user.php?post_id=".$post_id."&action=edit'>编辑</a> | <a href='/storify/member/user.php?post_id=".$post_id."&action=publish'>发布</a></span></div>";
+			  <div id='story_action'><span>草稿</span><span class='float_r'><a href='/storify/member/user.php?post_id=".$post_id."&action=remove'><img src='../img/delete.gif' title='删除' style='width:16px; height:16px;'/>
+			  </a>&nbsp<a href='/storify/member/user.php?post_id=".$post_id."&action=edit'><img src='../img/edit.png' title='编辑' style='width:16px; height:16px;'/></a>&nbsp&nbsp<a href='/storify/member/user.php?post_id=".$post_id."&action=publish'><img src='../img/publish.ico' title='发布' style='width:16px; height:16px;'/></a></span></div>";
 	  }	
 	}
 
@@ -635,8 +643,6 @@ function append_video_content(url)
 
 $(function(){
 	$('#user_action').css('display', 'inline');
-	//$('#publish_container').css({'margin':'auto', 'width':'80%'});
-	//$('.weibo_drop').css({'margin':'auto', 'width':'60%', 'margin-top':'10px', 'border':'none'});
 	$('.video_element').each(function()
 	{
 	  var videoUrl = $(this).find('.videoTitle').attr('href');
@@ -684,10 +690,11 @@ $(function(){
 	
 </script>
 
+<script type='text/javascript' src='/storify/js/jquery-ui-1.8.12.custom.min.js'></script>
+<script type="text/javascript" src="/storify/js/jquery.embedly.min.js"></script>
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" src="http://v2.jiathis.com/code/jiathis_r.js?move=0&amp;btn=r2.gif" charset="utf-8"></script>
+<!-- JiaThis Button END -->
 <?php
- /*echo  "sina".$_SESSION['last_key']['oauth_token']."<br />";
- echo  "sina".$_SESSION['last_key']['oauth_token_secret']."<br />";
- echo  "tencent".$_SESSION['last_tkey']['oauth_token']."<br />";
- echo  "tencent".$_SESSION['last_tkey']['oauth_token_secret']."<br />";*/
 include "../include/footer.htm";
 ?>

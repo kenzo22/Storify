@@ -38,7 +38,7 @@ else if('list_weibo' == $operation)
 else if('weibo_search' == $operation)
 {
   $keywords = $_GET['keywords'];
-  $tweibo  = $c->search_t($keywords);
+  $tweibo  = $c->search_t($keywords, $page, 20);
 }
 else if('user_search' == $operation)
 {
@@ -130,8 +130,8 @@ else
             }
         }
     }
-    $weiboContent .= "<div><span class='create_time'>".$create_time."</span>
-    <span style='float:right;'><a>[转发]</a></span></div></div></div></li>";
+    $weiboContent .= "</div><span class='create_time'>".$create_time."</span>
+    <span style='float:right;'><a>[转发]</a></span></div></li>";
 
   }
   $weiboContent .="<div class='loadmore'><a>更多</a><span id='".$lastTimestamp."'></span></div>";
