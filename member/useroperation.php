@@ -17,7 +17,7 @@ switch($operation)
   {
 	case "follow":
         follow($follow_uid);
-		$content = "<li id='follower_id_".$item['id']."'><a class='follow_mini_icon' href='/storify/member/user.php?user_id=".$item['id']."'><img src='".$usr_img."' title='".$item['username']."'></a></li>";
+		$content = "<li id='follower_id_".$item['id']."'><a class='follow_mini_icon' href='/member/user.php?user_id=".$item['id']."'><img src='".$usr_img."' title='".$item['username']."'></a></li>";
 		break;
 	case"unfollow":
         unfollow($follow_uid);

@@ -6,8 +6,7 @@ function log(sData)
 function weibo_login() 
 {
   WB.connect.login(function() {
-    self.location = '/storify/member/';
-	//self.location = '/storify/member/testweibo.php';
+    self.location = '/member/';
 	log('login');
   });
 }

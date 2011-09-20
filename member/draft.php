@@ -27,7 +27,7 @@ else
   post_modified='".$pulish_time."', post_modified_gmt='".$pulish_time."' WHERE ID='".$post_id."'");
 }
 
-$redirect_url = "/storify/member/user.php?post_id=".$post_id;
+$redirect_url = "user.php?post_id=".$post_id;
 echo $redirect_url;
 
 ?>

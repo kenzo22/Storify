@@ -13,7 +13,7 @@ if($operation == 'add')
   $keys = $o->getRequestToken();
   //$aurl = $o->getAuthorizeURL( $keys['oauth_token'] ,false , $_SERVER['SCRIPT_URI'].'/callback.php');
   //$aurl = $o->getAuthorizeURL( $keys['oauth_token'] ,false , $_SERVER['REQUEST_URI'].'/callback.php');
-  $aurl = $o->getAuthorizeURL( $keys['oauth_token'] ,false , 'http://story.com/storify/weibo/callback.php');
+  $aurl = $o->getAuthorizeURL( $keys['oauth_token'] ,false , 'http://koulifang.com/weibo/callback.php');
   $_SESSION['keys'] = $keys;
   echo $aurl;
 }

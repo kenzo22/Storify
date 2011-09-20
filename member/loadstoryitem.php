@@ -44,7 +44,7 @@ foreach($story_content_array as $key=>$val)
 		<div id='story_signature'><span style='float:right;'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
 		.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><span id='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'>
 		<span ><a class='weibo_from' href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date'  style='text-align:right; height:16px;'><span>
-		<img border='0' style='position:relative; top:2px' src='/Storify/img/sina16.png'/><a>".$createTime."</a></span></div></span> </div></div></li>";
+		<img border='0' style='position:relative; top:2px' src='../img/sina16.png'/><a>".$createTime."</a></span></div></span> </div></div></li>";
 	}
   }
   else if($val['type'] === 'tweibo')
@@ -68,7 +68,7 @@ foreach($story_content_array as $key=>$val)
 		<div id='story_signature'><span style='float:right;'><a href='http://t.qq.com/".$tweiboData['name']."' target='_blank'><img class='profile_img' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
 		.$profileImgUrl."' alt='".$tweiboData['nick']."' border=0 /></a></span><span id='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'>
 		<span ><a class='weibo_from' href='http://t.qq.com/".$tweiboData['name']."' target='_blank'>".$tweiboData['nick']."</a></span></div><div class='weibo_date'  style='text-align:right; height:16px;'><span>
-		<img border='0' style='position:relative; top:2px' src='/Storify/img/tencent16.png'/><a>".$create_time."</a></span></div></span> </div></div></li>";
+		<img border='0' style='position:relative; top:2px' src='../img/tencent16.png'/><a>".$create_time."</a></span></div></span> </div></div></li>";
 	}
   }
   else if($val['type'] === 'comment')

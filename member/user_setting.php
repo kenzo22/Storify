@@ -17,16 +17,16 @@ if(!empty($result['photo']))
 	   $pattern = "/50$/";
 	   $user_profile_img = preg_replace($pattern,'100',$result['photo']);
 	 }
-	$userphoto="<img style='float:left;' width='80px' height='80px' src='".$user_profile_img."'> </img><div><a class='update_profile_img' style='margin-left:10px;float:left' href='/storify/member/uploadphoto.php'>更换头像</a></div>";
+	$userphoto="<img style='float:left;' width='80px' height='80px' src='".$user_profile_img."'> </img><div><a class='update_profile_img' style='margin-left:10px;float:left' href='uploadphoto.php'>更换头像</a></div>";
   }
   else
   {
-    $userphoto="<img style='float:left;' width='80px' height='80px' src='".$result['photo']."'> </img><div><a class='update_profile_img' style='margin-left:10px;float:left' href='/storify/member/uploadphoto.php'>更换头像</a></div>";
+    $userphoto="<img style='float:left;' width='80px' height='80px' src='".$result['photo']."'> </img><div><a class='update_profile_img' style='margin-left:10px;float:left' href='uploadphoto.php'>更换头像</a></div>";
   } 
 }    
 else
 {
-  $userphoto="<a class='update_profile_img' href='/storify/member/uploadphoto.php'>放你的头像上来</a>";
+  $userphoto="<a class='update_profile_img' href='uploadphoto.php'>放你的头像上来</a>";
 }			
 $user_set = "<div class='inner' style='padding-top:50px; margin-bottom:180px;'>
 			<div><h2>".$result['username']."的帐号"."</h2></div>
@@ -35,7 +35,7 @@ $user_set = "<div class='inner' style='padding-top:50px; margin-bottom:180px;'>
 				<span class='now'>
 				  <span>基本设置</span>
 				</span>
-				<a href='/storify/member/source.php'>第三方应用授权</a>
+				<a href='source.php'>第三方应用授权</a>
 			  </div>
 			</div>
 			<form id='lzform' name='lzform' method='post'>

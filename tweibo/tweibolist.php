@@ -11,6 +11,39 @@ $c = new TWeiboClient( MB_AKEY , MB_SKEY , $_SESSION['last_key']['oauth_token'] 
 
 echo "<br /><br /><br />";
 
+function binhex($str)
+{
+$hex = "";
+$i = 0;
+do {
+$hex .= sprintf("%02x", ord($str{$i}));
+$i++;
+} while ($i < strlen($str));
+return $hex;
+}
+echo getcwd();
+
+$a="撇嘴.gif";
+$fa=iconv("UTF-8","GBK",$a);
+if (is_readable("d:/xampp/htdocs/storify/img/tweibo/".$fa))
+{
+echo '<li>'.$a.'</li>';
+
+}
+
+$dirname="../img/tweibo/";
+$dir = opendir($dirname);
+
+while(false !== ($file = readdir($dir)))
+{
+if($file != "." && $file != "..")
+if(file_exists($dirname.$file))
+echo '<li>'.iconv("GBK",'UTF-8',$file).'</li>';
+
+}
+
+
+
 //$me=$c->t_show("15656096264731");
 $me=$c->search_t("微博");
 

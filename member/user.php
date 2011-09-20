@@ -10,8 +10,8 @@ include_once( '../douban/config.php' );
 include_once( '../douban/doubanapi.php' );
 include_once "userrelation.php";
 ?>
-<link type="text/css" href="/storify/css/jquery.ui.theme.css" rel="stylesheet" />
-<link type="text/css" href="/storify/css/jquery.ui.button.css" rel="stylesheet" />
+<link type="text/css" href="../css/jquery.ui.theme.css" rel="stylesheet" />
+<link type="text/css" href="../css/jquery.ui.button.css" rel="stylesheet" />
 
 <?php
 
@@ -82,13 +82,13 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	  {
 	    $content = "<div id='story_container'><div class='digg_wrap'><div id='".$post_id."_digg_count' style='margin-top:10px;'>".$story_digg_count."</div><a id='".$post_id."_act_digg' class='act_digg'><img src='../img/ding.ico' /></a></div><div id='publish_container' class='showborder'>
 			  <div id='story_action'><span>已发布</span><span class='float_r'><a href='#'><img src='../img/guangbo.ico' title='通告' style='width:16px; height:16px;'/>
-			  </a>&nbsp<a href='/storify/member/user.php?post_id=".$post_id."&action=remove'><img src='../img/delete.gif' title='删除' style='width:16px; height:16px;'/></a>&nbsp<a href='/storify/member/user.php?post_id=".$post_id."&action=edit'><img src='../img/edit.png' title='编辑' style='width:16px; height:16px;'/></a></span></div>";
+			  </a>&nbsp<a href='/member/user.php?post_id=".$post_id."&action=remove'><img src='../img/delete.gif' title='删除' style='width:16px; height:16px;'/></a>&nbsp<a href='/member/user.php?post_id=".$post_id."&action=edit'><img src='../img/edit.png' title='编辑' style='width:16px; height:16px;'/></a></span></div>";
 	  }
 	  else
 	  {
 	    $content = "<div id='story_container'><div id='publish_container' class='showborder'>
-			  <div id='story_action'><span>草稿</span><span class='float_r'><a href='/storify/member/user.php?post_id=".$post_id."&action=remove'><img src='../img/delete.gif' title='删除' style='width:16px; height:16px;'/>
-			  </a>&nbsp<a href='/storify/member/user.php?post_id=".$post_id."&action=edit'><img src='../img/edit.png' title='编辑' style='width:16px; height:16px;'/></a>&nbsp&nbsp<a href='/storify/member/user.php?post_id=".$post_id."&action=publish'><img src='../img/publish.ico' title='发布' style='width:16px; height:16px;'/></a></span></div>";
+			  <div id='story_action'><span>草稿</span><span class='float_r'><a href='/member/user.php?post_id=".$post_id."&action=remove'><img src='../img/delete.gif' title='删除' style='width:16px; height:16px;'/>
+			  </a>&nbsp<a href='/member/user.php?post_id=".$post_id."&action=edit'><img src='../img/edit.png' title='编辑' style='width:16px; height:16px;'/></a>&nbsp&nbsp<a href='/member/user.php?post_id=".$post_id."&action=publish'><img src='../img/publish.ico' title='发布' style='width:16px; height:16px;'/></a></span></div>";
 	  }	
 	}
 
@@ -154,7 +154,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
             $content .= "<div id='story_signature'><span style='float:right;'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
 			.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><span id='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'>
 			<span ><a class='weibo_from' href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date'  style='text-align:right; height:16px;'><span>
-			<img border='0' style='position:relative; top:2px' src='/storify/img/sina16.png'/><a>".$createTime."</a></span></div></span> </div></div></li>";
+			<img border='0' style='position:relative; top:2px' src='../img/sina16.png'/><a>".$createTime."</a></span></div></span> </div></div></li>";
 		}
 		break;}
 		 
@@ -206,7 +206,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 				  </div>
 				  <div class='douban_date_drop'  style='text-align:right; height:16px;'>
 				    <span>
-					  <img border='0' style='position:relative; top:2px; width:16px; height:16px;' src='/storify/img/logo_douban.png'/>
+					  <img border='0' style='position:relative; top:2px; width:16px; height:16px;' src='../img/logo_douban.png'/>
 					</span>
 				  </div>
 				</span> 
@@ -296,7 +296,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 					</div>
 					<div class='douban_date_drop'  style='text-align:right; height:16px;'>
 					  <span> 
-						<img border='0' style='position:relative; top:2px; width:16px; height:16px;' src='/storify/img/logo_douban.png'/>
+						<img border='0' style='position:relative; top:2px; width:16px; height:16px;' src='../img/logo_douban.png'/>
 						<a>".$time_array[0]."</a>
 					  </span>
 					</div>
@@ -353,7 +353,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 				  </div>
 				</div>
 				<div class='douban_signature' style='text-align:right; overflow:auto;'>
-				  <img border='0' style='width:16px; height:16px;' src='/storify/img/logo_douban.png'/>
+				  <img border='0' style='width:16px; height:16px;' src='../img/logo_douban.png'/>
 				</div>
 			  </div>
 			</li>";
@@ -421,7 +421,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	<div id='userinfo_container' class='showborder'>
 	  <div class='user_profiles'>
 	    <div class='user_box'>
-		  <div class='avatar'><a href='".$rooturl."/member/user.php?user_id=".$story_author."'><img style='' width='80px' height='80px' src='".$user_profile_img."'></a></div>";
+		  <div class='avatar'><a href='/member/user.php?user_id=".$story_author."'><img style='' width='80px' height='80px' src='".$user_profile_img."'></a></div>";
 	if(islogin() && $story_author != $_SESSION['uid'])
 	{
 	  $login_user_id = $_SESSION['uid'];
@@ -443,7 +443,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
     $following_list = getFollowing($story_author);
     $follower_list=getFollower($story_author);
 
-	$content .="<div class='user_info'><a href='".$rooturl."/member/user.php?user_id=".$story_author."'><P>".$userresult['username']."</P></a><P>".$userresult['intro']."</P></div>
+	$content .="<div class='user_info'><a href='/member/user.php?user_id=".$story_author."'><P>".$userresult['username']."</P></a><P>".$userresult['intro']."</P></div>
 		  <div class='usersfollowers'>
 		    <span style='vertical-align:top'>粉丝</span><span style='vertical-align:top' class='count'>".sizeof($follower_list)."</span>
 		    <ul class='follower_list'>";
@@ -453,7 +453,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
         $result=$DB->query($query);
         $item=$DB->fetch_array($result);
 		$usr_img = $item['photo'];
-        $content .="<li id='follower_id_".$item['id']."'><a class='follow_mini_icon' href='/storify/member/user.php?user_id=".$item['id']."'><img title='".$item['username']."' src='".$usr_img."'></a></li>";
+        $content .="<li id='follower_id_".$item['id']."'><a class='follow_mini_icon' href='/member/user.php?user_id=".$item['id']."'><img title='".$item['username']."' src='".$usr_img."'></a></li>";
     }
     $content .= "</ul>
                 </div>
@@ -465,7 +465,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
         $result=$DB->query($query);
         $item=$DB->fetch_array($result);
 		$usr_img = $item['photo'];
-        $content .="<li id='following_id_".$item['id']."'><a class='follow_mini_icon' href='/storify/member/user.php?user_id=".$item['id']."'><img title='".$item['username']."' src='".$usr_img."'></a></li>";
+        $content .="<li id='following_id_".$item['id']."'><a class='follow_mini_icon' href='/member/user.php?user_id=".$item['id']."'><img title='".$item['username']."' src='".$usr_img."'></a></li>";
     }
     $content .= "
 			</ul>
@@ -567,16 +567,16 @@ else if(isset($_GET['post_id']) && isset($_GET['action']))
         }
         
 	  $result=$DB->query("DELETE FROM ".$db_prefix."posts where ID='".$story_id."'");
-	  go($rooturl.'/member/user.php?user_id='.$_SESSION['uid']);
+	  go('/member/user.php?user_id='.$_SESSION['uid']);
 	}
 	else if(0 == strcmp($story_action, 'edit'))
 	{
-	  go($rooturl.'/member/index.php?post_id='.$story_id);
+	  go('/member/index.php?post_id='.$story_id);
 	}
 	else if(0 == strcmp($story_action, 'publish'))
 	{
 	  $result=$DB->query("update ".$db_prefix."posts set post_status='Published'  WHERE ID='".$story_id."'");
-	  go($rooturl.'/member/user.php?post_id='.$story_id);
+	  go('/member/user.php?post_id='.$story_id);
 	}
 	
 	{
@@ -602,7 +602,7 @@ else if(isset($_GET['user_id']))
 	$temp_array = explode(" ", $story_item['post_date']);
 	$post_date = $temp_array[0];
 	//if(!islogin() || $story_author != $_SESSION['uid'])
-    $story_content .= "<li><div class='story_wrap'><a class='cover' style='background: url(".$post_pic_url.") no-repeat; background-size: 100%;' href='/storify/member/user.php?post_id=".$story_item['ID']."'><div class='title_wrap'><h1 class='title'>".$post_title."</h1></div></a><div class='editable'>
+    $story_content .= "<li><div class='story_wrap'><a class='cover' style='background: url(".$post_pic_url.") no-repeat; background-size: 100%;' href='/member/user.php?post_id=".$story_item['ID']."'><div class='title_wrap'><h1 class='title'>".$post_title."</h1></div></a><div class='editable'>
   <div class='status'>
     <div class='".$post_status."'>
 	  <div class='icon'></div>
@@ -614,7 +614,7 @@ else if(isset($_GET['user_id']))
     $story_content .="
     <div class='actions'>
       <a id='".$post_id."' class='icon delete' title='删除' href='#'><img src='../img/delete.gif' style='width:16px; height:16px;'/></a>
-	  <a class='icon edit' title='编辑' href='".$rooturl."/member/index.php?post_id=".$post_id."'><img src='../img/edit.png' style='width:16px; height:16px;'/></a>
+	  <a class='icon edit' title='编辑' href='/member/index.php?post_id=".$post_id."'><img src='../img/edit.png' style='width:16px; height:16px;'/></a>
     </div>";
   }
    $story_content .="<div class='clear'></div>
@@ -690,8 +690,8 @@ $(function(){
 	
 </script>
 
-<script type='text/javascript' src='/storify/js/jquery-ui-1.8.12.custom.min.js'></script>
-<script type="text/javascript" src="/storify/js/jquery.embedly.min.js"></script>
+<script type='text/javascript' src='../js/jquery-ui-1.8.12.custom.min.js'></script>
+<script type="text/javascript" src="../js/jquery.embedly.min.js"></script>
 <!-- JiaThis Button BEGIN -->
 <script type="text/javascript" src="http://v2.jiathis.com/code/jiathis_r.js?move=0&amp;btn=r2.gif" charset="utf-8"></script>
 <!-- JiaThis Button END -->

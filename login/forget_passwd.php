@@ -46,7 +46,7 @@
 	$pwd=md5($_POST['newpwd']);
 	$DB->query("update ".$db_prefix."user set passwd='".$pwd."'  WHERE username='".$username."'");
     session_destroy();
-	go($rooturl."/login/login.php","修改密码成功,请重新登陆",2);
+	go("/login/login.php","修改密码成功,请重新登陆",2);
   }
   include "../include/footer.htm";
 ?>

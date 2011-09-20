@@ -9,7 +9,7 @@ WB.core.load(['connect', 'client', 'widget.base', 'widget.atWhere'], function()
   var cfg = {
               //key: '314237338',
 			  key: '2417356638',
-			  xdpath: 'http://story.com/storify/html/xd.html'
+			  xdpath: 'http://story.com/html/xd.html'
 			};
   WB.connect.init(cfg);
   WB.client.init(cfg);
@@ -66,12 +66,12 @@ if(isset($_GET['logout']))
 			{
 			  WB.connect.logout(function() 
 			  {
-				self.location = '/storify/index.php';
+				self.location = '/index.php';
 			  });
 			}
 			</script>";
 	session_destroy(); 
-	go($rooturl);
+	go("/index.php");
 	exit;
 }
 
@@ -96,7 +96,7 @@ if($email && $passwd)
 	$_SESSION['weibo_uid']=intval($result['weibo_user_id']);
 	if(0 == $_SESSION['weibo_uid'] && '' == $result['tweibo_access_token'])
 	{
-	  go($rooturl."/member/source.php");
+	  go("/member/source.php");
 	}
 	else
 	{
@@ -115,9 +115,9 @@ if($email && $passwd)
 	  else
 	  {
 	    $temparray = parse_url($_SERVER['HTTP_REFERER']);
-		if($temparray['path'] == '/storify/login/login.php')
+		if($temparray['path'] == '/login/login.php')
 		{
-		  go($rooturl);
+		  go("/index.php");
 		}
 		else
 		{
@@ -129,7 +129,7 @@ if($email && $passwd)
   }
   else
   {
-    go($rooturl."/login/login.php");
+    go("/login/login.php");
   }
 }
 
@@ -145,12 +145,12 @@ if($_POST['act']!="login")  //default 登陆界面
   }
   $content .="<div><b> 邮 箱 &nbsp; </b><input type='text' name='email' id='email_login' size='30'></input><span class='form_tip' id='email_tip'></span></div>
 	  <div><b> 密 码 &nbsp; </b><input type='password' name='passwd' id='pwd_login' size='30'></input><span class='form_tip' id='pwd_tip'></span></div><br />
-	  <span> <input type='checkbox' name='autologin'>下次自动登录</span> | <span><a href='/storify/login/forget_form.php'/>忘记密码了？</a><span>
+	  <span> <input type='checkbox' name='autologin'>下次自动登录</span> | <span><a href='/login/forget_form.php'/>忘记密码了？</a><span>
       <div>
         <input id='loginbtn' type='submit' value='登录'/><input type='hidden' name='act' value='login'>
 	  </div>
 	</div>
-	<div class='float_r' style='margin-top:40px;'><span>还没有口立方帐号，<a href='/storify/register/register_form.php'/>立即注册？</a></span></div>
+	<div class='float_r' style='margin-top:40px;'><span>还没有口立方帐号，<a href='/register/register_form.php'/>立即注册？</a></span></div>
   </div>
   <div class='inner' style='height:50px;'></div>
 </form>";

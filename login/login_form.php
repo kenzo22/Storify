@@ -35,7 +35,7 @@ if(this.value=='')
     <div class='float_l' style='margin-top:20px;' id='login'>
 	  <div><b> 邮 箱 &nbsp; </b><input type='text' name='email' id='email_login' size='20' value='' onclick='this.value=""'></input><span class='form_tip' id='email_tip'></span></div>
 	  <div><b> 密 码 &nbsp; </b><input type='password' name='passwd' id='pwd_login' size='20' onclick='this.value=""'></input><span class='form_tip' id='pwd_tip'></span></div><br />
-	  <span> <input type='checkbox' name='autologin'>下次自动登录</span> | <span><a href='/storify/login/forget_form.php'/>忘记密码了？</a><span>
+	  <span> <input type='checkbox' name='autologin'>下次自动登录</span> | <span><a href='/login/forget_form.php'/>忘记密码了？</a><span>
 	  <div><span style='color:red;'>请输入你在口立方的注册密码</span></div>
 	  <div>
         <input type='submit' value='登录'/>

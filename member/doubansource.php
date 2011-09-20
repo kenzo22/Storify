@@ -10,7 +10,7 @@ if($operation == 'add')
 {
   $d = new DoubanOAuth( DB_AKEY , DB_SKEY  );
   $dkeys = $d->getRequestToken();
-  $durl = $d->getAuthorizeURL( $dkeys['oauth_token'] ,false , 'http://story.com/storify/douban/callback.php');
+  $durl = $d->getAuthorizeURL( $dkeys['oauth_token'] ,false , 'http://koulifang.com/douban/callback.php');
   $_SESSION['dkeys'] = $dkeys;
   echo $durl;
 }

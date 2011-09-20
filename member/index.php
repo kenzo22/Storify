@@ -7,15 +7,15 @@ include_once( '../tweibo/txwboauth.php' );
 include_once( '../douban/config.php' );
 include_once( '../douban/doubanapi.php' );
 ?>
-<link type="text/css" href="/storify/css/jquery.ui.theme.css" rel="stylesheet" />
-<link type="text/css" href="/storify/css/jquery.ui.tabs.css" rel="stylesheet" />
+<link type="text/css" href="../css/jquery.ui.theme.css" rel="stylesheet" />
+<link type="text/css" href="../css/jquery.ui.tabs.css" rel="stylesheet" />
 <link type="text/css" rel="stylesheet" href="http://js.wcdn.cn/t3/style/css/common/card.css" />
-<link rel="stylesheet" type="text/css" href="/storify/CLEditor/jquery.cleditor.css" />
-<script type="text/javascript" src="/storify/CLEditor/jquery.cleditor.min.js"></script>
-<script type="text/javascript" src="/storify/js/jquery.embedly.min.js"></script>
-<script type='text/javascript' src='/storify/js/weibo.js'></script>
-<script type='text/javascript' src='/storify/js/jquery-ui-1.8.12.custom.min.js'></script>
-<script type='text/javascript' src='/storify/js/editstory.js'></script>
+<link rel="stylesheet" type="text/css" href="../CLEditor/jquery.cleditor.css" />
+<script type="text/javascript" src="../CLEditor/jquery.cleditor.min.js"></script>
+<script type="text/javascript" src="../js/jquery.embedly.min.js"></script>
+<script type='text/javascript' src='../js/weibo.js'></script>
+<script type='text/javascript' src='../js/jquery-ui-1.8.12.custom.min.js'></script>
+<script type='text/javascript' src='../js/editstory.js'></script>
 
 <?php
 
@@ -27,11 +27,11 @@ $content = "
 	  <div id='sourcelist_container'>
 	    <div id='vtab'>
 		  <ul>
-		    <li class='weiboLi'><a><img class='source_img' title='新浪微博' src='/storify/img/sina24.png' /></a></li>
-			<li class='tweiboLi'><a><img class='source_img' title='腾讯微博' src='/storify/img/tencent24.png' /></a></a></li>
-			<li class='doubanLi'><a><img class='source_img' title='豆瓣社区' src='/storify/img/logo_douban.png' /></a></a></li>
-		    <li class='videoLi'><a><img class='source_img' title='优酷视频' src='/storify/img/icon-youku.png' /></a></li>
-			<li class='yupooLi'><a><img class='source_img' title='又拍社区' src='/storify/img/yupoo-logo.png' /></a></li>
+		    <li class='weiboLi'><a><img class='source_img' title='新浪微博' src='../img/sina24.png' /></a></li>
+			<li class='tweiboLi'><a><img class='source_img' title='腾讯微博' src='../img/tencent24.png' /></a></a></li>
+			<li class='doubanLi'><a><img class='source_img' title='豆瓣社区' src='../img/logo_douban.png' /></a></a></li>
+		    <li class='videoLi'><a><img class='source_img' title='优酷视频' src='../img/icon-youku.png' /></a></li>
+			<li class='yupooLi'><a><img class='source_img' title='又拍社区' src='../img/yupoo-logo.png' /></a></li>
 		  </ul>
 		  <div id='weiboTabs'>
 		    <ul>
@@ -180,7 +180,7 @@ if(isset($_GET['post_id']))
 		</div>
 		<div id='storylist_container'>
 		  <ul id='story_list' class='connectedSortable' style='padding:0;'><li class='addTextElementAnchor'>
-			  <span><a><img class='add_comment' src='/storify/img/editcomment.png' border='0'/></a></span></li>";
+			  <span><a><img class='add_comment' src='../img/editcomment.png' border='0'/></a></span></li>";
   
   foreach($story_content_array['content'] as $key=>$val)
   {	
@@ -197,7 +197,7 @@ if(isset($_GET['post_id']))
 	  }
 	  if (isset($single_weibo['error_code']) && isset($single_weibo['error']))
 	  {
-        $content .= "<li class='weibo_drop sina' id='$weibo_per_id'><div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='     remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>此微博已被原作者删除</span></div>";
+        $content .= "<li class='weibo_drop sina' id='$weibo_per_id'><div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='     remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>此微博已被原作者删除</span></div>";
         continue;
 //		echo ('Error_code: '.$single_weibo['error_code'].';  Error: '.$single_weibo['error'] );
 //		return false;
@@ -209,7 +209,7 @@ if(isset($_GET['post_id']))
         $single_weibo['text'] = subs_emotions($single_weibo['text'],"weibo");
 
 		$createTime = dateFormat($single_weibo['created_at']);
-		$content .= "<li class='weibo_drop sina' id='$weibo_per_id'><div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>".$single_weibo['text'];
+		$content .= "<li class='weibo_drop sina' id='$weibo_per_id'><div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>".$single_weibo['text'];
 
     	if (isset($single_weibo['retweeted_status'])){
             
@@ -233,16 +233,16 @@ if(isset($_GET['post_id']))
         $content .= "</div>";
         $content .= "<div id='story_signature'><span style='float:right;'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
 					.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><span id='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='weibo_from_drop' href='http://weibo.com/"
-					.$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px' src='/storify/img/sina16.png'/><a>"
-					.$createTime."</a></span></div></span></div></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/storify/img/editcomment.png' border='0'/></a></span></li>";
+					.$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px' src='../img/sina16.png'/><a>"
+					.$createTime."</a></span></div></span></div></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='../img/editcomment.png' border='0'/></a></span></li>";
 	  }
 		break;}
 		
 	  case "tweibo":{
 	  $tweibo_per_id = $val['content'];
 	  $tweibo_id_array[] = $tweibo_per_id;
-	  $content .="<li class='weibo_drop tencent' id='$tweibo_per_id'><div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div></li>
-	  <li class='addTextElementAnchor'><span><a><img class='add_comment' src='/storify/img/editcomment.png' border='0'/></a></span></li>";
+	  $content .="<li class='weibo_drop tencent' id='$tweibo_per_id'><div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div></li>
+	  <li class='addTextElementAnchor'><span><a><img class='add_comment' src='../img/editcomment.png' border='0'/></a></span></li>";
 		break;}
 		
 	  case "douban":{
@@ -258,7 +258,7 @@ if(isset($_GET['post_id']))
 	  
 	    $content .=
 		 "<li class='douban_drop douban event' id='$douban_save_per_id'>
-			<div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div>
+			<div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div>
 			<div class='douban_wrapper'>
 			  <div class='event_summary_drop'>".$doubanElement['summary'][0]['$t']."</div>
 			  <div style='margin-top:10px; overflow:auto;'>
@@ -288,7 +288,7 @@ if(isset($_GET['post_id']))
 				  </div>
 				  <div class='douban_date_drop'  style='text-align:right; height:16px;'>
 					<span>
-					  <img border='0' style='position:relative; top:2px; width:16px; height:16px;' src='/storify/img/logo_douban.png'/>
+					  <img border='0' style='position:relative; top:2px; width:16px; height:16px;' src='../img/logo_douban.png'/>
 					</span>
 				  </div>
 				</span> 
@@ -344,7 +344,7 @@ if(isset($_GET['post_id']))
 			$time_array = explode("T", $doubanElement['updated']['$t']);
 			$content .=
 			  "<li class='douban_drop douban ".$val['content']['item_type']."' id='$douban_save_per_id'>
-				<div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div>
+				<div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div>
 				<div class='douban_wrapper'>
 				  <div>
 					<div class=item_rating_drop>".$doubanElement['author']['name']['$t']."评分:".$comment_rating."</div>
@@ -379,7 +379,7 @@ if(isset($_GET['post_id']))
 					  </div>
 					  <div class='douban_date_drop'  style='text-align:right; height:16px;'>
 						<span> 
-						  <img border='0' style='position:relative; top:2px; width:16px; height:16px;' src='/storify/img/logo_douban.png'/>
+						  <img border='0' style='position:relative; top:2px; width:16px; height:16px;' src='../img/logo_douban.png'/>
 						  <a>".$time_array[0]."</a>
 						</span>
 					  </div>
@@ -425,7 +425,7 @@ if(isset($_GET['post_id']))
 			}
 			$content .=
 			"<li class='douban_drop douban ".$val['content']['item_type']."' id='$douban_save_per_id'>
-			  <div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div>
+			  <div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div>
 			  <div class='douban_wrapper'>
 				<div class='item_info' style='overflow:auto;'>
 				  <a href='".$itemLink."' target='_blank'><img class='item_img' src='".$itemPic."' style='float:left;' /></a>
@@ -437,25 +437,25 @@ if(isset($_GET['post_id']))
 				  </div>
 				</div>
 				<div class='douban_signature' style='text-align:right;'>
-				  <img border='0' style='width:16px; height:16px;' src='/storify/img/logo_douban.png'/>
+				  <img border='0' style='width:16px; height:16px;' src='../img/logo_douban.png'/>
 				</div>
 			  </div>
 			</li>";
 		}
 	  }
-	  $content .="<li class='addTextElementAnchor'><span><a><img class='add_comment' src='/storify/img/editcomment.png' border='0'/></a></span></li>";
+	  $content .="<li class='addTextElementAnchor'><span><a><img class='add_comment' src='../img/editcomment.png' border='0'/></a></span></li>";
 		break;}
 		
 	  case "comment":{
 	  $comment_text = $val['content'];
-	  $content .="<li class='textElement editted'><div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='commentBox'>"
-	  .$comment_text."</div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/storify/img/editcomment.png' border='0'/></a></span></li>";		
+	  $content .="<li class='textElement editted'><div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='commentBox'>"
+	  .$comment_text."</div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='../img/editcomment.png' border='0'/></a></span></li>";		
 		break;}	
 		
 	  case "video":{
 	  $video_url_php = $val['content'];
-	  $content .="<li class='video_drop'><div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div><a class='videoTitle' target='_blank' href='"
-	  .$video_url_php."'></a></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/storify/img/editcomment.png' border='0'/></a></span></li>";    	
+	  $content .="<li class='video_drop'><div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div><a class='videoTitle' target='_blank' href='"
+	  .$video_url_php."'></a></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='../img/editcomment.png' border='0'/></a></span></li>";    	
 		break;}
 		
 	  case "photo":{
@@ -463,8 +463,8 @@ if(isset($_GET['post_id']))
 	  $photo_title = $photo_meta_data['title'];
 	  $photo_author = $photo_meta_data['author'];
 	  $photo_per_url = $photo_meta_data['url'];	 
-	  $content .="<li class='pic_drop'><div class='cross' action='delete'><a><img src='/storify/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div style='margin:0px auto; text-align:center; border: 5px solid #FFFFFF; box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); max-width: 260px;'><img class='pic_img' src='"
-				.$photo_per_url."'/><div class='pic_title' style='line-height:1.5;'>".$photo_title."</div><div class='pic_author' style='line-height:1.5;'>".$photo_author."</div></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/storify/img/editcomment.png' border='0'/></a></span></li>"; 
+	  $content .="<li class='pic_drop'><div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div style='margin:0px auto; text-align:center; border: 5px solid #FFFFFF; box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); max-width: 260px;'><img class='pic_img' src='"
+				.$photo_per_url."'/><div class='pic_title' style='line-height:1.5;'>".$photo_title."</div><div class='pic_author' style='line-height:1.5;'>".$photo_author."</div></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='../img/editcomment.png' border='0'/></a></span></li>"; 
 		break;}
 		
 	  default:
@@ -529,7 +529,7 @@ else
 		<div id='storylist_container'>
 		  <ul id='story_list' class='connectedSortable' style='padding:0;'>
 		    <li class='addTextElementAnchor'>
-			  <span><a><img class='add_comment' src='/storify/img/editcomment.png' border='0'/></a></span>
+			  <span><a><img class='add_comment' src='../img/editcomment.png' border='0'/></a></span>
 		    </li>
 		  </ul>
 		</div>

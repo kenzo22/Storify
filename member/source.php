@@ -49,11 +49,11 @@ $content = "<div class='inner' style='padding-top:50px;'>
 <h3>为了您更好的使用口立方，我们建议您添加下面的信息源:</h3>
 <p>您之后可以在 设置 -> 第三方应用授权 里作出更改</p>
 <ul id='source_ul'>
-  <li><a href='#'><img src='/storify/img/sina32.png' title='新浪微博' /><span style='margin-left:150px;' class='source_name'>新浪微博</span></a><span class='source_status'>".$weibo_status."<a id='sina_weibo' class='unbind_source'>".$weibo_action."</a></span></li>
-  <li><a href='#'><img src='/storify/img/tencent32.png' title='腾讯微博' /><span style='margin-left:150px;' class='source_name'>腾讯微博</span></a><span class='source_status'>".$tweibo_status."<a id='tencent_weibo' class='unbind_source'>".$tweibo_action."</a></span></li>
-  <li><a href='#'><img src='/storify/img/logo_douban.png' title='豆瓣社区' width='32px' height='32px'/><span style='margin-left:150px;' class='source_name'>豆瓣社区</span></a><span class='source_status'>".$douban_status."<a id='douban_forum' class='unbind_source'>".$douban_action."</a></span></li>
-  <li><a href='#'><img src='/storify/img/yupoologo.png' title='又拍社区' /><span style='margin-left:102px;' class='source_name'>又拍社区</span></a><span class='source_status'>".$yupoo_status."<a id='yupoo_pic' class='unbind_source'>".$yupoo_action."</a></span></li>
-  <li><a id='youku_video' href='#'><img src='/storify/img/youkulogo.gif' title='优酷视频' /><span style='margin-left:94px;' class='source_name'>优酷视频</span></a><span class='source_status'>无需添加帐号</span></li>
+  <li><a href='#'><img src='../img/sina32.png' title='新浪微博' /><span style='margin-left:150px;' class='source_name'>新浪微博</span></a><span class='source_status'>".$weibo_status."<a id='sina_weibo' class='unbind_source'>".$weibo_action."</a></span></li>
+  <li><a href='#'><img src='../img/tencent32.png' title='腾讯微博' /><span style='margin-left:150px;' class='source_name'>腾讯微博</span></a><span class='source_status'>".$tweibo_status."<a id='tencent_weibo' class='unbind_source'>".$tweibo_action."</a></span></li>
+  <li><a href='#'><img src='../img/logo_douban.png' title='豆瓣社区' width='32px' height='32px'/><span style='margin-left:150px;' class='source_name'>豆瓣社区</span></a><span class='source_status'>".$douban_status."<a id='douban_forum' class='unbind_source'>".$douban_action."</a></span></li>
+  <li><a href='#'><img src='../img/yupoologo.png' title='又拍社区' /><span style='margin-left:102px;' class='source_name'>又拍社区</span></a><span class='source_status'>".$yupoo_status."<a id='yupoo_pic' class='unbind_source'>".$yupoo_action."</a></span></li>
+  <li><a id='youku_video' href='#'><img src='../img/youkulogo.gif' title='优酷视频' /><span style='margin-left:94px;' class='source_name'>优酷视频</span></a><span class='source_status'>无需添加帐号</span></li>
 </ul>
 <div class='float_r'>
   <span>&gt;&nbsp;<a href='./user_setting.php'>回到基本设置</a></span>

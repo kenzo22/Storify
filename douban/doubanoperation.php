@@ -103,7 +103,7 @@ if($eventFlag == 0)
 			  </div>
 			</div>
 			<div class='douban_signature' style='text-align:right;'>
-			  <img border='0' style='width:16px; height:16px;' src='/storify/img/logo_douban.png'/>
+			  <img border='0' style='width:16px; height:16px;' src='/img/logo_douban.png'/>
 			</div>
 		  </div>
 		</li>";

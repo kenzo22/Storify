@@ -12,20 +12,20 @@ if(!islogin())
 }
 
 ?>
-<link rel="stylesheet" type="text/css" href="/storify/css/skin.css" />
-<script type="text/javascript" src="/storify/js/jquery.jcarousel.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/skin.css" />
+<script type="text/javascript" src="js/jquery.jcarousel.min.js"></script>
 <script type="text/javascript" src="js/startstop-slider.js"></script>
 <div id='boxes'>
   
 <!-- Start of Login Dialog -->  
 <div id='dialog' class='window' style='padding:0;'>
-  <div style='background-color:#ababac; padding:5px;'><span>登录 koulifang.com</span> | <span><a href='/storify/register/register_form.php'/>还没有注册？</a><span> <span><a href='#' class='close'/>关闭</a></span></div>
-  <form method='post' action='/storify/login/login.php'>
+  <div style='background-color:#ababac; padding:5px;'><span>登录 koulifang.com</span> | <span><a href='register/register_form.php'/>还没有注册？</a><span> <span><a href='#' class='close'/>关闭</a></span></div>
+  <form method='post' action='login/login.php'>
   <div>
     <div id='login_modal' class='float_l' style='margin-top:10px;'>
       <div style='padding-left:5px;'><b> 邮 箱 &nbsp; </b><span><input type='text' name='email' id='email_login' onclick='this.value=""'/></span></div>
       <div style='padding-left:5px;'><b> 密 码 &nbsp; </b> <span><input type='password' name='passwd' id='pwd_login' onclick='this.value=""'/> </span></div>
-      <div style='padding-left:5px;'><span> <input type='checkbox' name='autologin'>下次自动登录</span> | <span><a href='/storify/login/forget_form.php'/>忘记密码了？</a><span></div>
+      <div style='padding-left:5px;'><span> <input type='checkbox' name='autologin'>下次自动登录</span> | <span><a href='login/forget_form.php'/>忘记密码了？</a><span></div>
       <div style='padding-left:5px;'>
         <input type='submit' id='login_modal_btn' value='登录'/>
       </div>
@@ -114,7 +114,7 @@ if(!islogin())
 			  $post_date = $story_item['post_date'];
 			  $temp_array = explode(" ", $story_item['post_date']);
 			  $post_date = $temp_array[0];
-			  $story_content .= "<li><a class='cover' style='background: url(".$post_pic_url.") no-repeat; background-size: 100%;' href='/storify/member/user.php?post_id=".$story_item['ID']."'><div class='title_wrap'><h1 class='title'>".$post_title."</h1></div></a><div class='story_meta' 
+			  $story_content .= "<li><a class='cover' style='background: url(".$post_pic_url.") no-repeat; background-size: 100%;' href='member/user.php?post_id=".$story_item['ID']."'><div class='title_wrap'><h1 class='title'>".$post_title."</h1></div></a><div class='story_meta' 
 			  ><span><img border='0' style='position:relative; top:3px; width: 20px; height:20px;' src='".$user_profile_img."'/><a style='margin-left:5px; vertical-align:top;'>".$userresult['username']."</a><a style='float:right; vertical-align:top;'>".$post_date."</a></span></div></li>";
 			}
 			echo $story_content;
@@ -224,7 +224,7 @@ $(document).ready(function()
 	{
       //key: '314237338',
       key: '2417356638',
-      xdpath: 'http://story.com/storify/html/xd.html'
+      xdpath: 'http://koulifang.com/html/xd.html'
     };
     WB.connect.init(cfg);
     WB.client.init(cfg);
@@ -235,7 +235,7 @@ $(document).ready(function()
 	  {
 	    var weibo_user_id_val = o.id;
 	    var weibo_scree_name_val = o.screen_name;
-	    $.post('/storify/login/weibo_login.php', {weibo_user_id: weibo_user_id_val, weibo_scree_name: weibo_scree_name_val}, 		
+	    $.post('login/weibo_login.php', {weibo_user_id: weibo_user_id_val, weibo_scree_name: weibo_scree_name_val}, 		
 	    function(data, textStatus)
 	    {
 		  console.log(data);
@@ -246,7 +246,6 @@ $(document).ready(function()
 	    {					
 		  self.location = sourcedata;
 	    });
-	    //self.location = '/storify/member/user.php';
 	  },
 	  logout:function()
 	  {

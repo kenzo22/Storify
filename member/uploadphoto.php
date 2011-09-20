@@ -51,7 +51,7 @@ echo $content;
 if($_POST['act'] == 'uploadphoto')
 {
 	if(!islogin())  
-		go($rooturl."/login","请先登录..",2);
+		go("/login","请先登录..",2);
 
     if ((($_FILES["photofile"]["type"] == "image/png") || ($_FILES["photofile"]["type"] == "image/gif") || ($_FILES["photofile"]["type"] == "image/jpeg") || 
 	($_FILES["photofile"]["type"] == "image/pjpeg") || ($_FILES["photofile"]["type"] == "image/bmp")) && ($_FILES["photofile"]["size"] < 500000))	
@@ -99,7 +99,7 @@ if($_POST['act'] == 'uploadphoto')
             $ranstr=produce_random_string();
 			$filename=$ranstr.$uid.".".$image_extention;
 			$local_file=$upload_dir.$filename;
-            $stored_file="/storify/img/user/".$filename;
+            $stored_file="../img/user/".$filename;
 			if(!move_uploaded_file($_FILES['photofile']['tmp_name'],$local_file))
 			{
 			  echo "无法将文件移到目的位置";
