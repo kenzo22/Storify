@@ -6,11 +6,21 @@ require_once('../include/class.phpmailer.php');
 if($_GET['act']!="forget_pwd")
 {
   $content = "<form method='get'>
-  <div class='div_center' > <span class='title'> 重设密码 </span></div>  
-  <div class='div_center' id='forget_passwd' style='margin-top:20px;'> 
-  <div><span class='field_name'>邮箱</span> <span > <input type='text' name='email' id='signup_email' size='30' maxlength='100'> </span> <span class='form_tip' id='email_tip'> </span></div> 	
-  <div><span > <input type='submit' class='bn_submit' id='btn_submit_forget' value='重设密码'></input>  <input type='hidden' name='act' value='forget_pwd'></span> 
-  </div> </div></form>";
+  <div class='inner' style='padding-top:50px;'> 
+    <span class='title'> 重设密码 </span>  
+    <div id='forget_passwd' style='margin-top:20px; margin-bottom:20px;'> 
+	  <div>
+	    <span class='field_name'>您的邮箱:</span> 
+		<span ><input type='text' name='email' id='signup_email' size='30' maxlength='100'></span>
+		<span class='form_tip' id='email_tip'></span>
+	  </div> 	
+      <div style='margin-top:20px;'>
+		<span> 
+	      <input type='submit' class='bn_submit' id='btn_submit_forget' value='重设密码'></input>  
+	      <input type='hidden' name='act' value='forget_pwd'>
+	    </span> 
+	  </div>
+	</div></form>";
   echo $content;
 }
 else
@@ -77,9 +87,9 @@ else
     echo "Mailer Error: " . $mail->ErrorInfo;
   } else {
     //echo "Message sent!";
-	$content="<div class='div_center' > <span class='title'> 重设密码 </span></div> 
-	<div class='div_center'><span>请到 ".$email." 查阅来自口立方的邮件, 从邮件重设你的密码。<span></div>
-	<div class='div_center'><a target='_blank' href='http://mail.google.com'><span>登录Gmail邮箱查收确认信</span></a> </div>";
+	$content="<div class='inner' > <span class='title'> 重设密码 </span> 
+	<div><span>请到 ".$email." 查阅来自口立方的邮件, 从邮件重设你的密码。<span></div>
+	<div><a target='_blank' href='http://mail.google.com'><span>登录Gmail邮箱查收确认信</span></a></div></div>";
 	echo $content;
   }
   }

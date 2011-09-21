@@ -27,7 +27,7 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 .field_name { width:80px; display:inline-block; }
 .form_tip {padding-left:20px; color:#666699; display:none;}
 /*.form_tip {padding-left:20px; color:#ff2222; display:none;}*/
-.bn_submit { width:80px;height:28px;font-size:14px;line-height:28px; padding-bottom:3px;cursor:pointer; color:#FFF;}
+.bn_submit { width:80px;height:28px;font-size:14px;line-height:28px; padding-bottom:3px;cursor:pointer; color:#000;}
 .title { height:50px;font-size:20px; font-weight:bold;}
 
 /* header */

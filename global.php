@@ -38,7 +38,7 @@
     }
 	else
 	{
-	  $content = "<span style='margin: 0; position:absolute; right:0; top:0;'><a class='login_top' href='login/login.php?next=".urlencode($_SERVER['REQUEST_URI'])."'>登录</a></span>";
+	  $content = "<span style='margin: 0; position:absolute; right:0; top:0;'><a class='login_top' href='/login/login.php?next=".urlencode($_SERVER['REQUEST_URI'])."'>登录</a></span>";
 	  echo "<div id='global_bar'><div></div></div><div id='top_bar'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='/img/logo.png' border='0'></a></span>
 	  <span id='user_action'><a href='/index.php'>首页</a></span>".$content."</div></div><BR>";
 	}
