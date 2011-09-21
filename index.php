@@ -222,7 +222,6 @@ $(document).ready(function()
   {
     var cfg = 
 	{
-      //key: '314237338',
       key: '2417356638',
       xdpath: 'http://koulifang.com/html/xd.html'
     };
@@ -238,13 +237,8 @@ $(document).ready(function()
 	    $.post('login/weibo_login.php', {weibo_user_id: weibo_user_id_val, weibo_scree_name: weibo_scree_name_val}, 		
 	    function(data, textStatus)
 	    {
-		  console.log(data);
-	    });
-		
-		$.post('./member/weibosource.php', {},
-	    function(sourcedata, textStatus)
-	    {					
-		  self.location = sourcedata;
+		  $('.window').hide();
+		  $('.top_nav').replaceWith(data);
 	    });
 	  },
 	  logout:function()

@@ -9,7 +9,7 @@ WB.core.load(['connect', 'client', 'widget.base', 'widget.atWhere'], function()
   var cfg = {
               //key: '314237338',
 			  key: '2417356638',
-			  xdpath: 'http://story.com/html/xd.html'
+			  xdpath: 'http://koulifang.com/html/xd.html'
 			};
   WB.connect.init(cfg);
   WB.client.init(cfg);

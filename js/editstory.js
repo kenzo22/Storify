@@ -91,8 +91,10 @@ function prepare_story_data()
   });
   var story_content_val_string = JSON.stringify(story_content_val);
   var story_title_val = $('#sto_title').attr('value');
-  var story_summary_val = $('#sto_summary').val();
-  var story_tag_val = $('#sto_tag').attr('value');
+  var summary_txt = $('#sto_summary').val();
+  var story_summary_val = (summary_txt == '给你的故事写一个简短的描述'? '': summary_txt);
+  var tag_txt = $('#sto_tag').attr('value');
+  var story_tag_val = (tag_txt == '添加故事标签'? '': tag_txt);
   var story_pic_val = $('#story_thumbnail').attr('src');
   var storydata = {story_id: story_id_val, story_title: story_title_val, story_summary: story_summary_val, story_pic: story_pic_val, story_tag: story_tag_val, story_content: story_content_val_string};	
   return storydata;
@@ -918,6 +920,7 @@ $(function() {
 		$('#actions').click(function(e)
 		{
 		  e.preventDefault();
+		  var story_title_txt = $('#sto_title').attr('value');
 		  var postdata = prepare_story_data();
 		  var posturl;
 		  if($(e.target).is('#publishBtn'))
@@ -932,11 +935,19 @@ $(function() {
 		  {
 		    posturl = 'draft.php';
 		  }
-		  $.post(posturl, postdata,
-		  function(data, textStatus)
-		  {					
-			self.location = data;
-		  });
+		  if($(e.target).is('#publishBtn') && story_title_txt == '写下你的故事标题吧(这将会是你故事的链接地址)')
+		  {
+		    alert('请为你的故事输入一个标题');
+			$('#sto_title').focus();
+		  }
+		  else
+		  {
+		    $.post(posturl, postdata,
+		    function(data, textStatus)
+		    {					
+			  self.location = data;
+		    });
+		  }
 		});
 		
 		//douban reviews part
