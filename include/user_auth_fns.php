@@ -1,5 +1,5 @@
 <?php 
-require_once dirname(__FILE__).'/../'."connect_db.php";  
+require_once dirname(__FILE__).'/../'."connect_db.php"; 
 
 function islogin()
 {
