@@ -57,7 +57,6 @@ function prepare_story_data()
 	}
 	else if($(this).hasClass('douban'))
 	{
-	  debugger;
 	  var doubanclass = $(this).attr('class');
 	  var temp_douban = doubanclass.split(' ');
 	  var temp_douban_length = temp_douban.length;

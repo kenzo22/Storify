@@ -754,16 +754,21 @@ $(function(){
 	
 	$('.delete').click(function(e){
 	  e.preventDefault();
-	  var post_id_val = $(this).attr('id');
-	  var getData = {post_id: post_id_val};
-	  $.get('removestory.php', getData,
-	  function(data, textStatus)
+	  
+	  var r=confirm("确定删除这个故事吗?");
+	  if (r==true)
 	  {
-		if(textStatus == 'success')
-		{
-          $('#'+post_id_val).closest('li').remove();
-		}
-	  });
+	    var post_id_val = $(this).attr('id');
+	    var getData = {post_id: post_id_val};
+	    $.get('removestory.php', getData,
+	    function(data, textStatus)
+	    {
+		  if(textStatus == 'success')
+		  {
+            $('#'+post_id_val).closest('li').remove();
+		  }
+	    });
+	  }
 	});
 	
 	$('.act_digg').click(function(e)
@@ -795,9 +800,7 @@ $(function(){
 
 <script type='text/javascript' src='../js/jquery-ui-1.8.12.custom.min.js'></script>
 <script type="text/javascript" src="../js/jquery.embedly.min.js"></script>
-<!-- JiaThis Button BEGIN -->
 <script type="text/javascript" src="http://v2.jiathis.com/code/jiathis_r.js?move=0&amp;btn=r2.gif" charset="utf-8"></script>
-<!-- JiaThis Button END -->
 <?php
 include "../include/footer.htm";
 ?>
