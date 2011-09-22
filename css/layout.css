@@ -171,6 +171,112 @@ list-style-type: decimal;
     text-shadow: 0 1px 0 #FFFFFF, 0 1px 0 #EEEEEE;
 }
 
+/* published steps part */
+.published-steps {
+    background: none repeat scroll 0 0 #FBFBFB;
+    border: 1px solid #E2E0E0;
+    box-shadow: 0 0 5px rgba(212, 212, 212, 0.3);
+    font-size: 12px;
+    margin: 0 0 5px;
+    padding: 10px 0 0;
+    width: 660px;
+}
+
+.published-steps .tabs {
+    margin-bottom: -1px;
+    padding: 0 10px;
+}
+
+.published-steps .post-tab, .published-steps .notify-tab, .published-steps .share-tab {
+    background: -moz-linear-gradient(center top , #FFFFFF 0%, #F0F0F0 100%) repeat scroll 0 0 #F0F0F0;
+    border-color: #E2E0E0;
+    margin: 0 12px 0 0;
+    padding: 10px;
+    position: relative;
+    text-align: left;
+    text-shadow: none;
+    width: 199px;
+}
+
+.post-tab, .notify-tab, .share-tab{
+    background: -moz-linear-gradient(center top , #EFEFEF 0%, #D7D7D7 100%) repeat scroll 0 0 #EFEFEF;
+    border: 1px solid #CCCCCC;
+    color: #444444;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 1;
+    padding: 6px 8px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #FFFFFF, 0 -1px 0 #BFBFBF;
+	cursor:pointer;
+}
+
+.published-steps .post-tab .icon, .published-steps .notify-tab .icon, .published-steps .share-tab .icon {
+    background: url("../img/guangbo.ico") no-repeat scroll left top transparent;
+    height: 21px;
+    position: absolute;
+    width: 21px;
+}
+
+.published-steps .post-tab h2, .published-steps .notify-tab h2, .published-steps .share-tab h2 {
+    color: #4E88BB;
+    font-size: 14px;
+    margin-bottom: 3px;
+	margin-top:0;
+}
+
+.published-steps .post-tab span, .published-steps .notify-tab span, .published-steps .share-tab span {
+    color: #878787;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.published-steps .post-tab h2, .published-steps .notify-tab h2, .published-steps .share-tab h2, .published-steps .post-tab span, .published-steps .notify-tab span, .published-steps .share-tab span {
+    margin-left: 30px;
+}
+
+.published-steps .steps {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-top: 1px solid #E2E0E0;
+	overflow:auto;
+}
+
+.published-steps .post-content, .published-steps .notify-content, .published-steps .share-content {
+    display: none;
+}
+
+.published-steps .spacer {
+    height: 10px;
+}
+
+.published-steps .steps h2 {
+    clear: left;
+    font-size: 16px;
+	padding:0;
+	margin: 0 0 5px;
+}
+
+.published-steps .steps input[type="checkbox"] {
+    clear: none;
+    float: left;
+    margin: 5px 5px 0;
+}
+
+.notify-user {
+    float: left;
+    margin: 10px 20px 10px 0;
+}
+
+.notify-user p {
+    display: block;
+    float: left;
+    font-size: 10pt;
+    margin: 0;
+    padding: 0;
+}
+
 /*slider part */
 #page-wrap						{ background: white; width: 920px; margin: 0 auto; 
 								  padding:0; }
@@ -573,7 +679,7 @@ list-style-type:none;
 .digg_wrap
 {
   position:absolute;
-  top:50px;
+  top:130px;
   left:-58px;
   height:68px;
   width:54px;

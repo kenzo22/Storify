@@ -62,16 +62,6 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	$weibo_id_array = array();
 	$tweibo_id_array = array();
 	
-	$content = "<div id='jiathis_style_32x32'>
-				  <a class='jiathis_button_qzone'></a>
-				  <a class='jiathis_button_tsina'></a>
-				  <a class='jiathis_button_tqq'></a>
-				  <a class='jiathis_button_renren'></a>
-				  <a class='jiathis_button_kaixin001'></a>
-				  <a href='http://www.jiathis.com/share' class='jiathis jiathis_txt jtico jtico_jiathis' target='_blank'></a>
-				  <a class='jiathis_counter_style'></a>
-			    </div>";
-	
 	if(!islogin() || $story_author != $_SESSION['uid'])
 	{
 	  $content = "<div id='story_container'><div class='digg_wrap'><div id='".$post_id."_digg_count' style='margin-top:10px;'>".$story_digg_count."</div><a id='".$post_id."_act_digg' class='act_digg'><img src='../img/ding.ico' /></a></div><div id='publish_container' class='showborder'>";
@@ -80,7 +70,46 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	{
 	  if(0 == strcmp($story_status, 'Published'))
 	  {
-	    $content = "<div id='story_container'><div class='digg_wrap'><div id='".$post_id."_digg_count' style='margin-top:10px;'>".$story_digg_count."</div><a id='".$post_id."_act_digg' class='act_digg'><img src='../img/ding.ico' /></a></div><div id='publish_container' class='showborder'>
+	    $content = "<div id='story_container'>
+					  <div class='published-steps'>
+						<div class='tabs'>
+						  <button class='post-tab'>
+							<div class='icon'></div>
+							<h2>发布到您的网站上</h2>
+							<span>嵌入故事，如此的简单</span>
+						  </button>
+						  <button class='notify-tab'>
+							<div class='icon'></div>
+							<h2>通告</h2>
+							<span>喝水不忘挖井人</span>
+						  </button>
+						  <button class='share-tab'>
+							<div class='icon'></div>
+							<h2>分享</h2>
+							<span>好故事当然要分享</span>
+						  </button>
+						</div>
+						<div class='steps'>
+						  <div class='post-content'>
+						  </div>
+						  <div class='notify-content'>
+						    <h2>告诉作者你引用了他们的内容</h2>
+						  </div>
+						  <div class='share-content'>
+						    <div id='jiathis_style_32x32'>
+							  <a class='jiathis_button_qzone'></a>
+							  <a class='jiathis_button_tsina'></a>
+							  <a class='jiathis_button_tqq'></a>
+							  <a class='jiathis_button_renren'></a>
+							  <a class='jiathis_button_kaixin001'></a>
+							  <a href='http://www.jiathis.com/share' class='jiathis jiathis_txt jtico jtico_jiathis' target='_blank'></a>
+							  <a class='jiathis_counter_style'></a>
+							</div>
+						  </div>
+						</div>
+						<div class='spacer'></div>
+					  </div>";
+		$content .= "<div class='digg_wrap'><div id='".$post_id."_digg_count' style='margin-top:10px;'>".$story_digg_count."</div><a id='".$post_id."_act_digg' class='act_digg'><img src='../img/ding.ico' /></a></div><div id='publish_container' class='showborder'>
 			  <div id='story_action'><span>已发布</span><span class='float_r'><a href='#'><img src='../img/guangbo.ico' title='通告' style='width:16px; height:16px;'/>
 			  </a>&nbsp<a href='/member/user.php?post_id=".$post_id."&action=remove'><img src='../img/delete.gif' title='删除' style='width:16px; height:16px;'/></a>&nbsp<a href='/member/user.php?post_id=".$post_id."&action=edit'><img src='../img/edit.png' title='编辑' style='width:16px; height:16px;'/></a></span></div>";
 	  }
@@ -732,6 +761,17 @@ else if(isset($_GET['user_id']))
 
 <script type="text/javascript">
 
+Array.prototype.getUnique = function()
+{
+  var o = {};
+  var i, e;
+  for (i=0; e=this[i]; i++) {o[e]=1};
+  var a=new Array();
+  for (e in o)
+  {a.push (e)};
+  return a;
+} 
+
 function append_video_content(url)
 {
   $.embedly(url, {key: '4ac512dca79011e0aeec4040d3dc5c07', maxWidth: 420, wrapElement: 'div', method : 'afterParent'  }, function(oembed){				
@@ -794,13 +834,100 @@ $(function(){
 		}
 	  });
 	});
+	
+	$('.published-steps .tabs').click(function(e){
+	  if ($(e.target).is('.post-tab'))
+	  {
+		$('.published-steps .notify-content').css('display', 'none');
+		$('.published-steps .share-content').css('display', 'none');
+		$('.published-steps .post-content').toggle();
+		if($('.published-steps .post-content').is(':visible'))
+		{
+		  $('.published-steps .steps').css('padding', '20px 20px 10px');
+		  $('.published-steps .spacer').css('display', 'none');
+		}
+		else
+		{
+		  $('.published-steps .steps').css('padding', '0');
+		  $('.published-steps .spacer').css('display', 'block');
+		}
+	  }
+	  else if ($(e.target).is('.notify-tab'))
+	  {
+	    $('.published-steps .post-content').css('display', 'none');
+		$('.published-steps .share-content').css('display', 'none');
+		$('.published-steps .notify-content').toggle();
+		
+		var item_user_name;
+		var sina_user_array = [];
+		var tencent_user_array = [];
+		var sina_array_length = sina_user_array.length;
+		var tencent_array_length = tencent_user_array.length;
+		$('#weibo_ul li.sina, #weibo_ul li.tencent').each(function(index)
+		{
+		  if($(this).hasClass('sina'))
+		  {
+		    item_user_name = $(this).find('.weibo_from').text();
+		    sina_user_array[sina_array_length] = item_user_name;
+		    sina_array_length++;
+		  }
+		  else
+		  {
+		    item_user_name = $(this).find('.weibo_from').text();
+		    tencent_user_array[tencent_array_length] = item_user_name;
+		    tencent_array_length++;
+		  }
+		});
+		sina_user_array = sina_user_array.getUnique();
+		tencent_user_array = tencent_user_array.getUnique();
+		var sina_u_length = sina_user_array.length;
+		var tencent_u_length = tencent_user_array.length;
+		
+		var x;
+		var notifyContent="";
+		for (x=0; x<sina_u_length; x++)
+		{
+		  var username = sina_user_array[x];
+		  notifyContent += "<div class='notify-user'><input type='checkbox' value='mashable' name='to[]' checked='checked'><p>@<a href='http://weibo.com/"+username+"'>"+username+"</a></p></div>";
+		}
+		$('.notify-content h2').after(notifyContent);
+		
+		if($('.published-steps .notify-content').is(':visible'))
+		{
+		  $('.published-steps .steps').css('padding', '20px 20px 10px');
+		  $('.published-steps .spacer').css('display', 'none');
+		}
+		else
+		{
+		  $('.published-steps .steps').css('padding', '0');
+		  $('.published-steps .spacer').css('display', 'block');
+		}
+	  }
+	  else if ($(e.target).is('.share-tab'))
+	  {
+		$('.published-steps .post-content').css('display', 'none');
+		$('.published-steps .notify-content').css('display', 'none');
+		$('.published-steps .share-content').toggle();
+		$('.published-steps .spacer').toggle();
+		if($('.published-steps .share-content').is(':visible'))
+		{
+		  $('.published-steps .steps').css('padding', '20px 20px 10px');
+		  $('.published-steps .spacer').css('display', 'none');
+		}
+		else
+		{
+		  $('.published-steps .steps').css('padding', '0');
+		  $('.published-steps .spacer').css('display', 'block');
+		}
+	  }
+	});
 });
 	
 </script>
 
 <script type='text/javascript' src='../js/jquery-ui-1.8.12.custom.min.js'></script>
 <script type="text/javascript" src="../js/jquery.embedly.min.js"></script>
-<script type="text/javascript" src="http://v2.jiathis.com/code/jiathis_r.js?move=0&amp;btn=r2.gif" charset="utf-8"></script>
+<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js" charset="utf-8"></script>
 <?php
 include "../include/footer.htm";
 ?>
