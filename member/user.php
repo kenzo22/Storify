@@ -93,15 +93,12 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 						  <div class='post-content'>
 						  </div>
 						  <div class='notify-content'>
-						    <h2>告诉作者你引用了他们的内容</h2>
 						  </div>
 						  <div class='share-content'>
 						    <div id='jiathis_style_32x32'>
-							  <a class='jiathis_button_qzone'></a>
-							  <a class='jiathis_button_tsina'></a>
+							  <a class='jiathis_button_qzone'></a><a class='jiathis_button_tsina'></a>
 							  <a class='jiathis_button_tqq'></a>
-							  <a class='jiathis_button_renren'></a>
-							  <a class='jiathis_button_kaixin001'></a>
+							  <a class='jiathis_button_renren'></a><a class='jiathis_button_kaixin001'></a>
 							  <a href='http://www.jiathis.com/share' class='jiathis jiathis_txt jtico jtico_jiathis' target='_blank'></a>
 							  <a class='jiathis_counter_style'></a>
 							</div>
@@ -835,32 +832,10 @@ $(function(){
 	  });
 	});
 	
-	$('.published-steps .tabs').click(function(e){
-	  if ($(e.target).is('.post-tab'))
-	  {
-		$('.published-steps .notify-content').css('display', 'none');
-		$('.published-steps .share-content').css('display', 'none');
-		$('.published-steps .post-content').toggle();
-		if($('.published-steps .post-content').is(':visible'))
-		{
-		  $('.published-steps .steps').css('padding', '20px 20px 10px');
-		  $('.published-steps .spacer').css('display', 'none');
-		}
-		else
-		{
-		  $('.published-steps .steps').css('padding', '0');
-		  $('.published-steps .spacer').css('display', 'block');
-		}
-	  }
-	  else if ($(e.target).is('.notify-tab'))
-	  {
-	    $('.published-steps .post-content').css('display', 'none');
-		$('.published-steps .share-content').css('display', 'none');
-		$('.published-steps .notify-content').toggle();
-		
-		var item_user_name;
+	$('.published-steps .notify-tab').toggle(function(){
+	    var item_user_name;
 		var sina_user_array = [];
-		var tencent_user_array = [];
+	    var tencent_user_array = [];
 		var sina_array_length = sina_user_array.length;
 		var tencent_array_length = tencent_user_array.length;
 		$('#weibo_ul li.sina, #weibo_ul li.tencent').each(function(index)
@@ -882,44 +857,56 @@ $(function(){
 		tencent_user_array = tencent_user_array.getUnique();
 		var sina_u_length = sina_user_array.length;
 		var tencent_u_length = tencent_user_array.length;
-		
-		var x;
-		var notifyContent="";
+		var x, y;
+		var notifyContent="<h2>告诉作者你引用了他们的内容</h2>";
 		for (x=0; x<sina_u_length; x++)
 		{
 		  var username = sina_user_array[x];
-		  notifyContent += "<div class='notify-user'><input type='checkbox' value='mashable' name='to[]' checked='checked'><p>@<a href='http://weibo.com/"+username+"'>"+username+"</a></p></div>";
+		  notifyContent += "<div class='notify-user'><input type='checkbox' value='mashable' name='to[]' checked='checked'><span>@<a href='http://weibo.com/"+username+"'>"+username+"</a></span></div>";
 		}
-		$('.notify-content h2').after(notifyContent);
 		
-		if($('.published-steps .notify-content').is(':visible'))
+		for (y=0; y<tencent_u_length; y++)
 		{
-		  $('.published-steps .steps').css('padding', '20px 20px 10px');
-		  $('.published-steps .spacer').css('display', 'none');
+		  var username = tencent_user_array[y];
+		  notifyContent += "<div class='notify-user'><input type='checkbox' value='mashable' name='to[]' checked='checked'><span>@<a href='http://weibo.com/"+tencent_user_array+"'>"+tencent_user_array+"</a></span></div>";
 		}
-		else
-		{
-		  $('.published-steps .steps').css('padding', '0');
-		  $('.published-steps .spacer').css('display', 'block');
-		}
-	  }
-	  else if ($(e.target).is('.share-tab'))
+		notifyContent +="<textarea class='notify-tweet' maxlength='120' name='tweet'>我的故事引用了你的微博喔, 看一看: http://sfy.co/FPw</textarea><div class='tweet_control'>还可以输入<span>60</span>字<input class='tweet_btn' style='margin-left:15px; cursor:pointer;' type='submit' value='发布'></div>";
+		
+		$('.notify-content').html(notifyContent);
+	    $('.steps .notify-content').css('display', 'block');
+	    $('.published-steps .spacer').css('display', 'none');
+	},
+	function(){
+	  $('.steps .notify-content').css('display', 'none');
+	  $('.published-steps .spacer').css('display', 'block');
+	});
+	
+	$('.published-steps .share-tab').toggle(function(){
+	  $('.steps .share-content').css('display', 'block');
+	  $('.published-steps .spacer').css('display', 'none');
+	},
+	function(){
+	  $('.steps .share-content').css('display', 'none');
+	  $('.published-steps .spacer').css('display', 'block');
+	});
+	
+	$('.tweet_btn').live('click', function(e){
+	  debugger;
+	  e.preventDefault();
+	  var postUrl;
+	  var postData;
+	  postUrl = '../weibo/postweibo.php';
+	  postData = {weibo_content: '测试我们的应用'};
+
+	  $.ajax({
+	  type: 'POST',
+	  url: postUrl,
+	  data: postData, 
+	  success: function(data)
 	  {
-		$('.published-steps .post-content').css('display', 'none');
-		$('.published-steps .notify-content').css('display', 'none');
-		$('.published-steps .share-content').toggle();
-		$('.published-steps .spacer').toggle();
-		if($('.published-steps .share-content').is(':visible'))
-		{
-		  $('.published-steps .steps').css('padding', '20px 20px 10px');
-		  $('.published-steps .spacer').css('display', 'none');
-		}
-		else
-		{
-		  $('.published-steps .steps').css('padding', '0');
-		  $('.published-steps .spacer').css('display', 'block');
-		}
+	    $('.steps .notify-content').css('display', 'none');
 	  }
+	  });
 	});
 });
 	
@@ -928,6 +915,7 @@ $(function(){
 <script type='text/javascript' src='../js/jquery-ui-1.8.12.custom.min.js'></script>
 <script type="text/javascript" src="../js/jquery.embedly.min.js"></script>
 <script type="text/javascript" src="http://v2.jiathis.com/code/jia.js" charset="utf-8"></script>
+
 <?php
 include "../include/footer.htm";
 ?>
