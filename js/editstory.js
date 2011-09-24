@@ -22,8 +22,11 @@ WB.core.load(['connect', 'client', 'widget.base', 'widget.atWhere'], function()
   WB.client.init(cfg);
 });
 
-function prepare_story_data()
+function prepare_story_data(action_value)
 {
+    debugger;
+    if(action_value !='publish' &&  action_value !='preview' && action_value != "draft")
+        alert("not a proper operation:"+action_value);
   var story_id_val;
   if (typeof(post_id)=="undefined" || post_id==null)
   {
@@ -95,7 +98,7 @@ function prepare_story_data()
   var tag_txt = $('#sto_tag').attr('value');
   var story_tag_val = (tag_txt == '添加故事标签'? '': tag_txt);
   var story_pic_val = $('#story_thumbnail').attr('src');
-  var storydata = {story_id: story_id_val, story_title: story_title_val, story_summary: story_summary_val, story_pic: story_pic_val, story_tag: story_tag_val, story_content: story_content_val_string};	
+  var storydata = {story_id: story_id_val, story_title: story_title_val, story_summary: story_summary_val, story_pic: story_pic_val, story_tag: story_tag_val, story_content: story_content_val_string, action:action_value};	
   return storydata;
 }
 
@@ -918,21 +921,22 @@ $(function() {
 		});*/
 		$('#actions').click(function(e)
 		{
+            debugger;
 		  e.preventDefault();
 		  var story_title_txt = $('#sto_title').attr('value');
-		  var postdata = prepare_story_data();
-		  var posturl;
+		  var postdata; 
+		  var posturl = 'publish.php';
 		  if($(e.target).is('#publishBtn'))
 		  {
-		    posturl = 'publish.php';
+		    postdata = prepare_story_data('publish');
 		  }
 		  else if($(e.target).is('#previewBtn'))
 		  {
-		    posturl = 'preview.php';
+		    postdata = prepare_story_data('preview');
 		  }
 		  else
 		  {
-		    posturl = 'draft.php';
+		    postdata = prepare_story_data('draft');
 		  }
 		  if($(e.target).is('#publishBtn') && story_title_txt == '写下你的故事标题吧(这将会是你故事的链接地址)')
 		  {

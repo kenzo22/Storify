@@ -6,6 +6,7 @@ include_once( '../tweibo/config.php' );
 include_once( '../tweibo/txwboauth.php' );
 include_once( '../douban/config.php' );
 include_once( '../douban/doubanapi.php' );
+include_once( '../include/weibo_functions.php');
 ?>
 <link type="text/css" href="../css/jquery.ui.theme.css" rel="stylesheet" />
 <link type="text/css" href="../css/jquery.ui.tabs.css" rel="stylesheet" />

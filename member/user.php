@@ -15,8 +15,6 @@ include_once "userrelation.php";
 
 <?php
 
-preg_match("/(.*?)\/storify/",getcwd(),$abs_path_matches);
-
 if(isset($_GET['post_id']) && !isset($_GET['action']))
 {
 	$c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_key']['oauth_token'] , $_SESSION['last_key']['oauth_token_secret']  );
@@ -68,7 +66,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	}
 	else
 	{
-	  if(0 == strcmp($story_status, 'Published'))
+	  if(0 == strcmp($story_status, 'published'))
 	  {
 	    $content = "<div id='story_container'>
 					  <div class='published-steps'>
@@ -604,7 +602,7 @@ else if(isset($_GET['post_id']) && isset($_GET['action']))
 	}
 	else if(0 == strcmp($story_action, 'publish'))
 	{
-	  $result=$DB->query("update ".$db_prefix."posts set post_status='Published'  WHERE ID='".$story_id."'");
+	  $result=$DB->query("update ".$db_prefix."posts set post_status='published'  WHERE ID='".$story_id."'");
 	  go('/member/user.php?post_id='.$story_id);
 	}
 	
