@@ -9,7 +9,8 @@ $result=$DB->fetch_one_array("SELECT weibo_access_token, weibo_access_token_secr
 $_SESSION['last_key']['oauth_token']=$result['weibo_access_token'];
 $_SESSION['last_key']['oauth_token_secret']=$result['weibo_access_token_secret'];
 $c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_key']['oauth_token'] , $_SESSION['last_key']['oauth_token_secret']  );
-$ms  = $c->friends_timeline(); // done
+//$ms  = $c->friends_timeline(); // done
+$ms  = $c->update("测试测试"); // done
 
 //$me = $c->verify_credentials();
 //$me = $c->show_status('3354263481034421');
