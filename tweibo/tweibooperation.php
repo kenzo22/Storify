@@ -70,6 +70,8 @@ if(isset($_GET['weibo_ids']))
         
         // emotion substution
         $item['source']['text'] = subs_emotions($item['source']['text'],"tweibo");
+        if($item['source']['text'] == null)
+            $item['source']['text'] = "此微博已被原作者删除。";
         $weiboContent .="||".$item['source']['nick']."(@".$item['source']['name']."):".$item['source']['text']."</span></div>";
         if(isset($item['source']['image'])){
             foreach($item['source']['image'] as $re_img_url){
@@ -111,12 +113,16 @@ else
     style = 'display:block;'><span class='weibo_from'>".$item['nick']."</span></a><span class='weibo_text'>".$item['text'];
     
     if(isset($item['source'])){
+        
         // nick name
         $item['source']['text'] = tweibo_show_nick($item['source']['text'],$tweibo[data][user]);
     
         // emotion substution
         $item['source']['text'] = subs_emotions($item['source']['text'],"tweibo");
+        if($item['source']['text'] == null)
+            $item['source']['text'] = "此微博已被原作者删除。";
         $weiboContent .="||".$item['source']['nick']."(@".$item['source']['name']."):".$item['source']['text']."</span>";
+
         if(isset($item['source']['image'])){
             foreach($item['source']['image'] as $re_img_url){
                 $weiboContent .="<div class='tweibo_retweet_img'><img src='".$re_img_url."/240' /></div>";

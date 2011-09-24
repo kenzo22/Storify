@@ -96,10 +96,11 @@ if($_POST['act'] == 'uploadphoto')
 			$temp_array = explode(".",$original);
 			$length = count($temp_array);
 			$image_extention = $temp_array[$length - 1];
-            $ranstr=produce_random_string();
+                        $ranstr=produce_random_string();
 			$filename=$ranstr.$uid.".".$image_extention;
 			$local_file=$upload_dir.$filename;
-            $stored_file="../img/user/".$filename;
+                        // Document root is /storify
+                        $stored_file="/img/user/".$filename;
 			if(!move_uploaded_file($_FILES['photofile']['tmp_name'],$local_file))
 			{
 			  echo "无法将文件移到目的位置";

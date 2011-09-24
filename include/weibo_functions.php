@@ -17,8 +17,8 @@ function subs_emotions($string,$img_parent_dir)
 	$cwd = getcwd();
 	if(strstr($OS,'Windows'))
 		$cwd = str_replace("\\",'/',$cwd);
-    preg_match("/(.*?)\/storify/",$cwd,$abs_path_matches);
-    $story_img_path="/storify/img/";
+    preg_match("/(.*?\/storify)/",$cwd,$abs_path_matches);
+    $story_img_path="/img/";
 
     // show emotions in text
     if($img_parent_dir == "weibo"){
@@ -32,16 +32,16 @@ function subs_emotions($string,$img_parent_dir)
             if($img_parent_dir == "tweibo"){
 				// utf-8 汉字都是3字节的
                 for($i=3; $i<=strlen($element[1]); $i+=3){
-					$fn = substr($element[1],0,$i);
-					if(strstr($OS,"Windows"))
-						$fn = iconv("UTF-8","GBK",$fn);
+		            $fn = substr($element[1],0,$i);
+			        if(strstr($OS,"Windows"))
+				        $fn = iconv("UTF-8","GBK",$fn);
                     $story_file =  $story_img_path."tweibo/".$fn.".gif";
                     $local_file = $abs_path_matches[1].$story_file;
                     if(is_readable($local_file)){
-						if(strstr($OS,'Windows')){
-							$fn = iconv('GBK','UTF-8',$fn);
-							$story_file =  $story_img_path."tweibo/".$fn.".gif";
-						}	
+					    if(strstr($OS,'Windows')){
+						    $fn = iconv('GBK','UTF-8',$fn);
+						    $story_file =  $story_img_path."tweibo/".$fn.".gif";
+					    }	
                         $img_replace = "<img src='".$story_file."'>";
                         $string= str_replace(substr($element[0],0,$i+1),$img_replace,$string);
                         break;
