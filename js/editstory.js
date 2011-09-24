@@ -25,7 +25,7 @@ WB.core.load(['connect', 'client', 'widget.base', 'widget.atWhere'], function()
 function prepare_story_data(action_value)
 {
     debugger;
-    if(action_value !='publish' &&  action_value !='preview' && action_value != "draft")
+    if(action_value !='Publish' &&  action_value !='Preview' && action_value != "Draft")
         alert("not a proper operation:"+action_value);
   var story_id_val;
   if (typeof(post_id)=="undefined" || post_id==null)
@@ -928,15 +928,15 @@ $(function() {
 		  var posturl = 'publish.php';
 		  if($(e.target).is('#publishBtn'))
 		  {
-		    postdata = prepare_story_data('publish');
+		    postdata = prepare_story_data('Publish');
 		  }
 		  else if($(e.target).is('#previewBtn'))
 		  {
-		    postdata = prepare_story_data('preview');
+		    postdata = prepare_story_data('Preview');
 		  }
 		  else
 		  {
-		    postdata = prepare_story_data('draft');
+		    postdata = prepare_story_data('Draft');
 		  }
 		  if($(e.target).is('#publishBtn') && story_title_txt == '写下你的故事标题吧(这将会是你故事的链接地址)')
 		  {

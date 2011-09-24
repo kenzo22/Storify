@@ -29,10 +29,10 @@ $tag_story_table=$db_prefix."tag_story";
 $pulish_time=date("Y-m-d H:i:s");
 $post_id = $story_id;
 
-if($action == 'publish')
-    $post_status = 'published';
-else($action == 'preview' || $action == 'draft')
-    $post_status = $action
+if($action == 'Publish')
+    $post_status = 'Published';
+elseif($action == 'Preview' || $action == 'Draft')
+    $post_status = 'Draft';
 
 mb_regex_encoding("utf-8");
 
@@ -143,9 +143,9 @@ else
     }
     
 }
-if($action == 'publish' || $action == 'preview')
+if($action == 'Publish' || $action == 'Preview')
     $redirect_url = "user.php?post_id=".$post_id;
-elseif($action == 'draft')
+elseif($action == 'Draft')
     $redirect_url = "user.php?user_id=".$_SESSION['uid'];
 echo $redirect_url;
 

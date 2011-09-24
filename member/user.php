@@ -66,7 +66,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	}
 	else
 	{
-	  if(0 == strcmp($story_status, 'published'))
+	  if(0 == strcmp($story_status, 'Published'))
 	  {
 	    $content = "<div id='story_container'>
 					  <div class='published-steps'>
