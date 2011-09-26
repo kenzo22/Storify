@@ -90,7 +90,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 						<div class='steps'>
 						  <div class='post-content'>
 						  </div>
-						  <div class='notify-content'>
+						  <div id='weibo_card_area' class='notify-content'>
 						  </div>
 						  <div class='share-content'>
 						    <div id='jiathis_style_32x32'>
@@ -545,6 +545,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 				  e.preventDefault();
 				  var post_id_val = $post_id;
 				  var first_item_val = $(this).attr('id');
+				  var temp = first_item_val - 1;
 				  var postdata = {post_id: post_id_val, first_item: first_item_val};			  
 				  
 				  $.ajax({
@@ -560,10 +561,33 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 					success: function(data){
 						$('#more').remove();
 						$('#weibo_ul').append(data);
-						
+						$('#weibo_ul li:gt('+temp+')').each(function()
+						  {
+							if($(this).hasClass('sina'))
+							{
+							  var id_val = $(this).attr('id');
+							  WB2.anyWhere(function(W){
+							  W.widget.hoverCard({
+								id: id_val,
+								search: true
+								}); 
+							  });
+							}
+						  });
 					}
 					});
 				});
+				
+			  $('#weibo_ul li.sina').each(function()
+			  {
+				var id_val = $(this).attr('id');
+				WB2.anyWhere(function(W){
+				W.widget.hoverCard({
+					id: id_val,
+					search: true
+					}); 
+				});
+			  });
 			});
 			</script>";
 }
@@ -750,7 +774,6 @@ else if(isset($_GET['user_id']))
 
   $story_content .="</ul></div>".$pagination."</div>";
   echo $story_content;
-  //echo $pagination;
 }
 ?>
 
@@ -857,22 +880,39 @@ $(function(){
 		var tencent_u_length = tencent_user_array.length;
 		var x, y;
 		var notifyContent="<h2>告诉作者你引用了他们的内容</h2>";
-		for (x=0; x<sina_u_length; x++)
+		if(sina_u_length > 0)
 		{
-		  var username = sina_user_array[x];
-		  notifyContent += "<div class='notify-user'><input type='checkbox' value='mashable' name='to[]' checked='checked'><span>@<a href='http://weibo.com/"+username+"'>"+username+"</a></span></div>";
+		  notifyContent +="<div class='sina_user'><img border='0' src='../img/sina16.png' style='float:left; position:relative; top:2px' />";
+		  for (x=0; x<sina_u_length; x++)
+		  {
+		    var username = sina_user_array[x];
+		    notifyContent += "<div class='notify-user'><input type='checkbox' value='mashable' name='to[]' checked='checked'><span>@"+username+"</span></div>";
+		  }
+		  notifyContent +="</div>"
 		}
 		
-		for (y=0; y<tencent_u_length; y++)
+		if(tencent_u_length > 0)
 		{
-		  var username = tencent_user_array[y];
-		  notifyContent += "<div class='notify-user'><input type='checkbox' value='mashable' name='to[]' checked='checked'><span>@<a href='http://weibo.com/"+tencent_user_array+"'>"+tencent_user_array+"</a></span></div>";
+		  notifyContent +="<div class='tencent_user' style='clear:both;'><img border='0' src='../img/tencent16.png' style='float:left; position:relative; top:4px' />";
+		  for (y=0; y<tencent_u_length; y++)
+		  {
+		    var username = tencent_user_array[y];
+		    notifyContent += "<div class='notify-user'><input type='checkbox' value='mashable' name='to[]' checked='checked'><span>@"+username+"</span></div>";
+		  }
+		  notifyContent +="</div>"
 		}
-		notifyContent +="<textarea class='notify-tweet' maxlength='120' name='tweet'>我的故事引用了你的微博喔, 看一看: http://sfy.co/FPw</textarea><div class='tweet_control'>还可以输入<span>60</span>字<input class='tweet_btn' style='margin-left:15px; cursor:pointer;' type='submit' value='发布'></div>";
+		
+		notifyContent +="<textarea class='notify-tweet' maxlength='120' name='tweet'>我刚刚引用了你的微博, 来看一看吧: </textarea><div class='tweet_control'>还可以输入<span>60</span>字<input class='tweet_btn' style='margin-left:15px; cursor:pointer;' type='submit' value='发布'></div>";
 		
 		$('.notify-content').html(notifyContent);
 	    $('.steps .notify-content').css('display', 'block');
 	    $('.published-steps .spacer').css('display', 'none');
+		WB2.anyWhere(function(W){
+				W.widget.hoverCard({
+					id: 'weibo_card_area',
+					search: true
+					}); 
+				});
 	},
 	function(){
 	  $('.steps .notify-content').css('display', 'none');
@@ -889,22 +929,55 @@ $(function(){
 	});
 	
 	$('.tweet_btn').live('click', function(e){
-	  debugger;
 	  e.preventDefault();
-	  var postUrl;
-	  var postData;
-	  postUrl = '../weibo/postweibo.php';
-	  postData = {weibo_content: '测试我们的应用'};
-
-	  $.ajax({
-	  type: 'POST',
-	  url: postUrl,
-	  data: postData, 
-	  success: function(data)
+	  var weibo_content_val = '';
+	  var tweibo_content_val = '';
+	  $('.sina_user .notify-user span').each(function()
 	  {
-	    $('.steps .notify-content').css('display', 'none');
-	  }
+	    weibo_content_val += $(this).text()+' ';
 	  });
+	  $('.tencent_user .notify-user span').each(function()
+	  {
+	    tweibo_content_val += $(this).text()+' ';
+	  });
+	  
+	  if(tweibo_content_val != '')
+	  {
+	      tweibo_content_val += $('.notify-tweet').val();
+		  var postUrl;
+		  var postData;
+		  postUrl = '../tweibo/posttweibo.php';
+		  postData = {weibo_content: tweibo_content_val};
+
+		  $.ajax({
+		  type: 'POST',
+		  url: postUrl,
+		  data: postData, 
+		  success: function(data)
+		  {
+			$('.steps .notify-content').css('display', 'none');
+		  }
+		  });
+	  }
+	  
+	  if(weibo_content_val != '')
+	  {
+	      weibo_content_val += $('.notify-tweet').val();
+		  var postUrl;
+		  var postData;
+		  postUrl = '../weibo/postweibo.php';
+		  postData = {weibo_content: weibo_content_val};
+
+		  $.ajax({
+		  type: 'POST',
+		  url: postUrl,
+		  data: postData, 
+		  success: function(data)
+		  {
+			$('.steps .notify-content').css('display', 'none');
+		  }
+		  });
+	  }
 	});
 });
 	

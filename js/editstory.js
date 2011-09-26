@@ -10,21 +10,20 @@ Array.prototype.getUnique = function()
   for (e in o)
   {a.push (e)};
   return a;
-} 
+}
 
-WB.core.load(['connect', 'client', 'widget.base', 'widget.atWhere'], function() 
+function show_weibo_card(id)
 {
-  var cfg = {
-			  key: '2417356638',
-			  xdpath: 'http://koulifang.com/html/xd.html'
-			};
-  WB.connect.init(cfg);
-  WB.client.init(cfg);
-});
+  WB2.anyWhere(function(W){
+	W.widget.hoverCard({
+		id: id,
+		search: true
+		}); 
+	});
+} 
 
 function prepare_story_data(action_value)
 {
-    debugger;
     if(action_value !='Publish' &&  action_value !='Preview' && action_value != "Draft")
         alert("not a proper operation:"+action_value);
   var story_id_val;
@@ -438,7 +437,10 @@ $(function() {
 		  success: function(data)
 		  {
 			$('#source_list').html(data);
-			WB.widget.atWhere.searchAndAt(document.getElementById("source_list"));
+			if(0 == vtabIndex)
+			{
+			  show_weibo_card('source_list');
+			}
 		  }
 		  });
 		});
@@ -477,7 +479,10 @@ $(function() {
 		  success: function(data)
 		  {
 			$('#source_list').html(data);
-			WB.widget.atWhere.searchAndAt(document.getElementById("source_list"));
+			if(0 == vtabIndex)
+			{
+			  show_weibo_card('source_list');
+			}
 		  }
 		  });
 		});
@@ -551,7 +556,10 @@ $(function() {
 		  success: function(data)
 		  {
 			$('#source_list').html(data);
-			WB.widget.atWhere.searchAndAt(document.getElementById("source_list"));
+			if(0 == vtabIndex)
+			{
+			  show_weibo_card('source_list');
+			}
 		  }
 		  });
 		});
@@ -707,8 +715,11 @@ $(function() {
 					$('#story_thumbnail').attr('src', weibo_photo.replace(/50$/, "180"));
 				  }
 				}
-				dragItem.append(content);	
-			    WB.widget.atWhere.searchAndAt(document.getElementById("story_list"));
+				dragItem.append(content);
+				if(0 == vtabIndex)
+				{
+				  show_weibo_card(dragItem.attr('id'));
+				}
 			  }
 			  else if(dragItem.hasClass('douban_drag'))
 			  {
@@ -921,7 +932,6 @@ $(function() {
 		});*/
 		$('#actions').click(function(e)
 		{
-            debugger;
 		  e.preventDefault();
 		  var story_title_txt = $('#sto_title').attr('value');
 		  var postdata; 
@@ -1056,7 +1066,10 @@ $(function() {
 			  function(data, textStatus)
 			  {
 				$('#source_list').append(data);
-				WB.widget.atWhere.searchAndAt(document.getElementById("source_list"));
+				if(0 == vtabIndex)
+				{
+				  show_weibo_card('source_list');
+				}
 			  });
 			}
 			else if(1 == selected)
@@ -1101,7 +1114,10 @@ $(function() {
 			  function(data, textStatus)
 			  {
 				$('#source_list').append(data);
-				WB.widget.atWhere.searchAndAt(document.getElementById("source_list"));
+				if(0 == vtabIndex)
+				{
+				  show_weibo_card('source_list');
+				}
 			  });
 			}
 			else if(2 == selected)
@@ -1139,7 +1155,10 @@ $(function() {
 			  function(data, textStatus)
 			  {
 				$('#source_list').append(data);
-				WB.widget.atWhere.searchAndAt(document.getElementById("source_list"));
+				if(0 == vtabIndex)
+				{
+				  show_weibo_card('source_list');
+				}
 			  });
 			}
 			else
@@ -1169,7 +1188,10 @@ $(function() {
 			  function(data, textStatus)
 			  {
 				$('#source_list').append(data);
-				WB.widget.atWhere.searchAndAt(document.getElementById("source_list"));
+				if(0 == vtabIndex)
+				{
+				  show_weibo_card('source_list');
+				}
 			  });
 			}
 		  }

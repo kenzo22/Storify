@@ -32,9 +32,6 @@ if(!islogin())
     </div>
 	<div class='float_l' style='border-left:1px solid #333; margin-top:20px; margin-left:70px; padding:0px 45px 80px 60px;'>
 	  <div><span align='center'>使用新浪微博帐号登录</span></div>
-	  <!--<div style='height:30px; margin-top:17px;' align='center'>
-		  <span><input id='weibo_btn' type='button' onclick='weibo_login()'></span>		  
-	  </div>--> 
 	  <div style='margin-top:17px;'><span id="connectBtn" style='margin-top:17px;'></span></div>
 	  
 	</div>
@@ -218,7 +215,7 @@ $(document).ready(function()
         initCallback: mycarousel_initCallback
     });
   
-  WB.core.load(['connect', 'client', 'widget.base', 'widget.atWhere'], function() 
+  /*WB.core.load(['connect', 'client', 'widget.base', 'widget.atWhere'], function() 
   {
     var cfg = 
 	{
@@ -246,7 +243,28 @@ $(document).ready(function()
 	    alert('logout');
 	  }
     });
-  });
+  });*/
+  
+  WB2.anyWhere(function(W){
+	W.widget.connectButton({
+			id: "connectBtn",
+			callback : {
+				login:function(o){
+					var weibo_user_id_val = o.id;
+					var weibo_scree_name_val = o.screen_name;
+					$.post('login/weibo_login.php', {weibo_user_id: weibo_user_id_val, weibo_scree_name: weibo_scree_name_val}, 		
+					function(data, textStatus)
+					{
+					  $('.window').hide();
+					  $('.top_nav').replaceWith(data);
+					});
+				},
+				logout:function(){
+					alert('logout');
+				}
+			}
+		});
+	});
 	
 	//select all the a tag with name equal to modal
 	$('a[name=modal]').click(function(e) {
