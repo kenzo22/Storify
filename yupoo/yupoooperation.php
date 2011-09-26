@@ -8,6 +8,7 @@ include_once( 'yupoo.php' );
 $operation=$_GET['operation'];
 $keywords = $_GET['keywords'];
 $page = $_GET['page'];
+$itemsPerPage = 20;
 
 $y = new YupooAPI( YB_AKEY , YB_SKEY);
 $picData;
@@ -16,6 +17,7 @@ $picContent;
 if('pic_search' == $operation)
 {
   $picData  = $y->search_photo($keywords, $page, $_SESSION['yupoo_token']);
+  $totalPic = $picData['result']['total'];
 }
 else if('user_search' == $operation)
 {
@@ -35,7 +37,10 @@ foreach($picArray as $item)
 
 //$picContent = "<div style='padding-left:30px;'>".count($picData[result][photos])."</div><div style='padding-left:30px;'>".$picData[result][photos][0][bucket]."</div>";
 
-$picContent .="<div class='loadmore'><a>更多</a></div>";
+if($itemsPerPage*$page<$totalPic)
+{
+  $picContent .="<div class='loadmore'><a>更多图片</a></div>";
+}
 echo $picContent;
 
 ?>

@@ -8,29 +8,36 @@ include_once( 'sinaweibo.php' );
   
 $operation=$_GET['operation'];
 $page = $_GET['page'];
+$itemsPerPage = 20;
 
 $c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_key']['oauth_token'] , $_SESSION['last_key']['oauth_token_secret']  );
 $weibo;
 $keywords;
+$load_more_flag = true;
 
 if('my_weibo' == $operation)
 {
-  $weibo  = $c->user_timeline($page, 20, null);
+  $weibo  = $c->user_timeline($page, $itemsPerPage, null);
+  if( $weibo[0]['user']['statuses_count'] - $page*$itemsPerPage <= 0)
+  $load_more_flag = false;
 }
 else if('my_follow' == $operation)
 {
-  $weibo  = $c->friends_timeline($page, 20);
+  $weibo  = $c->friends_timeline($page, $itemsPerPage);
 }
 else if('weibo_search' == $operation)
 {
   $keywords = $_GET['keywords'];
-  $weibo  = $c->search_weibo($page, 20, $keywords);
+  $weibo  = $c->search_weibo($page, $itemsPerPage, $keywords);
 }
 else if('user_search' == $operation)
 {
   $keywords = $_GET['keywords'];
-  $weibo  = $c->user_timeline($page, 20, $keywords);
+  $weibo  = $c->user_timeline($page, $itemsPerPage, $keywords);
+  if( $weibo[0]['user']['statuses_count'] - $page*$itemsPerPage <= 0)
+  $load_more_flag = false;
 }
+
 
 foreach( $weibo as $item )
 {
@@ -65,7 +72,10 @@ foreach( $weibo as $item )
     $weiboContent .= "</div><span class='create_time'>".$createTime."</span>
   <span style='float:right;'><a>[转发]</a></span></div></li>";
 }
-$weiboContent .="<div class='loadmore'><a>更多</a></div>";
+if($load_more_flag)
+{
+  $weiboContent .="<div class='loadmore'><a>更多</a></div>";
+}
 echo $weiboContent;
 
 ?>

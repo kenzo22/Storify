@@ -116,6 +116,7 @@ if($eventFlag == 0)
 }
 else if($eventFlag == 1)
 {
+  $totalEvents = $eventReturn['openSearch:totalResults']['$t'];
   foreach( $eventReturn['entry'] as $eventItem )
   {
 	$eventImgFlag = 0;
@@ -161,7 +162,10 @@ else if($eventFlag == 1)
 		</div>
 	  </div>
 	</li>";
-	$doubanContent .="<div class='loadmore event'><a>更多</a></div>";
+  }
+  if($startIndex+$numResults < $totalEvents)
+  {
+	$doubanContent .="<div class='loadmore event'><a>更多活动</a></div>";
   }
 }
 
