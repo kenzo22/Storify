@@ -77,7 +77,7 @@ if(isset($_GET['weibo_ids']))
         $weiboContent .="||".$item['source']['nick']."(@".$item['source']['name']."):".$item['source']['text']."</span></div>";
         if(isset($item['source']['image'])){
             foreach($item['source']['image'] as $re_img_url){
-                $weiboContent .="<div class='tweibo_retweet_img'><img src='".$re_img_url."/240' /></div>";
+                $weiboContent .="<div class='weibo_retweet_img'><img src='".$re_img_url."/240' /></div>";
             }
         }
     }else{
@@ -129,14 +129,14 @@ else
 
         if(isset($item['source']['image'])){
             foreach($item['source']['image'] as $re_img_url){
-                $weiboContent .="<div class='tweibo_retweet_img'><img src='".$re_img_url."/240' /></div>";
+                $weiboContent .="<div class='weibo_retweet_img'><img src='".$re_img_url."/120' /></div>";
             }
         }
     }else{
         $weiboContent .= "</span>";
         if(isset($item['image'])){
             foreach($item['image'] as $img_url){
-                $weiboContent .="<div class='weibo_img'><img src='".$img_url."/240' /></div>";
+                $weiboContent .="<div class='weibo_img'><img src='".$img_url."/120' /></div>";
             }
         }
     }
