@@ -247,8 +247,8 @@ list-style-type: decimal;
     display: none;
 }
 
-.published-steps .notify-content {
- padding:5px 10px;
+.published-steps .notify-content, .published-steps .post-content, .published-steps .share-content{
+ padding:10px 10px 0 10px;
 }
 
 .published-steps .spacer {
@@ -275,7 +275,6 @@ list-style-type: decimal;
 
 .tweet_control{
   float:right;
-  margin-bottom:10px;
 }
 
 .notify-user span {

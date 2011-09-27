@@ -32,7 +32,8 @@ foreach($story_content_array as $key=>$val)
   switch($val['type'])
   {
 	case "weibo":{
-	$weibo_per_id = $val['content'];
+	$weibo_meta_data = $val['content'];
+	$weibo_per_id = $weibo_meta_data['id'];
 	$single_weibo  = $c->show_status($weibo_per_id );
 	
 	if ($single_weibo === false || $single_weibo === null){
@@ -79,7 +80,8 @@ foreach($story_content_array as $key=>$val)
 	break;}
 	 
 	case "tweibo":{
-	$tweibo_per_id = $val['content'];
+	$tweibo_meta_data = $val['content'];
+	$tweibo_per_id = $tweibo_meta_data['id'];
 	$tweibo_id_array[] = $tweibo_per_id;
 	$content .="<li class='weibo_drop tencent' id='$tweibo_per_id' style='border:none;'></li>"; 
 	break;}
@@ -333,10 +335,6 @@ if((count($temp_array['content'])-$first_item) > $items_perpage)
 {
   $next_item_id = $first_item + $items_perpage;
   $content .="<div id='more' style='text-align:center;'><a id='".$next_item_id."' class='load_more' href='#'>更多</a></div>";
-}
-else
-{
-
 }
 echo $content;
 ?>

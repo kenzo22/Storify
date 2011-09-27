@@ -3,13 +3,19 @@ include "../global.php";
 session_start();
 include_once( 'config.php' );
 include_once( 'yupoo.php' );
-include_once( '../tweibo/demo/class.krumo.php' );
+//include_once( '../tweibo/demo/class.krumo.php' );
 
 $y = new YupooAPI( YB_AKEY , YB_SKEY);
 
 $frob = $y->get_frob();
 
 $token = $y->get_token($frob);
+
+echo "<br/><br/>";
+echo "frob:".$frob;
+echo "<br/>token:".$token;
+echo "vardump<br/>";
+var_dump($token);
 
 $_SESSION['yupoo_token'] = $token;
 

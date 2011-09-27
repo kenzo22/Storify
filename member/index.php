@@ -188,7 +188,8 @@ if(isset($_GET['post_id']))
 	switch($val['type'])
 	{
       case "weibo":{
-	  $weibo_per_id = $val['content'];
+	  $weibo_meta_data = $val['content'];
+	  $weibo_per_id = $weibo_meta_data['id'];
 	  $single_weibo  = $c->show_status($weibo_per_id );
 		
 	  if ($single_weibo === false || $single_weibo === null)
@@ -240,7 +241,8 @@ if(isset($_GET['post_id']))
 		break;}
 		
 	  case "tweibo":{
-	  $tweibo_per_id = $val['content'];
+	  $tweibo_meta_data = $val['content'];
+	  $tweibo_per_id = $tweibo_meta_data['id'];
 	  $tweibo_id_array[] = $tweibo_per_id;
 	  $content .="<li class='weibo_drop tencent' id='$tweibo_per_id'><div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div></li>
 	  <li class='addTextElementAnchor'><span><a><img class='add_comment' src='../img/editcomment.png' border='0'/></a></span></li>";

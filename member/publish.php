@@ -31,7 +31,7 @@ $post_id = $story_id;
 
 if($action == 'Publish')
     $post_status = 'Published';
-elseif($action == 'Preview' || $action == 'Draft')
+else if($action == 'Preview' || $action == 'Draft')
     $post_status = 'Draft';
 
 mb_regex_encoding("utf-8");
@@ -144,9 +144,14 @@ else
     
 }
 if($action == 'Publish' || $action == 'Preview')
-    $redirect_url = "user.php?post_id=".$post_id;
-elseif($action == 'Draft')
-    $redirect_url = "user.php?user_id=".$_SESSION['uid'];
+{
+  $redirect_url = "user.php?post_id=".$post_id;
+}
+    
+else if($action == 'Draft')
+{
+  $redirect_url = "user.php?user_id=".$_SESSION['uid'];
+}
 echo $redirect_url;
 
 ?>
