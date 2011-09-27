@@ -139,7 +139,7 @@ function append_video_content(url)
 function remove_item(event)
 {
 	var $temp = $(event.target || event.srcElement).closest('li');
-	if($temp.index() == 1 && !$temp.hasClass('textElement'))
+	if($temp.index() == 1 && !$temp.hasClass('textElement') && !$temp.hasClass('video_drop'))
 	{
       var story_pic_url;
 	  $('#story_list li:not(.addTextElementAnchor, .textElement, .video_drop)').each(function(index)
@@ -179,6 +179,10 @@ function remove_item(event)
 	}
 	$temp.next('li').remove();
 	$temp.remove();
+	if($('#story_list li:not(.addTextElementAnchor, .textElement, .video_drop)').size() == 0)
+	{
+	  $('#story_thumbnail').css('background-color', '#EFEFEF').attr('src', '');
+	}
 }
 
 function change_story_pic(direction)
@@ -230,24 +234,30 @@ function change_story_pic(direction)
 	  break;
     }
   }
-  if(direction == 'next')
+  if(i == unique_array_length)
   {
-    i = i+1;
-	if(i == unique_array_length)
-	{
-	  i=0;
-	}
-	$('#story_thumbnail').attr('src', story_pic_array[i]);
+    i=0;
   }
-  else if(direction == 'prev')
+  else
   {
-    i = i-1;
-	if(i<0)
-	{
-	  i=unique_array_length-1;
-	}
-	$('#story_thumbnail').attr('src', story_pic_array[i]);
+    if(direction == 'next')
+    {
+      i = i+1;
+	  if(i == unique_array_length)
+	  {
+	    i=0;
+	  }
+    }
+    else if(direction == 'prev')
+    {
+      i = i-1;
+	  if(i<0)
+	  {
+	    i=unique_array_length-1;
+	  }
+    }
   }
+  $('#story_thumbnail').attr('src', story_pic_array[i]);
 }
 
 $(function() {
@@ -683,7 +693,7 @@ $(function() {
 				var weibo_from_url = dragItem.find('.user_page').attr('href');
 				var position = ui.position;
 			　  var weibo_id = dragItem.find('.weibo_drag').attr('id');
-			　  var weibo_Text= dragItem.find('.weibo_text').text();
+			　  var weibo_Text= dragItem.find('.weibo_text').html();
 			　  var weibo_from = dragItem.find('.weibo_from').text();
 			　  //var weibo_from_id = dragItem.find('.user_page').attr('href').replace(/http:\/\/weibo.com\//,"");
 			  　var weibo_time = dragItem.find('.create_time').text();

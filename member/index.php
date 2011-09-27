@@ -165,7 +165,7 @@ if(isset($_GET['post_id']))
 	
   $content .="<div id='story_header'>
 		  <div id='story_pic'>
-		    <p><img id='story_thumbnail' width='88' alt='thumbnail' src='".$story_pic."'</p>
+		    <p><img id='story_thumbnail' width='88' height='88' src='".$story_pic."' /></p>
 			<ul id='imagecontroller'>
 			  <li><a id='prev_img' href='#'><img src='../img/left.png' /></a></li>
 			  <li><a id='next_img' href='#'><img src='../img/right.png' /></a></li>

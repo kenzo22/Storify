@@ -66,9 +66,12 @@ foreach( $weibo as $item )
 		  $weiboContent .= "</span>";
 		}
     }
-    if (isset($item['thumbnail_pic']))
+	else
+	{
+	  $weiboContent .= "</span>";
+	  if (isset($item['thumbnail_pic']))
         $weiboContent .= "<div class='weibo_img'><img src='".$item['thumbnail_pic']."' /></div>";
-
+	}
     $weiboContent .= "</div><span class='create_time'>".$createTime."</span>
   <span style='float:right;'><a>[转发]</a></span></div></li>";
 }
