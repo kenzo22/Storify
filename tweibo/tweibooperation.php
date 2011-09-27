@@ -45,7 +45,8 @@ else if('weibo_search' == $operation)
 else if('user_search' == $operation)
 {
   $keywords = $_GET['keywords'];
-  $tweibo  = $c->user_timeline($keywords, $page, $timestamp, $itemsPerPage);
+  $userResult = $c->search_user($keywords);
+  $tweibo  = $c->user_timeline($userResult['data']['info'][0]['name'], $page, $timestamp, $itemsPerPage);
 }
 
 $info = $tweibo['data']['info'];

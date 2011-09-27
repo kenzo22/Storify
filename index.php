@@ -215,7 +215,7 @@ $(document).ready(function()
         initCallback: mycarousel_initCallback
     });
   
-  /*WB.core.load(['connect', 'client', 'widget.base', 'widget.atWhere'], function() 
+  WB.core.load(['connect', 'client', 'widget.base', 'widget.atWhere'], function() 
   {
     var cfg = 
 	{
@@ -243,9 +243,9 @@ $(document).ready(function()
 	    alert('logout');
 	  }
     });
-  });*/
+  });
   
-  WB2.anyWhere(function(W){
+  /*WB2.anyWhere(function(W){
 	W.widget.connectButton({
 			id: "connectBtn",
 			callback : {
@@ -264,7 +264,7 @@ $(document).ready(function()
 				}
 			}
 		});
-	});
+	});*/
 	
 	//select all the a tag with name equal to modal
 	$('a[name=modal]').click(function(e) {

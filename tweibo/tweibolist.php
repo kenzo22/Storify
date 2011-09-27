@@ -11,7 +11,7 @@ $c = new TWeiboClient( MB_AKEY , MB_SKEY , $_SESSION['last_key']['oauth_token'] 
 
 echo "<br /><br /><br />";
 
-function binhex($str)
+/*function binhex($str)
 {
 $hex = "";
 $i = 0;
@@ -40,14 +40,19 @@ if($file != "." && $file != "..")
 if(file_exists($dirname.$file))
 echo '<li>'.iconv("GBK",'UTF-8',$file).'</li>';
 
-}
+}*/
 
 
 
 //$me=$c->t_show("15656096264731");
-$me=$c->search_t("微博");
+//$me=$c->search_t("微博");
+//$me = $c->user_timeline('jiapenglei', 0, 0, 20);
+//$me = $c->user_other_info('jiapenglei');
+//$me = $c->search_user('蔡虎');
+$me = $c->search_by_tag('创业');
+var_dump($me);
 
-echo "<pre>";
+/*echo "<pre>";
 foreach($me as $key => $value){
     echo $key;
     if(is_array($value)){
@@ -80,6 +85,6 @@ foreach($me as $key => $value){
         }
     }
 }
-echo "</pre>"
+echo "</pre>"*/
 
 ?>
