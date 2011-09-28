@@ -1,15 +1,6 @@
 <?php
 include "global.php"; 
 include "member/tagoperation.php";
-//select a random item from the publictoken pool
-if(!islogin())
-{
-  $token = $DB->fetch_one_array("select * from ".$db_prefix."publictoken where id='1'");
-  $_SESSION['last_key']['oauth_token'] = $token['weibo_access_token'];
-  $_SESSION['last_key']['oauth_token_secret'] = $token['weibo_access_token_secret'];
-  $_SESSION['last_tkey']['oauth_token'] = $token['tweibo_access_token'];
-  $_SESSION['last_tkey']['oauth_token_secret'] = $token['tweibo_access_token_secret'];
-}
 
 ?>
 <link rel="stylesheet" type="text/css" href="css/skin.css" />

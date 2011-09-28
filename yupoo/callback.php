@@ -7,15 +7,21 @@ include_once( 'yupoo.php' );
 
 $y = new YupooAPI( YB_AKEY , YB_SKEY);
 
-$frob = $y->get_frob();
+//$frob = $y->get_frob();
+$frob = $_GET['frob'];
 
 $token = $y->get_token($frob);
+
+$errormessage = $y->get_error_msg();
+$errorcode = $y->get_error_code();
 
 echo "<br/><br/>";
 echo "frob:".$frob;
 echo "<br/>token:".$token;
 echo "vardump<br/>";
 var_dump($token);
+echo "<br/>erromsg:".$errormessage;
+echo "<br/>errorcode:".$errorcode;
 
 $_SESSION['yupoo_token'] = $token;
 
@@ -28,5 +34,5 @@ $picData  = $y->search_user($userid, 1, $_SESSION['yupoo_token']);*/
 //krumo($picData);
 
 $result=$DB->query("update ".$db_prefix."user set yupoo_token='".$token."' WHERE id='".$_SESSION['uid']."'");
-header("location: ../member/source.php"); 
+//header("location: ../member/source.php"); 
 ?>

@@ -5,10 +5,15 @@ include_once( 'config.php' );
 //include_once( 'weibooauth.php' );
 include_once( 'sinaweibo.php' );
 
-$result=$DB->fetch_one_array("SELECT weibo_access_token, weibo_access_token_secret FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
+$token = $DB->fetch_one_array("select * from ".$db_prefix."publictoken where id='1'");
+$_SESSION['last_wkey']['oauth_token']=$token['weibo_access_token'];
+$_SESSION['last_wkey']['oauth_token_secret']=$token['weibo_access_token_secret'];
+$c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']  );
+
+/*$result=$DB->fetch_one_array("SELECT weibo_access_token, weibo_access_token_secret FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
 $_SESSION['last_key']['oauth_token']=$result['weibo_access_token'];
-$_SESSION['last_key']['oauth_token_secret']=$result['weibo_access_token_secret'];
-$c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_key']['oauth_token'] , $_SESSION['last_key']['oauth_token_secret']  );
+$_SESSION['last_key']['oauth_token_secret']=$result['weibo_access_token_secret'];*/
+//$c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_key']['oauth_token'] , $_SESSION['last_key']['oauth_token_secret']  );
 //$ms  = $c->friends_timeline(); // done
 //$ms  = $c->update("测试测试"); // done
 

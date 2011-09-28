@@ -4,16 +4,15 @@ include "../global.php";
 ?>
 
 <script type="text/javascript">
-WB.core.load(['connect', 'client', 'widget.base', 'widget.atWhere'], function() 
+/*WB.core.load(['connect', 'client', 'widget.base', 'widget.atWhere'], function() 
 {
   var cfg = {
-              //key: '314237338',
 			  key: '2417356638',
 			  xdpath: 'http://koulifang.com/html/xd.html'
 			};
   WB.connect.init(cfg);
   WB.client.init(cfg);
-});
+});*/
 
 $(function(){
 $('#pwd_login').focus();
@@ -100,10 +99,30 @@ if($email && $passwd)
 	}
 	else
 	{
-	  $_SESSION['last_key']['oauth_token']=$result['weibo_access_token'];
-	  $_SESSION['last_key']['oauth_token_secret']=$result['weibo_access_token_secret'];
-	  $_SESSION['last_tkey']['oauth_token']=$result['tweibo_access_token'];
-	  $_SESSION['last_tkey']['oauth_token_secret']=$result['tweibo_access_token_secret'];
+	  //select a random item from the publictoken pool
+	  $token = $DB->fetch_one_array("select * from ".$db_prefix."publictoken where id='1'");
+	  
+	  if($result['weibo_access_token'] == '')
+	  {
+	    $_SESSION['last_key']['oauth_token'] = $token['weibo_access_token'];
+	    $_SESSION['last_key']['oauth_token_secret'] = $token['weibo_access_token_secret'];
+	  }
+	  else
+	  {
+	    $_SESSION['last_key']['oauth_token']=$result['weibo_access_token'];
+	    $_SESSION['last_key']['oauth_token_secret']=$result['weibo_access_token_secret'];
+	  }
+	  if($result['tweibo_access_token'] == '')
+	  {
+	    $_SESSION['last_tkey']['oauth_token'] = $token['tweibo_access_token'];
+	    $_SESSION['last_tkey']['oauth_token_secret'] = $token['tweibo_access_token_secret'];
+	  }
+	  else
+	  {
+	    $_SESSION['last_tkey']['oauth_token']=$result['tweibo_access_token'];
+	    $_SESSION['last_tkey']['oauth_token_secret']=$result['tweibo_access_token_secret'];
+	  }
+	  
 	  $_SESSION['last_dkey']['oauth_token']=$result['douban_access_token'];
 	  $_SESSION['last_dkey']['oauth_token_secret']=$result['douban_access_token_secret'];
 	  $_SESSION['yupoo_token'] = $result['yupoo_token'];
