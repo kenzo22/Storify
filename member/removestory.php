@@ -21,4 +21,5 @@ while($item=$DB->fetch_array($results)){
 }
 
 $result=$DB->query("DELETE FROM ".$db_prefix."posts where ID='".$post_id."'");
+echo $_SESSION['uid'];
 ?>

@@ -72,10 +72,6 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	}
 	$w_nic_array = array_unique($w_nic_array);
 	$t_array = array_unique($t_array);
-	/*echo "<br/><br/>";
-	var_dump($w_nic_array);
-	echo "<br/><br/>";
-	var_dump($t_array);*/
 	$w_array_length = count($w_nic_array);
 	$t_array_length = count($t_array);
 	
@@ -158,13 +154,12 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 						<div class='spacer'></div>
 					  </div>";
 		$content .= "<div class='digg_wrap'><div id='".$post_id."_digg_count' style='margin-top:10px;'>".$story_digg_count."</div><a id='".$post_id."_act_digg' class='act_digg'><img src='../img/ding.ico' /></a></div><div id='publish_container' class='showborder'>
-			  <div id='story_action'><span>已发布</span><span class='float_r'><a href='#'><img src='../img/guangbo.ico' title='通告' style='width:16px; height:16px;'/>
-			  </a>&nbsp<a href='/member/user.php?post_id=".$post_id."&action=remove'><img src='../img/delete.gif' title='删除' style='width:16px; height:16px;'/></a>&nbsp<a href='/member/user.php?post_id=".$post_id."&action=edit'><img src='../img/edit.png' title='编辑' style='width:16px; height:16px;'/></a></span></div>";
+			  <div id='story_action'><span>已发布</span><span class='float_r'><a id='".$post_id."_delete' class='delete redirect'><img src='../img/delete.gif' title='删除' style='width:16px; height:16px;'/></a>&nbsp<a href='/member/user.php?post_id=".$post_id."&action=edit'><img src='../img/edit.png' title='编辑' style='width:16px; height:16px;'/></a></span></div>";
 	  }
 	  else
 	  {
 	    $content = "<div id='story_container'><div id='publish_container' class='showborder'>
-			  <div id='story_action'><span>草稿</span><span class='float_r'><a href='/member/user.php?post_id=".$post_id."&action=remove'><img src='../img/delete.gif' title='删除' style='width:16px; height:16px;'/>
+			  <div id='story_action'><span>草稿</span><span class='float_r'><a id='".$post_id."_delete' class='delete redirect'><img src='../img/delete.gif' title='删除' style='width:16px; height:16px;'/>
 			  </a>&nbsp<a href='/member/user.php?post_id=".$post_id."&action=edit'><img src='../img/edit.png' title='编辑' style='width:16px; height:16px;'/></a>&nbsp&nbsp<a href='/member/user.php?post_id=".$post_id."&action=publish'><img src='../img/publish.ico' title='发布' style='width:16px; height:16px;'/></a></span></div>";
 	  }	
 	}
@@ -627,28 +622,7 @@ else if(isset($_GET['post_id']) && isset($_GET['action']))
 {
 	$story_id = $_GET['post_id'];
 	$story_action = $_GET['action'];
-	if(0 == strcmp($story_action, 'remove'))
-	{
-        $query="select tag_id from ".$db_prefix."tag_story where story_id=".$story_id;
-        $results=$DB->query($query);
-        
-        $query="delete from ".$db_prefix."tag_story where story_id=".$story_id;
-        $DB->query($query);
-        
-        // delete tag if no story is bined
-        while($item=$DB->fetch_array($results)){
-            $query="select * from ".$db_prefix."tag_story where tag_id=".$item['tag_id'];
-            $res=$DB->query($query);
-            if($DB->num_rows($res) == 0){
-                $query="delete from ".$db_prefix."tag where id=".$item['tag_id'];
-                $DB->query($query);
-            }
-        }
-        
-	  $result=$DB->query("DELETE FROM ".$db_prefix."posts where ID='".$story_id."'");
-	  go('/member/user.php?user_id='.$_SESSION['uid']);
-	}
-	else if(0 == strcmp($story_action, 'edit'))
+	if(0 == strcmp($story_action, 'edit'))
 	{
 	  go('/member/index.php?post_id='.$story_id);
 	}
@@ -795,7 +769,7 @@ else if(isset($_GET['user_id']))
   {
     $story_content .="
     <div class='actions'>
-      <a id='".$post_id."' class='icon delete' title='删除' href='#'><img src='../img/delete.gif' style='width:16px; height:16px;'/></a>
+      <a id='".$post_id."_delete' class='icon delete' title='删除' href='#'><img src='../img/delete.gif' style='width:16px; height:16px;'/></a>
 	  <a class='icon edit' title='编辑' href='/member/index.php?post_id=".$post_id."'><img src='../img/edit.png' style='width:16px; height:16px;'/></a>
     </div>";
   }
@@ -843,18 +817,24 @@ $(function(){
 	
 	$('.delete').click(function(e){
 	  e.preventDefault();
-	  
 	  var r=confirm("确定删除这个故事吗?");
 	  if (r==true)
 	  {
-	    var post_id_val = $(this).attr('id');
+	    var post_id_val = $(this).attr('id').replace(/_delete/, "");
 	    var getData = {post_id: post_id_val};
 	    $.get('removestory.php', getData,
 	    function(data, textStatus)
 	    {
 		  if(textStatus == 'success')
 		  {
-            $('#'+post_id_val).closest('li').remove();
+            if($('#'+post_id_val+'_delete').hasClass('redirect'))
+			{
+			  self.location = '/member/user.php?user_id='+data;
+			}
+			else
+			{
+			  $('#'+post_id_val+'_delete').closest('li').remove();
+			}
 		  }
 	    });
 	  }
