@@ -44,11 +44,11 @@ echo '<li>'.iconv("GBK",'UTF-8',$file).'</li>';
 
 
 
-$me=$c->t_show("88065074714247");
+//$me=$c->t_show("88065074714247");
 //$me=$c->search_t("微博");
 //$me = $c->user_timeline('jiapenglei', 0, 0, 20);
 //$me = $c->user_other_info('jiapenglei');
-//$me = $c->search_user('蔡虎');
+$me = $c->search_user('菜虎', 2, 5);
 //$me = $c->search_by_tag('创业');
 var_dump($me);
 

@@ -1,4 +1,4 @@
-var embedCode, vtabIndex, followPage, myPage, userSearchPage, myPageTimestamp, followTimestamp, usersearchTimestamp;
+var embedCode, vtabIndex, followPage, myPage, userSearchPage, tuserSearchPage, myPageTimestamp, followTimestamp, usersearchTimestamp;
 var weiboSearhPage = 1, picSearchPage = 1, userpicSearchPage =1, tweibosearchPage = 1, doubanItemCounts = 10, commentsPerQuery = 5, eventStartIndex = 1, bookStartIndex = 1, bookReviewStartIndex = 1, movieStartIndex = 1, movieReviewStartIndex = 1, musicStartIndex = 1, musicReviewStartIndex = 1;
 
 Array.prototype.getUnique = function()
@@ -520,7 +520,8 @@ $(function() {
 		$('#user_tab').click(function()
 		{
 		  userSearchPage = 1;
-		  usersearchTimestamp = 0;
+		  tuserSearchPage = 1;
+		  //usersearchTimestamp = 0;
 		  $('#source_list').css('height', '664px');
 		  $('#keywords').val('微博用户名');
 		  $('#source_list').children().remove();
@@ -558,7 +559,8 @@ $(function() {
 		    else
 		    {
 			  getUrl = '../tweibo/tweibooperation.php';
-			  getData = {operation: 'user_search', keywords: words, page: 0, timestamp: usersearchTimestamp};
+			  //getData = {operation: 'user_search', keywords: words, page: 0, timestamp: usersearchTimestamp};
+			  getData = {operation: 'list_user', keywords: words, page: tuserSearchPage};
 		    }	
 		  }
 		  
@@ -671,7 +673,7 @@ $(function() {
 		
 		$( "#source_list, #story_list" ).sortable({
 			connectWith: ".connectedSortable",
-			cancel: ".weibo_drop, .douban_drop, .video_drop, .textElement",
+			cancel: ".weibo_drop, .douban_drop, .video_drop, .textElement, .tuser",
 			receive: function(event, ui) 
 			{
 			  var dragItem = ui.item;
@@ -1030,6 +1032,33 @@ $(function() {
 		  }); 
 		});
 		
+		//tencent user weibo part
+		$('.list_tweibo').live('click', function(e){
+		  usersearchTimestamp = 0;
+		  e.preventDefault();
+		  var getUrl = '../tweibo/tweibooperation.php';
+		  var getData;
+		  var tUserName = $(this).closest('.weibo_drag').attr('id');
+		  getData = {operation: 'user_search', keywords: tUserName, page: 0, timestamp: usersearchTimestamp};
+		  
+		  $.ajax({
+		  type: 'GET',
+		  url: getUrl,
+		  data: getData, 
+		  beforeSend:function() 
+		  {
+		    var imgpath = '../img/loading.gif';
+		    var imgloading = $("<span style='padding-left:180px;'><img src='../img/loading.gif' /></span>");
+		    $('#source_list').html(imgloading);
+		  },
+		  success: function(data)
+		  {
+			$('#source_list').html(data);
+		  }
+		  }); 
+		});
+		
+		
 		$('#source_list').click(function(e)
 		{
 		  var selected;
@@ -1204,9 +1233,20 @@ $(function() {
 		      }
 		      else if(1 == vtabIndex)
 		      {
-		        getUrl = '../tweibo/tweibooperation.php';
-				usersearchTimestamp = $('.loadmore span').attr('id');
-				getData = {operation: 'user_search', keywords: $('#keywords').val(), page: 1, timestamp: usersearchTimestamp};
+				getUrl = '../tweibo/tweibooperation.php';
+				//usersearchTimestamp = $('.loadmore span').attr('id');
+				//getData = {operation: 'user_search', keywords: $('#keywords').val(), page: 1, timestamp: usersearchTimestamp};
+				if($(e.target).closest('.loadmore').hasClass('tuser'))
+				{
+				  tuserSearchPage++;
+				  getData = {operation: 'list_user', keywords: $('#keywords').val(), page: tuserSearchPage};
+				}
+				else
+				{
+				  var tUserName = $('.loadmore').prev().find('.user_page').attr('href').replace(/http:\/\/t.qq.com\//,"");
+				  usersearchTimestamp = $('.loadmore span').attr('id');
+				  getData = {operation: 'user_search', keywords: tUserName, page: 1, timestamp: usersearchTimestamp};
+				}
 		      }
 			  else if(2 == vtabIndex)
 		      {

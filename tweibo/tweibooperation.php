@@ -42,11 +42,17 @@ else if('weibo_search' == $operation)
   $keywords = $_GET['keywords'];
   $tweibo  = $c->search_t($keywords, $page, $itemsPerPage);
 }
+else if('list_user' == $operation)
+{
+  $keywords = $_GET['keywords'];
+  $tweibo  = $c->search_user($keywords, $page, $itemsPerPage);
+}
 else if('user_search' == $operation)
 {
   $keywords = $_GET['keywords'];
-  $userResult = $c->search_user($keywords);
-  $tweibo  = $c->user_timeline($userResult['data']['info'][0]['name'], $page, $timestamp, $itemsPerPage);
+  //$userResult = $c->search_user($keywords);
+  //$tweibo  = $c->user_timeline($userResult['data']['info'][0]['name'], $page, $timestamp, $itemsPerPage);
+  $tweibo  = $c->user_timeline($keywords, $page, $timestamp, $itemsPerPage);
 }
 
 $info = $tweibo['data']['info'];
@@ -96,8 +102,46 @@ if(isset($_GET['weibo_ids']))
   }
   $weiboContent .= "</div>";
 }
+else if('list_user' == $operation)
+{
+  $weiboContent = "";
+  foreach( $info as $item )
+  {
+     //$weiboContent .= "<li class='weibo_drag'>".$item['name']."<li>";
+	 if($item['head'] == '')
+	 {
+	   $profileImgUrl = '/img/douban_user_dft.jpg';
+	 }
+	 else
+	 { 
+	   $profileImgUrl = $item['head']."/100";
+	 }	 
+	 $weiboContent .= "<li id='".$item['name']."' class='weibo_drag tuser'>
+					     <div>
+						   <div>
+						     <a href='#' target='_blank'><img src='".$profileImgUrl."' style='float:left; width:100px; height:100px;' /></a>
+							 <div class='person_meta' style='margin-left:130px;'>
+							   <div>".$item['nick']."  (@".$item['name'].")</div>
+							   <div>".$item['location']."</div>
+							   <div>听众:".$item['fansnum']."</div>
+							   <div>收听:".$item['idolnum']."</div>
+							   <div><a class='list_tweibo' href='#'>查看微博</a></div>
+							 </div>
+						   </div>
+						   <div style='text-align:right;'>
+							 <img border='0' style='width:16px; height:16px;' src='/img/tencent16.png'/>
+						   </div>
+						 </div>
+					   <li>";
+  }
+  if($itemsPerPage*$page<$tweibo['data']['totalnum'])
+  {
+    $weiboContent .="<div class='loadmore tuser'><a>更多</a></div>";
+  }
+}
 else
 {
+  $weiboContent = "";
   if( $tweibo['data']['hasnext'] == 1)
   $load_more_flag = false;
   foreach( $info as $item )

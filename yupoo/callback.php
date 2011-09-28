@@ -1,6 +1,5 @@
 <?php
 include "../global.php"; 
-session_start();
 include_once( 'config.php' );
 include_once( 'yupoo.php' );
 //include_once( '../tweibo/demo/class.krumo.php' );
@@ -12,7 +11,7 @@ $frob = $_GET['frob'];
 
 $token = $y->get_token($frob);
 
-$errormessage = $y->get_error_msg();
+/*$errormessage = $y->get_error_msg();
 $errorcode = $y->get_error_code();
 
 echo "<br/><br/>";
@@ -21,7 +20,7 @@ echo "<br/>token:".$token;
 echo "vardump<br/>";
 var_dump($token);
 echo "<br/>erromsg:".$errormessage;
-echo "<br/>errorcode:".$errorcode;
+echo "<br/>errorcode:".$errorcode;*/
 
 $_SESSION['yupoo_token'] = $token;
 
@@ -34,5 +33,5 @@ $picData  = $y->search_user($userid, 1, $_SESSION['yupoo_token']);*/
 //krumo($picData);
 
 $result=$DB->query("update ".$db_prefix."user set yupoo_token='".$token."' WHERE id='".$_SESSION['uid']."'");
-//header("location: ../member/source.php"); 
+header("location: ../member/source.php"); 
 ?>

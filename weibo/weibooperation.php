@@ -38,7 +38,7 @@ else if('user_search' == $operation)
   $load_more_flag = false;
 }
 
-
+$weiboContent = "";
 foreach( $weibo as $item )
 {
     //show emotions
