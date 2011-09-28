@@ -24,6 +24,7 @@ else if('user_search' == $operation)
   $userdata = $y->get_userid_by_name($keywords);
   $userid = $userdata[user][id];
   $picData  = $y->search_user($userid, $page, $_SESSION['yupoo_token']);
+  $totalPic = $picData['result']['total'];
 }
 $picArray = $picData[result][photos];
 foreach($picArray as $item)

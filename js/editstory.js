@@ -426,7 +426,7 @@ $(function() {
 		{
 		  $('.weibo_drag').remove();
 		  $('.loadmore').remove();
-		  $('#source_list').css('height', '722px');
+		  $('#source_list').css('height', '723px');
 		  $('#weibo_search').addClass('none');
 		  myPage = 1;
 		  myPageTimestamp = 0;
@@ -468,7 +468,7 @@ $(function() {
 		{
 		  $('.weibo_drag').remove();
 		  $('.loadmore').remove();
-		  $('#source_list').css('height', '722px');
+		  $('#source_list').css('height', '723px');
 		  $('#weibo_search').addClass('none');
 		  followPage = 1;
 		  followTimestamp = 0;
@@ -626,7 +626,7 @@ $(function() {
 		{
 		  picSearchPage = 1;
 		  $('#source_list').children().remove();
-		  $('#source_list').css('height', '615px');
+		  $('#source_list').css('height', '664px');
 		  $('#pic_keywords').val('关键字').addClass('imply_color');
 		});
 		
@@ -634,7 +634,7 @@ $(function() {
 		{
 		  userpicSearchPage = 1;
 		  $('#source_list').children().remove();
-		  $('#source_list').css('height', '615px');
+		  $('#source_list').css('height', '664px');
 		  $('#pic_keywords').val('又拍用户名').addClass('imply_color');
 		});
 		
@@ -1321,7 +1321,7 @@ $(function() {
 		  {
 		    $weiboTabs.tabs( "select" , 0 );
 		    $('#weibo_search').removeClass('none');
-			$('#source_list').css('height', '665px').children().remove();
+			$('#source_list').css('height', '664px').children().remove();
 		  }
 		  selVTab = 1;
 		  $('#vtab>div').hide().eq(vtabIndex-1).show();
@@ -1330,7 +1330,8 @@ $(function() {
 		{
 		  if(2 != selVTab)
 		  {
-		    $('#source_list').css('height', '665px').children().remove();
+		    $doubanTabs.tabs( "select" , 0 );
+			$('#source_list').css('height', '664px').children().remove();
 		  } 
 		  selVTab = 2;
 		  $('#vtab>div').hide().eq(vtabIndex-1).show();
@@ -1339,7 +1340,7 @@ $(function() {
 		{
 		  if(3 != selVTab)
 		  {
-		    $('#source_list').css('height', '665px').children().remove();
+		    $('#source_list').css('height', '664px').children().remove();
 		  } 
 		  selVTab = 3;
 		  $('#vtab>div').hide().eq(vtabIndex-1).show();
@@ -1348,7 +1349,8 @@ $(function() {
 		{
 		  if(4 != selVTab)
 		  {
-		    $('#source_list').css('height', '665px').children().remove();
+		    $picTabs.tabs( "select" , 0 );
+			$('#source_list').css('height', '664px').children().remove();
 		  } 
 		  selVTab = 4;
 		  $('#vtab>div').hide().eq(vtabIndex-1).show();
@@ -1361,7 +1363,7 @@ $(function() {
 		  {
 		    $weiboTabs.tabs( "select" , 0 );
 		    $('#weibo_search').removeClass('none');
-			$('#source_list').css('height', '665px').children().remove();
+			$('#source_list').css('height', '664px').children().remove();
 		  }
 		  selVTab = 0;
 		  $('#vtab>div').hide().eq(vtabIndex).show();

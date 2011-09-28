@@ -91,7 +91,7 @@ $content = "
 		    </div>
 		  </div>
 		  <div id='videoTabs'>
-		    <form action='#' style='padding-top:15px; padding-bottom:33px;'>
+		    <form action='#' style='padding-top:15px; padding-bottom:35px;'>
 		    <div>
 			  <label for='videoUrl'>优酷视频地址:</label><br />           
 			  <input style='margin-top:13px;' id='videoUrl' name='videoUrl' type='text'>
