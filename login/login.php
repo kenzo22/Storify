@@ -4,16 +4,6 @@ include "../global.php";
 ?>
 
 <script type="text/javascript">
-/*WB.core.load(['connect', 'client', 'widget.base', 'widget.atWhere'], function() 
-{
-  var cfg = {
-			  key: '2417356638',
-			  xdpath: 'http://koulifang.com/html/xd.html'
-			};
-  WB.connect.init(cfg);
-  WB.client.init(cfg);
-});*/
-
 $(function(){
 $('#pwd_login').focus();
 $('#email_login').bind('focus', function(){
@@ -63,12 +53,12 @@ if(isset($_GET['logout']))
 	echo "<script language='javascript' >
 			window.onload = function()
 			{
-			  WB.connect.logout(function() 
+			  WB2.logout(function() 
 			  {
 				self.location = '/index.php';
 			  });
 			}
-			</script>";
+		  </script>";
 	session_destroy(); 
 	go("/index.php");
 	exit;
@@ -104,13 +94,13 @@ if($email && $passwd)
 	  
 	  if($result['weibo_access_token'] == '')
 	  {
-	    $_SESSION['last_key']['oauth_token'] = $token['weibo_access_token'];
-	    $_SESSION['last_key']['oauth_token_secret'] = $token['weibo_access_token_secret'];
+	    $_SESSION['last_wkey']['oauth_token'] = $token['weibo_access_token'];
+	    $_SESSION['last_wkey']['oauth_token_secret'] = $token['weibo_access_token_secret'];
 	  }
 	  else
 	  {
-	    $_SESSION['last_key']['oauth_token']=$result['weibo_access_token'];
-	    $_SESSION['last_key']['oauth_token_secret']=$result['weibo_access_token_secret'];
+	    $_SESSION['last_wkey']['oauth_token']=$result['weibo_access_token'];
+	    $_SESSION['last_wkey']['oauth_token_secret']=$result['weibo_access_token_secret'];
 	  }
 	  if($result['tweibo_access_token'] == '')
 	  {

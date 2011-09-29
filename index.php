@@ -23,7 +23,7 @@ include "member/tagoperation.php";
     </div>
 	<div class='float_l' style='border-left:1px solid #333; margin-top:20px; margin-left:70px; padding:0px 45px 80px 60px;'>
 	  <div><span align='center'>使用新浪微博帐号登录</span></div>
-	  <div style='margin-top:17px;'><span id="connectBtn" style='margin-top:17px;'></span></div>
+	  <div style='margin-top:17px;'><a id="connectBtn" href="#" style='margin-top:17px;'><img src="/img/weibo.png" style="border:1px solid #D4D4D4" /></a></div>
 	  
 	</div>
   </div>
@@ -206,56 +206,46 @@ $(document).ready(function()
         initCallback: mycarousel_initCallback
     });
   
-  WB.core.load(['connect', 'client', 'widget.base', 'widget.atWhere'], function() 
+  /*$('#connectBtn').live('click', function(e)
   {
-    var cfg = 
+	e.preventDefault();
+	WB2.login(function()
 	{
-      key: '2417356638',
-      xdpath: 'http://koulifang.com/html/xd.html'
-    };
-    WB.connect.init(cfg);
-    WB.client.init(cfg);
-
-    WB.widget.base.connectButton(document.getElementById('connectBtn'),
-    {
-      login:function(o)
+	  WB2.anyWhere(function(W)
 	  {
-	    var weibo_user_id_val = o.id;
-	    var weibo_scree_name_val = o.screen_name;
-	    $.post('login/weibo_login.php', {weibo_user_id: weibo_user_id_val, weibo_scree_name: weibo_scree_name_val}, 		
-	    function(data, textStatus)
-	    {
-		  $('.window').hide();
-		  $('.top_nav').replaceWith(data);
-	    });
-	  },
-	  logout:function()
-	  {
-	    alert('logout');
-	  }
-    });
-  });
-  
-  /*WB2.anyWhere(function(W){
-	W.widget.connectButton({
-			id: "connectBtn",
-			callback : {
-				login:function(o){
-					var weibo_user_id_val = o.id;
-					var weibo_scree_name_val = o.screen_name;
-					$.post('login/weibo_login.php', {weibo_user_id: weibo_user_id_val, weibo_scree_name: weibo_scree_name_val}, 		
-					function(data, textStatus)
-					{
-					  $('.window').hide();
-					  $('.top_nav').replaceWith(data);
-					});
-				},
-				logout:function(){
-					alert('logout');
-				}
-			}
+        // 获取账户信息
+		W.parseCMD("/account/verify_credentials.json", function(sResult, bStatus)
+		{
+		  if(bStatus == true) 
+		  {
+		    var weibo_user_id_val = sResult.id;
+			var weibo_scree_name_val = sResult.screen_name;
+			$.post('login/weibo_login.php', {weibo_user_id: weibo_user_id_val, weibo_scree_name: weibo_scree_name_val}, 		
+		    function(data, textStatus)
+		    {
+			  $('.window').hide();
+			  $('.top_nav').replaceWith(data);
+		    });
+		  }
+		},{
+			
+		},{
+			method: 'get'
 		});
-	});*/
+	  });
+	});
+  });*/
+  
+  $('#connectBtn').live('click', function(e)
+  {
+	e.preventDefault();
+	$.post('login/sina_auth.php', {}, 		
+	function(data, textStatus)
+	{
+	  $('.window').hide();
+	  self.location=data;
+	});
+  });
 	
 	//select all the a tag with name equal to modal
 	$('a[name=modal]').click(function(e) {

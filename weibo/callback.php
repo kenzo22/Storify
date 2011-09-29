@@ -1,17 +1,17 @@
 <?php
-include "../global.php";
+require_once "../connect_db.php";
 session_start();
 include_once( 'config.php' );
 //include_once( 'weibooauth.php' );
 include_once( 'sinaweibo.php' );
 
-$o = new WeiboOAuth( WB_AKEY , WB_SKEY , $_SESSION['keys']['oauth_token'] , $_SESSION['keys']['oauth_token_secret']  );
+$o = new WeiboOAuth( WB_AKEY , WB_SKEY , $_SESSION['wkeys']['oauth_token'] , $_SESSION['wkeys']['oauth_token_secret']  );
 
-$last_key = $o->getAccessToken(  $_REQUEST['oauth_verifier'] ) ;
-$_SESSION['last_key'] = $last_key;
+$last_wkey = $o->getAccessToken(  $_REQUEST['oauth_verifier'] ) ;
+$_SESSION['last_wkey'] = $last_wkey;
 $weibo_uid;
-$accessToken = $_SESSION['last_key']['oauth_token'];
-$accessTokenSecret = $_SESSION['last_key']['oauth_token_secret'];
+$accessToken = $_SESSION['last_wkey']['oauth_token'];
+$accessTokenSecret = $_SESSION['last_wkey']['oauth_token_secret'];
 
 $c = new WeiboClient( WB_AKEY , 
                       WB_SKEY , 
@@ -35,14 +35,15 @@ if (isset($msg['id'])){
 $userresult=$DB->fetch_one_array("SELECT tweibo_access_token FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
 if($userresult['tweibo_access_token'] == '')
 {
-  $result=$DB->query("update ".$db_prefix."user set photo='".$profile_img_url."', weibo_user_id='".$weibo_uid."', weibo_access_token='".$_SESSION['last_key']['oauth_token']."', weibo_access_token_secret='".$_SESSION['last_key']['oauth_token_secret']."' WHERE id='".$_SESSION['uid']."'");
+  $result=$DB->query("update ".$db_prefix."user set photo='".$profile_img_url."', weibo_user_id='".$weibo_uid."', weibo_access_token='".$_SESSION['last_wkey']['oauth_token']."', weibo_access_token_secret='".$_SESSION['last_wkey']['oauth_token_secret']."' WHERE id='".$_SESSION['uid']."'");
 }
 else
 {
-  $result=$DB->query("update ".$db_prefix."user set weibo_user_id='".$weibo_uid."', weibo_access_token='".$_SESSION['last_key']['oauth_token']."', weibo_access_token_secret='".$_SESSION['last_key']['oauth_token_secret']."' WHERE id='".$_SESSION['uid']."'");
+  $result=$DB->query("update ".$db_prefix."user set weibo_user_id='".$weibo_uid."', weibo_access_token='".$_SESSION['last_wkey']['oauth_token']."', weibo_access_token_secret='".$_SESSION['last_wkey']['oauth_token_secret']."' WHERE id='".$_SESSION['uid']."'");
 }
 
 header("location: ../member/source.php"); 
+exit;
 ?>
-<?php include "../include/footer.htm"; ?>
+
 

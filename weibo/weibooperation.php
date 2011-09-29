@@ -10,7 +10,7 @@ $operation=$_GET['operation'];
 $page = $_GET['page'];
 $itemsPerPage = 20;
 
-$c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_key']['oauth_token'] , $_SESSION['last_key']['oauth_token_secret']  );
+$c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']  );
 $weibo;
 $keywords;
 $load_more_flag = true;

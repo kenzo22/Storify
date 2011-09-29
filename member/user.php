@@ -17,7 +17,7 @@ include_once "userrelation.php";
 
 if(isset($_GET['post_id']) && !isset($_GET['action']))
 {
-	$c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_key']['oauth_token'] , $_SESSION['last_key']['oauth_token_secret']  );
+	$c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']  );
 	$t = new TWeiboClient( MB_AKEY , MB_SKEY , $_SESSION['last_tkey']['oauth_token'] , $_SESSION['last_tkey']['oauth_token_secret']  );
 	$d = new DoubanClient( DB_AKEY , DB_SKEY , $_SESSION['last_dkey']['oauth_token'] , $_SESSION['last_dkey']['oauth_token_secret']  );
 	$post_id = $_GET['post_id'];
@@ -611,9 +611,40 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 					success: function(data){
 						$('#more').remove();
 						$('#weibo_ul').append(data);
+					    $('#weibo_ul li:gt('+temp+')').each(function()
+						  {
+							if($(this).hasClass('sina'))
+							{
+							  var id_val = $(this).attr('id');
+							  WB2.anyWhere(function(W){
+							  W.widget.hoverCard({
+								id: id_val,
+								search: true
+								}); 
+							  });
+							}
+						  });
 					}
 					});
 				});
+				
+			  WB2.anyWhere(function(W){
+				W.widget.hoverCard({
+					id: 'weibo_card_area',
+					search: true
+					}); 
+				});
+				
+			  $('#weibo_ul li.sina').each(function()
+			  {
+				var id_val = $(this).attr('id');
+				WB2.anyWhere(function(W){
+				W.widget.hoverCard({
+					id: id_val,
+					search: true
+					}); 
+				});
+			  });
 			});
 			</script>";
 }
@@ -774,7 +805,7 @@ else if(isset($_GET['user_id']))
     </div>";
   }
    $story_content .="<div class='clear'></div></div></div>
-	<div class='story_meta'><span><img border='0' style='position:relative; top:3px; width: 20px; height:20px;' src='".$user_profile_img."'/><a style='margin-left:5px; vertical-align:top;'>".$userresult['username']."</a><a style='margin-left:65px; vertical-align:top;'>".$post_date."</a></span></div></li>";
+	<div class='story_meta'><span><img border='0' style='position:relative; top:3px; width: 20px; height:20px;' src='".$user_profile_img."'/><a style='margin-left:5px; vertical-align:top;'>".$userresult['username']."</a><a style='float:right; vertical-align:top;'>".$post_date."</a></span></div></li>";
   }
 
   $story_content .="</ul></div>".$pagination."</div>";

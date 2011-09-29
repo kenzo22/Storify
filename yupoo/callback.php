@@ -1,5 +1,5 @@
 <?php
-include "../global.php"; 
+require_once "../connect_db.php";
 include_once( 'config.php' );
 include_once( 'yupoo.php' );
 //include_once( '../tweibo/demo/class.krumo.php' );
@@ -34,4 +34,5 @@ $picData  = $y->search_user($userid, 1, $_SESSION['yupoo_token']);*/
 
 $result=$DB->query("update ".$db_prefix."user set yupoo_token='".$token."' WHERE id='".$_SESSION['uid']."'");
 header("location: ../member/source.php"); 
+exit;
 ?>

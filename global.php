@@ -40,8 +40,8 @@
 	{
 	  //select a random item from the publictoken pool
 	  $token = $DB->fetch_one_array("select * from ".$db_prefix."publictoken where id='1'");
-	  $_SESSION['last_key']['oauth_token'] = $token['weibo_access_token'];
-	  $_SESSION['last_key']['oauth_token_secret'] = $token['weibo_access_token_secret'];
+	  $_SESSION['last_wkey']['oauth_token'] = $token['weibo_access_token'];
+	  $_SESSION['last_wkey']['oauth_token_secret'] = $token['weibo_access_token_secret'];
 	  $_SESSION['last_tkey']['oauth_token'] = $token['tweibo_access_token'];
 	  $_SESSION['last_tkey']['oauth_token_secret'] = $token['tweibo_access_token_secret'];
   
@@ -52,10 +52,10 @@
 ?>
 <script>
 $(function() {
-$('.person_li').mouseover(function(){
+$('.person_li').live('mouseover', function(){
 $('.person_li').css('display', 'block');
 });
-$('.user_console').mouseout(function(){
+$('.user_console').live('mouseout', function(){
 $('.person_li').slice(1, 4).css('display', 'none');
 });
 });
