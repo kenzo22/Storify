@@ -430,9 +430,33 @@ $(function() {
 		  $('#weibo_search').addClass('none');
 		  myPage = 1;
 		  myPageTimestamp = 0;
+		  
+		  if(0 == vtabIndex)
+		  {
+		    var sinaFlag = true;
+		  }
+		  if(sinaFlag)
+		  {
+		    if($(this).hasClass('sina_disable'))
+			{
+			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>查看我的关注需要绑定新浪微博帐号</div><a href='/member/source.php'>马上绑定</a></div>";
+			  $('#source_list').html(imply_txt);
+			  return false;
+			}
+		  }
+		  else
+		  {
+		    if($(this).hasClass('tencent_disable'))
+			{
+			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>查看我的广播需要绑定腾讯微博帐号</div><a href='/member/source.php'>马上绑定</a></div>";
+			  $('#source_list').html(imply_txt);
+			  return false;
+			}
+		  }
+		  
 		  var getUrl;
 		  var getData;
-		  if(0 == vtabIndex)
+		  if(sinaFlag)
 		  {
 		    getUrl = '../weibo/weibooperation.php';
 			getData = {operation: 'my_weibo', page: myPage};
@@ -472,9 +496,33 @@ $(function() {
 		  $('#weibo_search').addClass('none');
 		  followPage = 1;
 		  followTimestamp = 0;
+		  
+		  if(0 == vtabIndex)
+		  {
+		    var sinaFlag = true;
+		  }
+		  if(sinaFlag)
+		  {
+		    if($(this).hasClass('sina_disable'))
+			{
+			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>查看我的关注需要绑定新浪微博帐号</div><a href='/member/source.php'>马上绑定</a></div>";
+			  $('#source_list').html(imply_txt);
+			  return false;
+			}
+		  }
+		  else
+		  {
+		    if($(this).hasClass('tencent_disable'))
+			{
+			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>查看我的收听需要绑定腾讯微博帐号</div><a href='/member/source.php'>马上绑定</a></div>";
+			  $('#source_list').html(imply_txt);
+			  return false;
+			}
+		  }
+		  
 		  var getUrl;
 		  var getData;
-		  if(0 == vtabIndex)
+		  if(sinaFlag)
 		  {
 		    getUrl = '../weibo/weibooperation.php';
 			getData = {operation: 'my_follow', page: followPage};
@@ -651,7 +699,14 @@ $(function() {
 		  }
 		  else
 		  {
-		    getData = {operation: 'user_search', keywords: words, page: userpicSearchPage};
+		    if($('#user_tab_pic').hasClass('yupoo_disable'))
+			{
+			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>用户搜索功能需要绑定又拍帐号</div><a href='/member/source.php'>马上绑定</a></div>";
+			  $('#source_list').html(imply_txt);
+			  return false;
+			}
+			
+			getData = {operation: 'user_search', keywords: words, page: userpicSearchPage};
 		  }
 		  
 		  $.ajax({

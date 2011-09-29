@@ -63,7 +63,7 @@ else if ($DB->num_rows($result) == 1)
 	{
 	  throw new Exception('Could not execute query.');
 	}
-	if(!empty($result))
+	if(!empty($userresult))
 	{
 	  $_SESSION['uid']=intval($userresult['id']);
 	  $_SESSION['username']=$userresult['username'];

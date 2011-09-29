@@ -1,5 +1,6 @@
 <?php
 require_once "../connect_db.php";
+session_start();
 include_once( 'config.php' );
 include_once( 'yupoo.php' );
 //include_once( '../tweibo/demo/class.krumo.php' );

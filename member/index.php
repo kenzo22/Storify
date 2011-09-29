@@ -19,6 +19,29 @@ include_once( '../include/weibo_functions.php');
 <script type='text/javascript' src='../js/editstory.js'></script>
 
 <?php
+$hasSina = "sina_disable";
+$hasTencent = "tencent_disable";
+$hasYupoo = "yupoo_disable";
+$userresult=$DB->fetch_one_array("SELECT weibo_user_id, tweibo_access_token, yupoo_token FROM ".$db_prefix."user where id='".$_SESSION['uid']."'");
+if(!$userresult)
+{
+  throw new Exception('Could not execute query.');
+}
+if(!empty($userresult))
+{
+  if(0 != $userresult['weibo_user_id'])
+  {
+    $hasSina = "sina_enable";
+  }
+  if('' != $userresult['tweibo_access_token'])
+  {
+    $hasTencent = "tencent_enable";
+  }
+  if('' != $userresult['yupoo_token'])
+  {
+    $hasYupoo = "yupoo_enable";
+  }
+}
 
 $content = "
 <div id='storyContent' style='margin-bottom:0;'>
@@ -37,8 +60,8 @@ $content = "
 		  <div id='weiboTabs'>
 		    <ul>
 			  <li><a id='search_tab' href='#tabs-1'>微博搜索</a></li>
-		      <li><a id='my_tab' href='#tabs-2'>我的微博</a></li>
-		      <li><a id='follow_tab' href='#tabs-3'>我的关注</a></li>
+		      <li><a id='my_tab' class='".$hasSina." ".$hasTencent."' href='#tabs-2'>我的微博</a></li>
+		      <li><a id='follow_tab' class='".$hasSina." ".$hasTencent."' href='#tabs-3'>我的关注</a></li>
 		      <li><a id='user_tab' href='#tabs-4'>用户搜索</a></li>
 	        </ul> 
 			<div id='tabs-1'> 
@@ -102,7 +125,7 @@ $content = "
 		  <div id='picTabs'>
 		    <ul>
 			  <li><a id='search_tab_pic' href='#pictabs-1'>图片搜索</a></li>
-		      <li><a id='user_tab_pic' href='#pictabs-2'>用户搜索</a></li>
+		      <li><a id='user_tab_pic' class='".$hasYupoo."' href='#pictabs-2'>用户搜索</a></li>
 	        </ul> 
 			<div id='pictabs-1'> 
 
@@ -129,7 +152,7 @@ $content = "
 	<div class='right_half'>
 	<div id='story_pane'>
 	  <div id='story'>";
-
+	  
 if(isset($_GET['post_id']))
 {  
   $c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']  );

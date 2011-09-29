@@ -21,6 +21,7 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 /*common class*/
 .none{display:none;}
 .imply_color{color:#999999;}
+.bind_txt {text-align:center; margin-top:10px;}
 .div_center { clear:both; margin:auto; width:50%; overflow:hidden;}
 .float_l { float:left;}
 .float_r { float:right;}
