@@ -922,7 +922,122 @@ float:right;
 
 /* List all the story part*/
 
+/*account associate part*/
+.form_wrapper{
+width: 760px; margin: 0 auto; overflow:hidden;
+}
 
+#account_meta{
+background-color: #FAFAFA;
+border: 1px solid #EEEEEE;
+border-radius: 3px 3px 3px 3px;
+margin: 0 0 20px;
+position: relative;
+}
+
+#account_meta .account_title{
+font-size: 14px;
+padding: 10px;
+border-bottom: 1px solid #EDEDED;
+}
+
+#account_meta .meta_wrapper{
+margin-left:60px;
+}
+
+#account_meta .meta_wrapper div{
+margin-bottom:3px;
+}
+
+#account_meta .account_count span{
+margin-right:10px;
+}
+
+#form_1, #form_2{
+    background-color: #FAFAFA;
+    border-color: -moz-use-text-color #EEEEEE #EEEEEE;
+    border-right: 1px solid #EEEEEE;
+    border-style: none solid solid;
+    border-width: medium 1px 1px;
+    height: 210px;
+    padding: 14px 14px 14px 50px;
+}
+
+#form_1 form div, #form_2 form div{
+margin-bottom:10px;
+}
+
+#form_1 label, #form_2 label
+{
+float: left;
+height: 32px;
+line-height: 32px;
+margin-right: 10px;
+padding: 0;
+text-align: right;
+width: 50px;
+}
+
+#form_1 input, #form_2 input{
+height: 20px;
+line-height: 20px;
+overflow: hidden;
+padding: 5px;
+width: 240px;
+}
+
+#select_form .selected{
+background-color: #FAFAFA;
+border-color: #EEEEEE #EEEEEE #FAFAFA;
+border-style: solid;
+border-width: 1px;
+width: 379px;
+float:left;
+}
+
+#select_form .unselected{
+background-color: #FFFFFF;
+border-bottom: 1px solid #EEEEEE;
+cursor: pointer;
+float:left;
+width:379px;
+}
+
+.selected div{
+color: #888888;
+font-size: 12px;
+padding: 14px;
+}
+
+.left.unselected div{
+margin: 0 5px 5px 0;
+padding: 14px 14px 11px;
+background-color: #EEEEEE;
+}
+
+.right.unselected div{
+margin: 0 0 5px 5px;
+padding: 14px 14px 11px;
+background-color: #EEEEEE;
+}
+
+.aa_submit a{
+background-color: #336699;
+    border: 1px solid #10698D;
+    border-radius: 3px 3px 3px 3px;
+    color: white;
+    display: block;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+    margin-left: 60px;
+    padding: 0 14px;
+    text-align: center;
+    text-shadow: 0 0 2px #444444;
+    width: auto;
+}
 
 /* content part */
 .content { margin:25px 0; position:relative;}

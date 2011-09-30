@@ -20,7 +20,7 @@ if($_GET['act']!="forget_pwd")
 	      <input type='hidden' name='act' value='forget_pwd'>
 	    </span> 
 	  </div>
-	</div></form>";
+	</div></div></form>";
   echo $content;
 }
 else

@@ -53,7 +53,7 @@ if ($DB->num_rows($result) == 0)
     $_SESSION['uid']=intval($userresult['id']);
 	$_SESSION['username']=$userresult['username'];
   }
-  header("location: /login/account_associate.php"); 
+  header("location: /login/associate_form.php"); 
   exit;
 }
 else if ($DB->num_rows($result) == 1)

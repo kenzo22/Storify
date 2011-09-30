@@ -2,6 +2,17 @@
   require_once "../connect_db.php"; 
   require_once('../include/class.phpmailer.php');
   
+  $email=$_GET['email'];
+  $result = check_email('email', $email, 'story_user');
+  if($result)
+  {
+    echo '1';
+  }
+  else
+  {
+   echo '0';
+  }
+  
   function check_email($field,$email,$table){
 	try 
 	{
