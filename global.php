@@ -28,9 +28,9 @@
 		$user_profile_img = $userresult['photo'];
 		$content="<ul class='user_console showborder'>
 				    <li class='person_li' style='display:block;'><a class='person_a person_a_display' href='/member/user.php?user_id=".$userresult['id']."'><img id='person_img' src='".$user_profile_img."'><span id='person_name'>".$_SESSION['username']."</span></a></li>
-					<li class='person_li'><a class='person_a' href='/member/user.php?user_id=".$userresult['id']."'>我的主页</a></li>
-					<li class='person_li'><a class='person_a' href='/member/user_setting.php'>设置</a></li>
-					<li class='person_li'><a class='person_a' href='/login/login.php?logout'>退出</a></li>
+					<li class='person_li'><a class='person_a' href='/member/user.php?user_id=".$userresult['id']."'><img class='console_img' src='/img/home.ico'/><span>我的主页</span></a></li>
+					<li class='person_li'><a class='person_a' href='/member/user_setting.php'><img class='console_img' src='/img/setting.ico'/><span>设置</span></a></li>
+					<li class='person_li'><a class='person_a' href='/login/login.php?logout'><img class='console_img' src='/img/quit.ico'/><span>退出<span></a></li>
 		          </ul>";
 	  echo "<div id='global_bar'><div></div></div><div id='top_bar'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='/img/logo.png' border='0'></a></span>
 	  <span id='user_action'><a href='/index.php'>首页</a> | <a href='/member/user.php?user_id=".$userresult['id']."'>我的故事</a> | <a href='/member'>创建故事</a>

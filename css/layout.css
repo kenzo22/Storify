@@ -31,6 +31,10 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 .bn_submit { width:80px;height:28px;font-size:14px;line-height:28px; padding-bottom:3px;cursor:pointer; color:#000;}
 .title { height:50px;font-size:20px; font-weight:bold;}
 
+body.editor {
+    background: none repeat-y scroll 0 0 #F9F9F9;
+}
+
 /* header */
 #global_bar {height: 40px;
     overflow: hidden;
@@ -64,6 +68,14 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
     width: 25px;
 }
 
+.console_img{
+width:25px;
+height:25px;
+float:left;
+margin: 6px 14px 0 6px;
+overflow: hidden;
+}
+
 #person_name{
     display: block;
     line-height: 14px;
@@ -81,19 +93,24 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
     height: 39px;
     line-height: 39px;
     overflow: hidden;
-    padding: 0 0 0 45px;
     text-decoration: none;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
     white-space: nowrap;
-    width: 75px;
-	background-color: #FAFAFA;
-}
-
-.person_a_display{
-    overflow: hidden;
+	background-color: #FAFAFA;	
+	overflow: hidden;
     padding: 0;
     position: relative;
     width: 120px;
+}
+
+.person_a span{
+display: block;
+line-height: 14px;
+margin: 0 0 0 45px;
+overflow: hidden;
+padding: 12px 0 0;
+white-space: nowrap;
+width: 70px;
 }
 
 .person_li{
@@ -174,7 +191,7 @@ list-style-type: decimal;
 
 /* published steps part */
 .published-steps {
-    background: none repeat scroll 0 0 #FBFBFB;
+	background: none repeat scroll 0 0 #FBFBFB;
     border: 1px solid #E2E0E0;
     box-shadow: 0 0 5px rgba(212, 212, 212, 0.3);
     font-size: 12px;
@@ -214,11 +231,25 @@ list-style-type: decimal;
 	cursor:pointer;
 }
 
-.published-steps .post-tab .icon, .published-steps .notify-tab .icon, .published-steps .share-tab .icon {
-    background: url("../img/guangbo.ico") no-repeat scroll left top transparent;
+.published-steps .post-tab .icon{
+background: url("../img/embed.ico") no-repeat scroll left top transparent;
     height: 21px;
     position: absolute;
     width: 21px;
+}
+
+.published-steps .notify-tab .icon{
+    background: url("../img/radio.png") no-repeat scroll left top transparent;
+    height: 21px;
+    position: absolute;
+    width: 21px;
+}
+
+.published-steps .share-tab .icon{
+background: url("../img/share.ico") no-repeat scroll left top transparent;
+height: 21px;
+position: absolute;
+width: 21px;
 }
 
 .published-steps .post-tab h2, .published-steps .notify-tab h2, .published-steps .share-tab h2 {
@@ -252,7 +283,7 @@ list-style-type: decimal;
  padding:10px 10px 0 10px;
 }
 
-.published-steps .spacer {
+.spacer {
     height: 10px;
 }
 
@@ -691,7 +722,7 @@ width:70%;
 }
 
 #story_container{
-width:920px; margin:0 auto; padding-top:50px; min-height:650px; position:relative;
+width:920px; margin:0 auto; padding-top:50px; min-height:650px; position:relative; 
 }
 
 .follower_list, .following_list
@@ -703,9 +734,9 @@ list-style-type:none;
 .digg_wrap
 {
   position:absolute;
-  top:130px;
+  top:50px;
   left:-58px;
-  height:68px;
+  height:62px;
   width:54px;
   border-color:#ababac;
   border-style:solid;
@@ -722,7 +753,6 @@ list-style-type:none;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   width:660px;
-  float:left;
 }
 
 #userinfo_container{
@@ -738,6 +768,10 @@ float:right;
 }
 
 .user_box{
+padding:10px;
+}
+
+.story_stats{
 padding:10px;
 }
 
@@ -1021,22 +1055,63 @@ padding: 14px 14px 11px;
 background-color: #EEEEEE;
 }
 
+#publishBtn{
+background-color: #336699;
+color: white;
+font-size: 13px;
+font-weight: bold;
+height: 32px;
+line-height: 32px;
+padding: 9px 12px;
+text-align: center;
+text-shadow: 0 0 2px #444444;
+width: auto;
+border-left: 0 none;
+border-top: 1px solid rgba(255, 255, 255, 0.5);
+}
+#publishBtn:hover{background-color: #62A2D3;}
+
+#previewBtn{
+background-color: #EFEFEF;
+color: #444444;
+font-size: 12px;
+font-weight: bold;
+height: 32px;
+line-height: 32px;
+padding: 9px 12px;
+text-align: center;
+width: auto;
+}
+#previewBtn:hover, #draftBtn:hover { color: #666666; text-decoration: none;}
+
+#draftBtn{
+background-color: #EFEFEF;
+color: #444444;
+font-size: 12px;
+font-weight: bold;
+height: 32px;
+line-height: 32px;
+padding: 9px 12px;
+text-align: center;
+width: auto;
+}
+
 .aa_submit a{
 background-color: #336699;
-    border: 1px solid #10698D;
-    border-radius: 3px 3px 3px 3px;
-    color: white;
-    display: block;
-    float: left;
-    font-size: 14px;
-    font-weight: bold;
-    height: 30px;
-    line-height: 30px;
-    margin-left: 60px;
-    padding: 0 14px;
-    text-align: center;
-    text-shadow: 0 0 2px #444444;
-    width: auto;
+border: 1px solid #10698D;
+border-radius: 3px 3px 3px 3px;
+color: white;
+display: block;
+float: left;
+font-size: 14px;
+font-weight: bold;
+height: 30px;
+line-height: 30px;
+margin-left: 60px;
+padding: 0 14px;
+text-align: center;
+text-shadow: 0 0 2px #444444;
+width: auto;
 }
 
 /* content part */
@@ -1054,7 +1129,7 @@ color-stop(0.70, #fff),
 color-stop(0.80, #ededed)
 );
 }
-div .content-a { padding: 10px 0 20px; border-bottom: 1px solid #eaeaea; background: #fff; }
+div .content-a { padding: 10px 0 20px; background: #fff; }
 div.inner {width: 920px; margin: 0 auto; overflow:hidden;}
 div.cols-b { width: 100%; }
 div.cols-b:after { display: block; overflow: hidden; clear: both; content: ""; width: 100%; height: 0; }
@@ -1114,12 +1189,13 @@ margin-top:20px;
 /*#user ul li a { float: left; padding: 3px 8px; background: #f7f8f8 url(http://static.storify.com/img/user-bg-a.gif) repeat-x; color: #86abc4; }*/
 #user ul li a { border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }
 
-#footer {margin: 0 auto; width:920px;  background: none repeat scroll 0 0 #F9F9F9;
+#footer {margin: 0 auto; width:920px;
     border-top: 1px solid #E3E5E6;
     padding: 0 0 1px;
 	margin-top:0;
 	clear:both;}
-.editor #footer {position:fixed; top:880px; bottom: 0; z-index:200;}
+.editor #footer {width:100%; position:fixed; top:900px; bottom: 0; z-index:200;background: none repeat scroll 0 0 #F9F9F9;}
+.editor #footer .wrapper{position:absolute; width:920px; left:50%; margin-left:-460px;}
 #footer p { color: #BBBBBB; font-size: 1.1em; }
 #footer ul { float: right; list-style: none; margin: 13px 0 15px; padding: 0; }
 #footer ul li { display: inline; float: left; margin: 0 0 0 20px; font-size: 1.1em; }

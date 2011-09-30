@@ -21,9 +21,9 @@
 	if(islogin())
     { 
 		$userresult=$DB->fetch_one_array("SELECT id, photo FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
-		$content="<div id='actions' style='position:absolute; top:0; right:0;'>
-					<span><a id='draftBtn' href='./' >保存草稿</a></span> | 
-					<span><a id='previewBtn' href='./' >预览</a></span> |
+		$content="<div id='actions' style='display:block; position:absolute; top:0; right:0;'>
+					<span><a id='draftBtn' href='./' >保存草稿</a></span>
+					<span><a id='previewBtn' href='./' >预览</a></span>
 					<span><a id='publishBtn' href='./' >发布</a></span>
 				  </div>";
 	  echo "<div id='global_bar'><div></div></div><div id='top_bar'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='img/logo.png' border='0'></a></span>

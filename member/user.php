@@ -82,19 +82,20 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	
 	if(!islogin() || $story_author != $_SESSION['uid'])
 	{
-	  $content = "<div id='story_container'><div class='digg_wrap'><div id='".$post_id."_digg_count' style='margin-top:10px;'>".$story_digg_count."</div><a id='".$post_id."_act_digg' class='act_digg'><img src='../img/ding.ico' /></a></div><div id='publish_container' class='showborder'>";
+	  $content = "<div id='story_container'><div style='float:left;'><div class='digg_wrap'><div id='".$post_id."_digg_count' style='margin-top:10px;'>".$story_digg_count."</div><a id='".$post_id."_act_digg' class='act_digg'><img src='../img/ding.ico' /></a></div><div id='publish_container' class='showborder'>";
 	}
 	else
 	{
 	  if(0 == strcmp($story_status, 'Published'))
 	  {
 	    $content = "<div id='story_container'>
+					  <div style='float:left;'>
 					  <div class='published-steps'>
 						<div class='tabs'>
 						  <button class='post-tab'>
 							<div class='icon'></div>
 							<h2>发布到您的网站上</h2>
-							<span>嵌入故事，如此的简单</span>
+							<span>嵌入故事，轻松简单</span>
 						  </button>
 						  <button class='notify-tab'>
 							<div class='icon'></div>
@@ -104,7 +105,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 						  <button class='share-tab'>
 							<div class='icon'></div>
 							<h2>分享</h2>
-							<span>好故事当然要分享</span>
+							<span>好故事要让更多人看见</span>
 						  </button>
 						</div>
 						<div class='steps'>
@@ -492,6 +493,8 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	}
 	
 	$content .="<div style='display: block; padding:0 10px 0 5px; text-align:right;'>Powered by <a name='poweredby' target='_blank' href='http://koulifang.com'>口立方</a></div></div>
+	<div class='spacer'></div>
+	</div>
 	<div id='userinfo_container' class='showborder'>
 	  <div class='user_profiles'>
 	    <div class='user_box'>
@@ -547,7 +550,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 		</div>
 	  </div>
 	  <div class='story_stats'>
-	  <p>被浏览了100次</p>
+	  <div>被浏览了100次</div>
 	  </div>
 	</div>
 	</div>";
@@ -981,6 +984,9 @@ $(function(){
 <script type='text/javascript' src='../js/jquery-ui-1.8.12.custom.min.js'></script>
 <script type="text/javascript" src="../js/jquery.embedly.min.js"></script>
 <script type="text/javascript" src="http://v2.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" src="http://v2.jiathis.com/code/jiathis_r.js?move=0&amp;btn=r2.gif" charset="utf-8"></script>
+<!-- JiaThis Button END -->
 
 <?php
 include "../include/footer.htm";
