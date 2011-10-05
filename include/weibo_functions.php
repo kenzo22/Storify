@@ -11,12 +11,26 @@ function binhex($str)
     return $hex;
 }
 
+function subs_url($string)
+{
+    $pattern="/(http:\/\/[\/\.\w]+)/";
+    preg_match_all($pattern,$string,$url_matches,PREG_SET_ORDER);
+    if($url_matches){
+        foreach($url_matches as $el){
+            $replacement="<a href='".$el[1]."'>".$el[1]."</a>";
+            $string = str_replace($el[1],$replacement,$string);
+        }
+    }
+    return $string;
+}
+
+
 function subs_emotions($string,$img_parent_dir)
 {
-	$OS=php_uname('s');
-	$cwd = getcwd();
-	if(strstr($OS,'Windows'))
-		$cwd = str_replace("\\",'/',$cwd);
+    $OS=php_uname('s');
+    $cwd = getcwd();
+    if(strstr($OS,'Windows'))
+	$cwd = str_replace("\\",'/',$cwd);
     preg_match("/(.*?\/storify)/",$cwd,$abs_path_matches);
     $story_img_path="/img/";
 

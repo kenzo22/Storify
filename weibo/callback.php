@@ -32,15 +32,20 @@ if (isset($msg['id'])){
 	$profile_img_url = $msg['profile_image_url'];
 }
 
-$userresult=$DB->fetch_one_array("SELECT tweibo_access_token FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
-if($userresult['tweibo_access_token'] == '')
+$userresult=$DB->fetch_one_array("SELECT weibo_access_token,photo FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
+if($userresult['weibo_access_token'] == '')
 {
-  $result=$DB->query("update ".$db_prefix."user set photo='".$profile_img_url."', weibo_user_id='".$weibo_uid."', weibo_access_token='".$_SESSION['last_wkey']['oauth_token']."', weibo_access_token_secret='".$_SESSION['last_wkey']['oauth_token_secret']."' WHERE id='".$_SESSION['uid']."'");
+    $photo = $userresult['photo']?$userresult['photo']:$profile_img_url;
 }
 else
 {
-  $result=$DB->query("update ".$db_prefix."user set weibo_user_id='".$weibo_uid."', weibo_access_token='".$_SESSION['last_wkey']['oauth_token']."', weibo_access_token_secret='".$_SESSION['last_wkey']['oauth_token_secret']."' WHERE id='".$_SESSION['uid']."'");
+    if(substr($userresult['photo'],0,1) == '/')
+        $photo = $userresult['photo'];
+    else
+        $photo = $profile_img_url;
 }
+    $result=$DB->query("update ".$db_prefix."user set photo='".$photo."', weibo_user_id='".$weibo_uid."', weibo_access_token='".$_SESSION['last_wkey']['oauth_token']."', weibo_access_token_secret='".$_SESSION['last_wkey']['oauth_token_secret']."' WHERE id='".$_SESSION['uid']."'");
+
 
 header("location: ../member/source.php"); 
 exit;

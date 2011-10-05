@@ -1,8 +1,8 @@
--- MySQL dump 10.11
+-- MySQL dump 10.13  Distrib 5.5.15, for Linux (i686)
 --
 -- Host: localhost    Database: storybing
 -- ------------------------------------------------------
--- Server version	5.0.77
+-- Server version	5.5.15-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -20,15 +20,15 @@
 --
 
 DROP TABLE IF EXISTS `story_follow`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `story_follow` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `user_id` int(10) unsigned default NULL,
-  `follow_id` int(10) unsigned default NULL,
-  PRIMARY KEY  (`id`)
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned DEFAULT NULL,
+  `follow_id` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
-SET character_set_client = @saved_cs_client;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `story_follow`
@@ -45,16 +45,16 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `story_icode`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `story_icode` (
-  `ic_index` int(10) unsigned NOT NULL auto_increment,
+  `ic_index` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `ic_code` char(6) NOT NULL,
-  `ic_email` varchar(50) default NULL,
+  `ic_email` varchar(50) DEFAULT NULL,
   `ic_time` int(10) unsigned NOT NULL,
-  PRIMARY KEY  (`ic_index`)
+  PRIMARY KEY (`ic_index`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-SET character_set_client = @saved_cs_client;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `story_icode`
@@ -71,27 +71,27 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `story_posts`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `story_posts` (
-  `ID` bigint(20) unsigned NOT NULL auto_increment,
-  `post_author` bigint(20) unsigned NOT NULL default '0',
-  `post_date` datetime NOT NULL default '0000-00-00 00:00:00',
-  `post_date_gmt` datetime NOT NULL default '0000-00-00 00:00:00',
+  `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `post_author` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `post_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `post_date_gmt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `post_title` varchar(120) NOT NULL,
   `post_summary` text NOT NULL,
   `post_pic_url` varchar(200) NOT NULL,
   `post_content` text NOT NULL,
-  `post_status` varchar(20) NOT NULL default 'draft',
-  `post_modified` datetime NOT NULL default '0000-00-00 00:00:00',
-  `post_modified_gmt` datetime NOT NULL default '0000-00-00 00:00:00',
-  `post_digg_count` smallint(5) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`ID`),
+  `post_status` varchar(20) NOT NULL DEFAULT 'draft',
+  `post_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `post_modified_gmt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `post_digg_count` smallint(5) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`),
   KEY `post_title` (`post_title`),
   KEY `status_date` (`post_status`,`post_date`,`ID`),
   KEY `post_author` (`post_author`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
-SET character_set_client = @saved_cs_client;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `story_posts`
@@ -99,7 +99,7 @@ SET character_set_client = @saved_cs_client;
 
 LOCK TABLES `story_posts` WRITE;
 /*!40000 ALTER TABLE `story_posts` DISABLE KEYS */;
-INSERT INTO `story_posts` VALUES (4,8,'2011-08-29 23:47:07','2011-08-29 23:47:07','test8.story1','test8.story1','http://tp2.sinaimg.cn/1764222885/180/5608794508/0','{\"content\":[{\"id\":0,\"type\":\"weibo\",\"content\":\"3351875177824154\"}]}','Published','2011-08-29 23:47:07','2011-08-29 23:47:07',1),(5,6,'2011-08-30 23:36:36','2011-08-30 23:36:36','test6.story2','test6.story2','http://tp2.sinaimg.cn/1256177501/180/5605957551/1','{\"content\":[{\"id\":0,\"type\":\"weibo\",\"content\":\"3352235234756197\"}]}','Published','2011-08-30 23:36:36','2011-08-30 23:36:36',2),(6,6,'2011-08-31 00:00:33','2011-08-31 00:00:33','test6.story1','test6.story1','http://tp1.sinaimg.cn/1857881352/180/1289985124/0','{\"content\":[{\"id\":0,\"type\":\"weibo\",\"content\":\"3352241210211836\"}]}','Published','2011-08-31 00:00:33','2011-08-31 00:00:33',1),(7,7,'2011-08-31 00:06:27','2011-08-31 00:06:27','test7.story1','test7.story1','http://tp2.sinaimg.cn/1290099433/180/1279876935/1','{\"content\":[{\"id\":0,\"type\":\"weibo\",\"content\":\"3352242338524983\"}]}','Published','2011-08-31 00:06:27','2011-08-31 00:06:27',3),(9,7,'2011-09-04 20:34:22','2011-09-04 20:34:22','test7.story2','test7.story2','http://tp2.sinaimg.cn/1734674501/180/5609749063/1','{\"content\":[{\"id\":0,\"type\":\"weibo\",\"content\":\"3353882122559224\"},{\"id\":1,\"type\":\"weibo\",\"content\":\"3354001379635337\"}]}','Published','2011-09-04 20:34:22','2011-09-04 20:34:22',0),(44,8,'2011-09-07 23:30:46','2011-09-07 23:30:46','test8.story2','test8.story2','http://tp4.sinaimg.cn/1191965271/180/1297483984/1','{\"content\":[{\"id\":0,\"type\":\"weibo\",\"content\":\"3355132631116047\"}]}','Published','2011-09-07 23:30:46','2011-09-07 23:30:46',0),(54,8,'2011-09-12 21:23:08','2011-09-12 21:23:08','test8.tweibo.remove','test8.tweibo.remote','http://app.qlogo.cn/mbloghead/63685a47cf21cf90489a/180','{\"content\":[{\"id\":0,\"type\":\"tweibo\",\"content\":\"30630071094244\"},{\"id\":1,\"type\":\"tweibo\",\"content\":\"14161128716654\"}]}','Published','2011-09-12 21:23:08','2011-09-12 21:23:08',0);
+INSERT INTO `story_posts` VALUES (58,8,'2011-10-05 20:25:09','2011-10-05 20:25:09','test8.story1','test8.story1','http://tp2.sinaimg.cn/1639356433/180/1282876307/1','{\"content\":[{\"id\":0,\"type\":\"weibo\",\"content\":{\"id\":\"3365232119358307\",\"nic\":\"宅男宅女爱冷笑话\",\"uid\":\"1639356433\"}},{\"id\":1,\"type\":\"weibo\",\"content\":{\"id\":\"3365232063989233\",\"nic\":\"头条新闻\",\"uid\":\"1618051664\"}}]}','Published','2011-10-05 20:25:09','2011-10-05 20:25:09',3),(59,8,'2011-10-05 20:33:22','2011-10-05 20:33:22','test8.story2','test8.story2','http://app.qlogo.cn/mbloghead/5e7ba5c4dab5d55dacca/180','{\"content\":[{\"id\":0,\"type\":\"tweibo\",\"content\":{\"id\":\"71072019693447\",\"nic\":\"腾讯薇薇\",\"name\":\"t\"}},{\"id\":1,\"type\":\"tweibo\",\"content\":{\"id\":\"44085002483588\",\"nic\":\"微博精灵\",\"name\":\"QQGenius\"}}]}','Published','2011-10-05 20:33:22','2011-10-05 20:33:22',0),(60,7,'2011-10-05 20:45:29','2011-10-05 20:45:29','test7.story1','test7.story1','http://app.qlogo.cn/mbloghead/c39e95b85b1b6bcd6f84/180','{\"content\":[{\"id\":0,\"type\":\"tweibo\",\"content\":{\"id\":\"668060163072\",\"nic\":\"微博精灵\",\"name\":\"QQGenius\"}},{\"id\":1,\"type\":\"tweibo\",\"content\":{\"id\":\"5174085651397\",\"nic\":\"微博精灵\",\"name\":\"QQGenius\"}}]}','Published','2011-10-05 20:45:29','2011-10-05 20:45:29',0),(61,6,'2011-10-05 23:03:18','2011-10-05 23:03:18','test6.story1.sina','test6.story1','http://tp2.sinaimg.cn/1195403385/180/5608638792/1','{\"content\":[{\"id\":0,\"type\":\"weibo\",\"content\":{\"id\":\"3365272415196471\",\"nic\":\"方舟子\",\"uid\":\"1195403385\"}},{\"id\":1,\"type\":\"weibo\",\"content\":{\"id\":\"3365272016677780\",\"nic\":\"全球经典音乐\",\"uid\":\"1920061532\"}}]}','Published','2011-10-05 23:03:18','2011-10-05 23:03:18',0);
 /*!40000 ALTER TABLE `story_posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -108,17 +108,17 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `story_publictoken`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `story_publictoken` (
-  `id` bigint(20) unsigned NOT NULL auto_increment,
-  `weibo_access_token` varchar(100) NOT NULL default '',
-  `weibo_access_token_secret` varchar(100) NOT NULL default '',
-  `tweibo_access_token` varchar(100) NOT NULL default '',
-  `tweibo_access_token_secret` varchar(100) NOT NULL default '',
-  PRIMARY KEY  (`id`)
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `weibo_access_token` varchar(100) NOT NULL DEFAULT '',
+  `weibo_access_token_secret` varchar(100) NOT NULL DEFAULT '',
+  `tweibo_access_token` varchar(100) NOT NULL DEFAULT '',
+  `tweibo_access_token_secret` varchar(100) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-SET character_set_client = @saved_cs_client;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `story_publictoken`
@@ -135,14 +135,14 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `story_tag`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `story_tag` (
-  `id` bigint(20) unsigned NOT NULL auto_increment,
-  `name` varchar(100) NOT NULL default '',
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8;
-SET character_set_client = @saved_cs_client;
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `story_tag`
@@ -150,7 +150,7 @@ SET character_set_client = @saved_cs_client;
 
 LOCK TABLES `story_tag` WRITE;
 /*!40000 ALTER TABLE `story_tag` DISABLE KEYS */;
-INSERT INTO `story_tag` VALUES (46,'王小寒'),(48,'关注'),(49,'新闻'),(50,'新浪'),(51,'微博'),(52,'鲁迅'),(53,'南京'),(54,'南方周末'),(80,'我们'),(81,'中国'),(82,'豆瓣'),(102,'remove'),(103,'delete'),(104,'chaitin');
+INSERT INTO `story_tag` VALUES (116,'宅'),(117,'冷笑话'),(118,'动画'),(119,'微博'),(120,'新闻'),(121,'微薄'),(122,'故事'),(123,'恭喜'),(124,'诺贝尔'),(125,'怀念');
 /*!40000 ALTER TABLE `story_tag` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -159,15 +159,15 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `story_tag_story`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `story_tag_story` (
-  `id` bigint(20) unsigned NOT NULL auto_increment,
-  `tag_id` bigint(20) unsigned NOT NULL default '0',
-  `story_id` bigint(20) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8;
-SET character_set_client = @saved_cs_client;
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `tag_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `story_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=136 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `story_tag_story`
@@ -175,7 +175,7 @@ SET character_set_client = @saved_cs_client;
 
 LOCK TABLES `story_tag_story` WRITE;
 /*!40000 ALTER TABLE `story_tag_story` DISABLE KEYS */;
-INSERT INTO `story_tag_story` VALUES (43,46,5),(44,48,6),(45,49,6),(46,50,6),(47,51,6),(49,49,5),(50,53,7),(51,54,7),(52,50,7),(53,49,7),(55,56,9),(78,80,44),(79,81,44),(80,50,44),(81,51,44),(82,82,44),(108,102,54),(109,103,54),(110,104,54);
+INSERT INTO `story_tag_story` VALUES (124,116,58),(125,117,58),(126,118,58),(127,118,59),(128,119,59),(129,120,59),(130,121,60),(131,122,60),(132,123,60),(133,122,61),(134,124,61),(135,125,61);
 /*!40000 ALTER TABLE `story_tag_story` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -184,31 +184,31 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `story_user`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `story_user` (
-  `id` bigint(20) unsigned NOT NULL auto_increment,
-  `username` varchar(60) NOT NULL default '',
-  `passwd` varchar(64) NOT NULL default '',
-  `email` varchar(100) NOT NULL default '',
-  `photo` varchar(255) default NULL,
-  `intro` varchar(255) NOT NULL default '',
-  `weibo_user_id` bigint(20) unsigned NOT NULL default '0',
-  `weibo_access_token` varchar(100) NOT NULL default '',
-  `weibo_access_token_secret` varchar(100) NOT NULL default '',
-  `tweibo_user_id` bigint(20) unsigned NOT NULL default '0',
-  `tweibo_access_token` varchar(100) NOT NULL default '',
-  `tweibo_access_token_secret` varchar(100) NOT NULL default '',
-  `douban_user_id` bigint(20) unsigned NOT NULL default '0',
-  `douban_access_token` varchar(100) NOT NULL default '',
-  `douban_access_token_secret` varchar(100) NOT NULL default '',
-  `yupoo_token` varchar(100) NOT NULL default '',
-  `registered_time` datetime NOT NULL default '0000-00-00 00:00:00',
-  `activate` int(1) NOT NULL default '0',
-  PRIMARY KEY  (`id`),
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(60) NOT NULL DEFAULT '',
+  `passwd` varchar(64) NOT NULL DEFAULT '',
+  `email` varchar(100) NOT NULL DEFAULT '',
+  `photo` varchar(255) DEFAULT NULL,
+  `intro` varchar(255) NOT NULL DEFAULT '',
+  `weibo_user_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `weibo_access_token` varchar(100) NOT NULL DEFAULT '',
+  `weibo_access_token_secret` varchar(100) NOT NULL DEFAULT '',
+  `tweibo_user_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `tweibo_access_token` varchar(100) NOT NULL DEFAULT '',
+  `tweibo_access_token_secret` varchar(100) NOT NULL DEFAULT '',
+  `douban_user_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `douban_access_token` varchar(100) NOT NULL DEFAULT '',
+  `douban_access_token_secret` varchar(100) NOT NULL DEFAULT '',
+  `yupoo_token` varchar(100) NOT NULL DEFAULT '',
+  `registered_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `activate` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
   KEY `user_name_key` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
-SET character_set_client = @saved_cs_client;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `story_user`
@@ -216,7 +216,7 @@ SET character_set_client = @saved_cs_client;
 
 LOCK TABLES `story_user` WRITE;
 /*!40000 ALTER TABLE `story_user` DISABLE KEYS */;
-INSERT INTO `story_user` VALUES (1,'张辛欣','e10adc3949ba59abbe56e057f20f883e','xinxinzhang22@gmail.com',NULL,'',0,'','',0,'','',0,'','','','0000-00-00 00:00:00',0),(2,'源源','e10adc3949ba59abbe56e057f20f883e','yuan0320@gmail.com',NULL,'',0,'','',0,'','',0,'','','','0000-00-00 00:00:00',0),(3,'test3','e10adc3949ba59abbe56e057f20f883e','test3@gmail.com',NULL,'',0,'','',0,'','',0,'','','','0000-00-00 00:00:00',0),(4,'test4','e10adc3949ba59abbe56e057f20f883e','test4@gmail.com',NULL,'',0,'','',0,'','',0,'','','','0000-00-00 00:00:00',0),(5,'test5','e10adc3949ba59abbe56e057f20f883e','test5@gmail.com',NULL,'',0,'','',0,'','',0,'','','','0000-00-00 00:00:00',0),(6,'test6','e10adc3949ba59abbe56e057f20f883e','test6@gmail.com','http://tp2.sinaimg.cn/1734674501/50/1292853975/1','info for test6',1734674501,'843fb71b921f8cea5db7385ee2e9a23c','fbb92674da03e9bf6a70a98efa3b2f0f',0,'','',0,'','','','0000-00-00 00:00:00',1),(7,'test7','e10adc3949ba59abbe56e057f20f883e','test7@gmail.com','/storify/img/user/dNZDRI7.jpg','info for test7',0,'','',0,'','',0,'','','','0000-00-00 00:00:00',1),(8,'test8','e10adc3949ba59abbe56e057f20f883e','test8@gmail.com','/storify/img/user/yqCEXP8.jpg','info for test8',1734674501,'843fb71b921f8cea5db7385ee2e9a23c','fbb92674da03e9bf6a70a98efa3b2f0f',0,'820fbe9bc1bf4a5cb25b0806b0a01a73','cea1a48f54748b202bf9de6914fd11f8',0,'','','','0000-00-00 00:00:00',1);
+INSERT INTO `story_user` VALUES (1,'张辛欣','e10adc3949ba59abbe56e057f20f883e','xinxinzhang22@gmail.com',NULL,'',0,'','',0,'','',0,'','','','0000-00-00 00:00:00',0),(2,'源源','e10adc3949ba59abbe56e057f20f883e','yuan0320@gmail.com',NULL,'',0,'','',0,'','',0,'','','','0000-00-00 00:00:00',0),(3,'test3','e10adc3949ba59abbe56e057f20f883e','test3@gmail.com',NULL,'',0,'','',0,'','',0,'','','','0000-00-00 00:00:00',0),(4,'test4','e10adc3949ba59abbe56e057f20f883e','test4@gmail.com',NULL,'',0,'','',0,'','',0,'','','','0000-00-00 00:00:00',0),(5,'test5','e10adc3949ba59abbe56e057f20f883e','test5@gmail.com',NULL,'',0,'','',0,'','',0,'','','','0000-00-00 00:00:00',0),(6,'test6','e10adc3949ba59abbe56e057f20f883e','test6@gmail.com','http://tp2.sinaimg.cn/1734674501/50/5609749063/1','info for test6',1734674501,'843fb71b921f8cea5db7385ee2e9a23c','fbb92674da03e9bf6a70a98efa3b2f0f',0,'','',0,'','','','0000-00-00 00:00:00',1),(7,'test7','e10adc3949ba59abbe56e057f20f883e','test7@gmail.com','/img/user/dNZDRI7.jpg','info for test7',0,'','',0,'820fbe9bc1bf4a5cb25b0806b0a01a73','cea1a48f54748b202bf9de6914fd11f8',0,'','','','0000-00-00 00:00:00',1),(8,'test8','e10adc3949ba59abbe56e057f20f883e','test8@gmail.com','/img/user/yqCEXP8.jpg','info for test8',1734674501,'843fb71b921f8cea5db7385ee2e9a23c','fbb92674da03e9bf6a70a98efa3b2f0f',0,'820fbe9bc1bf4a5cb25b0806b0a01a73','cea1a48f54748b202bf9de6914fd11f8',0,'','','','0000-00-00 00:00:00',1);
 /*!40000 ALTER TABLE `story_user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -229,4 +229,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-09-18 11:26:42
+-- Dump completed on 2011-10-06  0:18:05

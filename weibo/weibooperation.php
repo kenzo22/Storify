@@ -44,6 +44,8 @@ foreach( $weibo as $item )
     //show emotions
     $item['text'] = subs_emotions($item['text'],"weibo");
 
+    $item['text'] = subs_url($item['text']);
+
   $createTime = dateFormat($item['created_at']);
   //$weibo_per_id = sprintf("%.0f", $item['id']);
   $weibo_per_id = number_format($item['id'], 0, '', '');
@@ -54,6 +56,8 @@ foreach( $weibo as $item )
     if (isset($item['retweeted_status'])){
         // show emotions in text
         $item['retweeted_status']['text'] = subs_emotions($item['retweeted_status']['text'],"weibo");
+
+        $item['retweeted_status']['text'] = subs_url($item['retweeted_status']['text']);
 
         $createTime = dateFormat($item['created_at']);
 

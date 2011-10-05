@@ -233,6 +233,8 @@ if(isset($_GET['post_id']))
         // show emotions in text
         $single_weibo['text'] = subs_emotions($single_weibo['text'],"weibo");
 
+        $single_weibo['text'] = subs_url($single_weibo['text'],"weibo");
+
 		$createTime = dateFormat($single_weibo['created_at']);
 		$content .= "<li class='weibo_drop sina' id='$weibo_per_id'><div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>".$single_weibo['text'];
 
@@ -240,6 +242,8 @@ if(isset($_GET['post_id']))
             
             // show emotions in text
             $single_weibo['retweeted_status']['text'] = subs_emotions($single_weibo['retweeted_status']['text'],"weibo");
+
+            $single_weibo['retweeted_status']['text'] = subs_url($single_weibo['retweeted_status']['text']);
 
 		    $content .= "//@".$single_weibo['retweeted_status']['user']['name'].":".$single_weibo['retweeted_status']['text'];
             if(isset($single_weibo['retweeted_status']['bmiddle_pic']))

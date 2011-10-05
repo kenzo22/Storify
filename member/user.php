@@ -204,12 +204,16 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
             // show emotions in text
             $single_weibo['text'] = subs_emotions($single_weibo['text'],"weibo");
 
+            $single_weibo['text'] = subs_url($single_weibo['text'],'weibo');
+
 			$createTime = dateFormat($single_weibo['created_at']);
 			$content .="<li class='weibo_drop sina' id='$weibo_per_id' style='border:none;'><div class='story_wrapper'><div><span class='weibo_text'>".$single_weibo['text'];
     		if (isset($single_weibo['retweeted_status'])){
                 
                 // show emotions in text
                 $single_weibo['retweeted_status']['text']=subs_emotions($single_weibo['retweeted_status']['text'],"weibo");
+
+                $single_weibo['retweeted_status']['text']=subs_url($single_weibo['retweeted_status']['text']);
 
                 $content .="//@".$single_weibo['retweeted_status']['user']['name'].":".$single_weibo['retweeted_status']['text'];
                 if(isset($single_weibo['retweeted_status']['bmiddle_pic'])){
@@ -662,7 +666,7 @@ else if(isset($_GET['post_id']) && isset($_GET['action']))
 	}
 	else if(0 == strcmp($story_action, 'publish'))
 	{
-	  $result=$DB->query("update ".$db_prefix."posts set post_status='published'  WHERE ID='".$story_id."'");
+	  $result=$DB->query("update ".$db_prefix."posts set post_status='Published'  WHERE ID='".$story_id."'");
 	  go('/member/user.php?post_id='.$story_id);
 	}
 	
