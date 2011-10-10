@@ -12,9 +12,6 @@ $timestamp = $_GET['timestamp'];
 $itemsPerPage = 20;
 $load_more_flag = true;
 
-preg_match("/(.*)\/storify/",getcwd(),$abs_path_matches);
-$story_img_path="/storify/img/";
-
 if(isset($_GET['weibo_ids']))
 {
   $tweibo_ids = $_GET['weibo_ids'];
@@ -71,8 +68,6 @@ if(isset($_GET['weibo_ids']))
     // show face gif 
     $item['text'] = subs_emotions($item['text'],"tweibo");
 
-    $item['text'] = subs_url($item['text']);
-
     $weiboContent .="<li class='weibo_drop tencent' id='".$item['id']."' style='border:none;'><div class='story_wrapper'><div><span class='weibo_text_drop'>".$item['text'];
 
     if(isset($item['source'])){
@@ -81,8 +76,6 @@ if(isset($_GET['weibo_ids']))
         
         // emotion substution
         $item['source']['text'] = subs_emotions($item['source']['text'],"tweibo");
-
-        $item['source']['text'] = subs_url(($item['source']['text']);
 
         if($item['source']['text'] == null)
             $item['source']['text'] = "此微博已被原作者删除。";
@@ -162,8 +155,6 @@ else
     // show face gif 
     $item['text'] = subs_emotions($item['text'],"tweibo");
 
-    $item['text'] = subs_url($item['text']);
-
     $weiboContent .= "<li class='weibo_drag tencent' id='".$item['id']."'><div class='story_wrapper'><img class='profile_img' style='width: 32px; height: 32px; float:left; overflow: hidden; margin-top:3px;' 
     src='".$profileImgUrl."' alt='".$item['nick']."' border=0 /><div class='weibo_content'><a class='user_page' href='http://t.qq.com/".$item['name']."' target='_blank' 
     style = 'display:block;'><span class='weibo_from'>".$item['nick']."</span></a><span class='weibo_text'>".$item['text'];
@@ -176,8 +167,6 @@ else
         // emotion substution
         $item['source']['text'] = subs_emotions($item['source']['text'],"tweibo");
     
-        $item['source']['text'] = subs_url($item['source']['text']);
-
         if($item['source']['text'] == null)
             $item['source']['text'] = "此微博已被原作者删除。";
         $weiboContent .="||".$item['source']['nick']."(@".$item['source']['name']."):".$item['source']['text']."</span>";
