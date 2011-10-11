@@ -1,7 +1,7 @@
 <?php
 require_once dirname(__FILE__).'/'.'../connect_db.php';
 $email=$_POST['email'];
-$pwd=md5(trim($_POST["pwd"]));
+$pwd=sha1(trim($_POST["pwd"]));
 try
 {
 $result = $DB->query("select * from ".$db_prefix."user where email='".$email."' AND passwd='".$pwd."'");

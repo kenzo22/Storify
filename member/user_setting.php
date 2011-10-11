@@ -1,5 +1,10 @@
 <?php
 include "../global.php";
+if(!islogin())
+{
+  header("location: /login/login_form.php"); 
+  exit;
+}
 $uid=intval($_SESSION['uid']);
 
 $result=$DB->fetch_one_array("select * from story_user where id=".$uid);

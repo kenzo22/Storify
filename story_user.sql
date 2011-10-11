@@ -21,14 +21,14 @@ CREATE TABLE IF NOT EXISTS story_user (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 INSERT INTO `story_user` (`id`, `username`, `passwd`, `email`) VALUES 
-(1, '张辛欣', 'e10adc3949ba59abbe56e057f20f883e','xinxinzhang22@gmail.com'),
-(2, '源源', 'e10adc3949ba59abbe56e057f20f883e','yuan0320@gmail.com'),
-(3, 'test3', 'e10adc3949ba59abbe56e057f20f883e','test3@gmail.com'),
-(4, 'test4', 'e10adc3949ba59abbe56e057f20f883e','test4@gmail.com'),
-(5, 'test5', 'e10adc3949ba59abbe56e057f20f883e','test5@gmail.com'),
-(6, 'test6', 'e10adc3949ba59abbe56e057f20f883e','test6@gmail.com'),
-(7, 'test7', 'e10adc3949ba59abbe56e057f20f883e','test7@gmail.com'),
-(8, 'test8', 'e10adc3949ba59abbe56e057f20f883e','test8@gmail.com');
+(1, '张辛欣', '7c4a8d09ca3762af61e59520943dc26494f8941b','xinxinzhang22@gmail.com'),
+(2, '源源', '7c4a8d09ca3762af61e59520943dc26494f8941b','yuan0320@gmail.com'),
+(3, 'test3', '7c4a8d09ca3762af61e59520943dc26494f8941b','test3@gmail.com'),
+(4, 'test4', '7c4a8d09ca3762af61e59520943dc26494f8941b','test4@gmail.com'),
+(5, 'test5', '7c4a8d09ca3762af61e59520943dc26494f8941b','test5@gmail.com'),
+(6, 'test6', '7c4a8d09ca3762af61e59520943dc26494f8941b','test6@gmail.com'),
+(7, 'test7', '7c4a8d09ca3762af61e59520943dc26494f8941b','test7@gmail.com'),
+(8, 'test8', '7c4a8d09ca3762af61e59520943dc26494f8941b','test8@gmail.com');
 
 grant select, insert, update, delete
 on storybing.*

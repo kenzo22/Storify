@@ -33,32 +33,29 @@ if (isset($msg['id'])){
 	$photo = $msg['profile_image_url'];
 }
 
-$result = $DB->query("select * from ".$db_prefix."user where weibo_user_id='".$weibo_uid."'");
-if(!$result)
-{
-  throw new Exception('Could not execute query.');
-}
-if ($DB->num_rows($result) == 0)
+$result = $DB->fetch_one_array("select * from ".$db_prefix."user where weibo_user_id='".$weibo_uid."'");
+if(empty($result))
 {
   $register_time=date("Y-m-d H:i:s");
   $DB->query("insert into ".$db_prefix."user values
-                         (null, '".$weibo_nick."', '', '', '".$photo."', '', '".$weibo_uid."', '".$accessToken."', '".$accessTokenSecret."', 0, '', '', 0, '', '', '', '".$register_time."', 1)");
+                         (null, '', '', '', '".$photo."', '', '".$weibo_uid."', '".$accessToken."', '".$accessTokenSecret."', 0, '', '', 0, '', '', '', '".$register_time."', 1)");
   $userresult=$DB->fetch_one_array("SELECT * FROM ".$db_prefix."user where weibo_user_id='".$weibo_uid."'");
   if(!$userresult)
   {
 	throw new Exception('Could not execute query.');
   }
-  if(!empty($result))
-  {
-    $_SESSION['uid']=intval($userresult['id']);
-	$_SESSION['username']=$userresult['username'];
-  }
   header("location: /login/associate_form.php"); 
   exit;
 }
-else if ($DB->num_rows($result) == 1)
+else
 {
-    $userresult=$DB->fetch_one_array("SELECT * FROM ".$db_prefix."user where weibo_user_id='".$weibo_uid."'");
+    if($result['username'] == '')
+	{
+	  $_SESSION['uid']=intval($result['id']);
+	  header("location: /login/associate_form.php"); 
+	  exit;
+	}
+	$userresult=$DB->fetch_one_array("SELECT * FROM ".$db_prefix."user where weibo_user_id='".$weibo_uid."'");
 	if(!$userresult)
 	{
 	  throw new Exception('Could not execute query.');

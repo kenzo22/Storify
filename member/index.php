@@ -12,13 +12,13 @@ include_once( '../include/weibo_functions.php');
 <link type="text/css" href="../css/jquery.ui.tabs.css" rel="stylesheet" />
 <link type="text/css" rel="stylesheet" href="http://js.wcdn.cn/t3/style/css/common/card.css" />
 <link rel="stylesheet" type="text/css" href="../CLEditor/jquery.cleditor.css" />
-<script type="text/javascript" src="../CLEditor/jquery.cleditor.min.js"></script>
-<script type="text/javascript" src="../js/jquery.embedly.min.js"></script>
-<script type='text/javascript' src='../js/weibo.js'></script>
-<script type='text/javascript' src='../js/jquery-ui-1.8.12.custom.min.js'></script>
-<script type='text/javascript' src='../js/editstory.js'></script>
 
 <?php
+if(!islogin())
+{
+  header("location: /login/login_form.php"); 
+  exit;
+}
 $hasSina = "sina_disable";
 $hasTencent = "tencent_disable";
 $hasYupoo = "yupoo_disable";
@@ -572,3 +572,8 @@ else
 }
 include "../include/footer.htm";
 ?>
+<script type="text/javascript" src="../CLEditor/jquery.cleditor.min.js"></script>
+<script type="text/javascript" src="../js/jquery.embedly.min.js"></script>
+<script type='text/javascript' src='../js/weibo.js'></script>
+<script type='text/javascript' src='../js/jquery-ui-1.8.12.custom.min.js'></script>
+<script type='text/javascript' src='../js/editstory.js'></script>

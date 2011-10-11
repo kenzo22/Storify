@@ -14,7 +14,6 @@ include_once "userrelation.php";
 <link type="text/css" href="../css/jquery.ui.button.css" rel="stylesheet" />
 
 <?php
-
 if(isset($_GET['post_id']) && !isset($_GET['action']))
 {
 	$c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']  );
@@ -139,7 +138,10 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 		}
 		if($tweetFlag)
 		{
-		  $content.="<textarea class='notify-tweet' maxlength='120' name='tweet'>我刚刚引用了你的微博, 来看一看吧: </textarea><div class='tweet_control'>还可以输入<span>60</span>字<input class='tweet_btn' style='margin-left:15px; cursor:pointer;' type='submit' value='发布'></div>";
+		  $current_page_url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
+		  $url_result = $c->shorten_url($current_page_url);
+		  $url_short = $url_result[0]['url_short'];
+		  $content.="<textarea class='notify-tweet' maxlength='120' name='tweet'>我刚刚引用了你的微博, 快来看一看吧: ".$url_short."</textarea><div class='tweet_control'>还可以输入<span>60</span>字<input class='tweet_btn' style='margin-left:15px; cursor:pointer;' type='submit' value='发布'></div>";
 		}
 			   $content.="</div>
 						  <div class='share-content'>
@@ -677,6 +679,11 @@ else if(isset($_GET['post_id']) && isset($_GET['action']))
 
 else if(isset($_GET['user_id']))
 {
+  if(!islogin())
+  {
+    header("location: /login/login_form.php"); 
+    exit;
+  }
   $tbl_name="story_posts";
   // How many adjacent pages should be shown on each side?
   $adjacents = 3;
@@ -817,6 +824,15 @@ else if(isset($_GET['user_id']))
 
   $story_content .="</ul></div>".$pagination."</div>";
   echo $story_content;
+}
+
+else
+{
+  if(!islogin())
+  {
+    header("location: /login/login_form.php"); 
+    exit;
+  }
 }
 ?>
 

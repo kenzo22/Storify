@@ -69,6 +69,19 @@ class WeiboClient
         //return $this->oauth->get('http://api.t.sina.com.cn/statuses/home_timeline.json'); 
 		return $this->oauth->get('http://api.t.sina.com.cn/statuses/friends_timeline.json');
     } 
+	
+	 /** 
+     * 短链接口
+     *  
+     * @access public 
+     * @return array 
+     */ 
+	function shorten_url($long_url)
+	{
+		$param = array(); 
+        $param['url_long'] = $long_url;		
+        return $this->oauth->get( 'http://api.t.sina.com.cn/short_url/shorten.json' , $param ); 
+	}
 
     /** 
      * 最新 @用户的 

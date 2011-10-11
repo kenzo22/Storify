@@ -214,8 +214,34 @@ if(this.value.length>14)
 })
 
 $('.aa_submit').click(function(e){
-e.preventDefault();
-$(this).closest('form').submit();
+var submitFlag = true;
+if($('#form_1').is(':hidden'))
+{
+  var email = $('#user_email').val();
+  var username = $('#user_name').val();
+  var pwd = $('#user_pwd').val();
+  var pwd_confirm = $('#user_pwd_confirm').val();
+  var tip_flag = ($('#user_email_tip').css('color') == 'red') || ($('#user_name_tip').css('color') == 'red') || ($('#user_pwd_tip').css('color') == 'red') || ($('#pwd_confirm_tip').css('color') == 'red');
+  if(tip_flag || email == '' || username == '' || pwd == '' || pwd_confirm == '')
+  submitFlag = false;
+}
+else if($('#form_2').is(':hidden'))
+{
+  var email = $('#email').val();
+  var pwd = $('#pwd').val();
+  var tip_flag = ($('#email_tip').css('color') == 'red') || ($('#pwd_tip').css('color') == 'red');
+  if(tip_flag || email == '' || pwd == '')
+  submitFlag = false;
+}
+if(submitFlag)
+{
+  $(this).closest('form').submit();
+}
+else
+{
+  e.preventDefault();
+}
 });
+
 });
 </script>

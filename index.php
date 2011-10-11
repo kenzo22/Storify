@@ -23,8 +23,7 @@ include "member/tagoperation.php";
     </div>
 	<div class='float_l' style='border-left:1px solid #333; margin-top:20px; margin-left:70px; padding:0px 45px 80px 60px;'>
 	  <div><span align='center'>使用新浪微博帐号登录</span></div>
-	  <div style='margin-top:17px;'><a id="connectBtn" href="#" style='margin-top:17px;'><img src="/img/weibo.png" style="border:1px solid #D4D4D4" /></a></div>
-	  
+	  <div style='margin-top:17px;'><a id="connectBtn" href="#" style='margin-top:17px;'><img src="/img/weibo.png" /></a></div>  
 	</div>
   </div>
   </form>

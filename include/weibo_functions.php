@@ -17,7 +17,7 @@ function subs_url($string)
     preg_match_all($pattern,$string,$url_matches,PREG_SET_ORDER);
     if($url_matches){
         foreach($url_matches as $el){
-            $replacement="<a href='".$el[1]."'>".$el[1]."</a>";
+            $replacement="<a href='".$el[1]."' target='_blank'>".$el[1]."</a>";
             $string = str_replace($el[1],$replacement,$string);
         }
     }
