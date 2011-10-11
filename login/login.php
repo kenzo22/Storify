@@ -8,8 +8,8 @@ if(isset($_GET['logout']))
 	unset($_SESSION['username']);
 	if(!empty($_COOKIE['email']) || empty($_COOKIE['password']))
 	{  
-	  setcookie("email", null, time()-3600*24*365);  
-	  setcookie("password", null, time()-3600*24*365);  
+	  setcookie("email", null, time()-3600*24*365, "/", ".koulifang.com", 0);  
+	  setcookie("password", null, time()-3600*24*365, "/", ".koulifang.com", 0);  
     } 
 	session_destroy();
 	echo "<script language='javascript' >
@@ -45,8 +45,8 @@ if($email && $passwd)
 	$_SESSION['username']=$result['username'];
 	if(!empty($autologin))
 	{
-	  setcookie("email", $email, time()+3600*24*365);  
-	  setcookie("password", $password, time()+3600*24*365); 
+	  setcookie("email", $email, time()+3600*24*365, "/", ".koulifang.com", 0);  
+	  setcookie("password", $passwd, time()+3600*24*365, "/", ".koulifang.com", 0); 
 	}
 	$_SESSION['weibo_uid']=intval($result['weibo_user_id']);
 	if(0 == $_SESSION['weibo_uid'] && '' == $result['tweibo_access_token'])

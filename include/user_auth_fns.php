@@ -3,7 +3,8 @@ require_once dirname(__FILE__).'/../'."connect_db.php";
 
 function islogin()
 {
- global	$_SESSION;
+ global $_SESSION;
+ global $_COOKIE;
  if(empty($_SESSION['uid']))
  {
    $userinfo = getUserInfo($_COOKIE['email'],$_COOKIE['password']);
@@ -14,21 +15,22 @@ function islogin()
 	 return 1;
    }
    return 0;
- } 
+ }
  else
  {
    return 1;
- } 	
+ }
 }
 
 function getUserInfo($email, $password)
 {
-	global $DB;
-	global $db_prefix;
-	$email=addslashes(htmlspecialchars(trim($email)));
-    $passwd=md5(trim($password));
-	$result = $DB->query("SELECT id,username FROM ".$db_prefix."user WHERE email='".$email."' AND passwd='".$passwd."'");
-	return $result;
+global $DB;
+global $db_prefix;
+global $_COOKIE;
+$email=addslashes(htmlspecialchars(trim($email)));
+$passwd=trim($password);
+$result = $DB->fetch_one_array("SELECT id,username FROM ".$db_prefix."user WHERE email='".$email."' AND passwd='".$passwd."'");
+return $result;
 }
 
 /*

@@ -61,7 +61,8 @@ $('#loginbtn').click(function(e)
 {
   var email_val = $('#email_login').val();
   var pwd_val = $('#pwd_login').val();
-  if(email_val == '' || pwd_val == '')
+  var tip_flag = ($('#email_tip').css('color') == 'red') || ($('#pwd_tip').css('color') == 'red');
+  if(tip_flag || email_val == '' || pwd_val == '')
   {
     e.preventDefault();
   }
