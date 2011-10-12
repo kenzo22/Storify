@@ -29,6 +29,7 @@ if(isset($_GET['logout']))
 $email=addslashes(htmlspecialchars(trim($_POST['email'])));
 $passwd=sha1(trim($_POST["passwd"]));
 $autologin=$_POST["autologin"];
+$redirect_info = $_POST["redirect_info"];
 
 if($email && $passwd)
 {
@@ -85,8 +86,16 @@ if($email && $passwd)
 	  $_SESSION['last_dkey']['oauth_token_secret']=$result['douban_access_token_secret'];
 	  $_SESSION['yupoo_token'] = $result['yupoo_token'];
 	  
-	  
-	  if(isset($_GET['next']) && !empty($_GET['next']) && isLocalURL($_GET['next']))
+	  if((isset($redirect_info)) && ($redirect_info != ''))
+	  {
+	    go($redirect_info);
+	  }
+	  else
+	  {
+	    go("/index.php");
+	  }
+
+	  /*if(isset($_GET['next']) && !empty($_GET['next']) && isLocalURL($_GET['next']))
 	  {
 		header("location: ".$_GET['next']); 
 	  }
@@ -101,9 +110,8 @@ if($email && $passwd)
 		{
 		  go($_SERVER['HTTP_REFERER']);
 		}
-	  }
-	}
-	
+	  }*/
+	}	
   }
   else
   {

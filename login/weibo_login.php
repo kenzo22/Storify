@@ -18,7 +18,6 @@ $c = new WeiboClient( WB_AKEY ,
                       $accessTokenSecret);
 
 $msg = $c->verify_credentials();
-var_dump($msg);
 if ($msg === false || $msg === null){
 	echo "Error occured";
 	return false;

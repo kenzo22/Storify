@@ -1133,7 +1133,7 @@ text-shadow: 0 0 2px #444444;
 width: auto;
 }
 
-#loginbtn a{
+#loginbtn a, #update_btn a{
 display:block;
 background-color: #336699;
 background-repeat: repeat;
@@ -1147,7 +1147,14 @@ line-height: 30px;
 padding: 0 14px;
 text-align: center;
 text-shadow: 0 0 2px #444444;
-width: 52px;
+}
+
+#loginbtn a{
+width:52px;
+}
+
+#update_btn a{
+width: 66px;
 }
 
 /* content part */

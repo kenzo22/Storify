@@ -80,7 +80,7 @@ $user_set = "<div class='inner' style='padding-top:50px; margin-bottom:180px;'>
 				 </tr>
 				 <tr>
 					<td></td>
-					<td><span><input id='update_btn' name='pf_submit' type='submit' value='更新设置' tabindex='8'></span></td>
+					<td><div id='update_btn'><a><span>更新设置</span></a></div></td>
 				 </tr>
 			   </table>
 			   <div class='float_r'>
@@ -96,9 +96,10 @@ include "../include/footer.htm"
 <script language='javascript' >
 $(function()
 {
-  $('#update_btn').click(function(e)
+  $('#update_btn a').click(function(e)
   {
 	e.preventDefault();
+	$('.update_notify').remove();
 	var username_val = $('#user_name').val();
 	var userintro_val = $('#user_intro').val();
 	var postdata = {username: username_val, userintro: userintro_val};			  

@@ -54,26 +54,6 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
     }
 	
 	$temp_array = json_decode($story_content, true);
-	//prepare the weibo author info to be notified
-	$w_nic_array = array();
-	$t_array = array();
-	
-	foreach($temp_array['content'] as $tempItem)
-	{
-	  if(0 == strcmp($tempItem['type'], 'weibo'))
-	  {
-	    $w_nic_array[] = $tempItem['content']['nic'];
-	  }
-	  else if(0 == strcmp($tempItem['type'], 'tweibo'))
-	  {
-		$t_array[$tempItem['content']['name']] = $tempItem['content']['nic'];
-	  }
-	}
-	$w_nic_array = array_unique($w_nic_array);
-	$t_array = array_unique($t_array);
-	$w_array_length = count($w_nic_array);
-	$t_array_length = count($t_array);
-	
 	$items_perpage = 10;
 	$story_content_array = array_slice($temp_array['content'], 0, $items_perpage, true);
 	$weibo_id_array = array();
@@ -85,6 +65,44 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	}
 	else
 	{
+		//prepare the weibo author info to be notified
+		$w_nic_array = array();
+		$t_array = array();
+		
+		$msg = $c->verify_credentials();
+		if (isset($msg['id']))
+		{
+		  $weibo_nick = $msg['screen_name'];
+		}
+		
+		$tmsg  =  $t->getinfo();
+		if (isset($tmsg['data']['nick']))
+		{
+		  $tweibo_nick = $tmsg['data']['nick'];
+		}
+		
+		foreach($temp_array['content'] as $tempItem)
+		{
+		  if(0 == strcmp($tempItem['type'], 'weibo'))
+		  {
+			if($weibo_nick != $tempItem['content']['nic'])
+			{
+			  $w_nic_array[] = $tempItem['content']['nic'];
+			}
+		  }
+		  else if(0 == strcmp($tempItem['type'], 'tweibo'))
+		  {
+			if($tweibo_nick != $tempItem['content']['nic'])
+			{
+			  $t_array[$tempItem['content']['name']] = $tempItem['content']['nic'];
+			}
+		  }
+		}
+		$w_nic_array = array_unique($w_nic_array);
+		$t_array = array_unique($t_array);
+		$w_array_length = count($w_nic_array);
+		$t_array_length = count($t_array);
+	  
 	  if(0 == strcmp($story_status, 'Published'))
 	  {
 	    $content = "<div id='story_container'>
@@ -111,13 +129,13 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 						  <div class='post-content'>
 						    <h2>嵌入故事到你的网站中</h2>
 						  </div>
-						  <div id='weibo_card_area' class='notify-content'>
+						  <div class='notify-content'>
 						    <h2>告诉作者你引用了他们的内容</h2>";
 		$tweetFlag=false;
 		if($w_array_length>0)
 		{
 		  $tweetFlag=true;
-		  $content.="<div class='sina_user'>
+		  $content.="<div id='weibo_card_area' class='sina_user'>
 					   <img border='0' src='../img/sina16.png' style='float:left; position:relative; top:4px' />";
 		  for($i=0; $i<$w_array_length; $i++)
 		  {
@@ -132,7 +150,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 					   <img border='0' src='../img/tencent16.png' style='float:left; position:relative; top:4px' />";
 		  foreach($t_array as $tkey=>$tval)
 		  {
-		    $content.="<div class='notify-user'><input type='checkbox' value='mashable' name='to[]' checked='checked' /><span id='".$tkey."'>@".$tval."</span></div>";
+		    $content.="<div class='notify-user'><input type='checkbox' value='mashable' name='to[]' checked='checked' /><span id='".$tkey."'><a href='http://t.qq.com/".$tkey."' target='_blank'>@".$tval."</a></span></div>";
 		  }
 		  $content.="</div>";
 		}
@@ -679,11 +697,6 @@ else if(isset($_GET['post_id']) && isset($_GET['action']))
 
 else if(isset($_GET['user_id']))
 {
-  if(!islogin())
-  {
-    header("location: /login/login_form.php"); 
-    exit;
-  }
   $tbl_name="story_posts";
   // How many adjacent pages should be shown on each side?
   $adjacents = 3;

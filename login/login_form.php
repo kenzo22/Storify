@@ -13,7 +13,8 @@ else if($_GET['next'] == 'inactivate')
 {
   $content .="<div style='margin:0;'><span style='color:red;'>您的口立方帐号还没有激活，请查收口立方发出的激活邮件</span></div>";
 }
-$content .="<div><b> 邮 箱 &nbsp; </b><input type='text' name='email' id='email_login' size='30'></input><span class='form_tip' id='email_tip'></span></div>
+$content .="<input type='hidden' value='".$_GET['next']."' name='redirect_info' id='redirect_info' />
+  <div><b> 邮 箱 &nbsp; </b><input type='text' name='email' id='email_login' size='30'></input><span class='form_tip' id='email_tip'></span></div>
   <div><b> 密 码 &nbsp; </b><input type='password' name='passwd' id='pwd_login' size='30'></input><span class='form_tip' id='pwd_tip'></span></div><br />
   <span> <input type='checkbox' name='autologin'>下次自动登录</span> | <span><a href='/login/forget_form.php'/>忘记密码了？</a><span>
   <div id='loginbtn'>
