@@ -1,13 +1,26 @@
 <?php
 include "../global.php";
-session_start();
 include_once( 'config.php' );
 //include_once( 'weibooauth.php' );
 include_once( 'sinaweibo.php' );
 
-/*$token = $DB->fetch_one_array("select * from ".$db_prefix."publictoken where id='1'");
-$_SESSION['last_wkey']['oauth_token']=$token['weibo_access_token'];
-$_SESSION['last_wkey']['oauth_token_secret']=$token['weibo_access_token_secret'];*/
+//$token = $DB->fetch_one_array("select * from ".$db_prefix."publictoken where id='1'");
+
+//$token = $DB->fetch_one_array("select * from ".$db_prefix."user where id='1'");
+//$_SESSION['last_wkey']['oauth_token']=$token['weibo_access_token'];
+//$_SESSION['last_wkey']['oauth_token_secret']=$token['weibo_access_token_secret'];
+echo "<br /><br /><br /><br /><br />";
+echo "token".$_SESSION['last_wkey']['oauth_token']."<br />";
+echo "secret".$_SESSION['last_wkey']['oauth_token_secret']."<br />";
+echo "after"."<br />";
+//$hashtoken = $DB->fetch_one_array("select * from ".$db_prefix."publictoken where id='2'");
+//$token = $DB->fetch_one_array("select * from ".$db_prefix."user where id='1'");
+//$_SESSION['last_wkey']['oauth_token']=$hashtoken['weibo_access_token'];
+//$_SESSION['last_wkey']['oauth_token_secret']=$hashtoken['weibo_access_token_secret'];
+//echo "token".$_SESSION['last_wkey']['oauth_token']."<br />";
+//echo "secret".$_SESSION['last_wkey']['oauth_token_secret']."<br />";
+
+
 $c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']  );
 
 /*$result=$DB->fetch_one_array("SELECT weibo_access_token, weibo_access_token_secret FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
@@ -18,12 +31,12 @@ $_SESSION['last_wkey']['oauth_token_secret']=$result['weibo_access_token_secret'
 //$ms  = $c->update("测试测试"); // done
 
 //$me = $c->verify_credentials();
-//$me = $c->show_status('3362345674672760');
-$me = $c->shorten_url('http://open.weibo.com/wiki/Short_url/shorten');
+$me = $c->show_status('3362345674672760');
+//$me = $c->shorten_url('http://open.weibo.com/wiki/Short_url/shorten');
 //$me = $c->get_emotions();
-echo "<br /><br /><br /><br /><br />";
-echo $me[0]['url_short'];
-//var_dump($me);
+
+//echo $me[0]['url_short'];
+var_dump($me);
 
 /*
 $prefix="../img/weibo/";

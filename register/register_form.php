@@ -19,6 +19,9 @@ include "../global.php";
 	<div style='height:30px;'></div>
   </div>
 </form> 
+<?php
+include "../include/footer.htm";	 
+?>
 <script type="text/javascript">
 $(function(){
 $('#email_reg').bind('focus', function(){
@@ -136,6 +139,3 @@ $('#btn_submit_signup a span').click(function(e)
 
 })
 </script>
-<?php
-include "../include/footer.htm";	 
-?>

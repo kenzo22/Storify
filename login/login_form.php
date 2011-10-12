@@ -32,8 +32,8 @@ $content .="<input type='hidden' value='".$_GET['next']."' name='redirect_info' 
 </form>";
 
 echo $content;
+include "../include/footer.htm";	
 ?>
-
 <script type="text/javascript">
 $(function(){
 $('#pwd_login').focus();
@@ -87,7 +87,3 @@ function(data, textStatus)
 
 });
 </script>
-
-<?php
-include "../include/footer.htm";	 
-?>

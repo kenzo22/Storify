@@ -1,11 +1,8 @@
 <?php
 include "global.php"; 
 include "member/tagoperation.php";
-
 ?>
 <link rel="stylesheet" type="text/css" href="css/skin.css" />
-<script type="text/javascript" src="js/jquery.jcarousel.min.js"></script>
-<script type="text/javascript" src="js/startstop-slider.js"></script>
 <div id='boxes'>
   
 <!-- Start of Login Dialog -->  
@@ -174,6 +171,11 @@ include "member/tagoperation.php";
     </div>
 </div>
 
+<?php
+ include "./include/footer.htm";
+?>
+<script type="text/javascript" src="js/jquery.jcarousel.min.js"></script>
+<script type="text/javascript" src="js/startstop-slider.js"></script>
 <script>
 function mycarousel_initCallback(carousel)
 {
@@ -204,36 +206,6 @@ $(document).ready(function()
 		scroll:1,
         initCallback: mycarousel_initCallback
     });
-  
-  /*$('#connectBtn').live('click', function(e)
-  {
-	e.preventDefault();
-	WB2.login(function()
-	{
-	  WB2.anyWhere(function(W)
-	  {
-        // 获取账户信息
-		W.parseCMD("/account/verify_credentials.json", function(sResult, bStatus)
-		{
-		  if(bStatus == true) 
-		  {
-		    var weibo_user_id_val = sResult.id;
-			var weibo_scree_name_val = sResult.screen_name;
-			$.post('login/weibo_login.php', {weibo_user_id: weibo_user_id_val, weibo_scree_name: weibo_scree_name_val}, 		
-		    function(data, textStatus)
-		    {
-			  $('.window').hide();
-			  $('.top_nav').replaceWith(data);
-		    });
-		  }
-		},{
-			
-		},{
-			method: 'get'
-		});
-	  });
-	});
-  });*/
   
   $('#connectBtn').live('click', function(e)
   {
@@ -291,15 +263,6 @@ $(document).ready(function()
 	$('#mask').click(function () {
 		$(this).hide();
 		$('.window').hide();
-	});	
-
-	//weibo part
-	
-	
+	});		
 });
-
 </script>
-
-<?php
- include "./include/footer.htm";
-?>

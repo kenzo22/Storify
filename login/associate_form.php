@@ -73,6 +73,7 @@ $content = "<div class='form_wrapper' style='padding-top:50px;'>
 			</div>";
 			
 echo $content;
+include "../include/footer.htm";	
 ?>
 <script>
 $(function(){

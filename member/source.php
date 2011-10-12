@@ -60,6 +60,7 @@ $content = "<div class='inner' style='padding-top:50px;'>
 </div>
 </div>";
 echo $content;
+include "../include/footer.htm";
 ?>
 
 <script>
@@ -177,7 +178,3 @@ else
 });
 });
 </script>
-
-<?php
-include "../include/footer.htm";
-?>

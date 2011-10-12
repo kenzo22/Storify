@@ -847,10 +847,10 @@ else
     exit;
   }
 }
+include "../include/footer.htm";
 ?>
 
 <script type="text/javascript">
-
 Array.prototype.getUnique = function()
 {
   var o = {};
@@ -1021,6 +1021,3 @@ $(function(){
 <script type="text/javascript" src="http://v2.jiathis.com/code/jiathis_r.js?move=0&amp;btn=r2.gif" charset="utf-8"></script>
 <!-- JiaThis Button END -->
 
-<?php
-include "../include/footer.htm";
-?>

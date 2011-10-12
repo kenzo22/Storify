@@ -1239,7 +1239,7 @@ margin-top:20px;
 	clear:both;}
 	
 #footer .wrapper{overflow:auto;}
-.editor #footer {width:100%; position:fixed;  bottom: 0; z-index:200;background: none repeat scroll 0 0 #F9F9F9;}
+.editor #footer {width:100%; position:fixed;  top:900px; bottom: 0; z-index:200;background: none repeat scroll 0 0 #F9F9F9;}
 .editor #footer .wrapper{position:absolute; width:920px; left:50%; margin-left:-460px;}
 #footer p { color: #BBBBBB; font-size: 1.1em; }
 #footer ul { float: right; list-style: none; padding: 0;}

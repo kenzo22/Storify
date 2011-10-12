@@ -89,7 +89,6 @@ $user_set = "<div class='inner' style='padding-top:50px; margin-bottom:180px;'>
 			</form>
 			</div>";
 echo $user_set;
-
 include "../include/footer.htm"
 ?>
 
