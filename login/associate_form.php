@@ -54,19 +54,19 @@ $content = "<div class='form_wrapper' style='padding-top:50px;'>
 			  </div>
 			  <div id='form_1'>
 			    <form method='post' action='account_associate.php'> 
-				  <div style='display:inline; margin:0;padding:0;' ><input type='hidden' value='".$weibo_uid."' name='weibo_uid'></div>
-				  <div><label>电子邮箱</label><input id='email' type='text' value='' size='50' name='email' maxlength='50'><span class='form_tip' id='email_tip'></span></div>
-				  <div><label>密码</label><input id='pwd' type='password' value='' size='50' name='pwd' maxlength='50'><span class='form_tip' id='pwd_tip'></div>
+				  <div style='display:inline; margin:0;padding:0;' ><input type='hidden' value='".$weibo_uid."' name='weibo_uid' /></div>
+				  <div><label>电子邮箱</label><input id='email' type='text' value='' size='50' name='email' maxlength='50' /><span class='form_tip' id='email_tip'></span></div>
+				  <div><label>密码</label><input id='pwd' type='password' value='' size='50' name='pwd' maxlength='50' /><span class='form_tip' id='pwd_tip'></div>
 				  <div class='aa_submit'><a><span>确定关联</span></a></div>
 			    </form>
 			  </div>
 			  <div id='form_2' style='display:none;'>
 			    <form method='post' action='account_associate.php'>
-				  <div style='display:inline; margin:0;padding:0;' ><input type='hidden' value='".$weibo_uid."' name='weibo_uid'></div>
-				  <div><label>电子邮箱</label><input id='user_email' type='text' value='' size='50' name='user_email' maxlength='50'><span class='form_tip' id='user_email_tip'></span></div>
-				  <div><label>用户名</label><input id='user_name' type='text' value='' size='50' name='user_name' maxlength='50'><span class='form_tip' id='user_name_tip'></span></div>  
-				  <div><label>密码</label><input id='user_pwd' type='password' value='' size='50' name='user_pwd' maxlength='50'><span class='form_tip' id='user_pwd_tip'></div>
-				  <div><label>确认密码</label><input id='user_pwd_confirm' type='password' value='' size='50' name='user_pwd_confirm' maxlength='50'><span class='form_tip' id='pwd_confirm_tip'></div> 
+				  <div style='display:inline; margin:0;padding:0;' ><input type='hidden' value='".$weibo_uid."' name='weibo_uid' /></div>
+				  <div><label>电子邮箱</label><input id='user_email' type='text' value='' size='50' name='user_email' maxlength='50' /><span class='form_tip' id='user_email_tip'></span></div>
+				  <div><label>用户名</label><input id='user_name' type='text' value='' size='50' name='user_name' maxlength='50' /><span class='form_tip' id='user_name_tip'></span></div>  
+				  <div><label>密码</label><input id='user_pwd' type='password' value='' size='50' name='user_pwd' maxlength='50' /><span class='form_tip' id='user_pwd_tip'></div>
+				  <div><label>确认密码</label><input id='user_pwd_confirm' type='password' value='' size='50' name='user_pwd_confirm' maxlength='50' /><span class='form_tip' id='pwd_confirm_tip'></div> 
 				  <div class='aa_submit'><a><span>创建帐号并关联</span></a></div>
 			    </form>
 			  </div>
@@ -221,6 +221,11 @@ if($('#form_1').is(':hidden'))
   var username = $('#user_name').val();
   var pwd = $('#user_pwd').val();
   var pwd_confirm = $('#user_pwd_confirm').val();
+  if(pwd != pwd_confirm)
+  {
+    $('#pwd_confirm_tip').text('两次输入密码不一致，请重新输入').css('color', 'red');
+    $('#user_pwd_confirm').val('');
+  }
   var tip_flag = ($('#user_email_tip').css('color') == 'red') || ($('#user_name_tip').css('color') == 'red') || ($('#user_pwd_tip').css('color') == 'red') || ($('#pwd_confirm_tip').css('color') == 'red');
   if(tip_flag || email == '' || username == '' || pwd == '' || pwd_confirm == '')
   submitFlag = false;

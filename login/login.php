@@ -5,13 +5,13 @@ session_start();
 
 if(isset($_GET['logout']))
 {
+	//unset($_SESSION['uid']);
 	unset($_SESSION['username']);
 	if(!empty($_COOKIE['email']) || empty($_COOKIE['password']))
 	{  
 	  setcookie("email", null, time()-3600*24*365, "/", ".koulifang.com", 0);  
 	  setcookie("password", null, time()-3600*24*365, "/", ".koulifang.com", 0);  
     } 
-	session_destroy();
 	echo "<script language='javascript' >
 			window.onload = function()
 			{
@@ -21,6 +21,7 @@ if(isset($_GET['logout']))
 			  });
 			}
 		  </script>";	 
+	session_destroy();
 	go("/index.php");
 	exit;
 }

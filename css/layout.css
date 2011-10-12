@@ -27,6 +27,9 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 .float_r { float:right;}
 .field_name { width:80px; display:inline-block; }
 .form_tip {padding-left:20px; color:#666699; display:none;}
+#term_tip {padding-left:76px; color:#666699; display:none;}
+
+.a_notify{width:100%; text-align:center; background-color: #FFF6EE;}
 /*.form_tip {padding-left:20px; color:#ff2222; display:none;}*/
 .bn_submit { width:80px;height:28px;font-size:14px;line-height:28px; padding-bottom:3px;cursor:pointer; color:#000;}
 .title { height:50px;font-size:20px; font-weight:bold;}
@@ -1099,7 +1102,7 @@ width: auto;
 .aa_submit a{
 background-color: #336699;
 border: 1px solid #10698D;
-border-radius: 3px 3px 3px 3px;
+border-radius: 2px; -moz-border-radius: 2px; -webkit-border-radius: 2px;
 color: white;
 display: block;
 float: left;
@@ -1112,6 +1115,39 @@ padding: 0 14px;
 text-align: center;
 text-shadow: 0 0 2px #444444;
 width: auto;
+}
+
+#btn_submit_signup a{
+background-color: #336699;
+border: 1px solid #10698D;
+border-radius: 2px; -moz-border-radius: 2px; -webkit-border-radius: 2px;
+color: white;
+font-size: 14px;
+font-weight: bold;
+height: 30px;
+line-height: 30px;
+margin-left: 30px;
+padding: 10px 14px;
+text-align: center;
+text-shadow: 0 0 2px #444444;
+width: auto;
+}
+
+#loginbtn a{
+display:block;
+background-color: #336699;
+background-repeat: repeat;
+border: 1px solid #10698D;
+border-radius: 2px; -moz-border-radius: 2px; -webkit-border-radius: 2px;
+color: white;
+font-size: 14px;
+font-weight: bold;
+height: 30px;
+line-height: 30px;
+padding: 0 14px;
+text-align: center;
+text-shadow: 0 0 2px #444444;
+width: 52px;
 }
 
 /* content part */
@@ -1170,7 +1206,7 @@ margin-top:20px;
 #login_btn{border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px;}
 #login_btn:hover {background-color: #f5f5f5}
 
-#login_modal_btn {padding: 3px 8px; border: 1px solid #C9C9C9; color: #336699; background: repeat-x; cursor:pointer;}
+#login_modal_btn {padding: 3px 8px; border: 1px solid #C9C9C9; color: #336699; background: repeat-x; cursor:pointer; height:auto;}
 #login_modal_btn{border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px;}
 #login_modal_btn:hover {background-color: #f5f5f5}
 
@@ -1196,7 +1232,7 @@ margin-top:20px;
 	clear:both;}
 	
 #footer .wrapper{overflow:auto;}
-.editor #footer {width:100%; position:fixed; top:900px; bottom: 0; z-index:200;background: none repeat scroll 0 0 #F9F9F9;}
+.editor #footer {width:100%; position:fixed;  bottom: 0; z-index:200;background: none repeat scroll 0 0 #F9F9F9;}
 .editor #footer .wrapper{position:absolute; width:920px; left:50%; margin-left:-460px;}
 #footer p { color: #BBBBBB; font-size: 1.1em; }
 #footer ul { float: right; list-style: none; padding: 0;}

@@ -9,6 +9,9 @@ if(isset($_POST['email']))
   $userresult = $DB->fetch_one_array("select weibo_access_token, weibo_access_token_secret from ".$db_prefix."user WHERE weibo_user_id='".$weibo_uid."'");
   $DB->query("delete from ".$db_prefix."user where weibo_user_id='".$weibo_uid."' AND passwd=''");
   $upresult=$DB->query("update ".$db_prefix."user set weibo_user_id='".$weibo_uid."', weibo_access_token='".$userresult['weibo_access_token']."', weibo_access_token_secret='".$userresult['weibo_access_token_secret']."'  WHERE email='".$email."'");
+  $result = $DB->fetch_one_array("select id, username from ".$db_prefix."user WHERE weibo_user_id='".$weibo_uid."' AND email='".$email."'");
+  $_SESSION['uid']=intval($result['id']);
+  $_SESSION['username']=$result['username'];
 }
 else
 {

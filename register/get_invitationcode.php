@@ -1,6 +1,6 @@
 <?php
   include "../global.php";
-  include "check_email.php";
+  include "../include/mail_functions.php";
   
   $icode_len=6;
   $icode_table=$db_prefix."icode";

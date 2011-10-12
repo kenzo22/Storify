@@ -2,7 +2,7 @@
   //add new line to test git
   // include function files for this application
   include "../global.php";
-  include "check_email.php";
+  include "../include/mail_functions.php";
   //require_once('../include/class.phpmailer.php');
 
   //create short variable names
@@ -52,7 +52,7 @@
     //}
 	
 	  $url = 'http://'.$_SERVER['SERVER_NAME'].dirname($_SERVER['SCRIPT_NAME']).'/activation.php';
-	  $url .= '?username='.urlencode($username);
+	  $url .= '?un='.urlencode($username).'&em='.urlencode($email);
 
 	  /*$mail = new PHPMailer();
 	  $mail->CharSet = "gb2312";
@@ -129,14 +129,25 @@
 	口立方 http://www.koulifang.com<br/><br/>
 
 	(这是一封自动产生的email，请勿回复。)</p>';
+	  $imply_txt = urlencode($username."&".$email);
 	  if(sendEmail($email,$subject,$message))
 	  {
 		$register_time=date("Y-m-d H:i:s");
 		$result = $DB->query("insert into ".$db_prefix."user values
-                         (null, '".$username."', sha1('".$password."'), '".$email."', 0, 0, 0, '".$register_time."', 0)");
-		$content="<div class='div_center' > <span class='title'> 激活帐号 </span></div> 
-		<div class='div_center'><span>请到 ".$email." 查阅来自口立方的邮件, 从邮件激活你的密码。<span></div>
-		<div class='div_center'><a target='_blank' href='http://mail.google.com'><span>登录Gmail邮箱查收激活确认信</span></a> </div>";
+                         (null, '".$username."', sha1('".$passwd."'), '".$email."', '', '', 0, '', '', 0, '', '', 0, '', '', '', '".$register_time."', 0)");
+		$content="<div class='inner' style='padding-top:50px;'>
+		 <h1>激活帐号</h1>
+		 <div>
+		   <p>请到 ".$email." 查阅来自口立方的邮件, 从邮件激活您的密码。</p>
+		   <h2 style='margin-top:160px;' id='a_flag'>没有收到确认信?...</h2>
+		   <input type='hidden' value='".$imply_txt."' id='imply_info' />
+		   <ol>
+			 <li>1.  检查一下上面的邮箱地址是否正确，错了就<a href='/register/register_form.php'>重新注册</a>一次吧:)</li>
+			 <li>2.  看看是否在邮箱的垃圾箱里</li>
+			 <li>3.  稍等几分钟，若仍旧没收到确认信，让口立方<a id='a_resend' href='#'>重发一封激活邮件</a></li>
+		   </ol>
+		 </div>
+		</div>";
 		echo $content;
 		if (!$result) {
           throw new Exception('Could not register you in database - please try again later.');
@@ -160,5 +171,26 @@
      exit;
   }
   
-  include "../include/footer.htm";
+include "../include/footer.htm";
 ?>
+<script type="text/javascript">
+$(function(){
+$('#a_resend').click(function(e)
+{
+  e.preventDefault();
+  $('.a_notify').remove();
+  var ori_info = $('#imply_info').val();
+  var info = decodeURIComponent(ori_info);
+  var temp_array = info.split('&');
+  var postdata = {uname: temp_array[0], email: temp_array[1]};
+  $.post('send_mail.php', postdata,
+	function(data, textStatus)
+	{					
+	  if(data == 1)
+	  {
+		$('#a_flag').after('<div class=\"a_notify\">邮件已重新发送，请查收！</div>');
+	  }
+	});
+});
+});
+</script>

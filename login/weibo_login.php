@@ -39,61 +39,47 @@ if(empty($result))
   $register_time=date("Y-m-d H:i:s");
   $DB->query("insert into ".$db_prefix."user values
                          (null, '', '', '', '".$photo."', '', '".$weibo_uid."', '".$accessToken."', '".$accessTokenSecret."', 0, '', '', 0, '', '', '', '".$register_time."', 1)");
-  $userresult=$DB->fetch_one_array("SELECT * FROM ".$db_prefix."user where weibo_user_id='".$weibo_uid."'");
-  if(!$userresult)
-  {
-	throw new Exception('Could not execute query.');
-  }
   header("location: /login/associate_form.php"); 
   exit;
 }
 else
 {
-    if($result['username'] == '')
-	{
-	  $_SESSION['uid']=intval($result['id']);
-	  header("location: /login/associate_form.php"); 
-	  exit;
-	}
-	$userresult=$DB->fetch_one_array("SELECT * FROM ".$db_prefix."user where weibo_user_id='".$weibo_uid."'");
-	if(!$userresult)
-	{
-	  throw new Exception('Could not execute query.');
-	}
-	if(!empty($userresult))
-	{
-	  $_SESSION['uid']=intval($userresult['id']);
-	  $_SESSION['username']=$userresult['username'];
+  if($result['username'] == '')
+  {
+	header("location: /login/associate_form.php"); 
+	exit;
+  }
+  $_SESSION['uid']=intval($result['id']);
+  $_SESSION['username']=$result['username'];
+  
+  $token = $DB->fetch_one_array("select * from ".$db_prefix."publictoken where id='1'");
 	  
-	  $token = $DB->fetch_one_array("select * from ".$db_prefix."publictoken where id='1'");
-		  
-	  if($userresult['weibo_access_token'] == '')
-	  {
-		$_SESSION['last_wkey']['oauth_token'] = $token['weibo_access_token'];
-		$_SESSION['last_wkey']['oauth_token_secret'] = $token['weibo_access_token_secret'];
-	  }
-	  else
-	  {
-		$_SESSION['last_wkey']['oauth_token']=$userresult['weibo_access_token'];
-		$_SESSION['last_wkey']['oauth_token_secret']=$userresult['weibo_access_token_secret'];
-	  }
-	  if($userresult['tweibo_access_token'] == '')
-	  {
-		$_SESSION['last_tkey']['oauth_token'] = $token['tweibo_access_token'];
-		$_SESSION['last_tkey']['oauth_token_secret'] = $token['tweibo_access_token_secret'];
-	  }
-	  else
-	  {
-		$_SESSION['last_tkey']['oauth_token']=$userresult['tweibo_access_token'];
-		$_SESSION['last_tkey']['oauth_token_secret']=$userresult['tweibo_access_token_secret'];
-	  }
-	  
-	  $_SESSION['last_dkey']['oauth_token']=$userresult['douban_access_token'];
-	  $_SESSION['last_dkey']['oauth_token_secret']=$userresult['douban_access_token_secret'];
-	  $_SESSION['yupoo_token'] = $userresult['yupoo_token'];
-	  
-	  header("location: /index.php"); 
-	  exit;
-	}
+  if($result['weibo_access_token'] == '')
+  {
+	$_SESSION['last_wkey']['oauth_token'] = $token['weibo_access_token'];
+	$_SESSION['last_wkey']['oauth_token_secret'] = $token['weibo_access_token_secret'];
+  }
+  else
+  {
+	$_SESSION['last_wkey']['oauth_token']=$result['weibo_access_token'];
+	$_SESSION['last_wkey']['oauth_token_secret']=$result['weibo_access_token_secret'];
+  }
+  if($result['tweibo_access_token'] == '')
+  {
+	$_SESSION['last_tkey']['oauth_token'] = $token['tweibo_access_token'];
+	$_SESSION['last_tkey']['oauth_token_secret'] = $token['tweibo_access_token_secret'];
+  }
+  else
+  {
+	$_SESSION['last_tkey']['oauth_token']=$result['tweibo_access_token'];
+	$_SESSION['last_tkey']['oauth_token_secret']=$result['tweibo_access_token_secret'];
+  }
+  
+  $_SESSION['last_dkey']['oauth_token']=$result['douban_access_token'];
+  $_SESSION['last_dkey']['oauth_token_secret']=$result['douban_access_token_secret'];
+  $_SESSION['yupoo_token'] = $result['yupoo_token'];
+  
+  header("location: /index.php"); 
+  exit;	
 }
 ?>

@@ -121,7 +121,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 					   <img border='0' src='../img/sina16.png' style='float:left; position:relative; top:4px' />";
 		  for($i=0; $i<$w_array_length; $i++)
 		  {
-		    $content.="<div class='notify-user'><input type='checkbox' value='mashable' name='to[]' checked='checked'><span>@".$w_nic_array[$i]."</span></div>";
+		    $content.="<div class='notify-user'><input type='checkbox' value='mashable' name='to[]' checked='checked' /><span>@".$w_nic_array[$i]."</span></div>";
 		  }
 		  $content.="</div>";
 		}
@@ -132,7 +132,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 					   <img border='0' src='../img/tencent16.png' style='float:left; position:relative; top:4px' />";
 		  foreach($t_array as $tkey=>$tval)
 		  {
-		    $content.="<div class='notify-user'><input type='checkbox' value='mashable' name='to[]' checked='checked'><span id='".$tkey."'>@".$tval."</span></div>";
+		    $content.="<div class='notify-user'><input type='checkbox' value='mashable' name='to[]' checked='checked' /><span id='".$tkey."'>@".$tval."</span></div>";
 		  }
 		  $content.="</div>";
 		}

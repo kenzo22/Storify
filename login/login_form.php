@@ -16,8 +16,10 @@ else if($_GET['next'] == 'inactivate')
 $content .="<div><b> 邮 箱 &nbsp; </b><input type='text' name='email' id='email_login' size='30'></input><span class='form_tip' id='email_tip'></span></div>
   <div><b> 密 码 &nbsp; </b><input type='password' name='passwd' id='pwd_login' size='30'></input><span class='form_tip' id='pwd_tip'></span></div><br />
   <span> <input type='checkbox' name='autologin'>下次自动登录</span> | <span><a href='/login/forget_form.php'/>忘记密码了？</a><span>
-  <div>
-	<input id='loginbtn' type='submit' value='登录'/>
+  <div id='loginbtn'>
+	<a> 
+        <span>登 录</span>  
+    </a> 
   </div>
 </div>
 <div class='float_r' style='margin-top:40px;'>
@@ -71,7 +73,6 @@ $('#loginbtn').click(function(e)
     $('#login_form').submit();
   }
 })
-});
 
 $('#connectBtn').live('click', function(e)
 {
@@ -81,6 +82,8 @@ function(data, textStatus)
 {
   self.location=data;
 });
+});
+
 });
 </script>
 
