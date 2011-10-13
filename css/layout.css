@@ -297,7 +297,13 @@ width: 21px;
 	margin: 0 0 5px;
 }
 
-.published-steps .steps input[type="checkbox"] {
+/*.published-steps .steps input[type="checkbox"] {
+    clear: none;
+    float: left;
+    margin: 3px 5px 0;
+}*/
+
+.notify-user input[type="checkbox"] {
     clear: none;
     float: left;
     margin: 3px 5px 0;

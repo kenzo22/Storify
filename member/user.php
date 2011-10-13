@@ -26,7 +26,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	  throw new Exception('Could not execute query.');
 	}
 	$story_author = $result['post_author'];
-	$userresult = $DB->fetch_one_array("SELECT username, intro, photo FROM ".$db_prefix."user where id='".$story_author."'");
+	$userresult = $DB->fetch_one_array("SELECT username, intro, photo, weibo_user_id, tweibo_access_token FROM ".$db_prefix."user where id='".$story_author."'");
 	$story_title=$result['post_title'];
 	$story_summary=$result['post_summary'];
 	$story_pic=$result['post_pic_url'];
@@ -65,47 +65,9 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	}
 	else
 	{
-		//prepare the weibo author info to be notified
-		$w_nic_array = array();
-		$t_array = array();
-		
-		$msg = $c->verify_credentials();
-		if (isset($msg['id']))
-		{
-		  $weibo_nick = $msg['screen_name'];
-		}
-		
-		$tmsg  =  $t->getinfo();
-		if (isset($tmsg['data']['nick']))
-		{
-		  $tweibo_nick = $tmsg['data']['nick'];
-		}
-		
-		foreach($temp_array['content'] as $tempItem)
-		{
-		  if(0 == strcmp($tempItem['type'], 'weibo'))
-		  {
-			if($weibo_nick != $tempItem['content']['nic'])
-			{
-			  $w_nic_array[] = $tempItem['content']['nic'];
-			}
-		  }
-		  else if(0 == strcmp($tempItem['type'], 'tweibo'))
-		  {
-			if($tweibo_nick != $tempItem['content']['nic'])
-			{
-			  $t_array[$tempItem['content']['name']] = $tempItem['content']['nic'];
-			}
-		  }
-		}
-		$w_nic_array = array_unique($w_nic_array);
-		$t_array = array_unique($t_array);
-		$w_array_length = count($w_nic_array);
-		$t_array_length = count($t_array);
-	  
 	  if(0 == strcmp($story_status, 'Published'))
 	  {
-	    $content = "<div id='story_container'>
+		$content = "<div id='story_container'>
 					  <div style='float:left;'>
 					  <div class='published-steps'>
 						<div class='tabs'>
@@ -131,49 +93,134 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 						  </div>
 						  <div class='notify-content'>
 						    <h2>告诉作者你引用了他们的内容</h2>";
-		$tweetFlag=false;
-		if($w_array_length>0)
+		$weiboFlag=false;
+		$tweiboFlag=false;
+		$w_user_count = 0;
+		$t_user_count = 0;
+		
+		//prepare the weibo author info to be notified
+		$w_nic_array = array();
+	    $msg = $c->verify_credentials();
+	    if (isset($msg['id']))
+	    {
+		  $weibo_nick = $msg['screen_name'];
+	    }
+	    foreach($temp_array['content'] as $tempItem)
+	    {
+		  if(0 == strcmp($tempItem['type'], 'weibo'))
+		  {
+		    if($weibo_nick != $tempItem['content']['nic'])
+		    {
+			  $w_nic_array[] = $tempItem['content']['nic'];
+		    }
+		  }
+	    }
+	    $w_nic_array = array_unique($w_nic_array);
+	    $w_array_length = count($w_nic_array);
+		if($userresult['weibo_user_id'] != 0)
 		{
-		  $tweetFlag=true;
-		  $content.="<div id='weibo_card_area' class='sina_user'>
+		  if($w_array_length>0)
+		  {
+		    $weiboFlag=true;
+		    $content.="<div id='weibo_card_area' class='sina_user'>
 					   <img border='0' src='../img/sina16.png' style='float:left; position:relative; top:4px' />";
-		  for($i=0; $i<$w_array_length; $i++)
-		  {
-		    $content.="<div class='notify-user'><input type='checkbox' value='mashable' name='to[]' checked='checked' /><span>@".$w_nic_array[$i]."</span></div>";
+		    for($i=0; $i<$w_array_length; $i++)
+		    {
+		      $w_user_count += utf8_strlen($w_nic_array[$i]);
+			  $content.="<div class='notify-user'><input type='checkbox' value='mashable' name='to[]' checked='checked' /><span>@".$w_nic_array[$i]."</span></div>";
+		    }
+		    $content.="</div>";
+			$w_user_count += 2*$w_array_length;
 		  }
-		  $content.="</div>";
 		}
-		if($t_array_length>0)
+		else
 		{
-		  $tweetFlag=true;
-		  $content.="<div class='tencent_user' style='clear:both;'>
+		  if($w_array_length>0)
+		  {
+		    $content.="<div class='sina_user'>
+					   <img border='0' src='../img/sina16.png' style='float:left; position:relative; top:4px' />
+					   <span style='margin-left:6px; margin-right:5px; color:#878787;'>发布到新浪微博需要绑定新浪微博帐号</span><a href='/member/source.php'>现在去绑定</a>
+					</div>";
+		  } 
+		}
+		
+		$t_array = array();
+	    $tmsg  =  $t->getinfo();
+	    if (isset($tmsg['data']['nick']))
+	    {
+		  $tweibo_nick = $tmsg['data']['nick'];
+	    }
+	    foreach($temp_array['content'] as $tempItem)
+	    {
+		  if(0 == strcmp($tempItem['type'], 'tweibo'))
+		  {
+		    if($tweibo_nick != $tempItem['content']['nic'])
+		    {
+			  $t_array[$tempItem['content']['name']] = $tempItem['content']['nic'];
+		    }
+		  }
+	    }
+	    $t_array = array_unique($t_array);
+	    $t_array_length = count($t_array);
+		if($userresult['tweibo_access_token'] != '')
+		{
+		  if($t_array_length>0)
+		  {
+		    $tweiboFlag=true;
+		    $content.="<div class='tencent_user' style='clear:both;'>
 					   <img border='0' src='../img/tencent16.png' style='float:left; position:relative; top:4px' />";
-		  foreach($t_array as $tkey=>$tval)
-		  {
-		    $content.="<div class='notify-user'><input type='checkbox' value='mashable' name='to[]' checked='checked' /><span id='".$tkey."'><a href='http://t.qq.com/".$tkey."' target='_blank'>@".$tval."</a></span></div>";
+		    foreach($t_array as $tkey=>$tval)
+		    {
+		      $t_user_count += utf8_strlen($tkey);
+			  $content.="<div class='notify-user'><input type='checkbox' value='mashable' name='to[]' checked='checked' /><span id='".$tkey."'><a href='http://t.qq.com/".$tkey."' target='_blank'>@".$tval."</a></span></div>";
+		    }
+		    $content.="</div>";
+			$t_user_count += 2*$t_array_length;
 		  }
-		  $content.="</div>";
 		}
-		if($tweetFlag)
+		else
 		{
+		  if($t_array_length>0)
+		  {
+		    $content.="<div class='tencent_user' style='clear:both;'>
+					   <img border='0' src='../img/tencent16.png' style='float:left; position:relative; top:4px' />
+					   <span style='margin-left:6px; margin-right:5px; color:#878787;'>广播到腾讯微博需要绑定腾讯微博帐号</span><a href='/member/source.php'>现在去绑定</a>
+					</div>";
+		  }
+		}
+		
+		if($weiboFlag || $tweiboFlag)
+		{
+		  $user_count = ($w_user_count > $t_user_count)?$w_user_count:$t_user_count;
+		  $weibo_dis = $weiboFlag?"":"disabled='disabled'";
+		  $tweibo_dis = $tweiboFlag?"":"disabled='disabled'";
+		  $weibo_check = $weiboFlag?"checked='checked'":" ";
+		  $tweibo_check = $tweiboFlag?"checked='checked'":" ";
 		  $current_page_url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
 		  $url_result = $c->shorten_url($current_page_url);
 		  $url_short = $url_result[0]['url_short'];
-		  $content.="<textarea class='notify-tweet' maxlength='120' name='tweet'>我刚刚引用了你的微博, 快来看一看吧: ".$url_short."</textarea><div class='tweet_control'>还可以输入<span>60</span>字<input class='tweet_btn' style='margin-left:15px; cursor:pointer;' type='submit' value='发布'></div>";
+		  $base_txt = "我刚刚引用了你的微博，快来看一看吧：";
+		  $word_remain = ceil(140-($user_count/2+strlen($url_short)/2+strlen($base_txt)/3));
+		  $content.="<textarea class='notify-tweet' name='tweet'>".$base_txt.$url_short."</textarea>
+		  <div class='tweet_control'><input id='weibo_f' type='checkbox' name='weibo_f'".$weibo_check.$weibo_dis." /><span>发布到新浪微博</span><input id='tweibo_f' type='checkbox' name='tweibo_f'".$tweibo_check.$tweibo_dis." /><span>发布到腾讯微博</span><span style='margin-left:28px;'>还可以输入</span><span id='word_counter'>".$word_remain."</span>字<input class='tweet_btn' style='margin-left:15px; cursor:pointer;' type='submit' value='发布'></div>";
 		}
-			   $content.="</div>
-						  <div class='share-content'>
-						    <div id='jiathis_style_32x32'>
-							  <a class='jiathis_button_qzone'></a><a class='jiathis_button_tsina'></a>
-							  <a class='jiathis_button_tqq'></a>
-							  <a class='jiathis_button_renren'></a><a class='jiathis_button_kaixin001'></a>
-							  <a href='http://www.jiathis.com/share' class='jiathis jiathis_txt jtico jtico_jiathis' target='_blank'></a>
-							  <a class='jiathis_counter_style'></a>
-							</div>
-						  </div>
-						</div>
-						<div class='spacer'></div>
-					  </div>";
+		if($w_array_length == 0 && $t_array_length == 0)
+		{
+		  $content.="<div style='color:#878787'>您没有引用别人的微博内容</div>";
+		}
+	    $content.="</div>
+				  <div class='share-content'>
+					<div id='jiathis_style_32x32'>
+					  <a class='jiathis_button_qzone'></a><a class='jiathis_button_tsina'></a>
+					  <a class='jiathis_button_tqq'></a>
+					  <a class='jiathis_button_renren'></a><a class='jiathis_button_kaixin001'></a>
+					  <a href='http://www.jiathis.com/share' class='jiathis jiathis_txt jtico jtico_jiathis' target='_blank'></a>
+					  <a class='jiathis_counter_style'></a>
+					</div>
+				  </div>
+				</div>
+				<div class='spacer'></div>
+			  </div>";
 		$content .= "<div class='digg_wrap'><div id='".$post_id."_digg_count' style='margin-top:10px;'>".$story_digg_count."</div><a id='".$post_id."_act_digg' class='act_digg'><img src='../img/ding.ico' /></a></div><div id='publish_container' class='showborder'>
 			  <div id='story_action'><span>已发布</span><span class='float_r'><a id='".$post_id."_delete' class='delete redirect'><img src='../img/delete.gif' title='删除' style='width:16px; height:16px;'/></a>&nbsp<a href='/member/user.php?post_id=".$post_id."&action=edit'><img src='../img/edit.png' title='编辑' style='width:16px; height:16px;'/></a></span></div>";
 	  }
@@ -862,6 +909,11 @@ Array.prototype.getUnique = function()
   return a;
 } 
 
+String.prototype.len=function()
+{
+  return this.replace(/[^\x00-\xff]/g,"**").length;
+}
+
 function append_video_content(url)
 {
   $.embedly(url, {key: '4ac512dca79011e0aeec4040d3dc5c07', maxWidth: 420, wrapElement: 'div', method : 'afterParent'  }, function(oembed){				
@@ -953,6 +1005,41 @@ $(function(){
 	  }
 	});
 	
+	$('.notify-tweet').live('keyup', function(e){
+	  var w_user_count = 0;
+	  var t_user_count = 0;
+	  $('.sina_user .notify-user input').each(function()
+	  {
+	    if($(this).attr('checked'))
+		{
+		  w_user_count += $(this).next().text().len() +1;
+		}
+	  });
+	  $('.tencent_user .notify-user input').each(function()
+	  {
+	    if($(this).attr('checked'))
+		{
+		  t_user_count += $(this).next().attr('id').len() +2;
+		}
+	  });
+	  var user_count = (w_user_count > t_user_count)?w_user_count:t_user_count;
+      var word_remain=(280-$(this).val().len() - user_count)/2;
+	  if(word_remain == 0)
+	  {
+		var max_len = $(this).val().length;
+		$(this).attr('maxlength', max_len);
+	  }
+	  if(word_remain < 0)
+	  {
+		var max_len = $(this).val().length+word_remain;
+		$(this).attr('maxlength', max_len);
+		var cut_txt = $(this).val().substr(0, max_len)
+		$(this).val(cut_txt);
+		word_remain = 0;
+	  }
+	  $('#word_counter').text(Math.floor(word_remain));
+	});
+	
 	$('.tweet_btn').live('click', function(e){
 	  e.preventDefault();
 	  var weibo_content_val = '';
@@ -972,7 +1059,7 @@ $(function(){
 		}
 	  });
 	  
-	  if(tweibo_content_val != '')
+	  if(($('#tweibo_f').attr('checked')) && (tweibo_content_val != ''))
 	  {
 	      tweibo_content_val += $('.notify-tweet').val();
 		  var postUrl;
@@ -991,7 +1078,7 @@ $(function(){
 		  });
 	  }
 	  
-	  if(weibo_content_val != '')
+	  if(($('#weibo_f').attr('checked')) && (weibo_content_val != ''))
 	  {
 	      weibo_content_val += $('.notify-tweet').val();
 		  var postUrl;
@@ -1008,6 +1095,10 @@ $(function(){
 			$('.steps .notify-content').css('display', 'none');
 		  }
 		  });
+	  }
+	  if($('.steps .notify-content').is(':visible'))
+	  {
+	    $('.steps .notify-content').css('display', 'none');
 	  }
 	});
 });
