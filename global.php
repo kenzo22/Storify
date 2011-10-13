@@ -25,7 +25,14 @@
     { 
 		$user_profile_img;
 		$userresult=$DB->fetch_one_array("SELECT id, photo FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
-		$user_profile_img = $userresult['photo'];
+		if($userresult['photo'] != '')
+		{
+		  $user_profile_img = $userresult['photo'];
+		}
+		else
+		{
+		  $user_profile_img = '/img/douban_user_dft.jpg';
+		}
 		$content="<ul class='user_console showborder'>
 				    <li class='person_li' style='display:block;'><a class='person_a person_a_display' href='/member/user.php?user_id=".$userresult['id']."'><img id='person_img' src='".$user_profile_img."'><span id='person_name'>".$_SESSION['username']."</span></a></li>
 					<li class='person_li'><a class='person_a' href='/member/user.php?user_id=".$userresult['id']."'><img class='console_img' src='/img/home.ico'/><span>我的主页</span></a></li>

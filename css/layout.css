@@ -1133,7 +1133,7 @@ text-shadow: 0 0 2px #444444;
 width: auto;
 }
 
-#loginbtn a, #update_btn a{
+#loginbtn a, #update_btn a, #btn_submit_forget, #btn_cfm_pwd{
 display:block;
 background-color: #336699;
 background-repeat: repeat;
@@ -1153,8 +1153,12 @@ text-shadow: 0 0 2px #444444;
 width:52px;
 }
 
-#update_btn a{
+#update_btn a, #btn_submit_forget{
 width: 66px;
+}
+
+#btn_cfm_pwd{
+width:72px;
 }
 
 /* content part */

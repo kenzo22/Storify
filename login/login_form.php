@@ -28,7 +28,7 @@ $content .="<input type='hidden' value='".$_GET['next']."' name='redirect_info' 
   <div style='margin-top:10px;'><span align='center'>使用新浪微博帐号登录</span></div>
   <div style='margin-top:5px;'><a id='connectBtn' href='#' style='margin-top:17px;'><img src='/img/weibo.png' /></a></div></div>
 </div>
-<div class='inner' style='height:50px;'></div>
+<div class='inner' style='height:250px;'></div>
 </form>";
 
 echo $content;

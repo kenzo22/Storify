@@ -1,7 +1,5 @@
 <?php
 include "../global.php";
-
-session_start();
 $username = urldecode($_GET['un']);
 $email = urldecode($_GET['em']);
 if (!empty($username) && !is_null($username)){				//激活注册用户
@@ -10,10 +8,11 @@ if (!empty($username) && !is_null($username)){				//激活注册用户
 	{
 		if($result['activate'] == 1)
 		{
-		  echo "<script>alert('您已经激活了！');window.location.href='../member/source.php';</script>";
+		  echo "<script>alert('您已经激活了！');window.location.href='/index.php';</script>";
 		}
 		else
 		{
+		  //safety risk
 		  $upresult=$DB->query("update ".$db_prefix."user set activate='1'  WHERE username='".$username."'");
 		  if($upresult)
 		  {
@@ -26,7 +25,7 @@ if (!empty($username) && !is_null($username)){				//激活注册用户
 	}
 	else
 	{
-	  echo "<script>alert('用户激活失败！');window.location.href='/register/register_form.php';</script>";
+	  echo "<script>alert('没有这个注册用户！');window.location.href='/register/register_form.php';</script>";
 	}
 }
 ?>
