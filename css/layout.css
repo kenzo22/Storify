@@ -504,6 +504,11 @@ margin-left:70px;
 .cross{
   padding-left:465px;
 }
+
+.content_wrapper{
+padding-left:26px;
+background: url('../img/apostrophe.png') no-repeat scroll 0 0 transparent !important;
+}
   
 .addTextElementAnchor{
 height:16px;

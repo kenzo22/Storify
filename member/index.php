@@ -222,7 +222,7 @@ if(isset($_GET['post_id']))
 	  }
 	  if (isset($single_weibo['error_code']) && isset($single_weibo['error']))
 	  {
-        $content .= "<li class='weibo_drop sina' id='$weibo_per_id'><div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='     remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>此微博已被原作者删除</span></div>";
+        $content .= "<li class='weibo_drop sina' id='$weibo_per_id'><div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>此微博已被原作者删除</span></div>";
         continue;
 //		echo ('Error_code: '.$single_weibo['error_code'].';  Error: '.$single_weibo['error'] );
 //		return false;
@@ -236,7 +236,7 @@ if(isset($_GET['post_id']))
         $single_weibo['text'] = subs_url($single_weibo['text'],"weibo");
 
 		$createTime = dateFormat($single_weibo['created_at']);
-		$content .= "<li class='weibo_drop sina' id='$weibo_per_id'><div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>".$single_weibo['text'];
+		$content .= "<li class='weibo_drop sina' id='$weibo_per_id'><div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text'];
 
     	if (isset($single_weibo['retweeted_status'])){
             

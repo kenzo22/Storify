@@ -769,7 +769,7 @@ $(function() {
 				    weibo_retweet_img_content = "<div class='weibo_retweet_img_drop'><img src='"+weibo_retweet_img+"' /></div>";
 				  }
 				  dragItem.removeClass('weibo_drag').addClass('weibo_drop sina').children().remove();
-				  content = ("<div class='cross' action='delete'><a><img src='/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>"
+				  content = ("<div class='cross' action='delete'><a><img src='/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>"
 					+weibo_Text+"</span>"+weibo_retweet_img_content+weibo_img_content+"</div><div id='story_signature'><span style='float:right;'><a href='"+weibo_from_url+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
 					+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></span><span id='signature_text_drop' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='weibo_from_drop' href='"
 					+weibo_from_url+"' target='_blank'>"+weibo_from+"</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px' src='/img/sina16.png'/><a>"
@@ -792,7 +792,7 @@ $(function() {
 				    weibo_retweet_img_content = "<div class='weibo_retweet_img_drop'><img src='"+weibo_retweet_img+"' /></div>";
 				  }
 				  dragItem.removeClass('weibo_drag').addClass('weibo_drop tencent').children().remove();
-				  content = ("<div class='cross' action='delete'><a><img src='/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div><span class='weibo_text_drop'>"
+				  content = ("<div class='cross' action='delete'><a><img src='/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>"
 					+weibo_Text+"</span>"+weibo_retweet_img_content+weibo_img_content+"</div><div id='story_signature'><span style='float:right;'><a href='"+weibo_from_url+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
 					+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></span><span id='signature_text_drop' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='weibo_from_drop' href='"
 					+weibo_from_url+"' target='_blank'>"+weibo_from+"</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px' src='/img/tencent16.png'/><a>"

@@ -68,7 +68,7 @@ if(isset($_GET['weibo_ids']))
     // show face gif 
     $item['text'] = subs_emotions($item['text'],"tweibo");
 
-    $weiboContent .="<li class='weibo_drop tencent' id='".$item['id']."' style='border:none;'><div class='story_wrapper'><div><span class='weibo_text_drop'>".$item['text'];
+    $weiboContent .="<li class='weibo_drop tencent' id='".$item['id']."' style='border:none;'><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text'];
 
     if(isset($item['source'])){
         //nick name
@@ -82,14 +82,14 @@ if(isset($_GET['weibo_ids']))
         $weiboContent .="||".$item['source']['nick']."(@".$item['source']['name']."):".$item['source']['text']."</span></div>";
         if(isset($item['source']['image'])){
             foreach($item['source']['image'] as $re_img_url){
-                $weiboContent .="<div class='weibo_retweet_img'><img src='".$re_img_url."/240' /></div>";
+                $weiboContent .="<div class='weibo_retweet_img_drop'><img src='".$re_img_url."/240' /></div>";
             }
         }
     }else{
         $weiboContent .= "</span></div>";
         if(isset($item['image'])){
             foreach($item['image'] as $img_url){
-                $weiboContent .="<div class='weibo_img'><img src='".$img_url."/240' /></div>";
+                $weiboContent .="<div class='weibo_img_drop'><img src='".$img_url."/240' /></div>";
             }
         }
     }
