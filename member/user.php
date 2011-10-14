@@ -522,8 +522,11 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 		$photo_title = $photo_meta_data['title'];
 		$photo_author = $photo_meta_data['author'];
 		$photo_per_url = $photo_meta_data['url'];
-		$content .="<li class='photo_element'><div style='margin:0px auto; text-align:center; border: 5px solid #FFFFFF; box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); max-width: 260px;'><img src='"
-				.$photo_per_url."'/><div class='pic_title' style='line-height:1.5;'>".$photo_title."</div><div class='pic_author' style='line-height:1.5;'>".$photo_author."</div></div></li>";	 
+		$photo_id = $photo_meta_data['id'];
+		$author_nic = $photo_meta_data['nic'];
+		$photo_link = "http://www.yupoo.com/photos/".$photo_author."/".$photo_id."/";
+		$content .="<li class='photo_element'><div class='yupoo_wrapper'><a target='_blank' href='".$photo_link."'><img src='"
+				.$photo_per_url."'/></a><div style='line-height:1.5;'><a class='pic_title' target='_blank' href='".$photo_link."'>".$photo_title."</a></div><div style='line-height:1.5;'><a class='pic_author' target='_blank' href='http://www.yupoo.com/photos/".$photo_author."/'>".$author_nic."</a></div><div class='yupoo_sign'></div></div></li>";	 
 		break;}
 		 
 		default:

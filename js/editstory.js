@@ -24,7 +24,6 @@ function show_weibo_card(id)
 
 function prepare_story_data(action_value)
 {
-    //debugger;
 	if(action_value !='Publish' &&  action_value !='Preview' && action_value != "Draft")
         alert("not a proper operation:"+action_value);
   var story_id_val;
@@ -93,9 +92,14 @@ function prepare_story_data(action_value)
 	{
 	  story_content_val.content[i].type = 'photo';
 	  var photo_title = $(this).find('.pic_title').text();
-	  var photo_author = $(this).find('.pic_author').text();
+	  var photo_author = $(this).find('.pic_author').attr('href').replace(/http:\/\/www.yupoo.com\/photos\//,"");
+	  var author_nic =  $(this).find('.pic_author').text();
+	  var pic_link = $(this).find('.pic_title').attr('href');
+	  var temp_y = pic_link.split('/');
+	  var temp_y_len = temp_y.length;
+	  var yid = temp_y[temp_y_len-1];
 	  var photo_per_url = $(this).find('.pic_img').attr('src');
-	  var photo_metadata = {title: photo_title, author: photo_author, url: photo_per_url};
+	  var photo_metadata = {id: yid, title: photo_title, author: photo_author, nic: author_nic, url: photo_per_url};
 	  story_content_val.content[i].content = photo_metadata;
 	}
   });
@@ -410,13 +414,13 @@ $(function() {
 			  }
 			  else if(yupoo_selected == 1)
 			  {
-			    $(this).val('又拍用户名');
+			    $(this).val('又拍用户名，注意不是昵称');
 			  }
 		    }
 		  }).focus(function(){
 		    var yupoo_selected = $picTabs.tabs('option', 'selected');
 			var yupoo_txt = $(this).val();
-			if((yupoo_selected == 0 && yupoo_txt == '关键字') || (yupoo_selected == 1 && yupoo_txt == '又拍用户名'))
+			if((yupoo_selected == 0 && yupoo_txt == '关键字') || (yupoo_selected == 1 && yupoo_txt == '又拍用户名，注意不是昵称'))
 			{
 			  $(this).val('').removeClass('imply_color');
 			}
@@ -683,7 +687,7 @@ $(function() {
 		  userpicSearchPage = 1;
 		  $('#source_list').children().remove();
 		  $('#source_list').css('height', '664px');
-		  $('#pic_keywords').val('又拍用户名').addClass('imply_color');
+		  $('#pic_keywords').val('又拍用户名，注意不是昵称').addClass('imply_color');
 		});
 		
 		$('#pic_search_btn').click(function()
@@ -728,7 +732,7 @@ $(function() {
 		
 		$( "#source_list, #story_list" ).sortable({
 			connectWith: ".connectedSortable",
-			cancel: ".weibo_drop, .douban_drop, .video_drop, .textElement, .tuser",
+			cancel: ".weibo_drop, .douban_drop, .video_drop, .textElement, .tuser, .loadmore",
 			receive: function(event, ui) 
 			{
 			  var dragItem = ui.item;
@@ -899,14 +903,16 @@ $(function() {
 			  {
 				var picUrl = dragItem.find('img').attr('src');
 				var picTitle = dragItem.find('.pic_title').text();
+				var picLink = dragItem.find('.pic_title').attr('href');
 				var picAuthor = dragItem.find('.pic_author').text();
+				var authorLink = dragItem.find('.pic_author').attr('href');
 				var temp_array = picUrl.split("\/");
 				var temp_array_length = temp_array.length;
 				temp_array[temp_array_length-1] = "small";
 				picUrl = temp_array.join("\/");
 				
-				var picContent = ("<div class='cross' action='delete'><a><img src='/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div style='margin:0px auto; text-align:center; border: 5px solid #FFFFFF; box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); max-width: 260px;'><img class='pic_img' src='"
-				+picUrl+"'/><div class='pic_title' style='line-height:1.5;'>"+picTitle+"</div><div class='pic_author' style='line-height:1.5;'>"+picAuthor+"</div></div>");
+				var picContent = ("<div class='cross' action='delete'><a><img src='/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='yupoo_wrapper'><a target='_blank' href='"+picLink+"'><img class='pic_img' src='"
+				+picUrl+"'/></a><div style='line-height:1.5;'><a class='pic_title' target='_blank' href='"+picLink+"'>"+picTitle+"</a></div><div style='line-height:1.5;'><a class='pic_author' target='_blank' href='"+authorLink+"'>"+picAuthor+"</a></div><div class='yupoo_sign'></div></div>");
 				dragItem.removeClass('pic_Drag').addClass('pic_drop').children().remove();　
 			    dragItem.append(picContent);
 				if(dragItem.index(list_item_have_pic) == 0)

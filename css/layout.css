@@ -409,7 +409,7 @@ margin-left:70px;
 .weibo_content{overflow:hidden;}
 #source_pane{position:fixed; top:70px; width:390px; height:800px; }
 #story_pane{width:510px; min-height: 754px;}
-#source_list{height:664px; overflow:auto; padding:0; margin:0; border: 1px solid #C9C9C9; border-top: none; border-radius:5px 5px 5px 5px;}
+#source_list{height:664px; overflow:auto; padding:0; margin:0; border: 1px solid #C9C9C9; border-top: none; border-radius:5px 5px 5px 5px; cursor:move;}
 #story_list{position: inherit; margin:0; min-height:603px; border: 1px solid #C9C9C9; border-radius:0px 0px 5px 5px; height:auto; overflow:hidden; list-style: none outside none;}
 #story {}
 #storylist_container {}
@@ -503,6 +503,27 @@ margin-left:70px;
   
 .cross{
   padding-left:465px;
+}
+
+.yupoo_wrapper{
+position:relative;
+margin:0px auto; 
+text-align:center; 
+border: 5px solid #FFFFFF; box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); 
+max-width: 260px;
+}
+
+.yupoo_wrapper a img{
+
+}
+
+.yupoo_sign{
+background: url("../img/yupoo-logo.png") no-repeat scroll 0 0 transparent;
+height: 30px;
+right: 10px;
+position: absolute;
+bottom: 0;
+width: 30px;
 }
 
 .content_wrapper{
