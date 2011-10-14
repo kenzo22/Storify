@@ -9,10 +9,10 @@ include_once( 'sinaweibo.php' );
 //$token = $DB->fetch_one_array("select * from ".$db_prefix."user where id='1'");
 //$_SESSION['last_wkey']['oauth_token']=$token['weibo_access_token'];
 //$_SESSION['last_wkey']['oauth_token_secret']=$token['weibo_access_token_secret'];
-echo "<br /><br /><br /><br /><br />";
+/*echo "<br /><br /><br /><br /><br />";
 echo "token".$_SESSION['last_wkey']['oauth_token']."<br />";
 echo "secret".$_SESSION['last_wkey']['oauth_token_secret']."<br />";
-echo "after"."<br />";
+echo "after"."<br />";*/
 //$hashtoken = $DB->fetch_one_array("select * from ".$db_prefix."publictoken where id='2'");
 //$token = $DB->fetch_one_array("select * from ".$db_prefix."user where id='1'");
 //$_SESSION['last_wkey']['oauth_token']=$hashtoken['weibo_access_token'];
@@ -28,15 +28,15 @@ $_SESSION['last_wkey']['oauth_token']=$result['weibo_access_token'];
 $_SESSION['last_wkey']['oauth_token_secret']=$result['weibo_access_token_secret'];*/
 //$c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']  );
 //$ms  = $c->friends_timeline(); // done
-//$ms  = $c->update("测试测试"); // done
+$ms  = $c->update("@Briggs 我刚刚引用了你的微博，快来看一看吧：http://t.cn/asvjDv我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博"); // done
 
 //$me = $c->verify_credentials();
-$me = $c->show_status('3362345674672760');
+//$me = $c->show_status('3362345674672760');
 //$me = $c->shorten_url('http://open.weibo.com/wiki/Short_url/shorten');
 //$me = $c->get_emotions();
 
 //echo $me[0]['url_short'];
-var_dump($me);
+//var_dump($me);
 
 /*
 $prefix="../img/weibo/";

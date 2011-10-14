@@ -202,7 +202,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 		  $base_txt = "我刚刚引用了你的微博，快来看一看吧：";
 		  $word_remain = ceil(140-($user_count/2+strlen($url_short)/2+strlen($base_txt)/3));
 		  $content.="<textarea class='notify-tweet' name='tweet'>".$base_txt.$url_short."</textarea>
-		  <div class='tweet_control'><input id='weibo_f' type='checkbox' name='weibo_f'".$weibo_check.$weibo_dis." /><span>发布到新浪微博</span><input id='tweibo_f' type='checkbox' name='tweibo_f'".$tweibo_check.$tweibo_dis." /><span>发布到腾讯微博</span><span style='margin-left:28px;'>还可以输入</span><span id='word_counter'>".$word_remain."</span>字<input class='tweet_btn' style='margin-left:15px; cursor:pointer;' type='submit' value='发布'></div>";
+		  <div class='tweet_control'><input id='weibo_f' type='checkbox' name='weibo_f'".$weibo_check.$weibo_dis." /><span>发布到新浪微博</span><input id='tweibo_f' type='checkbox' name='tweibo_f'".$tweibo_check.$tweibo_dis." /><span>发布到腾讯微博</span><span style='margin-left:28px; color: #B8B7B7;'>还可以输入</span><span id='word_counter'>".$word_remain."</span><span style='color: #B8B7B7;'>字</span><input class='tweet_btn' style='margin-left:15px; cursor:pointer;' type='submit' value='发布'></div>";
 		}
 		if($w_array_length == 0 && $t_array_length == 0)
 		{

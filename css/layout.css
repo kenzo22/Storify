@@ -318,6 +318,13 @@ width: 21px;
   float:right;
 }
 
+#word_counter {
+	color: #B8B7B7;
+    font-family: Constantia,Georgia;
+    font-size: 22px;
+    font-weight: 700;
+}
+
 .notify-user span {
     display: block;
     float: left;

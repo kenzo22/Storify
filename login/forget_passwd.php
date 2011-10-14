@@ -1,7 +1,5 @@
 <?php
   include "../global.php";
-  $username = urldecode(trim($_GET['un']));
-  $email = urldecode(trim($_GET['em']));
   if($_POST['act']!="cfm_pwd")
   {
 	$content="<div class='inner' style='padding-top:50px;'>
@@ -20,6 +18,21 @@
   }
   else
   {
+	$confirmation = $_GET['confirmation'];
+    $reset_code = substr($confirmation, 0, 8);
+    $send_time = substr($confirmation, 8);
+    $current_time = time();
+    if(($current_time-$send_time)>43200)
+    {
+      go("/login/forget_form.php","该链接已过期失效，请重新到忘记密码页面生成新链接",2);
+      exit;
+    }
+	$reset = $DB->fetch_one_array("select username, email from ".$db_prefix."reset where reset_code='".$reset_code."'");
+    if(!empty($reset))
+	{
+	  $username = $reset['username'];
+	  $email = $reset['email'];
+	}
 	$result=$DB->fetch_one_array("SELECT * FROM ".$db_prefix."user where username='".$username."' AND email='".$email."'");
 	if($result)
 	{
@@ -27,10 +40,7 @@
 	  $DB->query("update ".$db_prefix."user set passwd='".$pwd."' where username='".$username."' AND email='".$email."'");
       session_destroy();
 	  go("/login/login_form.php?next=flag","修改密码成功,请重新登陆",2);
-	}
-	else
-	{
-	  echo "<script>alert('没有这个注册用户！');window.location.href='/register/register_form.php';</script>";
+	  exit;
 	}
   }
   include "../include/footer.htm";

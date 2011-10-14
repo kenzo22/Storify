@@ -10,6 +10,9 @@
   $username=$_POST['username'];
   $passwd=$_POST['passwd'];
   $invite_code=$_POST['invite_code'];
+  $reset_code_l = 8;
+  $reset_code=produce_random_strdig($reset_code_l);
+  $current_time = time();
 
   // start session which may be needed later
   // start it now because it must go before headers
@@ -52,7 +55,8 @@
     //}
 	
 	  $url = 'http://'.$_SERVER['SERVER_NAME'].dirname($_SERVER['SCRIPT_NAME']).'/activation.php';
-	  $url .= '?un='.urlencode($username).'&em='.urlencode($email);
+	  //$url .= '?un='.urlencode($username).'&em='.urlencode($email);
+	  $url .= '?confirmation='.$reset_code.$current_time;
 
 	  /*$mail = new PHPMailer();
 	  $mail->CharSet = "gb2312";
@@ -135,6 +139,8 @@
 		$register_time=date("Y-m-d H:i:s");
 		$result = $DB->query("insert into ".$db_prefix."user values
                          (null, '".$username."', sha1('".$passwd."'), '".$email."', '', '', 0, '', '', 0, '', '', 0, '', '', '', '".$register_time."', 0)");
+		$reset = $DB->query("insert into ".$db_prefix."reset values
+                         (null, '".$username."', '".$email."', '".$reset_code."')");
 		$content="<div class='inner' style='padding-top:50px;'>
 		 <h1>激活帐号</h1>
 		 <div>

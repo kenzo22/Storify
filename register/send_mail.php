@@ -3,10 +3,17 @@ include "../connect_db.php";
 include "../include/mail_functions.php";
 $email=$_POST['email'];
 $username=$_POST['uname'];
+$reset = $DB->fetch_one_array("select reset_code from ".$db_prefix."reset where username='".$username."' AND email='".$email."'");
+if(!empty($reset))
+{
+  $reset_code = $reset['reset_code'];
+}
+$current_time = time();
 try
 {
 	$url = 'http://'.$_SERVER['SERVER_NAME'].dirname($_SERVER['SCRIPT_NAME']).'/activation.php';
-	$url .= '?un='.urlencode($username).'&em='.urlencode($email);
+	//$url .= '?un='.urlencode($username).'&em='.urlencode($email);
+	$url .= '?confirmation='.$reset_code.$current_time;
 	$subject="口立方注册用户激活邮件";
 	$message='<p>欢迎您在口立方注册用户，请点击以下链接以激活您的帐户:<br/><br/>
 

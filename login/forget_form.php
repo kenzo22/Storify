@@ -34,13 +34,22 @@ else
   if(!empty($result))
   {
     $username = $result['username']; 
+	
+	$reset = $DB->fetch_one_array("select reset_code from ".$db_prefix."reset where username='".$username."' AND email='".$email."'");
+	if(!empty($reset))
+	{
+	  $reset_code = $reset['reset_code'];
+	}
+	$current_time = time();
+	
     $url = 'http://'.$_SERVER['SERVER_NAME'].dirname($_SERVER['SCRIPT_NAME']).'/forget_passwd.php';
-    $url .= '?un='.urlencode($username).'&em='.urlencode($email);
+    $url .= '?confirmation='.$reset_code.$current_time;
 
     $subject = "重设".$username."在口立方的密码";
     $message = '<p>您的密码重设要求已经得到验证。请点击以下链接输入您新的密码: <br/><br/>
+	该链接在12小时内有效，过期请到忘记密码页面重新生成链接。<br/><br/>
 
-	(pleae click on the following link to reset your password:)<br/><br/>
+	pleae click on the following link(effective in next 12 hours) to reset your password:<br/><br/>
 
 	<a href="'.$url.'" target="_blank">'.$url.'</a><br/><br/>
 
