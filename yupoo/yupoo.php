@@ -141,17 +141,6 @@ class YupooAPI {
 		return $result;
 	}
 	
-	/*public function search_photo($keywords, $page, $token)
-	{
-		$method = 'yupoo.photos.search';
-		$args["auth_token"] = $token;
-		$args["text"] = $keywords;
-		$args["page"] = $page;
-		$args["per_page"] = 20;
-		$result = $this->api_call($method, $args);
-		return $result;
-	}*/
-	
 	public function search_photo($keywords, $page)
 	{
 		$method = 'yupoo.photos.search';

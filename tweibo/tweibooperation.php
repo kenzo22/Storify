@@ -38,17 +38,25 @@ else if('weibo_search' == $operation)
 {
   $keywords = $_GET['keywords'];
   $tweibo  = $c->search_t($keywords, $page, $itemsPerPage);
+  if($tweibo['data'] == NULL)
+  {
+    echo "<div class='imply_color' style='text-align:center;'>对不起，没有找到相关的微博</div>";
+    exit;
+  }
 }
 else if('list_user' == $operation)
 {
   $keywords = $_GET['keywords'];
   $tweibo  = $c->search_user($keywords, $page, $itemsPerPage);
+  if($tweibo['data'] == NULL)
+  {
+    echo "<div class='imply_color' style='text-align:center;'>此腾讯微博用户不存在</div>";
+    exit;
+  }
 }
 else if('user_search' == $operation)
 {
   $keywords = $_GET['keywords'];
-  //$userResult = $c->search_user($keywords);
-  //$tweibo  = $c->user_timeline($userResult['data']['info'][0]['name'], $page, $timestamp, $itemsPerPage);
   $tweibo  = $c->user_timeline($keywords, $page, $timestamp, $itemsPerPage);
 }
 

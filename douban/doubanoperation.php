@@ -14,31 +14,42 @@ $doubanReturn;
 $eventReturn;
 $eventFlag = 0;
 $keywords;
+$imply_txt;
 if('book' == $operation)
 {
   $keywords = $_GET['keywords'];
   $doubanReturn  = $c->search_book($keywords, $startIndex, $numResults);
+  $imply_txt = "图书";
 }
 else if('movie' == $operation)
 {
   $keywords = $_GET['keywords'];
   $doubanReturn  = $c->search_movie($keywords, $startIndex, $numResults);
+  $imply_txt = "电影";
 }
 else if('music' == $operation)
 {
   $keywords = $_GET['keywords'];
   $doubanReturn  = $c->search_music($keywords, $startIndex, $numResults);
+  $imply_txt = "音乐";
 }
 else if('event' == $operation)
 {
   $keywords = $_GET['keywords'];
   $eventReturn  = $c->search_event($keywords, $startIndex, $numResults);
+  $imply_txt = "活动";
   $eventFlag = 1;
 }
 
 if($eventFlag == 0)
 {
+	//注意openSearch小写
 	$totalResults = $doubanReturn['opensearch:totalResults']['$t'];
+	if($totalResults == 0)
+    {
+      echo "<div class='imply_color' style='text-align:center;'>对不起，没有找到相关的".$imply_txt."</div>";
+      exit;
+    }
 	foreach( $doubanReturn['entry'] as $item )
 	{
 	  $temp_array = explode("/", $item['id']['$t']);
@@ -116,7 +127,13 @@ if($eventFlag == 0)
 }
 else if($eventFlag == 1)
 {
+  //注意openSearch大写
   $totalEvents = $eventReturn['openSearch:totalResults']['$t'];
+  if($totalEvents == 0)
+  {
+    echo "<div class='imply_color' style='text-align:center;'>对不起，没有找到相关的活动</div>";
+    exit;
+  }
   foreach( $eventReturn['entry'] as $eventItem )
   {
 	$eventImgFlag = 0;

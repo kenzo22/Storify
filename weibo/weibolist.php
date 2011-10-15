@@ -22,13 +22,15 @@ echo "after"."<br />";*/
 
 
 $c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']  );
+//$me = $c->user_timeline(1, 20, '风景');
+$me  = $c->search_weibo(1, 20, '风景饭第三方但是洛克菲勒但是');
 
 /*$result=$DB->fetch_one_array("SELECT weibo_access_token, weibo_access_token_secret FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
 $_SESSION['last_wkey']['oauth_token']=$result['weibo_access_token'];
 $_SESSION['last_wkey']['oauth_token_secret']=$result['weibo_access_token_secret'];*/
 //$c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']  );
 //$ms  = $c->friends_timeline(); // done
-$ms  = $c->update("@Briggs 我刚刚引用了你的微博，快来看一看吧：http://t.cn/asvjDv我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博"); // done
+//$ms  = $c->update("@Briggs 我刚刚引用了你的微博，快来看一看吧：http://t.cn/asvjDv我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博"); // done
 
 //$me = $c->verify_credentials();
 //$me = $c->show_status('3362345674672760');
@@ -36,7 +38,8 @@ $ms  = $c->update("@Briggs 我刚刚引用了你的微博，快来看一看吧�
 //$me = $c->get_emotions();
 
 //echo $me[0]['url_short'];
-//var_dump($me);
+echo "<br /><br /><br />";
+var_dump($me);
 
 /*
 $prefix="../img/weibo/";

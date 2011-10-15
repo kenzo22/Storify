@@ -29,11 +29,21 @@ else if('weibo_search' == $operation)
 {
   $keywords = $_GET['keywords'];
   $weibo  = $c->search_weibo($page, $itemsPerPage, $keywords);
+  if(count($weibo) == 0)
+  {
+    echo "<div class='imply_color' style='text-align:center;'>对不起，没有找到相关的微博</div>";
+    exit;
+  }
 }
 else if('user_search' == $operation)
 {
   $keywords = $_GET['keywords'];
   $weibo  = $c->user_timeline($page, $itemsPerPage, $keywords);
+  if(count($weibo) == 0)
+  {
+    echo "<div class='imply_color' style='text-align:center;'>此新浪微博用户不存在</div>";
+    exit;
+  }
   if( $weibo[0]['user']['statuses_count'] - $page*$itemsPerPage <= 0)
   $load_more_flag = false;
 }

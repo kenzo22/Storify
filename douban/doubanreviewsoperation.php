@@ -24,18 +24,28 @@ if('bookReviews' == $operation)
   $item_type = 'bookReviews';
   $doubanCommentsReturn  = $c->search_book_reviews($subjectID, $startIndex, $numResults);
   $doubanItemMeta = $c->get_book($subjectID);
+  $imply_txt = "这本书还没有书评";
 }
 else if('movieReviews' == $operation)
 {
   $item_type = 'movieReviews';
   $doubanCommentsReturn  = $c->search_movie_reviews($subjectID, $startIndex, $numResults);
   $doubanItemMeta = $c->get_movie($subjectID);
+  $imply_txt = "这部电影还没有影评";
 }
 else if('musicReviews' == $operation)
 {
   $item_type = 'musicReviews';
   $doubanCommentsReturn  = $c->search_music_reviews($subjectID, $startIndex, $numResults);
   $doubanItemMeta = $c->get_music($subjectID);
+  $imply_txt = "这首歌还没有乐评";
+}
+
+$totalCommentsNum = $doubanCommentsReturn['opensearch:totalResults']['$t'];
+if($totalCommentsNum == 0)
+{
+  echo "<div class='imply_color' style='text-align:center;'>".$imply_txt."</div>";
+  exit;
 }
 
 $pubDate = getPubDate($doubanItemMeta['db:attribute']);
@@ -63,7 +73,6 @@ else if('musicReviews' == $operation)
   $load_more_text = "更多乐评";
 }
 
-$totalCommentsNum = $doubanCommentsReturn['opensearch:totalResults']['$t'];
 foreach( $doubanCommentsReturn['entry'] as $commentItem )
 {
   $comment_temp_array = explode("/", $commentItem['id']['$t']);
