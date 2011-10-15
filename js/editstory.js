@@ -1,5 +1,5 @@
 var embedCode, vtabIndex, followPage, myPage, userSearchPage, tuserSearchPage, myPageTimestamp, followTimestamp, usersearchTimestamp;
-var weiboSearhPage = 1, picSearchPage = 1, userpicSearchPage =1, tweibosearchPage = 1, doubanItemCounts = 10, commentsPerQuery = 5, eventStartIndex = 1, bookStartIndex = 1, bookReviewStartIndex = 1, movieStartIndex = 1, movieReviewStartIndex = 1, musicStartIndex = 1, musicReviewStartIndex = 1;
+var weiboSearhPage = 1, picSearchPage = 1, userpicSearchPage =1, colSearchPage = 1, recSearchPage = 1, tweibosearchPage = 1, doubanItemCounts = 10, commentsPerQuery = 5, eventStartIndex = 1, bookStartIndex = 1, bookReviewStartIndex = 1, movieStartIndex = 1, movieReviewStartIndex = 1, musicStartIndex = 1, musicReviewStartIndex = 1;
 
 Array.prototype.getUnique = function()
 {
@@ -412,15 +412,19 @@ $(function() {
 			  {
 			    $(this).val('关键字');
 			  }
-			  else if(yupoo_selected == 1)
+			  else if(yupoo_selected == 1 || yupoo_selected == 2)
 			  {
 			    $(this).val('又拍用户名，注意不是昵称');
+			  }
+			  else
+			  {
+			    $(this).val('可指定日期如2010-6,默认搜索全部');
 			  }
 		    }
 		  }).focus(function(){
 		    var yupoo_selected = $picTabs.tabs('option', 'selected');
 			var yupoo_txt = $(this).val();
-			if((yupoo_selected == 0 && yupoo_txt == '关键字') || (yupoo_selected == 1 && yupoo_txt == '又拍用户名，注意不是昵称'))
+			if((yupoo_selected == 0 && yupoo_txt == '关键字') || (yupoo_selected == 1 && yupoo_txt == '又拍用户名，注意不是昵称') || (yupoo_selected == 2 && yupoo_txt == '又拍用户名，注意不是昵称') || (yupoo_selected == 3 && yupoo_txt == '可指定日期如2010-6,默认搜索全部'))
 			{
 			  $(this).val('').removeClass('imply_color');
 			}
@@ -690,6 +694,22 @@ $(function() {
 		  $('#pic_keywords').val('又拍用户名，注意不是昵称').addClass('imply_color');
 		});
 		
+		$('#collect_tab_pic').click(function()
+		{
+		  colSearchPage = 1;
+		  $('#source_list').children().remove();
+		  $('#source_list').css('height', '664px');
+		  $('#pic_keywords').val('又拍用户名，注意不是昵称').addClass('imply_color');
+		});
+		
+		$('#recom_tab_pic').click(function()
+		{
+		  recSearchPage = 1;
+		  $('#source_list').children().remove();
+		  $('#source_list').css('height', '664px');
+		  $('#pic_keywords').val('可指定日期如2010-6,默认搜索全部').addClass('imply_color');
+		});
+		
 		$('#pic_search_btn').click(function()
 		{
 		  $('.loadmore').remove();
@@ -701,7 +721,7 @@ $(function() {
 		  {
 		    getData = {operation: 'pic_search', keywords: words, page: picSearchPage};
 		  }
-		  else
+		  else if(1 == selected)
 		  {
 		    if($('#user_tab_pic').hasClass('yupoo_disable'))
 			{
@@ -709,8 +729,15 @@ $(function() {
 			  $('#source_list').html(imply_txt);
 			  return false;
 			}
-			
 			getData = {operation: 'user_search', keywords: words, page: userpicSearchPage};
+		  }
+		  else if(2 == selected)
+		  {
+		    getData = {operation: 'col_search', keywords: words, page: colSearchPage};
+		  }
+		  else if(3 == selected)
+		  {
+		    getData = {operation: 'rec_search', keywords: words, page: recSearchPage};
 		  }
 		  
 		  $.ajax({
@@ -1271,6 +1298,13 @@ $(function() {
 				  getData = {operation: 'musicReviews', subjectID: loadMoreItem.attr('id'), startIndex: musicReviewStartIndex, numResults: commentsPerQuery};
 				}
 		      }
+			  else if(4 == vtabIndex)
+			  {
+			    words = $('#pic_keywords').val();
+				getUrl = '../yupoo/yupoooperation.php';
+				colSearchPage++;
+				getData = {operation: 'col_search', keywords: words, page: colSearchPage};
+			  }
 			  $('.loadmore').remove();
 			  $.get(getUrl, getData,
 			  function(data, textStatus)
@@ -1315,6 +1349,13 @@ $(function() {
 				eventStartIndex = eventStartIndex+doubanItemCounts;
 				getData = {operation: 'event', keywords: $('#d_keywords').val(), startIndex: eventStartIndex, numResults: doubanItemCounts};
 		      }
+			  else if(4 == vtabIndex)
+			  {
+			    words = $('#pic_keywords').val();
+				getUrl = '../yupoo/yupoooperation.php';
+				recSearchPage++;
+				getData = {operation: 'rec_search', keywords: words, page: recSearchPage};
+			  }
 			  $('.loadmore').remove();
 			  $.get(getUrl, getData,
 			  function(data, textStatus)

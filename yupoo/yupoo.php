@@ -104,6 +104,35 @@ class YupooAPI {
 		return $result;
 	}
 	
+	public function get_user_collection($userid, $page)
+	{
+		$method = 'yupoo.favorites.getList';
+		$args["user_id"] = $userid;
+		$args["page"] = $page;
+		$args["per_page"] = 20;
+		$result = $this->api_call($method, $args);
+		return $result;
+	}
+	
+	public function get_yupoo_recommend($page)
+	{
+		$method = 'yupoo.interestingness.getList';
+		$args["page"] = $page;
+		$args["per_page"] = 20;
+		$result = $this->api_call($method, $args);
+		return $result;
+	}
+	
+	public function get_yupoo_recommend_date($page, $date)
+	{
+		$method = 'yupoo.interestingness.getList';
+		$args["date"] = $date;
+		$args["page"] = $page;
+		$args["per_page"] = 20;
+		$result = $this->api_call($method, $args);
+		return $result;
+	}
+	
 	public function get_photo_info($photoID)
 	{
 		$method = 'yupoo.photos.getInfo';
@@ -112,10 +141,20 @@ class YupooAPI {
 		return $result;
 	}
 	
-	public function search_photo($keywords, $page, $token)
+	/*public function search_photo($keywords, $page, $token)
 	{
 		$method = 'yupoo.photos.search';
 		$args["auth_token"] = $token;
+		$args["text"] = $keywords;
+		$args["page"] = $page;
+		$args["per_page"] = 20;
+		$result = $this->api_call($method, $args);
+		return $result;
+	}*/
+	
+	public function search_photo($keywords, $page)
+	{
+		$method = 'yupoo.photos.search';
 		$args["text"] = $keywords;
 		$args["page"] = $page;
 		$args["per_page"] = 20;

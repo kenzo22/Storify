@@ -126,11 +126,19 @@ $content = "
 		    <ul>
 			  <li><a id='search_tab_pic' href='#pictabs-1'>图片搜索</a></li>
 		      <li><a id='user_tab_pic' class='".$hasYupoo."' href='#pictabs-2'>用户搜索</a></li>
+			  <li><a id='collect_tab_pic' href='#pictabs-3'>用户收藏</a></li>
+			  <li><a id='recom_tab_pic' href='#pictabs-4'>又拍精彩</a></li>
 	        </ul> 
 			<div id='pictabs-1'> 
 
 	        </div> 
 	        <div id='pictabs-2'> 
+
+	        </div> 
+			<div id='pictabs-3'> 
+
+	        </div> 
+			<div id='pictabs-4'> 
 
 	        </div> 
 			<div id='pic_search'>
