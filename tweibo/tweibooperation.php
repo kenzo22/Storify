@@ -166,10 +166,10 @@ else
 
     $weiboContent .= "<li class='weibo_drag tencent' id='".$item['id']."'><div class='story_wrapper'><img class='profile_img' style='width: 32px; height: 32px; float:left; overflow: hidden; margin-top:3px;' 
     src='".$profileImgUrl."' alt='".$item['nick']."' border=0 /><div class='weibo_content'><a class='user_page' href='http://t.qq.com/".$item['name']."' target='_blank' 
-    style = 'display:block;'><span class='weibo_from'>".$item['nick']."</span></a><span class='weibo_text'>".$item['text'];
+    style = 'display:block;'><span class='weibo_from'>".$item['nick']."</span></a>";
     
-    if(isset($item['source'])){
-        
+    if(isset($item['source']))
+	{
         // nick name
         $item['source']['text'] = tweibo_show_nick($item['source']['text'],$tweibo[data][user]);
     
@@ -178,23 +178,25 @@ else
     
         if($item['source']['text'] == null)
             $item['source']['text'] = "此微博已被原作者删除。";
-        $weiboContent .="||".$item['source']['nick']."(@".$item['source']['name']."):".$item['source']['text']."</span>";
+        $weiboContent .="<span class='weibo_text is_repost'>".$item['text']."||".$item['source']['nick']."(@".$item['source']['name']."):".$item['source']['text']."</span>";
 
         if(isset($item['source']['image'])){
             foreach($item['source']['image'] as $re_img_url){
                 $weiboContent .="<div class='weibo_retweet_img'><img src='".$re_img_url."/120' /></div>";
             }
         }
-    }else{
-        $weiboContent .= "</span>";
-        if(isset($item['image'])){
-            foreach($item['image'] as $img_url){
-                $weiboContent .="<div class='weibo_img'><img src='".$img_url."/120' /></div>";
-            }
-        }
     }
-    $weiboContent .= "</div><span class='create_time'>".$create_time."</span>
-    <span style='float:right;'><a>[转发]</a></span></div></li>";
+	else
+	{
+        $weiboContent .= "<span class='weibo_text'>".$item['text']."</span>";
+    }
+	if(isset($item['image']))
+	{
+		foreach($item['image'] as $img_url){
+			$weiboContent .="<div class='weibo_img'><img src='".$img_url."/120' /></div>";
+		}
+    }
+    $weiboContent .= "</div><span class='create_time'>".$create_time."</span></div></li>";
 
   }
   if($load_more_flag)

@@ -772,13 +772,14 @@ $(function() {
 			  var list_item_have_pic = $('#story_list li:not(.addTextElementAnchor, .textElement, .video_drop)');
 			  if(dragItem.hasClass('weibo_drag'))
 			  {
-			    //debugger;
 				var weibo_img_content = "";
 				var weibo_retweet_img_content = "";
 				var weibo_from_url = dragItem.find('.user_page').attr('href');
 				var position = ui.position;
 			　  var weibo_id = dragItem.find('.weibo_drag').attr('id');
 			　  var weibo_Text= dragItem.find('.weibo_text').html();
+			    var repost_flag = dragItem.find('.weibo_text').hasClass('is_repost');
+				var item_action;
 			　  var weibo_from = dragItem.find('.weibo_from').text();
 			　  //var weibo_from_id = dragItem.find('.user_page').attr('href').replace(/http:\/\/weibo.com\//,"");
 			  　var weibo_time = dragItem.find('.create_time').text();
@@ -786,6 +787,14 @@ $(function() {
 				var content;	
 			    if(dragItem.hasClass('sina'))
 				{
+				  if(repost_flag)
+				  {
+				    item_action = "<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f is_repost sina'><img src='/img/retweet.png'/ ><span>转发</span></a><a href='#weibo_dialog' name='modal' class='comment_f sina'><img src='/img/reply.png'/ ><span>评论</span></a></div>";
+				  }
+				  else
+				  {
+				    item_action = "<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f sina'><img src='/img/retweet.png'/ ><span>转发</span></a><a href='#weibo_dialog' name='modal' class='comment_f sina'><img src='/img/reply.png'/ ><span>评论</span></a></div>";
+				  }
 				  if(dragItem.find('.weibo_img img').length != 0)
 				  {
 				    var weibo_img = dragItem.find('.weibo_img img').attr('src').replace(/thumbnail/,"bmiddle");
@@ -797,7 +806,7 @@ $(function() {
 				    weibo_retweet_img_content = "<div class='weibo_retweet_img_drop'><img src='"+weibo_retweet_img+"' /></div>";
 				  }
 				  dragItem.removeClass('weibo_drag').addClass('weibo_drop sina').children().remove();
-				  content = ("<div class='cross' action='delete'><a><img src='/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>"
+				  content = ("<div class='cross' action='delete'><a><img src='/img/cross.png' border='0' onclick='remove_item(event)'/></a></div>"+item_action+"<div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>"
 					+weibo_Text+"</span>"+weibo_retweet_img_content+weibo_img_content+"</div><div id='story_signature'><span style='float:right;'><a href='"+weibo_from_url+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
 					+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></span><span id='signature_text_drop' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='weibo_from_drop' href='"
 					+weibo_from_url+"' target='_blank'>"+weibo_from+"</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px' src='/img/sina16.png'/><a>"
@@ -809,6 +818,14 @@ $(function() {
 				}
 				else
 				{
+				  if(repost_flag)
+				  {
+				    item_action = "<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f is_repost tencent'><img src='/img/retweet.png'/ ><span>转播</span></a><a href='#weibo_dialog' name='modal' class='comment_f tencent'><img src='/img/reply.png'/ ><span>评论</span></a></div>";
+				  }
+				  else
+				  {
+				    item_action = "<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f tencent'><img src='/img/retweet.png'/ ><span>转播</span></a><a href='#weibo_dialog' name='modal' class='comment_f tencent'><img src='/img/reply.png'/ ><span>评论</span></a></div>";
+				  }
 				  if(dragItem.find('.weibo_img img').length != 0)
 				  {
 				    var weibo_img = dragItem.find('.weibo_img img').attr('src').replace(/120$/,"240");
@@ -820,7 +837,7 @@ $(function() {
 				    weibo_retweet_img_content = "<div class='weibo_retweet_img_drop'><img src='"+weibo_retweet_img+"' /></div>";
 				  }
 				  dragItem.removeClass('weibo_drag').addClass('weibo_drop tencent').children().remove();
-				  content = ("<div class='cross' action='delete'><a><img src='/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>"
+				  content = ("<div class='cross' action='delete'><a><img src='/img/cross.png' border='0' onclick='remove_item(event)'/></a></div>"+item_action+"<div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>"
 					+weibo_Text+"</span>"+weibo_retweet_img_content+weibo_img_content+"</div><div id='story_signature'><span style='float:right;'><a href='"+weibo_from_url+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
 					+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></span><span id='signature_text_drop' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='weibo_from_drop' href='"
 					+weibo_from_url+"' target='_blank'>"+weibo_from+"</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px' src='/img/tencent16.png'/><a>"
