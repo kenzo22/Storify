@@ -12,6 +12,11 @@ Array.prototype.getUnique = function()
   return a;
 }
 
+String.prototype.len=function()
+{
+  return this.replace(/[^\x00-\xff]/g,"**").length;
+}
+
 function show_weibo_card(id)
 {
   WB2.anyWhere(function(W){
@@ -280,19 +285,11 @@ $(function() {
 		var $weiboTabs = $( '#weiboTabs' ).tabs();
 		var $doubanTabs = $( '#doubanTabs' ).tabs();
 		var $picTabs = $( '#picTabs' ).tabs();
-		/*var $weiboTabs = $( '#weiboTabs' ).tabs({
-			ajaxOptions: {
-				success: function( data, status){
-				//$('.ui-tabs-panel').remove();
-				$('.source_list').html(data);
-				},
-				error: function( xhr, status, index, anchor ) {
-					$( anchor.hash ).html(
-						"Couldn't load this tab. We'll try to fix this as soon as possible. " +
-						"If this wouldn't be a demo." );
-				}
-			}
-		});*/
+		var tag_txt = $('#sto_tag').val();
+		if(tag_txt == ' ')
+		{
+		  $('#sto_tag').val('添加故事标签').addClass('imply_color');
+		}
 		  
 		$('#keywords').val('关键字').addClass('imply_color');
 		
@@ -1471,5 +1468,138 @@ $(function() {
 		  $('#vtab>div').hide().eq(vtabIndex).show();
 		}
         }).eq(0).click();
+		
+		
+		//select all the a tag with name equal to modal
+		$('a[name=modal]').live('click', function(e){
+			e.preventDefault();
+			$('.publish-tweet').val('');
+			$('#weibo_dialog .word_counter').text('140');
+			if($(this).hasClass('repost_f'))
+			{
+			  if($(this).hasClass('sina'))
+			  {
+				$('#pub_text').text('转发').removeClass().addClass('sina');
+				if($(this).hasClass('is_repost'))
+				{
+				  var weibo_li = $(this).closest('li');
+				  var repost_txt = ('//@'+ weibo_li.find('.weibo_from_drop').text() + ': ' + weibo_li.find('.weibo_text_drop').text());
+				  repost_txt = repost_txt.substr(0, repost_txt.lastIndexOf('//@'));
+				  var repost_len=(280-repost_txt.len())/2;
+				  $('.publish-tweet').val(repost_txt);
+				  $('#weibo_dialog .word_counter').text(Math.floor(repost_len));
+				} 
+			  }
+			  else
+			  {
+				$('#pub_text').text('转播').removeClass().addClass('tencent');
+				if($(this).hasClass('is_repost'))
+				{
+				  var weibo_li = $(this).closest('li');
+				  var repost_txt = ('||'+ weibo_li.find('.weibo_from_drop').text() + '(@' + weibo_li.find('.weibo_from_drop').attr('href').replace(/http:\/\/t.qq.com\//,'') +'): ' + weibo_li.find('.weibo_text_drop').text());
+				  var match_array=repost_txt.match(/\|\|.*?\(@.*?\):[^|]+/g);
+				  repost_txt = repost_txt.replace(match_array[match_array.length-1],'')
+				  var repost_len=(280-repost_txt.len())/2;
+				  $('.publish-tweet').val(repost_txt);
+				  $('#weibo_dialog .word_counter').text(Math.floor(repost_len));
+				} 
+			  }
+			}
+			else
+			{
+			  if($(this).hasClass('sina'))
+			  {
+				$('#pub_text').removeClass().addClass('sina');
+			  }
+			  else
+			  {
+				$('#pub_text').removeClass().addClass('tencent');
+			  }
+			  $('#pub_text').text('评论');
+			}
+			var w_id = 'w_'+ $(this).closest('li').attr('id');
+			$('.publish-tweet').attr('id', w_id);
+			var id = $(this).attr('href');
+			var maskHeight = $(document).height();
+			var maskWidth = $(window).width();
+			$('#mask').css({'width':maskWidth,'height':maskHeight, 'opacity':0.7});	
+			//$('#mask').fadeIn(1000);	
+			//$('#mask').fadeTo('slow',0.8);
+			$('#mask').show();			
+			var winH = $(window).height();
+			var winW = $(window).width(); 
+			var scrollTop = $(document).scrollTop();
+			var scrollLeft = $(document).scrollLeft();
+			$(id).css('top',  winH/2-$(id).height()/2+scrollTop-100);
+			$(id).css('left', winW/2-$(id).width()/2+scrollLeft);
+			//$(id).fadeIn(1000); 
+			$(id).show(); 
+		});
+
+		$('.window .close').click(function (e) {
+			e.preventDefault();
+			$('#mask').hide();
+			$('.window').hide();
+		});		
+
+		$('#mask').click(function () {
+			$(this).hide();
+			$('.window').hide();
+		});	
+		
+	$('.publish-tweet').live('keyup', function(e){
+      var word_remain=(280-$(this).val().len())/2;
+	  if(word_remain == 0)
+	  {
+		var max_len = $(this).val().length;
+		$(this).attr('maxlength', max_len);
+	  }
+	  if(word_remain < 0)
+	  {
+		var max_len = $(this).val().length+word_remain;
+		$(this).attr('maxlength', max_len);
+		var cut_txt = $(this).val().substr(0, max_len)
+		$(this).val(cut_txt);
+		word_remain = 0;
+	  }
+	  $('#weibo_dialog .word_counter').text(Math.floor(word_remain));
+	});
+	
+	//publish and repost part
+	$('.btn_w_publish').live('click', function(e){
+	  var w_content_val = $('.publish-tweet').val();
+	  var id_val = $('.publish-tweet').attr('id').replace(/w_/,"");
+	  var ope_val;
+	  if($('#pub_text').text() == '评论')
+	  {
+	    ope_val = 'comment';
+	  }
+	  else
+	  {
+	    ope_val = 'repost';
+	  }
+	  var postUrl;
+	  var postData;
+	  if($('#pub_text').hasClass('sina'))
+	  {
+	    postUrl = '../weibo/postweibo.php';
+	  }
+	  else
+	  {
+	    postUrl = '../tweibo/posttweibo.php';
+	  }
+	  postData = {operation: ope_val, id: id_val, weibo_content: w_content_val};
+
+	  $.ajax({
+	  type: 'POST',
+	  url: postUrl,
+	  data: postData, 
+	  success: function(data)
+	  {
+		$('#mask').hide();
+		$('.window').hide();
+	  }
+	  });
+	});
 	  
 	});

@@ -76,10 +76,11 @@ if(isset($_GET['weibo_ids']))
     // show face gif 
     $item['text'] = subs_emotions($item['text'],"tweibo");
 
-    $weiboContent .="<li class='weibo_drop tencent' id='".$item['id']."' style='border:none;'><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text'];
+    $weiboContent .="<li class='weibo_drop tencent' id='".$item['id']."' style='border:none;'>";
 
     if(isset($item['source'])){
-        //nick name
+        $weiboContent .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f is_repost tencent'><img src='/img/retweet.png'/ ><span>转播</span></a><a href='#weibo_dialog' name='modal' class='comment_f tencent'><img src='/img/reply.png'/ ><span>评论</span></a></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text'];
+		//nick name
         $item['source']['text'] = tweibo_show_nick($item['source']['text'],$tweibo[data][user]);
         
         // emotion substution
@@ -94,7 +95,7 @@ if(isset($_GET['weibo_ids']))
             }
         }
     }else{
-        $weiboContent .= "</span></div>";
+        $weiboContent .= "<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f tencent'><img src='/img/retweet.png'/ ><span>转播</span></a><a href='#weibo_dialog' name='modal' class='comment_f tencent'><img src='/img/reply.png'/ ><span>评论</span></a></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text']."</span></div>";
         if(isset($item['image'])){
             foreach($item['image'] as $img_url){
                 $weiboContent .="<div class='weibo_img_drop'><img src='".$img_url."/240' /></div>";

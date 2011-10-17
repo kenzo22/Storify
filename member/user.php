@@ -58,16 +58,25 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	$story_content_array = array_slice($temp_array['content'], 0, $items_perpage, true);
 	$weibo_id_array = array();
 	$tweibo_id_array = array();
+	$content = "<div id='boxes'>
+				  <div id='weibo_dialog' class='window'>
+					<div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span style='color: #B8B7B7;'>转发微博</span><span><a href='#' class='close'/>关闭</a></span></div>
+					<div class='float_r'><span style='margin-left:28px; color: #B8B7B7;'>还可以输入</span><span class='word_counter'>140</span><span style='color: #B8B7B7;'>字</span></div>
+					<textarea class='publish-tweet'></textarea>
+					<div class='float_r'><a class='btn_w_publish'><span id='pub_text'>转发</span></a></div>
+				  </div>
+				  <div id='mask'></div>
+				</div>";
 	
 	if(!islogin() || $story_author != $_SESSION['uid'])
 	{
-	  $content = "<div id='story_container'><div style='float:left;'><div class='digg_wrap'><div id='".$post_id."_digg_count' style='margin-top:10px;'>".$story_digg_count."</div><a id='".$post_id."_act_digg' class='act_digg'><img src='../img/ding.ico' /></a></div><div id='publish_container' class='showborder'>";
+	  $content .= "<div id='story_container'><div style='float:left;'><div class='digg_wrap'><div id='".$post_id."_digg_count' style='margin-top:10px;'>".$story_digg_count."</div><a id='".$post_id."_act_digg' class='act_digg'><img src='../img/ding.ico' /></a></div><div id='publish_container' class='showborder'>";
 	}
 	else
 	{
 	  if(0 == strcmp($story_status, 'Published'))
 	  {
-		$content = "<div id='story_container'>
+		$content .= "<div id='story_container'>
 					  <div style='float:left;'>
 					  <div class='published-steps'>
 						<div class='tabs'>
@@ -202,7 +211,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 		  $base_txt = "我刚刚引用了你的微博，快来看一看吧：";
 		  $word_remain = ceil(140-($user_count/2+strlen($url_short)/2+strlen($base_txt)/3));
 		  $content.="<textarea class='notify-tweet' name='tweet'>".$base_txt.$url_short."</textarea>
-		  <div class='tweet_control'><input id='weibo_f' type='checkbox' name='weibo_f'".$weibo_check.$weibo_dis." /><span>发布到新浪微博</span><input id='tweibo_f' type='checkbox' name='tweibo_f'".$tweibo_check.$tweibo_dis." /><span>发布到腾讯微博</span><span style='margin-left:28px; color: #B8B7B7;'>还可以输入</span><span id='word_counter'>".$word_remain."</span><span style='color: #B8B7B7;'>字</span><input class='tweet_btn' style='margin-left:15px; cursor:pointer;' type='submit' value='发布'></div>";
+		  <div class='tweet_control'><input id='weibo_f' type='checkbox' name='weibo_f'".$weibo_check.$weibo_dis." /><span>发布到新浪微博</span><input id='tweibo_f' type='checkbox' name='tweibo_f'".$tweibo_check.$tweibo_dis." /><span>发布到腾讯微博</span><span style='margin-left:28px; color: #B8B7B7;'>还可以输入</span><span class='word_counter'>".$word_remain."</span><span style='color: #B8B7B7;'>字</span><input class='tweet_btn' style='margin-left:15px; cursor:pointer;' type='submit' value='发布'></div>";
 		}
 		if($w_array_length == 0 && $t_array_length == 0)
 		{
@@ -226,7 +235,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	  }
 	  else
 	  {
-	    $content = "<div id='story_container'><div id='publish_container' class='showborder'>
+	    $content .= "<div id='story_container'><div id='publish_container' class='showborder'>
 			  <div id='story_action'><span>草稿</span><span class='float_r'><a id='".$post_id."_delete' class='delete redirect'><img src='../img/delete.gif' title='删除' style='width:16px; height:16px;'/>
 			  </a>&nbsp<a href='/member/user.php?post_id=".$post_id."&action=edit'><img src='../img/edit.png' title='编辑' style='width:16px; height:16px;'/></a>&nbsp&nbsp<a href='/member/user.php?post_id=".$post_id."&action=publish'><img src='../img/publish.ico' title='发布' style='width:16px; height:16px;'/></a></span></div>";
 	  }	
@@ -262,7 +271,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 		}
 		if (isset($single_weibo['error_code']) && isset($single_weibo['error'])){
             // skip deleted weibo
-            $content .="<li class='weibo_drop sina' id='$weibo_per_id' style='border:none;'><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text'>此微博已被删除</span></div>";
+            $content .="<li class='weibo_drop sina' id='$weibo_per_id' style='border:none;'><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>此微博已被删除</span></div>";
 			//$content .="<li class='weibo_drop sina' id='$weibo_per_id' style='border:none;'><div class='story_wrapper'><div><span class='weibo_text'>errorcode:".$single_weibo['error_code']."error".$single_weibo['error']."</span></div>";
             continue;
 		}
@@ -274,10 +283,11 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
             $single_weibo['text'] = subs_url($single_weibo['text'],'weibo');
 
 			$createTime = dateFormat($single_weibo['created_at']);
-			$content .="<li class='weibo_drop sina' id='$weibo_per_id' style='border:none;'><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text'>".$single_weibo['text'];
+			$content .="<li class='weibo_drop sina' id='$weibo_per_id' style='border:none;'>";
     		if (isset($single_weibo['retweeted_status'])){
                 
-                // show emotions in text
+                $content .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f is_repost sina'><img src='/img/retweet.png'/ ><span>转发</span></a><a href='#weibo_dialog' name='modal' class='comment_f sina'><img src='/img/reply.png'/ ><span>评论</span></a></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text'];
+				// show emotions in text
                 $single_weibo['retweeted_status']['text']=subs_emotions($single_weibo['retweeted_status']['text'],"weibo");
 
                 $single_weibo['retweeted_status']['text']=subs_url($single_weibo['retweeted_status']['text']);
@@ -291,6 +301,9 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 				  $content .= "</span>";
 				}
             }
+			else{
+			  $content .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f sina'><img src='/img/retweet.png'/ ><span>转发</span></a><a href='#weibo_dialog' name='modal' class='comment_f sina'><img src='/img/reply.png'/ ><span>评论</span></a></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text'];
+			}
             if (isset($single_weibo['bmiddle_pic']))
 			{
 			  $content .= "<div class='weibo_img' style='text-align:center;'><img src='".$single_weibo['bmiddle_pic']."' width='280px;' /></div>";
@@ -298,7 +311,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
             $content .= "</div>";
             $content .= "<div id='story_signature'><span style='float:right;'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
 			.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><span id='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'>
-			<span ><a class='weibo_from' href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date'  style='text-align:right; height:16px;'><span>
+			<span ><a class='weibo_from_drop' href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date'  style='text-align:right; height:16px;'><span>
 			<img border='0' style='position:relative; top:2px' src='../img/sina16.png'/><a>".$createTime."</a></span></div></span> </div></div></li>";
 		}
 		break;}
@@ -722,6 +735,105 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 					}); 
 				});
 			  });
+			  
+			  //select all the a tag with name equal to modal
+				$('a[name=modal]').live('click', function(e){
+					//Cancel the link behavior
+					//debugger;
+					e.preventDefault();
+					$('.publish-tweet').val('');
+					$('#weibo_dialog .word_counter').text('140');
+					if($(this).hasClass('repost_f'))
+					{
+					  if($(this).hasClass('sina'))
+					  {
+					    $('#pub_text').text('转发').removeClass().addClass('sina');
+						if($(this).hasClass('is_repost'))
+					    {
+						  var weibo_li = $(this).closest('li');
+						  var repost_txt = ('//@'+ weibo_li.find('.weibo_from_drop').text() + ': ' + weibo_li.find('.weibo_text_drop').text());
+						  repost_txt = repost_txt.substr(0, repost_txt.lastIndexOf('//@'));
+						  var repost_len=(280-repost_txt.len())/2;
+					      $('.publish-tweet').val(repost_txt);
+						  $('#weibo_dialog .word_counter').text(Math.floor(repost_len));
+					    } 
+					  }
+					  else
+					  {
+					    $('#pub_text').text('转播').removeClass().addClass('tencent');
+						if($(this).hasClass('is_repost'))
+					    {
+						  var weibo_li = $(this).closest('li');
+						  var repost_txt = ('||'+ weibo_li.find('.weibo_from_drop').text() + '(@' + weibo_li.find('.weibo_from_drop').attr('href').replace(/http:\/\/t.qq.com\//,'') +'): ' + weibo_li.find('.weibo_text_drop').text());
+						  var match_array=repost_txt.match(/\|\|.*?\(@.*?\):[^|]+/g);
+						  repost_txt = repost_txt.replace(match_array[match_array.length-1],'')
+						  var repost_len=(280-repost_txt.len())/2;
+						  $('.publish-tweet').val(repost_txt);
+						  $('#weibo_dialog .word_counter').text(Math.floor(repost_len));
+					    } 
+					  }
+					}
+					else
+					{
+					  if($(this).hasClass('sina'))
+					  {
+					    $('#pub_text').removeClass().addClass('sina');
+					  }
+					  else
+					  {
+					    $('#pub_text').removeClass().addClass('tencent');
+					  }
+					  $('#pub_text').text('评论');
+					}
+					var w_id = 'w_'+ $(this).closest('li').attr('id');
+					$('.publish-tweet').attr('id', w_id);
+					
+					//Get the A tag
+					var id = $(this).attr('href');
+
+					//Get the screen height and width
+					//debugger;
+					var maskHeight = $(document).height();
+					var maskWidth = $(window).width();
+
+					//Set heigth and width to mask to fill up the whole screen
+					$('#mask').css({'width':maskWidth,'height':maskHeight});
+					//transition effect		
+					//$('#mask').fadeIn(1000);	
+					$('#mask').show().css('opacity', '0.7');
+					//$('#mask').fadeTo('slow',0.8);	
+
+					//Get the window height and width
+					var winH = $(window).height();
+					var winW = $(window).width();
+					var scrollTop = $(document).scrollTop();
+					var scrollLeft = $(document).scrollLeft();
+						  
+					//Set the popup window to center
+					$(id).css('top',  winH/2-$(id).height()/2+scrollTop-100);
+					$(id).css('left', winW/2-$(id).width()/2+scrollLeft);
+
+					//transition effect
+					//$(id).fadeIn(1000); 
+					$(id).show(); 
+
+				});
+
+				//if close button is clicked
+				$('.window .close').click(function (e) {
+					//Cancel the link behavior
+					e.preventDefault();
+					
+					$('#mask').hide();
+					$('.window').hide();
+				});		
+
+				//if mask is clicked
+				$('#mask').click(function () {
+					$(this).hide();
+					$('.window').hide();
+				});	
+			  
 			});
 			</script>";
 }
@@ -1040,7 +1152,62 @@ $(function(){
 		$(this).val(cut_txt);
 		word_remain = 0;
 	  }
-	  $('#word_counter').text(Math.floor(word_remain));
+	  $('.tweet_control .word_counter').text(Math.floor(word_remain));
+	});
+	
+	$('.publish-tweet').live('keyup', function(e){
+      var word_remain=(280-$(this).val().len())/2;
+	  if(word_remain == 0)
+	  {
+		var max_len = $(this).val().length;
+		$(this).attr('maxlength', max_len);
+	  }
+	  if(word_remain < 0)
+	  {
+		var max_len = $(this).val().length+word_remain;
+		$(this).attr('maxlength', max_len);
+		var cut_txt = $(this).val().substr(0, max_len)
+		$(this).val(cut_txt);
+		word_remain = 0;
+	  }
+	  $('#weibo_dialog .word_counter').text(Math.floor(word_remain));
+	});
+	
+	//publish and repost part
+	$('.btn_w_publish').live('click', function(e){
+	  var w_content_val = $('.publish-tweet').val();
+	  var id_val = $('.publish-tweet').attr('id').replace(/w_/,"");
+	  var ope_val;
+	  if($('#pub_text').text() == '评论')
+	  {
+	    ope_val = 'comment';
+	  }
+	  else
+	  {
+	    ope_val = 'repost';
+	  }
+	  var postUrl;
+	  var postData;
+	  if($('#pub_text').hasClass('sina'))
+	  {
+	    postUrl = '../weibo/postweibo.php';
+	  }
+	  else
+	  {
+	    postUrl = '../tweibo/posttweibo.php';
+	  }
+	  postData = {operation: ope_val, id: id_val, weibo_content: w_content_val};
+
+	  $.ajax({
+	  type: 'POST',
+	  url: postUrl,
+	  data: postData, 
+	  success: function(data)
+	  {
+		$('#mask').hide();
+		$('.window').hide();
+	  }
+	  });
 	});
 	
 	$('.tweet_btn').live('click', function(e){
@@ -1068,7 +1235,7 @@ $(function(){
 		  var postUrl;
 		  var postData;
 		  postUrl = '../tweibo/posttweibo.php';
-		  postData = {weibo_content: tweibo_content_val};
+		  postData = {operation: 'publish', weibo_content: tweibo_content_val};
 
 		  $.ajax({
 		  type: 'POST',
@@ -1087,7 +1254,7 @@ $(function(){
 		  var postUrl;
 		  var postData;
 		  postUrl = '../weibo/postweibo.php';
-		  postData = {weibo_content: weibo_content_val};
+		  postData = {operation: 'publish', weibo_content: weibo_content_val};
 
 		  $.ajax({
 		  type: 'POST',

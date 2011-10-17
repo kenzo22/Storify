@@ -45,6 +45,15 @@ if(!empty($userresult))
 
 $content = "
 <div id='storyContent' style='margin-bottom:0;'>
+  <div id='boxes'>
+    <div id='weibo_dialog' class='window'>
+	  <div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span style='color: #B8B7B7;'>转发微博</span><span><a href='#' class='close'/>关闭</a></span></div>
+	  <div class='float_r'><span style='margin-left:28px; color: #B8B7B7;'>还可以输入</span><span class='word_counter'>140</span><span style='color: #B8B7B7;'>字</span></div>
+	  <textarea class='publish-tweet'></textarea>
+	  <div class='float_r'><a class='btn_w_publish'><span id='pub_text'>转发</span></a></div>
+    </div>
+    <div id='mask'></div>
+  </div>
   <div class='inner'>
 	<div class='left_half'>
 	<div id='source_pane'>
@@ -244,11 +253,12 @@ if(isset($_GET['post_id']))
         $single_weibo['text'] = subs_url($single_weibo['text'],"weibo");
 
 		$createTime = dateFormat($single_weibo['created_at']);
-		$content .= "<li class='weibo_drop sina' id='$weibo_per_id'><div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text'];
+		$content .= "<li class='weibo_drop sina' id='$weibo_per_id'><div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div>";
 
     	if (isset($single_weibo['retweeted_status'])){
             
-            // show emotions in text
+            $content .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f is_repost sina'><img src='/img/retweet.png'/ ><span>转发</span></a><a href='#weibo_dialog' name='modal' class='comment_f sina'><img src='/img/reply.png'/ ><span>评论</span></a></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text'];
+			// show emotions in text
             $single_weibo['retweeted_status']['text'] = subs_emotions($single_weibo['retweeted_status']['text'],"weibo");
 
             $single_weibo['retweeted_status']['text'] = subs_url($single_weibo['retweeted_status']['text']);
@@ -263,6 +273,9 @@ if(isset($_GET['post_id']))
 			  $content .= "</span>";
 			}
         }
+		else{
+		  $content .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f sina'><img src='/img/retweet.png'/ ><span>转发</span></a><a href='#weibo_dialog' name='modal' class='comment_f sina'><img src='/img/reply.png'/ ><span>评论</span></a></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text'];
+		}
         if (isset($single_weibo['bmiddle_pic']))
 		{
 		  $content .= "<div class='weibo_img_drop'><img src='".$single_weibo['bmiddle_pic']."' /></div>";

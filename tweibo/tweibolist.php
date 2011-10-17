@@ -45,7 +45,8 @@ echo '<li>'.iconv("GBK",'UTF-8',$file).'</li>';
 
 
 //$me=$c->t_show("88065074714247");
-$me=$c->search_t("京东方上看风景快乐的撒娇法律的萨拉");
+//$me=$c->search_t("京东方上看风景快乐的撒娇法律的萨拉");
+$me=$c->t_comment('6655109647289', 'hahtfffffest');
 //$me = $c->user_timeline('jiapenglei', 0, 0, 20);
 //$me = $c->user_other_info('jiapenglei');
 //$me = $c->search_user('菜虎和', 1, 5);
