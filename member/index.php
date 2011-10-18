@@ -75,7 +75,7 @@ $content = "
 		  </ul>
 		  <div id='weiboTabs'>
 		    <ul>
-			  <li><a id='search_tab' href='#tabs-1'>微博搜索</a></li>
+			  <li><a id='search_tab' href='#tabs-1'>话题搜索</a></li>
 		      <li><a id='my_tab' class='".$hasSina." ".$hasTencent."' href='#tabs-2'>我的微博</a></li>
 		      <li><a id='follow_tab' class='".$hasSina." ".$hasTencent."' href='#tabs-3'>我的关注</a></li>
 		      <li><a id='user_tab' href='#tabs-4'>用户搜索</a></li>
@@ -96,7 +96,7 @@ $content = "
 		      <form id='source_controller_form' action='#'>
 		        <div class='sep'>         
 			      <input id='keywords' name='keywords' type='text'>
-			      <button id='weibo_search_btn' type='button' value='search'>搜索微博</button>
+			      <button id='weibo_search_btn' type='button' value='search'>搜索话题</button>
                 </div>
 		      </form>
 		    </div>
@@ -169,6 +169,7 @@ $content = "
 		  
 		</div>
 		<ul id='source_list' class='connectedSortable'>
+		  <div style='text-align:center;'><a id='view_trends' href='#'>点击查看本周热门话题</a></div>
 		</ul>    	
 	  </div>
 	</div>

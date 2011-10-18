@@ -14,8 +14,22 @@ $c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] 
 $weibo;
 $keywords;
 $load_more_flag = true;
+$weiboContent = "";
 
-if('my_weibo' == $operation)
+if('list_ht' == $operation)
+{
+  $ht = $c->trends_weekly();
+  $ht = array_values($ht['trends']);
+  $weiboContent.="<div id='trends_wrapper'>";
+  foreach( $ht[0] as $item )
+  {
+    $weiboContent.="<div><a class='list_t_weibo' href='#'>".$item['name']."</a></div>";
+  }
+  $weiboContent.="</div>";
+  echo $weiboContent;
+  exit;
+}
+else if('my_weibo' == $operation)
 {
   $weibo  = $c->user_timeline($page, $itemsPerPage, null);
   if( $weibo[0]['user']['statuses_count'] - $page*$itemsPerPage <= 0)
@@ -28,7 +42,8 @@ else if('my_follow' == $operation)
 else if('weibo_search' == $operation)
 {
   $keywords = $_GET['keywords'];
-  $weibo  = $c->search_weibo($page, $itemsPerPage, $keywords);
+  //$weibo  = $c->search_weibo($page, $itemsPerPage, $keywords);
+  $weibo  = $c->trends_timeline($page, $itemsPerPage, $keywords);
   if(count($weibo) == 0)
   {
     echo "<div class='imply_color' style='text-align:center;'>对不起，没有找到相关的微博</div>";
@@ -48,7 +63,6 @@ else if('user_search' == $operation)
   $load_more_flag = false;
 }
 
-$weiboContent = "";
 foreach( $weibo as $item )
 {
     //show emotions

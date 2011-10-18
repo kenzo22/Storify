@@ -82,6 +82,28 @@ class WeiboClient
         $param['url_long'] = $long_url;		
         return $this->oauth->get( 'http://api.t.sina.com.cn/short_url/shorten.json' , $param ); 
 	}
+	
+	function trends_timeline($page = 1 , $count = 20, $trend_name)
+	{
+		$param = array(); 
+        $param['trend_name'] = $trend_name;	
+		$param['page'] = $page;
+		$param['count'] = $count;
+        return $this->oauth->get( 'http://api.t.sina.com.cn/trends/statuses.json' , $param ); 
+	}
+	
+	function trends_weekly()
+	{
+        $param = array(); 
+        $param['base_app'] = 0;	
+		return $this->oauth->get('http://api.t.sina.com.cn/trends/weekly.json' , $param); 
+	}
+	
+	function trends_daily()
+	{
+        $param['base_app'] = 0;	
+		return $this->oauth->get('http://api.t.sina.com.cn/trends/daily.json' , $param); 
+	}
 
     /** 
      * 最新 @用户的 

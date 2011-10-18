@@ -487,6 +487,23 @@ margin-left:70px;
   overflow:auto;
  }
  
+ #trends_wrapper{
+border-color:#ababac;
+border-style:solid;
+border-width:1px;
+border-radius: 5px;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+margin:8px 8px 8px 14px; 
+padding:8px;
+overflow:auto;
+}
+
+#trends_wrapper div{
+float:left; 
+margin-right:20px;
+}
+ 
  .video_Drag, .pic_Drag{
  overflow:auto;
  }

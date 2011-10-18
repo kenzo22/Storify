@@ -33,7 +33,10 @@ $_SESSION['last_wkey']['oauth_token_secret']=$result['weibo_access_token_secret'
 //$ms  = $c->update("@Briggs 我刚刚引用了你的微博，快来看一看吧：http://t.cn/asvjDv我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博"); // done
 
 //$me = $c->verify_credentials();
-$me = $c->show_status('3369490167404908');
+//$me = $c->show_status('3369490167404908');
+$me = $c->trends_timeline(1, 20, '保证金');
+//$me = $c->trends_daily();
+//$me = $c->trends_weekly();
 //$me = $c->repost('3368047694024568', '//@Briggs: [蜡烛]//@leanne22: [蜡烛] //@婷_Emma: [蜡烛]//@泉水叮咚玲珑心:// @lidaobing : // @宁波蔡明伦 : 我已经在腾讯微博上转过啦，在这里再次转一下……//@围脖经典语录:【C语言发明人丹尼斯-里奇去世】美国著名计算机专家、C语言发明人之一丹尼斯·里奇(Dennis Ritchie )已于10月9日去世，享年70岁。里奇生于1941年9月9日。他发明了包括C语言在内的多种编程语言，并研发了Multics和Unix等操作系统。1983年，里奇获得图灵奖。----学过C语言的理工科童鞋悼念下！');
 //$me = $c->shorten_url('http://open.weibo.com/wiki/Short_url/shorten');
 //$me = $c->get_emotions();

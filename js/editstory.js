@@ -564,9 +564,17 @@ $(function() {
 		  weiboSearhPage = 1;
 		  tweibosearchPage = 1;
 		  $('#source_list').css('height', '664px');
-		  $('#keywords').val('关键字');
+		  $('#keywords').val('关键字').addClass('imply_color');
 		  $('#source_list').children().remove();
-		  $('#weibo_search button').text('搜索微博');
+		  if(0 == vtabIndex)
+		  {
+		    $('#weibo_search_btn').text('搜索话题');
+			$('#source_list').append("<div style='text-align:center;'><a id='view_trends' href='#'>点击查看本周热门话题</a></div>");
+		  }
+		  else
+		  {
+		    $('#weibo_search_btn').text('搜索微博');
+		  }
 		  $('#weibo_search').addClass('imply_color').removeClass('none');
 		});
 		
@@ -576,19 +584,36 @@ $(function() {
 		  tuserSearchPage = 1;
 		  //usersearchTimestamp = 0;
 		  $('#source_list').css('height', '664px');
-		  $('#keywords').val('微博用户名');
+		  $('#keywords').val('微博用户名').addClass('imply_color');
 		  $('#source_list').children().remove();
-		  $('#weibo_search button').text('搜索用户');
+		  $('#weibo_search_btn').text('搜索用户');
 		  $('#weibo_search').addClass('imply_color').removeClass('none');
 		});
 		
 		$('#weibo_search_btn').click(function(){
+		  weiboSearhPage = 1;
+		  userSearchPage = 1;
+		  tuserSearchPage = 1;
+		  tweibosearchPage = 1;
 		  $('.loadmore').remove();
 		  var words = $('#keywords').val();
-		  var type = $('#weibo_search button').text();
+		  var type = $('#weibo_search_btn').text();
 		  var getUrl;
 		  var getData;
-		  if(type === '搜索微博')
+		  if(type === '搜索用户')
+		  {
+		    if(0 == vtabIndex)
+		    {
+		      getUrl = '../weibo/weibooperation.php';
+			  getData = {operation: 'user_search', keywords: words, page:userSearchPage};
+		    }
+		    else
+		    {
+			  getUrl = '../tweibo/tweibooperation.php';
+			  getData = {operation: 'list_user', keywords: words, page: tuserSearchPage};
+		    }	
+		  }
+		  else
 		  {
 		    if(0 == vtabIndex)
 		    {
@@ -600,20 +625,6 @@ $(function() {
 		      //need to revise according to Tencen API
 			  getUrl = '../tweibo/tweibooperation.php';
 			  getData = {operation: 'weibo_search', keywords: words, page:tweibosearchPage};
-		    }
-		  }
-		  else
-		  {
-		    if(0 == vtabIndex)
-		    {
-		      getUrl = '../weibo/weibooperation.php';
-			  getData = {operation: 'user_search', keywords: words, page:userSearchPage};
-		    }
-		    else
-		    {
-			  getUrl = '../tweibo/tweibooperation.php';
-			  //getData = {operation: 'user_search', keywords: words, page: 0, timestamp: usersearchTimestamp};
-			  getData = {operation: 'list_user', keywords: words, page: tuserSearchPage};
 		    }	
 		  }
 		  
@@ -756,7 +767,7 @@ $(function() {
 		
 		$( "#source_list, #story_list" ).sortable({
 			connectWith: ".connectedSortable",
-			cancel: ".weibo_drop, .douban_drop, .video_drop, .textElement, .tuser, .loadmore",
+			cancel: ".weibo_drop, .douban_drop, .video_drop, .textElement, .tuser, .loadmore, #trends_wrapper",
 			receive: function(event, ui) 
 			{
 			  var dragItem = ui.item;
@@ -1160,6 +1171,54 @@ $(function() {
 		  }); 
 		});
 		
+		//sina weibo list trends
+		$('#view_trends').live('click', function(e){
+		  e.preventDefault();
+		  var getUrl = '../weibo/weibooperation.php';
+		  var getData;
+		  getData = {operation: 'list_ht'};
+		  
+		  $.ajax({
+		  type: 'GET',
+		  url: getUrl,
+		  data: getData, 
+		  beforeSend:function() 
+		  {
+		    var imgpath = '../img/loading.gif';
+		    var imgloading = $("<span style='padding-left:180px;'><img src='../img/loading.gif' /></span>");
+		    $('#source_list').html(imgloading);
+		  },
+		  success: function(data)
+		  {
+			$('#source_list').html(data);
+		  }
+		  }); 
+		});
+		
+		$('.list_t_weibo').live('click', function(e){
+		  e.preventDefault();
+		  weiboSearhPage = 1;
+		  var getUrl = '../weibo/weibooperation.php';
+		  var getData;
+		  var words_val = $(this).text();
+		  getData = {operation: 'weibo_search', keywords: words_val, page: weiboSearhPage};
+		  
+		  $.ajax({
+		  type: 'GET',
+		  url: getUrl,
+		  data: getData, 
+		  beforeSend:function() 
+		  {
+		    var imgpath = '../img/loading.gif';
+		    var imgloading = $("<span style='padding-left:180px;'><img src='../img/loading.gif' /></span>");
+		    $('#source_list').html(imgloading);
+		  },
+		  success: function(data)
+		  {
+			$('#source_list').html(data);
+		  }
+		  }); 
+		});
 		
 		$('#source_list').click(function(e)
 		{
@@ -1431,8 +1490,10 @@ $(function() {
         vtabIndex = $items.index($(this));
 		if(1 == vtabIndex)
 		{
+		  $('#search_tab').text('微博搜索');
 		  $('#my_tab').text('我的广播');
 		  $('#follow_tab').text('我的收听');
+		  $('#weibo_search_btn').text('搜索微博');
 		  if(1 != selVTab)
 		  {
 		    $weiboTabs.tabs( "select" , 0 );
@@ -1473,13 +1534,16 @@ $(function() {
 		}
         else
 		{
+		  $('#search_tab').text('话题搜索');
 		  $('#my_tab').text('我的微博');
 		  $('#follow_tab').text('我的关注');
+		  $('#weibo_search_btn').text('搜索话题');
 		  if(0 != selVTab)
 		  {
 		    $weiboTabs.tabs( "select" , 0 );
 		    $('#weibo_search').removeClass('none');
 			$('#source_list').css('height', '664px').children().remove();
+			$('#source_list').append("<div style='text-align:center;'><a id='view_trends' href='#'>点击查看本周热门话题</a></div>");
 		  }
 		  selVTab = 0;
 		  $('#vtab>div').hide().eq(vtabIndex).show();
