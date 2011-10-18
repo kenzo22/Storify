@@ -16,9 +16,9 @@ include_once "userrelation.php";
 <?php
 if(isset($_GET['post_id']) && !isset($_GET['action']))
 {
-	$c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']  );
-	$t = new TWeiboClient( MB_AKEY , MB_SKEY , $_SESSION['last_tkey']['oauth_token'] , $_SESSION['last_tkey']['oauth_token_secret']  );
-	$d = new DoubanClient( DB_AKEY , DB_SKEY , $_SESSION['last_dkey']['oauth_token'] , $_SESSION['last_dkey']['oauth_token_secret']  );
+	$c = new WeiboClient(WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']);
+	$t = new TWeiboClient(MB_AKEY , MB_SKEY , $_SESSION['last_tkey']['oauth_token'] , $_SESSION['last_tkey']['oauth_token_secret']);
+	$d = new DoubanClient(DB_AKEY , DB_SKEY , $_SESSION['last_dkey']['oauth_token'] , $_SESSION['last_dkey']['oauth_token_secret']);
 	$post_id = $_GET['post_id'];
 	$result = $DB->fetch_one_array("select * from ".$db_prefix."posts where ID='".$post_id."'");
 	if(!$result)
@@ -26,7 +26,22 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	  throw new Exception('Could not execute query.');
 	}
 	$story_author = $result['post_author'];
-	$userresult = $DB->fetch_one_array("SELECT username, intro, photo, weibo_user_id, tweibo_access_token FROM ".$db_prefix."user where id='".$story_author."'");
+	
+	$userresult = $DB->fetch_one_array("SELECT username, intro, photo, weibo_user_id, tweibo_access_token FROM ".$db_prefix."user where id='".$_SESSION['uid']."'");
+	$has_sina = false;
+	$has_tencent = false;
+	if($userresult['weibo_user_id'] != 0)
+	{
+	  $has_sina = true;
+	}
+	if($userresult['tweibo_access_token'] != '')
+	{
+	  $has_tencent = true;
+	}
+	if($story_author != $_SESSION['uid'])
+	{
+	  $userresult = $DB->fetch_one_array("SELECT username, intro, photo FROM ".$db_prefix."user where id='".$story_author."'");
+	}
 	$story_title=$result['post_title'];
 	$story_summary=$result['post_summary'];
 	$story_pic=$result['post_pic_url'];
@@ -58,17 +73,45 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	$story_content_array = array_slice($temp_array['content'], 0, $items_perpage, true);
 	$weibo_id_array = array();
 	$tweibo_id_array = array();
-	$content = "<div id='boxes'>
-				  <div id='weibo_dialog' class='window'>
-					<div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span style='color: #B8B7B7;'>转发微博</span><span><a href='#' class='close'/>关闭</a></span></div>
-					<div class='float_r'><span style='margin-left:28px; color: #B8B7B7;'>还可以输入</span><span class='word_counter'>140</span><span style='color: #B8B7B7;'>字</span></div>
-					<textarea class='publish-tweet'></textarea>
-					<div class='float_r'><a class='btn_w_publish'><span id='pub_text'>转发</span></a></div>
+	$login_status = islogin();
+	if($login_status)
+	{
+	  $extra_class = "";
+	  if($has_sina)
+	  {
+	    $extra_class .=" sina";
+	  }
+	  if($has_tencent)
+	  {
+	    $extra_class .=" tencent";
+	  }
+	  $content = "<div id='boxes'>
+				  <div id='weibo_dialog' class='window".$extra_class."'>
+					<div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span id='publish_title' style='color: #B8B7B7;'>发表微博</span><span><a href='#' class='close'/>关闭</a></span></div>
+					<div id='pub_wrapper'>
+					  <div class='float_r counter_wrapper'><span style='margin-left:28px; color: #B8B7B7;'>还可以输入</span><span class='word_counter'>140</span><span style='color: #B8B7B7;'>字</span></div>
+					  <textarea class='publish-tweet'></textarea>
+					  <a class='btn_w_publish'><span id='pub_text'>转发</span></a>
+					</div>
+					<div class='pub_imply_sina'><span style='margin-left:6px; margin-right:5px; color:#878787;'>发布到新浪微博需要绑定新浪微博帐号</span><a href='/member/source.php'>现在去绑定</a></div>
+					<div class='pub_imply_tencent'><span style='margin-left:6px; margin-right:5px; color:#878787;'>发布到腾讯微博需要绑定腾讯微博帐号</span><a href='/member/source.php'>现在去绑定</a></div>
 				  </div>
 				  <div id='mask'></div>
 				</div>";
+	}
+	else
+	{
+	  $content = "<div id='boxes'>
+				  <div id='weibo_dialog' class='window disable'>
+					<div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span id='publish_title' style='color: #B8B7B7;'>发表微博</span><span><a href='#' class='close'/>关闭</a></span></div>
+					<div class='imply_color' style='margin-bottom:10px;'>对不起，只有本站注册用户能使用该功能</div>
+					<div class='imply_color'>请您<a href='/login/login_form.php?next'>登录</a>或<a href='/register/register_form.php'>注册</a></div>
+				  </div>
+				  <div id='mask'></div>
+				</div>";
+	}
 	
-	if(!islogin() || $story_author != $_SESSION['uid'])
+	if(!$login_status|| $story_author != $_SESSION['uid'])
 	{
 	  $content .= "<div id='story_container'><div style='float:left;'><div class='digg_wrap'><div id='".$post_id."_digg_count' style='margin-top:10px;'>".$story_digg_count."</div><a id='".$post_id."_act_digg' class='act_digg'><img src='../img/ding.ico' /></a></div><div id='publish_container' class='showborder'>";
 	}
@@ -126,7 +169,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	    }
 	    $w_nic_array = array_unique($w_nic_array);
 	    $w_array_length = count($w_nic_array);
-		if($userresult['weibo_user_id'] != 0)
+		if($has_sina)
 		{
 		  if($w_array_length>0)
 		  {
@@ -171,7 +214,7 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 	    }
 	    $t_array = array_unique($t_array);
 	    $t_array_length = count($t_array);
-		if($userresult['tweibo_access_token'] != '')
+		if($has_tencent)
 		{
 		  if($t_array_length>0)
 		  {
@@ -738,52 +781,110 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 			  
 			  //select all the a tag with name equal to modal
 				$('a[name=modal]').live('click', function(e){
-					//Cancel the link behavior
-					//debugger;
 					e.preventDefault();
 					$('.publish-tweet').val('');
 					$('#weibo_dialog .word_counter').text('140');
-					if($(this).hasClass('repost_f'))
+					if($(this).hasClass('sina'))
 					{
-					  if($(this).hasClass('sina'))
+					  if($('#boxes #weibo_dialog').hasClass('sina'))
 					  {
-					    $('#pub_text').text('转发').removeClass().addClass('sina');
-						if($(this).hasClass('is_repost'))
+					    //$('.btn_w_publish, .count_wrapper, .publish-tweet').show();
+						$('#pub_wrapper').show();
+						$('.pub_imply_sina, .pub_imply_tencent').hide();
+						if($(this).hasClass('repost_f'))
 					    {
-						  var weibo_li = $(this).closest('li');
-						  var repost_txt = ('//@'+ weibo_li.find('.weibo_from_drop').text() + ': ' + weibo_li.find('.weibo_text_drop').text());
-						  repost_txt = repost_txt.substr(0, repost_txt.lastIndexOf('//@'));
-						  var repost_len=(280-repost_txt.len())/2;
-					      $('.publish-tweet').val(repost_txt);
-						  $('#weibo_dialog .word_counter').text(Math.floor(repost_len));
-					    } 
+					      $('#pub_text').text('转发').removeClass().addClass('sina');
+						  $('#publish_title').text('转发微博');
+						  if($(this).hasClass('is_repost'))
+					      {
+						    var weibo_li = $(this).closest('li');
+						    var repost_txt = ('//@'+ weibo_li.find('.weibo_from_drop').text() + ': ' + weibo_li.find('.weibo_text_drop').text());
+						    repost_txt = repost_txt.substr(0, repost_txt.lastIndexOf('//@'));
+						    var repost_len=(280-repost_txt.len())/2;
+					        $('.publish-tweet').val(repost_txt);
+							if(repost_len<0)
+							{
+							  var pub_tweet = $('.publish-tweet');
+							  var i_max_len = pub_tweet.val().length+repost_len;
+							  pub_tweet.attr('maxlength', i_max_len);
+							  var i_cut_txt = pub_tweet.val().substr(0, i_max_len);
+							  pub_tweet.val(i_cut_txt);
+							  repost_len = 0;
+							}
+						    $('#weibo_dialog .word_counter').text(Math.floor(repost_len));
+					      } 
+					    }
+					    else
+					    {
+					      $('#pub_text').removeClass().addClass('sina');
+						  $('#pub_text').text('评论');
+					      $('#publish_title').text('评论微博');
+					    }
 					  }
-					  else
+					  else if(!$('#boxes #weibo_dialog').hasClass('disable'))
 					  {
-					    $('#pub_text').text('转播').removeClass().addClass('tencent');
-						if($(this).hasClass('is_repost'))
-					    {
-						  var weibo_li = $(this).closest('li');
-						  var repost_txt = ('||'+ weibo_li.find('.weibo_from_drop').text() + '(@' + weibo_li.find('.weibo_from_drop').attr('href').replace(/http:\/\/t.qq.com\//,'') +'): ' + weibo_li.find('.weibo_text_drop').text());
-						  var match_array=repost_txt.match(/\|\|.*?\(@.*?\):[^|]+/g);
-						  repost_txt = repost_txt.replace(match_array[match_array.length-1],'')
-						  var repost_len=(280-repost_txt.len())/2;
-						  $('.publish-tweet').val(repost_txt);
-						  $('#weibo_dialog .word_counter').text(Math.floor(repost_len));
-					    } 
+					    $('#pub_wrapper, .pub_imply_tencent').hide();
+						$('.pub_imply_sina').show();
+						if($(this).hasClass('repost_f'))
+						{
+						  $('#publish_title').text('转发微博');
+						}
+						else
+						{
+						  $('#publish_title').text('评论微博');
+						}
 					  }
 					}
-					else
+					else if($(this).hasClass('tencent'))
 					{
-					  if($(this).hasClass('sina'))
+					  if($('#boxes #weibo_dialog').hasClass('tencent'))
 					  {
-					    $('#pub_text').removeClass().addClass('sina');
+					    $('#pub_wrapper').show();
+						$('.pub_imply_sina, .pub_imply_tencent').hide();
+						if($(this).hasClass('repost_f'))
+					    {
+					      $('#pub_text').text('转播').removeClass().addClass('tencent');
+						  $('#publish_title').text('转播微博');
+						  if($(this).hasClass('is_repost'))
+					      {
+							var weibo_li = $(this).closest('li');
+						    var repost_txt = ('||'+ weibo_li.find('.weibo_from_drop').text() + '(@' + weibo_li.find('.weibo_from_drop').attr('href').replace(/http:\/\/t.qq.com\//,'') +'): ' + weibo_li.find('.weibo_text_drop').text());
+						    var match_array=repost_txt.match(/\|\|.*?\(@.*?\):[^|]+/g);
+						    repost_txt = repost_txt.replace(match_array[match_array.length-1],'')
+						    var repost_len=(280-repost_txt.len())/2;
+						    $('.publish-tweet').val(repost_txt);
+							if(repost_len<0)
+							{
+							  var pub_tweet = $('.publish-tweet');
+							  var i_max_len = pub_tweet.val().length+repost_len;
+							  pub_tweet.attr('maxlength', i_max_len);
+							  var i_cut_txt = pub_tweet.val().substr(0, i_max_len);
+							  pub_tweet.val(i_cut_txt);
+							  repost_len = 0;
+							}
+						    $('#weibo_dialog .word_counter').text(Math.floor(repost_len));
+					      } 
+					    }
+					    else
+					    {
+					      $('#pub_text').removeClass().addClass('tencent');
+						  $('#pub_text').text('评论');
+					      $('#publish_title').text('评论微博');
+					    }
 					  }
-					  else
+					  else if(!$('#boxes #weibo_dialog').hasClass('disable'))
 					  {
-					    $('#pub_text').removeClass().addClass('tencent');
+					    $('#pub_wrapper, .pub_imply_sina').hide();
+						$('.pub_imply_tencent').show();
+						if($(this).hasClass('repost_f'))
+						{
+						  $('#publish_title').text('转播微博');
+						}
+						else
+						{
+						  $('#publish_title').text('评论微博');
+						}
 					  }
-					  $('#pub_text').text('评论');
 					}
 					var w_id = 'w_'+ $(this).closest('li').attr('id');
 					$('.publish-tweet').attr('id', w_id);
@@ -792,14 +893,11 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 					var id = $(this).attr('href');
 
 					//Get the screen height and width
-					//debugger;
 					var maskHeight = $(document).height();
 					var maskWidth = $(window).width();
 
 					//Set heigth and width to mask to fill up the whole screen
-					$('#mask').css({'width':maskWidth,'height':maskHeight});
-					//transition effect		
-					//$('#mask').fadeIn(1000);	
+					$('#mask').css({'width':maskWidth,'height':maskHeight});	
 					$('#mask').show().css('opacity', '0.7');
 					//$('#mask').fadeTo('slow',0.8);	
 
@@ -813,22 +911,16 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 					$(id).css('top',  winH/2-$(id).height()/2+scrollTop-100);
 					$(id).css('left', winW/2-$(id).width()/2+scrollLeft);
 
-					//transition effect
-					//$(id).fadeIn(1000); 
 					$(id).show(); 
 
 				});
 
-				//if close button is clicked
 				$('.window .close').click(function (e) {
-					//Cancel the link behavior
 					e.preventDefault();
-					
 					$('#mask').hide();
 					$('.window').hide();
 				});		
 
-				//if mask is clicked
 				$('#mask').click(function () {
 					$(this).hide();
 					$('.window').hide();
@@ -1148,7 +1240,7 @@ $(function(){
 	  {
 		var max_len = $(this).val().length+word_remain;
 		$(this).attr('maxlength', max_len);
-		var cut_txt = $(this).val().substr(0, max_len)
+		var cut_txt = $(this).val().substr(0, max_len);
 		$(this).val(cut_txt);
 		word_remain = 0;
 	  }

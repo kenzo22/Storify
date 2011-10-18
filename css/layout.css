@@ -1295,6 +1295,7 @@ width:72px;
 
 .btn_w_publish{
 width:52px;
+float:right;
 }
 /*.btn_w_publish:hover{
 background-color: #666666;
@@ -1522,6 +1523,10 @@ border-radius: 4px;
 -moz-border-radius: 4px;
 -webkit-border-radius: 4px;
 padding:10px;
+}
+
+.pub_imply_sina, .pub_imply_tencent{
+display:none;
 }
 
 #vtab {

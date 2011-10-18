@@ -19,6 +19,7 @@ if(!islogin())
   header("location: /login/login_form.php"); 
   exit;
 }
+$extra_class = "";
 $hasSina = "sina_disable";
 $hasTencent = "tencent_disable";
 $hasYupoo = "yupoo_disable";
@@ -32,10 +33,12 @@ if(!empty($userresult))
   if(0 != $userresult['weibo_user_id'])
   {
     $hasSina = "sina_enable";
+	$extra_class .=" sina";
   }
   if('' != $userresult['tweibo_access_token'])
   {
     $hasTencent = "tencent_enable";
+	$extra_class .=" tencent";
   }
   if('' != $userresult['yupoo_token'])
   {
@@ -46,13 +49,17 @@ if(!empty($userresult))
 $content = "
 <div id='storyContent' style='margin-bottom:0;'>
   <div id='boxes'>
-    <div id='weibo_dialog' class='window'>
-	  <div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span style='color: #B8B7B7;'>转发微博</span><span><a href='#' class='close'/>关闭</a></span></div>
-	  <div class='float_r'><span style='margin-left:28px; color: #B8B7B7;'>还可以输入</span><span class='word_counter'>140</span><span style='color: #B8B7B7;'>字</span></div>
-	  <textarea class='publish-tweet'></textarea>
-	  <div class='float_r'><a class='btn_w_publish'><span id='pub_text'>转发</span></a></div>
-    </div>
-    <div id='mask'></div>
+    <div id='weibo_dialog' class='window".$extra_class."'>
+	  <div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span id='publish_title' style='color: #B8B7B7;'>发表微博</span><span><a href='#' class='close'/>关闭</a></span></div>
+	  <div id='pub_wrapper'>
+	    <div class='float_r counter_wrapper'><span style='margin-left:28px; color: #B8B7B7;'>还可以输入</span><span class='word_counter'>140</span><span style='color: #B8B7B7;'>字</span></div>
+	    <textarea class='publish-tweet'></textarea>
+	    <a class='btn_w_publish'><span id='pub_text'>转发</span></a>
+	  </div>
+	  <div class='pub_imply_sina'><span style='margin-left:6px; margin-right:5px; color:#878787;'>发布到新浪微博需要绑定新浪微博帐号</span><a href='/member/source.php'>现在去绑定</a></div>
+	  <div class='pub_imply_tencent'><span style='margin-left:6px; margin-right:5px; color:#878787;'>发布到腾讯微博需要绑定腾讯微博帐号</span><a href='/member/source.php'>现在去绑定</a></div>
+  </div>
+  <div id='mask'></div>
   </div>
   <div class='inner'>
 	<div class='left_half'>
