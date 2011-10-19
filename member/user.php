@@ -1,7 +1,6 @@
 <?php
 include "../global.php";
 include_once "../include/weibo_functions.php";
-session_start();
 include_once( '../weibo/config.php' );
 include_once( '../weibo/sinaweibo.php' );
 include_once( '../tweibo/config.php' );
@@ -14,12 +13,13 @@ include_once "userrelation.php";
 <link type="text/css" href="../css/jquery.ui.button.css" rel="stylesheet" />
 
 <?php
-if(isset($_GET['post_id']) && !isset($_GET['action']))
+if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action']))
 {
 	$c = new WeiboClient(WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']);
 	$t = new TWeiboClient(MB_AKEY , MB_SKEY , $_SESSION['last_tkey']['oauth_token'] , $_SESSION['last_tkey']['oauth_token_secret']);
 	$d = new DoubanClient(DB_AKEY , DB_SKEY , $_SESSION['last_dkey']['oauth_token'] , $_SESSION['last_dkey']['oauth_token_secret']);
 	$post_id = $_GET['post_id'];
+	$user_id = $_GET['user_id'];
 	$result = $DB->fetch_one_array("select * from ".$db_prefix."posts where ID='".$post_id."'");
 	if(!$result)
 	{
@@ -274,13 +274,13 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 				<div class='spacer'></div>
 			  </div>";
 		$content .= "<div class='digg_wrap'><div id='".$post_id."_digg_count' style='margin-top:10px;'>".$story_digg_count."</div><a id='".$post_id."_act_digg' class='act_digg'><img src='../img/ding.ico' /></a></div><div id='publish_container' class='showborder'>
-			  <div id='story_action'><span>已发布</span><span class='float_r'><a id='".$post_id."_delete' class='delete redirect'><img src='../img/delete.gif' title='删除' style='width:16px; height:16px;'/></a>&nbsp<a href='/member/user.php?post_id=".$post_id."&action=edit'><img src='../img/edit.png' title='编辑' style='width:16px; height:16px;'/></a></span></div>";
+			  <div id='story_action'><span>已发布</span><span class='float_r'><a id='".$post_id."_delete' class='delete redirect'><img src='../img/delete.gif' title='删除' style='width:16px; height:16px;'/></a>&nbsp<a href='/member/user.php?user_id=".$user_id."&post_id=".$post_id."&action=edit'><img src='../img/edit.png' title='编辑' style='width:16px; height:16px;'/></a></span></div>";
 	  }
 	  else
 	  {
 	    $content .= "<div id='story_container'><div id='publish_container' class='showborder'>
 			  <div id='story_action'><span>草稿</span><span class='float_r'><a id='".$post_id."_delete' class='delete redirect'><img src='../img/delete.gif' title='删除' style='width:16px; height:16px;'/>
-			  </a>&nbsp<a href='/member/user.php?post_id=".$post_id."&action=edit'><img src='../img/edit.png' title='编辑' style='width:16px; height:16px;'/></a>&nbsp&nbsp<a href='/member/user.php?post_id=".$post_id."&action=publish'><img src='../img/publish.ico' title='发布' style='width:16px; height:16px;'/></a></span></div>";
+			  </a>&nbsp<a href='/member/user.php?user_id=".$user_id."&post_id=".$post_id."&action=edit'><img src='../img/edit.png' title='编辑' style='width:16px; height:16px;'/></a>&nbsp&nbsp<a href='/member/user.php?user_id=".$user_id."&post_id=".$post_id."&action=publish'><img src='../img/publish.ico' title='发布' style='width:16px; height:16px;'/></a></span></div>";
 	  }	
 	}
 
@@ -569,8 +569,12 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 		break;}
 		 
 		case "video":{
-		$video_url = $val['content'];
-		$content .="<li class='video_element'><div><a class='videoTitle' target='_blank' href='".$video_url."'></a></div></li>";
+		$video_meta = $val['content'];
+		$video_title = $video_meta['title'];
+		$video_src = $video_meta['src'];
+		$video_url = $video_meta['url'];
+		$content .="<li class='video_element'><div><a class='videoTitle' target='_blank' href='".$video_url."'>".$video_title."</a></div><div class='embed'>
+		<embed src='".$video_src."' quality='high' width='420' height='340' align='middle' allowscriptaccess='always' allowfullscreen='true' mode='transparent' type='application/x-shockwave-flash' wmode='opaque'></embed></div></li>";
 		break;}
 		 
 		case "photo":{
@@ -930,18 +934,19 @@ if(isset($_GET['post_id']) && !isset($_GET['action']))
 			</script>";
 }
 
-else if(isset($_GET['post_id']) && isset($_GET['action']))
+else if(isset($_GET['user_id']) && isset($_GET['post_id']) && isset($_GET['action']))
 {
+	$user_id = $_GET['user_id'];
 	$story_id = $_GET['post_id'];
 	$story_action = $_GET['action'];
 	if(0 == strcmp($story_action, 'edit'))
 	{
-	  go('/member/index.php?post_id='.$story_id);
+	  go("/member/index.php?user_id=".$user_id."&post_id=".$story_id);
 	}
 	else if(0 == strcmp($story_action, 'publish'))
 	{
 	  $result=$DB->query("update ".$db_prefix."posts set post_status='Published'  WHERE ID='".$story_id."'");
-	  go('/member/user.php?post_id='.$story_id);
+	  go("/member/user.php?user_id=".$user_id."&post_id=".$story_id);
 	}
 	
 	{
@@ -949,7 +954,7 @@ else if(isset($_GET['post_id']) && isset($_GET['action']))
 	}
 }
 
-else if(isset($_GET['user_id']))
+else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 {
   $tbl_name="story_posts";
   // How many adjacent pages should be shown on each side?
@@ -1070,7 +1075,7 @@ else if(isset($_GET['user_id']))
 	$post_date = $story_item['post_date'];
 	$temp_array = explode(" ", $story_item['post_date']);
 	$post_date = $temp_array[0];
-    $story_content .= "<li><div class='story_wrap'><a class='cover' style='background: url(".$post_pic_url.") no-repeat; background-size: 100%;' href='/member/user.php?post_id=".$story_item['ID']."'><div class='title_wrap'><h1 class='title'>".$post_title."</h1></div></a><div class='editable'>
+    $story_content .= "<li><div class='story_wrap'><a class='cover' style='background: url(".$post_pic_url.") no-repeat; background-size: 100%;' href='/member/user.php?user_id=".$user_id."&post_id=".$story_item['ID']."'><div class='title_wrap'><h1 class='title'>".$post_title."</h1></div></a><div class='editable'>
   <div class='status'>
     <div class='".$post_status."'>
 	  <div class='icon'></div>
@@ -1082,7 +1087,7 @@ else if(isset($_GET['user_id']))
     $story_content .="
     <div class='actions'>
       <a id='".$post_id."_delete' class='icon delete' title='删除' href='#'><img src='../img/delete.gif' style='width:16px; height:16px;'/></a>
-	  <a class='icon edit' title='编辑' href='/member/index.php?post_id=".$post_id."'><img src='../img/edit.png' style='width:16px; height:16px;'/></a>
+	  <a class='icon edit' title='编辑' href='/member/index.php?user_id=".$user_id."&post_id=".$post_id."'><img src='../img/edit.png' style='width:16px; height:16px;'/></a>
     </div>";
   }
    $story_content .="<div class='clear'></div></div></div>
@@ -1121,25 +1126,8 @@ String.prototype.len=function()
   return this.replace(/[^\x00-\xff]/g,"**").length;
 }
 
-function append_video_content(url)
-{
-  $.embedly(url, {key: '4ac512dca79011e0aeec4040d3dc5c07', maxWidth: 420, wrapElement: 'div', method : 'afterParent'  }, function(oembed){				
-	if (oembed != null)
-	{
-	  var videoTitle = oembed.title;
-	  var videoContent = oembed.code;
-	  $("a[href="+url+"]").text(videoTitle).parent().after(videoContent);
-	}		  			
-  });
-}
-
 $(function(){
 	$('#user_action').css('display', 'inline');
-	$('.video_element').each(function()
-	{
-	  var videoUrl = $(this).find('.videoTitle').attr('href');
-	  append_video_content(videoUrl);
-	});
 	
 	$('.delete').click(function(e){
 	  e.preventDefault();

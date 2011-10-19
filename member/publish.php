@@ -149,7 +149,7 @@ else
 }
 if($action == 'Publish' || $action == 'Preview')
 {
-  $redirect_url = "user.php?post_id=".$post_id;
+  $redirect_url = "user.php?user_id=".$_SESSION['uid']."&post_id=".$post_id;
 }
     
 else if($action == 'Draft')

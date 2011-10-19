@@ -178,7 +178,7 @@ $content = "
 	<div id='story_pane'>
 	  <div id='story'>";
 	  
-if(isset($_GET['post_id']))
+if(isset($_GET['user_id']) && isset($_GET['post_id']))
 {  
   $c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']  );
   $t = new TWeiboClient( MB_AKEY , MB_SKEY , $_SESSION['last_tkey']['oauth_token'] , $_SESSION['last_tkey']['oauth_token_secret']  );
@@ -512,9 +512,13 @@ if(isset($_GET['post_id']))
 		break;}	
 		
 	  case "video":{
-	  $video_url_php = $val['content'];
+	  $video_meta = $val['content'];
+	  $video_title = $video_meta['title'];
+	  $video_src = $video_meta['src'];
+	  $video_url = $video_meta['url'];
 	  $content .="<li class='video_drop'><div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div><a class='videoTitle' target='_blank' href='"
-	  .$video_url_php."'></a></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='../img/editcomment.png' border='0'/></a></span></li>";    	
+	  .$video_url."'>".$video_title."</a></div><div class='embed'><embed src='".$video_src."' quality='high' width='420' height='340' align='middle' allowscriptaccess='always' allowfullscreen='true' mode='transparent' type='application/x-shockwave-flash' wmode='opaque'></embed></div></li>
+	  <li class='addTextElementAnchor'><span><a><img class='add_comment' src='../img/editcomment.png' border='0'/></a></span></li>";    	
 		break;}
 		
 	  case "photo":{
@@ -560,15 +564,6 @@ if(isset($_GET['post_id']))
 
   $content .="</ul></div></div></div></div></div></div>";
   echo $content;
-  echo "<script language='javascript' >
-			window.onload = function()
-			{			  
-			  $('.video_drop').each(function(){
-			  var videoUrlJs = $(this).find('.videoTitle').attr('href');
-			  append_video_content(videoUrlJs);
-			  });
-			}
-			</script>";
 }
 else
 {

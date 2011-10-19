@@ -91,7 +91,11 @@ function prepare_story_data(action_value)
 	else if($(this).hasClass('video_drop'))
 	{
 	  story_content_val.content[i].type = 'video';
-	  story_content_val.content[i].content = $(this).find('.videoTitle').attr('href');
+	  var video_title = $(this).find('.videoTitle').text();
+	  var video_src = $(this).find('embed').attr('src');
+	  var video_url = $(this).find('.videoTitle').attr('href');
+	  var video_meta = {title: video_title, src: video_src, url: video_url};
+	  story_content_val.content[i].content = video_meta;
 	}
 	else if($(this).hasClass('pic_drop'))
 	{
@@ -132,17 +136,6 @@ function replaceURLWithHTMLLinks(source) {
 	var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
     replaced = source.replace(exp,"<a href='$1' target='_blank'>$1</a>"); 
 	return replaced;
-}
-
-function append_video_content(url)
-{
-  $.embedly(url, {key: '4ac512dca79011e0aeec4040d3dc5c07', maxWidth: 420, wrapElement: 'div', method : 'afterParent'  }, function(oembed){        
-  if (oembed != null)
-  {
-    var videoContent = oembed.code;
-    $("a[href="+url+"]").parent().after(videoContent);
-  }            
-  });
 }
 
 function remove_item(event)

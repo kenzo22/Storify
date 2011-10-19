@@ -464,7 +464,7 @@ margin-left:70px;
 
 /* edit story part*/
 .weibo_content{overflow:hidden;}
-#story_signature{overflow:hidden; margin-bottom:10px; margin-right:20px;}
+#story_list #story_signature {overflow:hidden; margin-bottom:10px; margin-right:20px;}
 #source_pane{position:fixed; top:70px; width:390px; height:800px; }
 #story_pane{width:510px; min-height: 754px;}
 #source_list{height:664px; overflow:auto; padding:0; margin:0; border: 1px solid #C9C9C9; border-top: none; border-radius:5px 5px 5px 5px; cursor:move;}
