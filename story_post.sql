@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS story_posts (
   post_author bigint(20) unsigned NOT NULL DEFAULT '0',
   post_date datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   post_date_gmt datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  embed_name char(12) NOT NULL,
   post_title varchar(120) NOT NULL,
   post_summary text NOT NULL,
   post_pic_url varchar(200) NOT NULL,

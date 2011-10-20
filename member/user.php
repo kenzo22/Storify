@@ -42,6 +42,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	{
 	  $userresult = $DB->fetch_one_array("SELECT username, intro, photo FROM ".$db_prefix."user where id='".$story_author."'");
 	}
+	$story_embed = $result['embed_name'];
 	$story_title=$result['post_title'];
 	$story_summary=$result['post_summary'];
 	$story_pic=$result['post_pic_url'];
@@ -119,6 +120,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	{
 	  if(0 == strcmp($story_status, 'Published'))
 	  {
+		$embed_code = "<script src=\"http://koulifang.com/user/".$story_author."/".$story_embed.".js\"></script>";
 		$content .= "<div id='story_container'>
 					  <div style='float:left;'>
 					  <div class='published-steps'>
@@ -142,6 +144,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 						<div class='steps'>
 						  <div class='post-content'>
 						    <h2>嵌入故事到你的网站中</h2>
+							<span>嵌入代码:</span><span><input type='text' value='".$embed_code."' id='sto_embed' size='72'></span><span><input type='button' id='copy_btn' value='复制'/></span>
 						  </div>
 						  <div class='notify-content'>
 						    <h2>告诉作者你引用了他们的内容</h2>";
