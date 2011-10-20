@@ -293,10 +293,10 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
         }
     }
 
-	$content .="<div id='story_header' style='margin:0; padding:0;'><div style='float:right; padding: 10px 10px 0 0'><img src='".$story_pic."' style='width:60px; height:60px;' /></div><div style='padding-left:20px;'><h2>".$story_title."</h2></div>
+	$content .="<div id='story_header'><div style='float:right; padding: 0 10px 0 0'><img src='".$story_pic."' style='width:60px; height:60px;' /></div><div style='padding-left:20px;'><h2>".$story_title."</h2></div>
 			  <div style='padding-left:20px;'>".$userresult['username']."</div>
 			  <div style='padding-left:20px; '>".$story_summary."</div>
-              <div style='padding-left:20px; border-bottom:1px solid #C9C9C9;'>".$tags."</div>
+              <div style='padding-left:20px; margin-top:10px; border-bottom:1px solid #C9C9C9;'>".$tags."</div>
 			  </div><ul id='weibo_ul' style='padding:0;'>";
 	
 	foreach($story_content_array as $key=>$val)
@@ -363,7 +363,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		$tweibo_meta_data = $val['content'];
 		$tweibo_per_id = $tweibo_meta_data['id'];
 		$tweibo_id_array[] = $tweibo_per_id;
-		$content .="<li class='weibo_drop tencent' id='$tweibo_per_id' style='border:none;'></li>"; 
+		$content .="<li id='$tweibo_per_id'></li>"; 
 		break;}
 		 
 		case "douban":{
@@ -596,25 +596,63 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	if(count($tweibo_id_array) > 0)
 	{
 	  $tweibo_ids = implode(",", $tweibo_id_array);
-	  echo "<script language='javascript' >
-			$(function()
-			{			  
-			  $.get('../tweibo/tweibooperation.php', {operation: 'list_weibo', weibo_ids: '$tweibo_ids'},
-			  function(data, textStatus)
-			  {
-				if(textStatus == 'success')
-				{
-				  var count = $(data).find('li').length;
-				  for(var j=0; j<count; j++)
-				  {
-				    var li = $('li:eq('+j+')', data);
-				    var temp_id = li.attr('id');
-				    $('#'+temp_id).append(li.contents());
-				  }
+	  $tweibo  = $t->t_list($tweibo_ids);
+	  $info = $tweibo['data']['info'];
+	  $tweiboContent = "";
+	  foreach( $info as $item )
+	  {
+		$time = getdate($item['timestamp']);
+		$create_time = $time[year]."-".$time[mon]."-".$time[mday]." ".$time[hours].":".$time[minutes];
+		$profileImgUrl = $item['head']."/50";
+		
+		$item['text'] = tweibo_show_nick($item['text'],$tweibo[data][user]);
+		$item['text'] = subs_emotions($item['text'],"tweibo");
+
+		$tweiboContent .="<li id='".$item['id']."'>";
+
+		if(isset($item['source'])){
+			$tweiboContent .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f is_repost tencent'><img src='/img/retweet.png'/ ><span>转播</span></a><a href='#weibo_dialog' name='modal' class='comment_f tencent'><img src='/img/reply.png'/ ><span>评论</span></a></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text'];
+			$item['source']['text'] = tweibo_show_nick($item['source']['text'],$tweibo[data][user]);
+			$item['source']['text'] = subs_emotions($item['source']['text'],"tweibo");
+
+			if($item['source']['text'] == null)
+				$item['source']['text'] = "此微博已被原作者删除。";
+			$tweiboContent .="||".$item['source']['nick']."(@".$item['source']['name']."):".$item['source']['text']."</span></div>";
+			if(isset($item['source']['image'])){
+				foreach($item['source']['image'] as $re_img_url){
+					$tweiboContent .="<div class='weibo_retweet_img_drop'><img src='".$re_img_url."/240' /></div>";
 				}
-			  });
-			});
-			</script>";
+			}
+		}else{
+			$tweiboContent .= "<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f tencent'><img src='/img/retweet.png'/ ><span>转播</span></a><a href='#weibo_dialog' name='modal' class='comment_f tencent'><img src='/img/reply.png'/ ><span>评论</span></a></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text']."</span></div>";
+			if(isset($item['image'])){
+				foreach($item['image'] as $img_url){
+					$tweiboContent .="<div class='weibo_img_drop'><img src='".$img_url."/240' /></div>";
+				}
+			}
+		}
+		$tweiboContent .= "<div id='story_signature'><span style='float:right;'><a href='http://t.qq.com/".$item['name']."' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
+		.$profileImgUrl."' alt='".$item['nick']."' border=0 /></a></span><span id='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'>
+		<span ><a class='weibo_from_drop' href='http://t.qq.com/".$item['name']."' target='_blank'>".$item['nick']."</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span>
+		<img border='0' style='position:relative; top:2px' src='/img/tencent16.png'/><a>".$create_time."</a></span></div></span> </div></div></li>tweibo_sep";
+	  }
+	  $tweibo_array = explode("tweibo_sep", $tweiboContent);
+	  $tweibo_array_len = count($tweibo_array);
+	  $tweibo_array_asoc = array();
+	  for($i=0; $i<$tweibo_array_len-1; $i++)
+	  {
+	    $temp_t = $tweibo_array[$i];
+		$first_q = strpos($temp_t, "'");
+		$second_q = strpos(substr($temp_t, $first_q+1), "'");
+		$t_per_id = substr($temp_t, $first_q+1, $second_q);
+		$first_t = strpos($temp_t, ">");
+		$second_t = strpos($temp_t, "</li>");
+		$tweibo_array_asoc[$t_per_id] = substr($temp_t, $first_t+1, $second_t-$first_t-1);
+	  }
+	}
+	foreach($tweibo_array_asoc as $tkey=>$tval)
+	{
+	  $content = str_replace("<li id='$tkey'>","<li class='weibo_drop tencent' id='$tkey' style='border:none;'>".$tval, $content);
 	}
 	
 	if(count($temp_array['content']) > $items_perpage)

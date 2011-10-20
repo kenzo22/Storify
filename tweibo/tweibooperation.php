@@ -12,11 +12,6 @@ $timestamp = $_GET['timestamp'];
 $itemsPerPage = 20;
 $load_more_flag = true;
 
-if(isset($_GET['weibo_ids']))
-{
-  $tweibo_ids = $_GET['weibo_ids'];
-}
-
 $c = new TWeiboClient( MB_AKEY , MB_SKEY , $_SESSION['last_tkey']['oauth_token'] , $_SESSION['last_tkey']['oauth_token_secret']  );
 $tweibo;
 $keywords;
@@ -29,11 +24,6 @@ else if('my_follow' == $operation)
 {
   $tweibo  = $c->home_timeline($page, $timestamp, $itemsPerPage);
 }
-else if('list_weibo' == $operation)
-{
-  $tweibo  = $c->t_list($tweibo_ids);
-}
-
 else if('weibo_search' == $operation)
 {
   $keywords = $_GET['keywords'];
@@ -61,55 +51,7 @@ else if('user_search' == $operation)
 }
 
 $info = $tweibo['data']['info'];
-if(isset($_GET['weibo_ids']))
-{
-  $weiboContent = "<div id='data_wrapper'>";
-  foreach( $info as $item )
-  {
-    $time = getdate($item['timestamp']);
-    $create_time = $time[year]."-".$time[mon]."-".$time[mday]." ".$time[hours].":".$time[minutes];
-    $profileImgUrl = $item['head']."/50";
-    
-    //show nick name
-    $item['text'] = tweibo_show_nick($item['text'],$tweibo[data][user]);
-
-    // show face gif 
-    $item['text'] = subs_emotions($item['text'],"tweibo");
-
-    $weiboContent .="<li class='weibo_drop tencent' id='".$item['id']."' style='border:none;'>";
-
-    if(isset($item['source'])){
-        $weiboContent .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f is_repost tencent'><img src='/img/retweet.png'/ ><span>转播</span></a><a href='#weibo_dialog' name='modal' class='comment_f tencent'><img src='/img/reply.png'/ ><span>评论</span></a></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text'];
-		//nick name
-        $item['source']['text'] = tweibo_show_nick($item['source']['text'],$tweibo[data][user]);
-        
-        // emotion substution
-        $item['source']['text'] = subs_emotions($item['source']['text'],"tweibo");
-
-        if($item['source']['text'] == null)
-            $item['source']['text'] = "此微博已被原作者删除。";
-        $weiboContent .="||".$item['source']['nick']."(@".$item['source']['name']."):".$item['source']['text']."</span></div>";
-        if(isset($item['source']['image'])){
-            foreach($item['source']['image'] as $re_img_url){
-                $weiboContent .="<div class='weibo_retweet_img_drop'><img src='".$re_img_url."/240' /></div>";
-            }
-        }
-    }else{
-        $weiboContent .= "<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f tencent'><img src='/img/retweet.png'/ ><span>转播</span></a><a href='#weibo_dialog' name='modal' class='comment_f tencent'><img src='/img/reply.png'/ ><span>评论</span></a></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text']."</span></div>";
-        if(isset($item['image'])){
-            foreach($item['image'] as $img_url){
-                $weiboContent .="<div class='weibo_img_drop'><img src='".$img_url."/240' /></div>";
-            }
-        }
-    }
-    $weiboContent .= "<div id='story_signature'><span style='float:right;'><a href='http://t.qq.com/".$item['name']."' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
-    .$profileImgUrl."' alt='".$item['nick']."' border=0 /></a></span><span id='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'>
-    <span ><a class='weibo_from_drop' href='http://t.qq.com/".$item['name']."' target='_blank'>".$item['nick']."</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span>
-    <img border='0' style='position:relative; top:2px' src='/img/tencent16.png'/><a>".$create_time."</a></span></div></span> </div></div></li>";
-  }
-  $weiboContent .= "</div>";
-}
-else if('list_user' == $operation)
+if('list_user' == $operation)
 {
   $weiboContent = "";
   foreach( $info as $item )
