@@ -49,6 +49,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	$story_status=$result['post_status'];
 	$story_content=$result['post_content'];
 	$story_digg_count=$result['post_digg_count'];
+	$embed_code = "<script src=\"http://koulifang.com/user/".$story_author."/".$story_embed.".js\"></script>";
 	//get the profile image of the story author
 	$user_profile_img;
     if(substr($userresult['photo'], 0, 4) == 'http')
@@ -120,7 +121,6 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	{
 	  if(0 == strcmp($story_status, 'Published'))
 	  {
-		$embed_code = "<script src=\"http://koulifang.com/user/".$story_author."/".$story_embed.".js\"></script>";
 		$content .= "<div id='story_container'>
 					  <div style='float:left;'>
 					  <div class='published-steps'>
@@ -144,7 +144,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 						<div class='steps'>
 						  <div class='post-content'>
 						    <h2>嵌入故事到你的网站中</h2>
-							<span>嵌入代码:</span><span><input type='text' value='".$embed_code."' id='sto_embed' size='72'></span><span><input type='button' id='copy_btn' value='复制'/></span>
+							<span>复制嵌入代码:</span><span><input type='text' value='".$embed_code."' class='sto_embed' size='72'></span><a title='如何嵌入'><img src='/img/question.png' style='vertical-align:middle'/><a>
 						  </div>
 						  <div class='notify-content'>
 						    <h2>告诉作者你引用了他们的内容</h2>";
@@ -296,11 +296,17 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
         }
     }
 
-	$content .="<div id='story_header'><div style='float:right; padding: 0 10px 0 0'><img src='".$story_pic."' style='width:60px; height:60px;' /></div><div style='padding-left:20px;'><h2>".$story_title."</h2></div>
-			  <div style='padding-left:20px;'>".$userresult['username']."</div>
-			  <div style='padding-left:20px; '>".$story_summary."</div>
-              <div style='padding-left:20px; margin-top:10px; border-bottom:1px solid #C9C9C9;'>".$tags."</div>
-			  </div><ul id='weibo_ul' style='padding:0;'>";
+	$content .="<div id='story_header'>
+				  <div style='float:right; padding: 0 10px 0 0'><img src='".$story_pic."' style='width:60px; height:60px;' /></div>
+				  <div style='padding-left:20px;'><h2>".$story_title."</h2></div>
+				  <div style='padding-left:20px;'>".$userresult['username']."</div>
+				  <div style='padding-left:20px; '>".$story_summary."</div>
+				  <div style='padding-left:20px;'>".$tags."</div>
+				  <div style='border-bottom:1px solid #C9C9C9;padding-bottom:10px; overflow:auto;'>
+					<a href='#' id='embed_a'>嵌入故事</a>
+					<div id='embed_bar'><span style='margin-left:20px;'>复制嵌入代码:</span><span><input type='text' class='sto_embed' value='".$embed_code."' size='72'></span><a title='如何嵌入'><img src='/img/question.png' style='vertical-align:middle'/><a></div>
+			      </div>
+				</div><ul id='weibo_ul' style='padding:0;'>";
 	
 	foreach($story_content_array as $key=>$val)
 	{
@@ -670,7 +676,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	$content .="<div style='display: block; padding:0 10px 0 5px; text-align:right;'>Powered by <a name='poweredby' target='_blank' href='http://koulifang.com'>口立方</a></div></div>
 	<div class='spacer'></div>
 	</div>
-	<div id='userinfo_container' class='showborder'>
+	<div id='userinfo_container'>
 	  <div class='user_profiles'>
 	    <div class='user_box'>
 		  <div class='avatar'><a href='/member/user.php?user_id=".$story_author."'><img style='' width='80px' height='80px' src='".$user_profile_img."'></a></div>";
@@ -732,7 +738,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	echo $content;
 	echo "<script language='javascript' >
 			$(function()
-			{
+			{			  
 			  $('.follow_btn').button().click(function(){
 				  var userid = $story_author;
 				  var operation_val = $(this).text();
@@ -1168,6 +1174,12 @@ String.prototype.len=function()
 }
 
 $(function(){
+	$('#embed_a').click(function(e){
+	  e.preventDefault();
+	  $('#embed_bar').toggle();
+	  $('#embed_bar span .sto_embed').select();
+	})
+	
 	$('#user_action').css('display', 'inline');
 	
 	$('.delete').click(function(e){
@@ -1226,6 +1238,7 @@ $(function(){
 	    $('.steps .notify-content').css('display', 'none');
 		$('.steps .share-content').css('display', 'none');
 		$('.steps .post-content').toggle();
+		$('.post-content .sto_embed').select();
 	  }
 	  else if ($(e.target).is('.notify-tab'))
 	  {

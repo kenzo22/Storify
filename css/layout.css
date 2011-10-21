@@ -817,9 +817,26 @@ background-position:left -38px;
 color:#666666;
 }
 
-#sto_embed{
+.sto_embed{
 margin-left:10px;
 margin-right:10px;
+}
+
+#embed_bar{
+background: none repeat scroll 0 0 #EFEFEF;
+display:none;
+padding: 5px 0;
+clear:both;
+}
+
+#embed_a{
+float:right;
+display:block;
+height:23px;
+width:60px;
+margin-right:10px;
+background:url("../img/toggle.gif") no-repeat scroll 0 0 transparent !important;
+background-position: 46px -2px !important;
 }
 
 #story #story_header{
@@ -903,6 +920,7 @@ list-style-type:none;
 }
 
 .digg_wrap{
+display:none;
 position:absolute;
 top:50px;
 left:-58px;
@@ -931,6 +949,12 @@ width:660px;
 width:210px;
 height:600px;
 float:right;
+border-color:#ababac;
+border-style:solid;
+border-width:1px;
+border-radius:5px;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
 }
 
 .user_profiles{
