@@ -26,7 +26,7 @@ $content .="<input type='hidden' value='".$_GET['next']."' name='redirect_info' 
 <div class='float_r' style='margin-top:40px;'>
   <span>还没有口立方帐号，<a href='/register/register_form.php'/>立即注册？</a></span>
   <div style='margin-top:10px;'><span align='center'>使用新浪微博帐号登录</span></div>
-  <div style='margin-top:5px;'><a id='connectBtn' href='#' style='margin-top:17px;'><img src='/img/weibo.png' /></a></div></div>
+  <div style='margin-top:5px;'><a id='connectBtn' href='#'><div class='sina_icon'></div><div class='sina_name'>新浪微博</div></a></div>
 </div>
 <div class='inner' style='height:250px;'></div>
 </form>";
