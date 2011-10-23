@@ -43,6 +43,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  $userresult = $DB->fetch_one_array("SELECT username, intro, photo FROM ".$db_prefix."user where id='".$story_author."'");
 	}
 	$story_embed = $result['embed_name'];
+	$story_time = $result['post_date'];
 	$story_title=$result['post_title'];
 	$story_summary=$result['post_summary'];
 	$story_pic=$result['post_pic_url'];
@@ -277,7 +278,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 				<div class='spacer'></div>
 			  </div>";
 		$content .= "<div class='digg_wrap'><div id='".$post_id."_digg_count' style='margin-top:10px;'>".$story_digg_count."</div><a id='".$post_id."_act_digg' class='act_digg'><img src='../img/ding.ico' /></a></div><div id='publish_container' class='showborder'>
-			  <div id='story_action'><span>已发布</span><span class='float_r'><a id='".$post_id."_delete' class='delete redirect'><img src='../img/delete.gif' title='删除' style='width:16px; height:16px;'/></a>&nbsp<a href='/member/user.php?user_id=".$user_id."&post_id=".$post_id."&action=edit'><img src='../img/edit.png' title='编辑' style='width:16px; height:16px;'/></a></span></div>";
+			  <div id='story_action'><span><img src='../img/yes.png' style='width:16px; height:16px; margin-right:5px;'/>已发布</span><span class='float_r'><a id='".$post_id."_delete' class='delete redirect'><img src='../img/delete.gif' title='删除' style='width:16px; height:16px;'/></a>&nbsp<a href='/member/user.php?user_id=".$user_id."&post_id=".$post_id."&action=edit'><img src='../img/edit.png' title='编辑' style='width:16px; height:16px;'/></a></span></div>";
 	  }
 	  else
 	  {
@@ -298,13 +299,15 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 
 	$content .="<div id='story_header'>
 				  <div style='float:right; padding: 0 10px 0 0'><img src='".$story_pic."' style='width:60px; height:60px;' /></div>
-				  <div style='padding-left:20px;'><h2>".$story_title."</h2></div>
-				  <div style='padding-left:20px;'>".$userresult['username']."</div>
-				  <div style='padding-left:20px; '>".$story_summary."</div>
-				  <div style='padding-left:20px;'>".$tags."</div>
-				  <div style='border-bottom:1px solid #C9C9C9;padding-bottom:10px; overflow:auto;'>
+				  <div id='story_meta' style='margin-top:10px;'>
+				    <div class='story_title'>".$story_title."</div>
+				    <div class='story_author'>by<a href='http://koulifang.com/member/user.php?user_id=".$user_id."'>".$userresult['username']."</a>, ".$story_time."</div>
+				    <div class='story_sum'>".$story_summary."</div>
+				    <div class='story_tag'>".$tags."</div>
+				  </div>
+				  <div id='story_embed'>
 					<a href='#' id='embed_a'>嵌入故事</a>
-					<div id='embed_bar'><span style='margin-left:20px;'>复制嵌入代码:</span><span><input type='text' class='sto_embed' value='".$embed_code."' size='72'></span><a title='如何嵌入'><img src='/img/question.png' style='vertical-align:middle'/><a></div>
+					<div id='embed_bar'><span style='margin-left:20px;'>复制嵌入代码:</span><span><input type='text' class='sto_embed' value='".$embed_code."' size='71'></span><a title='如何嵌入'><img src='/img/question.png' style='vertical-align:middle'/><a></div>
 			      </div>
 				</div><ul id='weibo_ul' style='padding:0;'>";
 	
@@ -1174,11 +1177,20 @@ String.prototype.len=function()
 }
 
 $(function(){
-	$('#embed_a').click(function(e){
+	$('#embed_a').toggle(function(e){
 	  e.preventDefault();
-	  $('#embed_bar').toggle();
+	  $('#embed_bar').slideDown("slow");
 	  $('#embed_bar span .sto_embed').select();
-	})
+	},
+	function(e){
+	  e.preventDefault();
+	  $('#embed_bar').slideUp("slow");
+	  $('#embed_bar span .sto_embed').select();
+	});
+	
+	$('.sto_embed').click(function(){
+	  $(this).select();
+	});
 	
 	$('#user_action').css('display', 'inline');
 	

@@ -159,16 +159,22 @@
           success: function(data) {
             this.widgetNode = jQuery(data);
 			jQuery('script[src^="' + self.permalink + '"]').first().after(this.widgetNode);
+			jQuery('#embed_a').toggle(function(e){
+				  e.preventDefault();
+				  jQuery('#embed_bar').slideDown("slow");
+				  jQuery('#embed_bar span .sto_embed').select();
+				  return false;
+				},
+				function(e){
+				  e.preventDefault();
+				  jQuery('#embed_bar').slideUp("slow");
+				  jQuery('#embed_bar span .sto_embed').select();
+				  return false;
+				});
           },
           scriptCharset: "utf-8",
           type: "GET"
         });	
 	}
 	
-    /*var inView = function(element, threshold){
-      if(!element || !element.offset()) return false;
-      var offset = element.offset().top - jQuery(window).scrollTop();
-      return (offset < window.innerHeight + threshold);
-    }*/
-
 })();
