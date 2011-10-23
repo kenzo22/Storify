@@ -4,6 +4,7 @@ include "../connect_db.php";
 session_start();
 require_once( '../weibo/config.php' );
 require_once( '../weibo/sinaweibo.php' );
+include '../include/secureGlobals.php';
 
 $operation = $_POST['operation'];
 if($operation == 'add')

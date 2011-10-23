@@ -1,7 +1,7 @@
 <?php
 include "../global.php";
 include "../include/mail_functions.php";
-
+include '../include/secureGlobals.php';
 
 if($_GET['act']!="forget_pwd")
 {
@@ -29,7 +29,7 @@ if($_GET['act']!="forget_pwd")
 }
 else
 {
-  $email=addslashes(htmlspecialchars(trim($_GET['email'])));  
+  $email=$_GET['email'];  
   $result=$DB->fetch_one_array("SELECT * FROM ".$db_prefix."user WHERE email='".$email."'");
   if(!empty($result))
   {

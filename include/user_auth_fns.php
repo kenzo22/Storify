@@ -28,7 +28,7 @@ function getUserInfo($email, $password)
 {
 global $DB;
 global $db_prefix;
-$email=addslashes(htmlspecialchars(trim($email)));
+$email=(trim($email));
 $passwd=trim($password);
 $result = $DB->fetch_one_array("SELECT id,username FROM ".$db_prefix."user WHERE email='".$email."' AND passwd='".$passwd."'");
 return $result;

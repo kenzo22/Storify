@@ -1,16 +1,5 @@
 <?php
 
-function binhex($str)
-{
-    $hex = ""; 
-    $i = 0;
-    do {
-        $hex .= sprintf("%02x", ord($str{$i}));
-        $i++;
-    } while ($i < strlen($str));
-    return $hex;
-}
-
 function subs_url($string)
 {
     $pattern="/(http:\/\/[\/\.\w]+)/";

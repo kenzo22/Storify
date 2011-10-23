@@ -1,5 +1,6 @@
 <?php
   include "../global.php";
+include '../include/secureGlobals.php';
   if($_POST['act']!="cfm_pwd")
   {
 	$content="<div class='inner' style='padding-top:50px;'>

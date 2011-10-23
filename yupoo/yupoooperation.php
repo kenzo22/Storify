@@ -4,6 +4,7 @@ include "../include/functions.php";
 session_start();
 include_once( 'config.php' );
 include_once( 'yupoo.php' );
+include '../include/secureGlobals.php';
   
 $operation=$_GET['operation'];
 $keywords = $_GET['keywords'];

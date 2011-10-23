@@ -4,6 +4,7 @@ include "../connect_db.php";
 session_start();
 require_once( '../tweibo/config.php' );
 require_once('../tweibo/txwboauth.php');
+include '../include/secureGlobals.php';
 
 $operation = $_POST['operation'];
 if($operation == 'add')

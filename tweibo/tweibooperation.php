@@ -5,6 +5,7 @@ include_once "../include/weibo_functions.php";
 session_start();
 include_once( 'config.php' );
 include_once( 'txwboauth.php' );
+include '../include/secureGlobals.php';
   
 $operation=$_GET['operation'];
 $page = $_GET['page'];
