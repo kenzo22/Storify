@@ -9,6 +9,7 @@ include_once( '../tweibo/config.php' );
 include_once( '../tweibo/txwboauth.php' );
 include_once( '../douban/config.php' );
 include_once( '../douban/doubanapi.php' );
+include '../include/secureGlobals.php';
 
 $c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']  );
 $t = new TWeiboClient( MB_AKEY , MB_SKEY , $_SESSION['last_tkey']['oauth_token'] , $_SESSION['last_tkey']['oauth_token_secret']  );

@@ -1,6 +1,7 @@
 <?php
 include_once( 'config.php' );
 include_once( 'sinaweibo.php' );
+include '../include/secureGlobals.php';
 session_start();
 
 $operation=$_POST['operation'];

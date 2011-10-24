@@ -1,5 +1,6 @@
 <?php
 require_once "../connect_db.php";
+include '../include/secureGlobals.php';
 session_start();
 if(isset($_POST['email']))
 {

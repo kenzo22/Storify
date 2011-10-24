@@ -2,18 +2,14 @@
 include "../config/global_config.php";
 require_once "../connect_db.php";
 require_once "../include/functions.php";
+require ('../include/secureGlobals.php');
 session_start();
 
-function binhex($str) 
-{
-    $hex = "";
-    $i = 0;
-    do {
-        $hex .= sprintf("%02x", ord($str{$i}));
-        $i++;
-    } while ($i < strlen($str));
-    return $hex;
-}
+/*
+echo "<br /><br />";
+var_dump($_SESSION);
+var_dump($_POST);
+*/
 
 $action=$_POST['action'];
 $story_id=$_POST['story_id'];

@@ -4,6 +4,7 @@ include "../connect_db.php";
 session_start();
 require_once( '../douban/config.php' );
 require_once( '../douban/doubanapi.php' );
+include '../include/secureGlobals.php';
 
 $operation = $_POST['operation'];
 if($operation == 'add')

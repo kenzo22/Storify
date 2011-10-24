@@ -1,5 +1,6 @@
 <?php
 include "../global.php"; 
+include '../include/secureGlobals.php';
 
 if(isset($_GET['topic']))
 {
@@ -24,12 +25,12 @@ while ($story_item = mysql_fetch_array($result))
   $post_date = $temp_array[0];
   $content .=   "<li class='tagstory_li'>
                     <div class='wrapper'>
-                        <a href='/member/user.php?post_id=".$story_id."'>
+                        <a href='/member/user.php?user_id=".$post_author."&post_id=".$story_id."'>
                           <img src='".$post_pic_url."' style='width:80px; height:80px; float:left;' />
                         </a>
 						<div class='text' style='margin-left:100px;'>
                           <div class='update_at'>".$post_date."</div>
-						  <a href='/member/user.php?post_id=".$story_id."'class='title'>".$post_title."</a>
+						  <a href='/member/user.php?user_id=".$post_author."&post_id=".$story_id."'class='title'>".$post_title."</a>
                           <div class='summary'>".$post_summary."<a href='/member/user.php?post_id=".$story_id."'>[read more]</a> </div>
 						  <div class='author'>
                             <a href='/member/user.php?user_id=".$post_author."' muse_scanned='true'>".$userresult['username']."</a> 

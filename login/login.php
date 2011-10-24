@@ -1,6 +1,7 @@
 <?php
 include "../connect_db.php";
 include "../include/functions.php";
+include '../include/secureGlobals.php';
 session_start();
 
 if(isset($_GET['logout']))
@@ -26,7 +27,7 @@ if(isset($_GET['logout']))
 	exit;
 }
 
-$email=addslashes(htmlspecialchars(trim($_POST['email'])));
+$email=$_POST['email'];
 $passwd=sha1(trim($_POST["passwd"]));
 $autologin=$_POST["autologin"];
 $redirect_info = $_POST["redirect_info"];

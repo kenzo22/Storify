@@ -14,6 +14,7 @@ include_once( '../include/weibo_functions.php');
 <link rel="stylesheet" type="text/css" href="../CLEditor/jquery.cleditor.css" />
 
 <?php
+require ('../include/secureGlobals.php');
 if(!islogin())
 {
   header("location: /login/login_form.php"); 

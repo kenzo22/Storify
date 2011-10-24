@@ -1,6 +1,7 @@
 <?php
 include "../config/global_config.php";
 require_once "../connect_db.php";
+include '../include/secureGlobals.php';
 session_start();
 
 $post_id=$_GET['post_id'];
