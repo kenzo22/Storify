@@ -464,7 +464,7 @@ margin-left:70px;
 
 /* edit story part*/
 .weibo_content{overflow:hidden;}
-#story_list #story_signature {overflow:hidden; margin-bottom:10px; margin-right:20px;}
+#story_list .story_signature {overflow:hidden; margin-bottom:10px; margin-right:20px;}
 #source_pane{position:fixed; top:70px; width:390px; height:800px; }
 #story_pane{width:510px; min-height: 754px;}
 #source_list{height:664px; overflow:auto; padding:0; margin:0; border: 1px solid #C9C9C9; border-top: none; border-radius:5px 5px 5px 5px; cursor:move;}
@@ -477,6 +477,7 @@ margin-left:70px;
 .weibo_img, .weibo_retweet_img{margin:3px 0;}
 .weibo_img_drop, .weibo_retweet_img_drop{margin:3px 0; text-align:center;}
 .weibo_img_drop img, .weibo_retweet_img_drop img{width:280px;}
+
 
 .weibo_drag, .video_Drag, .pic_Drag, .douban_drag{padding:5px; margin:8px; border-color:#ababac;
   border-style:solid;
@@ -550,6 +551,10 @@ margin-right:10px;
   width:95%;
   overflow:hidden;
   position:relative;}
+  
+.weibo_date_drop span a{
+color:#939393;
+}
   
   .douban_drop{padding:0px 5px 5px 5px;
   border-color:#ababac;
@@ -819,11 +824,6 @@ text-decoration:none;
 .load_more:active {
 background-position:left -38px;
 color:#666666;
-}
-
-#story_meta div
-{
-  
 }
 
 .story_title{

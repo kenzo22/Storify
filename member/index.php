@@ -289,8 +289,8 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 		  $content .= "<div class='weibo_img_drop'><img src='".$single_weibo['bmiddle_pic']."' /></div>";
 		}     
         $content .= "</div>";
-        $content .= "<div id='story_signature'><span style='float:right;'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
-					.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><span id='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='weibo_from_drop' href='http://weibo.com/"
+        $content .= "<div class='story_signature'><span style='float:right;'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
+					.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><span class='signature_text_drop' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='weibo_from_drop' href='http://weibo.com/"
 					.$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px' src='../img/sina16.png'/><a>"
 					.$createTime."</a></span></div></span></div></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='../img/editcomment.png' border='0'/></a></span></li>";
 	  }
@@ -582,8 +582,8 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 				}
 			}
 		}
-		$tweiboContent .= "<div id='story_signature'><span style='float:right;'><a href='http://t.qq.com/".$item['name']."' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
-		.$profileImgUrl."' alt='".$item['nick']."' border=0 /></a></span><span id='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'>
+		$tweiboContent .= "<div class='story_signature'><span style='float:right;'><a href='http://t.qq.com/".$item['name']."' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
+		.$profileImgUrl."' alt='".$item['nick']."' border=0 /></a></span><span class='signature_text_drop' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'>
 		<span ><a class='weibo_from_drop' href='http://t.qq.com/".$item['name']."' target='_blank'>".$item['nick']."</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span>
 		<img border='0' style='position:relative; top:2px' src='/img/tencent16.png'/><a>".$create_time."</a></span></div></span> </div></div></li>tweibo_sep";
 	  }

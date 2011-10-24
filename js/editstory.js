@@ -880,7 +880,7 @@ $(function() {
 				  +event_link+"' target='_blank'>"+event_title+"</a></div><div class='event_initiator_drop'>发起人：<a href='"+event_initiator_url+"' target='_blank'>"
 				  +event_initiator_name+"</a></div><div class='start_time_drop'>"+event_start_time+"</div><div class='end_time_drop'>"+event_end_time+"</div><div class='event_city_drop'>"
 				  +event_city+"</div><div class='event_location_drop'>"+event_location+"</div></div></div><div id='douban_signature'><span style='float:right;'><a href='"+douban_profile_url+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
-					+douban_profile_img+"' alt='"+douban_profile_name+"' border=0 /></a></span><span class='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='douban_from_drop' href='"
+					+douban_profile_img+"' alt='"+douban_profile_name+"' border=0 /></a></span><span class='signature_text_drop' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='douban_from_drop' href='"
 					+douban_profile_url+"' target='_blank'>"+douban_profile_name+"</a></span></div><div class='douban_date_drop'  style='text-align:right; height:16px;'><span><img border='0' style='position:relative; top:2px; width:16px; height:16px;' src='/img/logo_douban.png'/></span></div></span> </div></div>");
 				  
 				  dragItem.removeClass('douban_drag').addClass('douban_drop').children().remove();
@@ -908,7 +908,7 @@ $(function() {
 					+douban_comment_title+"</div><div class='comment_summary_drop'>"+douban_comment_summary+"</div><div style='text-align:right;'><a href='"+douban_comment_url+"' target='_blank'>查看评论全文</a></div></div><div class='item_info_drop' style='overflow:auto;'><a href='"+douban_per_url+"' target='_blank'><img class='item_img_drop' src='"
 				  +douban_item_img+"' style='float:left;' /></a><div class='item_meta_drop' style='margin-left:100px;'><div><a class='item_title_drop' href='"+douban_per_url+"' target='_blank'>"+douban_item_title+"</a></div><div class='item_author_drop'>"
 				  +douban_item_author+"</div><div class='item_date_drop'>"+douban_item_date+"</div><div class='average_rating_drop'>"+douban_average_rating+"</div></div></div><div id='douban_signature'><span style='float:right;'><a href='"+douban_profile_url+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
-					+douban_profile_img+"' alt='"+douban_profile_name+"' border=0 /></a></span><span class='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='douban_from_drop' href='"
+					+douban_profile_img+"' alt='"+douban_profile_name+"' border=0 /></a></span><span class='signature_text_drop' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='douban_from_drop' href='"
 					+douban_profile_url+"' target='_blank'>"+douban_profile_name+"</a></span></div><div class='douban_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px; width:16px; height:16px;' src='/img/logo_douban.png'/><a>"
 					+douban_comment_date+"</a></span></div></span> </div></div>");
 				  dragItem.removeClass('douban_drag').addClass('douban_drop').children().remove();

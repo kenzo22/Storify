@@ -88,7 +88,7 @@
 
 		//jQuery('.stfyhtml').hide();
 		//jQuery('.storify_html').hide(); // hiding the html export to wordpress
-		jQuery('head').append('<link rel="stylesheet" href="' + KOULIFANG_BASE_URL + '/css/layout.css' + '" type="text/css" />');
+		jQuery('head').append('<link rel="stylesheet" href="' + KOULIFANG_BASE_URL + '/css/widget.css' + '" type="text/css" />');
 		Koulifang.ready = true;
 		getStories();
 		/*require(KOULIFANG_BASE_URL + '/js/utils.js', function() {

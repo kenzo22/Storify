@@ -1,0 +1,194 @@
+#publish_container{
+border-color:#ababac;
+border-style:solid;
+border-width:1px;
+border-radius: 5px;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+width:660px;
+font-size: 12px;
+line-height: 22px;
+}
+
+#publish_container ul{
+list-style: none;
+}
+
+#publish_container li{
+list-style: none;
+}
+
+#publish_container a{cursor:pointer;}
+#publish_container a:link { color: #336699; text-decoration: none;}
+#publish_container a:visited { color: #666699; text-decoration: none;}
+#publish_container a:hover { color: #666666; text-decoration: none;}
+#publish_container a:active { color: #FFFFFF; text-decoration: none;}
+
+.story_title{
+  padding-left:20px;
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+.story_author{
+  padding-left:20px;
+}
+
+.story_author a{
+  margin-left:8px;
+}
+
+.story_sum{
+  padding-left:20px;
+  margin-top:10px;
+  color:#555555;
+}
+
+.story_tag{
+  padding-left:20px;
+  font-style:italic;
+  color:#555555;
+}
+
+#story_embed{
+border-bottom:1px solid #C9C9C9;
+padding-bottom:10px; 
+overflow:auto;
+}
+
+.sto_embed{
+margin-left:10px;
+margin-right:10px;
+}
+
+#embed_bar{
+background: none repeat scroll 0 0 #EFEFEF;
+display:none;
+padding: 5px 0;
+clear:both;
+}
+
+#embed_a{
+float:right;
+display:block;
+height:23px;
+width:60px;
+margin-right:10px;
+background:url("../img/toggle.gif") no-repeat scroll 0 0 transparent !important;
+background-position: 46px -2px !important;
+}
+
+#weibo_ul li{
+margin-top:25px;
+}
+
+#weibo_ul .douban_drop{
+width:98%;
+position: relative;
+}
+
+#weibo_ul .douban_drop .douban_wrapper{
+width:70%;
+margin:0 auto;
+}
+
+#weibo_ul .weibo_drop{
+width:98%;
+}
+
+#weibo_ul .story_wrapper{
+width:70%;
+margin:0 auto;
+}
+
+.item_action{
+border: 1px solid rgba(0, 0, 0, 0.3);
+border-radius: 5px;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+display: block;
+height: auto;
+margin: 0 -10px 0 0 !important;
+opacity: 0.3;
+padding: 0 !important;
+position: absolute;
+right: -55px;
+width: 87px;
+z-index: 100;
+}
+
+#weibo_ul .item_action{
+top: 5px;
+}
+
+.item_action a{
+display:block;
+}
+.item_action a img{
+margin-left:5px;
+vertical-align:top;
+margin-top:2px;
+}
+
+.item_action a span{
+margin-left:5px;
+vertical-align:top;
+}
+
+.item_action:hover{
+opacity: 1;
+right: -5px;
+background-color:rgba(245,245,245,0.9);
+}
+
+.content_wrapper{
+padding-left:26px;
+background: url('../img/apostrophe.png') no-repeat scroll 0 0 transparent !important;
+}
+
+.weibo_drop{padding:0px 5px 5px 5px;
+border-color:#ababac;
+border-style:solid;
+border-width:1px;
+border-radius: 5px;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+margin:auto;
+width:98%;
+overflow:hidden;
+position:relative;}
+
+.weibo_date_drop span a{
+color:#939393;
+}
+
+.weibo_from_drop{
+color:#000000;
+}
+
+.weibo_img, .weibo_retweet_img{margin:3px 0;}
+.weibo_img_drop, .weibo_retweet_img_drop{margin:3px 0; text-align:center;}
+.weibo_img_drop img, .weibo_retweet_img_drop img{width:280px;}
+
+.yupoo_wrapper{
+position:relative;
+margin:0px auto; 
+text-align:center; 
+border: 5px solid #FFFFFF; box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); 
+max-width: 260px;
+}
+
+.yupoo_sign{
+background: url("../img/yupoo-logo.png") no-repeat scroll 0 0 transparent;
+height: 30px;
+right: 10px;
+position: absolute;
+bottom: 0;
+width: 30px;
+}
+
+ .video_element{
+  margin:0 auto;
+  width:420px;
+ }
