@@ -552,8 +552,12 @@ margin-right:10px;
   overflow:hidden;
   position:relative;}
   
-.weibo_date_drop span a{
+.weibo_date_drop span a, .douban_date_drop span a{
 color:#939393;
+}
+
+.weibo_from_drop{
+font-weight:bold;
 }
   
   .douban_drop{padding:0px 5px 5px 5px;

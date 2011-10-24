@@ -147,6 +147,10 @@ padding-left:26px;
 background: url('../img/apostrophe.png') no-repeat scroll 0 0 transparent !important;
 }
 
+#weibo_ul{
+margin:0;
+}
+
 .weibo_drop{padding:0px 5px 5px 5px;
 border-color:#ababac;
 border-style:solid;
@@ -159,7 +163,7 @@ width:98%;
 overflow:hidden;
 position:relative;}
 
-.weibo_date_drop span a{
+.weibo_date_drop span a, .douban_date_drop span a{
 color:#939393;
 }
 

@@ -171,6 +171,7 @@ if(!empty($result))
 		  $content .=
 		 "<li class='douban_drop douban' id='$douban_save_per_id' style='border:none;'>
 		    <div class='douban_wrapper'>
+			  <div class='content_wrapper'>
 			  <div class='event_summary'>".$doubanElement['summary'][0]['$t']."</div>
 			  <div style='margin-top:10px; overflow:auto;'>
 			    <a href='".$doubanElement['link'][1]['@href']."' target='_blank'>
@@ -184,6 +185,7 @@ if(!empty($result))
 				  <div class='event_city'>".$doubanElement['db:location']['$t']."</div>
 				  <div class='event_location'>".$doubanElement['gd:where']['@valueString']."</div>
 				</div>
+			  </div>
 			  </div>
 			  <div id='douban_signature' style='overflow:auto;'>
 			    <span style='float:right;'>
@@ -258,8 +260,8 @@ if(!empty($result))
 			$content .=
 			"<li class='douban_drop douban' id='$douban_save_per_id' style='border:none;'>
 			  <div class='douban_wrapper'>
+				<div class='content_wrapper'>
 				<div>
-				  <div class=item_rating>".$doubanElement['author']['name']['$t']."评分:".$comment_rating."</div>
 				  <div class='comment_title' style='font-weight:bold;'>".$doubanElement['title']['$t']."</div>
 				  <div class='comment_summary'>".$doubanElement['summary']['$t']."</div>
 				  <div style='text-align:right;'>
@@ -272,8 +274,10 @@ if(!empty($result))
 					<div><a class='item_title' href='".$douban_per_url."' target='_blank'>".$doubanElement['db:subject']['title']['$t']."</a></div>
 					<div class='item_author'>".$douban_item_author."</div>
 					<div class='item_date'>".$douban_item_date."</div>
+					<div class=item_rating>".$doubanElement['author']['name']['$t']."评分:".$comment_rating."</div>
 					<div class='average_rating'>豆瓣评分:".$douban_item_meta['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$douban_item_meta['gd:rating']['@numRaters']."人参与投票</div>
 				  </div>
+				</div>
 				</div>
 				<div id='douban_signature' style='overflow:auto;'>
 				  <span style='float:right;'>
@@ -336,6 +340,7 @@ if(!empty($result))
 			$content .=
 			"<li class='douban_drop douban' id='$douban_save_per_id' style='border:none;'>
 			  <div class='douban_wrapper'>
+			    <div class='content_wrapper'>
 				<div class='item_info' style='overflow:auto;'>
 				  <a href='".$itemLink."' target='_blank'><img class='item_img' src='".$itemPic."' style='float:left;' /></a>
 				  <div class='item_meta' style='margin-left:100px;'>
@@ -344,6 +349,7 @@ if(!empty($result))
 					<div class='item_date'>".$douban_item_date."</div>
 					<div class='average_rating'>豆瓣评分:".$douban_item_meta['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$douban_item_meta['gd:rating']['@numRaters']."人参与投票</div>
 				  </div>
+				</div>
 				</div>
 				<div class='douban_signature' style='text-align:right; overflow:auto;'>
 				  <img border='0' style='width:16px; height:16px;' src='../img/logo_douban.png'/>
@@ -446,10 +452,10 @@ if(!empty($result))
 		$second_t = strpos($temp_t, "</li>");
 		$tweibo_array_asoc[$t_per_id] = substr($temp_t, $first_t+1, $second_t-$first_t-1);
 	  }
-	}
-	foreach($tweibo_array_asoc as $tkey=>$tval)
-	{
-	  $content = str_replace("<li id='$tkey'>","<li class='weibo_drop tencent' id='$tkey' style='border:none;'>".$tval, $content);
+	  foreach($tweibo_array_asoc as $tkey=>$tval)
+	  {
+	    $content = str_replace("<li id='$tkey'>","<li class='weibo_drop tencent' id='$tkey' style='border:none;'>".$tval, $content);
+	  }
 	}
 		  
   $content .="</ul><div style='display: block; padding:0 10px 0 5px; text-align:right;'>Powered by <a name='poweredby' target='_blank' href='http://koulifang.com'>口立方</a></div></div>";

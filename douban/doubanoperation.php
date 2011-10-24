@@ -103,6 +103,7 @@ if($eventFlag == 0)
 	  $doubanContent .= 
 		"<li class='douban_drag douban ".$item_type."' id='".$douban_per_id."'>
 		  <div class='douban_wrapper'>
+			<div class='douban_flag'>
 			<div class='item_info'>
 			  <a href='".$douban_per_url."' target='_blank'><img class='item_img' src='".$item_pic."' style='float:left;' /></a>
 			  <div class='item_meta' style='margin-left:100px;'>
@@ -112,6 +113,7 @@ if($eventFlag == 0)
 				<div class='average_rating'>豆瓣评分：".$item['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$item['gd:rating']['@numRaters']."人参与投票</div>
 				<div style='text-align:right;'><a class='douban_review ".$item_type."' href='#'>".$item_review_text."</a></div>
 			  </div>
+			</div>
 			</div>
 			<div class='douban_signature' style='text-align:right;'>
 			  <img border='0' style='width:16px; height:16px;' src='/img/logo_douban.png'/>

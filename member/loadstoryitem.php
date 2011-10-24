@@ -73,8 +73,8 @@ foreach($story_content_array as $key=>$val)
 		  $content .= "<div class='weibo_img' style='text-align:center;'><img src='".$single_weibo['bmiddle_pic']."' width='280px;' /></div>";
 		}
 		$content .= "</div>";
-		$content .= "<div id='story_signature'><span style='float:right;'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
-		.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><span id='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'>
+		$content .= "<div class='story_signature'><span style='float:right;'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
+		.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><span class='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'>
 		<span ><a class='weibo_from' href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date'  style='text-align:right; height:16px;'><span>
 		<img border='0' style='position:relative; top:2px' src='../img/sina16.png'/><a>".$createTime."</a></span></div></span> </div></div></li>";
 	}
@@ -101,6 +101,7 @@ foreach($story_content_array as $key=>$val)
 	  $content .=
 	 "<li class='douban_drop douban' id='$douban_save_per_id' style='border:none;'>
 		<div class='douban_wrapper'>
+		  <div class='content_wrapper'>
 		  <div class='event_summary'>".$doubanElement['summary'][0]['$t']."</div>
 		  <div style='margin-top:10px; overflow:auto;'>
 			<a href='".$doubanElement['link'][1]['@href']."' target='_blank'>
@@ -114,6 +115,7 @@ foreach($story_content_array as $key=>$val)
 			  <div class='event_city'>".$doubanElement['db:location']['$t']."</div>
 			  <div class='event_location'>".$doubanElement['gd:where']['@valueString']."</div>
 			</div>
+		  </div>
 		  </div>
 		  <div id='douban_signature' style='overflow:auto;'>
 			<span style='float:right;'>
@@ -188,8 +190,8 @@ foreach($story_content_array as $key=>$val)
 		$content .=
 		"<li class='douban_drop douban' id='$douban_save_per_id' style='border:none;'>
 		  <div class='douban_wrapper'>
+		    <div class='content_wrapper'>
 			<div>
-			  <div class=item_rating>".$doubanElement['author']['name']['$t']."评分:".$comment_rating."</div>
 			  <div class='comment_title' style='font-weight:bold;'>".$doubanElement['title']['$t']."</div>
 			  <div class='comment_summary'>".$doubanElement['summary']['$t']."</div>
 			  <div style='text-align:right;'>
@@ -202,8 +204,10 @@ foreach($story_content_array as $key=>$val)
 				<div><a class='item_title' href='".$douban_per_url."' target='_blank'>".$doubanElement['db:subject']['title']['$t']."</a></div>
 				<div class='item_author'>".$douban_item_author."</div>
 				<div class='item_date'>".$douban_item_date."</div>
+				<div class=item_rating>".$doubanElement['author']['name']['$t']."评分:".$comment_rating."</div>
 				<div class='average_rating'>豆瓣评分:".$douban_item_meta['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$douban_item_meta['gd:rating']['@numRaters']."人参与投票</div>
 			  </div>
+			</div>
 			</div>
 			<div id='douban_signature' style='overflow:auto;'>
 			  <span style='float:right;'>
@@ -266,6 +270,7 @@ foreach($story_content_array as $key=>$val)
 		$content .=
 		"<li class='douban_drop douban' id='$douban_save_per_id' style='border:none;'>
 		  <div class='douban_wrapper'>
+		    <div class='content_wrapper'>
 			<div class='item_info' style='overflow:auto;'>
 			  <a href='".$itemLink."' target='_blank'><img class='item_img' src='".$itemPic."' style='float:left;' /></a>
 			  <div class='item_meta' style='margin-left:100px;'>
@@ -274,6 +279,7 @@ foreach($story_content_array as $key=>$val)
 				<div class='item_date'>".$douban_item_date."</div>
 				<div class='average_rating'>豆瓣评分:".$douban_item_meta['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$douban_item_meta['gd:rating']['@numRaters']."人参与投票</div>
 			  </div>
+			</div>
 			</div>
 			<div class='douban_signature' style='text-align:right; overflow:auto;'>
 			  <img border='0' style='width:16px; height:16px;' src='../img/logo_douban.png'/>
@@ -356,8 +362,8 @@ if(count($tweibo_id_array) > 0)
 			}
 		}
 	}
-	$tweiboContent .= "<div id='story_signature'><span style='float:right;'><a href='http://t.qq.com/".$item['name']."' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
-	.$profileImgUrl."' alt='".$item['nick']."' border=0 /></a></span><span id='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'>
+	$tweiboContent .= "<div class='story_signature'><span style='float:right;'><a href='http://t.qq.com/".$item['name']."' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
+	.$profileImgUrl."' alt='".$item['nick']."' border=0 /></a></span><span class='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'>
 	<span ><a class='weibo_from_drop' href='http://t.qq.com/".$item['name']."' target='_blank'>".$item['nick']."</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span>
 	<img border='0' style='position:relative; top:2px' src='/img/tencent16.png'/><a>".$create_time."</a></span></div></span> </div></div></li>tweibo_sep";
   }
@@ -374,11 +380,10 @@ if(count($tweibo_id_array) > 0)
 	$second_t = strpos($temp_t, "</li>");
 	$tweibo_array_asoc[$t_per_id] = substr($temp_t, $first_t+1, $second_t-$first_t-1);
   }
-}
-
-foreach($tweibo_array_asoc as $tkey=>$tval)
-{
-  $content = str_replace("<li id='$tkey'>","<li class='weibo_drop tencent' id='$tkey' style='border:none;'>".$tval, $content);
+  foreach($tweibo_array_asoc as $tkey=>$tval)
+  {
+    $content = str_replace("<li id='$tkey'>","<li class='weibo_drop tencent' id='$tkey' style='border:none;'>".$tval, $content);
+  }
 }
 
 if((count($temp_array['content'])-$first_item) > $items_perpage)

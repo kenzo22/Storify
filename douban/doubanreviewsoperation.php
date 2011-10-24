@@ -95,7 +95,6 @@ foreach( $doubanCommentsReturn['entry'] as $commentItem )
 				<span>".$comment_author."</span>
 			  </a>
 			  <div class='douban_comments'>
-				<div class=item_rating>评分:".$comment_rating."</div>
 				<div class='comment_title' style='font-weight:bold;'>".$comments_title."</div>
 				<div class='comment_summary'>".$comments_summary."</div>
 				<div style='text-align:right;'>
@@ -109,6 +108,7 @@ foreach( $doubanCommentsReturn['entry'] as $commentItem )
 				  <div><a class='item_title' href='".$itemLink."' target='_blank'>".$doubanItemMeta['title']['$t']."</a></div>
 				  <div class='item_author'>".$item_owner."</div>
 				  <div class='item_date'>".$item_date."</div>
+				  <div class=item_rating>".$comment_author."评分:".$comment_rating."</div>
 				  <div class='average_rating'>豆瓣评分：".$doubanItemMeta['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$doubanItemMeta['gd:rating']['@numRaters']."人参与投票</div>
 				</div>
 			  </div>

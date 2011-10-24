@@ -320,6 +320,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 		 "<li class='douban_drop douban event' id='$douban_save_per_id'>
 			<div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div>
 			<div class='douban_wrapper'>
+			  <div class='content_wrapper'>
 			  <div class='event_summary_drop'>".$doubanElement['summary'][0]['$t']."</div>
 			  <div style='margin-top:10px; overflow:auto;'>
 				<a href='".$doubanElement['link'][1]['@href']."' target='_blank'>
@@ -333,6 +334,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 				  <div class='event_city_drop'>".$doubanElement['db:location']['$t']."</div>
 				  <div class='event_location_drop'>".$doubanElement['gd:where']['@valueString']."</div>
 				</div>
+			  </div>
 			  </div>
 			  <div id='douban_signature'>
 				<span style='float:right;'>
@@ -406,8 +408,8 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 			  "<li class='douban_drop douban ".$val['content']['item_type']."' id='$douban_save_per_id'>
 				<div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div>
 				<div class='douban_wrapper'>
+				  <div class='content_wrapper'>
 				  <div>
-					<div class=item_rating_drop>".$doubanElement['author']['name']['$t']."评分:".$comment_rating."</div>
 					<div class='comment_title_drop' style='font-weight:bold;'>".$doubanElement['title']['$t']."</div>
 					<div class='comment_summary_drop'>".$doubanElement['summary']['$t']."</div>
 					<div style='text-align:right;'>
@@ -422,8 +424,10 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 					  </div>
 					  <div class='item_author_drop'>".$douban_item_author."</div>
 					  <div class='item_date_drop'>".$douban_item_date."</div>
+					  <div class=item_rating_drop>".$doubanElement['author']['name']['$t']."评分:".$comment_rating."</div>
 					  <div class='average_rating_drop'>豆瓣评分:".$douban_item_meta['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$douban_item_meta['gd:rating']['@numRaters']."人参与投票</div>
 					</div>
+				  </div>
 				  </div>
 				  <div id='douban_signature'>
 					<span style='float:right;'>
@@ -487,6 +491,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 			"<li class='douban_drop douban ".$val['content']['item_type']."' id='$douban_save_per_id'>
 			  <div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div>
 			  <div class='douban_wrapper'>
+			    <div class='content_wrapper'>
 				<div class='item_info' style='overflow:auto;'>
 				  <a href='".$itemLink."' target='_blank'><img class='item_img' src='".$itemPic."' style='float:left;' /></a>
 				  <div class='item_meta' style='margin-left:100px;'>
@@ -495,6 +500,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 					<div class='item_date'>".$douban_item_date."</div>
 					<div class='average_rating'>豆瓣评分:".$douban_item_meta['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$douban_item_meta['gd:rating']['@numRaters']."人参与投票</div>
 				  </div>
+				</div>
 				</div>
 				<div class='douban_signature' style='text-align:right;'>
 				  <img border='0' style='width:16px; height:16px;' src='../img/logo_douban.png'/>
@@ -601,11 +607,12 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 		$second_t = strpos($temp_t, "</li>");
 		$tweibo_array_asoc[$t_per_id] = substr($temp_t, $first_t+1, $second_t-$first_t-1);
 	  }
+	  foreach($tweibo_array_asoc as $tkey=>$tval)
+	  {
+		$content = str_replace("<li id='$tkey'>","<li class='weibo_drop tencent' id='$tkey'><div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div>".$tval, $content);
+	  }
   }
-  foreach($tweibo_array_asoc as $tkey=>$tval)
-  {
-    $content = str_replace("<li id='$tkey'>","<li class='weibo_drop tencent' id='$tkey'><div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div>".$tval, $content);
-  }
+  
 
   $content .="</ul></div></div></div></div></div></div>";
   echo $content;

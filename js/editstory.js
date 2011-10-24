@@ -875,11 +875,11 @@ $(function() {
 				  var event_pic = dragItem.find('.event_img_wrapper img').attr('src');
 				  var event_location = dragItem.find('.event_location').text();
 				  var event_city = dragItem.find('.event_city').text();
-				  doubanContent=("<div class='cross' action='delete'><a><img src='/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='douban_wrapper'><div class='event_summary_drop'>"+event_summary+"</div><div style='margin-top:10px; overflow:auto;'><a href='"
+				  doubanContent=("<div class='cross' action='delete'><a><img src='/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='douban_wrapper'><div class='content_wrapper'><div class='event_summary_drop'>"+event_summary+"</div><div style='margin-top:10px; overflow:auto;'><a href='"
 				  +event_link+"' target='_blank'><img class='item_img_drop' src='"+event_pic+"' style='float:left;' /></a><div class='item_meta_drop' style='margin-left:220px;'><div class='event_title_drop'>活动：<a href='"
 				  +event_link+"' target='_blank'>"+event_title+"</a></div><div class='event_initiator_drop'>发起人：<a href='"+event_initiator_url+"' target='_blank'>"
 				  +event_initiator_name+"</a></div><div class='start_time_drop'>"+event_start_time+"</div><div class='end_time_drop'>"+event_end_time+"</div><div class='event_city_drop'>"
-				  +event_city+"</div><div class='event_location_drop'>"+event_location+"</div></div></div><div id='douban_signature'><span style='float:right;'><a href='"+douban_profile_url+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
+				  +event_city+"</div><div class='event_location_drop'>"+event_location+"</div></div></div></div><div id='douban_signature'><span style='float:right;'><a href='"+douban_profile_url+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
 					+douban_profile_img+"' alt='"+douban_profile_name+"' border=0 /></a></span><span class='signature_text_drop' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='douban_from_drop' href='"
 					+douban_profile_url+"' target='_blank'>"+douban_profile_name+"</a></span></div><div class='douban_date_drop'  style='text-align:right; height:16px;'><span><img border='0' style='position:relative; top:2px; width:16px; height:16px;' src='/img/logo_douban.png'/></span></div></span> </div></div>");
 				  
@@ -896,7 +896,6 @@ $(function() {
 				  var douban_comment_title = dragItem.find('.comment_title').text();
 				  var douban_comment_summary = dragItem.find('.comment_summary').text();
 				  var douban_comment_date = dragItem.find('.comment_date').text();
-				  var douban_comment_rating = dragItem.find('.item_rating').text();
 				  var douban_comment_url = dragItem.find('.comment_full_url').attr('href');
 				  var douban_item_img = dragItem.find('.item_img').attr('src');
 				  var douban_item_title = dragItem.find('.item_title').text();
@@ -904,10 +903,10 @@ $(function() {
 				  var douban_item_date = dragItem.find('.item_date').text();
 				  var douban_average_rating = dragItem.find('.average_rating').text();
 				  var douban_item_rating = dragItem.find('.item_rating').text();
-				  doubanContent = ("<div class='cross' action='delete'><a><img src='/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='douban_wrapper'><div><div class=item_rating_drop>"+douban_item_rating+"</div><div class='comment_title_drop' style='font-weight:bold;'>"
+				  doubanContent = ("<div class='cross' action='delete'><a><img src='/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='douban_wrapper'><div class='content_wrapper'><div><div class='comment_title_drop' style='font-weight:bold;'>"
 					+douban_comment_title+"</div><div class='comment_summary_drop'>"+douban_comment_summary+"</div><div style='text-align:right;'><a href='"+douban_comment_url+"' target='_blank'>查看评论全文</a></div></div><div class='item_info_drop' style='overflow:auto;'><a href='"+douban_per_url+"' target='_blank'><img class='item_img_drop' src='"
 				  +douban_item_img+"' style='float:left;' /></a><div class='item_meta_drop' style='margin-left:100px;'><div><a class='item_title_drop' href='"+douban_per_url+"' target='_blank'>"+douban_item_title+"</a></div><div class='item_author_drop'>"
-				  +douban_item_author+"</div><div class='item_date_drop'>"+douban_item_date+"</div><div class='average_rating_drop'>"+douban_average_rating+"</div></div></div><div id='douban_signature'><span style='float:right;'><a href='"+douban_profile_url+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
+				  +douban_item_author+"</div><div class='item_date_drop'>"+douban_item_date+"</div><div class=item_rating_drop>"+douban_item_rating+"</div><div class='average_rating_drop'>"+douban_average_rating+"</div></div></div></div><div id='douban_signature'><span style='float:right;'><a href='"+douban_profile_url+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
 					+douban_profile_img+"' alt='"+douban_profile_name+"' border=0 /></a></span><span class='signature_text_drop' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='douban_from_drop' href='"
 					+douban_profile_url+"' target='_blank'>"+douban_profile_name+"</a></span></div><div class='douban_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px; width:16px; height:16px;' src='/img/logo_douban.png'/><a>"
 					+douban_comment_date+"</a></span></div></span> </div></div>");
@@ -925,6 +924,7 @@ $(function() {
 					$('#story_thumbnail').attr('src', dragItem.find('.item_img').attr('src'));
 				  }　
 				  dragItem.removeClass('douban_drag').addClass('douban_drop');
+				  dragItem.find('.douban_flag').removeClass().addClass('content_wrapper');
 				  dragItem.find('.douban_review').closest('div').remove();
 				  dragItem.prepend("<div class='cross' action='delete'><a><img src='/img/cross.png' border='0' onclick='remove_item(event)'/></a></div>");
 				}
