@@ -848,6 +848,7 @@ color:#666666;
 }
 
 .story_tag{
+  margin-top:5px;
   padding-left:20px;
   font-style:italic;
   color:#555555;
@@ -1294,7 +1295,7 @@ background-color: #EEEEEE;
 }
 
 #publishBtn{
-background-color: #3399DD;
+background-color: #007AC4;
 color: white;
 font-size: 13px;
 font-weight: bold;
@@ -1335,7 +1336,7 @@ width: auto;
 }
 
 .aa_submit a{
-background-color: #3399DD;
+background-color: #007AC4;
 border: 1px solid #2288CC;
 border-radius: 2px; -moz-border-radius: 2px; -webkit-border-radius: 2px;
 color: white;
@@ -1353,7 +1354,7 @@ width: auto;
 }
 
 #btn_submit_signup a{
-background-color: #3399DD;
+background-color: #007AC4;
 border: 1px solid #2288CC;
 border-radius: 2px; -moz-border-radius: 2px; -webkit-border-radius: 2px;
 color: white;
@@ -1370,7 +1371,7 @@ width: 72px;
 
 #loginbtn a, #update_btn a, #btn_submit_forget, #btn_cfm_pwd, .btn_w_publish{
 display:block;
-background-color: #3399DD;
+background-color: #007AC4;
 background-repeat: repeat;
 border: 1px solid #2288CC;
 border-radius: 2px; -moz-border-radius: 2px; -webkit-border-radius: 2px;

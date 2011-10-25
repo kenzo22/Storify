@@ -303,7 +303,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 				    <div class='story_title'>".$story_title."</div>
 				    <div class='story_author'>by<a href='http://koulifang.com/member/user.php?user_id=".$user_id."'>".$userresult['username']."</a>, ".$story_time."</div>
 				    <div class='story_sum'>".$story_summary."</div>
-				    <div class='story_tag'>".$tags."</div>
+				    <div class='story_tag'>标签:".$tags."</div>
 				  </div>
 				  <div class='tool_wrapper'>
 					  <div class='story_share'>

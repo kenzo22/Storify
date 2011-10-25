@@ -3,6 +3,7 @@ include "global.php";
 include "member/tagoperation.php";
 ?>
 <link rel="stylesheet" type="text/css" href="css/skin.css" />
+<link rel="stylesheet" href="css/orbit-1.2.3.css">
 <div id='boxes'>
   
 <!-- Start of Login Dialog -->  
@@ -34,27 +35,16 @@ include "member/tagoperation.php";
 <div class='content'>
     <div id='homepage' class='content-a'>
       <div class='inner'>
-	    <div id="page-wrap">
-		  <div id="slider">
-			<div id="mover">
-			  <div id="slide-1" class="slide">
-				<h1>Garden Rack</h1>
-				<p>Donec gravida posuere arcu. Nulla facilisi. Phasellus imperdiet. Vestibulum at metus. Integer euismod. Nullam placerat rhoncus sapien. Ut euismod. Praesent libero. Morbi pellentesque libero sit amet ante. Maecenas tellus.</p>
-				<a href="#"><img src="img/slide-1-image.png" alt="learn more" /></a>	
-			  </div>
-			  <div class="slide">
-				<h1>Tulip Bulbs</h1>
-				<p>Donec gravida posuere arcu. Nulla facilisi. Phasellus imperdiet. Vestibulum at metus. Integer euismod. Nullam placerat rhoncus sapien. Ut euismod. Praesent libero. Morbi pellentesque libero sit amet ante. Maecenas tellus.</p>
-				<a href="#"><img src="img/slide-2-image.png" alt="learn more" /></a>	
-			  </div>
-			  <div class="slide">
-				<h1>Garden Gloves</h1>
-				<p>Donec gravida posuere arcu. Nulla facilisi. Phasellus imperdiet. Vestibulum at metus. Integer euismod. Nullam placerat rhoncus sapien. Ut euismod. Praesent libero. Morbi pellentesque libero sit amet ante. Maecenas tellus.</p>
-				<a href="#"><img src="img/slide-3-image.png" alt="learn more" /></a>	
-			  </div>
-			</div>
+	    <div id="featured_container">
+		  <div id="featured"> 
+			<img src="img/slide1.jpg" style="width:920px; height:360px;" />
+			<a href=""><img src="img/slide2.jpg" style="width:920px; height:360px;"/></a>
+			<img src="img/slide3.jpg" data-caption="#htmlCaption" style="width:920px; height:360px;"/>
+			<img src="img/slide4.jpg"  style="width:920px; height:360px;"/>
 		  </div>
-	    </div>
+		  <!-- Captions for Orbit -->
+		  <span class="orbit-caption" id="htmlCaption"><strong>I'm A Badass Caption:</strong> I can haz <a href="#">links</a>, <em>style</em> or anything that is valid markup :)</span>
+		</div>
 		<div id='popular' style='height:300px;'>
 		  <h3 style='color:#999999'>最流行</h3>
 		  <div id='popularstory_list'>
@@ -150,7 +140,7 @@ include "member/tagoperation.php";
  include "./include/footer.htm";
 ?>
 <script type="text/javascript" src="js/jquery.jcarousel.min.js"></script>
-<script type="text/javascript" src="js/startstop-slider.js"></script>
+<script type="text/javascript" src="js/jquery.orbit-1.2.3.min.js"></script>	
 <script>
 function mycarousel_initCallback(carousel)
 {
@@ -239,5 +229,11 @@ $(document).ready(function()
 		$(this).hide();
 		$('.window').hide();
 	});		
+});
+
+$(window).load(function() {
+	$('#featured').orbit({
+
+	});
 });
 </script>
