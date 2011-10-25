@@ -97,7 +97,7 @@ $content = "
 		      <form id='source_controller_form' action='#'>
 		        <div class='sep'>         
 			      <input id='keywords' name='keywords' type='text'>
-			      <button id='weibo_search_btn' type='button' value='search'>搜索话题</button>
+			      <button id='weibo_search_btn' type='submit' value='search'>搜索话题</button>
                 </div>
 		      </form>
 		    </div>
@@ -125,7 +125,7 @@ $content = "
 		      <form action='#'>
 		        <div class='sep'>        
 			      <input id='d_keywords' name='d_keywords' type='text'>
-			      <button id='douban_search_btn' type='button' value='search'>搜索</button>
+			      <button id='douban_search_btn' type='submit' value='search'>搜索</button>
                 </div>
 		      </form>
 		    </div>
@@ -135,7 +135,7 @@ $content = "
 		    <div>
 			  <label for='videoUrl'>优酷视频地址:</label><br />           
 			  <input style='margin-top:13px;' id='videoUrl' name='videoUrl' type='text'>
-			  <button style='margin-top:13px;' type='button' value='嵌入视频' id='embedVideo'>嵌入视频</button>
+			  <button style='margin-top:13px;' type='submit' value='嵌入视频' id='embedVideo'>嵌入视频</button>
             </div>
 		    </form>
 		  </div>
@@ -162,7 +162,7 @@ $content = "
 		      <form action='#'>
 		        <div class='sep'>           
 			      <input id='pic_keywords' name='pic_keywords' type='text'>
-			      <button id='pic_search_btn' type='button' value='search'>搜索</button>
+			      <button id='pic_search_btn' type='submit' value='search'>搜索</button>
                 </div>
 		      </form>
 		    </div>

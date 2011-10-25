@@ -555,10 +555,6 @@ margin-right:10px;
 .weibo_date_drop span a, .douban_date_drop span a{
 color:#939393;
 }
-
-.weibo_from_drop{
-font-weight:bold;
-}
   
   .douban_drop{padding:0px 5px 5px 5px;
   border-color:#ababac;
@@ -857,10 +853,19 @@ color:#666666;
   color:#555555;
 }
 
+.tool_wrapper{
+  border-bottom: 1px solid #E6E6E6;
+  overflow:auto;
+}
+
+.story_share{
+  overflow:auto;
+  padding:5px 0 10px 20px;
+}
+
 #story_embed{
-border-bottom:1px solid #C9C9C9;
-padding-bottom:10px; 
-overflow:auto;
+  float:right;
+  margin-right:10px;
 }
 
 .sto_embed{
@@ -875,14 +880,8 @@ padding: 5px 0;
 clear:both;
 }
 
-#embed_a{
-float:right;
-display:block;
-height:23px;
-width:60px;
-margin-right:10px;
-background:url("../img/toggle.gif") no-repeat scroll 0 0 transparent !important;
-background-position: 46px -2px !important;
+.arrow_up{
+display:none;
 }
 
 #story #story_header{

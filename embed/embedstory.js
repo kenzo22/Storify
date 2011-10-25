@@ -89,14 +89,18 @@
 		//jQuery('.stfyhtml').hide();
 		//jQuery('.storify_html').hide(); // hiding the html export to wordpress
 		jQuery('head').append('<link rel="stylesheet" href="' + KOULIFANG_BASE_URL + '/css/widget.css' + '" type="text/css" />');
-		Koulifang.ready = true;
-		getStories();
-		/*require(KOULIFANG_BASE_URL + '/js/utils.js', function() {
-			require(KOULIFANG_BASE_URL + '/js/ElementsList.js', function() {
+		//Koulifang.ready = true;
+		//getStories();
+		/*require('http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=2417356638', function() {
+			require('http://v2.jiathis.com/code/jia.js', function() {
 				Koulifang.ready = true;
 				getStories();
 			});
 		});*/
+		require('http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=2417356638', function() {
+				Koulifang.ready = true;
+				getStories();
+		});
 	}
 	
 	function queryStringToObject(queryString)
@@ -144,7 +148,7 @@
 	}
 	
 	Koulifang.Story = function(permalink, options) {
-	    this.permalink = permalink;
+		this.permalink = permalink;
 	    this.slug = permalink.substr(permalink.lastIndexOf('/') + 1);
         this.nodeId = 'sfywdgt_StorifyWidget_' + this.slug.replace(/_|\-/g,'');
 	    var self = this,
@@ -162,15 +166,37 @@
 			jQuery('#embed_a').toggle(function(e){
 				  e.preventDefault();
 				  jQuery('#embed_bar').slideDown("slow");
+				  jQuery('.arrow_up').show();
+				  jQuery('.arrow_down').hide();
 				  jQuery('#embed_bar span .sto_embed').select();
 				  return false;
 				},
 				function(e){
 				  e.preventDefault();
 				  jQuery('#embed_bar').slideUp("slow");
+				  jQuery('.arrow_down').show();
+				  jQuery('.arrow_up').hide();
 				  jQuery('#embed_bar span .sto_embed').select();
 				  return false;
 				});
+				
+		    jQuery('.sto_embed').click(function(){
+			  jQuery(this).select();
+			});
+			
+			jQuery('#weibo_ul li.sina').each(function()
+			{
+				var id_val = jQuery(this).attr('id');
+				WB2.anyWhere(function(W){
+				W.widget.hoverCard({
+					id: id_val,
+					search: true
+					}); 
+				});
+			});
+			
+			require('http://v2.jiathis.com/code/jia.js', function() {
+			});
           },
           scriptCharset: "utf-8",
           type: "GET"

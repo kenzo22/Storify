@@ -305,10 +305,21 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 				    <div class='story_sum'>".$story_summary."</div>
 				    <div class='story_tag'>".$tags."</div>
 				  </div>
-				  <div id='story_embed'>
-					<a href='#' id='embed_a'>嵌入故事</a>
-					<div id='embed_bar'><span style='margin-left:20px;'>复制嵌入代码:</span><span><input type='text' class='sto_embed' value='".$embed_code."' size='71'></span><a title='如何嵌入'><img src='/img/question.png' style='vertical-align:middle'/><a></div>
-			      </div>
+				  <div class='tool_wrapper'>
+					  <div class='story_share'>
+						<div id='jiathis_style_32x32'>
+						  <a class='jiathis_button_qzone'></a><a class='jiathis_button_tsina'></a>
+						  <a class='jiathis_button_tqq'></a>
+						  <a class='jiathis_button_renren'></a><a class='jiathis_button_kaixin001'></a>
+						  <a href='http://www.jiathis.com/share' class='jiathis jiathis_txt jtico jtico_jiathis' target='_blank'></a>
+						  <a class='jiathis_counter_style'></a>
+						</div>
+						<div id='story_embed'>
+						  <a href='#' id='embed_a'>嵌入故事<span><img class='arrow_down' src='/img/arrow_down.png'/><img class='arrow_up' src='/img/arrow_up.png'/></span></a>
+					    </div>
+					  </div>
+					  <div id='embed_bar'><span style='margin-left:20px;'>复制嵌入代码:</span><span><input type='text' class='sto_embed' value='".$embed_code."' size='71'></span><a title='如何嵌入'><img src='/img/question.png' style='vertical-align:middle'/></a></div>
+				  </div>
 				</div><ul id='weibo_ul' style='padding:0;'>";
 	
 	foreach($story_content_array as $key=>$val)
@@ -1186,11 +1197,15 @@ $(function(){
 	$('#embed_a').toggle(function(e){
 	  e.preventDefault();
 	  $('#embed_bar').slideDown("slow");
+	  $('.arrow_up').show();
+	  $('.arrow_down').hide();
 	  $('#embed_bar span .sto_embed').select();
 	},
 	function(e){
 	  e.preventDefault();
 	  $('#embed_bar').slideUp("slow");
+	  $('.arrow_down').show();
+	  $('.arrow_up').hide();
 	  $('#embed_bar span .sto_embed').select();
 	});
 	
@@ -1430,7 +1445,3 @@ $(function(){
 <script type='text/javascript' src='../js/jquery-ui-1.8.12.custom.min.js'></script>
 <script type="text/javascript" src="../js/jquery.embedly.min.js"></script>
 <script type="text/javascript" src="http://v2.jiathis.com/code/jia.js" charset="utf-8"></script>
-<!-- JiaThis Button BEGIN -->
-<script type="text/javascript" src="http://v2.jiathis.com/code/jiathis_r.js?move=0&amp;btn=r2.gif" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-

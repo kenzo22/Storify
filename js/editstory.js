@@ -583,7 +583,8 @@ $(function() {
 		  $('#weibo_search').addClass('imply_color').removeClass('none');
 		});
 		
-		$('#weibo_search_btn').click(function(){
+		$('#weibo_search_btn').click(function(e){
+		  e.preventDefault();
 		  weiboSearhPage = 1;
 		  userSearchPage = 1;
 		  tuserSearchPage = 1;
@@ -643,7 +644,8 @@ $(function() {
 		});
 		
 		//Douban part
-		$('#douban_search_btn').click(function(){
+		$('#douban_search_btn').click(function(e){
+		  e.preventDefault();
 		  var doubanSelected = $doubanTabs.tabs('option', 'selected');
 		  var getUrl = '../douban/doubanoperation.php';
 		  var keywords_val = $('#d_keywords').val();
@@ -711,8 +713,9 @@ $(function() {
 		  $('#pic_keywords').val('可指定日期如2010-6,默认搜索全部').addClass('imply_color');
 		});
 		
-		$('#pic_search_btn').click(function()
+		$('#pic_search_btn').click(function(e)
 		{
+		  e.preventDefault();
 		  $('.loadmore').remove();
 		  var words = $('#pic_keywords').val();
 		  var selected = $picTabs.tabs('option', 'selected');
@@ -935,8 +938,8 @@ $(function() {
 				var videoUrl = dragItem.find('.videoTitle').attr('href');
 				var videoTitle = dragItem.find('.videoTitle').text();
 				var videoEmbedCode;
-				var videoContent = ("<div class='cross' action='delete'><a><img src='/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div><a class='videoTitle' target='_blank' href='"
-				+videoUrl+"'>"+videoTitle+"</a></div>"+embedCode);
+				var videoContent = ("<div class='cross' action='delete'><a><img src='/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='youku_wrapper'><div><a class='videoTitle' target='_blank' href='"
+				+videoUrl+"'>"+videoTitle+"</a></div>"+embedCode+"</div>");
 				dragItem.removeClass('video_Drag').addClass('video_drop').children().remove();　
 			    dragItem.append(videoContent);
 				/*if(dragItem.index() == 1)
@@ -971,6 +974,7 @@ $(function() {
 		
 		$('#embedVideo').click(function(e)
 		{
+		  e.preventDefault();
 		  var imgpath = '../img/loading.gif';
 		  var imgloading = $("<span style='padding-left:180px;'><img src='../img/loading.gif' /></span>");
 		  $('#source_list').html(imgloading);
