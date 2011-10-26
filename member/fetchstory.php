@@ -81,17 +81,23 @@ if(!empty($result))
 				<div id='story_meta' style='margin-top:10px;'>
 				  <div class='story_title'>".$story_title."</div>
 				  <div class='story_author'>by<a href='http://koulifang.com/member/user.php?user_id=".$user_id."'>".$userresult['username']."</a>, ".$story_time."</div>
-				  <div class='story_sum'>".$story_summary."</div>
-				  <div class='story_tag'>标签:".$tags."</div>
-				</div>
+				  <div class='story_sum'>".$story_summary."</div>";
+			if($tags!='')
+			{
+			  $content .="<div class='story_tag'>标签:".$tags."</div>";
+			}
+			$content .="</div>
 				<div class='tool_wrapper'>
 				  <div class='story_share'>
-					<div id='jiathis_style_32x32'>
-					  <a class='jiathis_button_qzone'></a><a class='jiathis_button_tsina'></a>
-					  <a class='jiathis_button_tqq'></a>
-					  <a class='jiathis_button_renren'></a><a class='jiathis_button_kaixin001'></a>
-					  <a href='http://www.jiathis.com/share' class='jiathis jiathis_txt jtico jtico_jiathis' target='_blank'></a>
-					  <a class='jiathis_counter_style'></a>
+					<div id='ckepop'>
+						<span class='jiathis_txt'>分享到：</span>
+						<a class='jiathis_button_qzone'></a>
+						<a class='jiathis_button_tsina'></a>
+						<a class='jiathis_button_tqq'></a>
+						<a class='jiathis_button_renren'></a>
+						<a class='jiathis_button_kaixin001'></a>
+						<a href='http://www.jiathis.com/share' class='jiathis jiathis_txt jtico jtico_jiathis' target='_blank'></a>
+						<a class='jiathis_counter_style'></a>
 					</div>
 					<div id='story_embed'>
 					  <a href='#' id='embed_a'>嵌入故事<span><img class='arrow_down' src='/img/arrow_down.png'/><img class='arrow_up' src='/img/arrow_up.png'/></span></a>

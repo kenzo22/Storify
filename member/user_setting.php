@@ -80,7 +80,7 @@ $user_set = "<div class='inner' style='padding-top:50px; margin-bottom:180px;'>
 				 </tr>
 				 <tr>
 					<td></td>
-					<td><div id='update_btn'><a><span>更新设置</span></a></div></td>
+					<td><div id='update_btn'><a class='large blue awesome'>更新设置 &raquo;</a></div></td>
 				 </tr>
 			   </table>
 			   <div class='float_r'>

@@ -94,7 +94,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 					<div id='pub_wrapper'>
 					  <div class='float_r counter_wrapper'><span style='margin-left:28px; color: #B8B7B7;'>还可以输入</span><span class='word_counter'>140</span><span style='color: #B8B7B7;'>字</span></div>
 					  <textarea class='publish-tweet'></textarea>
-					  <a class='btn_w_publish'><span id='pub_text'>转发</span></a>
+					  <a class='btn_w_publish large blue awesome'><span id='pub_text'>转发</span></a>
 					</div>
 					<div class='pub_imply_sina'><span style='margin-left:6px; margin-right:5px; color:#878787;'>发布到新浪微博需要绑定新浪微博帐号</span><a href='/member/source.php'>现在去绑定</a></div>
 					<div class='pub_imply_tencent'><span style='margin-left:6px; margin-right:5px; color:#878787;'>发布到腾讯微博需要绑定腾讯微博帐号</span><a href='/member/source.php'>现在去绑定</a></div>
@@ -116,7 +116,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	
 	if(!$login_status|| $story_author != $_SESSION['uid'])
 	{
-	  $content .= "<div id='story_container'><div style='float:left;'><div class='digg_wrap'><div id='".$post_id."_digg_count' style='margin-top:10px;'>".$story_digg_count."</div><a id='".$post_id."_act_digg' class='act_digg'><img src='../img/ding.ico' /></a></div><div id='publish_container' class='showborder'>";
+	  $content .= "<div id='story_container'><div style='float:left;'><div id='publish_container' class='showborder'>";
 	}
 	else
 	{
@@ -277,7 +277,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 				</div>
 				<div class='spacer'></div>
 			  </div>";
-		$content .= "<div class='digg_wrap'><div id='".$post_id."_digg_count' style='margin-top:10px;'>".$story_digg_count."</div><a id='".$post_id."_act_digg' class='act_digg'><img src='../img/ding.ico' /></a></div><div id='publish_container' class='showborder'>
+		$content .= "<div id='publish_container' class='showborder'>
 			  <div id='story_action'><span><img src='../img/yes.png' style='width:16px; height:16px; margin-right:5px;'/>已发布</span><span class='float_r'><a id='".$post_id."_delete' class='delete redirect'><img src='../img/delete.gif' title='删除' style='width:16px; height:16px;'/></a>&nbsp<a href='/member/user.php?user_id=".$user_id."&post_id=".$post_id."&action=edit'><img src='../img/edit.png' title='编辑' style='width:16px; height:16px;'/></a></span></div>";
 	  }
 	  else
@@ -302,17 +302,24 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 				  <div id='story_meta' style='margin-top:10px;'>
 				    <div class='story_title'>".$story_title."</div>
 				    <div class='story_author'>by<a href='http://koulifang.com/member/user.php?user_id=".$user_id."'>".$userresult['username']."</a>, ".$story_time."</div>
-				    <div class='story_sum'>".$story_summary."</div>
-				    <div class='story_tag'>标签:".$tags."</div>
-				  </div>
+				    <div class='story_sum'>".$story_summary."</div>";
+			if($tags!='')
+			{
+			  $content .="<div class='story_tag'>标签:".$tags."</div>";
+			}
+			$content .="</div>
 				  <div class='tool_wrapper'>
 					  <div class='story_share'>
-						<div id='jiathis_style_32x32'>
-						  <a class='jiathis_button_qzone'></a><a class='jiathis_button_tsina'></a>
-						  <a class='jiathis_button_tqq'></a>
-						  <a class='jiathis_button_renren'></a><a class='jiathis_button_kaixin001'></a>
-						  <a href='http://www.jiathis.com/share' class='jiathis jiathis_txt jtico jtico_jiathis' target='_blank'></a>
-						  <a class='jiathis_counter_style'></a>
+						<div class='digg_wrap'><a id='".$post_id."_act_digg' class='act_digg' title='赞一个'><img src='../img/ding.ico' /></a><span id='".$post_id."_digg_count' class='digg_counter' title='累计赞".$story_digg_count."次'>".$story_digg_count."</span></div>
+						<div id='ckepop'>
+							<span class='jiathis_txt'>分享到：</span>
+							<a class='jiathis_button_qzone'></a>
+							<a class='jiathis_button_tsina'></a>
+							<a class='jiathis_button_tqq'></a>
+							<a class='jiathis_button_renren'></a>
+							<a class='jiathis_button_kaixin001'></a>
+							<a href='http://www.jiathis.com/share' class='jiathis jiathis_txt jtico jtico_jiathis' target='_blank'></a>
+							<a class='jiathis_counter_style'></a>
 						</div>
 						<div id='story_embed'>
 						  <a href='#' id='embed_a'>嵌入故事<span><img class='arrow_down' src='/img/arrow_down.png'/><img class='arrow_up' src='/img/arrow_up.png'/></span></a>
@@ -859,7 +866,6 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 					{
 					  if($('#boxes #weibo_dialog').hasClass('sina'))
 					  {
-					    //$('.btn_w_publish, .count_wrapper, .publish-tweet').show();
 						$('#pub_wrapper').show();
 						$('.pub_imply_sina, .pub_imply_tencent').hide();
 						if($(this).hasClass('repost_f'))
@@ -1258,7 +1264,8 @@ $(function(){
 		  else
 		  {
 			var temp = $('#'+post_id_val+'_digg_count').text();
-		    $('#'+post_id_val+'_digg_count').text(1+parseInt(temp));
+			var digg_count = 1+parseInt(temp);
+		    $('#'+post_id_val+'_digg_count').text(digg_count).attr('title', '累计赞'+digg_count+'次');
 		  }
 		}
 	  });

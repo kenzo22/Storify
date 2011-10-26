@@ -10,12 +10,12 @@ if($_GET['act']!="forget_pwd")
     <span class='title'> 重设密码 </span>  
     <div id='forget_passwd' style='margin-top:20px; margin-bottom:20px;'> 
 	  <div>
-	    <span class='field_name'>邮箱:</span> 
+	    <span style='margin-right:10px;'>邮箱:</span> 
 		<span ><input type='text' name='email' id='signup_email' size='30' maxlength='100'></span>
 		<span class='form_tip' id='email_tip'></span>
 	  </div> 	
-      <div style='margin-top:20px;'>
-	    <a id='btn_submit_forget'><span>重设密码</span></a> 
+      <div style='margin:20px 0 0 40px;'>
+	    <a id='btn_submit_forget' class='large blue awesome'>重设密码 &raquo;</a> 
 	    <input type='hidden' name='act' value='forget_pwd'>
 	  </div>
 	</div>

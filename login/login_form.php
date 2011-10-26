@@ -18,9 +18,7 @@ $content .="<input type='hidden' value='".$_GET['next']."' name='redirect_info' 
   <div><b> 密 码 &nbsp; </b><input type='password' name='passwd' id='pwd_login' size='30'></input><span class='form_tip' id='pwd_tip'></span></div><br />
   <span> <input type='checkbox' name='autologin'>下次自动登录</span> | <span><a href='/login/forget_form.php'/>忘记密码了？</a><span>
   <div id='loginbtn'>
-	<a> 
-        <span>登 录</span>  
-    </a> 
+	<a class='large blue awesome'>登 录 &raquo;</a>
   </div>
 </div>
 <div class='float_r' style='margin-top:40px;'>

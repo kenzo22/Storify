@@ -58,12 +58,12 @@ list-style: none outside none;
 
 .story_share{
   overflow:auto;
-  padding:5px 0 10px 20px;
+  padding:5px 0 5px 20px;
 }
 
 #story_embed{
   float:right;
-  margin-right:10px;
+  margin: -10px 10px 0 0;
 }
 
 .sto_embed{

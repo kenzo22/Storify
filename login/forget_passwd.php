@@ -9,7 +9,7 @@ include '../include/secureGlobals.php';
 				  <div><span class='field_name'>新口令</span><span><input type='password' name='new_pwd' id='new_pwd' size='30' maxlength='100'></span><span class='form_tip' id='pwd_tip'></span></div> 
 				  <div style='margin-top:20px;'><span class='field_name'>再输一次</span><span><input type='password' name='pwd_confirm' id='pwd_confirm' size='30' maxlength='100'></span><span class='form_tip' id='pwd_confirm_tip'></span></div>
 				  <div style='margin-top:20px;'>
-					<a id='btn_cfm_pwd'><span>确认信密码</span></a> 
+					<a id='btn_cfm_pwd' class='large blue awesome'>确认新密码 &raquo;</a> 
 					<input type='hidden' name='act' value='cfm_pwd'>
 				  </div>
 				</form>
