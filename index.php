@@ -4,6 +4,12 @@ include "member/tagoperation.php";
 ?>
 <link rel="stylesheet" type="text/css" href="css/skin.css" />
 <link rel="stylesheet" href="css/orbit-1.2.3.css">
+<!--[if IE]>
+	<style type="text/css">
+		 .timer { display: none !important; }
+		 div.caption { background:transparent; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,endColorstr=#99000000);zoom: 1; }
+	</style>
+<![endif]-->
 <div id='boxes'>
   
 <!-- Start of Login Dialog -->  
@@ -37,21 +43,22 @@ include "member/tagoperation.php";
       <div class='inner'>
 	    <div id="featured_container">
 		  <div id="featured"> 
-			<img src="img/slide1.jpg" style="width:920px; height:360px;" />
-			<a href=""><img src="img/slide2.jpg" style="width:920px; height:360px;"/></a>
-			<img src="img/slide3.jpg" data-caption="#htmlCaption" style="width:920px; height:360px;"/>
-			<img src="img/slide4.jpg"  style="width:920px; height:360px;"/>
+			<img src='img/slide1.jpg' style='width:920px; height:320px;' />
+			<a href=''><img src='img/slide2.jpg' style='width:920px; height:320px;'/></a>
+			<img src='img/slide3.jpg' data-caption='#htmlCaption' style='width:920px; height:320px;'/>
+			<img src='img/slide4.jpg'  style='width:920px; height:320px;'/>
 		  </div>
 		  <!-- Captions for Orbit -->
-		  <span class="orbit-caption" id="htmlCaption"><strong>I'm A Badass Caption:</strong> I can haz <a href="#">links</a>, <em>style</em> or anything that is valid markup :)</span>
+		  <span class='orbit-caption' id='htmlCaption'><strong>I'm A Badass Caption:</strong> I can haz <a href='#'>links</a>, <em>style</em> or anything that is valid markup :)</span>
+		  <div style='margin-top:8px; float:right;'><a id='login_awesome' class='large blue awesome' style='margin:0 10px 0 0;'>登 录 &raquo;</a><a id='register_awesome' class='large green awesome' href='register/register_form.php'>马上注册 &raquo;</a></div>
 		</div>
-		<div id='popular' style='height:300px;'>
-		  <h3 style='color:#999999'>最流行</h3>
-		  <div id='popularstory_list'>
-		    <ul id='mycarousel' class='jcarousel-skin-tango'>
+		<div id='popular'>
+		  <h3 style='color:#999999; padding-top:5px;'>最流行</h3>
+		  <div id='pop_wrapper' style='height:270px;'>
+		    <ul id='pop_list'>
 			<?php
 			$story_content = '';
-			$result=$DB->query("SELECT * FROM ".$db_prefix."posts order by post_digg_count desc limit 10");
+			$result=$DB->query("SELECT * FROM ".$db_prefix."posts order by post_digg_count desc limit 4");
 			while ($story_item = mysql_fetch_array($result))
 			{
 			  //printf ("title: %s  summary: %s", $story_item['post_title'], $story_item['post_summary']);
@@ -70,6 +77,7 @@ include "member/tagoperation.php";
 			?>
 			</ul>
 		  </div>
+		  <div><a id='story_more'>换一组看看</a></div>
 		</div>
 		<div class='category'>
 	      <div id='trendTopics' class='' style='display:block; height:150px;'>
@@ -139,38 +147,32 @@ include "member/tagoperation.php";
 <?php
  include "./include/footer.htm";
 ?>
-<script type="text/javascript" src="js/jquery.jcarousel.min.js"></script>
 <script type="text/javascript" src="js/jquery.orbit-1.2.3.min.js"></script>	
 <script>
-function mycarousel_initCallback(carousel)
-{
-    // Disable autoscrolling if the user clicks the prev or next button.
-    carousel.buttonNext.bind('click', function() {
-        carousel.startAuto(0);
-    });
-
-    carousel.buttonPrev.bind('click', function() {
-        carousel.startAuto(0);
-    });
-
-    // Pause autoscrolling if the user moves with the cursor over the clip.
-    carousel.clip.hover(function() {
-        carousel.stopAuto();
-    }, function() {
-        carousel.startAuto();
-    });
-};
-
 $(document).ready(function() 
 {	
   $('.login_top').attr('name', 'modal').attr('href', '#dialog');
   
-  $('#mycarousel').jcarousel({
-        auto: 3,
-        wrap: 'circular',
-		scroll:1,
-        initCallback: mycarousel_initCallback
-    });
+  $('#login_awesome').attr('name', 'modal').attr('href', '#dialog');
+  
+  $('#story_more').live('click', function(e){
+    e.preventDefault();
+	var getData = {};
+	$.ajax({
+	  type: 'GET',
+	  url: '/member/shufflestory.php',
+	  data: getData, 
+	  beforeSend:function() 
+	  {
+		var imgloading = $("<span style='padding-left:180px;'><img src='/img/loading.gif' /></span>");
+		$('this').html(imgloading);
+	  },
+	  success: function(data)
+	  {
+		$('#pop_list').html(data);
+	  }
+	  });
+  })
   
   $('#connectBtn').live('click', function(e)
   {
@@ -233,7 +235,7 @@ $(document).ready(function()
 
 $(window).load(function() {
 	$('#featured').orbit({
-
+	  bullets: true
 	});
 });
 </script>

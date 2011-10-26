@@ -14,7 +14,7 @@ margin:20px 0 20px 0;
    
 #featured { 
 	width: 920px;
-	height: 360px;
+	height: 320px;
 	background: #000 url('orbit/loading.gif') no-repeat center center;
 	overflow: hidden; }
 #featured>img,  
@@ -175,9 +175,9 @@ div.slider-nav span.left {
     position: absolute;
     z-index: 1000;
     list-style: none;
-    bottom: -40px;
-    left: 50%;
-	margin-left: -50px;
+    bottom: -36px;
+    left:50%;
+	margin-left:-50px;
     padding: 0; }
 
 .orbit-bullets li {
