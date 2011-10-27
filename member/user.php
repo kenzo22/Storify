@@ -15,11 +15,22 @@ include_once "userrelation.php";
 <?php
 if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action']))
 {
+	$post_id = $_GET['post_id'];
+	$user_id = $_GET['user_id'];
+	//update the page view
+	$selResult = $DB->fetch_one_array("SELECT id FROM ".$db_prefix."pageview WHERE story_id='".$post_id."' AND domain_name='koulifang.com'" );
+	if(!empty($selResult))
+	{
+	  $viewresult=$DB->query("update ".$db_prefix."pageview set view_count=view_count+1  WHERE story_id='".$post_id."' AND domain_name='koulifang.com'" );
+	}
+	else
+	{
+	  $viewresult=$DB->query("insert into ".$db_prefix."pageview values(null, '".$post_id."', 'koulifang.com', '', 1)");
+	}
+	
 	$c = new WeiboClient(WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']);
 	$t = new TWeiboClient(MB_AKEY , MB_SKEY , $_SESSION['last_tkey']['oauth_token'] , $_SESSION['last_tkey']['oauth_token_secret']);
 	$d = new DoubanClient(DB_AKEY , DB_SKEY , $_SESSION['last_dkey']['oauth_token'] , $_SESSION['last_dkey']['oauth_token_secret']);
-	$post_id = $_GET['post_id'];
-	$user_id = $_GET['user_id'];
 	$result = $DB->fetch_one_array("select * from ".$db_prefix."posts where ID='".$post_id."'");
 	if(!$result)
 	{
@@ -293,7 +304,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
     $tag_names = $DB->query($tag_query);
     if($DB->num_rows($tag_names) > 0){
         while($tag_name_row = $DB->fetch_array($tag_names)){
-            $tags .= $tag_name_row['name']." ";
+            $tags .= "<a class='tag_item' href='/topic/topic.php?topic=".$tag_name_row['name']."'>".$tag_name_row['name']."</a>";
         }
     }
 
@@ -738,6 +749,10 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
         $result=$DB->query($query);
         $item=$DB->fetch_array($result);
 		$usr_img = $item['photo'];
+		if($usr_img == '')
+		{
+		  $usr_img = '/img/douban_user_dft.jpg';
+		}
         $content .="<li id='follower_id_".$item['id']."'><a class='follow_mini_icon' href='/member/user.php?user_id=".$item['id']."'><img title='".$item['username']."' src='".$usr_img."'></a></li>";
     }
     $content .= "</ul>
@@ -752,13 +767,29 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		$usr_img = $item['photo'];
         $content .="<li id='following_id_".$item['id']."'><a class='follow_mini_icon' href='/member/user.php?user_id=".$item['id']."'><img title='".$item['username']."' src='".$usr_img."'></a></li>";
     }
+	$total_count = 0;
+	$count_query = "select domain_name, refer_url, view_count from ".$db_prefix."pageview where story_id=".$post_id;
+	$countResult = $DB->query($count_query);
+	if($DB->num_rows($countResult) > 0){
+	    $pageview_asoc = array();
+        while($count_result_row = $DB->fetch_array($countResult)){
+			$pageview_asoc[$count_result_row['domain_name']] = $count_result_row['view_count']."-".$count_result_row['refer_url'];
+			$total_count += $count_result_row['view_count'];
+        }
+		foreach($pageview_asoc as $pkey=>$pval)
+	    {
+	      $pval_array = explode("-", $pval);
+		  $view_content .= "<div class='view_count'><a target='_blank' href='".$pval_array[1]."'>".$pkey."</a><span>浏览了<strong>".$pval_array[0]."</strong>次</span></div>";
+	    }
+    }	
+	
     $content .= "
 			</ul>
 		  </div>
 		</div>
 	  </div>
 	  <div class='story_stats'>
-	  <div>被浏览了100次</div>
+	    <div class='total_view_count'>总浏览次数: <span>".$total_count."</span></div>".$view_content."
 	  </div>
 	</div>
 	</div>";

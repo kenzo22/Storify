@@ -54,11 +54,13 @@ include "member/tagoperation.php";
 		</div>
 		<div id='popular'>
 		  <h3 style='color:#999999; padding-top:5px;'>最流行</h3>
-		  <div id='pop_wrapper' style='height:270px;'>
+		  <div id='pop_wrapper' style='height:290px;'>
+		    <div id='time_wrapper'><a class='time_range'>三天内</a><a class='time_range selected'>一周内</a><a class='time_range'>一月内</a><a class='time_range'>365天内</a></div>
 		    <ul id='pop_list'>
 			<?php
 			$story_content = '';
-			$result=$DB->query("SELECT * FROM ".$db_prefix."posts order by post_digg_count desc limit 4");
+			$i_query = "select * from ".$db_prefix."posts where post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_date) <=7 order by post_digg_count desc limit 4";
+			$result=$DB->query($i_query);
 			while ($story_item = mysql_fetch_array($result))
 			{
 			  //printf ("title: %s  summary: %s", $story_item['post_title'], $story_item['post_summary']);
@@ -155,9 +157,37 @@ $(document).ready(function()
   
   $('#login_awesome').attr('name', 'modal').attr('href', '#dialog');
   
+  var sequence_val = 0;
+  
   $('#story_more').live('click', function(e){
-    e.preventDefault();
-	var getData = {};
+	e.preventDefault();
+	sequence_val = sequence_val+4;
+	var selElem = $('.time_range.selected');	
+	var flag_val = $('.time_range').index(selElem);
+	var getData = {flag:flag_val, sequence:sequence_val};
+	$.ajax({
+	  type: 'GET',
+	  url: '/member/shufflestory.php',
+	  data: getData, 
+	  beforeSend:function() 
+	  {
+		var imgloading = $("<span style='padding-left:180px;'><img src='/img/loading.gif' /></span>");
+		$('this').html(imgloading);
+	  },
+	  success: function(data)
+	  {
+		$('#pop_list').html(data);
+	  }
+	  });
+  })
+  
+  $('.time_range').click(function(e){
+	e.preventDefault();
+	sequence_val = 0;
+	$('.time_range').removeClass('selected');
+	$(this).addClass('selected');
+	var flag_val = $('.time_range').index(this);
+	var getData = {flag:flag_val, sequence:0};
 	$.ajax({
 	  type: 'GET',
 	  url: '/member/shufflestory.php',

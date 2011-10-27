@@ -51,6 +51,13 @@ list-style: none outside none;
   color:#555555;
 }
 
+.tag_item{
+background: none repeat scroll 0 0 #F2F7FC;
+border: 1px solid #D1E3EF;
+padding: 3px;
+margin-left:5px;
+}
+
 .tool_wrapper{
   border-bottom: 1px solid #E6E6E6;
   overflow:auto;

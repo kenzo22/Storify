@@ -3,50 +3,6 @@ include "../global.php";
 $uid=intval($_SESSION['uid']);
 
 $result=$DB->fetch_one_array("select * from story_user where id=".$uid);
-if(!empty($result['photo']))
-{
-  if(substr($result['photo'], 0, 4) == 'http')
-  {
-     if(substr($userresult['photo'], 11, 4) == 'sina')
-	 {
-	   $pattern = "/(\d+)\/50\/(\d+)/";
-	   $user_profile_img = preg_replace($pattern,"$1/180/$2",$result['photo']);
-	 }
-	 else
-	 {
-	   $pattern = "/50$/";
-	   $user_profile_img = preg_replace($pattern,'100',$result['photo']);
-	 }
-	$userphoto="<div id='user_profile_img'><img width='80px' height='80px' src='".$user_profile_img."' /> </div>";
-  }
-  else
-  {
-    $userphoto="<div id='user_profile_img'><img width='80px' height='80px' src='".$result['photo']."' /> </div>";
-  } 
-}    
-else
-{
-$userphoto="<div id='user_profile_img'>暂无头像</div>";
-}
-$content = "<div class='inner' style='padding-top:50px; margin-bottom:540px;'><form name='form1'  method='post'  encType='multipart/form-data' target='hidden_frame' >
-<h1>添加或更改您的头像</h1>
-<h3>头像将会显示在故事的作者信息中</h3>
-<div style='float:left; margin-right:40px;'>".$userphoto."</div>
-<div style='margin-left:120px;'>
-  <div>从电脑中选择您喜欢的照片</div><br />
-  <div>你可以上传JPG、JPEG、GIF、PNG或BMP文件。</div><br />
-  <div style=''>
-    <input type='hidden' name='MAX_FILE_SIZE' value='1000000' />  
-    <input type='file' id='upfile' name='photofile' value='".$result['username']."' style='height:22px;' />
-  </div> 
-  <div style='margin-top:20px;'>
-    <input id='upload_btn' type='submit' value='上传照片'/>
-    <input type='hidden' name='act' value='uploadphoto' />
-  </div> 
-</div>
-<div></div> 
-</form></div>";
-echo $content;
 
 if($_POST['act'] == 'uploadphoto')
 {
@@ -130,6 +86,59 @@ if($_POST['act'] == 'uploadphoto')
 	  echo "Invalid file";
 	}
 }
+else
+{
+    if(!empty($result['photo']))
+	{
+	  if(substr($result['photo'], 0, 4) == 'http')
+	  {
+		 if(substr($userresult['photo'], 11, 4) == 'sina')
+		 {
+		   $pattern = "/(\d+)\/50\/(\d+)/";
+		   $user_profile_img = preg_replace($pattern,"$1/180/$2",$result['photo']);
+		 }
+		 else
+		 {
+		   $pattern = "/50$/";
+		   $user_profile_img = preg_replace($pattern,'100',$result['photo']);
+		 }
+		$userphoto="<div id='user_profile_img'><img width='80px' height='80px' src='".$user_profile_img."' /> </div>";
+	  }
+	  else
+	  {
+		$userphoto="<div id='user_profile_img'><img width='80px' height='80px' src='".$result['photo']."' /> </div>";
+	  } 
+	}    
+	else
+	{
+	  $userphoto="<div id='user_profile_img'>暂无头像</div>";
+	}
+	$content = "<div class='inner' style='padding-top:50px; margin-bottom:540px;'><form id='upload_form' name='form1'  method='post'  encType='multipart/form-data' target='hidden_frame' >
+	<h1>添加或更改您的头像</h1>
+	<h3>头像将会显示在故事的作者信息中</h3>
+	<div style='float:left; margin-right:40px;'>".$userphoto."</div>
+	<div style='margin-left:120px;'>
+	  <div>从电脑中选择您喜欢的照片</div><br />
+	  <div>你可以上传JPG、JPEG、GIF、PNG或BMP文件。</div><br />
+	  <div style=''>
+		<input type='hidden' name='MAX_FILE_SIZE' value='1000000' />  
+		<input type='file' id='upfile' name='photofile' value='".$result['username']."' style='height:22px;' />
+	  </div> 
+	  <div style='margin-top:20px;'>
+		<a id='upload_btn' class='large blue awesome'>上传照片 &raquo;</a>
+		<input type='hidden' name='act' value='uploadphoto' />
+	  </div> 
+	</div>
+	<div></div> 
+	</form></div>";
+	echo $content;
+}
 
 include "../include/footer.htm"
 ?>
+<script type="text/javascript">
+$('#upload_btn').click(function(e)
+{
+    $('#upload_form').submit();
+})
+</script>

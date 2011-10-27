@@ -31,6 +31,20 @@ $result = $DB->fetch_one_array("select * from ".$db_prefix."posts where post_aut
 if(!empty($result))
 {
   $post_id = $result['ID'];
+  //update view count for external websites
+  $refer_url = $_SERVER['HTTP_REFERER'];
+  $temp_array = explode("/", $refer_url);
+  $domain_name = $temp_array[3];
+  $selResult = $DB->fetch_one_array("SELECT id FROM ".$db_prefix."pageview WHERE story_id='".$post_id."' AND domain_name='".$domain_name."'" );
+  if(!empty($selResult))
+  {
+    $viewresult=$DB->query("update ".$db_prefix."pageview set view_count=view_count+1  WHERE story_id='".$post_id."' AND domain_name='".$domain_name."'" );
+  }
+  else
+  {
+    $viewresult=$DB->query("insert into ".$db_prefix."pageview values(null, '".$post_id."', '".$domain_name."', '".$refer_url."', 1)");
+  }
+  
   $userresult = $DB->fetch_one_array("select username, intro, photo from ".$db_prefix."user where id='".$result['post_author']."'");
   $story_embed = $result['embed_name'];
   $story_time = $result['post_date'];
@@ -72,7 +86,7 @@ if(!empty($result))
   $tag_names = $DB->query($tag_query);
   if($DB->num_rows($tag_names) > 0){
       while($tag_name_row = $DB->fetch_array($tag_names)){
-          $tags .= $tag_name_row['name']." ";
+          $tags .= "<a class='tag_item' href='/topic/topic.php?topic=".$tag_name_row['name']."'>".$tag_name_row['name']."</a>";
       }
   }
 
