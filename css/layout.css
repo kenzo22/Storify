@@ -26,6 +26,7 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 .float_l { float:left;}
 .float_r { float:right;}
 .field_name { width:80px; display:inline-block; }
+.err_notify{color:red; margin-top:5px;}
 .form_tip {padding-left:20px; color:#666699; display:none;}
 #term_tip {padding-left:76px; color:#666699; display:none;}
 .a_notify{width:100%; text-align:center; background-color: #FFF6EE;}
@@ -1298,7 +1299,11 @@ border: 1px solid #CCCCCC;
 padding: 2px;
 }
 
-#login_awesome:link,#register_awesome:link{
+#login_awesome:link,.register_awesome:link{
+color:#FFFFFF;
+}
+
+.cfm_awesome:link, .cfm_awesome:hover{
 color:#FFFFFF;
 }
 
@@ -1554,7 +1559,7 @@ margin-left:30px;
 }
 
 #login_modal {width:200px;}
-#login_modal div {margin-top:20px;}
+#login_modal div {margin-top:20px; padding-left:15px;}
 #login div {margin-top:20px;}
 .showborder {border: 1px solid #C9C9C9;}
 #login_btn {padding: 3px 8px; border: 1px solid #C9C9C9; color: #336699; background: repeat-x; cursor:pointer;}

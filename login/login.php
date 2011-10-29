@@ -87,7 +87,7 @@ if($email && $passwd)
 	  $_SESSION['last_dkey']['oauth_token_secret']=$result['douban_access_token_secret'];
 	  $_SESSION['yupoo_token'] = $result['yupoo_token'];
 	  
-	  if((isset($redirect_info)) && ($redirect_info != ''))
+	  if((isset($redirect_info)) && ($redirect_info != 'error_flag') && ($redirect_info != 'inactivate'))
 	  {
 	    go($redirect_info);
 	  }
@@ -116,7 +116,7 @@ if($email && $passwd)
   }
   else
   {
-	go("/login/login_form.php");
+	go("/login/login_form.php?next=error_flag");
   }
 }
 ?>

@@ -15,41 +15,70 @@ include_once( '../include/weibo_functions.php');
 
 <?php
 require ('../include/secureGlobals.php');
-if(!islogin())
+/*if(!islogin())
 {
   header("location: /login/login_form.php"); 
   exit;
-}
+}*/
 $extra_class = "";
 $hasSina = "sina_disable";
 $hasTencent = "tencent_disable";
 $hasYupoo = "yupoo_disable";
-$userresult=$DB->fetch_one_array("SELECT weibo_user_id, tweibo_access_token, yupoo_token FROM ".$db_prefix."user where id='".$_SESSION['uid']."'");
-if(!$userresult)
+if(islogin())
 {
-  throw new Exception('Could not execute query.');
+  $userresult=$DB->fetch_one_array("SELECT weibo_user_id, tweibo_access_token, yupoo_token FROM ".$db_prefix."user where id='".$_SESSION['uid']."'");
+  if(!$userresult)
+  {
+    throw new Exception('Could not execute query.');
+  }
+  if(!empty($userresult))
+  {
+    if(0 != $userresult['weibo_user_id'])
+    {
+      $hasSina = "sina_enable";
+	  $extra_class .=" sina";
+    }
+    if('' != $userresult['tweibo_access_token'])
+    {
+      $hasTencent = "tencent_enable";
+	  $extra_class .=" tencent";
+    }
+    if('' != $userresult['yupoo_token'])
+    {
+      $hasYupoo = "yupoo_enable";
+    }
+  }
+  $content = "<div id='storyContent' style='margin-bottom:0;'>
+				<div id='boxes'>";
 }
-if(!empty($userresult))
+else
 {
-  if(0 != $userresult['weibo_user_id'])
-  {
-    $hasSina = "sina_enable";
-	$extra_class .=" sina";
-  }
-  if('' != $userresult['tweibo_access_token'])
-  {
-    $hasTencent = "tencent_enable";
-	$extra_class .=" tencent";
-  }
-  if('' != $userresult['yupoo_token'])
-  {
-    $hasYupoo = "yupoo_enable";
-  }
+  $content="<div id='storyContent' style='margin-bottom:0;'>
+            <div id='boxes'>
+			  <div id='dialog' class='window' style='padding:0;'>
+			    <div style='background-color:#ababac; padding:5px;'><span>登录 koulifang.com</span><span><a href='#' class='close'/>关闭</a></span></div>
+			    <form method='post' action='/login/login.php'>
+			    <div>
+				  <div id='login_modal' class='float_l'>
+				    <div style='padding-left:5px;'><b> 邮 箱 &nbsp; </b><span><input type='text' name='email' id='email_login' onclick='this.value=\"\"'/></span></div>
+				    <div style='padding-left:5px;'><b> 密 码 &nbsp; </b> <span><input type='password' name='passwd' id='pwd_login' onclick='this.value=\"\"'/> </span></div>
+				    <div style='padding-left:2px;'><span> <input type='checkbox' name='autologin'>下次自动登录</span> | <span><a href='/login/forget_form.php'/>忘记密码了？</a><span></div>
+				    <div style='padding-left:5px; margin-top:5px;'>
+					  <input type='submit' id='login_modal_btn' value='登录'/>
+				    </div>
+				  </div>
+				  <div class='float_l' style='border-left:1px solid #333; margin-top:15px; margin-left:70px; padding:0px 45px 24px 60px;'>
+				    <div style='margin-bottom:5px;'>还没有口立方帐号?</div>
+					<a class='large green awesome register_awesome' href='/register/register_form.php'/>马上注册 &raquo;</a>
+					<div style='margin-top:15px;'><span align='center'>使用新浪微博帐号登录</span></div>
+				    <div style='margin-top:5px;'><a id='connectBtn' href='#'><div class='sina_icon'></div><div class='sina_name'>新浪微博</div></a></div>  
+				  </div>
+			    </div>
+			    </form>
+			  </div>";
 }
 
-$content = "
-<div id='storyContent' style='margin-bottom:0;'>
-  <div id='boxes'>
+$content .= "
     <div id='weibo_dialog' class='window".$extra_class."'>
 	  <div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span id='publish_title' style='color: #B8B7B7;'>发表微博</span><span><a href='#' class='close'/>关闭</a></span></div>
 	  <div id='pub_wrapper'>
@@ -180,7 +209,12 @@ $content = "
 	  <div id='story'>";
 	  
 if(isset($_GET['user_id']) && isset($_GET['post_id']))
-{  
+{ 
+  if(!islogin())
+  {
+    header("location: /login/login_form.php"); 
+    exit;
+  } 
   $c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']  );
   $t = new TWeiboClient( MB_AKEY , MB_SKEY , $_SESSION['last_tkey']['oauth_token'] , $_SESSION['last_tkey']['oauth_token_secret']  );
   $d = new DoubanClient( DB_AKEY , DB_SKEY , $_SESSION['last_dkey']['oauth_token'] , $_SESSION['last_dkey']['oauth_token_secret']  );

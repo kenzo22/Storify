@@ -4,8 +4,8 @@ include "../global.php";
 $content ="<form method='post' id='login_form' action='login.php'>
 <div class='inner' style='padding-top:50px;'><span class='title'> 登录 Koulifang.com </span></div>
 <div class='inner'>
-<div class='float_l' style='margin-top:20px;' id='login'>";
-if(!isset($_GET['next']))
+<div class='float_l' style='margin-top:10px;' id='login'>";
+if($_GET['next'] == 'error_flag')
 {
   $content .="<div style='margin:0;'><span style='color:red;'>您的Email和密码不符，请再试一次</span></div>";
 }
@@ -21,9 +21,10 @@ $content .="<input type='hidden' value='".$_GET['next']."' name='redirect_info' 
 	<a class='large blue awesome'>登 录 &raquo;</a>
   </div>
 </div>
-<div class='float_r' style='margin-top:40px;'>
-  <span>还没有口立方帐号，<a href='/register/register_form.php'/>立即注册？</a></span>
-  <div style='margin-top:10px;'><span align='center'>使用新浪微博帐号登录</span></div>
+<div class='float_r'>
+  <div style='margin-bottom:5px;'>还没有口立方帐号?</div>
+  <a class='large green awesome register_awesome' href='/register/register_form.php'/>马上注册 &raquo;</a>
+  <div style='margin-top:20px;'><span align='center'>使用新浪微博帐号登录</span></div>
   <div style='margin-top:5px;'><a id='connectBtn' href='#'><div class='sina_icon'></div><div class='sina_name'>新浪微博</div></a></div>
 </div>
 <div class='inner' style='height:250px;'></div>
@@ -72,6 +73,25 @@ $('#loginbtn').click(function(e)
     $('#login_form').submit();
   }
 })
+
+$('#email_login, #pwd_login').bind('keyup', function(e)
+{
+  var code = e.keyCode || e.which; 
+  if(code == 13)
+  {
+    var email_val = $('#email_login').val();
+    var pwd_val = $('#pwd_login').val();
+    var tip_flag = ($('#email_tip').css('color') == 'red') || ($('#pwd_tip').css('color') == 'red');
+    if(tip_flag || email_val == '' || pwd_val == '')
+    {
+      e.preventDefault();
+    }
+    else
+    {
+      $('#login_form').submit();
+    }
+  }
+});
 
 $('#connectBtn').live('click', function(e)
 {

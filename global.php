@@ -57,7 +57,7 @@
   
 	  $content = "<span style='margin: 0; position:absolute; right:0; top:0;'><a href='/register/register_form.php'>加入口立方</a> | <a class='login_top' href='/login/login_form.php?next=".urlencode($_SERVER['REQUEST_URI'])."'>登录</a></span>";
 	  echo "<div id='global_bar'><div></div></div><div id='top_bar'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='/img/koulifang.png' style='width:108px; height:47px; border:0;'></a></span>
-	  <span id='user_action'><a href='/index.php'>首页</a></span>".$content."</div></div><BR>";
+	  <span id='user_action'><a href='/index.php'>首页</a> | <a href='/member'>创建故事</a></span>".$content."</div></div><BR>";
 	}
 ?>
 <script>

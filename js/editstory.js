@@ -17,6 +17,21 @@ String.prototype.len=function()
   return this.replace(/[^\x00-\xff]/g,"**").length;
 }
 
+function bindonbeforeunload()
+{
+  window.onbeforeunload=popalert;
+}
+
+function unbindonbeforeunload()
+{
+  window.onbeforeunload=null;
+}
+
+function popalert()
+{
+  return"本页面要求您确认您要离开 - 您输入的数据可能不会被保存";
+}
+
 function show_weibo_card(id)
 {
   WB2.anyWhere(function(W){
@@ -262,7 +277,18 @@ function change_story_pic(direction)
   $('#story_thumbnail').attr('src', story_pic_array[i]);
 }
 
-$(function() {
+$(function() {				
+		$('#connectBtn').live('click', function(e)
+	    {
+		  e.preventDefault();
+		  $.post('/login/sina_auth.php', {}, 		
+		  function(data, textStatus)
+		  {
+		    $('#dialog.window').hide();
+		    self.location=data;
+		  });
+	    });
+
 		$('#prev_img').click(function(e)
 		{
 		  e.preventDefault();
@@ -814,7 +840,7 @@ $(function() {
 				  }
 				  dragItem.removeClass('weibo_drag').addClass('weibo_drop sina').children().remove();
 				  content = ("<div class='cross' action='delete'><a><img src='/img/cross.png' border='0' onclick='remove_item(event)'/></a></div>"+item_action+"<div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>"
-					+weibo_Text+"</span>"+weibo_retweet_img_content+weibo_img_content+"</div><div id='story_signature'><span style='float:right;'><a href='"+weibo_from_url+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
+					+weibo_Text+"</span>"+weibo_retweet_img_content+weibo_img_content+"</div><div class='story_signature'><span style='float:right;'><a href='"+weibo_from_url+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
 					+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></span><span id='signature_text_drop' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='weibo_from_drop' href='"
 					+weibo_from_url+"' target='_blank'>"+weibo_from+"</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px' src='/img/sina16.png'/><a>"
 					+weibo_time+"</a></span></div></span> </div></div>");
@@ -845,7 +871,7 @@ $(function() {
 				  }
 				  dragItem.removeClass('weibo_drag').addClass('weibo_drop tencent').children().remove();
 				  content = ("<div class='cross' action='delete'><a><img src='/img/cross.png' border='0' onclick='remove_item(event)'/></a></div>"+item_action+"<div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>"
-					+weibo_Text+"</span>"+weibo_retweet_img_content+weibo_img_content+"</div><div id='story_signature'><span style='float:right;'><a href='"+weibo_from_url+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
+					+weibo_Text+"</span>"+weibo_retweet_img_content+weibo_img_content+"</div><div class='story_signature'><span style='float:right;'><a href='"+weibo_from_url+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
 					+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></span><span id='signature_text_drop' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='weibo_from_drop' href='"
 					+weibo_from_url+"' target='_blank'>"+weibo_from+"</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span> <img border='0' style='position:relative; top:2px' src='/img/tencent16.png'/><a>"
 					+weibo_time+"</a></span></div></span> </div></div>");
@@ -1076,33 +1102,48 @@ $(function() {
 		{
 		  //debugger;
 		  e.preventDefault();
-		  var story_title_txt = $('#sto_title').attr('value');
-		  var postdata; 
-		  var posturl = 'publish.php';
-		  if($(e.target).is('#publishBtn'))
+		  unbindonbeforeunload();
+		  if($(e.target).hasClass('disable'))
 		  {
-		    postdata = prepare_story_data('Publish');
-		  }
-		  else if($(e.target).is('#previewBtn'))
-		  {
-		    postdata = prepare_story_data('Preview');
-		  }
-		  else
-		  {
-		    postdata = prepare_story_data('Draft');
-		  }
-		  if($(e.target).is('#publishBtn') && story_title_txt == '写下你的故事标题吧(这将会是你故事的链接地址)')
-		  {
-		    alert('请为你的故事输入一个标题');
-			$('#sto_title').focus();
+			var winH = $(window).height();
+			var winW = $(window).width();
+			var login_dialog = $('#boxes #dialog');
+				  
+			login_dialog.css('top',  winH/2-login_dialog.height()/2);
+			login_dialog.css('left', winW/2-login_dialog.width()/2);
+		
+			login_dialog.fadeIn(1000);
 		  }
 		  else
 		  {
-		    $.post(posturl, postdata,
-		    function(data, textStatus)
-		    {					
-			  self.location = data;
-		    });
+		      var story_title_txt = $('#sto_title').attr('value');
+			  var postdata; 
+			  var posturl = 'publish.php';
+			  if($(e.target).is('#publishBtn'))
+			  {
+				postdata = prepare_story_data('Publish');
+			  }
+			  else if($(e.target).is('#previewBtn'))
+			  {
+				postdata = prepare_story_data('Preview');
+			  }
+			  else
+			  {
+				postdata = prepare_story_data('Draft');
+			  }
+			  if($(e.target).is('#publishBtn') && story_title_txt == '写下你的故事标题吧(这将会是你故事的链接地址)')
+			  {
+				alert('请为你的故事输入一个标题');
+				$('#sto_title').focus();
+			  }
+			  else
+			  {
+				$.post(posturl, postdata,
+				function(data, textStatus)
+				{					
+				  self.location = data;
+				});
+			  }
 		  }
 		});
 		

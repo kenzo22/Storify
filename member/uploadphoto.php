@@ -9,8 +9,8 @@ if($_POST['act'] == 'uploadphoto')
 	if(!islogin())  
 		go("/login","请先登录..",2);
 
-    if ((($_FILES["photofile"]["type"] == "image/png") || ($_FILES["photofile"]["type"] == "image/gif") || ($_FILES["photofile"]["type"] == "image/jpeg") || 
-	($_FILES["photofile"]["type"] == "image/pjpeg") || ($_FILES["photofile"]["type"] == "image/bmp")) && ($_FILES["photofile"]["size"] < 500000))	
+    if ((($_FILES["photofile"]["type"] == "image/png") || ($_FILES["photofile"]["type"] == "image/gif") || ($_FILES["photofile"]["type"] == "image/jpeg") || ($_FILES["photofile"]["type"] == "image/jpg") ||
+	($_FILES["photofile"]["type"] == "image/pjpeg") || ($_FILES["photofile"]["type"] == "image/bmp")) && ($_FILES["photofile"]["size"] < 5000000))	
 	{
 	  $err_code=$_FILESs['photofile']['error'];
 	  if ($err_code > 0)
@@ -83,7 +83,9 @@ if($_POST['act'] == 'uploadphoto')
 	}
 	else
 	{ 
+	  echo "<br/>";
 	  echo "Invalid file";
+	  echo $_FILES["photofile"]["size"];
 	}
 }
 else

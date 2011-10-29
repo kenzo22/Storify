@@ -3,6 +3,12 @@ include "../global.php";
 include_once( '../weibo/config.php' );
 include_once( '../weibo/sinaweibo.php' );
 
+if(islogin())
+{
+  header("location: /index.php"); 
+  exit;
+}
+
 $c = new WeiboClient( WB_AKEY , 
                       WB_SKEY , 
                       $_SESSION['last_wkey']['oauth_token'] , 
@@ -57,7 +63,7 @@ $content = "<div class='form_wrapper' style='padding-top:50px;'>
 				  <div style='display:inline; margin:0;padding:0;' ><input type='hidden' value='".$weibo_uid."' name='weibo_uid' /></div>
 				  <div><label>电子邮箱</label><input id='email' type='text' value='' size='50' name='email' maxlength='50' /><span class='form_tip' id='email_tip'></span></div>
 				  <div><label>密码</label><input id='pwd' type='password' value='' size='50' name='pwd' maxlength='50' /><span class='form_tip' id='pwd_tip'></div>
-				  <div class='aa_submit large blue awesome'><a>确定关联 &raquo;</a></div>
+				  <div class='aa_submit large blue awesome'><a class='cfm_awesome'>确定关联 &raquo;</a></div>
 			    </form>
 			  </div>
 			  <div id='form_2' style='display:none;'>
@@ -67,7 +73,7 @@ $content = "<div class='form_wrapper' style='padding-top:50px;'>
 				  <div><label>用户名</label><input id='user_name' type='text' value='' size='50' name='user_name' maxlength='50' /><span class='form_tip' id='user_name_tip'></span></div>  
 				  <div><label>密码</label><input id='user_pwd' type='password' value='' size='50' name='user_pwd' maxlength='50' /><span class='form_tip' id='user_pwd_tip'></div>
 				  <div><label>确认密码</label><input id='user_pwd_confirm' type='password' value='' size='50' name='user_pwd_confirm' maxlength='50' /><span class='form_tip' id='pwd_confirm_tip'></div> 
-				  <div class='aa_submit large blue awesome'><a>创建帐号并关联 &raquo;</a></div>
+				  <div class='aa_submit large blue awesome'><a class='cfm_awesome'>创建帐号并关联 &raquo;</a></div>
 			    </form>
 			  </div>
 			</div>";

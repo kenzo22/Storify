@@ -17,16 +17,18 @@ include "member/tagoperation.php";
   <div style='background-color:#ababac; padding:5px;'><span>登录 koulifang.com</span> | <span><a href='register/register_form.php'/>还没有注册？</a><span> <span><a href='#' class='close'/>关闭</a></span></div>
   <form method='post' action='login/login.php'>
   <div>
-    <div id='login_modal' class='float_l' style='margin-top:10px;'>
+    <div id='login_modal' class='float_l'>
       <div style='padding-left:5px;'><b> 邮 箱 &nbsp; </b><span><input type='text' name='email' id='email_login' onclick='this.value=""'/></span></div>
       <div style='padding-left:5px;'><b> 密 码 &nbsp; </b> <span><input type='password' name='passwd' id='pwd_login' onclick='this.value=""'/> </span></div>
-      <div style='padding-left:5px;'><span> <input type='checkbox' name='autologin'>下次自动登录</span> | <span><a href='login/forget_form.php'/>忘记密码了？</a><span></div>
-      <div style='padding-left:5px;'>
+      <div style='padding-left:2px;'><span> <input type='checkbox' name='autologin'>下次自动登录</span> | <span><a href='login/forget_form.php'/>忘记密码了？</a><span></div>
+      <div style='padding-left:5px; margin-top:5px;'>
         <input type='submit' id='login_modal_btn' value='登录'/>
       </div>
     </div>
-	<div class='float_l' style='border-left:1px solid #333; margin-top:20px; margin-left:70px; padding:0px 45px 80px 60px;'>
-	  <div><span align='center'>使用新浪微博帐号登录</span></div>
+	<div class='float_l' style='border-left:1px solid #333; margin-top:15px; margin-left:70px; padding:0px 45px 24px 60px;'>
+	  <div style='margin-bottom:5px;'>还没有口立方帐号?</div>
+	  <a class='large green awesome register_awesome' href='/register/register_form.php'/>马上注册 &raquo;</a>
+	  <div style='margin-top:15px;'><span align='center'>使用新浪微博帐号登录</span></div>
 	  <div style='margin-top:5px;'><a id='connectBtn' href='#'><div class='sina_icon'></div><div class='sina_name'>新浪微博</div></a></div>  
 	</div>
   </div>
@@ -50,7 +52,7 @@ include "member/tagoperation.php";
 		  </div>
 		  <!-- Captions for Orbit -->
 		  <span class='orbit-caption' id='htmlCaption'><strong>I'm A Badass Caption:</strong> I can haz <a href='#'>links</a>, <em>style</em> or anything that is valid markup :)</span>
-		  <div style='margin-top:8px; float:right;'><a id='login_awesome' class='large blue awesome' style='margin:0 10px 0 0;'>登 录 &raquo;</a><a id='register_awesome' class='large green awesome' href='register/register_form.php'>马上注册 &raquo;</a></div>
+		  <div style='margin-top:8px; float:right;'><a id='login_awesome' class='large blue awesome' style='margin:0 10px 0 0;'>登 录 &raquo;</a><a class='large green awesome register_awesome' href='register/register_form.php'>马上注册 &raquo;</a></div>
 		</div>
 		<div id='popular'>
 		  <h3 style='color:#999999; padding-top:5px;'>最流行</h3>

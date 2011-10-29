@@ -20,19 +20,24 @@
    set_magic_quotes_runtime(0);
 	if(islogin())
     { 
-		$userresult=$DB->fetch_one_array("SELECT id, photo FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
-		$content="<div id='actions' style='display:block; position:absolute; top:0; right:0;'>
+	  $content="<div id='actions' style='display:block; position:absolute; top:0; right:0;'>
 					<span><a id='draftBtn' href='./' >保存草稿</a></span>
 					<span><a id='previewBtn' href='./' >预览</a></span>
 					<span><a id='publishBtn' class='large blue awesome' href='./' >发布 &raquo;</a></span>
 				  </div>";
+	  $userresult=$DB->fetch_one_array("SELECT id, photo FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
 	  echo "<div id='global_bar'><div></div></div><div id='top_bar'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='/img/koulifang.png' style='width:108px; height:47px; border:0;'></a></span>
-	  <span id='user_action'><a href='/index.php'>主页</a> | <a href='/member/user.php?user_id=".$userresult['id']."'>我的故事</a> | <a href='/member'>创建故事</a>
-	  </span>".$content."</div></div><BR>";
+	  <span id='user_action'><a href='/index.php'>主页</a> | <a href='/member/user.php?user_id=".$userresult['id']."'>我的故事</a> | <a href='/member'>创建故事</a></span>".$content."</div></div><BR>";
     }
 	else
 	{
-	  echo "<div id='global_bar'><div></div></div><div id='top_bar'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='/img/koulifang.png' style='width:108px; height:47px; border:0;'></a></span></div></div><BR>";
+	  $content="<div id='actions' style='display:block; position:absolute; top:0; right:0;'>
+					<span><a id='draftBtn' class='disable' href='./' >保存草稿</a></span>
+					<span><a id='previewBtn' class='disable' href='./' >预览</a></span>
+					<span><a id='publishBtn' class='large blue awesome disable' href='./' >发布 &raquo;</a></span>
+				  </div>";
+	  echo "<div id='global_bar'><div></div></div><div id='top_bar'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='/img/koulifang.png' style='width:108px; height:47px; border:0;'></a></span>
+	  <span id='user_action'><a href='/index.php'>主页</a></span>".$content."</div></div><BR>";
 	}
 ?>
 <script>

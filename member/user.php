@@ -281,7 +281,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 					  <a class='jiathis_button_qzone'></a><a class='jiathis_button_tsina'></a>
 					  <a class='jiathis_button_tqq'></a>
 					  <a class='jiathis_button_renren'></a><a class='jiathis_button_kaixin001'></a>
-					  <a href='http://www.jiathis.com/share' class='jiathis jiathis_txt jtico jtico_jiathis' target='_blank'></a>
+					  <a href='http://www.jiathis.com/share?uid=1542042' class='jiathis jiathis_txt jtico jtico_jiathis' target='_blank'></a>
 					  <a class='jiathis_counter_style'></a>
 					</div>
 				  </div>
@@ -329,7 +329,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 							<a class='jiathis_button_tqq'></a>
 							<a class='jiathis_button_renren'></a>
 							<a class='jiathis_button_kaixin001'></a>
-							<a href='http://www.jiathis.com/share' class='jiathis jiathis_txt jtico jtico_jiathis' target='_blank'></a>
+							<a href='http://www.jiathis.com/share?uid=1542042' class='jiathis jiathis_txt jtico jtico_jiathis' target='_blank'></a>
 							<a class='jiathis_counter_style'></a>
 						</div>
 						<div id='story_embed'>
@@ -1482,4 +1482,5 @@ $(function(){
 
 <script type='text/javascript' src='../js/jquery-ui-1.8.12.custom.min.js'></script>
 <script type="text/javascript" src="../js/jquery.embedly.min.js"></script>
-<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js" charset="utf-8"></script>
+<script type="text/javascript">var jiathis_config = {data_track_clickback:true};</script>
+<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js?uid=1542042" charset="utf-8"></script>
