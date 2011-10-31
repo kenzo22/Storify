@@ -108,7 +108,7 @@ position:absolute;
 position: fixed; 
 z-index:200;
 }
-.editor #global_bar {position: fixed; }
+.editor #global_bar {position: fixed; z-index:100;}
 #top_bar .user_console {
 margin: 0; position:absolute; right:0; top:0;
 min-width: 120px;
@@ -523,26 +523,40 @@ margin-left:70px;
 .weibo_img_drop img, .weibo_retweet_img_drop img{width:280px;}
 
 
-.weibo_drag, .video_Drag, .pic_Drag, .douban_drag{padding:5px; margin:8px; border-color:#ababac;
-  border-style:solid;
-  border-width:1px;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  overflow:auto;
- }
- 
- .list_t_weibo{
- background: none repeat scroll 0 0 #E1F0F7;
-    border-radius: 30px 30px 30px 30px;
-    display: inline-block;
-    margin: 0 5px 5px 0;
-    padding: 0 10px;
-    text-decoration: none;
- }
- 
- #trends_wrapper{
+.weibo_drag, .video_Drag, .pic_Drag, .douban_drag{
+position:relative;
+padding:5px; 
+margin:8px; 
+border-color:#ababac;
+border-style:solid;
+border-width:1px;
+overflow:auto;
+}
 
+.handle{
+background: url("../img/textture.png") repeat-y scroll center top #EFEFEF;
+border-right: 1px solid #BBBBBB;
+bottom: 0;
+left: 0;
+position: absolute;
+top: 0;
+width: 13px;
+}
+
+.story_wrapper, .douban_wrapper, .urlWrapper, .yupooWrapper, .youku_wrapper{
+margin-left:13px;
+}
+ 
+.list_t_weibo{
+background: none repeat scroll 0 0 #E1F0F7;
+border-radius: 30px 30px 30px 30px;
+display: inline-block;
+margin: 0 5px 5px 0;
+padding: 0 10px;
+text-decoration: none;
+}
+ 
+#trends_wrapper{
 margin:8px 8px 8px 14px; 
 padding:8px;
 overflow:auto;
@@ -553,9 +567,9 @@ float:left;
 margin-right:10px;
 }
  
- .video_Drag, .pic_Drag{
- overflow:auto;
- }
+.video_Drag, .pic_Drag{
+overflow:auto;
+}
  
  .youku_wrapper{
  text-align:center;
@@ -576,25 +590,21 @@ margin-right:10px;
   border-color:#ababac;
   border-style:solid;
   border-width:1px;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
   margin:auto;
   width:95%;
   overflow:auto;
+  position:relative;
  }
   
   .weibo_drop{padding:0px 5px 5px 5px;
   border-color:#ababac;
   border-style:solid;
   border-width:1px;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
   margin:auto;
   width:95%;
   overflow:hidden;
-  position:relative;}
+  position:relative;
+ }
   
 .weibo_date_drop span a, .douban_date_drop span a{
 color:#939393;
@@ -604,23 +614,21 @@ color:#939393;
   border-color:#ababac;
   border-style:solid;
   border-width:1px;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
   margin:auto;
   width:95%;
-  overflow:hidden;}
+  overflow:hidden;
+  position:relative;
+}
   
   .pic_drop{padding:0px 5px 5px 5px;
   border-color:#ababac;
   border-style:solid;
   border-width:1px;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
   margin:auto;
   width:95%;
-  overflow:auto;}
+  overflow:auto;
+  position:relative;
+}
   
 .source_drag {padding:5px;margin:5px;}
 
@@ -635,6 +643,7 @@ color:#939393;
   
 .cross{
   padding-left:472px;
+  visibility:hidden;
 }
 
 .yupoo_wrapper{

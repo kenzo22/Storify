@@ -90,7 +90,7 @@ foreach($picArray as $item)
   $photoDescription = $photoMeta['description'];
   $temp_array = explode("-", $photoMeta['id']);
   $picurl = "http://pic.yupoo.com/".$item['bucket']."/".$item['key']."/square";
-  $picContent .= "<li class='pic_Drag'><div style='margin-bottom:10px; clear:both;'><img src='".$picurl."' style='float:left; margin-right:5px; border: 1px solid #E9E9E9; padding:3px;'/><div style='line-height:1.5;'><a class='pic_title' target='_blank' href='http://www.yupoo.com/photos/".$item['ownername']."/".$temp_array[1]."'>".$item['title']."</a></div>
+  $picContent .= "<li class='pic_Drag'><div class='handle'></div><div class='yupooWrapper' style='margin-bottom:10px; clear:both;'><img src='".$picurl."' style='float:left; margin-right:5px; border: 1px solid #E9E9E9; padding:3px;'/><div style='line-height:1.5;'><a class='pic_title' target='_blank' href='http://www.yupoo.com/photos/".$item['ownername']."/".$temp_array[1]."'>".$item['title']."</a></div>
   <div style='line-height:1.5;'><a class='pic_author' target='_blank' href='http://www.yupoo.com/photos/".$item['ownername']."'>".$photoMeta['owner']['nickname']."</a></div><div class='pic_description' style='line-height:1.5;'>".$photoDescription."</div></div></li>";
 }
 
