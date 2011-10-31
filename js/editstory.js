@@ -132,7 +132,7 @@ function prepare_story_data(action_value)
   var summary_txt = $('#sto_summary').val();
   var story_summary_val = (summary_txt == '给你的故事写一个简短的描述'? '': summary_txt);
   var tag_txt = $('#sto_tag').attr('value');
-  var story_tag_val = (tag_txt == '添加故事标签'? '': tag_txt);
+  var story_tag_val = (tag_txt == '添加故事标签，空格或逗号分隔'? '': tag_txt);
   var story_pic_val = $('#story_thumbnail').attr('src');
   var storydata = {story_id: story_id_val, story_title: story_title_val, story_summary: story_summary_val, story_pic: story_pic_val, story_tag: story_tag_val, story_content: story_content_val_string, action:action_value};	
   return storydata;
@@ -307,7 +307,7 @@ $(function() {
 		var tag_txt = $('#sto_tag').val();
 		if(tag_txt == ' ')
 		{
-		  $('#sto_tag').val('添加故事标签').addClass('imply_color');
+		  $('#sto_tag').val('添加故事标签，空格或逗号分隔').addClass('imply_color');
 		}
 		  
 		$('#keywords').val('关键字').addClass('imply_color');
@@ -588,7 +588,7 @@ $(function() {
 		  if(0 == vtabIndex)
 		  {
 		    $('#weibo_search_btn').text('搜索话题');
-			$('#source_list').append("<div style='text-align:center;'><a id='view_trends' href='#'>点击查看本周热门话题</a></div>");
+			$('#source_list').append("<div class='trends_wrapper'><a id='view_trends' href='#'>点击查看本周热门话题</a></div>");
 		  }
 		  else
 		  {
@@ -1022,15 +1022,15 @@ $(function() {
 		
 		if($('#sto_title').val() =='')
 		{
-		  $('#sto_title').val('写下你的故事标题吧(这将会是你故事的链接地址)').removeClass('imply_color').focus(function(){
-		  if($(this).val() == '写下你的故事标题吧(这将会是你故事的链接地址)')
+		  $('#sto_title').val('你的故事标题').removeClass('imply_color').focus(function(){
+		  if($(this).val() == '你的故事标题')
 		  {
 		    $(this).val('').removeClass('imply_color');
 		  }
 		  }).blur(function(){
 		  if($(this).val() == '')
 		  {
-		    $(this).val('写下你的故事标题吧(这将会是你故事的链接地址)').removeClass('imply_color');
+		    $(this).val('你的故事标题').removeClass('imply_color');
 		  }
 		  });
 		}
@@ -1053,15 +1053,15 @@ $(function() {
 
 		if($('#sto_tag').val() =='')
 		{
-		  $('#sto_tag').val('添加故事标签').addClass('imply_color').focus(function(){
-		  if($(this).val() == '添加故事标签')
+		  $('#sto_tag').val('添加故事标签，空格或逗号分隔').addClass('imply_color').focus(function(){
+		  if($(this).val() == '添加故事标签，空格或逗号分隔')
 		  {
 		    $(this).val('').removeClass('imply_color');
 		  }		  
 		  }).blur(function(){
 		  if($(this).val() == '')
 		  {
-		    $(this).val('添加故事标签').addClass('imply_color');
+		    $(this).val('添加故事标签，空格或逗号分隔').addClass('imply_color');
 		  }
 		  });
 		}	
@@ -1131,7 +1131,7 @@ $(function() {
 			  {
 				postdata = prepare_story_data('Draft');
 			  }
-			  if($(e.target).is('#publishBtn') && story_title_txt == '写下你的故事标题吧(这将会是你故事的链接地址)')
+			  if($(e.target).is('#publishBtn') && story_title_txt == '你的故事标题')
 			  {
 				alert('请为你的故事输入一个标题');
 				$('#sto_title').focus();
@@ -1485,10 +1485,10 @@ $(function() {
 		{
 		  if ($(e.target).is('.add_comment'))
 		  {
-		    var $comment_box = $("<li class='textElement editing'><div class='editingDiv'><form class='formTextElement'><textarea class='inputEditor' name='inputEditor'></textarea></form><div class='belowTextEdit'><div class='actions' style='padding-left:364px;'><button class='cancel small cancelEditor' type='reset'>Cancel</button><button class='submit small blue submitComment' type='submit'>Done</button></div></div></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/img/editcomment.png' border='0'/></a></span></li>");
+		    var $comment_box = $("<li class='textElement editing'><div class='editingDiv'><form class='formTextElement'><textarea class='inputEditor' name='inputEditor'></textarea></form><div class='belowTextEdit'><div class='actions' style='padding-left:380px;'><button class='cancel small cancelEditor' type='reset'>确定</button><button class='submit small blue submitComment' type='submit'>取消</button></div></div></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/img/editcomment.png' border='0'/></a></span></li>");
 		    $(e.target).closest('li').after($comment_box);
 			$(".inputEditor").cleditor({
-			width:479,
+			width:476,
 			height:150,
 			controls:"bold italic underline strikethrough link | font size",
 			
@@ -1581,7 +1581,7 @@ $(function() {
 		    $weiboTabs.tabs( "select" , 0 );
 		    $('#weibo_search').removeClass('none');
 			$('#source_list').css('height', '664px').children().remove();
-			$('#source_list').append("<div style='text-align:center;'><a id='view_trends' href='#'>点击查看本周热门话题</a></div>");
+			$('#source_list').append("<div class='trends_wrapper'><a id='view_trends' href='#'>点击查看本周热门话题</a></div>");
 		  }
 		  selVTab = 0;
 		  $('#vtab>div').hide().eq(vtabIndex).show();

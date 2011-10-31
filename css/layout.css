@@ -109,11 +109,6 @@ position: fixed;
 z-index:200;
 }
 .editor #global_bar {position: fixed; }
-#top_bar .user_consolee {
-float: right; 
-margin: 0 30px 0 0; 
-_margin: 0 30px 0 0; 
-}
 #top_bar .user_console {
 margin: 0; position:absolute; right:0; top:0;
 min-width: 120px;
@@ -122,6 +117,15 @@ z-index: 10000;
 }
 #logo {float: left;}
 #user_action {padding-left:10px; position:relative; top:5px;}
+
+.edit_story_btn, .my_story_btn, .login_top, .register_top{
+width:100px; 
+padding:9px 15px 9px 15px; 
+margin-right:5px;
+border: 1px solid #C9C9C9; 
+border-top:none;
+border-bottom:none;
+}
 
 #person_img{
 border: 1px solid rgba(0, 0, 0, 0.1);
@@ -790,11 +794,17 @@ width: 100%;
 float:left;
 }
 
-#story_pic ul li *{
+#story_pic ul li a{
 border: 1px solid #BBBEBF;
 float: left;
 height: 16px;
 width: 46px;
+text-align:center;
+}
+
+#story_pic ul li a img{
+height: 16px;
+width: 32px;
 }
  
 #sto_title{
@@ -807,6 +817,17 @@ width:360px; height:80px; margin-bottom:10px;
  
 #sto_tag{
 width:480px; margin:0; height:25px;
+}
+
+.trends_wrapper{
+text-align:center;
+background-color:#FFFFFF;
+background-repeat:repeat-x;
+border-color:#DDDDDD #AAAAAA #AAAAAA #DDDDDD;
+border-style:solid;
+border-width:1px;
+margin:10px 5px 0 5px;
+padding:5px 0 5px 0;
 }
 
 .loadmore {
@@ -1772,20 +1793,20 @@ display:none;
 
 #vtab {
 margin: auto;
-width: 425px;
+width: 430px;
 height: 100%;
-margin-left:-35px;
+margin-left:-40px;
 }
 
 #vtab > ul > li {
 width: 35px;
 height: 24px;
-background-color: #fff !important;
+background-color: #F9F9F9 !important;
 list-style-type: none;
 display: block;
-border: 1px solid #fff;
-position: relative;
+border: 1px solid #F9F9F9;
 border-right: none;
+position: relative;
 }
 
 #vtab > ul > li.selected {
@@ -1795,9 +1816,10 @@ filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
 border: 1px solid #ddd;
 border-right: none;
 z-index: 10;
-background-color: #fafafa !important;
+background-color: #FFFFFF !important;
 position: relative;
 }
+
 
 #vtab > ul {
 float: left;
@@ -1807,11 +1829,11 @@ display: block;
 margin: auto 0;
 padding: 0;
 position: relative;
-top: 26px;
+top: 27px;
 }
 #vtab > div{
 background-color: #fafafa;
-margin-left: 35px;
+margin-left: 40px;
 border: 1px solid #ddd;
 min-height: 50px;
 padding: 12px;

@@ -52,7 +52,6 @@ include "member/tagoperation.php";
 		  </div>
 		  <!-- Captions for Orbit -->
 		  <span class='orbit-caption' id='htmlCaption'><strong>I'm A Badass Caption:</strong> I can haz <a href='#'>links</a>, <em>style</em> or anything that is valid markup :)</span>
-		  <div style='margin-top:8px; float:right;'><a id='login_awesome' class='large blue awesome' style='margin:0 10px 0 0;'>登 录 &raquo;</a><a class='large green awesome register_awesome' href='register/register_form.php'>马上注册 &raquo;</a></div>
 		</div>
 		<div id='popular'>
 		  <h3 style='color:#999999; padding-top:5px;'>最流行</h3>

@@ -101,7 +101,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  }
 	  $content = "<div id='boxes'>
 				  <div id='weibo_dialog' class='window".$extra_class."'>
-					<div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span id='publish_title' style='color: #B8B7B7;'>发表微博</span><span><a href='#' class='close'/>关闭</a></span></div>
+					<div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span id='publish_title' style='color: #336699;'>发表微博</span><span><a href='#' class='close'/>关闭</a></span></div>
 					<div id='pub_wrapper'>
 					  <div class='float_r counter_wrapper'><span style='margin-left:28px; color: #B8B7B7;'>还可以输入</span><span class='word_counter'>140</span><span style='color: #B8B7B7;'>字</span></div>
 					  <textarea class='publish-tweet'></textarea>
