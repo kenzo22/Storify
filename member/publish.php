@@ -5,12 +5,6 @@ require_once "../include/functions.php";
 require ('../include/secureGlobals.php');
 session_start();
 
-/*
-echo "<br /><br />";
-var_dump($_SESSION);
-var_dump($_POST);
-*/
-
 $action=$_POST['action'];
 $story_id=$_POST['story_id'];
 $story_title=$_POST['story_title'];
