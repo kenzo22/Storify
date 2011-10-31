@@ -88,6 +88,7 @@ foreach( $doubanCommentsReturn['entry'] as $commentItem )
 
   $doubanContent.=
 		"<li class='douban_drag douban ".$item_type."' id='".$comment_per_id."'>
+		  <div class='handle'></div>
 		  <div class='douban_wrapper'>
 			<img class='profile_img' style='width: 32px; height: 32px; float:left; overflow: hidden; margin-top:3px;' src='".$comment_author_pic."' title='".$comment_author."' alt='".$comment_author."' border=0 />
 			<div style='margin-left:36px;'>

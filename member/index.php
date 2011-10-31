@@ -284,7 +284,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 	  }
 	  if (isset($single_weibo['error_code']) && isset($single_weibo['error']))
 	  {
-        $content .= "<li class='weibo_drop sina' id='$weibo_per_id'><div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>此微博已被原作者删除</span></div>";
+        $content .= "<li class='weibo_drop sina' id='$weibo_per_id'><div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>此微博已被原作者删除</span></div>";
         continue;
 //		echo ('Error_code: '.$single_weibo['error_code'].';  Error: '.$single_weibo['error'] );
 //		return false;
@@ -302,7 +302,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 
     	if (isset($single_weibo['retweeted_status'])){
             
-            $content .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f is_repost sina'><img src='/img/retweet.png'/ ><span>转发</span></a><a href='#weibo_dialog' name='modal' class='comment_f sina'><img src='/img/reply.png'/ ><span>评论</span></a></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text'];
+            $content .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f is_repost sina'><img src='/img/retweet.png'/ ><span>转发</span></a><a href='#weibo_dialog' name='modal' class='comment_f sina'><img src='/img/reply.png'/ ><span>评论</span></a></div><div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text'];
 			// show emotions in text
             $single_weibo['retweeted_status']['text'] = subs_emotions($single_weibo['retweeted_status']['text'],"weibo");
 
@@ -319,7 +319,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 			}
         }
 		else{
-		  $content .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f sina'><img src='/img/retweet.png'/ ><span>转发</span></a><a href='#weibo_dialog' name='modal' class='comment_f sina'><img src='/img/reply.png'/ ><span>评论</span></a></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text'];
+		  $content .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f sina'><img src='/img/retweet.png'/ ><span>转发</span></a><a href='#weibo_dialog' name='modal' class='comment_f sina'><img src='/img/reply.png'/ ><span>评论</span></a></div><div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text'];
 		}
         if (isset($single_weibo['bmiddle_pic']))
 		{
@@ -355,6 +355,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 	    $content .=
 		 "<li class='douban_drop douban event' id='$douban_save_per_id'>
 			<div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div>
+			<div class='handle'></div>
 			<div class='douban_wrapper'>
 			  <div class='content_wrapper'>
 			  <div class='event_summary_drop'>".$doubanElement['summary'][0]['$t']."</div>
@@ -443,6 +444,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 			$content .=
 			  "<li class='douban_drop douban ".$val['content']['item_type']."' id='$douban_save_per_id'>
 				<div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div>
+				<div class='handle'></div>
 				<div class='douban_wrapper'>
 				  <div class='content_wrapper'>
 				  <div>
@@ -526,6 +528,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 			$content .=
 			"<li class='douban_drop douban ".$val['content']['item_type']."' id='$douban_save_per_id'>
 			  <div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div>
+			  <div class='handle'></div>
 			  <div class='douban_wrapper'>
 			    <div class='content_wrapper'>
 				<div class='item_info' style='overflow:auto;'>
@@ -559,7 +562,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 	  $video_title = $video_meta['title'];
 	  $video_src = $video_meta['src'];
 	  $video_url = $video_meta['url'];
-	  $content .="<li class='video_drop'><div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='youku_wrapper'><div><a class='videoTitle' target='_blank' href='"
+	  $content .="<li class='video_drop'><div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='handle'></div><div class='youku_wrapper'><div><a class='videoTitle' target='_blank' href='"
 	  .$video_url."'>".$video_title."</a></div><div class='embed'><embed src='".$video_src."' quality='high' width='420' height='340' align='middle' allowscriptaccess='always' allowfullscreen='true' mode='transparent' type='application/x-shockwave-flash' wmode='opaque'></embed></div></div></li>
 	  <li class='addTextElementAnchor'><span><a><img class='add_comment' src='../img/editcomment.png' border='0'/></a></span></li>";    	
 		break;}
@@ -572,7 +575,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 	  $photo_id = $photo_meta_data['id'];
 	  $author_nic = $photo_meta_data['nic'];
 	  $photo_link = "http://www.yupoo.com/photos/".$photo_author."/".$photo_id."/";
-	  $content .="<li class='pic_drop'><div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='yupoo_wrapper'><a target='_blank' href='".$photo_link."'><img class='pic_img' src='"
+	  $content .="<li class='pic_drop'><div class='cross' action='delete'><a><img src='../img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='handle'></div><div class='yupoo_wrapper'><a target='_blank' href='".$photo_link."'><img class='pic_img' src='"
 				.$photo_per_url."'/></a><div style='line-height:1.5;'><a class='pic_title' target='_blank' href='".$photo_link."'>".$photo_title."</a></div><div style='line-height:1.5;'><a class='pic_author' target='_blank' href='http://www.yupoo.com/photos/".$photo_author."/'>".$author_nic."</a></div><div class='yupoo_sign'></div></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='../img/editcomment.png' border='0'/></a></span></li>"; 
 		break;}
 		
@@ -602,7 +605,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 		$tweiboContent .="<li id='".$item['id']."'>";
 
 		if(isset($item['source'])){
-			$tweiboContent .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f is_repost tencent'><img src='/img/retweet.png'/ ><span>转播</span></a><a href='#weibo_dialog' name='modal' class='comment_f tencent'><img src='/img/reply.png'/ ><span>评论</span></a></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text'];
+			$tweiboContent .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f is_repost tencent'><img src='/img/retweet.png'/ ><span>转播</span></a><a href='#weibo_dialog' name='modal' class='comment_f tencent'><img src='/img/reply.png'/ ><span>评论</span></a></div><div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text'];
 			//nick name
 			$item['source']['text'] = tweibo_show_nick($item['source']['text'],$tweibo[data][user]);
 			
@@ -618,7 +621,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 				}
 			}
 		}else{
-			$tweiboContent .= "<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f tencent'><img src='/img/retweet.png'/ ><span>转播</span></a><a href='#weibo_dialog' name='modal' class='comment_f tencent'><img src='/img/reply.png'/ ><span>评论</span></a></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text']."</span></div>";
+			$tweiboContent .= "<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f tencent'><img src='/img/retweet.png'/ ><span>转播</span></a><a href='#weibo_dialog' name='modal' class='comment_f tencent'><img src='/img/reply.png'/ ><span>评论</span></a></div><div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text']."</span></div>";
 			if(isset($item['image'])){
 				foreach($item['image'] as $img_url){
 					$tweiboContent .="<div class='weibo_img_drop'><img src='".$img_url."/240' /></div>";
