@@ -13,6 +13,8 @@ include_once "userrelation.php";
 <link type="text/css" href="../css/jquery.ui.button.css" rel="stylesheet" />
 
 <?php
+$date_t = date("Y-m-d H:i:s");
+
 if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action']))
 {
 	$post_id = $_GET['post_id'];
@@ -54,7 +56,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  $userresult = $DB->fetch_one_array("SELECT username, intro, photo FROM ".$db_prefix."user where id='".$story_author."'");
 	}
 	$story_embed = $result['embed_name'];
-	$story_time = $result['post_date'];
+	$story_time = dateFormatTrans($result['post_date'],$date_t);
 	$story_title=$result['post_title'];
 	$story_summary=$result['post_summary'];
 	$story_pic=$result['post_pic_url'];
@@ -366,7 +368,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 
             $single_weibo['text'] = subs_url($single_weibo['text'],'weibo');
 
-			$createTime = dateFormat($single_weibo['created_at']);
+			$createTime = dateFormatTrans(dateFormat($single_weibo['created_at']),$date_t);
 			$content .="<li class='weibo_drop sina' id='$weibo_per_id' style='border:none;'>";
     		if (isset($single_weibo['retweeted_status'])){
                 

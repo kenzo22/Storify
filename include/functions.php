@@ -62,7 +62,7 @@ function produce_random_string($length=6)
 	}
 }
 
-function isLocalURL($url) 
+function isLocalURL($url)
 {
   $parts = parse_url($url);
   if(isset($parts['scheme']) && $parts['scheme'] != 'http')
@@ -71,8 +71,26 @@ function isLocalURL($url)
   return false;
 
 return true;
-} 
+}
 
+function dateFormatTrans($oridate,$curdate)
+{
+    $ori_array = preg_split('/[-:\s]/',$oridate);
+    $cur_array = preg_split('/[-:\s]/',$curdate);
+    if(sizeof($cur_array) !=6 || (sizeof($ori_array) !=5 && sizeof($ori_array)!=6)) 
+        return "原始或者当前的日期格式出错";
+    $len = sizeof($ori_array);
+    $me = array('年','个月','天','小时','分钟','秒');
+    for($i=0; $i< $len; $i++)
+    {
+        if($ori_array[$i] != $cur_array[$i])
+        {
+            $diff = $cur_array[$i] - $ori_array[$i];
+            return $diff.$me[$i]."前";
+        }
+    }
+    return "1分钟前";
+}
 
 function dateFormat($origin_date)
 {
