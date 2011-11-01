@@ -34,7 +34,7 @@
 		  $user_profile_img = '/img/douban_user_dft.jpg';
 		}
 		$content="<ul class='user_console showborder'>
-				    <li class='person_li' style='display:block;'><a class='person_a person_a_display' href='/member/user.php?user_id=".$userresult['id']."'><img id='person_img' src='".$user_profile_img."'><span id='person_name'>".$_SESSION['username']."</span></a></li>
+				    <li class='person_li display' style='display:block;'><a class='person_a person_a_display' href='/member/user.php?user_id=".$userresult['id']."'><img id='person_img' src='".$user_profile_img."'><span id='person_name'>".$_SESSION['username']."</span></a></li>
 					<li class='person_li'><a class='person_a' href='/member/user.php?user_id=".$userresult['id']."'><img class='console_img' src='/img/home.ico'/><span>我的主页</span></a></li>
 					<li class='person_li'><a class='person_a' href='/member/user_setting.php'><img class='console_img' src='/img/setting.ico'/><span>设置</span></a></li>
 					<li class='person_li'><a class='person_a' href='/login/login.php?logout'><img class='console_img' src='/img/quit.ico'/><span>退出<span></a></li>
@@ -60,10 +60,11 @@
 ?>
 <script>
 $(function() {
-$('.person_li').live('mouseover', function(){
+$('.person_li').bind('mouseover', function(e){
+e.preventDefault();
 $('.person_li').css('display', 'block');
 });
-$('.user_console').live('mouseout', function(){
+$('.user_console').bind('mouseout', function(){
 $('.person_li').slice(1, 4).css('display', 'none');
 });
 });

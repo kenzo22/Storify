@@ -37,6 +37,20 @@ body.editor {
 background: none repeat-y scroll 0 0 #F9F9F9;
 }
 
+/* user feedback part */
+#user_feedback_tab{
+background: none repeat-y scroll 0 0 #EFEFEF;
+display: block !important;
+height: 98px !important;
+margin: -45px 0 0 !important;
+padding: 0 !important;
+position: fixed !important;
+text-indent: -9000px;
+top: 45% !important;
+width: 25px !important;
+z-index: 100001 !important;
+}
+
 /* awesome button part */
 .awesome, .awesome:visited {
 background: #222 url(../img/alert-overlay.png) repeat-x; 
@@ -114,6 +128,7 @@ margin: 0; position:absolute; right:0; top:0;
 min-width: 120px;
 padding: 0;
 z-index: 10000;
+max-height:160px;
 }
 #logo {float: left;}
 #user_action {padding-left:10px; position:relative; top:5px;}
@@ -125,6 +140,10 @@ margin-right:5px;
 border: 1px solid #C9C9C9; 
 border-top:none;
 border-bottom:none;
+}
+
+.edit_story_btn, .my_story_btn, .login_top, .register_top{
+background: none repeat scroll 0 0 #E6E6E8;
 }
 
 #person_img{
@@ -170,6 +189,10 @@ overflow: hidden;
 padding: 0;
 position: relative;
 width: 120px;
+}
+
+.person_a:hover{
+background-color: #E6E6E8;
 }
 
 .person_a span{
@@ -543,7 +566,7 @@ top: 0;
 width: 13px;
 }
 
-.story_wrapper, .douban_wrapper, .urlWrapper, .yupooWrapper, .youku_wrapper{
+.story_wrapper, .douban_wrapper, .urlWrapper, .yupooWrapper, .youku_wrapper, .commentBox{
 margin-left:13px;
 }
  
@@ -636,9 +659,6 @@ color:#939393;
   border-color:#ababac;
   border-style:solid;
   border-width:1px;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
   }
   
 .cross{
@@ -656,11 +676,11 @@ max-width: 260px;
 
 .yupoo_sign{
 background: url("../img/yupoo-logo.png") no-repeat scroll 0 0 transparent;
-height: 30px;
+height: 16px;
 right: 10px;
 position: absolute;
 bottom: 0;
-width: 30px;
+width: 16px;
 }
 
 .content_wrapper{
@@ -683,6 +703,7 @@ margin-left:2px;
 margin:auto;
 width:95%;
 overflow:auto;
+position:relative;
 }
  
  .cover{
@@ -960,6 +981,22 @@ clear:both;
 
 .arrow_up{
 display:none;
+}
+
+.draft_icon{
+background: url("../img/draft.png") no-repeat scroll 0 0 transparent;
+float: left;
+height: 16px;
+margin: 0 3px 0 2px;
+width: 16px;
+}
+
+.publish_icon{
+background: url("../img/yes.png") no-repeat scroll 0 0 transparent;
+float: left;
+height: 16px;
+margin: 0 3px 0 2px;
+width: 16px;
 }
 
 #story #story_header{
@@ -1265,22 +1302,46 @@ font-weight: bold;
 
 .editable .status .Draft{
 color: #F3AE05;
+position:relative;
 }
 
 .editable .status .Published{
 color: #AAC400;
+position:relative;
 }
 
-.editable .status .icon {
-background: url("img/storystatus.png") no-repeat scroll 0 0 transparent;
-margin-right: 5px;
+.editable .publish_icon{
+position:relative;
+top:3px;
+margin: 0 3px 0 0;
+}
+
+.editable .draft_icon{
+position:relative;
+top:3px;
+margin: 0 3px 0 0;
 }
 
 .editable .actions {
 float: right;
+padding: 2px 4px 0 4px;
 }
 
-.editable .actions, .editable .status {
+.editable .actions .icon.delete {
+background: url("../img/delete.gif") no-repeat scroll 0 0 transparent;
+height: 16px;
+width: 16px;
+display:inline-block;
+}
+
+.editable .actions .icon.edit {
+background: url("../img/edit.png") no-repeat scroll 0 0 transparent;
+height: 16px;
+width: 16px;
+display:inline-block;
+}
+
+.editable .status {
 padding: 0 4px;
 }
 

@@ -88,7 +88,7 @@ if($item_count > 0 ){
       }
     }
 }
-else($item_count == 0)
+else if($item_count == 0)
 {
     $story_content = "<p>没有找到故事。</p>";
 }

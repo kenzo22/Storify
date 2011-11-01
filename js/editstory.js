@@ -788,6 +788,7 @@ $(function() {
 		});
 		
 		$( "#source_list, #story_list" ).sortable({
+			tolerance: "pointer",
 			connectWith: ".connectedSortable",
 			cancel: ".weibo_drop, .douban_drop, .video_drop, .textElement, .tuser, .loadmore, #trends_wrapper",
 			receive: function(event, ui) 
@@ -1507,7 +1508,7 @@ $(function() {
 			else
 			{
 			  $(e.target).closest('.editingDiv').remove();
-			  var $commentDiv = $("<div class='cross' action='delete'><a><img src='/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='commentBox'>"+comment+"</div>");
+			  var $commentDiv = $("<div class='cross' action='delete'><a><img src='/img/cross.png' border='0' onclick='remove_item(event)'/></a></div><div class='handle'></div><div class='commentBox'>"+comment+"</div>");
 			  $textElement.removeClass('editing').addClass('editted').append($commentDiv);
 			}
 		  }

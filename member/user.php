@@ -291,13 +291,13 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 				<div class='spacer'></div>
 			  </div>";
 		$content .= "<div id='publish_container' class='showborder'>
-			  <div id='story_action'><span><img src='../img/yes.png' style='width:16px; height:16px; margin-right:5px;'/>已发布</span><span class='float_r'><a id='".$post_id."_delete' class='delete redirect'><img src='../img/delete.gif' title='删除' style='width:16px; height:16px;'/></a>&nbsp<a href='/member/user.php?user_id=".$user_id."&post_id=".$post_id."&action=edit'><img src='../img/edit.png' title='编辑' style='width:16px; height:16px;'/></a></span></div>";
+			  <div id='story_action'><span><div class='publish_icon' title='已发布'></div>已发布</span><span class='float_r'><a id='".$post_id."_delete' class='delete redirect'><img src='../img/delete.gif' title='删除' style='width:16px; height:16px;'/></a>&nbsp<a href='/member/user.php?user_id=".$user_id."&post_id=".$post_id."&action=edit'><img src='../img/edit.png' title='编辑' style='width:16px; height:16px;'/></a></span></div>";
 	  }
 	  else
 	  {
-	    $content .= "<div id='story_container'><div id='publish_container' class='showborder'>
-			  <div id='story_action'><span>草稿</span><span class='float_r'><a id='".$post_id."_delete' class='delete redirect'><img src='../img/delete.gif' title='删除' style='width:16px; height:16px;'/>
-			  </a>&nbsp<a href='/member/user.php?user_id=".$user_id."&post_id=".$post_id."&action=edit'><img src='../img/edit.png' title='编辑' style='width:16px; height:16px;'/></a>&nbsp&nbsp<a href='/member/user.php?user_id=".$user_id."&post_id=".$post_id."&action=publish'><img src='../img/publish.ico' title='发布' style='width:16px; height:16px;'/></a></span></div>";
+	    $content .= "<div id='story_container'><div style='float:left;'><div id='publish_container' class='showborder'>
+			  <div id='story_action'><span><div class='draft_icon' title='草稿'></div>草稿</span><span class='float_r'><a href='/member/user.php?user_id=".$user_id."&post_id=".$post_id."&action=publish'><img src='../img/publish.png' title='发布' style='width:16px; height:16px;'/></a>&nbsp&nbsp<a id='".$post_id."_delete' class='delete redirect'><img src='../img/delete.gif' title='删除' style='width:16px; height:16px;'/>
+			  </a><a href='/member/user.php?user_id=".$user_id."&post_id=".$post_id."&action=edit'><img src='../img/edit.png' title='编辑' style='width:16px; height:16px;'/></a></span></div>";
 	  }	
 	}
 
@@ -1054,7 +1054,7 @@ else if(isset($_GET['user_id']) && isset($_GET['post_id']) && isset($_GET['actio
 	  $result=$DB->query("update ".$db_prefix."posts set post_status='Published'  WHERE ID='".$story_id."'");
 	  go("/member/user.php?user_id=".$user_id."&post_id=".$story_id);
 	}
-	
+	else
 	{
 	  throw new Exception('Undefined story action.');
 	}
@@ -1178,22 +1178,32 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 	$post_title = $story_item['post_title'];
 	$post_pic_url = $story_item['post_pic_url'];
 	$post_status = $story_item['post_status'];
+	if(0 == strcmp($post_status, 'Published'))
+	{
+	  $post_status_txt = '已发布';
+	  $icon_type = 'publish_icon';
+	}
+	else
+	{
+	  $post_status_txt = '草稿';
+	  $icon_type = 'draft_icon';
+	}
 	$post_date = $story_item['post_date'];
 	$temp_array = explode(" ", $story_item['post_date']);
 	$post_date = $temp_array[0];
     $story_content .= "<li><div class='story_wrap'><a class='cover' style='background: url(".$post_pic_url.") no-repeat; background-size: 100%;' href='/member/user.php?user_id=".$user_id."&post_id=".$story_item['ID']."'><div class='title_wrap'><h1 class='title'>".$post_title."</h1></div></a><div class='editable'>
   <div class='status'>
     <div class='".$post_status."'>
-	  <div class='icon'></div>
-	  <span>".$post_status."</span>
+	  <div class='".$icon_type."'></div>
+	  <span>".$post_status_txt."</span>
 	</div>
   </div>";
   if(islogin() && $user_id == $_SESSION['uid'])
   {
     $story_content .="
     <div class='actions'>
-      <a id='".$post_id."_delete' class='icon delete' title='删除' href='#'><img src='../img/delete.gif' style='width:16px; height:16px;'/></a>
-	  <a class='icon edit' title='编辑' href='/member/index.php?user_id=".$user_id."&post_id=".$post_id."'><img src='../img/edit.png' style='width:16px; height:16px;'/></a>
+      <a id='".$post_id."_delete' class='icon delete' title='删除' href='#'></a>
+	  <a class='icon edit' title='编辑' href='/member/index.php?user_id=".$user_id."&post_id=".$post_id."'></a>
     </div>";
   }
    $story_content .="<div class='clear'></div></div></div>

@@ -10,8 +10,7 @@ include "member/tagoperation.php";
 		 div.caption { background:transparent; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,endColorstr=#99000000);zoom: 1; }
 	</style>
 <![endif]-->
-<div id='boxes'>
-  
+<div id='boxes'>  
 <!-- Start of Login Dialog -->  
 <div id='dialog' class='window' style='padding:0;'>
   <div style='background-color:#ababac; padding:5px;'><span>登录 koulifang.com</span> | <span><a href='register/register_form.php'/>还没有注册？</a><span> <span><a href='#' class='close'/>关闭</a></span></div>
@@ -43,16 +42,26 @@ include "member/tagoperation.php";
 <div class='content'>
     <div id='homepage' class='content-a'>
       <div class='inner'>
-	    <div id="featured_container">
-		  <div id="featured"> 
-			<img src='img/slide1.jpg' style='width:920px; height:320px;' />
-			<a href=''><img src='img/slide2.jpg' style='width:920px; height:320px;'/></a>
-			<img src='img/slide3.jpg' data-caption='#htmlCaption' style='width:920px; height:320px;'/>
-			<img src='img/slide4.jpg'  style='width:920px; height:320px;'/>
-		  </div>
-		  <!-- Captions for Orbit -->
-		  <span class='orbit-caption' id='htmlCaption'><strong>I'm A Badass Caption:</strong> I can haz <a href='#'>links</a>, <em>style</em> or anything that is valid markup :)</span>
-		</div>
+	    <?php
+		if(!islogin())
+		{
+		  $slider_content ="
+	      <div id='featured_container'>
+		    <div id='featured'> 
+			  <img src='img/slide1.jpg' style='width:920px; height:320px;' />
+			  <a href=''><img src='img/slide2.jpg' style='width:920px; height:320px;'/></a>
+			  <img src='img/slide3.jpg' data-caption='#htmlCaption' style='width:920px; height:320px;'/>
+			  <img src='img/slide4.jpg'  style='width:920px; height:320px;'/>
+		    </div>
+		    <span class='orbit-caption' id='htmlCaption'><strong>Badass Caption:</strong> I can haz <a href='#'>links</a>, <em>style</em> or anything that is valid markup :)</span>
+		  </div>";
+		  echo $slider_content;
+		}
+		else
+		{
+		  echo "<div style='height:20px;'></div>";
+		}
+		?>
 		<div id='popular'>
 		  <h3 style='color:#999999; padding-top:5px;'>最流行</h3>
 		  <div id='pop_wrapper' style='height:290px;'>
