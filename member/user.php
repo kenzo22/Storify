@@ -10,7 +10,6 @@ include_once( '../douban/doubanapi.php' );
 include_once "userrelation.php";
 ?>
 <link type="text/css" href="../css/jquery.ui.theme.css" rel="stylesheet" />
-<link type="text/css" href="../css/jquery.ui.button.css" rel="stylesheet" />
 
 <?php
 $date_t = date("Y-m-d H:i:s");
@@ -652,6 +651,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  {
 		$time = getdate($item['timestamp']);
 		$create_time = $time[year]."-".$time[mon]."-".$time[mday]." ".$time[hours].":".$time[minutes];
+		$create_time = dateFormatTrans($create_time, $date_t);
 		$profileImgUrl = $item['head']."/50";
 		
 		$item['text'] = tweibo_show_nick($item['text'],$tweibo[data][user]);
@@ -719,7 +719,11 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	<div id='userinfo_container'>
 	  <div class='user_profiles'>
 	    <div class='user_box'>
-		  <div class='avatar'><a href='/member/user.php?user_id=".$story_author."'><img style='' width='80px' height='80px' src='".$user_profile_img."'></a></div>";
+		  <div class='user_info'>
+		    <div class='avatar'><a href='/member/user.php?user_id=".$story_author."'><img style='' width='80px' height='80px' src='".$user_profile_img."'></a></div>
+			<div class='user_name'><a href='/member/user.php?user_id=".$story_author."'><span>".$userresult['username']."</span></a></div>
+		  </div>
+		  <div class='clear'></div>";
 	if(islogin() && $story_author != $_SESSION['uid'])
 	{
 	  $login_user_id = $_SESSION['uid'];
@@ -729,11 +733,11 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
       $num=$DB->num_rows($relationresult);
 	  if($num > 0)
 	  {
-	    $content .="<a href='#' class='follow_btn'>取消关注</a><a href='#' class='follow_btn' style='display:none;'>关注</a>";
+	    $content .="<a href='#' class='follow_btn'>已关注</a><a href='#' class='follow_btn' style='display:none;'>关注</a>";
 	  }
 	  else
 	  {
-	    $content .="<a href='#' class='follow_btn'>关注</a><a href='#' class='follow_btn' style='display:none;'>取消关注</a>";
+	    $content .="<a href='#' class='follow_btn'>关注</a><a href='#' class='follow_btn' style='display:none;'>已关注</a>";
 	  }
 	  
 	}
@@ -741,10 +745,10 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
     $following_list = getFollowing($story_author);
     $follower_list=getFollower($story_author);
 
-	$content .="<div class='user_info'><a href='/member/user.php?user_id=".$story_author."'><P>".$userresult['username']."</P></a><P>".$userresult['intro']."</P></div>
-		  <div class='usersfollowers'>
-		    <span style='vertical-align:top'>粉丝</span><span style='vertical-align:top' class='count'>".sizeof($follower_list)."</span>
-		    <ul class='follower_list'>";
+	$content .="<P class='user-bio'>".$userresult['intro']."</P>
+				  <div class='usersfollowers'>
+					<div><span class='side_title'>粉丝</span><span style='vertical-align:top' class='count'>".sizeof($follower_list)."</span></div>
+					  <ul class='follower_list'>";
     $usr_img;
 	foreach($follower_list as $fower){
         $query="select id, username, photo from ".$db_prefix."user where id=".$fower;
@@ -760,7 +764,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
     $content .= "</ul>
                 </div>
 		  <div class='usersfollowing'>
-		    <span style='vertical-align:top'>关注</span><span style='vertical-align:top' class='count'>".sizeof($following_list)."</span>
+		    <div><span class='side_title'>关注</span><span style='vertical-align:top' class='count'>".sizeof($following_list)."</span></div>
 			<ul class='following_list'>";
     foreach($following_list as $fowing){
         $query="select id, username, photo from ".$db_prefix."user where id=".$fowing;
@@ -799,7 +803,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	echo "<script language='javascript' >
 			$(function()
 			{			  
-			  $('.follow_btn').button().click(function(){
+			  $('.follow_btn').click(function(){
 				  var userid = $story_author;
 				  var operation_val = $(this).text();
 				  if('关注' == operation_val)
@@ -833,6 +837,17 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 						}
 						console.log(data);						
 					  });
+				}).hover(function(){
+				  if($(this).text() == '已关注')
+				  {
+				    $(this).text('取消关注');
+				  }
+				},
+				function(){
+				  if($(this).text() == '取消关注')
+				  {
+				    $(this).text('已关注');
+				  }
 				});
 			  $('.load_more').live('click',function(e)
 				{

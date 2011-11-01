@@ -81,15 +81,22 @@ function dateFormatTrans($oridate,$curdate)
         return "原始或者当前的日期格式出错";
     $len = sizeof($ori_array);
     $me = array('年','个月','天','小时','分钟','秒');
-    for($i=0; $i< $len; $i++)
-    {
+	if($ori_array[0] != $cur_array[0] || $ori_array[1] != $cur_array[1])
+	{
+	  return $oridate;
+	}
+	else
+	{
+	  for($i=2; $i< $len; $i++)
+      {
         if($ori_array[$i] != $cur_array[$i])
         {
-            $diff = $cur_array[$i] - $ori_array[$i];
-            return $diff.$me[$i]."前";
+          $diff = $cur_array[$i] - $ori_array[$i];
+          return $diff.$me[$i]."前";
         }
-    }
-    return "1分钟前";
+      }
+      return "1分钟前";
+	}
 }
 
 function dateFormat($origin_date)

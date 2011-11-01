@@ -32,6 +32,7 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 .a_notify{width:100%; text-align:center; background-color: #FFF6EE;}
 .bn_submit { width:80px;height:28px;font-size:14px;line-height:28px; padding-bottom:3px;cursor:pointer; color:#000;}
 .title { height:50px;font-size:20px; font-weight:bold;}
+.clear{clear:both;}
 
 body.editor {
 background: none repeat-y scroll 0 0 #F9F9F9;
@@ -87,6 +88,9 @@ cursor: pointer;
 .orange.awesome:hover							{ background-color: #d45500; }
 .yellow.awesome, .yellow.awesome:visited		{ background-color: #ffb515; }
 .yellow.awesome:hover							{ background-color: #fc9200; }
+
+.gray.awesome, .gray.awesome:visited		{ background-color: #EFEFEF; color:#000;}
+.gray.awesome:hover						{ background-color: #E6E6E8; color:#000;}
 
 /* end of awesome button part */
 
@@ -1075,8 +1079,24 @@ width:920px; margin:0 auto; padding-top:50px; min-height:650px; position:relativ
 }
 
 .follower_list, .following_list{
+margin-top:5px;
 padding:0;
 list-style-type:none;
+}
+
+.side_title{
+vertical-align:top;
+font-size: 12px;
+font-weight: 700;
+}
+
+.user-bio {
+color: #555555;
+font-size: 12px;
+line-height: 1.5;
+margin: 3px 0 7px;
+padding: 5px;
+text-shadow: 1px 1px 0 #FFFFFF;
 }
 
 .digg_wrap2{
@@ -1137,14 +1157,14 @@ float:right;
 border-color:#ababac;
 border-style:solid;
 border-width:1px;
-border-radius:5px;
--moz-border-radius: 5px;
--webkit-border-radius: 5px;
+border-radius:2px;
+-moz-border-radius: 2px;
+-webkit-border-radius: 2px;
 }
 
 .user_profiles{
 border-radius: 3px 3px 3px 3px;
-margin: 40px 0 0;
+margin: 20px 0 0;
 width: 210px;
 }
 
@@ -1184,14 +1204,15 @@ display:block;
 
 }
 
-.user_box .avatar{
+.user_box .user_info .avatar{
 background: none repeat scroll 0 0 #FFFFFF;
 border: 1px solid #CCCCCC;
 border-radius: 3px 3px 3px 3px;
 height: 80px;
 padding: 4px;
 width: 80px;
-margin-bottom:5px;
+margin:0 15px 5px 0;
+float:left;
 }
 
 .user_box .avatar a{
@@ -1199,6 +1220,17 @@ background-size: cover;
 display: block;
 height: 100%;
 width: 100%;
+}
+
+.user_name{
+margin-left:110px;
+padding-top:10px;
+color: #333333;
+font-size: 18px;
+}
+
+.user_name a:hover{
+text-decoration:underline;
 }
 
 .follow_btn1{
@@ -1212,9 +1244,25 @@ border:solid;
 border-color: #ABABAC;
 }
 
-.follow_btn{
-width: 88px;
-height:30px;
+.follow_btn, .follow_btn:visited{
+width:160px;
+text-align:center;
+background: #222 url(../img/alert-overlay.png) repeat-x; 
+display: inline-block; 
+font-size: 14px; 
+padding: 4px 14px 5px;
+color: #606060; 
+text-decoration: none;
+-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+border-bottom: 1px solid rgba(0,0,0,0.25);
+position: relative;
+cursor: pointer;
+background-color: #F9F9F9;
+}
+
+.follow_btn:hover{
+background-color: #EFEFEF;
 }
 
 .userbox p {
@@ -1226,6 +1274,11 @@ font-weight: bold;
 margin: 18px 0 0;
 position: relative;
 overflow:auto;
+}
+
+.usersfollowers div, .usersfollowing div {
+border-bottom: 1px solid #DDDDDD;
+box-shadow: 0 1px 0 #FFFFFF;
 }
 
 .count{
