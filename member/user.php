@@ -713,7 +713,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  $content .="</ul>";
 	}
 	
-	$content .="<div style='display: block; padding:0 10px 0 5px; text-align:right;'>Powered by <a name='poweredby' target='_blank' href='http://koulifang.com'>口立方</a></div></div>
+	$content .="<div class='kou_signature'><span>Powered by</span><a name='poweredby' target='_blank' href='http://koulifang.com'><img title='口立方' style='width:35px; height:39px; border:0;' src='../img/kou.png'></a></div></div>
 	<div class='spacer'></div>
 	</div>
 	<div id='userinfo_container'>

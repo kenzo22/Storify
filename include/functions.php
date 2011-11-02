@@ -1,5 +1,4 @@
 <?php
-
 function binhex($str) 
 {
     $hex = "";
