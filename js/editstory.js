@@ -1475,9 +1475,16 @@ $(function() {
 		  }
 		});
 		
+		$('.addTextElementAnchor').live('mouseenter', function(){
+		  $(this).css('background-color','#FDFFD2').append('<span class=\"add_text\">点击添加文字</span>');
+		}).live('mouseleave', function(){
+		  $(this).css('background-color','#F9F9F9').find('.add_text').remove();
+		});
+		
 		$('#story_list').click(function(e)
 		{
-		  if ($(e.target).is('.add_comment'))
+		  e.preventDefault();
+		  if ($(e.target).is('.add_comment') || $(e.target).is('.add_text') || $(e.target).is('.addTextElementAnchor'))
 		  {
 		    var $comment_box = $("<li class='textElement editing'><div class='editingDiv'><form class='formTextElement'><textarea class='inputEditor' name='inputEditor'></textarea></form><div class='belowTextEdit'><div class='actions' style='padding-left:380px;'><button class='submit small blue submitComment' type='submit'>确定</button><button class='cancel small cancelEditor' type='reset'>取消</button></div></div></div></li><li class='addTextElementAnchor'><span><a><img class='add_comment' src='/img/editcomment.png' border='0'/></a></span></li>");
 		    $(e.target).closest('li').after($comment_box);
