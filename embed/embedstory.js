@@ -166,7 +166,7 @@
 			jQuery('#embed_a').toggle(function(e){
 				  e.preventDefault();
 				  jQuery('#embed_bar').slideDown("slow");
-				  jQuery('.arrow_up').show();
+				  jQuery('.arrow_up').css('display', 'inline-block');
 				  jQuery('.arrow_down').hide();
 				  jQuery('#embed_bar span .sto_embed').select();
 				  return false;

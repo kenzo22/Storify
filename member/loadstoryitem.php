@@ -11,6 +11,8 @@ include_once( '../douban/config.php' );
 include_once( '../douban/doubanapi.php' );
 include '../include/secureGlobals.php';
 
+$date_t = date("Y-m-d H:i:s");
+
 $c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']  );
 $t = new TWeiboClient( MB_AKEY , MB_SKEY , $_SESSION['last_tkey']['oauth_token'] , $_SESSION['last_tkey']['oauth_token_secret']  );
 $d = new DoubanClient( DB_AKEY , DB_SKEY , $_SESSION['last_dkey']['oauth_token'] , $_SESSION['last_dkey']['oauth_token_secret']  );
@@ -43,7 +45,7 @@ foreach($story_content_array as $key=>$val)
 	}
 	if (isset($single_weibo['error_code']) && isset($single_weibo['error'])){
 		// skip deleted weibo
-		$content .="<li class='weibo_drop sina' id='$weibo_per_id' style='border:none;'><div class='story_wrapper'><div><span class='weibo_text'>此微博已被删除</span></div>";
+		$content .="<li class='weibo_drop sina' id='$weibo_per_id' style='border:none;'><div class='story_wrapper'><div class='quote_sign'>“</div><div class='content_wrapper'><span class='weibo_text_drop'>此微博已被删除</span></div>";
 		//$content .="<li class='weibo_drop sina' id='$weibo_per_id' style='border:none;'><div class='story_wrapper'><div><span class='weibo_text'>errorcode:".$single_weibo['error_code']."error".$single_weibo['error']."</span></div>";
 		continue;
 	}
@@ -52,12 +54,18 @@ foreach($story_content_array as $key=>$val)
 		// show emotions in text
 		$single_weibo['text'] = subs_emotions($single_weibo['text'],"weibo");
 
-		$createTime = dateFormat($single_weibo['created_at']);
-		$content .="<li class='weibo_drop sina' id='$weibo_per_id' style='border:none;'><div class='story_wrapper'><div><span class='weibo_text'>".$single_weibo['text'];
+		$single_weibo['text'] = subs_url($single_weibo['text'],'weibo');
+
+		$createTime = dateFormatTrans(dateFormat($single_weibo['created_at']),$date_t);
+		$content .="<li class='weibo_drop sina' id='$weibo_per_id' style='border:none;'>";
 		if (isset($single_weibo['retweeted_status'])){
 			
+			$content .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f is_repost sina'><span>转发</span></a><a href='#weibo_dialog' name='modal' class='comment_f sina'><span>评论</span></a></div>
+			<div class='story_wrapper'><div class='quote_sign'>“</div><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text'];
 			// show emotions in text
 			$single_weibo['retweeted_status']['text']=subs_emotions($single_weibo['retweeted_status']['text'],"weibo");
+
+			$single_weibo['retweeted_status']['text']=subs_url($single_weibo['retweeted_status']['text']);
 
 			$content .="//@".$single_weibo['retweeted_status']['user']['name'].":".$single_weibo['retweeted_status']['text'];
 			if(isset($single_weibo['retweeted_status']['bmiddle_pic'])){
@@ -68,6 +76,9 @@ foreach($story_content_array as $key=>$val)
 			  $content .= "</span>";
 			}
 		}
+		else{
+		  $content .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f sina'><span>转发</span></a><a href='#weibo_dialog' name='modal' class='comment_f sina'><span>评论</span></a></div><div class='story_wrapper'><div class='quote_sign'>“</div><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text'];
+		}
 		if (isset($single_weibo['bmiddle_pic']))
 		{
 		  $content .= "<div class='weibo_img' style='text-align:center;'><img src='".$single_weibo['bmiddle_pic']."' width='280px;' /></div>";
@@ -75,8 +86,7 @@ foreach($story_content_array as $key=>$val)
 		$content .= "</div>";
 		$content .= "<div class='story_signature'><span style='float:right;'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
 		.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><span class='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'>
-		<span ><a class='weibo_from' href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date'  style='text-align:right; height:16px;'><span>
-		<img border='0' style='position:relative; top:2px' src='../img/sina16.png'/><a>".$createTime."</a></span></div></span> </div></div></li>";
+		<span><a class='weibo_from_drop' href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date_drop'>".$createTime."</div></span> </div></div></li>";
 	}
 	break;}
 	 
@@ -129,11 +139,7 @@ foreach($story_content_array as $key=>$val)
 				  <a class='douban_from_drop' href='".$eventInitiator_url."' target='_blank'>".$eventInitiator_name."</a>
 				</span>
 			  </div>
-			  <div class='douban_date_drop'  style='text-align:right; height:16px;'>
-				<span>
-				  <img border='0' style='position:relative; top:2px; width:16px; height:16px;' src='../img/logo_douban.png'/>
-				</span>
-			  </div>
+			  <div class='douban_date_drop'></div>
 			</span> 
 		  </div>
 		</div>
@@ -221,12 +227,7 @@ foreach($story_content_array as $key=>$val)
 					<a class='douban_from' href='".$doubanElement['author']['link'][1]['@href']."' target='_blank'>".$doubanElement['author']['name']['$t']."</a>
 				  </span>
 				</div>
-				<div class='douban_date_drop'  style='text-align:right; height:16px;'>
-				  <span> 
-					<img border='0' style='position:relative; top:2px; width:16px; height:16px;' src='../img/logo_douban.png'/>
-					<a>".$time_array[0]."</a>
-				  </span>
-				</div>
+				<div class='douban_date_drop'>".$time_array[0]."</div>
 			  </span> 
 			</div>
 		  </div>
@@ -281,9 +282,7 @@ foreach($story_content_array as $key=>$val)
 			  </div>
 			</div>
 			</div>
-			<div class='douban_signature' style='text-align:right; overflow:auto;'>
-			  <img border='0' style='width:16px; height:16px;' src='../img/logo_douban.png'/>
-			</div>
+			<div class='douban_signature'></div>
 		  </div>
 		</li>";
 	  }
@@ -328,22 +327,18 @@ if(count($tweibo_id_array) > 0)
   {
 	$time = getdate($item['timestamp']);
 	$create_time = $time[year]."-".$time[mon]."-".$time[mday]." ".$time[hours].":".$time[minutes];
+	$create_time = dateFormatTrans($create_time, $date_t);
 	$profileImgUrl = $item['head']."/50";
 	
-	//show nick name
 	$item['text'] = tweibo_show_nick($item['text'],$tweibo[data][user]);
-
-	// show face gif 
 	$item['text'] = subs_emotions($item['text'],"tweibo");
 
 	$tweiboContent .="<li id='".$item['id']."'>";
 
 	if(isset($item['source'])){
-		$tweiboContent .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f is_repost tencent'><img src='/img/retweet.png'/ ><span>转播</span></a><a href='#weibo_dialog' name='modal' class='comment_f tencent'><img src='/img/reply.png'/ ><span>评论</span></a></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text'];
-		//nick name
+		$tweiboContent .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f is_repost tencent'><span>转播</span></a><a href='#weibo_dialog' name='modal' class='comment_f tencent'><span>评论</span></a></div>
+		<div class='story_wrapper'><div class='quote_sign'>“</div><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text'];
 		$item['source']['text'] = tweibo_show_nick($item['source']['text'],$tweibo[data][user]);
-		
-		// emotion substution
 		$item['source']['text'] = subs_emotions($item['source']['text'],"tweibo");
 
 		if($item['source']['text'] == null)
@@ -355,7 +350,8 @@ if(count($tweibo_id_array) > 0)
 			}
 		}
 	}else{
-		$tweiboContent .= "<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f tencent'><img src='/img/retweet.png'/ ><span>转播</span></a><a href='#weibo_dialog' name='modal' class='comment_f tencent'><img src='/img/reply.png'/ ><span>评论</span></a></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text']."</span></div>";
+		$tweiboContent .= "<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f tencent'><span>转播</span></a><a href='#weibo_dialog' name='modal' class='comment_f tencent'><span>评论</span></a></div>
+		<div class='story_wrapper'><div class='quote_sign'>“</div><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text']."</span></div>";
 		if(isset($item['image'])){
 			foreach($item['image'] as $img_url){
 				$tweiboContent .="<div class='weibo_img_drop'><img src='".$img_url."/240' /></div>";
@@ -363,9 +359,8 @@ if(count($tweibo_id_array) > 0)
 		}
 	}
 	$tweiboContent .= "<div class='story_signature'><span style='float:right;'><a href='http://t.qq.com/".$item['name']."' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
-	.$profileImgUrl."' alt='".$item['nick']."' border=0 /></a></span><span class='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'>
-	<span ><a class='weibo_from_drop' href='http://t.qq.com/".$item['name']."' target='_blank'>".$item['nick']."</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span>
-	<img border='0' style='position:relative; top:2px' src='/img/tencent16.png'/><a>".$create_time."</a></span></div></span> </div></div></li>tweibo_sep";
+	.$profileImgUrl."' alt='".$item['nick']."' border=0 /></a></span><span class='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px; '>
+	<span ><a class='weibo_from_drop' href='http://t.qq.com/".$item['name']."' target='_blank'>".$item['nick']."</a></span></div><div class='weibo_date_drop'>".$create_time."</div></span></div></div></li>tweibo_sep";
   }
   $tweibo_array = explode("tweibo_sep", $tweiboContent);
   $tweibo_array_len = count($tweibo_array);
@@ -382,7 +377,7 @@ if(count($tweibo_id_array) > 0)
   }
   foreach($tweibo_array_asoc as $tkey=>$tval)
   {
-    $content = str_replace("<li id='$tkey'>","<li class='weibo_drop tencent' id='$tkey' style='border:none;'>".$tval, $content);
+	$content = str_replace("<li id='$tkey'>","<li class='weibo_drop tencent' id='$tkey' style='border:none;'>".$tval, $content);
   }
 }
 

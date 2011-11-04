@@ -33,10 +33,28 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 .bn_submit { width:80px;height:28px;font-size:14px;line-height:28px; padding-bottom:3px;cursor:pointer; color:#000;}
 .title { height:50px;font-size:20px; font-weight:bold;}
 .clear{clear:both;}
+.quote_sign{
+color: #AAAAAA;
+float: left;
+font-family: Georgia;
+font-size: 56px;
+line-height: 45px;
+margin-left: 2px;
+}
 
 body.editor {
 background: none repeat-y scroll 0 0 #F9F9F9;
 }
+
+/* info source signature part */
+.douban_signature{
+background: url("../img/editsprite.png") no-repeat scroll 0 -39px transparent;
+width:16px; 
+height:16px;
+display:inline-block;
+float:right;
+}
+
 
 /* user feedback part */
 #user_feedback_tab{
@@ -54,6 +72,7 @@ z-index: 100001 !important;
 border-color: #FF0000 -moz-use-text-color #FF0000 #FF0000;
 border-style: outset none outset outset;
 border-width: 1px medium 1px 1px;
+cursor:pointer;
 }
 
 /* awesome button part */
@@ -326,21 +345,21 @@ cursor:pointer;
 }
 
 .published-steps .post-tab .icon{
-background: url("../img/embed.ico") no-repeat scroll left top transparent;
+background: url("../img/usersprite.png") no-repeat scroll 0 -232px transparent;
 height: 21px;
 position: absolute;
 width: 21px;
 }
 
 .published-steps .notify-tab .icon{
-background: url("../img/radio.png") no-repeat scroll left top transparent;
+background: url("../img/usersprite.png") no-repeat scroll 0 -386px transparent;
 height: 21px;
 position: absolute;
 width: 21px;
 }
 
 .published-steps .share-tab .icon{
-background: url("../img/share.ico") no-repeat scroll left top transparent;
+background: url("../img/usersprite.png") no-repeat scroll 0 -424px transparent;
 height: 21px;
 position: absolute;
 width: 21px;
@@ -375,6 +394,18 @@ display: none;
 
 .published-steps .notify-content, .published-steps .post-content, .published-steps .share-content{
  padding:10px 10px 0 10px;
+}
+
+.notify-content .sina_user{
+background: url("../img/editsprite.png") no-repeat scroll 0 -372px transparent;
+height:20px;
+padding-left:18px;
+}
+
+.notify-content .tencent_user{
+background: url("../img/editsprite.png") no-repeat scroll 0 -460px transparent;
+height:20px;
+padding-left:18px;
 }
 
 .spacer {
@@ -507,17 +538,47 @@ padding:0;
 }
 
 #source_ul li{
-margin-bottom:20px;
+margin-bottom:30px;
 }
 
-#source_ul li .source_name{
-vertical-align:top;
+#source_ul li a.sina_source{
+background: url("../img/sourcesprite.png") no-repeat scroll 0 -64px transparent;
+height: 32px; 
+display:inline-block;
+padding-left:170px;
+}
+
+#source_ul li a.tencent_source{
+background: url("../img/sourcesprite.png") no-repeat scroll 0 -128px transparent;
+height: 32px; 
+display:inline-block;
+padding-left:170px;
+}
+
+#source_ul li a.douban_source{
+background: url("../img/sourcesprite.png") no-repeat scroll 0 0 transparent;
+height: 32px;
+display:inline-block;
+padding-left:170px; 
+}
+
+#source_ul li a.yupoo_source{
+background: url("../img/sourcesprite.png") no-repeat scroll 0 -255px transparent;
+height: 30px; 
+display:inline-block;
+padding-left:170px;
+}
+
+#source_ul li a.youku_source{
+background: url("../img/sourcesprite.png") no-repeat scroll 0 -192px transparent;
+height: 31px; 
+display:inline-block;
+padding-left:170px;
 }
 
 #source_ul li .source_status{
 float:right;
 margin-right:420px;
-vertical-align:top;
 }
 
 #source_ul li .unbind_source{
@@ -540,6 +601,7 @@ margin-left:70px;
 /* edit story part*/
 .weibo_content{overflow:hidden;}
 #story_list .story_signature {overflow:hidden; margin-bottom:10px; margin-right:20px;}
+
 #source_pane{position:fixed; top:70px; width:390px; height:800px; }
 #story_pane{width:510px; min-height: 754px;}
 #source_list{height:664px; overflow:auto; padding:0; margin:0; border: 1px solid #C9C9C9; border-top: none; border-radius:5px 5px 5px 5px; cursor:move;}
@@ -601,6 +663,15 @@ margin-right:10px;
 .video_Drag, .pic_Drag{
 overflow:auto;
 }
+
+.video_favicon{
+background: url("../img/editsprite.png") no-repeat scroll 0 -551px transparent;
+display:inline-block;
+width: 16px; 
+height: 16px;
+position:relative; 
+top:4px
+}
  
  .youku_wrapper{
  text-align:center;
@@ -637,8 +708,31 @@ overflow:auto;
   position:relative;
  }
   
-.weibo_date_drop span a, .douban_date_drop span a{
+.douban_date_drop{
+background: url("../img/editsprite.png") no-repeat scroll 0 -39px transparent;
+padding-left:17px;
+height: 16px; 
+margin-top:3px;
 color:#939393;
+text-align:right;
+}
+
+li.sina .weibo_date_drop{
+background: url("../img/editsprite.png") no-repeat scroll 0 -375px transparent;
+padding-left:17px;
+height: 16px; 
+margin-top:3px;
+color:#939393;
+text-align:right;
+}
+
+li.tencent .weibo_date_drop{
+background: url("../img/editsprite.png") no-repeat scroll 0 -463px transparent;
+padding-left:17px;
+height: 16px; 
+margin-top:3px;
+color:#939393;
+text-align:right;
 }
   
   .douban_drop{padding:0px 5px 5px 5px;
@@ -670,8 +764,11 @@ color:#939393;
   }
   
 .cross{
-  padding-left:472px;
+  cursor:pointer;
+  margin-left:472px;
   visibility:hidden;
+  background: url("../img/editsprite.png") no-repeat scroll 0 0 transparent;
+  width: 15px; height: 15px;
 }
 
 .yupoo_wrapper{
@@ -683,7 +780,7 @@ max-width: 260px;
 }
 
 .yupoo_sign{
-background: url("../img/yupoo-logo.png") no-repeat scroll 0 0 transparent;
+background: url("../img/editsprite.png") no-repeat scroll 0 -591px transparent;
 height: 16px;
 right: 10px;
 position: absolute;
@@ -692,8 +789,7 @@ width: 16px;
 }
 
 .content_wrapper{
-padding-left:26px;
-background: url('../img/apostrophe.png') no-repeat scroll 0 0 transparent !important;
+margin-left:26px;
 }
   
 .addTextElementAnchor{
@@ -710,9 +806,11 @@ vertical-align:top;
 }
   
 .add_comment{
+background: url("../img/editsprite.png") no-repeat scroll 0 -79px transparent;
 width: 16px;
 height: 16px;
 overflow: hidden;
+display:inline-block;
 }
   
  .textElement{
@@ -775,9 +873,41 @@ background: none repeat scroll 0 0 rgba(100, 100, 100, 0.8);
  padding:5px 0 5px 5px;
  }
  
- .source_img{
-height:24px; border:0px; width:24px;
- }
+ #vtab2 .source_img{
+background: url("../img/editsprite.png") no-repeat scroll 0 0 transparent;
+height: 24px;
+width: 24px;
+}
+
+.weiboLi .source_img{
+background: url("../img/editsprite.png") no-repeat scroll 0 -415px transparent;
+height: 24px;
+width: 24px;
+}
+
+.tweiboLi .source_img{
+background: url("../img/editsprite.png") no-repeat scroll 0 -503px transparent;
+height: 24px;
+width: 24px;
+}
+
+.doubanLi .source_img{
+background: url("../img/editsprite.png") no-repeat scroll 0 -207px transparent;
+height: 24px;
+width: 24px;
+}
+
+.videoLi .source_img{
+background: url("../img/editsprite.png") no-repeat scroll 0 -119px transparent;
+height: 24px;
+width: 24px;
+}
+
+.yupooLi .source_img{
+background: url("../img/editsprite.png") no-repeat scroll 0 -631px transparent;
+height: 24px;
+width: 24px;
+}
  
  #weibo_search ,  #douban_search,  #pic_search{
    padding-left:4px;
@@ -805,6 +935,18 @@ height:24px; border:0px; width:24px;
  float:left;
  margin-right:20px;
  }
+ 
+#prev_img{
+background: url("../img/editsprite.png") no-repeat scroll 16px -167px transparent;
+height: 16px;
+width: 16px;
+}
+
+#next_img{
+background: url("../img/editsprite.png") no-repeat scroll 16px -335px transparent;
+height: 16px;
+width: 16px;
+}
  
  #story_pic p {
 margin:0;
@@ -840,17 +982,16 @@ width: 100%;
 float:left;
 }
 
+#story_pic ul li a img{
+height: 16px;
+width: 32px;
+}
+
 #story_pic ul li a{
 border: 1px solid #BBBEBF;
 float: left;
 height: 16px;
 width: 46px;
-text-align:center;
-}
-
-#story_pic ul li a img{
-height: 16px;
-width: 32px;
 }
  
 #sto_title{
@@ -995,12 +1136,30 @@ padding: 5px 0;
 clear:both;
 }
 
-.arrow_up{
+.post-content .embed_how, #embed_bar .embed_how{
+background: url("../img/usersprite.png") no-repeat scroll 0 -350px transparent;
+width:20px;
+height:20px;
+display:inline-block;
+vertical-align:middle;
+}
+
+#story_embed .arrow_down{
+background: url("../img/usersprite.png") no-repeat scroll 0 0 transparent;
+width:16px;
+height:16px;
+display:inline-block;
+}
+
+#story_embed .arrow_up{
+background: url("../img/usersprite.png") no-repeat scroll 0 -32px transparent;
+width:16px;
+height:16px;
 display:none;
 }
 
 .draft_icon{
-background: url("../img/draft.png") no-repeat scroll 0 0 transparent;
+background: url("../img/usersprite.png") no-repeat scroll 0 -168px transparent;
 float: left;
 height: 16px;
 margin: 0 3px 0 2px;
@@ -1008,7 +1167,7 @@ width: 16px;
 }
 
 .publish_icon{
-background: url("../img/yes.png") no-repeat scroll 0 0 transparent;
+background: url("../img/usersprite.png") no-repeat scroll 0 -456px transparent;
 float: left;
 height: 16px;
 margin: 0 3px 0 2px;
@@ -1067,17 +1226,22 @@ bottom: 7px;
 }
 
 .item_action a{
-display:block;
-}
-.item_action a img{
+padding-left:22px;
 margin-left:5px;
-vertical-align:top;
-margin-top:2px;
+}
+
+.item_action a.repost_f{
+display:block;
+background: url("../img/editsprite.png") no-repeat scroll 0 -292px transparent;
+}
+
+.item_action a.comment_f{
+display:block;
+background: url("../img/editsprite.png") no-repeat scroll 0 -252px transparent;
 }
 
 .item_action a span{
 margin-left:5px;
-vertical-align:top;
 }
 
 .item_action:hover{
@@ -1133,6 +1297,9 @@ float:left;
 .act_digg{
 float:left;
 margin-right:5px;
+background: url("../img/usersprite.png") no-repeat scroll 0 -96px transparent;
+width:16px;
+height:16px;
 }
 
 .digg_counter{
@@ -1184,6 +1351,13 @@ text-align:right;
 .kou_signature span{
 vertical-align:bottom;
 margin-right:5px;
+}
+
+.kou_signature a{
+background: url("../img/usersprite.png") no-repeat scroll 0 -264px transparent;
+display:inline-block;
+width: 35px; 
+height: 38px;
 }
 
 .user_profiles{
@@ -1327,6 +1501,27 @@ width: 24px;
 padding-top:4px;
 background-color:#ababac;
 }
+
+#story_action .delete{
+display:inline-block;
+background: url("../img/usersprite.png") no-repeat scroll 0 -64px transparent;
+width: 16px;
+height: 16px;
+}
+
+#story_action .edit{
+display:inline-block;
+background: url("../img/usersprite.png") no-repeat scroll 0 -200px transparent;
+width: 16px;
+height: 16px;
+}
+
+#story_action .publish{
+display:inline-block;
+background: url("../img/usersprite.png") no-repeat scroll 0 -317px transparent;
+width: 16px;
+height: 16px;
+}
 /* publish part*/
 
 .setting_bar{
@@ -1408,14 +1603,14 @@ padding: 2px 4px 0 4px;
 }
 
 .editable .actions .icon.delete {
-background: url("../img/delete.gif") no-repeat scroll 0 0 transparent;
+background: url("../img/usersprite.png") no-repeat scroll 0 -64px transparent;
 height: 16px;
 width: 16px;
 display:inline-block;
 }
 
 .editable .actions .icon.edit {
-background: url("../img/edit.png") no-repeat scroll 0 0 transparent;
+background: url("../img/usersprite.png") no-repeat scroll 0 -200px transparent;
 height: 16px;
 width: 16px;
 display:inline-block;
@@ -1614,7 +1809,7 @@ float:left;
 width:379px;
 }
 
-.selected div{
+#select_form .selected div{
 color: #888888;
 font-size: 12px;
 padding: 14px;

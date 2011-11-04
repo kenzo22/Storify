@@ -24,6 +24,15 @@ list-style: none outside none;
 #publish_container a:hover { color: #666666; text-decoration: none;}
 #publish_container a:active { color: #FFFFFF; text-decoration: none;}
 
+.quote_sign{
+color: #AAAAAA;
+float: left;
+font-family: Georgia;
+font-size: 56px;
+line-height: 45px;
+margin-left: 2px;
+}
+
 .story_title{
   padding-left:20px;
   font-size: 30px;
@@ -85,7 +94,25 @@ padding: 5px 0;
 clear:both;
 }
 
-.arrow_up{
+#embed_bar .embed_how{
+background: url("../img/usersprite.png") no-repeat scroll 0 -350px transparent;
+width:20px;
+height:20px;
+display:inline-block;
+vertical-align:middle;
+}
+
+#story_embed .arrow_down{
+background: url("../img/usersprite.png") no-repeat scroll 0 0 transparent;
+width:16px;
+height:16px;
+display:inline-block;
+}
+
+#story_embed .arrow_up{
+background: url("../img/usersprite.png") no-repeat scroll 0 -32px transparent;
+width:16px;
+height:16px;
 display:none;
 }
 
@@ -101,6 +128,12 @@ position: relative;
 #weibo_ul .douban_drop .douban_wrapper{
 width:70%;
 margin:0 auto;
+}
+
+.douban_drop{padding:0px 5px 5px 5px;
+margin:auto;
+overflow:hidden;
+position:relative;
 }
 
 #weibo_ul .weibo_drop{
@@ -173,8 +206,39 @@ width:98%;
 overflow:hidden;
 position:relative;}
 
-.weibo_date_drop span a, .douban_date_drop span a{
+.douban_date_drop{
+background: url("../img/editsprite.png") no-repeat scroll 0 -39px transparent;
+padding-left:17px;
+height: 16px; 
+margin-top:3px;
 color:#939393;
+text-align:right;
+}
+
+.douban_signature{
+background: url("../img/editsprite.png") no-repeat scroll 0 -39px transparent;
+width:16px; 
+height:16px;
+display:inline-block;
+float:right;
+}
+
+li.sina .weibo_date_drop{
+background: url("../img/editsprite.png") no-repeat scroll 0 -375px transparent;
+padding-left:17px;
+height: 16px; 
+margin-top:3px;
+color:#939393;
+text-align:right;
+}
+
+li.tencent .weibo_date_drop{
+background: url("../img/editsprite.png") no-repeat scroll 0 -463px transparent;
+padding-left:17px;
+height: 16px; 
+margin-top:3px;
+color:#939393;
+text-align:right;
 }
 
 .weibo_from_drop{
@@ -194,12 +258,12 @@ max-width: 260px;
 }
 
 .yupoo_sign{
-background: url("../img/yupoo-logo.png") no-repeat scroll 0 0 transparent;
-height: 30px;
+background: url("../img/editsprite.png") no-repeat scroll 0 -591px transparent;
+height: 16px;
 right: 10px;
 position: absolute;
 bottom: 0;
-width: 30px;
+width: 16px;
 }
 
  .video_element{

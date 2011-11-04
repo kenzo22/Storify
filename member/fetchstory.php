@@ -9,6 +9,8 @@ include_once( '../tweibo/txwboauth.php' );
 include_once( '../douban/config.php' );
 include_once( '../douban/doubanapi.php' );
 
+
+$date_t = date("Y-m-d H:i:s");
 //select a random item from the publictoken pool
 $token = $DB->fetch_one_array("select * from ".$db_prefix."publictoken where id='1'");
 
@@ -47,7 +49,7 @@ if(!empty($result))
   
   $userresult = $DB->fetch_one_array("select username, intro, photo from ".$db_prefix."user where id='".$result['post_author']."'");
   $story_embed = $result['embed_name'];
-  $story_time = $result['post_date'];
+  $story_time = dateFormatTrans($result['post_date'],$date_t);
   $story_title=$result['post_title'];
   $story_summary=$result['post_summary'];
   $story_pic=$result['post_pic_url'];
@@ -110,14 +112,14 @@ if(!empty($result))
 						<a class='jiathis_button_tqq'></a>
 						<a class='jiathis_button_renren'></a>
 						<a class='jiathis_button_kaixin001'></a>
-						<a href='http://www.jiathis.com/share' class='jiathis jiathis_txt jtico jtico_jiathis' target='_blank'></a>
+						<a href='http://www.jiathis.com/share?uid=1542042' class='jiathis jiathis_txt jtico jtico_jiathis' target='_blank'></a>
 						<a class='jiathis_counter_style'></a>
 					</div>
 					<div id='story_embed'>
-					  <a href='#' id='embed_a'>嵌入故事<span><img class='arrow_down' src='/img/arrow_down.png'/><img class='arrow_up' src='/img/arrow_up.png'/></span></a>
+					  <a href='#' id='embed_a'>嵌入故事<span class='arrow_down'></span><span class='arrow_up'></span></a>
 					</div>
 				  </div>
-				  <div id='embed_bar'><span style='margin-left:20px;'>复制嵌入代码:</span><span><input type='text' class='sto_embed' value='".$embed_code."' size='68'></span><a title='如何嵌入'><img src='/img/question.png' style='vertical-align:top'/></a></div>
+				  <div id='embed_bar'><span style='margin-left:20px;'>复制嵌入代码:</span><span><input type='text' class='sto_embed' value='".$embed_code."' size='68'></span><a title='如何嵌入' class='embed_how'></a></div>
 			    </div>
 			  </div><ul id='weibo_ul' style='padding:0;'>";
 			  
@@ -136,7 +138,7 @@ if(!empty($result))
 		}
 		if (isset($single_weibo['error_code']) && isset($single_weibo['error'])){
             // skip deleted weibo
-            $content .="<li class='weibo_drop sina' id='$weibo_per_id' style='border:none;'><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>此微博已被删除</span></div>";
+            $content .="<li class='weibo_drop sina' id='$weibo_per_id' style='border:none;'><div class='story_wrapper'><div class='quote_sign'>“</div><div class='content_wrapper'><span class='weibo_text_drop'>此微博已被删除</span></div>";
 			//$content .="<li class='weibo_drop sina' id='$weibo_per_id' style='border:none;'><div class='story_wrapper'><div><span class='weibo_text'>errorcode:".$single_weibo['error_code']."error".$single_weibo['error']."</span></div>";
             continue;
 		}
@@ -147,11 +149,11 @@ if(!empty($result))
 
             $single_weibo['text'] = subs_url($single_weibo['text'],'weibo');
 
-			$createTime = dateFormat($single_weibo['created_at']);
+			$createTime = dateFormatTrans(dateFormat($single_weibo['created_at']),$date_t);
 			$content .="<li class='weibo_drop sina' id='$weibo_per_id' style='border:none;'>";
     		if (isset($single_weibo['retweeted_status'])){
                 
-                $content .="<div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text'];
+                $content .="<div class='story_wrapper'><div class='quote_sign'>“</div><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text'];
 				// show emotions in text
                 $single_weibo['retweeted_status']['text']=subs_emotions($single_weibo['retweeted_status']['text'],"weibo");
 
@@ -167,7 +169,7 @@ if(!empty($result))
 				}
             }
 			else{
-			  $content .="<div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text'];
+			  $content .="<div class='story_wrapper'><div class='quote_sign'>“</div><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text'];
 			}
             if (isset($single_weibo['bmiddle_pic']))
 			{
@@ -176,8 +178,7 @@ if(!empty($result))
             $content .= "</div>";
             $content .= "<div class='story_signature'><span style='float:right;'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img' style='width: 32px; height: 32px; overflow: hidden; margin-top:5px;' src='"
 			.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><span class='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'>
-			<span ><a class='weibo_from_drop' href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span>
-			<img border='0' style='position:relative; top:2px' src='../img/sina16.png'/><a>".$createTime."</a></span></div></span> </div></div></li>";
+			<span ><a class='weibo_from_drop' href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date_drop'>".$createTime."</div></span> </div></div></li>";
 		}
 		break;}
 		 
@@ -202,6 +203,7 @@ if(!empty($result))
 		  $content .=
 		 "<li class='douban_drop douban' id='$douban_save_per_id' style='border:none;'>
 		    <div class='douban_wrapper'>
+			  <div class='quote_sign'>“</div>
 			  <div class='content_wrapper'>
 			  <div class='event_summary'>".$doubanElement['summary'][0]['$t']."</div>
 			  <div style='margin-top:10px; overflow:auto;'>
@@ -230,11 +232,7 @@ if(!empty($result))
 					  <a class='douban_from_drop' href='".$eventInitiator_url."' target='_blank'>".$eventInitiator_name."</a>
 					</span>
 				  </div>
-				  <div class='douban_date_drop'  style='text-align:right; height:16px;'>
-				    <span>
-					  <img border='0' style='position:relative; top:2px; width:16px; height:16px;' src='../img/logo_douban.png'/>
-					</span>
-				  </div>
+				  <div class='douban_date_drop'></div>
 				</span> 
 			  </div>
 			</div>
@@ -291,6 +289,7 @@ if(!empty($result))
 			$content .=
 			"<li class='douban_drop douban' id='$douban_save_per_id' style='border:none;'>
 			  <div class='douban_wrapper'>
+			    <div class='quote_sign'>“</div>
 				<div class='content_wrapper'>
 				<div>
 				  <div class='comment_title' style='font-weight:bold;'>".$doubanElement['title']['$t']."</div>
@@ -322,12 +321,7 @@ if(!empty($result))
 						<a class='douban_from' href='".$doubanElement['author']['link'][1]['@href']."' target='_blank'>".$doubanElement['author']['name']['$t']."</a>
 					  </span>
 					</div>
-					<div class='douban_date_drop'  style='text-align:right; height:16px;'>
-					  <span> 
-						<img border='0' style='position:relative; top:2px; width:16px; height:16px;' src='../img/logo_douban.png'/>
-						<a>".$time_array[0]."</a>
-					  </span>
-					</div>
+					<div class='douban_date_drop'>".$time_array[0]."</div>
 				  </span> 
 				</div>
 			  </div>
@@ -382,9 +376,7 @@ if(!empty($result))
 				  </div>
 				</div>
 				</div>
-				<div class='douban_signature' style='text-align:right; overflow:auto;'>
-				  <img border='0' style='width:16px; height:16px;' src='../img/logo_douban.png'/>
-				</div>
+				<div class='douban_signature'></div>
 			  </div>
 			</li>";
 		  }
@@ -431,6 +423,7 @@ if(!empty($result))
 	  {
 		$time = getdate($item['timestamp']);
 		$create_time = $time[year]."-".$time[mon]."-".$time[mday]." ".$time[hours].":".$time[minutes];
+		$create_time = dateFormatTrans($create_time, $date_t);
 		$profileImgUrl = $item['head']."/50";
 		
 		//show nick name
@@ -442,7 +435,7 @@ if(!empty($result))
 		$tweiboContent .="<li id='".$item['id']."'>";
 
 		if(isset($item['source'])){
-			$tweiboContent .="<div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text'];
+			$tweiboContent .="<div class='story_wrapper'><div class='quote_sign'>“</div><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text'];
 			//nick name
 			$item['source']['text'] = tweibo_show_nick($item['source']['text'],$tweibo[data][user]);
 			
@@ -458,7 +451,7 @@ if(!empty($result))
 				}
 			}
 		}else{
-			$tweiboContent .= "<div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text']."</span></div>";
+			$tweiboContent .= "<div class='story_wrapper'><div class='quote_sign'>“</div><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text']."</span></div>";
 			if(isset($item['image'])){
 				foreach($item['image'] as $img_url){
 					$tweiboContent .="<div class='weibo_img_drop'><img src='".$img_url."/240' /></div>";
@@ -467,8 +460,7 @@ if(!empty($result))
 		}
 		$tweiboContent .= "<div class='story_signature'><span style='float:right;'><a href='http://t.qq.com/".$item['name']."' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:5px;' src='"
 		.$profileImgUrl."' alt='".$item['nick']."' border=0 /></a></span><span class='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'>
-		<span ><a class='weibo_from_drop' href='http://t.qq.com/".$item['name']."' target='_blank'>".$item['nick']."</a></span></div><div class='weibo_date_drop'  style='text-align:right; height:16px;'><span>
-		<img border='0' style='position:relative; top:2px' src='/img/tencent16.png'/><a>".$create_time."</a></span></div></span> </div></div></li>tweibo_sep";
+		<span ><a class='weibo_from_drop' href='http://t.qq.com/".$item['name']."' target='_blank'>".$item['nick']."</a></span></div><div class='weibo_date_drop'>".$create_time."</div></span> </div></div></li>tweibo_sep";
 	  }
 	  $tweibo_array = explode("tweibo_sep", $tweiboContent);
 	  $tweibo_array_len = count($tweibo_array);
