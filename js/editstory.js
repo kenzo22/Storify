@@ -586,7 +586,7 @@ $(function() {
 		  if(0 == vtabIndex)
 		  {
 		    $('#weibo_search_btn').text('搜索话题');
-			$('#source_list').append("<div class='trends_wrapper'><a id='view_trends' href='#'>点击查看本周热门话题</a></div>");
+			$('#source_list').append("<a class='trends_wrapper' href='#'><span id='view_trends' href='#'>点击查看本周热门话题</span></a>");
 		  }
 		  else
 		  {
@@ -785,7 +785,7 @@ $(function() {
 		$( "#source_list, #story_list" ).sortable({
 			tolerance: "pointer",
 			connectWith: ".connectedSortable",
-			cancel: ".weibo_drop, .douban_drop, .video_drop, .textElement, .tuser, .loadmore, #trends_wrapper",
+			cancel: ".weibo_drop, .douban_drop, .video_drop, .textElement, .tuser, .loadmore, .trends_wrapper",
 			receive: function(event, ui) 
 			{
 			  var dragItem = ui.item;
@@ -1193,7 +1193,7 @@ $(function() {
 		});
 		
 		//sina weibo list trends
-		$('#view_trends').live('click', function(e){
+		$('.trends_wrapper').live('click', function(e){
 		  e.preventDefault();
 		  var getUrl = '../weibo/weibooperation.php';
 		  var getData;
@@ -1573,7 +1573,7 @@ $(function() {
 		    $weiboTabs.tabs( "select" , 0 );
 		    $('#weibo_search').removeClass('none');
 			$('#source_list').css('height', '664px').children().remove();
-			$('#source_list').append("<div class='trends_wrapper'><a id='view_trends' href='#'>点击查看本周热门话题</a></div>");
+			$('#source_list').append("<a class='trends_wrapper' href='#'><span id='view_trends'>点击查看本周热门话题</span></a>");
 		  }
 		  selVTab = 0;
 		  $('#vtab>div').hide().eq(vtabIndex).show();

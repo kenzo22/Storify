@@ -14,7 +14,7 @@ margin:20px 0 20px 0;
    
 #featured { 
 	width: 920px;
-	height: 320px;
+	height: 380px;
 	background: #000 url('orbit/loading.gif') no-repeat center center;
 	overflow: hidden; }
 #featured>img,  

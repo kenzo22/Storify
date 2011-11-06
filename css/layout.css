@@ -46,6 +46,11 @@ body.editor {
 background: none repeat-y scroll 0 0 #F9F9F9;
 }
 
+#featured_container #featured img{
+width:920px; 
+height:380px;
+}
+
 /* info source signature part */
 .douban_signature{
 background: url("../img/editsprite.png") no-repeat scroll 0 -39px transparent;
@@ -650,6 +655,10 @@ width: 13px;
 .story_wrapper, .douban_wrapper, .urlWrapper, .yupooWrapper, .youku_wrapper, .commentBox{
 margin-left:13px;
 }
+
+.commentBox{
+padding-left:5px;
+}
  
 .list_t_weibo{
 background: none repeat scroll 0 0 #E1F0F7;
@@ -1026,6 +1035,7 @@ border-style:solid;
 border-width:1px;
 margin:10px 5px 0 5px;
 padding:5px 0 5px 0;
+display:block;
 }
 
 .loadmore {
@@ -1640,25 +1650,58 @@ border: 1px solid #DDDDDD;
 border-radius: 3px 3px 3px 3px;
 color: #323232;
 display: inline-block;
-padding: 5px;
+padding: 5px 5px 2px 5px;
 text-decoration: none;
 }
 
-#popular{clear:both;}	
-#pop_wrapper{background: none repeat scroll 0 0 #FCFCFC;
-    border: 1px solid #E6E6E6;
-	border-bottom:none;
-    border-radius: 5px 5px 0 0;}
-#pop_wrapper ul {padding:0; margin-top:0;}
+#popular{
+clear:both;
+}
+
+#popular h3{
+color:#999999;
+padding-top:3px;
+}
+	
+#pop_wrapper{
+height:280px;
+background: none repeat scroll 0 0 #FCFCFC;
+border: 1px solid #E6E6E6;
+border-bottom:none;
+border-radius: 5px 5px 0 0;
+}
+#pop_wrapper ul {
+padding:0; margin-top:0;
+}
+
 #pop_wrapper ul li {
 border: 1px solid #DDDDDD;
 border-radius: 3px 3px 3px 3px;
 color: #323232;
 display: inline-block;
-padding: 5px;
+padding: 5px 5px 2px 5px;
 text-decoration: none;
 zoom: 1;
 margin:10px 10px 0px 15px; 
+}
+
+.sto_cover_list .story_meta{
+padding-top:5px;
+}
+
+.sto_cover_list .story_meta span img{
+width: 20px; 
+height:20px;
+}
+
+.sto_cover_list .story_meta .meta_author{
+margin-left:5px;
+vertical-align:top;
+}
+
+.sto_cover_list .story_meta .meta_date{
+float:right;
+vertical-align:top;
 }
 
 #time_wrapper{

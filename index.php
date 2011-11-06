@@ -49,10 +49,10 @@ include "member/tagoperation.php";
 		  $slider_content ="
 	      <div id='featured_container'>
 		    <div id='featured'> 
-			  <img src='img/slide1.jpg' style='width:920px; height:320px;' />
-			  <a href=''><img src='img/slide2.jpg' style='width:920px; height:320px;'/></a>
-			  <img src='img/slide3.jpg' data-caption='#htmlCaption' style='width:920px; height:320px;'/>
-			  <img src='img/slide4.jpg'  style='width:920px; height:320px;'/>
+			  <img src='img/slide1.jpg' />
+			  <a href=''><img src='img/slide2.jpg' /></a>
+			  <img src='img/slide3.jpg' data-caption='#htmlCaption' />
+			  <img src='img/slide4.jpg' />
 		    </div>
 		    <span class='orbit-caption' id='htmlCaption'><strong>Badass Caption:</strong> I can haz <a href='#'>links</a>, <em>style</em> or anything that is valid markup :)</span>
 		  </div>";
@@ -64,10 +64,10 @@ include "member/tagoperation.php";
 		}
 		?>
 		<div id='popular'>
-		  <h3 style='color:#999999; padding-top:5px;'>最流行</h3>
-		  <div id='pop_wrapper' style='height:290px;'>
+		  <h3>最流行</h3>
+		  <div id='pop_wrapper'>
 		    <div id='time_wrapper'><a class='time_range'>三天内</a><a class='time_range selected'>一周内</a><a class='time_range'>一月内</a><a class='time_range'>365天内</a></div>
-		    <ul id='pop_list'>
+		    <ul id='pop_list' class='sto_cover_list'>
 			<?php
 			$story_content = '';
 			$i_query = "select * from ".$db_prefix."posts where post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_date) <=7 order by post_digg_count desc limit 4";
@@ -79,12 +79,15 @@ include "member/tagoperation.php";
 			  $post_pic_url = $story_item['post_pic_url'];
 			  $userresult = $DB->fetch_one_array("SELECT username, photo FROM ".$db_prefix."user where id='".$post_author."'");
 			  $user_profile_img = $userresult['photo'];
+			  if($user_profile_img == '')
+			  {
+			    $user_profile_img = '/img/douban_user_dft.jpg';
+			  }
 			  $post_title = $story_item['post_title'];
 			  $post_date = $story_item['post_date'];
 			  $temp_array = explode(" ", $story_item['post_date']);
 			  $post_date = $temp_array[0];
-			  $story_content .= "<li><a class='cover' style='background: url(".$post_pic_url.") no-repeat; background-size: 100%;' href='member/user.php?user_id=".$post_author."&post_id=".$story_item['ID']."'><div class='title_wrap'><h1 class='title'>".$post_title."</h1></div></a><div class='story_meta' 
-			  ><span><img border='0' style='position:relative; top:3px; width: 20px; height:20px;' src='".$user_profile_img."'/><a style='margin-left:5px; vertical-align:top;' href='member/user.php?user_id=".$post_author."'>".$userresult['username']."</a><a style='float:right; vertical-align:top;'>".$post_date."</a></span></div></li>";
+			  $story_content .= "<li><a class='cover' style='background: url(".$post_pic_url.") no-repeat; background-size: 100%;' href='member/user.php?user_id=".$post_author."&post_id=".$story_item['ID']."'><div class='title_wrap'><h1 class='title'>".$post_title."</h1></div></a><div class='story_meta'><span><img src='".$user_profile_img."'/><a class='meta_author' href='member/user.php?user_id=".$post_author."'>".$userresult['username']."</a><a class='meta_date'>".$post_date."</a></span></div></li>";
 			}
 			echo $story_content;
 			?>

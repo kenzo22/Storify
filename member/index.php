@@ -199,9 +199,9 @@ $content .= "
 		  
 		</div>
 		<ul id='source_list' class='connectedSortable'>
-		  <div class='trends_wrapper'>
-		    <a id='view_trends' href='#'>点击查看本周热门话题</a>
-		  </div>
+		  <a class='trends_wrapper' href='#'>
+		    <span id='view_trends'>点击查看本周热门话题</span>
+		  </a>
 		</ul>    	
 	  </div>
 	</div>
@@ -544,7 +544,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 		
 	  case "comment":{
 	  $comment_text = $val['content'];
-	  $content .="<li class='textElement editted'><div class='cross' action='delete' onclick='remove_item(event)'></div><div class='commentBox'>"
+	  $content .="<li class='textElement editted'><div class='cross' action='delete' onclick='remove_item(event)'></div><div class='handle'></div><div class='commentBox'>"
 	  .$comment_text."</div></li><li class='addTextElementAnchor'><span><a class='add_comment'></a></span></li>";		
 		break;}	
 		

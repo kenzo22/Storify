@@ -1070,9 +1070,13 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
   // How many adjacent pages should be shown on each side?
   $adjacents = 3;
   $user_id = $_GET['user_id'];
-  $story_content = "<div id='userstory_container' class='inner'><div class='userstory_list'><ul>";
+  $story_content = "<div id='userstory_container' class='inner'><div class='userstory_list'><ul class='sto_cover_list'>";
   $userresult = $DB->fetch_one_array("SELECT username, photo FROM ".$db_prefix."user where id='".$user_id."'");
   $user_profile_img = $userresult['photo'];
+  if($user_profile_img == '')
+  {
+	$user_profile_img = '/img/douban_user_dft.jpg';
+  }
   
     $query = "SELECT COUNT(*) as num FROM $tbl_name where post_author='".$user_id."'";
 	$total_pages = mysql_fetch_array(mysql_query($query));
@@ -1211,7 +1215,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
     </div>";
   }
    $story_content .="<div class='clear'></div></div></div>
-	<div class='story_meta'><span><img border='0' style='position:relative; top:3px; width: 20px; height:20px;' src='".$user_profile_img."'/><a style='margin-left:5px; vertical-align:top;'>".$userresult['username']."</a><a style='float:right; vertical-align:top;'>".$post_date."</a></span></div></li>";
+	<div class='story_meta'><span><img src='".$user_profile_img."'/><a class='meta_author'>".$userresult['username']."</a><a class='meta_date'>".$post_date."</a></span></div></li>";
   }
 
   $story_content .="</ul></div>".$pagination."</div>";

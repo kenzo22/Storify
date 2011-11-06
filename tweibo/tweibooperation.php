@@ -39,7 +39,12 @@ else if('list_user' == $operation)
 {
   $keywords = $_GET['keywords'];
   $tweibo  = $c->search_user($keywords, $page, $itemsPerPage);
-  if($tweibo['data'] == NULL)
+  if($tweibo == NULL)
+  {
+    echo "<div class='imply_color' style='text-align:center;'>没有更多用户了</div>";
+    exit;
+  }
+  if($tweibo['data'] == NULL  && $tweibo['msg'] == 'have no user')
   {
     echo "<div class='imply_color' style='text-align:center;'>此腾讯微博用户不存在</div>";
     exit;
@@ -49,6 +54,11 @@ else if('user_search' == $operation)
 {
   $keywords = $_GET['keywords'];
   $tweibo  = $c->user_timeline($keywords, $page, $timestamp, $itemsPerPage);
+  if($tweibo['data'] == NULL)
+  {
+    echo "<div class='imply_color' style='text-align:center;'>对不起，没有找到相关的微博</div>";
+    exit;
+  }
 }
 
 $info = $tweibo['data']['info'];
@@ -92,8 +102,16 @@ if('list_user' == $operation)
 else
 {
   $weiboContent = "";
-  if( $tweibo['data']['hasnext'] == 1)
-  $load_more_flag = false;
+  if('weibo_search' == $operation)
+  {
+    if($itemsPerPage*$page >= $tweibo['data']['totalnum'])
+	  $load_more_flag = false;
+  }
+  else
+  {
+    if( $tweibo['data']['hasnext'] == 1)
+	  $load_more_flag = false;
+  }
   foreach( $info as $item )
   {
     $lastTimestamp = $item['timestamp'];
