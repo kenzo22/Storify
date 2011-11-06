@@ -120,7 +120,7 @@ foreach( $doubanCommentsReturn['entry'] as $commentItem )
 
 if($startIndex+$numResults < $totalCommentsNum)
 {
-  $doubanContent .="<div id='".$subjectID."' class='loadmore ".$item_type."'><a>".$load_more_text."</a></div>";
+  $doubanContent .="<a id='".$subjectID."' class='loadmore ".$item_type."'><span>".$load_more_text."</span></a>";
 }
 
 echo $doubanContent;

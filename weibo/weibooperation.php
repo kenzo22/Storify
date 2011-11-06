@@ -109,7 +109,7 @@ foreach( $weibo as $item )
 }
 if($load_more_flag)
 {
-  $weiboContent .="<div class='loadmore'><a>更多</a></div>";
+  $weiboContent .="<a class='loadmore'><span>更多</span></a>";
 }
 echo $weiboContent;
 

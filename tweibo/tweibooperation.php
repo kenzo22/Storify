@@ -86,7 +86,7 @@ if('list_user' == $operation)
   }
   if($itemsPerPage*$page<$tweibo['data']['totalnum'])
   {
-    $weiboContent .="<div class='loadmore tuser'><a>更多</a></div>";
+    $weiboContent .="<a class='loadmore tuser'><span>更多</span></a>";
   }
 }
 else
@@ -144,7 +144,7 @@ else
   }
   if($load_more_flag)
   {
-    $weiboContent .="<div class='loadmore'><a>更多</a><span id='".$lastTimestamp."'></span></div>";
+    $weiboContent .="<a class='loadmore'>更多<span id='".$lastTimestamp."'></span></a>";
   }
 }
 echo $weiboContent;

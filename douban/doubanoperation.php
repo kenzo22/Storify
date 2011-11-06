@@ -124,7 +124,7 @@ if($eventFlag == 0)
 	}
 	if($startIndex+$numResults < $totalResults)
 	{
-	  $doubanContent .="<div class='loadmore ".$item_type."'><a>".$load_more_text."</a></div>";
+	  $doubanContent .="<a class='loadmore ".$item_type."'><span>".$load_more_text."</span></a>";
 	}
 }
 else if($eventFlag == 1)
@@ -184,7 +184,7 @@ else if($eventFlag == 1)
   }
   if($startIndex+$numResults < $totalEvents)
   {
-	$doubanContent .="<div class='loadmore event'><a>更多活动</a></div>";
+	$doubanContent .="<a class='loadmore event'><span>更多活动</span></a>";
   }
 }
 

@@ -58,7 +58,7 @@ function prepare_story_data(action_value)
   
   var story_content_val = new Object;
   story_content_val.content = [];
-  $('#story_list li:not(.addTextElementAnchor)').each(function(i)
+  $('#story_list li:not(.addTextElementAnchor, .textElement.editing)').each(function(i)
   {
 	story_content_val.content[i] = {};
 	story_content_val.content[i].id = i;
@@ -1254,7 +1254,7 @@ $(function() {
 		  {
 		    selected = $picTabs.tabs('option', 'selected'); 
 		  }
-		  if ($(e.target).is('.loadmore a'))
+		  if ($(e.target).is('.loadmore'))
 		  {
 			var getUrl;
 			var getData;
@@ -1494,7 +1494,7 @@ $(function() {
 		  {
 			var $textElement = $(e.target).closest('.textElement');
 			var comment = $textElement.find('.inputEditor').val();
-			if(comment == '')
+			if(comment == '' || comment == '<br>')
 			{
 			  $(e.target).closest('.textElement').next('.addTextElementAnchor').remove();
 			  $(e.target).closest('.textElement').remove();

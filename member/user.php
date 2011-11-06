@@ -156,11 +156,11 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 						</div>
 						<div class='steps'>
 						  <div class='post-content'>
-						    <h2>嵌入故事到你的网站中</h2>
-							<span>复制嵌入代码:</span><span><input type='text' value='".$embed_code."' class='sto_embed' size='72'></span><a title='如何嵌入' class='embed_how'><a>
+						    <h2>轻松嵌入故事到你的网站中~</h2>
+							<span>复制嵌入代码:</span><span><input type='text' value='".$embed_code."' class='sto_embed' size='72'></span><a title='如何嵌入' class='embed_how'></a>
 						  </div>
 						  <div class='notify-content'>
-						    <h2>告诉作者你引用了他们的内容</h2>";
+						    <h2>饮水思源，告诉作者你引用了他们的内容~</h2>";
 		$weiboFlag=false;
 		$tweiboFlag=false;
 		$w_user_count = 0;
@@ -184,6 +184,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		  }
 	    }
 	    $w_nic_array = array_unique($w_nic_array);
+		$w_nic_array = array_merge($w_nic_array);
 	    $w_array_length = count($w_nic_array);
 		if($has_sina)
 		{
@@ -274,6 +275,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		}
 	    $content.="</div>
 				  <div class='share-content'>
+				    <h2>好东西大家都来分享~</h2>
 					<div id='jiathis_style_32x32'>
 					  <a class='jiathis_button_qzone'></a><a class='jiathis_button_tsina'></a>
 					  <a class='jiathis_button_tqq'></a>

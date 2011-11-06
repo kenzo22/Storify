@@ -98,7 +98,7 @@ foreach($picArray as $item)
 
 if($itemsPerPage*$page<$totalPic)
 {
-  $picContent .="<div class='loadmore'><a>更多图片</a></div>";
+  $picContent .="<a class='loadmore'><span>更多图片</span></a>";
 }
 echo $picContent;
 
