@@ -1,0 +1,47 @@
+/* source part */
+.sprite-douban32{ background-position: 0 0; width: 32px; height: 32px; } 
+.sprite-sina32{ background-position: 0 -64px; width: 32px; height: 32px; } 
+.sprite-tencent32{ background-position: 0 -128px; width: 32px; height: 32px; } 
+.sprite-youkulogo{ background-position: 0 -192px; width: 88px; height: 31px; } 
+.sprite-yupoologo{ background-position: 0 -255px; width: 80px; height: 30px; } 
+
+
+/* editstory part */
+.sprite-cross{ background-position: 0 0; width: 15px; height: 15px; } 
+.sprite-douban16{ background-position: 0 -39px; width: 16px; height: 16px; } 
+.sprite-editcomment{ background-position: 0 -79px; width: 16px; height: 16px; } 
+.sprite-icon-youku{ background-position: 0 -119px; width: 24px; height: 24px; } 
+.sprite-left{ background-position: 0 -167px; width: 16px; height: 16px; } 
+.sprite-logo_douban{ background-position: 0 -207px; width: 24px; height: 24px; } 
+.sprite-reply{ background-position: 0 -255px; width: 16px; height: 16px; } 
+.sprite-retweet{ background-position: 0 -295px; width: 16px; height: 16px; } 
+.sprite-right{ background-position: 0 -335px; width: 16px; height: 16px; } 
+.sprite-sina16{ background-position: 0 -375px; width: 16px; height: 16px; } 
+.sprite-sina24{ background-position: 0 -415px; width: 24px; height: 24px; } 
+.sprite-tencent16{ background-position: 0 -463px; width: 16px; height: 16px; } 
+.sprite-tencent24{ background-position: 0 -503px; width: 24px; height: 24px; } 
+.sprite-youkuplay{ background-position: 0 -551px; width: 16px; height: 16px; } 
+.sprite-yupoo16{ background-position: 0 -591px; width: 16px; height: 16px; } 
+.sprite-yupoo24{ background-position: 0 -631px; width: 24px; height: 24px; } 
+
+/* global part */
+.sprite-home{ background-position: 0 0; width: 24px; height: 24px; } 
+.sprite-quit{ background-position: 0 -48px; width: 24px; height: 24px; } 
+.sprite-setting{ background-position: 0 -96px; width: 24px; height: 24px; } 
+
+/* userstory part */
+.sprite-arrow_down{ background-position: 0 0; width: 16px; height: 16px; } 
+.sprite-arrow_up{ background-position: 0 -32px; width: 16px; height: 16px; } 
+.sprite-delete{ background-position: 0 -64px; width: 16px; height: 16px; } 
+.sprite-ding{ background-position: 0 -96px; width: 16px; height: 16px; } 
+.sprite-douban_user_dft{ background-position: 0 -128px; width: 24px; height: 24px; }                 333
+.sprite-draft{ background-position: 0 -168px; width: 16px; height: 16px; } 
+.sprite-edit{ background-position: 0 -200px; width: 16px; height: 16px; } 
+.sprite-embed{ background-position: 0 -232px; width: 16px; height: 16px; } 
+.sprite-kou{ background-position: 0 -264px; width: 35px; height: 38px; }
+.sprite-publish{ background-position: 0 -318px; width: 16px; height: 16px; } 
+.sprite-question{ background-position: 0 -350px; width: 20px; height: 20px; } 
+.sprite-radio{ background-position: 0 -386px; width: 22px; height: 22px; } 
+.sprite-share{ background-position: 0 -424px; width: 16px; height: 16px; } 
+.sprite-yes{ background-position: 0 -456px; width: 16px; height: 16px; } 
+ 

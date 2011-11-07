@@ -47,12 +47,32 @@ if($item_count > 0 ){
         $post_pic_url = $story_item['post_pic_url'];
         $userresult = $DB->fetch_one_array("SELECT username, photo FROM ".$db_prefix."user where id='".$post_author."'");
         $user_profile_img = $userresult['photo'];
+		if($user_profile_img == '')
+		{
+	      $user_profile_img = '/img/douban_user_dft.jpg';
+		}
         $post_title = $story_item['post_title'];
         $post_date = $story_item['post_date'];
         $temp_array = explode(" ", $story_item['post_date']);
         $post_date = $temp_array[0];
-        $story_content .= "<li><a class='cover' style='background: url(".$post_pic_url.") no-repeat; background-size: 100%;' href='member/user.php?user_id=".$post_author."&post_id=".$story_item['ID']."'><div class='title_wrap'><h1 class='title'>".$post_title."</h1></div></a><div class='story_meta' 
-        ><span><img border='0' style='position:relative; top:3px; width: 20px; height:20px;' src='".$user_profile_img."'/><a style='margin-left:5px; vertical-align:top;' href='member/user.php?user_id=".$post_author."'>".$userresult['username']."</a><a style='float:right; vertical-align:top;'>".$post_date."</a></span></div></li>";
+		$post_link = "/member/user.php?user_id=".$post_author."&post_id=".$story_item['ID'];
+        $story_content .=  "<li>
+							  <div class='story_wrap'>	
+								<a href='".$post_link."'>
+								  <img class='cover' src='".$post_pic_url."' />
+								</a>
+								<a class='title_wrap' href='".$post_link."'>
+								  <h1 class='title'>".$post_title."</h1>
+								</a>
+							  </div>
+							  <div class='story_meta'>
+								<span>
+								  <img src='".$user_profile_img."'/>
+								  <a class='meta_author' href='member/user.php?user_id=".$post_author."'>".$userresult['username']."</a>
+								  <a class='meta_date'>".$post_date."</a>
+								</span>
+							  </div>
+							</li>";
       }
     }
     else
@@ -64,12 +84,32 @@ if($item_count > 0 ){
         $post_pic_url = $story_item['post_pic_url'];
         $userresult = $DB->fetch_one_array("SELECT username, photo FROM ".$db_prefix."user where id='".$post_author."'");
         $user_profile_img = $userresult['photo'];
+		if($user_profile_img == '')
+		{
+	      $user_profile_img = '/img/douban_user_dft.jpg';
+		}
         $post_title = $story_item['post_title'];
         $post_date = $story_item['post_date'];
         $temp_array = explode(" ", $story_item['post_date']);
         $post_date = $temp_array[0];
-        $story_content .= "<li><a class='cover' style='background: url(".$post_pic_url.") no-repeat; background-size: 100%;' href='member/user.php?user_id=".$post_author."&post_id=".$story_item['ID']."'><div class='title_wrap'><h1 class='title'>".$post_title."</h1></div></a><div class='story_meta' 
-        ><span><img border='0' style='position:relative; top:3px; width: 20px; height:20px;' src='".$user_profile_img."'/><a style='margin-left:5px; vertical-align:top;' href='member/user.php?user_id=".$post_author."'>".$userresult['username']."</a><a style='float:right; vertical-align:top;'>".$post_date."</a></span></div></li>";
+		$post_link = "/member/user.php?user_id=".$post_author."&post_id=".$story_item['ID'];
+        $story_content .=  "<li>
+							  <div class='story_wrap'>	
+								<a href='".$post_link."'>
+								  <img class='cover' src='".$post_pic_url."' />
+								</a>
+								<a class='title_wrap' href='".$post_link."'>
+								  <h1 class='title'>".$post_title."</h1>
+								</a>
+							  </div>
+							  <div class='story_meta'>
+								<span>
+								  <img src='".$user_profile_img."'/>
+								  <a class='meta_author' href='member/user.php?user_id=".$post_author."'>".$userresult['username']."</a>
+								  <a class='meta_date'>".$post_date."</a>
+								</span>
+							  </div>
+							</li>";
       }
       $query = "select * from ".$db_prefix."posts where post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_date) <=$time_range order by post_digg_count desc limit 0, $remain_count";
       $remain_result= $DB->query($query);
@@ -79,12 +119,31 @@ if($item_count > 0 ){
         $post_pic_url = $story_item['post_pic_url'];
         $userresult = $DB->fetch_one_array("SELECT username, photo FROM ".$db_prefix."user where id='".$post_author."'");
         $user_profile_img = $userresult['photo'];
+		if($user_profile_img == '')
+		{
+	      $user_profile_img = '/img/douban_user_dft.jpg';
+		}
         $post_title = $story_item['post_title'];
         $post_date = $story_item['post_date'];
         $temp_array = explode(" ", $story_item['post_date']);
         $post_date = $temp_array[0];
-        $story_content .= "<li><a class='cover' style='background: url(".$post_pic_url.") no-repeat; background-size: 100%;' href='member/user.php?user_id=".$post_author."&post_id=".$story_item['ID']."'><div class='title_wrap'><h1 class='title'>".$post_title."</h1></div></a><div class='story_meta' 
-        ><span><img border='0' style='position:relative; top:3px; width: 20px; height:20px;' src='".$user_profile_img."'/><a style='margin-left:5px; vertical-align:top;' href='member/user.php?user_id=".$post_author."'>".$userresult['username']."</a><a style='float:right; vertical-align:top;'>".$post_date."</a></span></div></li>";
+        $story_content .=  "<li>
+							  <div class='story_wrap'>	
+								<a href='".$post_link."'>
+								  <img class='cover' src='".$post_pic_url."' />
+								</a>
+								<a class='title_wrap' href='".$post_link."'>
+								  <h1 class='title'>".$post_title."</h1>
+								</a>
+							  </div>
+							  <div class='story_meta'>
+								<span>
+								  <img src='".$user_profile_img."'/>
+								  <a class='meta_author' href='member/user.php?user_id=".$post_author."'>".$userresult['username']."</a>
+								  <a class='meta_date'>".$post_date."</a>
+								</span>
+							  </div>
+							</li>";
       }
     }
 }

@@ -4,6 +4,7 @@ include "member/tagoperation.php";
 ?>
 <link rel="stylesheet" type="text/css" href="css/skin.css" />
 <link rel="stylesheet" href="css/orbit-1.2.3.css">
+<script type="text/javascript" src="js/jquery.orbit-1.2.3.min.js"></script>
 <!--[if IE]>
 	<style type="text/css">
 		 .timer { display: none !important; }
@@ -50,11 +51,11 @@ include "member/tagoperation.php";
 	      <div id='featured_container'>
 		    <div id='featured'> 
 			  <img src='img/slide1.jpg' />
-			  <a href=''><img src='img/slide2.jpg' /></a>
+			  <a href='#'><img src='img/slide2.jpg' /></a>
 			  <img src='img/slide3.jpg' data-caption='#htmlCaption' />
 			  <img src='img/slide4.jpg' />
 		    </div>
-		    <span class='orbit-caption' id='htmlCaption'><strong>Badass Caption:</strong> I can haz <a href='#'>links</a>, <em>style</em> or anything that is valid markup :)</span>
+		    <span class='orbit-caption' id='htmlCaption'>A Badass Caption I can haz or anything that is valid markup</span>
 		  </div>";
 		  echo $slider_content;
 		}
@@ -87,7 +88,24 @@ include "member/tagoperation.php";
 			  $post_date = $story_item['post_date'];
 			  $temp_array = explode(" ", $story_item['post_date']);
 			  $post_date = $temp_array[0];
-			  $story_content .= "<li><a class='cover' style='background: url(".$post_pic_url.") no-repeat; background-size: 100%;' href='member/user.php?user_id=".$post_author."&post_id=".$story_item['ID']."'><div class='title_wrap'><h1 class='title'>".$post_title."</h1></div></a><div class='story_meta'><span><img src='".$user_profile_img."'/><a class='meta_author' href='member/user.php?user_id=".$post_author."'>".$userresult['username']."</a><a class='meta_date'>".$post_date."</a></span></div></li>";
+			  $post_link = "/member/user.php?user_id=".$post_author."&post_id=".$story_item['ID'];
+			  $story_content .= "<li>
+								  <div class='story_wrap'>	
+								    <a href='".$post_link."'>
+								      <img class='cover' src='".$post_pic_url."' />
+								    </a>
+								    <a class='title_wrap' href='".$post_link."'>
+									  <h1 class='title'>".$post_title."</h1>
+								    </a>
+								  </div>
+								  <div class='story_meta'>
+								    <span>
+									  <img src='".$user_profile_img."'/>
+									  <a class='meta_author' href='member/user.php?user_id=".$post_author."'>".$userresult['username']."</a>
+									  <a class='meta_date'>".$post_date."</a>
+									</span>
+								  </div>
+								</li>";
 			}
 			echo $story_content;
 			?>
@@ -162,8 +180,7 @@ include "member/tagoperation.php";
 
 <?php
  include "./include/footer.htm";
-?>
-<script type="text/javascript" src="js/jquery.orbit-1.2.3.min.js"></script>	
+?>	
 <script>
 $(document).ready(function() 
 {	

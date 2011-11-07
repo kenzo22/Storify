@@ -81,7 +81,7 @@ if(!empty($result))
   $items_perpage = 10;
   //$story_content_array = array_slice($temp_array['content'], 0, $items_perpage, true);
   $story_content_array = $temp_array['content'];
-  $content = "<div id='publish_container' class='showborder'>";
+  $content = "<div id='publish_container'>";
   
   // get tags for this story
   $tag_query = "select name from story_tag,story_tag_story where story_tag.id=tag_id and story_id=".$post_id;

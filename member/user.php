@@ -10,6 +10,9 @@ include_once( '../douban/doubanapi.php' );
 include_once "userrelation.php";
 ?>
 <link type="text/css" href="../css/jquery.ui.theme.css" rel="stylesheet" />
+<!--[if IE]>
+  <link rel="stylesheet" type="text/css" href="../css/myiehacks.css" />   
+<![endif]-->
 
 <?php
 $date_t = date("Y-m-d H:i:s");
@@ -128,7 +131,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	
 	if(!$login_status|| $story_author != $_SESSION['uid'])
 	{
-	  $content .= "<div id='story_container'><div style='float:left;'><div id='publish_container' class='showborder'>";
+	  $content .= "<div id='story_container'><div style='float:left;'><div id='publish_container'>";
 	}
 	else
 	{
@@ -287,12 +290,12 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 				</div>
 				<div class='spacer'></div>
 			  </div>";
-		$content .= "<div id='publish_container' class='showborder'>
+		$content .= "<div id='publish_container'>
 			  <div id='story_action'><span><div class='publish_icon' title='已发布'></div>已发布</span><span class='float_r'><a id='".$post_id."_delete' class='delete redirect'></a>&nbsp<a class='edit' href='/member/user.php?user_id=".$user_id."&post_id=".$post_id."&action=edit'></a></span></div>";
 	  }
 	  else
 	  {
-	    $content .= "<div id='story_container'><div style='float:left;'><div id='publish_container' class='showborder'>
+	    $content .= "<div id='story_container'><div style='float:left;'><div id='publish_container'>
 			  <div id='story_action'><span><div class='draft_icon' title='草稿'></div>草稿</span><span class='float_r'><a  class='publish' href='/member/user.php?user_id=".$user_id."&post_id=".$post_id."&action=publish'></a>&nbsp<a id='".$post_id."_delete' class='delete redirect'></a><a class='edit' href='/member/user.php?user_id=".$user_id."&post_id=".$post_id."&action=edit'></a></span></div>";
 	  }	
 	}
@@ -1199,13 +1202,22 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 	$post_date = $story_item['post_date'];
 	$temp_array = explode(" ", $story_item['post_date']);
 	$post_date = $temp_array[0];
-    $story_content .= "<li><div class='story_wrap'><a class='cover' style='background: url(".$post_pic_url.") no-repeat; background-size: 100%;' href='/member/user.php?user_id=".$user_id."&post_id=".$story_item['ID']."'><div class='title_wrap'><h1 class='title'>".$post_title."</h1></div></a><div class='editable'>
-  <div class='status'>
-    <div class='".$post_status."'>
-	  <div class='".$icon_type."'></div>
-	  <span>".$post_status_txt."</span>
-	</div>
-  </div>";
+	$post_link = "/member/user.php?user_id=".$user_id."&post_id=".$story_item['ID'];
+    $story_content .="<li>
+					    <div class='story_wrap'>
+						  <a href='".$post_link."'>
+						    <img class='cover' src='".$post_pic_url."' />
+						  </a>
+						  <a class='title_wrap' href='".$post_link."'>
+							<h1 class='title'>".$post_title."</h1>
+						  </a>
+						  <div class='editable'>
+						    <div class='status'>
+						      <div class='".$post_status."'>
+							    <div class='".$icon_type."'></div>
+							    <span>".$post_status_txt."</span>
+						      </div>
+						    </div>";
   if(islogin() && $user_id == $_SESSION['uid'])
   {
     $story_content .="
