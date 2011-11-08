@@ -39,8 +39,8 @@
 					<li class='person_li'><a class='person_a setting_icon' href='/member/user_setting.php'><img class='console_img' src='/img/setting.png'/><span>设置</span></a></li>
 					<li class='person_li'><a class='person_a quit_icon' href='/login/login.php?logout'><img class='console_img' src='/img/quit.png'/><span>退出<span></a></li>
 		          </ul>";
-	  echo "<div id='global_bar'><div></div></div><div id='top_bar'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='/img/koulifangbeta.png' style='width:120px; height:39px; border:0;'></a></span>
-	  <span style='position:absolute; right:130px; top:11px;'><a class='edit_story_btn' href='/member'>创建故事</a><a class='my_story_btn' href='/member/user.php?user_id=".$userresult['id']."'>我的故事</a></span>".$content."</div></div><BR>";
+	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='/img/koulifangbeta.png' style='width:120px; height:39px; border:0;'></a></span>
+	  <span id='top_menu_a'><a class='my_story_btn' href='/member/user.php?user_id=".$userresult['id']."'>我的故事</a><a class='edit_story_btn' href='/member'>创建故事</a></span>".$content."</div></div><BR>";
     }
 	else
 	{
@@ -54,8 +54,8 @@
 	  $_SESSION['last_tkey']['oauth_token'] = $token['tweibo_access_token'];
 	  $_SESSION['last_tkey']['oauth_token_secret'] = $token['tweibo_access_token_secret'];
   
-	  $content = "<span style='margin: 0; position:absolute; right:0; top:11px;'><a class='edit_story_btn' href='/member'>创建故事</a><a class='login_top' href='/login/login_form.php?next=".urlencode($_SERVER['REQUEST_URI'])."'>登录</a><a class='register_top' href='/register/register_form.php'>注册</a></span>";
-	  echo "<div id='global_bar'><div></div></div><div id='top_bar'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='/img/koulifangbeta.png' style='width:120px; height:39px; border:0;'></a></span>".$content."</div></div><BR>";
+	  $content = "<span id='top_menu_b'><a class='register_top' href='/register/register_form.php'>注册</a><a class='login_top' href='/login/login_form.php?next=".urlencode($_SERVER['REQUEST_URI'])."'>登录</a><a class='edit_story_btn' href='/member'>创建故事</a></span>";
+	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='/img/koulifangbeta.png' style='width:120px; height:39px; border:0;'></a></span>".$content."</div></div><BR>";
 	}
 ?>
 <script>

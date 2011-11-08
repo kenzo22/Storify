@@ -15,18 +15,18 @@ include "member/tagoperation.php";
 <div id='boxes'>  
 <!-- Start of Login Dialog -->  
 <div id='dialog' class='window' style='padding:0;'>
-  <div style='background-color:#ababac; padding:5px;'><span>登录 koulifang.com</span> | <span><a href='register/register_form.php'/>还没有注册？</a><span> <span><a href='#' class='close'/>关闭</a></span></div>
+  <div style='background-color:#ababac; padding:5px;'><span><a href='#' class='close'/>关闭</a></span><span>登录 koulifang.com</span> | <span><a href='register/register_form.php'/>还没有注册？</a><span></div>
   <form method='post' action='login/login.php'>
-  <div>
-    <div id='login_modal' class='float_l'>
-      <div style='padding-left:5px;'><b> 邮 箱 &nbsp; </b><span><input type='text' name='email' id='email_login' onclick='this.value=""'/></span></div>
-      <div style='padding-left:5px;'><b> 密 码 &nbsp; </b> <span><input type='password' name='passwd' id='pwd_login' onclick='this.value=""'/> </span></div>
-      <div style='padding-left:2px;'><span> <input type='checkbox' name='autologin'>下次自动登录</span> | <span><a href='login/forget_form.php'/>忘记密码了？</a><span></div>
-      <div style='padding-left:5px; margin-top:5px;'>
+  <div style='overflow:auto;'>
+    <div id='login_modal'>
+      <div><b> 邮 箱 &nbsp; </b><span><input type='text' name='email' id='email_login' onclick='this.value=""'/></span></div>
+      <div><b> 密 码 &nbsp; </b><span><input type='password' name='passwd' id='pwd_login' onclick='this.value=""'/> </span></div>
+      <div><span> <input type='checkbox' name='autologin'>下次自动登录</span> | <span><a href='login/forget_form.php'/>忘记密码了？</a><span></div>
+      <div style='margin-top:5px;'>
         <input type='submit' id='login_modal_btn' value='登录'/>
       </div>
     </div>
-	<div class='float_l' style='border-left:1px solid #333; margin-top:15px; margin-left:70px; padding:0px 45px 24px 60px;'>
+	<div class='login_right'>
 	  <div style='margin-bottom:5px;'>还没有口立方帐号?</div>
 	  <a class='large green awesome register_awesome' href='/register/register_form.php'/>马上注册 &raquo;</a>
 	  <div style='margin-top:15px;'><span align='center'>使用新浪微博帐号登录</span></div>
@@ -100,9 +100,9 @@ include "member/tagoperation.php";
 								  </div>
 								  <div class='story_meta'>
 								    <span>
+									  <a class='meta_date'>".$post_date."</a>
 									  <img src='".$user_profile_img."'/>
 									  <a class='meta_author' href='member/user.php?user_id=".$post_author."'>".$userresult['username']."</a>
-									  <a class='meta_date'>".$post_date."</a>
 									</span>
 								  </div>
 								</li>";
@@ -114,8 +114,8 @@ include "member/tagoperation.php";
 		  <div><a id='story_more'>换一组看看</a></div>
 		</div>
 		<div class='category'>
-	      <div id='trendTopics' class='' style='display:block; height:150px;'>
-			<h3 class='blue'>大家都在说</h3>
+	      <div id='trendTopics'>
+			<h3 class='blue'>热门话题</h3>
 			<div class='topic_list'>
 			  <ul>
 			    <?php
@@ -127,7 +127,7 @@ include "member/tagoperation.php";
                 $s_query='';
                 $tag_i=0;
                 foreach($tags as $tag_id)
-				  {
+				{
                     $query = "select * from ".$db_prefix."tag where id=".$tag_id;
                     $results=$DB->query($query);
                     $tag_item=$DB->fetch_array($results);
@@ -136,6 +136,7 @@ include "member/tagoperation.php";
                     $query = "select * from ".$db_prefix."tag_story,story_posts where tag_id='".$tag_id."' and story_id=story_posts.id and post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_modified) <=$MAX_DAYS";
 					$relationresult = $DB->query($query);
 					$tag_count = $DB->num_rows($relationresult);
+					$topic_link = "./topic/topic.php?topic=".$tag_name;
 					
                     if($used_story){
                         foreach($used_story as $sid){
@@ -148,30 +149,25 @@ include "member/tagoperation.php";
                     $item=$DB->fetch_array($result);
                     if(!$item)
                         continue;
-                    if(++$tag_i > 4)
+                    if(++$tag_i > 7)
                         break;
                     $used_story[] = $item['id'];
                 
-					$tag_content .= "<li><div class='topic_meta'><span class='topic_title'>#".$tag_name."#</span><span class='story_count'>".$tag_count."</span></div>
-					<a class='topic_cover' style='background-image: url(".$item['post_pic_url'].");' href='./topic/topic.php?topic=".$tag_name."'><div class='title_wrap'><h1 class='title'>".$item['post_title']."</h1></div></a></li>";
-				  }
+					$tag_content .="<li>
+									  <div class='topic_meta'>
+									    <span class='story_count'>".$tag_count."</span>
+										<a class='topic_title' href='".$topic_link."'>#".$tag_name."#</a>
+									  </div>
+									  <a href='".$topic_link."'>
+									    <img class='topic_cover' src='".$item['post_pic_url']."' />
+									  </a>
+									  <a class='title_wrap' href='".$topic_link."'><h1 class='title'>".$item['post_title']."</h1></a>
+									</li>";
+				}
 				  echo $tag_content;
 				?>
 			  </ul>
 			</div>
-		  </div>
-	      <div id='topUsers' class='float_l' style='display:block;'>
-			<h3 class='blue'>排行榜</h3>
-			<ol>
-			  <li>测试 22 stories</li>
-			  <li>测试 22 stories</li>
-			  <li>测试 22 stories</li>
-			  <li>测试 22 stories</li>
-			  <li>测试 22 stories</li>
-			  <li>测试 22 stories</li>
-			  <li>测试 22 stories</li>
-			  <li>测试 22 stories</li>
-			</ol>
 		  </div>
 		</div>
 	  </div>

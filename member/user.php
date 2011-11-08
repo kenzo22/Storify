@@ -1227,7 +1227,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
     </div>";
   }
    $story_content .="<div class='clear'></div></div></div>
-	<div class='story_meta'><span><img src='".$user_profile_img."'/><a class='meta_author'>".$userresult['username']."</a><a class='meta_date'>".$post_date."</a></span></div></li>";
+	<div class='story_meta'><span><a class='meta_date'>".$post_date."</a><img src='".$user_profile_img."'/><a class='meta_author'>".$userresult['username']."</a></span></div></li>";
   }
 
   $story_content .="</ul></div>".$pagination."</div>";
