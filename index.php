@@ -51,17 +51,12 @@ include "member/tagoperation.php";
 	      <div id='featured_container'>
 		    <div id='featured'> 
 			  <img src='img/slide1.jpg' />
-			  <a href='#'><img src='img/slide2.jpg' /></a>
-			  <img src='img/slide3.jpg' data-caption='#htmlCaption' />
+			  <img src='img/slide2.jpg' />
+			  <img src='img/slide3.jpg' />
 			  <img src='img/slide4.jpg' />
 		    </div>
-		    <span class='orbit-caption' id='htmlCaption'>A Badass Caption I can haz or anything that is valid markup</span>
 		  </div>";
 		  echo $slider_content;
-		}
-		else
-		{
-		  echo "<div style='height:20px;'></div>";
 		}
 		?>
 		<div id='popular'>
@@ -113,63 +108,61 @@ include "member/tagoperation.php";
 		  </div>
 		  <div><a id='story_more'>换一组看看</a></div>
 		</div>
-		<div class='category'>
-	      <div id='trendTopics'>
-			<h3 class='blue'>热门话题</h3>
-			<div class='topic_list'>
-			  <ul>
-			    <?php
-				  //get the tag information from the tag table
-				$tag_content = '';
-				  //need change to fetch the most popular topic from the database
-                $tags=getPopularTags(8);
-                $used_story=array();
-                $s_query='';
-                $tag_i=0;
-                foreach($tags as $tag_id)
-				{
-                    $query = "select * from ".$db_prefix."tag where id=".$tag_id;
-                    $results=$DB->query($query);
-                    $tag_item=$DB->fetch_array($results);
+		<?php
+		if(islogin())
+		{
+		    $tag_content = "<div class='category'>
+						    <div id='trendTopics'>
+							  <h3 class='blue'>热门话题</h3>
+							  <div class='topic_list'>
+								<ul>";
+		    //need change to fetch the most popular topic from the database
+			$tags=getPopularTags(8);
+			$used_story=array();
+			$s_query='';
+			$tag_i=0;
+			foreach($tags as $tag_id)
+			{
+				$query = "select * from ".$db_prefix."tag where id=".$tag_id;
+				$results=$DB->query($query);
+				$tag_item=$DB->fetch_array($results);
 
-					$tag_name = $tag_item['name'];
-                    $query = "select * from ".$db_prefix."tag_story,story_posts where tag_id='".$tag_id."' and story_id=story_posts.id and post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_modified) <=$MAX_DAYS";
-					$relationresult = $DB->query($query);
-					$tag_count = $DB->num_rows($relationresult);
-					$topic_link = "./topic/topic.php?topic=".$tag_name;
-					
-                    if($used_story){
-                        foreach($used_story as $sid){
-                            $s_query = " and story_posts.id !=".$sid;
-                        }
-                    }
-                    //need to fetch the title of the most popular story which has this specific tag
-                    $query="select story_posts.id,".$db_prefix."posts.post_title,".$db_prefix."posts.post_pic_url from ".$db_prefix."tag_story,".$db_prefix."posts where tag_id=".$tag_id." and story_id=".$db_prefix."posts.id ".$s_query." and story_posts.post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_modified) <=$MAX_DAYS order by ".$db_prefix."posts.post_digg_count desc";
-                    $result=$DB->query($query);
-                    $item=$DB->fetch_array($result);
-                    if(!$item)
-                        continue;
-                    if(++$tag_i > 7)
-                        break;
-                    $used_story[] = $item['id'];
-                
-					$tag_content .="<li>
-									  <div class='topic_meta'>
-									    <span class='story_count'>".$tag_count."</span>
-										<a class='topic_title' href='".$topic_link."'>#".$tag_name."#</a>
-									  </div>
-									  <a href='".$topic_link."'>
-									    <img class='topic_cover' src='".$item['post_pic_url']."' />
-									  </a>
-									  <a class='title_wrap' href='".$topic_link."'><h1 class='title'>".$item['post_title']."</h1></a>
-									</li>";
+				$tag_name = $tag_item['name'];
+				$query = "select * from ".$db_prefix."tag_story,story_posts where tag_id='".$tag_id."' and story_id=story_posts.id and post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_modified) <=$MAX_DAYS";
+				$relationresult = $DB->query($query);
+				$tag_count = $DB->num_rows($relationresult);
+				$topic_link = "./topic/topic.php?topic=".$tag_name;
+				
+				if($used_story){
+					foreach($used_story as $sid){
+						$s_query = " and story_posts.id !=".$sid;
+					}
 				}
-				  echo $tag_content;
-				?>
-			  </ul>
-			</div>
-		  </div>
-		</div>
+				//need to fetch the title of the most popular story which has this specific tag
+				$query="select story_posts.id,".$db_prefix."posts.post_title,".$db_prefix."posts.post_pic_url from ".$db_prefix."tag_story,".$db_prefix."posts where tag_id=".$tag_id." and story_id=".$db_prefix."posts.id ".$s_query." and story_posts.post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_modified) <=$MAX_DAYS order by ".$db_prefix."posts.post_digg_count desc";
+				$result=$DB->query($query);
+				$item=$DB->fetch_array($result);
+				if(!$item)
+					continue;
+				if(++$tag_i > 7)
+					break;
+				$used_story[] = $item['id'];
+			
+				$tag_content .="<li>
+								  <div class='topic_meta'>
+									<span class='story_count'>".$tag_count."</span>
+									<a class='topic_title' href='".$topic_link."'>#".$tag_name."#</a>
+								  </div>
+								  <a href='".$topic_link."'>
+									<img class='topic_cover' src='".$item['post_pic_url']."' />
+								  </a>
+								  <a class='title_wrap' href='".$topic_link."'><h1 class='title'>".$item['post_title']."</h1></a>
+								</li>";
+			}
+			$tag_content .= "</ul></div></div></div>";
+			echo $tag_content;
+		}		  
+		?>
 	  </div>
     </div>
 </div>
@@ -292,7 +285,9 @@ $(document).ready(function()
 
 $(window).load(function() {
 	$('#featured').orbit({
-	  bullets: true
+	  advanceSpeed: 8000,
+	  bullets: true,
+	  directionalNav: false
 	});
 });
 </script>

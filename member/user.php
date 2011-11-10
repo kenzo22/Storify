@@ -10,9 +10,19 @@ include_once( '../douban/doubanapi.php' );
 include_once "userrelation.php";
 ?>
 <link type="text/css" href="../css/jquery.ui.theme.css" rel="stylesheet" />
-<!--[if IE]>
-  <link rel="stylesheet" type="text/css" href="../css/myiehacks.css" />   
+
+<!--[if IE]>     
+<style type="text/css">
+.yupoo_wrapper{border:1px solid #bbbbbb;}
+</style> 
 <![endif]-->
+
+<!--[if lte IE 6]>
+<script type='text/javascript' src='../js/pngfix.js'></script>
+<script>
+  DD_belatedPNG.fix('.png_fix, .weibo_date_drop, .douban_date_drop, .yupoo_sign, .item_action a, .arrow_down, .arrow_up, .act_digg');
+</script> 
+<![endif]--> 
 
 <?php
 $date_t = date("Y-m-d H:i:s");
@@ -198,7 +208,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		    for($i=0; $i<$w_array_length; $i++)
 		    {
 		      $w_user_count += utf8_strlen($w_nic_array[$i]);
-			  $content.="<div class='notify-user'><input type='checkbox' value='mashable' name='to[]' checked='checked' /><span>@".$w_nic_array[$i]."</span></div>";
+			  $content.="<div class='notify-user'><input type='checkbox' checked='checked' /><span>@".$w_nic_array[$i]."</span></div>";
 		    }
 		    $content.="</div>";
 			$w_user_count += 2*$w_array_length;
@@ -241,7 +251,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		    foreach($t_array as $tkey=>$tval)
 		    {
 		      $t_user_count += utf8_strlen($tkey);
-			  $content.="<div class='notify-user'><input type='checkbox' value='mashable' name='to[]' checked='checked' /><span id='".$tkey."'><a href='http://t.qq.com/".$tkey."' target='_blank'>@".$tval."</a></span></div>";
+			  $content.="<div class='notify-user'><input type='checkbox' checked='checked' /><span id='".$tkey."'><a href='http://t.qq.com/".$tkey."' target='_blank'>@".$tval."</a></span></div>";
 		    }
 		    $content.="</div>";
 			$t_user_count += 2*$t_array_length;
@@ -291,12 +301,12 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 				<div class='spacer'></div>
 			  </div>";
 		$content .= "<div id='publish_container'>
-			  <div id='story_action'><span><div class='publish_icon' title='已发布'></div>已发布</span><span class='float_r'><a id='".$post_id."_delete' class='delete redirect'></a>&nbsp<a class='edit' href='/member/user.php?user_id=".$user_id."&post_id=".$post_id."&action=edit'></a></span></div>";
+			  <div id='story_action'><span class='float_r'><a id='".$post_id."_delete' class='delete redirect png_fix'></a>&nbsp<a class='edit png_fix' href='/member/user.php?user_id=".$user_id."&post_id=".$post_id."&action=edit'></a></span><span><a class='publish_icon png_fix' title='已发布'></a>已发布</span></div>";
 	  }
 	  else
 	  {
 	    $content .= "<div id='story_container'><div style='float:left;'><div id='publish_container'>
-			  <div id='story_action'><span><div class='draft_icon' title='草稿'></div>草稿</span><span class='float_r'><a  class='publish' href='/member/user.php?user_id=".$user_id."&post_id=".$post_id."&action=publish'></a>&nbsp<a id='".$post_id."_delete' class='delete redirect'></a><a class='edit' href='/member/user.php?user_id=".$user_id."&post_id=".$post_id."&action=edit'></a></span></div>";
+			  <div id='story_action'><span><a class='draft_icon png_fix' title='草稿'></a>草稿</span><span class='float_r'><a  class='publish' href='/member/user.php?user_id=".$user_id."&post_id=".$post_id."&action=publish'></a>&nbsp<a id='".$post_id."_delete' class='delete redirect png_fix'></a><a class='edit png_fix' href='/member/user.php?user_id=".$user_id."&post_id=".$post_id."&action=edit'></a></span></div>";
 	  }	
 	}
 
@@ -310,7 +320,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
     }
 
 	$content .="<div id='story_header'>
-				  <div style='float:right; padding: 0 10px 0 0'><img src='".$story_pic."' style='width:60px; height:60px;' /></div>
+				  <div style='float:right; padding: 10px 10px 0 0'><img src='".$story_pic."' style='width:60px; height:60px;' /></div>
 				  <div id='story_meta' style='margin-top:10px;'>
 				    <div class='story_title'>".$story_title."</div>
 				    <div class='story_author'>by<a href='http://koulifang.com/member/user.php?user_id=".$user_id."'>".$userresult['username']."</a>, ".$story_time."</div>
@@ -714,8 +724,8 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		  <div class='user_info'>
 		    <div class='avatar'><a href='/member/user.php?user_id=".$story_author."'><img style='' width='80px' height='80px' src='".$user_profile_img."'></a></div>
 			<div class='user_name'><a href='/member/user.php?user_id=".$story_author."'><span>".$userresult['username']."</span></a></div>
-		  </div>
-		  <div class='clear'></div>";
+		  </div>";
+		  
 	if(islogin() && $story_author != $_SESSION['uid'])
 	{
 	  $login_user_id = $_SESSION['uid'];
@@ -755,6 +765,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
     }
     $content .= "</ul>
                 </div>
+		  <div style='clear:both;'></div>
 		  <div class='usersfollowing'>
 		    <div><span class='side_title'>关注</span><span style='vertical-align:top' class='count'>".sizeof($following_list)."</span></div>
 			<ul class='following_list'>";
@@ -1211,20 +1222,20 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 						  <a class='title_wrap' href='".$post_link."'>
 							<h1 class='title'>".$post_title."</h1>
 						  </a>
-						  <div class='editable'>
-						    <div class='status'>
-						      <div class='".$post_status."'>
-							    <div class='".$icon_type."'></div>
-							    <span>".$post_status_txt."</span>
-						      </div>
-						    </div>";
+						  <div class='editable'>";
   if(islogin() && $user_id == $_SESSION['uid'])
   {
     $story_content .="
     <div class='actions'>
-      <a id='".$post_id."_delete' class='icon delete' title='删除' href='#'></a>
-	  <a class='icon edit' title='编辑' href='/member/index.php?user_id=".$user_id."&post_id=".$post_id."'></a>
-    </div>";
+      <a id='".$post_id."_delete' class='icon delete png_fix' title='删除' href='#'></a>
+	  <a class='icon edit png_fix' title='编辑' href='/member/index.php?user_id=".$user_id."&post_id=".$post_id."'></a>
+    </div>
+	<div class='status'>
+	  <div class='".$post_status."'>
+		<div class='".$icon_type." png_fix'></div>
+		<span>".$post_status_txt."</span>
+	  </div>
+	</div>";
   }
    $story_content .="<div class='clear'></div></div></div>
 	<div class='story_meta'><span><a class='meta_date'>".$post_date."</a><img src='".$user_profile_img."'/><a class='meta_author'>".$userresult['username']."</a></span></div></li>";
@@ -1334,24 +1345,26 @@ $(function(){
 	  });
 	});
 	
-	$('.published-steps .tabs').click(function(e)
+	$('.published-steps .tabs').click(function(event)
 	{
-	  if ($(e.target).is('.post-tab'))
+	  var target = (event.target) ? $(event.target) : $(event.srcElement);
+	  target = target.closest('button');
+	  if (target.is('.tabs .post-tab'))
 	  {
-	    $('.steps .notify-content').css('display', 'none');
+		$('.steps .notify-content').css('display', 'none');
 		$('.steps .share-content').css('display', 'none');
 		$('.steps .post-content').toggle();
 		$('.post-content .sto_embed').select();
 	  }
-	  else if ($(e.target).is('.notify-tab'))
+	  else if (target.is('.tabs .notify-tab'))
 	  {
-	    $('.steps .post-content').css('display', 'none');
+		$('.steps .post-content').css('display', 'none');
 		$('.steps .share-content').css('display', 'none');
 		$('.steps .notify-content').toggle();
 	  }
-	  else if ($(e.target).is('.share-tab'))
+	  else if (target.is('.tabs .share-tab'))
 	  {
-	    $('.steps .post-content').css('display', 'none');
+		$('.steps .post-content').css('display', 'none');
 		$('.steps .notify-content').css('display', 'none');
 		$('.steps .share-content').toggle();
 	  }
