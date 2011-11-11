@@ -49,10 +49,10 @@ else
   $yupoo_action = "删除";
 }
 
-$content = "<div class='inner' style='padding-top:50px;'>
-<h3>社会媒体信息，社交网络资讯是口立方的源头活水</h3>
-<h3>为了您更好的使用口立方，我们建议您添加下面的信息源:</h3>
-<p>您之后可以在 设置 -> 第三方应用授权 里作出更改</p>
+$content = "<div class='inner'>
+<h4 class='text'>你可以用口立方报道新闻，追踪网络热点事件，汇总美食，旅游，时尚周边信息，写书评影评，等等～～～</h4>
+<h4 class='text'>为了您更好的使用口立方，我们建议您添加下面的信息源:</h4>
+<p class='text'>您之后可以在 设置 -> 第三方应用授权 里作出更改</p>
 <ul id='source_ul'>
   <li><span class='source_status'>".$weibo_status."<a id='sina_weibo' class='unbind_source' href='#'>".$weibo_action."</a></span><a href='http://weibo.com' target='_blank' class='sina_source' title='新浪微博'><span>新浪微博</span></a></li>
   <li><span class='source_status'>".$tweibo_status."<a id='tencent_weibo' class='unbind_source' href='#'>".$tweibo_action."</a></span><a href='http://t.qq.com' target='_blank' class='tencent_source' title='腾讯微博'><span>腾讯微博</span></a></li> 
@@ -63,7 +63,8 @@ $content = "<div class='inner' style='padding-top:50px;'>
 <div class='float_r'>
   <span>&gt;&nbsp;<a href='./user_setting.php'>回到基本设置</a></span>
 </div>
-</div>";
+</div>
+<div style='height:40px;'></div>";
 echo $content;
 include "../include/footer.htm";
 ?>

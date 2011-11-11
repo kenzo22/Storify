@@ -11,7 +11,7 @@ include "member/tagoperation.php";
 		 div.caption { background:transparent; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,endColorstr=#99000000);zoom: 1; }
 	</style>
 <![endif]-->
-<!--<a id='user_feedback_tab' href='/contact/contactform.htm'></a>--> 
+<a id='user_feedback_tab' href='/contact/contactform.htm'></a>
 <div id='boxes'>  
 <!-- Start of Login Dialog -->  
 <div id='dialog' class='window' style='padding:0;'>

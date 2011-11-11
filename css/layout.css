@@ -1,6 +1,14 @@
 /*reset */
-html { color: #111; background: #fff }
-body { margin:0;font-size:12px; font-family:Arial; line-height: 22px;} /* font:12px Arial, Helvetica, sans-serif; */
+html { color: #111;}
+body { 
+margin:0;
+padding:0;
+color: #333333;
+font: 12px/1.2 "Helvetica Neue",Helvetica,Arial,sans-serif;
+text-align: left; 
+line-height: 22px;
+background: url("../img/bg.jpg") repeat fixed 0 0 #F9F9F9;
+}
 td { padding:5px;}
 img { border-width: 0; image-rendering: optimizeQuality; -ms-interpolation-mode: bicubic; }
 input { border:1px solid #999; color:#333; height:20px; vertical-align: middle; }
@@ -18,11 +26,18 @@ list-style: none;
 
 ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 
+.text {
+font-family: 'Hiragino Sans GB','Microsoft YaHei',sans-serif !important;
+}
+
+h4{
+font-weight:540;
+}
+
 input[type="checkbox"], input[type="radio"]{
 	background: transparent;
 	border: 0;
 }
-
 
 /*common class*/
 .none{display:none;}
@@ -72,18 +87,19 @@ float:right;
 
 /* user feedback part */
 #user_feedback_tab{
-background: none repeat-y scroll 0 0 #FF0000;
+background-color: #007AC4;
+background-image: url("../img/feedback.png");
 display: block !important;
 height: 98px !important;
 margin: -45px 0 0 !important;
 padding: 0 !important;
 position: fixed !important;
 text-indent: -9000px;
-top: 45% !important;
+top: 40% !important;
 right: 0 !important;
 width: 25px !important;
 z-index: 100001 !important;
-border-color: #FF0000 -moz-use-text-color #FF0000 #FF0000;
+border-color: #007AC4 -moz-use-text-color #007AC4 #007AC4;
 border-style: outset none outset outset;
 border-width: 1px medium 1px 1px;
 cursor:pointer;
@@ -133,7 +149,7 @@ cursor: pointer;
 
 /* header */
 #top_bar { 
-background: none repeat scroll 0 0 #EFEFEF;
+background: none repeat scroll 0 0 #FFFFFF;
 border-bottom: 1px solid #D4D4D4;
 border-top: 1px solid #FFFFFF;
 box-shadow: 0 2px 5px rgba(212, 212, 212, 0.3);
@@ -193,9 +209,12 @@ margin-right:5px;
 border: 1px solid #C9C9C9; 
 border-top:none;
 border-bottom:none;
-background: none repeat scroll 0 0 #E6E6E8;
 float:right;
 height:30px;
+}
+
+.edit_story_btn{
+background: none repeat scroll 0 0 #EFEFEF;
 }
 
 .register_top{
@@ -251,7 +270,7 @@ width: 120px;
 }
 
 .person_a:hover{
-background-color: #E6E6E8;
+background-color: #EFEFEF;
 }
 
 .person_a span{
@@ -284,7 +303,6 @@ font-family:Verdana,Tahoma,Arial,Helvetica,Sans-Serif;
 font-size: 13px;
 text-align:right;
 padding:4px 6px 4px 0;
-background-color:#fff;
 color:#313031;
 clear:both;
 }
@@ -2030,7 +2048,6 @@ color:#FFFFFF;
 }
 
 #previewBtn{
-background-color: #EFEFEF;
 color: #444444;
 font-size: 12px;
 font-weight: bold;
@@ -2043,7 +2060,6 @@ width: auto;
 #previewBtn:hover, #draftBtn:hover { color: #666666; text-decoration: none;}
 
 #draftBtn{
-background-color: #EFEFEF;
 color: #444444;
 font-size: 12px;
 font-weight: bold;

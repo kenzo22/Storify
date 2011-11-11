@@ -26,8 +26,7 @@
 					<span><a id='publishBtn' class='large blue awesome' href='./' >发布 &raquo;</a></span>
 				  </div>";
 	  $userresult=$DB->fetch_one_array("SELECT id, photo FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
-	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='/img/koulifangbeta.png' style='width:120px; height:39px; border:0;'></a></span>
-	  <span id='user_action'><a href='/member/user.php?user_id=".$userresult['id']."'>我的故事</a></span>".$content."</div></div><BR>";
+	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='/img/koulifangbeta.png' style='width:120px; height:39px; border:0;'></a></span>".$content."</div></div><BR>";
     }
 	else
 	{

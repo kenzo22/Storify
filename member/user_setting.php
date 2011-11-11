@@ -33,7 +33,7 @@ else
 {
   $userphoto="<a class='update_profile_img' href='uploadphoto.php'>放你的头像上来</a>";
 }			
-$user_set = "<div class='inner' style='padding-top:50px; margin-bottom:180px;'>
+$user_set = "<div class='inner' style='margin-bottom:180px;'>
 			<div><h2>".$result['username']."的帐号"."</h2></div>
 			<div class='setting_bar'>
 			  <div>

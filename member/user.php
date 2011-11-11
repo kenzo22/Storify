@@ -1084,7 +1084,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
   // How many adjacent pages should be shown on each side?
   $adjacents = 3;
   $user_id = $_GET['user_id'];
-  $story_content = "<div id='userstory_container' class='inner'><div class='userstory_list'><ul class='sto_cover_list'>";
+  $story_content = "<div id='userstory_container' class='inner'><div class='userstory_list'>";
   $userresult = $DB->fetch_one_array("SELECT username, photo FROM ".$db_prefix."user where id='".$user_id."'");
   $user_profile_img = $userresult['photo'];
   if($user_profile_img == '')
@@ -1092,10 +1092,16 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 	$user_profile_img = '/img/douban_user_dft.jpg';
   }
   
-    $query = "SELECT COUNT(*) as num FROM $tbl_name where post_author='".$user_id."'";
-	$total_pages = mysql_fetch_array(mysql_query($query));
-	$total_pages = $total_pages[num];
-	
+  $query = "SELECT COUNT(*) as num FROM $tbl_name where post_author='".$user_id."'";
+  $total_pages = mysql_fetch_array(mysql_query($query));
+  $total_pages = $total_pages[num];
+  if(0 == $total_pages)
+  {
+    $story_content.="<h4 class='text'>你可以用口立方报道新闻，追踪网络热点事件，汇总美食，旅游，时尚周边信息，写书评影评，等等～～～</h4>
+	<h4 class='text'>你还没有发表过故事</h4><a class='large green awesome' href='/member'>开始创建 &raquo;</a><div style='height:150px;'></div></div></div>";
+  }
+  else
+  {	
 	$targetpage = "user.php?user_id=".$user_id; 
 	$limit = 12; 								//how many items to show per page
 	$page = $_GET['page'];
@@ -1193,56 +1199,56 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 		$pagination.= "</div>\n";		
 	}
   
-  while ($story_item = mysql_fetch_array($result))
-  {
-    //printf ("title: %s  summary: %s", $story_item['post_title'], $story_item['post_summary']);
-	$post_id = $story_item['ID'];
-	$post_title = $story_item['post_title'];
-	$post_pic_url = $story_item['post_pic_url'];
-	$post_status = $story_item['post_status'];
-	if(0 == strcmp($post_status, 'Published'))
-	{
-	  $post_status_txt = '已发布';
-	  $icon_type = 'publish_icon';
-	}
-	else
-	{
-	  $post_status_txt = '草稿';
-	  $icon_type = 'draft_icon';
-	}
-	$post_date = $story_item['post_date'];
-	$temp_array = explode(" ", $story_item['post_date']);
-	$post_date = $temp_array[0];
-	$post_link = "/member/user.php?user_id=".$user_id."&post_id=".$story_item['ID'];
-    $story_content .="<li>
-					    <div class='story_wrap'>
-						  <a href='".$post_link."'>
-						    <img class='cover' src='".$post_pic_url."' />
-						  </a>
-						  <a class='title_wrap' href='".$post_link."'>
-							<h1 class='title'>".$post_title."</h1>
-						  </a>";
-  if(islogin() && $user_id == $_SESSION['uid'])
-  {
-    $story_content .="<div class='editable'>
-    <div class='actions'>
-      <a id='".$post_id."_delete' class='icon delete png_fix' title='删除' href='#'></a>
-	  <a class='icon edit png_fix' title='编辑' href='/member/index.php?user_id=".$user_id."&post_id=".$post_id."'></a>
-    </div>
-	<div class='status'>
-	  <div class='".$post_status."'>
-		<div class='".$icon_type." png_fix'></div>
-		<span>".$post_status_txt."</span>
-	  </div>
-	</div>
-	<div class='clear'></div>
-	</div>";
+	  $story_content .="<ul class='sto_cover_list'>";
+	  while ($story_item = mysql_fetch_array($result))
+	  {
+		//printf ("title: %s  summary: %s", $story_item['post_title'], $story_item['post_summary']);
+		$post_id = $story_item['ID'];
+		$post_title = $story_item['post_title'];
+		$post_pic_url = $story_item['post_pic_url'];
+		$post_status = $story_item['post_status'];
+		if(0 == strcmp($post_status, 'Published'))
+		{
+		  $post_status_txt = '已发布';
+		  $icon_type = 'publish_icon';
+		}
+		else
+		{
+		  $post_status_txt = '草稿';
+		  $icon_type = 'draft_icon';
+		}
+		$post_date = $story_item['post_date'];
+		$temp_array = explode(" ", $story_item['post_date']);
+		$post_date = $temp_array[0];
+		$post_link = "/member/user.php?user_id=".$user_id."&post_id=".$story_item['ID'];
+		$story_content .="<li>
+							<div class='story_wrap'>
+							  <a href='".$post_link."'>
+								<img class='cover' src='".$post_pic_url."' />
+							  </a>
+							  <a class='title_wrap' href='".$post_link."'>
+								<h1 class='title'>".$post_title."</h1>
+							  </a>";
+		if(islogin() && $user_id == $_SESSION['uid'])
+		{
+		  $story_content .="<div class='editable'>
+		  <div class='actions'>
+			<a id='".$post_id."_delete' class='icon delete png_fix' title='删除' href='#'></a>
+			<a class='icon edit png_fix' title='编辑' href='/member/index.php?user_id=".$user_id."&post_id=".$post_id."'></a>
+		  </div>
+		  <div class='status'>
+			<div class='".$post_status."'>
+			  <div class='".$icon_type." png_fix'></div>
+			  <span>".$post_status_txt."</span>
+			</div>
+		  </div>
+		  <div class='clear'></div>
+		  </div>";
+		}
+		$story_content .="</div><div class='story_meta'><span><a class='meta_date'>".$post_date."</a><img src='".$user_profile_img."'/><a class='meta_author'>".$userresult['username']."</a></span></div></li>";
+	  }
+	  $story_content .="</ul></div>".$pagination."</div>";
   }
-   $story_content .="</div>
-	<div class='story_meta'><span><a class='meta_date'>".$post_date."</a><img src='".$user_profile_img."'/><a class='meta_author'>".$userresult['username']."</a></span></div></li>";
-  }
-
-  $story_content .="</ul></div>".$pagination."</div>";
   echo $story_content;
 }
 

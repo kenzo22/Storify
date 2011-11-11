@@ -16,6 +16,12 @@ function addBookmark()
     }
 }
 
+function fullScreen() 
+{
+  window.moveTo(0, 0);
+  window.resizeTo(screen.width, screen.height);
+}
+
 function date_format(origin_date)
 {
   var temp_array = origin_date.split(' ');
