@@ -176,8 +176,8 @@ if(!empty($result))
 			  $content .= "<div class='weibo_img' style='text-align:center;'><img src='".$single_weibo['bmiddle_pic']."' width='280px;' /></div>";
 			}
             $content .= "</div>";
-            $content .= "<div class='story_signature'><span style='float:right;'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img' style='width: 32px; height: 32px; overflow: hidden; margin-top:5px;' src='"
-			.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><span class='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'>
+            $content .= "<div class='story_signature'><span style='float:right;'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img_drop' src='"
+			.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><span class='signature_text'><div style='float:right; height:16px;'>
 			<span ><a class='weibo_from_drop' href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date_drop'>".$createTime."</div></span> </div></div></li>";
 		}
 		break;}
@@ -220,14 +220,14 @@ if(!empty($result))
 				</div>
 			  </div>
 			  </div>
-			  <div id='douban_signature' style='overflow:auto;'>
+			  <div id='douban_signature'>
 			    <span style='float:right;'>
 				  <a href='".$eventInitiator_url."' target='_blank'>
-				    <img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:5px;' src='".$eventInitiator_pic."' alt='".$eventInitiator_name."' border=0 />
+				    <img class='profile_img_drop' src='".$eventInitiator_pic."' alt='".$eventInitiator_name."' border=0 />
 				  </a>
 				</span>
-				<span class='signature_text' style=' margin-right:5px; float:right;' >
-				  <div style='text-align:right; height:16px;'>
+				<span class='signature_text'>
+				  <div style='float:right; height:16px;'>
 				    <span >
 					  <a class='douban_from_drop' href='".$eventInitiator_url."' target='_blank'>".$eventInitiator_name."</a>
 					</span>
@@ -309,14 +309,14 @@ if(!empty($result))
 				  </div>
 				</div>
 				</div>
-				<div id='douban_signature' style='overflow:auto;'>
+				<div id='douban_signature'>
 				  <span style='float:right;'>
 					<a href='".$comment_author_link."' target='_blank'>
 					  <img class='profile_img' style='width: 32px; height: 32px; overflow: hidden; margin-top:5px;' src='".$comment_author_pic."' alt='".$doubanElement['author']['name']['$t']."' border=0 />
 					</a>
 				  </span>
-				  <span class='signature_text' style=' margin-right:5px; float:right;' >
-					<div style='text-align:right; height:16px;'>
+				  <span class='signature_text'>
+					<div style='float:right; height:16px;'>
 					  <span >
 						<a class='douban_from' href='".$doubanElement['author']['link'][1]['@href']."' target='_blank'>".$doubanElement['author']['name']['$t']."</a>
 					  </span>
@@ -376,7 +376,7 @@ if(!empty($result))
 				  </div>
 				</div>
 				</div>
-				<div class='douban_signature'></div>
+				<div class='douban_sig_logo'></div>
 			  </div>
 			</li>";
 		  }
@@ -458,8 +458,8 @@ if(!empty($result))
 				}
 			}
 		}
-		$tweiboContent .= "<div class='story_signature'><span style='float:right;'><a href='http://t.qq.com/".$item['name']."' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:5px;' src='"
-		.$profileImgUrl."' alt='".$item['nick']."' border=0 /></a></span><span class='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'>
+		$tweiboContent .= "<div class='story_signature'><span style='float:right;'><a href='http://t.qq.com/".$item['name']."' target='_blank'><img class='profile_img_drop' src='"
+		.$profileImgUrl."' alt='".$item['nick']."' border=0 /></a></span><span class='signature_text'><div style='float:right; height:16px;'>
 		<span ><a class='weibo_from_drop' href='http://t.qq.com/".$item['name']."' target='_blank'>".$item['nick']."</a></span></div><div class='weibo_date_drop'>".$create_time."</div></span> </div></div></li>tweibo_sep";
 	  }
 	  $tweibo_array = explode("tweibo_sep", $tweiboContent);

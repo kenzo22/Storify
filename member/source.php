@@ -54,11 +54,11 @@ $content = "<div class='inner' style='padding-top:50px;'>
 <h3>为了您更好的使用口立方，我们建议您添加下面的信息源:</h3>
 <p>您之后可以在 设置 -> 第三方应用授权 里作出更改</p>
 <ul id='source_ul'>
-  <li><a href='http://weibo.com' target='_blank' class='sina_source' title='新浪微博'><span>新浪微博</span></a><span class='source_status'>".$weibo_status."<a id='sina_weibo' class='unbind_source' href='#'>".$weibo_action."</a></span></li>
-  <li><a href='http://t.qq.com' target='_blank' class='tencent_source' title='腾讯微博'><span>腾讯微博</span></a><span class='source_status'>".$tweibo_status."<a id='tencent_weibo' class='unbind_source' href='#'>".$tweibo_action."</a></span></li> 
-  <li><a href='http://www.douban.com' target='_blank' class='douban_source' title='豆瓣社区'><span>豆瓣社区</span></a><span class='source_status'>".$douban_status."<a id='douban_forum' class='unbind_source' href='#'>".$douban_action."</a></span></li>
-  <li><a href='http://www.yupoo.com' target='_blank' class='yupoo_source' title='又拍社区'><span>又拍社区</span></a><span class='source_status'>".$yupoo_status."<a id='yupoo_pic' class='unbind_source' href='#'>".$yupoo_action."</a></span></li>
-  <li><a id='youku_video' target='_blank' href='http://www.youku.com' class='youku_source' title='优酷视频'><span>优酷视频</span></a><span class='source_status'>无需添加帐号</span></li>
+  <li><span class='source_status'>".$weibo_status."<a id='sina_weibo' class='unbind_source' href='#'>".$weibo_action."</a></span><a href='http://weibo.com' target='_blank' class='sina_source' title='新浪微博'><span>新浪微博</span></a></li>
+  <li><span class='source_status'>".$tweibo_status."<a id='tencent_weibo' class='unbind_source' href='#'>".$tweibo_action."</a></span><a href='http://t.qq.com' target='_blank' class='tencent_source' title='腾讯微博'><span>腾讯微博</span></a></li> 
+  <li><span class='source_status'>".$douban_status."<a id='douban_forum' class='unbind_source' href='#'>".$douban_action."</a></span><a href='http://www.douban.com' target='_blank' class='douban_source' title='豆瓣社区'><span>豆瓣社区</span></a></li>
+  <li><span class='source_status'>".$yupoo_status."<a id='yupoo_pic' class='unbind_source' href='#'>".$yupoo_action."</a></span><a href='http://www.yupoo.com' target='_blank' class='yupoo_source' title='又拍社区'><span>又拍社区</span></a></li>
+  <li><span class='source_status'>无需添加帐号</span><a id='youku_video' target='_blank' href='http://www.youku.com' class='youku_source' title='优酷视频'><span>优酷视频</span></a></li>
 </ul>
 <div class='float_r'>
   <span>&gt;&nbsp;<a href='./user_setting.php'>回到基本设置</a></span>

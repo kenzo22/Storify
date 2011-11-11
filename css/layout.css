@@ -61,7 +61,7 @@ height:380px;
 }
 
 /* info source signature part */
-.douban_signature{
+.douban_sig_logo{
 background: url("../img/editsprite.png") no-repeat scroll 0 -39px transparent;
 width:16px; 
 height:16px;
@@ -141,6 +141,7 @@ height: 42px;
 margin: 0 auto; 
 width:100%;
 position:relative;
+z-index:20;
 }
 
 #top_bar .top_nav {
@@ -175,10 +176,12 @@ z-index:200;
 }
 
 #top_bar .user_console {
-margin: 0; position:absolute; right:0; top:0;
+margin: 0; 
+position:absolute; 
+right:0; 
+top:0;
 min-width: 120px;
 padding: 0;
-z-index: 10000;
 max-height:170px;
 }
 #logo {float: left; margin-top:3px;}
@@ -263,7 +266,6 @@ width: 70px;
 
 .person_li{
 display: none;
-z-index:10000;
 }
 
 .left_half{
@@ -334,7 +336,7 @@ list-style-type: decimal;
 .category h3{
 border-bottom: 1px solid #E6E6E6;
 color: #999999;
-margin: 40px 0 18px;
+margin: 40px 0 0;
 padding-bottom: 10px;
 text-shadow: 0 1px 0 #FFFFFF, 0 1px 0 #EEEEEE;
 }
@@ -569,9 +571,9 @@ text-transform: uppercase;
 /*end slider part */
 								  
 /* source page part */
-#source_ul
-{
+#source_ul{
 padding:0;
+margin-left:0;
 }
 
 #source_ul li{
@@ -624,25 +626,35 @@ margin-left:70px;
 /* end source page part */
 
 /* topic part */
-#tagstory_ul
-{
+#tagstory_ul{
   padding: 0;
+  margin: 10px 0 30px 0;
 }
 
-.tagstory_li
-{
-  margin-bottom:20px;
+.tagstory_li{
+margin-bottom:20px;
+}
+
+.tagstory_li .wrapper{
+overflow:auto;
+width:920px;
+}
+
+.tagstory_li .wrapper a img{
+width:80px; 
+height:80px; 
 }
 /*end topic part */
 
 /* edit story part*/
 .weibo_content{overflow:hidden;}
 #story_list .story_signature {overflow:hidden; margin-bottom:10px; margin-right:20px;}
+#weibo_ul .story_signature {}
 
 #source_pane{position:fixed; top:70px; width:390px; height:800px; }
 #story_pane{width:510px; min-height: 754px;}
 #source_list{height:664px; overflow:auto; padding:0; margin:0; border: 1px solid #C9C9C9; border-top: none; border-radius:5px 5px 5px 5px; cursor:move;}
-#story_list{position: inherit; margin:0; min-height:603px; border: 1px solid #C9C9C9; border-radius:0px 0px 5px 5px; height:auto; overflow:hidden; list-style: none outside none;}
+#story_list{position: inherit; margin:0; min-height:605px; border: 1px solid #C9C9C9; border-radius:0px 0px 5px 5px; height:auto; overflow:hidden; list-style: none outside none;}
 #story {}
 #storylist_container {}
 .loadmore {padding: 0 150px 0 150px;}
@@ -752,8 +764,10 @@ background: url("../img/editsprite.png") no-repeat scroll 0 -39px transparent;
 padding-left:17px;
 height: 16px; 
 margin-top:2px;
+_margin-top:-4px;
 color:#939393;
-text-align:right;
+clear:both;
+float:right;
 }
 
 li.sina .weibo_date_drop{
@@ -761,8 +775,10 @@ background: url("../img/editsprite.png") no-repeat scroll 0 -375px transparent;
 padding-left:17px;
 height: 16px; 
 margin-top:2px;
+_margin-top:-4px;
 color:#939393;
-text-align:right;
+clear:both;
+float:right;
 }
 
 li.tencent .weibo_date_drop{
@@ -770,8 +786,23 @@ background: url("../img/editsprite.png") no-repeat scroll 0 -463px transparent;
 padding-left:17px;
 height: 16px; 
 margin-top:2px;
+_margin-top:-4px;
 color:#939393;
-text-align:right;
+clear:both;
+float:right;
+}
+
+.signature_text{
+margin-right:5px; 
+float:right;
+zoom:1;
+}
+
+.profile_img_drop{
+width: 32px; 
+height: 32px; 
+overflow: auto; 
+margin-top:2px;
 }
   
   .douban_drop{padding:0px 5px 5px 5px;
@@ -1244,7 +1275,7 @@ width:100%;
 zoom:1;
 } 
 
-#story_list .story_wrapper, #story_list .douban_wrapper, #story_list .urlWrapper, #story_list .yupooWrapper, #story_list .youku_wrapper, #story_list .commentBox{
+.story_wrapper, .douban_wrapper, .urlWrapper, .yupooWrapper, .youku_wrapper, .commentBox{
 margin-left:13px;
 }
 
@@ -1264,6 +1295,8 @@ position: relative;
 #weibo_ul .douban_drop .douban_wrapper{
 width:70%;
 margin:0 auto;
+position:relative;
+zoom:1;
 }
 
 #weibo_ul .weibo_drop{
@@ -1336,8 +1369,14 @@ margin:0 auto;
 padding-top:50px; 
 min-height:650px; 
 position:relative; 
-overflow:auto;
+
 zoom:1;
+}
+
+.publish_wrapper{
+float:left; 
+width:664px; 
+height:auto;
 }
 
 .follower_list, .following_list{
@@ -1421,10 +1460,10 @@ width:660px;
 }
 
 #userinfo_container{
-width:210px;
+float:right;
 min-height:500px;
 height:auto;
-float:right;
+width:210px;
 border-color:#ababac;
 border-style:solid;
 border-width:1px;
@@ -1723,7 +1762,7 @@ display:inline-block;
 padding: 0 4px;
 }
 
-#userstory_container{margin-top:30px; margin-bottom:30px; overflow:auto; zoom:1;}
+#userstory_container{margin-bottom:30px; overflow:auto; zoom:1; position:relative;}
 .userstory_list ul {padding:0; overflow:auto; zoom:1;}
 .userstory_list ul li {
 margin:20px 10px 0px 15px; 
@@ -2044,10 +2083,9 @@ float:right;
 }
 
 /* content part */
-.content { margin:25px 0; position:relative;}
-#homepage { position:relative;}
+#main_content {margin-bottom:20px; zoom:1;}
 
-div.inner {width: 920px; margin: 0 auto; overflow:hidden;}
+div.inner {width: 920px; margin: 0 auto; overflow:hidden; position:relative;}
 div.cols-b { width: 100%; }
 div.cols-b:after { display: block; overflow: hidden; clear: both; content: ""; width: 100%; height: 0; }
 

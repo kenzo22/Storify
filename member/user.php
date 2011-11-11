@@ -141,14 +141,14 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	
 	if(!$login_status|| $story_author != $_SESSION['uid'])
 	{
-	  $content .= "<div id='story_container'><div style='float:left;'><div id='publish_container'>";
+	  $content .= "<div id='story_container'><div class='publish_wrapper'><div id='publish_container'>";
 	}
 	else
 	{
 	  if(0 == strcmp($story_status, 'Published'))
 	  {
 		$content .= "<div id='story_container'>
-					  <div style='float:left;'>
+					  <div class='publish_wrapper'>
 					  <div class='published-steps'>
 						<div class='tabs'>
 						  <button class='post-tab'>
@@ -305,7 +305,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  }
 	  else
 	  {
-	    $content .= "<div id='story_container'><div style='float:left;'><div id='publish_container'>
+	    $content .= "<div id='story_container'><div class='publish_wrapper'><div id='publish_container'>
 			  <div id='story_action'><span><a class='draft_icon png_fix' title='草稿'></a>草稿</span><span class='float_r'><a  class='publish' href='/member/user.php?user_id=".$user_id."&post_id=".$post_id."&action=publish'></a>&nbsp<a id='".$post_id."_delete' class='delete redirect png_fix'></a><a class='edit png_fix' href='/member/user.php?user_id=".$user_id."&post_id=".$post_id."&action=edit'></a></span></div>";
 	  }	
 	}
@@ -405,8 +405,8 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 			  $content .= "<div class='weibo_img' style='text-align:center;'><img src='".$single_weibo['bmiddle_pic']."' width='280px;' /></div>";
 			}
             $content .= "</div>";
-            $content .= "<div class='story_signature'><span style='float:right;'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
-			.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><span class='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'>
+            $content .= "<div class='story_signature'><span style='float:right;'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img_drop' src='"
+			.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><span class='signature_text'><div style='float:right; height:16px;'>
 			<span><a class='weibo_from_drop' href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date_drop'>".$createTime."</div></span> </div></div></li>";
 		}
 		break;}
@@ -449,14 +449,14 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 				</div>
 			  </div>
 			  </div>
-			  <div id='douban_signature' style='overflow:auto;'>
+			  <div class='douban_signature'>
 			    <span style='float:right;'>
 				  <a href='".$eventInitiator_url."' target='_blank'>
-				    <img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='".$eventInitiator_pic."' alt='".$eventInitiator_name."' border=0 />
+				    <img class='profile_img_drop' src='".$eventInitiator_pic."' alt='".$eventInitiator_name."' border=0 />
 				  </a>
 				</span>
-				<span class='signature_text' style=' margin-right:5px; float:right;' >
-				  <div style='text-align:right; height:16px;'>
+				<span class='signature_text'>
+				  <div style='float:right; height:16px;'>
 				    <span >
 					  <a class='douban_from_drop' href='".$eventInitiator_url."' target='_blank'>".$eventInitiator_name."</a>
 					</span>
@@ -538,14 +538,14 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 				  </div>
 				</div>
 				</div>
-				<div id='douban_signature' style='overflow:auto;'>
+				<div class='douban_signature'>
 				  <span style='float:right;'>
 					<a href='".$comment_author_link."' target='_blank'>
-					  <img class='profile_img' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='".$comment_author_pic."' alt='".$doubanElement['author']['name']['$t']."' border=0 />
+					  <img class='profile_img_drop' src='".$comment_author_pic."' alt='".$doubanElement['author']['name']['$t']."' border=0 />
 					</a>
 				  </span>
-				  <span class='signature_text' style=' margin-right:5px; float:right;' >
-					<div style='text-align:right; height:16px;'>
+				  <span class='signature_text'>
+					<div style='float:right; height:16px;'>
 					  <span >
 						<a class='douban_from_drop' href='".$doubanElement['author']['link'][1]['@href']."' target='_blank'>".$doubanElement['author']['name']['$t']."</a>
 					  </span>
@@ -605,7 +605,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 				  </div>
 				</div>
 				</div>
-				<div class='douban_signature'></div>
+				<div class='douban_sig_logo'></div>
 			  </div>
 			</li>";
 		  }
@@ -683,8 +683,8 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 				}
 			}
 		}
-		$tweiboContent .= "<div class='story_signature'><span style='float:right;'><a href='http://t.qq.com/".$item['name']."' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
-		.$profileImgUrl."' alt='".$item['nick']."' border=0 /></a></span><span class='signature_text' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px; '>
+		$tweiboContent .= "<div class='story_signature'><span style='float:right;'><a href='http://t.qq.com/".$item['name']."' target='_blank'><img class='profile_img_drop' src='"
+		.$profileImgUrl."' alt='".$item['nick']."' border=0 /></a></span><span class='signature_text'><div style='float:right; height:16px; '>
 		<span ><a class='weibo_from_drop' href='http://t.qq.com/".$item['name']."' target='_blank'>".$item['nick']."</a></span></div><div class='weibo_date_drop'>".$create_time."</div></span></div></div></li>tweibo_sep";
 	  }
 	  $tweibo_array = explode("tweibo_sep", $tweiboContent);
@@ -1221,11 +1221,10 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 						  </a>
 						  <a class='title_wrap' href='".$post_link."'>
 							<h1 class='title'>".$post_title."</h1>
-						  </a>
-						  <div class='editable'>";
+						  </a>";
   if(islogin() && $user_id == $_SESSION['uid'])
   {
-    $story_content .="
+    $story_content .="<div class='editable'>
     <div class='actions'>
       <a id='".$post_id."_delete' class='icon delete png_fix' title='删除' href='#'></a>
 	  <a class='icon edit png_fix' title='编辑' href='/member/index.php?user_id=".$user_id."&post_id=".$post_id."'></a>
@@ -1235,9 +1234,11 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 		<div class='".$icon_type." png_fix'></div>
 		<span>".$post_status_txt."</span>
 	  </div>
+	</div>
+	<div class='clear'></div>
 	</div>";
   }
-   $story_content .="<div class='clear'></div></div></div>
+   $story_content .="</div>
 	<div class='story_meta'><span><a class='meta_date'>".$post_date."</a><img src='".$user_profile_img."'/><a class='meta_author'>".$userresult['username']."</a></span></div></li>";
   }
 

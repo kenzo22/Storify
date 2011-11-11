@@ -15,7 +15,7 @@ $query="select ".$db_prefix."posts.* from ".$db_prefix."tag_story,".$db_prefix."
 $result=$DB->query($query);
 
 
-$content = "<div class='inner' style='padding-top:50px;'><h2>#".$topic."# - 最热门</h2><ul id='tagstory_ul'>";
+$content = "<div class='inner'><h2>#".$topic."# - 最热门</h2><ul id='tagstory_ul'>";
 while ($story_item = mysql_fetch_array($result))
 {
   $story_id = $story_item['ID'];
@@ -28,16 +28,15 @@ while ($story_item = mysql_fetch_array($result))
   $post_date = dateFormatTrans($story_item['post_date'],$date_t);
   $content .=   "<li class='tagstory_li'>
                     <div class='wrapper'>
-                        <a href='/member/user.php?user_id=".$post_author."&post_id=".$story_id."'>
-                          <img src='".$post_pic_url."' style='width:80px; height:80px; float:left;' />
+                        <a style='float:left; display:inline;' href='/member/user.php?user_id=".$post_author."&post_id=".$story_id."'>
+                          <img src='".$post_pic_url."' />
                         </a>
 						<div class='text' style='margin-left:100px;'>
-                          <div class='update_at'>".$post_date."</div>
 						  <a href='/member/user.php?user_id=".$post_author."&post_id=".$story_id."'class='title'>".$post_title."</a>
-                          <div class='summary'>".$post_summary."<a href='/member/user.php?post_id=".$story_id."'>[read more]</a> </div>
-						  <div class='author'>
-                            <a href='/member/user.php?user_id=".$post_author."' muse_scanned='true'>".$userresult['username']."</a> 
+						  <div>
+                            <span class='update_at'>".$post_date."</span>&nbspby&nbsp<a href='/member/user.php?user_id=".$post_author."' muse_scanned='true'>".$userresult['username']."</a> 
                           </div>
+                          <div class='summary'>".$post_summary."<a href='/member/user.php?post_id=".$story_id."'>[read more]</a> </div>
                         </div> 
                     </div>
                 </li>";
