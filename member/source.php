@@ -49,7 +49,8 @@ else
   $yupoo_action = "删除";
 }
 
-$content = "<div class='inner'>
+$content = "<div style='height:30px;'></div>
+<div class='inner'>
 <h4 class='text'>你可以用口立方报道新闻，追踪网络热点事件，汇总美食，旅游，时尚周边信息，写书评影评，等等～～～</h4>
 <h4 class='text'>为了您更好的使用口立方，我们建议您添加下面的信息源:</h4>
 <p class='text'>您之后可以在 设置 -> 第三方应用授权 里作出更改</p>

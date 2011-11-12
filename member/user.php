@@ -93,7 +93,14 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
     }
     else
     {
-	  $user_profile_img =$userresult['photo'];
+	  if($userresult['photo'] == '')
+	  {
+		$user_profile_img = '/img/douban_user_dft.jpg';
+	  }
+	  else
+	  {
+	    $user_profile_img =$userresult['photo'];
+	  }
     }
 	
 	$temp_array = json_decode($story_content, true);
@@ -319,11 +326,12 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
         }
     }
 
+	$story_author_name = $userresult['username'];
 	$content .="<div id='story_header'>
 				  <div style='float:right; padding: 10px 10px 0 0'><img src='".$story_pic."' style='width:60px; height:60px;' /></div>
 				  <div id='story_meta' style='margin-top:10px;'>
 				    <div class='story_title'>".$story_title."</div>
-				    <div class='story_author'>by<a href='http://koulifang.com/member/user.php?user_id=".$user_id."'>".$userresult['username']."</a>, ".$story_time."</div>
+				    <div class='story_author'>by<a href='http://koulifang.com/member/user.php?user_id=".$user_id."'>".$story_author_name."</a>, ".$story_time."</div>
 				    <div class='story_sum'>".$story_summary."</div>";
 			if($tags!='')
 			{
@@ -798,10 +806,53 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		</div>
 	  </div>
 	  <div class='story_stats'>
-	    <div class='total_view_count'>总浏览次数: <span>".$total_count."</span></div>".$view_content."
-	  </div>
-	</div>
-	</div>";
+	    <div class='user_info_title'>总浏览次数: <span>".$total_count."</span></div>".$view_content."
+	  </div>";
+		  
+	$i_query = "select * from ".$db_prefix."posts where post_status = 'Published' and post_author='".$user_id."' and ID!='".$post_id."' order by post_digg_count desc limit 3";
+	$more_result=$DB->query($i_query);
+	if($DB->num_rows($more_result) > 0)
+	{
+	    $content .="<div class='more_story'>
+					  <div class='user_info_title'>".$story_author_name."的更多故事</div>
+					  <ul id='more_story_list' class='sto_cover_list'>";
+		while ($story_item = mysql_fetch_array($more_result))
+		{
+		  $post_author = $story_item['post_author'];
+		  $post_pic_url = $story_item['post_pic_url'];
+		  //$userresult = $DB->fetch_one_array("SELECT username, photo FROM ".$db_prefix."user where id='".$post_author."'");
+		  /*$user_profile_img = $userresult['photo'];
+		  if($user_profile_img == '')
+		  {
+			$user_profile_img = '/img/douban_user_dft.jpg';
+		  }*/
+		  $post_title = $story_item['post_title'];
+		  $post_date = $story_item['post_date'];
+		  $temp_array = explode(" ", $story_item['post_date']);
+		  $post_date = $temp_array[0];
+		  $post_link = "/member/user.php?user_id=".$post_author."&post_id=".$story_item['ID'];
+		  $content .= "<li>
+							  <div class='story_wrap'>	
+								<a href='".$post_link."'>
+								  <img class='cover' src='".$post_pic_url."' />
+								</a>
+								<a class='title_wrap' href='".$post_link."'>
+								  <h1 class='title'>".$post_title."</h1>
+								</a>
+							  </div>
+							  <div class='story_meta'>
+								<span>
+								  <a class='meta_date'>".$post_date."</a>
+								  <img src='".$user_profile_img."'/>
+								  <a class='meta_author' href='member/user.php?user_id=".$post_author."'>".$story_author_name."</a>
+								</span>
+							  </div>
+							</li>";
+		}
+		$content .="</ul><a href='/member/user.php?user_id=".$story_author."'>访问".$story_author_name."的主页 &raquo;</a></div>";
+	}
+	
+	$content .="</div></div>";
 	echo $content;
 	echo "<script language='javascript' >
 			$(function()
@@ -1097,8 +1148,8 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
   $total_pages = $total_pages[num];
   if(0 == $total_pages)
   {
-    $story_content.="<h4 class='text'>你可以用口立方报道新闻，追踪网络热点事件，汇总美食，旅游，时尚周边信息，写书评影评，等等～～～</h4>
-	<h4 class='text'>你还没有发表过故事</h4><a class='large green awesome' href='/member'>开始创建 &raquo;</a><div style='height:150px;'></div></div></div>";
+    $story_content.="<div style='height:30px;'></div><h4 class='text'>你可以用口立方报道新闻，追踪网络热点事件，汇总美食，旅游，时尚周边信息，写书评影评，等等～～～</h4>
+	<a class='large green awesome' href='/member'>开始创建 &raquo;</a><div style='height:150px;'></div></div></div>";
   }
   else
   {	
