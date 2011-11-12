@@ -731,8 +731,8 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	    <div class='user_box'>
 		  <div class='user_info'>
 		    <div class='avatar'><a href='/member/user.php?user_id=".$story_author."'><img style='' width='80px' height='80px' src='".$user_profile_img."'></a></div>
-			<div class='user_name'><a href='/member/user.php?user_id=".$story_author."'><span>".$userresult['username']."</span></a></div>
-		  </div>";
+			<div class='wrapper'>
+			  <div class='user_name'><a href='/member/user.php?user_id=".$story_author."'><span>".$userresult['username']."</span></a></div>";
 		  
 	if(islogin() && $story_author != $_SESSION['uid'])
 	{
@@ -743,11 +743,11 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
       $num=$DB->num_rows($relationresult);
 	  if($num > 0)
 	  {
-	    $content .="<a href='#' class='follow_btn'>已关注</a><a href='#' class='follow_btn' style='display:none;'>关注</a>";
+	    $content .="<a href='#' class='large green awesome follow_btn'>已关注</a><a href='#' class='large green awesome follow_btn' style='display:none;'>关注</a>";
 	  }
 	  else
 	  {
-	    $content .="<a href='#' class='follow_btn'>关注</a><a href='#' class='follow_btn' style='display:none;'>已关注</a>";
+	    $content .="<a href='#' class='large green awesome follow_btn'>关注</a><a href='#' class='large green awesome follow_btn' style='display:none;'>已关注</a>";
 	  }
 	  
 	}
@@ -755,7 +755,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
     $following_list = getFollowing($story_author);
     $follower_list=getFollower($story_author);
 
-	$content .="<P class='user-bio'>".$userresult['intro']."</P>
+	$content .="</div></div><P class='user-bio'>".$userresult['intro']."</P>
 				  <div class='usersfollowers'>
 					<div><span class='side_title'>粉丝</span><span style='vertical-align:top' class='count'>".sizeof($follower_list)."</span></div>
 					  <ul class='follower_list'>";
@@ -844,7 +844,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 								<span>
 								  <a class='meta_date'>".$post_date."</a>
 								  <img src='".$user_profile_img."'/>
-								  <a class='meta_author' href='member/user.php?user_id=".$post_author."'>".$story_author_name."</a>
+								  <a class='meta_author' href='/member/user.php?user_id=".$post_author."'>".$story_author_name."</a>
 								</span>
 							  </div>
 							</li>";
@@ -903,6 +903,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 				    $(this).text('已关注');
 				  }
 				});
+				
 			  $('.load_more').live('click',function(e)
 				{
 				  e.preventDefault();
@@ -1135,17 +1136,69 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
   // How many adjacent pages should be shown on each side?
   $adjacents = 3;
   $user_id = $_GET['user_id'];
-  $story_content = "<div id='userstory_container' class='inner'><div class='userstory_list'>";
-  $userresult = $DB->fetch_one_array("SELECT username, photo FROM ".$db_prefix."user where id='".$user_id."'");
+  $userresult = $DB->fetch_one_array("SELECT username, photo, intro FROM ".$db_prefix."user where id='".$user_id."'");
+  
   $user_profile_img = $userresult['photo'];
   if($user_profile_img == '')
   {
 	$user_profile_img = '/img/douban_user_dft.jpg';
   }
   
+  if(substr($userresult['photo'], 0, 4) == 'http')
+  {
+    if(substr($userresult['photo'], 11, 4) == 'sina')
+    {
+	  $pattern = "/(\d+)\/50\/(\d+)/";
+	  $user_avatar_img = preg_replace($pattern,"$1/180/$2",$userresult['photo']);
+    }
+    else
+    {
+	  $pattern = "/50$/";
+	  $user_avatar_img = preg_replace($pattern,'100',$userresult['photo']);
+    }
+  }
+  else
+  {
+	$user_avatar_img = $user_profile_img;
+  }
+  $following_list = getFollowing($user_id);
+  $follower_list=getFollower($user_id);
+  
   $query = "SELECT COUNT(*) as num FROM $tbl_name where post_author='".$user_id."'";
   $total_pages = mysql_fetch_array(mysql_query($query));
   $total_pages = $total_pages[num];
+  
+  $story_content = "<div id='userstory_container' class='inner'>
+					  <div class='userinfo_wrapper'>
+						<div class='avatar'><a href='/member/user.php?user_id=".$user_id."'><img style='' width='80px' height='80px' src='".$user_avatar_img."'></a></div>
+						<div class='misc_wrapper'>
+						  <div style='color: #333333; font-size:18px; margin-bottom:5px;'><a href='/member/user.php?user_id=".$user_id."'><span>".$userresult['username']."</span></a></div>
+						  <div class='account_count'>
+							<span>粉丝:</span><span class='fans_count'>".sizeof($follower_list)."</span>
+							<span>关注:</span><span class='follow_count'>".sizeof($following_list)."</span>
+							<span>故事:".$total_pages."</span>
+						  </div>";
+					  
+  if(islogin() && $user_id != $_SESSION['uid'])
+  {
+	  $login_user_id = $_SESSION['uid'];
+	  
+	  $query="select * from ".$db_prefix."follow where user_id=".$_SESSION[uid]." and follow_id=".$user_id;
+      $relationresult=$DB->query($query);
+      $num=$DB->num_rows($relationresult);
+	  if($num > 0)
+	  {
+	    $story_content .="<a href='#' class='large green awesome follow'>已关注</a><a href='#' class='large green awesome follow' style='display:none;'>关注</a>";
+	  }
+	  else
+	  {
+	    $story_content .="<a href='#' class='large green awesome follow'>关注</a><a href='#' class='large green awesome follow' style='display:none;'>已关注</a>";
+	  }
+  }
+  
+  $story_content .="</div><div style='float:left; width:450px; margin-left:20px; color:#333333; font-size:12px;'>".$userresult['intro']."</div></div><div class='userstory_list'>";
+  
+  
   if(0 == $total_pages)
   {
     $story_content.="<div style='height:30px;'></div><h4 class='text'>你可以用口立方报道新闻，追踪网络热点事件，汇总美食，旅游，时尚周边信息，写书评影评，等等～～～</h4>
@@ -1301,6 +1354,52 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 	  $story_content .="</ul></div>".$pagination."</div>";
   }
   echo $story_content;
+  echo "<script language='javascript' >
+		  $(function(){
+		    $('.follow').click(function(){
+				  var userid = $user_id;
+				  var operation_val = $(this).text();
+				  if('关注' == operation_val)
+				  {
+				    operation_val = 'follow';
+				  }
+				  else
+				  {
+				    operation_val = 'unfollow';
+				  }
+				  var postdata = {operation: operation_val, uid: userid};
+				  $.post('useroperation.php', postdata,
+					  function(data, textStatus)
+					  {
+						if('success'==textStatus)
+						{
+						  if(operation_val == 'follow')
+						  {
+						    var temp = $('.account_count .fans_count').text();
+							$('.account_count .fans_count').text(parseInt(temp)+1);
+						  }
+						  else
+						  {
+							var temp = $('.account_count .fans_count').text();
+							$('.account_count .fans_count').text(parseInt(temp)-1);
+						  }
+						  $('.follow').toggle();
+						}						
+					  });
+				}).hover(function(){
+				  if($(this).text() == '已关注')
+				  {
+				    $(this).text('取消关注');
+				  }
+				},
+				function(){
+				  if($(this).text() == '取消关注')
+				  {
+				    $(this).text('已关注');
+				  }
+				});
+		  });
+		</script>";
 }
 
 else

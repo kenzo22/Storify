@@ -36,7 +36,7 @@ while ($story_item = mysql_fetch_array($result))
 						  <div>
                             <span class='update_at'>".$post_date."</span>&nbspby&nbsp<a href='/member/user.php?user_id=".$post_author."' muse_scanned='true'>".$userresult['username']."</a> 
                           </div>
-                          <div class='summary'>".$post_summary."<a href='/member/user.php?post_id=".$story_id."'>[read more]</a> </div>
+                          <div class='summary'>".$post_summary."<a href='/member/user.php?user_id=".$post_author."&post_id=".$story_id."'>[read more]</a> </div>
                         </div> 
                     </div>
                 </li>";

@@ -1517,6 +1517,12 @@ overflow:auto;
 zoom:1;
 }
 
+.user_box .user_info .wrapper{
+float:left; 
+width:88px; 
+height:90px;
+}
+
 .more_story, .story_stats{
 padding:10px;
 }
@@ -1551,22 +1557,22 @@ display:block;
 
 }
 
-.user_box .user_info{
+.user_info{
 overflow:auto;
 }
 
-.user_box .user_info .avatar{
+.avatar{
 background: none repeat scroll 0 0 #FFFFFF;
 border: 1px solid #CCCCCC;
 border-radius: 3px 3px 3px 3px;
 height: 80px;
 padding: 4px;
 width: 80px;
-margin:0 15px 5px 0;
+margin:0 12px 5px 0;
 float:left;
 }
 
-.user_box .avatar a{
+.avatar a{
 background-size: cover;
 display: block;
 height: 100%;
@@ -1574,46 +1580,15 @@ width: 100%;
 }
 
 .user_name{
-margin-left:110px;
-padding-top:10px;
+margin-bottom:5px;
 color: #333333;
 font-size: 18px;
+word-wrap:break-word;
+overflow:hidden;
 }
 
 .user_name a:hover{
 text-decoration:underline;
-}
-
-.follow_btn1{
-margin: 5px 0 10px;
-display:block;
-padding: 5px 0;
-text-align: center;
-width: 88px;
-height:20px;
-border:solid;
-border-color: #ABABAC;
-}
-
-.follow_btn, .follow_btn:visited{
-width:160px;
-text-align:center;
-background: #222 url(../img/alert-overlay.png) repeat-x; 
-display: inline-block; 
-font-size: 14px; 
-padding: 4px 14px 5px;
-color: #606060; 
-text-decoration: none;
--moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
--webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-border-bottom: 1px solid rgba(0,0,0,0.25);
-position: relative;
-cursor: pointer;
-background-color: #F7F7F7;
-}
-
-.follow_btn:hover{
-background-color: #EFEFEF;
 }
 
 .userbox p {
@@ -1776,9 +1751,36 @@ padding: 0 4px;
 }
 
 #userstory_container{margin-bottom:30px; overflow:auto; zoom:1; position:relative;}
+
+#userstory_container .userinfo_wrapper{ 
+width:880px; 
+margin:20px auto 10px auto; 
+overflow:auto;
+padding-top:15px;
+}
+
+.userinfo_wrapper .misc_wrapper{
+float:left; 
+width:150px; 
+height:90px;
+margin-left:10px;
+}
+
+.userinfo_wrapper .misc_wrapper .account_count{
+margin-bottom:5px;
+}
+
+.userinfo_wrapper .misc_wrapper .follow{
+color:#ffffff;
+}
+
+.follow_btn:link{
+color:#ffffff;
+}
+
 .userstory_list ul {padding:0; overflow:auto; zoom:1;}
 .userstory_list ul li {
-margin:20px 10px 0px 15px; 
+margin:20px 10px 0px 18px; 
 border: 1px solid #DDDDDD;
 border-radius: 3px 3px 3px 3px;
 color: #323232;
@@ -1952,7 +1954,9 @@ color:#555555;
 
 /*account associate part*/
 .form_wrapper{
-width: 760px; margin: 0 auto; overflow:hidden;
+width: 760px; 
+margin: 50px auto 50px auto; 
+overflow:hidden;
 }
 
 #account_meta{
@@ -1983,8 +1987,8 @@ margin-right:10px;
 
 #form_1, #form_2{
 background-color: #FAFAFA;
-border-color: -moz-use-text-color #EEEEEE #EEEEEE;
-border-right: 1px solid #EEEEEE;
+border-color: -moz-use-text-color #E6E6E8 #E6E6E8;
+border-right: 1px solid #E6E6E8;
 border-style: none solid solid;
 border-width: medium 1px 1px;
 height: 210px;

@@ -32,7 +32,7 @@ if (isset($msg['id'])){
 	$status_count = $msg['statuses_count'];
 }
 
-$content = "<div class='form_wrapper' style='padding-top:50px;'>
+$content = "<div class='form_wrapper'>
 			  <div id='account_meta'>
 			    <div class='account_title'>正在使用下面的微博帐号登录</div>
 				<div style='margin:10px 0 0 10px; overflow:auto;'>
@@ -48,7 +48,7 @@ $content = "<div class='form_wrapper' style='padding-top:50px;'>
 				  </div>
 				</div>
 			  </div>
-			  <div style='clear:both;'>
+			  <div style='clear:both;'></div>
 			  <h2>请选择关联帐号的方式</h2>
 			  <div id='select_form' style='overflow:hidden;'>
 			    <div class='left selected'>
