@@ -46,7 +46,7 @@ if($_POST['act'] == 'uploadphoto')
 			{
 			  if(substr($result['photo'], 0, 4) != 'http')
 			  {
-			    unlink($upload_dir.$reslut['photo']);
+			    unlink($upload_dir.basename($reslut['photo']));
 			  }
 			}		
 			$temp_array = explode(".",$original);
@@ -59,7 +59,8 @@ if($_POST['act'] == 'uploadphoto')
                         $stored_file="/img/user/".$filename;
 			if(!move_uploaded_file($_FILES['photofile']['tmp_name'],$local_file))
 			{
-			  echo "无法将文件移到目的位置";
+			    echo "无法将文件移到目的位置";
+                            return;
 			}
 			chmod($local_file,0755);
 			$DB->query("update ".$db_prefix."user set photo='".$stored_file."' where  ID=".$uid);
