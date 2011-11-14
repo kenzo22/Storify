@@ -782,6 +782,10 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
         $result=$DB->query($query);
         $item=$DB->fetch_array($result);
 		$usr_img = $item['photo'];
+		if($usr_img == '')
+		{
+		  $usr_img = '/img/douban_user_dft.jpg';
+		}
         $content .="<li id='following_id_".$item['id']."'><a class='follow_mini_icon' href='/member/user.php?user_id=".$item['id']."'><img title='".$item['username']."' src='".$usr_img."'></a></li>";
     }
 	$total_count = 0;

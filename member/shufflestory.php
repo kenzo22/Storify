@@ -35,11 +35,14 @@ $query = "select * from ".$db_prefix."posts where post_status = 'Published' and 
 $count_result= $DB->query($query);
 $item_count = $DB->num_rows($count_result);
 if($item_count > 0 ){
-    $sequence = $sequence%$item_count;
+    if($sequence != 0)
+	{
+	  $sequence = $sequence%$item_count;
+	}
     $query = "select * from ".$db_prefix."posts where post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_date) <=$time_range order by post_digg_count desc limit $sequence, 4";
     $result= $DB->query($query);
     $fetch_count = $DB->num_rows($result);
-    if($fetch_count == 4)
+    if($fetch_count == 4 || $sequence == 0)
     {
       while ($story_item = mysql_fetch_array($result))
       {
@@ -149,7 +152,7 @@ if($item_count > 0 ){
 }
 else if($item_count == 0)
 {
-    $story_content = "<p>没有找到故事。</p>";
+    $story_content = "<p style='margin-left:18px;'>没有找到故事，试一试其他时间段吧</p>";
 }
 echo $story_content;
 ?>

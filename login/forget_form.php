@@ -5,10 +5,10 @@ include '../include/secureGlobals.php';
 
 if($_GET['act']!="forget_pwd")
 {
-  $content = "<form method='get' id='f_pwd_form'>
-  <div class='inner' style='padding-top:50px;'> 
-    <span class='title'> 重设密码 </span>  
-    <div id='forget_passwd' style='margin-top:20px; margin-bottom:20px;'> 
+  $content = "<div class='inner'> 
+  <form method='get' id='f_pwd_form' style='margin-top:50px;'>
+    <h3> 重设密码 </h3>  
+    <div id='forget_passwd' style='float:left;'> 
 	  <div>
 	    <span style='margin-right:10px;'>邮箱:</span> 
 		<span ><input type='text' name='email' id='signup_email' size='30' maxlength='100'></span>
@@ -22,9 +22,9 @@ if($_GET['act']!="forget_pwd")
 	<div class='float_r'>
       <span>还没有口立方帐号，<a href='/register/register_form.php'/>立即注册？</a></span>
     </div>
-  </div>
-  <div class='inner' style='height:250px;'></div>
-</form>";
+</form>
+<div style='height:270px;'></div>
+</div>";
   echo $content;
 }
 else

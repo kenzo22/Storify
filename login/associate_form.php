@@ -52,17 +52,17 @@ $content = "<div class='form_wrapper'>
 			  <h2>请选择关联帐号的方式</h2>
 			  <div id='select_form' style='overflow:hidden;'>
 			    <div class='left selected'>
-			      <div><b>使用已有的帐号</b>以前注册过</div>
+			      <div><b>使用已有的帐号</b>&nbsp以前注册过</div>
 			    </div>
 			    <div class='right unselected'>
-			      <div><b>使用新的帐号</b>以前没有注册过</div>
+			      <div><b>使用新的帐号</b>&nbsp以前没有注册过</div>
 			    </div>
 			  </div>
 			  <div id='form_1'>
 			    <form method='post' action='account_associate.php'> 
 				  <div style='display:inline; margin:0;padding:0;' ><input type='hidden' value='".$weibo_uid."' name='weibo_uid' /></div>
 				  <div><label>电子邮箱</label><input id='email' type='text' value='' size='50' name='email' maxlength='50' /><span class='form_tip' id='email_tip'></span></div>
-				  <div><label>密码</label><input id='pwd' type='password' value='' size='50' name='pwd' maxlength='50' /><span class='form_tip' id='pwd_tip'></div>
+				  <div><label>密码</label><input id='pwd' type='password' value='' size='50' name='pwd' maxlength='50' /><span class='form_tip' id='pwd_tip'></span></div>
 				  <div class='aa_submit large blue awesome'><a class='cfm_awesome'>确定关联 &raquo;</a></div>
 			    </form>
 			  </div>
@@ -71,8 +71,8 @@ $content = "<div class='form_wrapper'>
 				  <div style='display:inline; margin:0;padding:0;' ><input type='hidden' value='".$weibo_uid."' name='weibo_uid' /></div>
 				  <div><label>电子邮箱</label><input id='user_email' type='text' value='' size='50' name='user_email' maxlength='50' /><span class='form_tip' id='user_email_tip'></span></div>
 				  <div><label>用户名</label><input id='user_name' type='text' value='' size='50' name='user_name' maxlength='50' /><span class='form_tip' id='user_name_tip'></span></div>  
-				  <div><label>密码</label><input id='user_pwd' type='password' value='' size='50' name='user_pwd' maxlength='50' /><span class='form_tip' id='user_pwd_tip'></div>
-				  <div><label>确认密码</label><input id='user_pwd_confirm' type='password' value='' size='50' name='user_pwd_confirm' maxlength='50' /><span class='form_tip' id='pwd_confirm_tip'></div> 
+				  <div><label>密码</label><input id='user_pwd' type='password' value='' size='50' name='user_pwd' maxlength='50' /><span class='form_tip' id='user_pwd_tip'></span></div>
+				  <div><label>确认密码</label><input id='user_pwd_confirm' type='password' value='' size='50' name='user_pwd_confirm' maxlength='50' /><span class='form_tip' id='pwd_confirm_tip'></span></div> 
 				  <div class='aa_submit large blue awesome'><a class='cfm_awesome'>创建帐号并关联 &raquo;</a></div>
 			    </form>
 			  </div>

@@ -292,7 +292,7 @@ float:left;
 }
 .right_half{
 padding-top: 48px;
-padding-bottom: 45px;
+padding-bottom: 75px;
 float:right;
 }
 /* end header */
@@ -1805,7 +1805,7 @@ padding-top:10px;
 #pop_wrapper{
 height:280px;
 background: none repeat scroll 0 0 #FCFCFC;
-border: 1px solid #E6E6E6;
+border: 1px solid #CCCCCC;
 border-bottom:none;
 border-radius: 5px 5px 0 0;
 }
@@ -1961,7 +1961,7 @@ overflow:hidden;
 
 #account_meta{
 background-color: #FAFAFA;
-border: 1px solid #EEEEEE;
+border: 1px solid #CCCCCC;
 border-radius: 3px 3px 3px 3px;
 margin: 0 0 20px;
 position: relative;
@@ -1987,10 +1987,10 @@ margin-right:10px;
 
 #form_1, #form_2{
 background-color: #FAFAFA;
-border-color: -moz-use-text-color #E6E6E8 #E6E6E8;
-border-right: 1px solid #E6E6E8;
+border-color: #CCCCCC;
+border-right: 1px solid #CCCCCC;
 border-style: none solid solid;
-border-width: medium 1px 1px;
+border-width: 1px;
 height: 210px;
 padding: 14px 14px 14px 50px;
 }
@@ -2019,7 +2019,7 @@ width: 240px;
 
 #select_form .selected{
 background-color: #FAFAFA;
-border-color: #EEEEEE #EEEEEE #FAFAFA;
+border-color: #CCCCCC #CCCCCC #FAFAFA;
 border-style: solid;
 border-width: 1px;
 width: 379px;
@@ -2028,28 +2028,30 @@ float:left;
 
 #select_form .unselected{
 background-color: #FFFFFF;
-border-bottom: 1px solid #EEEEEE;
+border-bottom: 1px solid #CCCCCC;
 cursor: pointer;
 float:left;
 width:379px;
 }
 
 #select_form .selected div{
-color: #888888;
+
 font-size: 12px;
 padding: 14px;
 }
 
 .left.unselected div{
+color: #888888;
 margin: 0 5px 5px 0;
 padding: 14px 14px 11px;
-background-color: #EEEEEE;
+background-color: #dddddd;
 }
 
 .right.unselected div{
+color: #888888;
 margin: 0 0 5px 5px;
 padding: 14px 14px 11px;
-background-color: #EEEEEE;
+background-color: #dddddd;
 }
 
 #publishBtn{
@@ -2225,7 +2227,7 @@ clear:both;
 .editor #footer .wrapper{position:absolute; width:920px; left:50%; margin-left:-460px;}
 #footer p { color: #BBBBBB; font-size: 1.1em; }
 #footer ul { float: right; list-style: none; padding: 0;}
-#footer ul li { display: inline; float: left; margin: 0 0 0 20px; font-size: 1.1em; }
+#footer ul li { display: inline; float: left; margin: 0 0 0 18px; font-size: 1.1em; }
 
 /*temporarily comment out */
 .blue2 {color:#438cc3}

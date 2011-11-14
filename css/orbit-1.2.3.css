@@ -30,7 +30,9 @@ margin:40px 0 20px 0;
 div.orbit-wrapper {
     width: 1px;
     height: 1px;
-    position: relative; }
+    position: relative; 
+	border:1px solid #CCCCCC;
+	}
 
 div.orbit {
     width: 1px;

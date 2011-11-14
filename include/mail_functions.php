@@ -33,12 +33,12 @@
 	//$mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
 	$mail->Host       = "smtp.qq.com";      // sets qq as the SMTP server
 	$mail->Port       = 465;                   // set the SMTP port for the GMAIL server
-	$mail->Username   = "11473124@qq.com";  // qq username
+	$mail->Username   = "support@koulifang.com";  // qq username
 	$mail->Password   = "kenzo22";            // qq password
 
-	$mail->SetFrom('11473124@qq.com', 'StoryBing');
+	$mail->SetFrom('support@koulifang.com', '口立方');
 
-	$mail->AddReplyTo("kenzo@storybing.com","StoryBing");
+	$mail->AddReplyTo("support@koulifang.com","口立方");
 
 	$mail->Subject    = $subject;
 
