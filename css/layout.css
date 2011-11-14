@@ -1656,11 +1656,11 @@ height: 16px;
 /* publish part*/
 
 .setting_bar{
-background-color: #cccccc;
+background-color: #dddddd;
 float: left;
 margin-bottom: 21px;
 overflow: hidden;
-width: 100%;
+width: 68%;
 }
 
 .setting_bar div{
