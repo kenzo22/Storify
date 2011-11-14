@@ -62,7 +62,7 @@ $content = "<div style='height:30px;'></div>
   <li><span class='source_status'>无需添加帐号</span><a id='youku_video' target='_blank' href='http://www.youku.com' class='youku_source' title='优酷视频'><span>优酷视频</span></a></li>
 </ul>
 <div class='float_r'>
-  <span>&gt;&nbsp;<a href='./user_setting.php'>回到基本设置</a></span>
+  <span>&gt;&nbsp;<a href='./settings.php'>回到基本设置</a></span>
 </div>
 </div>
 <div style='height:40px;'></div>";

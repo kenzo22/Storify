@@ -28,29 +28,28 @@ if(this.value=='')
 {
   $('#email_tip').text('Email不能为空').css('color', 'red');
 }
-
-
-else{
-if(!/.+@.+\.[a-zA-Z]{2,4}$/.test(this.value))
-{
-  $('#email_tip').text('Email格式不正确').css('color', 'red');
-}
 else
 {
-  var $email  = $(this).val();
-  var url = 'check_email.php?email='+$email;
-  $.get(url, function(data){
-  if(data =='1')
+  if(!/.+@.+\.[a-zA-Z]{2,4}$/.test(this.value))
   {
-	$('#email_tip').text('该邮箱已被注册').css('color', 'red').show();
+    $('#email_tip').text('Email格式不正确').css('color', 'red');
   }
   else
   {
-	$('#email_tip').text('该邮箱可以使用').css('color', '#666699').show();
+    var $email  = $(this).val();
+    var url = 'check_email.php?email='+$email;
+    $.get(url, function(data){
+    if(data =='1')
+    {
+	  $('#email_tip').text('该邮箱已被注册').css('color', 'red').show();
+    }
+    else
+    {
+	  $('#email_tip').text('该邮箱可以使用').css('color', '#666699').show();
+    }
+    return false;
+    })
   }
-  return false;
-  })
-}
 }
 })
 
@@ -127,7 +126,7 @@ $('#btn_submit_signup a').click(function(e)
   {
     e.preventDefault();
 	$('.err_notify').remove();
-	$('#register_title').append('<div class=\"err_notify\">表单有误或未填写完整，请参考红色提示</div>');
+	$('#register_title').append('<div class=\"err_notify\">表单有误或未填写完整</div>');
   }
   else
   {

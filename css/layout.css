@@ -75,6 +75,11 @@ width:920px;
 height:380px;
 }
 
+/* change pwd, email part */
+#c_pwd_form .wrapper div, #c_email_form .wrapper div{
+margin-top:20px;
+}
+
 /* info source signature part */
 .douban_sig_logo{
 background: url("../img/editsprite.png") no-repeat scroll 0 -39px transparent;
@@ -1651,7 +1656,7 @@ height: 16px;
 /* publish part*/
 
 .setting_bar{
-background-color: #FFF6EE;
+background-color: #cccccc;
 float: left;
 margin-bottom: 21px;
 overflow: hidden;

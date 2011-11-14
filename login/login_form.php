@@ -38,27 +38,24 @@ include "../include/footer.htm";
 ?>
 <script type="text/javascript">
 $(function(){
-$('#pwd_login').focus();
-$('#email_login').bind('focus', function(){
-$('#email_tip').text('请输入你的email地址').css('color', '#666699').show();
-}).bind('blur', function(){
+$('#email_login').focus();
+$('#email_login').bind('blur', function(){
 $('#email_tip').text('');
 if(!/.+@.+\.[a-zA-Z]{2,4}$/.test(this.value))
 {
-  $('#email_tip').text('Email格式不正确').css('color', 'red');
+  $('#email_tip').text('Email格式不正确').css('color', 'red').show();
 }
 if(this.value=='')
 {
-  $('#email_tip').text('Email不能为空').css('color', 'red');
+  $('#email_tip').text('Email不能为空').css('color', 'red').show();
 }
 })
-$('#pwd_login').bind('focus', function(){
-$('#pwd_tip').text('请输入你在口立方注册的密码').css('color', '#666699').show();
-}).bind('blur', function(){
+
+$('#pwd_login').bind('blur', function(){
 $('#pwd_tip').text('');
 if(this.value=='')
 {
-  $('#pwd_tip').text('密码不能为空').css('color', 'red');
+  $('#pwd_tip').text('密码不能为空').css('color', 'red').show();
 }
 })
 

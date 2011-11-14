@@ -36,7 +36,7 @@
 		$content="<ul class='user_console showborder'>
 				    <li class='person_li display' style='display:block;'><a class='person_a person_a_display' href='/member/user.php?user_id=".$userresult['id']."'><img id='person_img' src='".$user_profile_img."'><span id='person_name'>".$_SESSION['username']."</span></a></li>
 					<li class='person_li'><a class='person_a home_icon' href='/member/user.php?user_id=".$userresult['id']."'><img class='console_img' src='/img/home.png'/><span>我的主页</span></a></li>
-					<li class='person_li'><a class='person_a setting_icon' href='/member/user_setting.php'><img class='console_img' src='/img/setting.png'/><span>设置</span></a></li>
+					<li class='person_li'><a class='person_a setting_icon' href='/member/settings.php'><img class='console_img' src='/img/setting.png'/><span>设置</span></a></li>
 					<li class='person_li'><a class='person_a quit_icon' href='/login/login.php?logout'><img class='console_img' src='/img/quit.png'/><span>退出<span></a></li>
 		          </ul>";
 	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='/img/koulifangbeta.png' style='width:120px; height:39px; border:0;'></a></span>
