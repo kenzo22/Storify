@@ -1,4 +1,5 @@
 <?php
+$html_title = "口立方";
 include "../global.php";
 include_once "../include/weibo_functions.php";
 include_once( '../weibo/config.php' );
@@ -861,6 +862,8 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	echo "<script language='javascript' >
 			$(function()
 			{			  
+			  document.title = '$story_title'+' - '+'$story_author_name'+' - 口立方';
+			  
 			  $('.follow_btn').click(function(){
 				  var userid = $story_author;
 				  var operation_val = $(this).text();
@@ -1141,6 +1144,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
   $adjacents = 3;
   $user_id = $_GET['user_id'];
   $userresult = $DB->fetch_one_array("SELECT username, photo, intro FROM ".$db_prefix."user where id='".$user_id."'");
+  $username = $userresult['username'];
   
   $user_profile_img = $userresult['photo'];
   if($user_profile_img == '')
@@ -1176,7 +1180,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 					  <div class='userinfo_wrapper'>
 						<div class='avatar'><a href='/member/user.php?user_id=".$user_id."'><img style='' width='80px' height='80px' src='".$user_avatar_img."'></a></div>
 						<div class='misc_wrapper'>
-						  <div style='color: #333333; font-size:18px; margin-bottom:5px;'><a href='/member/user.php?user_id=".$user_id."'><span>".$userresult['username']."</span></a></div>
+						  <div style='color: #333333; font-size:18px; margin-bottom:5px;'><a href='/member/user.php?user_id=".$user_id."'><span>".$username."</span></a></div>
 						  <div class='account_count'>
 							<span>粉丝:</span><span class='fans_count'>".sizeof($follower_list)."</span>
 							<span>关注:</span><span class='follow_count'>".sizeof($following_list)."</span>
@@ -1353,13 +1357,15 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 		  <div class='clear'></div>
 		  </div>";
 		}
-		$story_content .="</div><div class='story_meta'><span><a class='meta_date'>".$post_date."</a><img src='".$user_profile_img."'/><a class='meta_author'>".$userresult['username']."</a></span></div></li>";
+		$story_content .="</div><div class='story_meta'><span><a class='meta_date'>".$post_date."</a><img src='".$user_profile_img."'/><a class='meta_author'>".$username."</a></span></div></li>";
 	  }
 	  $story_content .="</ul></div>".$pagination."</div>";
   }
   echo $story_content;
   echo "<script language='javascript' >
 		  $(function(){
+		    document.title = '$username'+'的个人主页'+' - 口立方';
+		  
 		    $('.follow').click(function(){
 				  var userid = $user_id;
 				  var operation_val = $(this).text();

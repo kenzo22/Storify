@@ -1,4 +1,5 @@
 <?php
+$html_title = "用户设置 - 口立方";
 include "../global.php";
 if(!islogin())
 {

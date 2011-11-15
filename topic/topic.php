@@ -1,4 +1,5 @@
 <?php
+$html_title = "口立方";
 include "../global.php"; 
 include '../include/secureGlobals.php';
 
@@ -43,8 +44,12 @@ while ($story_item = mysql_fetch_array($result))
 }
 $content .="</ul></div>";
 echo $content;
-?>
+echo "<script language='javascript' >
+		  $(function(){
+		    document.title = '#'+'$topic'+'#'+' - 口立方';
+		  });
+		</script>";
 
-<?php
  include "../include/footer.htm";
 ?>
+

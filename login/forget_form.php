@@ -1,4 +1,5 @@
 <?php
+$html_title = "重设密码 - 口立方";
 include "../global.php";
 include "../include/mail_functions.php";
 include '../include/secureGlobals.php';
@@ -6,15 +7,15 @@ include '../include/secureGlobals.php';
 if($_GET['act']!="forget_pwd")
 {
   $content = "<div class='inner'> 
-  <form method='get' id='f_pwd_form' style='margin-top:50px;'>
-    <h3> 重设密码 </h3>  
+  <form method='get' id='f_pwd_form' style='margin-top:30px; overflow:auto;'>
+    <h2> 重设密码 </h2>  
     <div id='forget_passwd' style='float:left;'> 
 	  <div>
 	    <span style='margin-right:10px;'>邮箱:</span> 
 		<span ><input type='text' name='email' id='signup_email' size='30' maxlength='100'></span>
 		<span class='form_tip' id='email_tip'></span>
 	  </div> 	
-      <div style='margin:20px 0 0 40px;'>
+      <div style='margin:20px 0 10px 40px;'>
 	    <a id='btn_submit_forget' class='large blue awesome'>重设密码 &raquo;</a> 
 	    <input type='hidden' name='act' value='forget_pwd'>
 	  </div>
@@ -63,14 +64,14 @@ else
 
     if(sendEmail($email,$subject,$message))
     {
-      $content="<div class='inner' style='padding-top:50px;'> 
-	              <h1> 重设密码 </h1> 
-				  <div><span>请到 ".$email." 查阅来自口立方的邮件, 从邮件重设你的密码。<span></div>
+      $content="<div class='inner' style='padding-top:30px;'> 
+	              <h2> 重设密码 </h2> 
+				  <div class='float_l'><span>请到 ".$email." 查阅来自口立方的邮件, 从邮件重设你的密码。<span></div>
 				  <div class='float_r'>
 					<span>还没有口立方帐号，<a href='/register/register_form.php'/>立即注册？</a></span>
 				  </div>
-				</div>
-				<div class='inner' style='height:250px;'></div>";
+				  <div style='height:250px;'></div>
+				</div>";
 	  echo $content;
     }
     else

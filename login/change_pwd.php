@@ -1,6 +1,13 @@
 <?php
+$html_title = "更改密码 - 口立方";
 include "../global.php";
 include '../include/secureGlobals.php';
+
+if(!islogin())
+{
+  header("location: /login/login_form.php"); 
+  exit;
+}
 
 if($_POST['act']!="change_pwd")
 {

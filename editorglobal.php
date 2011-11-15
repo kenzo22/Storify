@@ -5,7 +5,8 @@
    require_once "include/functions.php";
    require_once "include/user_auth_fns.php";
 
-   include  "include/editorheader.htm"; 
+   include  "include/editorheader.php"; 
+   //include  "include/editorheader.htm"; 
    session_start();
    $debug=1;
     

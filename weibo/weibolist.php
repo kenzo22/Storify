@@ -1,4 +1,5 @@
 <?php
+$html_title = "口立方";
 include "../global.php";
 include_once( 'config.php' );
 //include_once( 'weibooauth.php' );

@@ -1,4 +1,5 @@
 <?php
+$html_title = "用户登录 - 口立方";
 include "../global.php";
 
 $content ="<form method='post' id='login_form' action='login.php'>

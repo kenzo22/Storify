@@ -1,4 +1,5 @@
 <?php
+$html_title = "上传照片 - 口立方";
 include "../global.php";
 $uid=intval($_SESSION['uid']);
 

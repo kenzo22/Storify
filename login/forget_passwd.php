@@ -1,11 +1,12 @@
 <?php
-  include "../global.php";
+$html_title = "重设密码 - 口立方";
+include "../global.php";
 include '../include/secureGlobals.php';
   if($_POST['act']!="cfm_pwd")
   {
-	$content="<div class='inner' style='padding-top:50px;'>
-			    <form method='post' id='new_pwd_form'>
-				  <h1>重设密码</h1>
+	$content="<div class='inner'>
+			    <form method='post' id='new_pwd_form' style='margin-top:30px; overflow:auto;'>
+				  <h2>重设密码</h2>
 				  <div><span class='field_name'>新口令</span><span><input type='password' name='new_pwd' id='new_pwd' size='30' maxlength='100'></span><span class='form_tip' id='pwd_tip'></span></div> 
 				  <div style='margin-top:20px;'><span class='field_name'>再输一次</span><span><input type='password' name='pwd_confirm' id='pwd_confirm' size='30' maxlength='100'></span><span class='form_tip' id='pwd_confirm_tip'></span></div>
 				  <div style='margin-top:20px;'>
@@ -13,8 +14,8 @@ include '../include/secureGlobals.php';
 					<input type='hidden' name='act' value='cfm_pwd'>
 				  </div>
 				</form>
-			  </div>
-			  <div class='inner' style='height:250px;'></div>";
+				<div style='height:250px;'></div>
+			  </div>";
 	echo $content;
   }
   else
@@ -40,7 +41,7 @@ include '../include/secureGlobals.php';
       $pwd=sha1($_POST['new_pwd']);
 	  $DB->query("update ".$db_prefix."user set passwd='".$pwd."' where username='".$username."' AND email='".$email."'");
       session_destroy();
-	  go("/login/login_form.php?next=flag","修改密码成功,请重新登陆",2);
+	  go("/login/login_form.php","修改密码成功,请重新登陆",2);
 	  exit;
 	}
   }

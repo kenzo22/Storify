@@ -1,4 +1,5 @@
 <?php
+   $html_title = "获得邀请码 - 口立方";
   include "../global.php";
   include "../include/mail_functions.php";
   

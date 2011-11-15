@@ -1,5 +1,11 @@
 <?php
+$html_title = "用户注册 - 口立方";
 include "../global.php";
+if(islogin())
+{
+  header("location: /index.php"); 
+  exit;
+}
 ?>
 <form method='post' action='register_new.php' id='register_form'> 
   <div class='inner' style='padding-top:50px;' id='register_title'><span class='title'>新用户注册</span></div>  

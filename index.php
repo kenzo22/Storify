@@ -1,4 +1,5 @@
 <?php
+$html_title = "口立方 - 新颖的社会媒体故事社区，帮助你用社会媒体讲故事";
 include "global.php"; 
 include "member/tagoperation.php";
 ?>

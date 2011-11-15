@@ -1,4 +1,5 @@
 <?php
+$html_title = "口立方编辑器 - 创建故事";
 include "../editorglobal.php";
 include_once( '../weibo/config.php' );
 include_once( '../weibo/sinaweibo.php' );

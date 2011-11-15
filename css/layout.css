@@ -659,7 +659,6 @@ margin-bottom:20px;
 }
 
 .tagstory_li .wrapper{
-overflow:auto;
 width:920px;
 }
 
@@ -971,7 +970,8 @@ text-transform: uppercase;
 }
 
  .topic_list .title_wrap .title{
-font-size:16px;
+font-size:14px;
+height:40px;
  }
  
  .title_wrap .title:hover{
@@ -1946,8 +1946,6 @@ display: inline-block;
 padding: 5px;
 text-decoration: none;
 width:100px;
-height:122px;
-overflow:auto;
 zoom:1;
 }
 	
@@ -2190,7 +2188,7 @@ background-color: #E9E9E9;
 }
 
 .sina_icon{
-background: url("../img/sina24.png") no-repeat scroll 0 0 transparent;
+background: url("../img/editsprite.png") no-repeat scroll 0 -415px transparent;
 float: left;
 height: 24px;
 margin-left: 3px;

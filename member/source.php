@@ -1,4 +1,5 @@
 <?php
+$html_title = "第三方授权 - 口立方";
 include "../global.php";
 if(!islogin())
 {

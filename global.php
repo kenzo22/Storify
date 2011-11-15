@@ -3,7 +3,7 @@
    require_once dirname(__FILE__).'/'."connect_db.php";  
    require_once "include/functions.php";
    require_once "include/user_auth_fns.php";
-   include  "include/header.htm";  //读入头文件
+   include  "include/header.php";  //读入头文件
    
    //unset($debug); //不允许调试
    session_start();

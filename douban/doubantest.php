@@ -1,6 +1,6 @@
 <?php
+$html_title = "口立方";
 include "../global.php";
-session_start();
 include_once( 'config.php' );
 include_once( 'doubanapi.php' );
 

@@ -1,4 +1,5 @@
 <?php
+$html_title = "微博帐号关联 - 口立方";
 include "../global.php";
 include_once( '../weibo/config.php' );
 include_once( '../weibo/sinaweibo.php' );
