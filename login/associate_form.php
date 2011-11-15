@@ -62,6 +62,7 @@ $content = "<div class='form_wrapper'>
 			  <div id='form_1'>
 			    <form method='post' action='account_associate.php'> 
 				  <div style='display:inline; margin:0;padding:0;' ><input type='hidden' value='".$weibo_uid."' name='weibo_uid' /></div>
+				  <div style='display:inline; margin:0;padding:0;' ><input type='hidden' value='".$photo."' name='weibo_photo' /></div>
 				  <div><label>电子邮箱</label><input id='email' type='text' value='' size='50' name='email' maxlength='50' /><span class='form_tip' id='email_tip'></span></div>
 				  <div><label>密码</label><input id='pwd' type='password' value='' size='50' name='pwd' maxlength='50' /><span class='form_tip' id='pwd_tip'></span></div>
 				  <div class='aa_submit large blue awesome'><a class='cfm_awesome'>确定关联 &raquo;</a></div>
@@ -70,6 +71,7 @@ $content = "<div class='form_wrapper'>
 			  <div id='form_2' style='display:none;'>
 			    <form method='post' action='account_associate.php'>
 				  <div style='display:inline; margin:0;padding:0;' ><input type='hidden' value='".$weibo_uid."' name='weibo_uid' /></div>
+				  <div style='display:inline; margin:0;padding:0;' ><input type='hidden' value='".$photo."' name='weibo_photo' /></div>
 				  <div><label>电子邮箱</label><input id='user_email' type='text' value='' size='50' name='user_email' maxlength='50' /><span class='form_tip' id='user_email_tip'></span></div>
 				  <div><label>用户名</label><input id='user_name' type='text' value='' size='50' name='user_name' maxlength='50' /><span class='form_tip' id='user_name_tip'></span></div>  
 				  <div><label>密码</label><input id='user_pwd' type='password' value='' size='50' name='user_pwd' maxlength='50' /><span class='form_tip' id='user_pwd_tip'></span></div>

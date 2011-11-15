@@ -139,7 +139,7 @@
 	  {
 		$register_time=date("Y-m-d H:i:s");
 		$result = $DB->query("insert into ".$db_prefix."user values
-                         (null, '".$username."', sha1('".$passwd."'), '".$email."', '', '', 0, '', '', 0, '', '', 0, '', '', '', '".$register_time."', 0)");
+                         (null, '".$username."', sha1('".$passwd."'), '".$email."', '', '', '', 0, '', '', 0, '', '', 0, '', '', '', '".$register_time."', 0)");
 		$reset = $DB->query("insert into ".$db_prefix."reset values
                          (null, '".$username."', '".$email."', '".$reset_code."')");
 		$content="<div class='inner' style='padding-top:50px;'>
