@@ -119,7 +119,7 @@ if(!empty($result))
 					  <a href='#' id='embed_a'>嵌入故事<span class='arrow_down'></span><span class='arrow_up'></span></a>
 					</div>
 				  </div>
-				  <div id='embed_bar'><span style='margin-left:20px;'>复制嵌入代码:</span><span><input type='text' class='sto_embed' value='".$embed_code."' size='68'></span><a title='如何嵌入' class='embed_how'></a></div>
+				  <div id='embed_bar'><span style='margin-left:20px;'>复制嵌入代码:</span><span><input type='text' class='sto_embed' value='".$embed_code."' size='68' /></span><a title='如何嵌入' class='embed_how'></a></div>
 			    </div>
 			  </div><ul id='weibo_ul' style='padding:0;'>";
 			  
@@ -169,7 +169,7 @@ if(!empty($result))
 				}
             }
 			else{
-			  $content .="<div class='story_wrapper'><div class='quote_sign'>“</div><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text'];
+			  $content .="<div class='story_wrapper'><div class='quote_sign'>“</div><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text']."</span>";
 			}
             if (isset($single_weibo['bmiddle_pic']))
 			{

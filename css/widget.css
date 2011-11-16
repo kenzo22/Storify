@@ -55,8 +55,8 @@ margin-left: 2px;
 }
 
 .story_tag{
+  margin-top:5px;
   padding-left:20px;
-  font-style:italic;
   color:#555555;
 }
 
@@ -120,6 +120,13 @@ display:none;
 margin-top:25px;
 }
 
+.textElement{
+margin:auto;
+width:95%;
+overflow:auto;
+position:relative;
+}
+
 #weibo_ul .douban_drop{
 width:98%;
 position: relative;
@@ -147,6 +154,10 @@ width:70%;
 margin:0 auto;
 position:relative;
 zoom:1;
+}
+
+.story_wrapper, .douban_wrapper, .urlWrapper, .yupooWrapper, .youku_wrapper, .commentBox{
+margin-left:13px;
 }
 
 .item_action{
@@ -195,7 +206,7 @@ background: url('../img/apostrophe.png') no-repeat scroll 0 0 transparent !impor
 }
 
 #weibo_ul{
-margin:0;
+margin:0 0 15px 0;
 }
 
 .weibo_drop{padding:0px 5px 5px 5px;

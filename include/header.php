@@ -6,7 +6,7 @@
 	<title><?php print $html_title; ?></title>
 	<link href="../css/layout.css" rel='stylesheet' type='text/css' />
 	<link type="text/css" rel="stylesheet" href="http://js.wcdn.cn/t3/style/css/common/card.css" />
-	<link rel="shortcut icon" type="image/ico" href="../img/favicon.ico"> 
+	<link rel="shortcut icon" type="image/ico" href="../img/favicon.ico" /> 
 	<script type="text/javascript" src="../js/jquery.js"></script>
 	<script type="text/javascript" src="../js/json2.js"></script>
 	<script type="text/javascript" src="../js/story.js"></script>
