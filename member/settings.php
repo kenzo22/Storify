@@ -1,6 +1,7 @@
 <?php
 $html_title = "用户设置 - 口立方";
-include "../global.php";
+require "../global.php";
+require  "../include/header.php";
 if(!islogin())
 {
   header("location: /login/login_form.php"); 

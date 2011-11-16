@@ -2,7 +2,8 @@
   //add new line to test git
   // include function files for this application
   $html_title = "用户注册 - 口立方";
-  include "../global.php";
+  require "../global.php";
+  require  "../include/header.php";
   include "../include/mail_functions.php";
   //require_once('../include/class.phpmailer.php');
 

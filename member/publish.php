@@ -1,5 +1,4 @@
 <?php
-include "../config/global_config.php";
 require_once "../connect_db.php";
 require_once "../include/functions.php";
 require ('../include/secureGlobals.php');

@@ -1,7 +1,7 @@
 <?php
 $html_title = "口立方";
-include "../global.php";
-session_start();
+require "../global.php";
+require  "../include/header.php";
 include_once( 'config.php' );
 include_once( 'txwboauth.php' );
 

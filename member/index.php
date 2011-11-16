@@ -1,6 +1,6 @@
 <?php
 $html_title = "口立方编辑器 - 创建故事";
-include "../editorglobal.php";
+include "../global.php";
 include_once( '../weibo/config.php' );
 include_once( '../weibo/sinaweibo.php' );
 include_once( '../tweibo/config.php' );
@@ -9,18 +9,56 @@ include_once( '../douban/config.php' );
 include_once( '../douban/doubanapi.php' );
 include_once( '../include/weibo_functions.php');
 ?>
-<link type="text/css" href="../css/jquery.ui.theme.css" rel="stylesheet" />
-<link type="text/css" href="../css/jquery.ui.tabs.css" rel="stylesheet" />
-<link type="text/css" rel="stylesheet" href="http://js.wcdn.cn/t3/style/css/common/card.css" />
-<link rel="stylesheet" type="text/css" href="../CLEditor/jquery.cleditor.css" />
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title><?php print $html_title; ?></title>
+	<link type='text/css' href="../css/layout.css" rel='stylesheet' />
+	<link type="text/css" href="../css/jquery.ui.theme.css" rel="stylesheet" />
+	<link type="text/css" href="../css/jquery.ui.tabs.css" rel="stylesheet" />
+	<link type="text/css" rel="stylesheet" href="../CLEditor/jquery.cleditor.css" />
+	<link type="image/ico" rel="shortcut icon" href="../img/favicon.ico" /> 
+	<script type="text/javascript" src="../js/jquery.js"></script>
+  </head>
+  <body class='editor' onload='javascript:return bindonbeforeunload();'>
+ 
 <?php
-require ('../include/secureGlobals.php');
-/*if(!islogin())
+session_start();
+$debug=1;
+
+if (!empty($_SERVER[HTTP_REFERER])) $url=htmlspecialchars($_SERVER[HTTP_REFERER]); 
+
+if (get_magic_quotes_gpc()) {  //magic_quotes_gpc开了会加"\" 先去掉
+	$_GET = stripslashes_array($_GET);
+	$_POST = stripslashes_array($_POST);
+	$_COOKIE = stripslashes_array($_COOKIE); 
+	$GLOBALS = stripslashes_array($GLOBALS);
+} 
+set_magic_quotes_runtime(0);
+if(islogin())
+{ 
+  $content="<div id='actions' style='display:block; position:absolute; top:4px; right:0;'>
+				<span><a id='draftBtn' href='./' >保存草稿</a></span>
+				<span><a id='previewBtn' href='./' >预览</a></span>
+				<span><a id='publishBtn' class='large blue awesome' href='./' >发布 &raquo;</a></span>
+			  </div>";
+  $userresult=$DB->fetch_one_array("SELECT id, photo FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
+  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='口立方' accesskey='h' href='/'><img src='/img/koulifangbeta.png' alt='口立方' /></a></span>".$content."</div></div><BR>";
+}
+else
 {
-  header("location: /login/login_form.php"); 
-  exit;
-}*/
+  $content="<div id='actions' style='display:block; position:absolute; top:4px; right:0;'>
+				<span><a id='draftBtn' class='disable' href='./' >保存草稿</a></span>
+				<span><a id='previewBtn' class='disable' href='./' >预览</a></span>
+				<span><a id='publishBtn' class='large blue awesome disable' href='./' >发布 &raquo;</a></span>
+			  </div>";
+  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='口立方' accesskey='h' href='/'><img src='/img/koulifangbeta.png' alt='口立方' /></a></span>
+  ".$content."</div></div><BR>";
+}
+
+require ('../include/secureGlobals.php');
+
 $extra_class = "";
 $hasSina = "sina_disable";
 $hasTencent = "tencent_disable";
@@ -681,8 +719,8 @@ else
 }
 include "../include/footer.htm";
 ?>
+<script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=2417356638" charset="utf-8"></script>
 <script type="text/javascript" src="../CLEditor/jquery.cleditor.min.js"></script>
 <script type="text/javascript" src="../js/jquery.embedly.min.js"></script>
-<script type='text/javascript' src='../js/weibo.js'></script>
 <script type='text/javascript' src='../js/jquery-ui-1.8.12.custom.min.js'></script>
 <script type='text/javascript' src='../js/editstory.js'></script>

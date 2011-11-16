@@ -27,6 +27,24 @@ function unbindonbeforeunload()
   window.onbeforeunload=null;
 }
 
+function addBookmark() 
+{
+    var title='口立方';
+    var url='http://www.koulifang.com';
+    if(window.sidebar)
+	{
+      window.sidebar.addPanel(title, url, "");
+    }
+	else if(document.all) 
+	{
+      window.external.AddFavorite(url, title);
+    } 
+	else
+	{
+      alert('请按 Ctrl + D 为你的浏览器添加书签！');
+    }
+}
+
 function popalert()
 {
   return"本页面要求您确认您要离开 - 您输入的数据可能不会被保存";
@@ -633,7 +651,7 @@ $(function() {
 		  }
 		  else
 		  {
-		    if(0 == vtabIndex)
+			if(0 == vtabIndex)
 		    {
 		      getUrl = '../weibo/weibooperation.php';
 			  getData = {operation: 'weibo_search', keywords: words, page:weiboSearhPage};
@@ -1235,6 +1253,7 @@ $(function() {
 		  success: function(data)
 		  {
 			$('#source_list').html(data);
+			show_weibo_card('source_list');
 		  }
 		  }); 
 		});

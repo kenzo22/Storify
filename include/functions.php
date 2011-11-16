@@ -273,8 +273,6 @@ function getip() {
         return $realip;
 } 
 
-
-
 function validate_email($address) {
         if (ereg('^[-!#$%&\'*+\\./0-9=?A-Z^_`a-z{|}~]+' . '@' . '[-!#$%&\'*+\\/0-9=?A-Z^_`a-z{|}~]+\.' . '[-!#$%&\'*+\\./0-9=?A-Z^_`a-z{|}~]+$', $address, $email)) {
                 return true;
@@ -291,7 +289,6 @@ function valid_email($address) {
     return false;
   }
 }
-
 
 function getstuinfo($id,$pass)
 {
@@ -394,36 +391,6 @@ function makeradompw($length = 8, $list = "0123456789abcdefghijklmnopqrstuvwxyzA
         return $newstring;
 } 
 
-/*function islogin()
-{
- global	$_SESSION;
-
- if (empty($_SESSION['uid']))
-    return 0;
- else 
-	return 1;
-}*/
-
-/*function islogin()
-{
- global	$_SESSION;
- if(empty($_SESSION['uid']))
- {
-   $userinfo = getUserInfo($_COOKIE['email'],$_COOKIE['password']);
-   if(!empty($userinfo))
-   {
-     $_SESSION['uid']=intval($userinfo['id']);
-     $_SESSION['username']=$userinfo['username'];
-	 return 1;
-   }
-   return 0;
- } 
- else
- {
-   return 1;
- } 	
-}*/
-
 function go_template($tpl_file)
 {
 global $rooturl,$siteurl;
@@ -453,32 +420,4 @@ while ( list($v,$val) = each($tpl_var))
 
  include "footer.htm"; //尾部页面
 }
-
-/*function register($email, $password, $username) {
-// register new person with db
-// return true or error message
-
-  // connect to db
-  //$conn = db_connect();
-
-  // check if email is unique
-  $result = $DB->query("select * from ".$db_prefix."user where email='".$email."'");
-  if (!$result) {
-    throw new Exception('Could not execute query');
-  }
-
-  if ($result->num_rows>0) {
-    throw new Exception('That email is taken - go back and choose another one.');
-  }
-
-  // if ok, put in db
-  $result = $DB->query("insert into ".$db_prefix."user values
-                         ('".$email."',  sha1('".$password."'), '".$username."')");
-  if (!$result) {
-    throw new Exception('Could not register you in database - please try again later.');
-  }
-
-  return true;
-}*/
-
 ?>

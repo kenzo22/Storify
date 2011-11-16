@@ -1,6 +1,7 @@
 <?php
 $html_title = "重设密码 - 口立方";
-include "../global.php";
+require "../global.php";
+require  "../include/header.php";
 include '../include/secureGlobals.php';
   if($_POST['act']!="cfm_pwd")
   {

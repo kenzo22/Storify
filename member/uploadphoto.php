@@ -1,6 +1,7 @@
 <?php
 $html_title = "上传照片 - 口立方";
-include "../global.php";
+require "../global.php";
+require  "../include/header.php";
 $uid=intval($_SESSION['uid']);
 
 $result=$DB->fetch_one_array("select * from story_user where id=".$uid);

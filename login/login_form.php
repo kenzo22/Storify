@@ -1,6 +1,7 @@
 <?php
 $html_title = "用户登录 - 口立方";
-include "../global.php";
+require "../global.php";
+require  "../include/header.php";
 
 $content ="<form method='post' id='login_form' action='login.php'>
 <div class='inner' style='padding-top:50px;'><span class='title'> 登录 Koulifang.com </span></div>

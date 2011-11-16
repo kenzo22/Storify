@@ -1,6 +1,7 @@
 <?php
 $html_title = "重设密码 - 口立方";
-include "../global.php";
+require "../global.php";
+require  "../include/header.php";
 include "../include/mail_functions.php";
 include '../include/secureGlobals.php';
 

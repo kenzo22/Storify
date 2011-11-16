@@ -1,5 +1,4 @@
 <?php
-include "../config/global_config.php";
 include "../connect_db.php";
 include "../include/functions.php";
 include "userrelation.php";

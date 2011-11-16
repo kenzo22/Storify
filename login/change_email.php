@@ -1,6 +1,7 @@
 <?php
 $html_title = "更改登录邮箱 - 口立方";
-include "../global.php";
+require "../global.php";
+require  "../include/header.php";
 include '../include/secureGlobals.php';
 
 if(!islogin())

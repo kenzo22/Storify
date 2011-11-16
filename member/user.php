@@ -1,6 +1,7 @@
 <?php
 $html_title = "口立方";
 include "../global.php";
+require  "../include/header.php";
 include_once "../include/weibo_functions.php";
 include_once( '../weibo/config.php' );
 include_once( '../weibo/sinaweibo.php' );
@@ -8,9 +9,9 @@ include_once( '../tweibo/config.php' );
 include_once( '../tweibo/txwboauth.php' );
 include_once( '../douban/config.php' );
 include_once( '../douban/doubanapi.php' );
-include_once "userrelation.php";
+include "userrelation.php";
 ?>
-<link type="text/css" href="../css/jquery.ui.theme.css" rel="stylesheet" />
+
 
 <!--[if IE]>     
 <style type="text/css">
@@ -859,7 +860,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	
 	$content .="</div></div>";
 	echo $content;
-	echo "<script language='javascript' >
+	echo "<script type='text/javascript' language='javascript' >
 			$(function()
 			{			  
 			  document.title = '$story_title'+' - '+'$story_author_name'+' - 口立方';
@@ -1362,7 +1363,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 	  $story_content .="</ul></div>".$pagination."</div>";
   }
   echo $story_content;
-  echo "<script language='javascript' >
+  echo "<script type='text/javascript' language='javascript' >
 		  $(function(){
 		    document.title = '$username'+'的个人主页'+' - 口立方';
 		  
@@ -1692,6 +1693,7 @@ $(function(){
 	
 </script>
 
+<script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=2417356638" charset="utf-8"></script>
 <script type='text/javascript' src='../js/jquery-ui-1.8.12.custom.min.js'></script>
 <script type="text/javascript" src="../js/jquery.embedly.min.js"></script>
 <script type="text/javascript">var jiathis_config = {data_track_clickback:true};</script>

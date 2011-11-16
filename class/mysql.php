@@ -1,5 +1,4 @@
 <?php
-
 error_reporting(7);
 class DB_MySQL {
         var $servername = "localhost";
