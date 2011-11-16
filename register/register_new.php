@@ -202,3 +202,5 @@ $('#a_resend').click(function(e)
 });
 });
 </script>
+</body>
+</html>

@@ -98,3 +98,5 @@ $('#btn_cfm_pwd').click(function(e)
 
 })
 </script>
+</body>
+</html>

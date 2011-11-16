@@ -5,7 +5,6 @@
 	<title><?php print $html_title; ?></title>
 	<link type='text/css' href="../css/layout.css" rel='stylesheet' />
 	<link type="image/ico" rel="shortcut icon"  href="../img/favicon.ico" /> 
-	<script type="text/javascript" src="../js/jquery.js"></script>
   </head>
   <body>
 <?php
@@ -61,32 +60,3 @@
 	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='口立方' accesskey='h' href='/'><img src='/img/koulifangbeta.png' alt='口立方' /></a></span>".$content."</div></div>";
 	}
 ?>
-<script type="text/javascript">
-function addBookmark() 
-{
-    var title='口立方';
-    var url='http://www.koulifang.com';
-    if(window.sidebar)
-	{
-      window.sidebar.addPanel(title, url, "");
-    }
-	else if(document.all) 
-	{
-      window.external.AddFavorite(url, title);
-    } 
-	else
-	{
-      alert('请按 Ctrl + D 为你的浏览器添加书签！');
-    }
-}
-
-$(function(){
-$('.person_li').bind('mouseover', function(e){
-e.preventDefault();
-$('.person_li').css('display', 'block');
-});
-$('.user_console').bind('mouseout', function(){
-$('.person_li').slice(1, 4).css('display', 'none');
-});
-});
-</script>

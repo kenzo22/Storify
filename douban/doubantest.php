@@ -34,7 +34,8 @@ $msg3 = $c->search_music_reviews(1424406, 1, 20);
 echo "<br/><br/><br/><br/><br/>";
 //echo $url_array[2];
 var_dump($msg3);
-
+include "../include/footer.htm";
 ?>
-<?php include "../include/footer.htm"; ?>
+</body>
+</html>
 

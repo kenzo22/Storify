@@ -147,3 +147,5 @@ $('#upload_btn').click(function(e)
     $('#upload_form').submit();
 })
 </script>
+</body>
+</html>

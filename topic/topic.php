@@ -53,4 +53,6 @@ echo "<script language='javascript' >
 
  include "../include/footer.htm";
 ?>
+</body>
+</html>
 

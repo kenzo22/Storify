@@ -19,7 +19,6 @@ include_once( '../include/weibo_functions.php');
 	<link type="text/css" href="../css/jquery.ui.tabs.css" rel="stylesheet" />
 	<link type="text/css" rel="stylesheet" href="../CLEditor/jquery.cleditor.css" />
 	<link type="image/ico" rel="shortcut icon" href="../img/favicon.ico" /> 
-	<script type="text/javascript" src="../js/jquery.js"></script>
   </head>
   <body class='editor' onload='javascript:return bindonbeforeunload();'>
  
@@ -101,7 +100,7 @@ else
 				  <div id='login_modal'>
 				    <div><b> 邮 箱 &nbsp; </b><span><input type='text' name='email' id='email_login' onclick='this.value=\"\"'/></span></div>
 				    <div><b> 密 码 &nbsp; </b> <span><input type='password' name='passwd' id='pwd_login' onclick='this.value=\"\"'/> </span></div>
-				    <div><span> <input type='checkbox' name='autologin' />下次自动登录</span> | <span><a href='/login/forget_form.php'>忘记密码了？</a><span></div>
+				    <div><span> <input type='checkbox' name='autologin' />下次自动登录</span> | <span><a href='/login/forget_form.php'>忘记密码了？</a></span></div>
 				    <div style='margin-top:5px;'>
 					  <input type='submit' id='login_modal_btn' value='登录'/>
 				    </div>
@@ -724,3 +723,5 @@ include "../include/footer.htm";
 <script type="text/javascript" src="../js/jquery.embedly.min.js"></script>
 <script type='text/javascript' src='../js/jquery-ui-1.8.12.custom.min.js'></script>
 <script type='text/javascript' src='../js/editstory.js'></script>
+</body>
+</html>
