@@ -64,7 +64,7 @@ $('#loginbtn').click(function(e)
 {
   var email_val = $('#email_login').val();
   var pwd_val = $('#pwd_login').val();
-  var tip_flag = ($('#email_tip').css('color') == 'red') || ($('#pwd_tip').css('color') == 'red');
+  var tip_flag = ($('#email_tip').text() != '') || ($('#pwd_tip').text() != '');
   if(tip_flag || email_val == '' || pwd_val == '')
   {
     e.preventDefault();
@@ -82,7 +82,7 @@ $('#email_login, #pwd_login').bind('keyup', function(e)
   {
     var email_val = $('#email_login').val();
     var pwd_val = $('#pwd_login').val();
-    var tip_flag = ($('#email_tip').css('color') == 'red') || ($('#pwd_tip').css('color') == 'red');
+    var tip_flag = ($('#email_tip').text() != '') || ($('#pwd_tip').text() != '');
     if(tip_flag || email_val == '' || pwd_val == '')
     {
       e.preventDefault();

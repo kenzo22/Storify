@@ -39,7 +39,7 @@
 					<li class='person_li'><a class='person_a setting_icon' href='/member/settings.php'><img class='console_img' src='/img/setting.png'/><span>设置</span></a></li>
 					<li class='person_li'><a class='person_a quit_icon' href='/login/login.php?logout'><img class='console_img' src='/img/quit.png'/><span>退出<span></a></li>
 		          </ul>";
-	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='/img/koulifangbeta.png' style='width:120px; height:39px; border:0;'></a></span>
+	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='口立方' accesskey='h' href='/'><img src='/img/koulifangbeta.png' alt='口立方' /></a></span>
 	  <span id='top_menu_a'><a class='edit_story_btn' href='/member'>创建故事</a></span>".$content."</div></div>";
     }
 	else
@@ -55,7 +55,7 @@
 	  $_SESSION['last_tkey']['oauth_token_secret'] = $token['tweibo_access_token_secret'];
   
 	  $content = "<span id='top_menu_b'><a class='register_top' href='/register/register_form.php'>注册</a><a class='login_top' href='/login/login_form.php?next=".urlencode($_SERVER['REQUEST_URI'])."'>登录</a><a class='edit_story_btn' href='/member'>创建故事</a></span>";
-	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='/img/koulifangbeta.png' style='width:120px; height:39px; border:0;' /></a></span>".$content."</div></div>";
+	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='口立方' accesskey='h' href='/'><img src='/img/koulifangbeta.png' alt='口立方' /></a></span>".$content."</div></div>";
 	}
 ?>
 <script>

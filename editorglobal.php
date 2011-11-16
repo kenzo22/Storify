@@ -27,7 +27,7 @@
 					<span><a id='publishBtn' class='large blue awesome' href='./' >发布 &raquo;</a></span>
 				  </div>";
 	  $userresult=$DB->fetch_one_array("SELECT id, photo FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
-	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='/img/koulifangbeta.png' style='width:120px; height:39px; border:0;'></a></span>".$content."</div></div><BR>";
+	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='口立方' accesskey='h' href='/'><img src='/img/koulifangbeta.png' alt='口立方' /></a></span>".$content."</div></div><BR>";
     }
 	else
 	{
@@ -36,7 +36,7 @@
 					<span><a id='previewBtn' class='disable' href='./' >预览</a></span>
 					<span><a id='publishBtn' class='large blue awesome disable' href='./' >发布 &raquo;</a></span>
 				  </div>";
-	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='StoryBingLogo' accesskey='h' href='/'><img src='/img/koulifangbeta.png' style='width:120px; height:39px; border:0;'></a></span>
+	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='口立方' accesskey='h' href='/'><img src='/img/koulifangbeta.png' alt='口立方' /></a></span>
 	  ".$content."</div></div><BR>";
 	}
 ?>

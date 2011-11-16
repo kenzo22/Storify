@@ -101,7 +101,7 @@ $(function(){
 	var old_pwd_val = $('#old_pwd').val();
     var new_pwd_val = $('#new_pwd').val();
     var pwd_cfm_val = $('#new_pwd_cfm').val();
-	var tip_flag = ($('#old_pwd_tip').css('color') == 'red') || ($('#new_pwd_tip').css('color') == 'red') || ($('#new_pwd_cfm_tip').css('color') == 'red');
+	var tip_flag = ($('#old_pwd_tip').text() != '') || ($('#new_pwd_tip').css('color') == 'red') || ($('#new_pwd_cfm_tip').text() != '');
 	if(tip_flag || old_pwd_val == '' || new_pwd_val == '' || pwd_cfm_val == '' || pwd_cfm_val == '')
     {
       $('.err_notify').remove();

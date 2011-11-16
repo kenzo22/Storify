@@ -839,10 +839,10 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		  $content .= "<li>
 							  <div class='story_wrap'>	
 								<a href='".$post_link."'>
-								  <img class='cover' src='".$post_pic_url."' />
+								  <img class='cover' src='".$post_pic_url."' alt='故事封面'/>
 								</a>
 								<a class='title_wrap' href='".$post_link."'>
-								  <h1 class='title'>".$post_title."</h1>
+								  <span class='title'>".$post_title."</span>
 								</a>
 							  </div>
 							  <div class='story_meta'>
@@ -1336,10 +1336,10 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 		$story_content .="<li>
 							<div class='story_wrap'>
 							  <a href='".$post_link."'>
-								<img class='cover' src='".$post_pic_url."' />
+								<img class='cover' src='".$post_pic_url."' alt='故事封面' />
 							  </a>
 							  <a class='title_wrap' href='".$post_link."'>
-								<h1 class='title'>".$post_title."</h1>
+								<span class='title'>".$post_title."</span>
 							  </a>";
 		if(islogin() && $user_id == $_SESSION['uid'])
 		{

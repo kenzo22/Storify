@@ -3,8 +3,8 @@ $html_title = "口立方 - 新颖的社会媒体故事社区，帮助你用社�
 include "global.php"; 
 include "member/tagoperation.php";
 ?>
-<link rel="stylesheet" type="text/css" href="css/skin.css" />
-<link rel="stylesheet" href="css/orbit-1.2.3.css">
+<link type="text/css" rel="stylesheet" href="css/skin.css" />
+<link type="text/css" rel="stylesheet" href="css/orbit-1.2.3.css" />
 <script type="text/javascript" src="js/jquery.orbit-1.2.3.min.js"></script>
 <!--[if IE]>
 	<style type="text/css">
@@ -16,22 +16,22 @@ include "member/tagoperation.php";
 <div id='boxes'>  
 <!-- Start of Login Dialog -->  
 <div id='dialog' class='window' style='padding:0;'>
-  <div style='background-color:#ababac; padding:5px;'><span><a href='#' class='close'/>关闭</a></span><span>登录 koulifang.com</span> | <span><a href='register/register_form.php'/>还没有注册？</a><span></div>
+  <div style='background-color:#ababac; padding:5px;'><span><a href='#' class='close'>关闭</a></span><span>登录 koulifang.com</span> | <span><a href='register/register_form.php'>还没有注册？</a><span></div>
   <form method='post' action='login/login.php'>
   <div style='overflow:auto;'>
     <div id='login_modal'>
       <div><b> 邮 箱 &nbsp; </b><span><input type='text' name='email' id='email_login' onclick='this.value=""'/></span></div>
       <div><b> 密 码 &nbsp; </b><span><input type='password' name='passwd' id='pwd_login' onclick='this.value=""'/> </span></div>
-      <div><span> <input type='checkbox' name='autologin'>下次自动登录</span> | <span><a href='login/forget_form.php'/>忘记密码了？</a><span></div>
+      <div><span> <input type='checkbox' name='autologin' />下次自动登录</span> | <span><a href='login/forget_form.php'>忘记密码了？</a><span></div>
       <div style='margin-top:5px;'>
         <input type='submit' id='login_modal_btn' value='登录'/>
       </div>
     </div>
 	<div class='login_right'>
 	  <div style='margin-bottom:5px;'>还没有口立方帐号?</div>
-	  <a class='large green awesome register_awesome' href='/register/register_form.php'/>马上注册 &raquo;</a>
-	  <div style='margin-top:15px;'><span align='center'>使用新浪微博帐号登录</span></div>
-	  <div style='margin-top:5px;'><a id='connectBtn' href='#'><div class='sina_icon'></div><div class='sina_name'>新浪微博</div></a></div>  
+	  <a class='large green awesome register_awesome' href='/register/register_form.php'>马上注册 &raquo;</a>
+	  <div style='margin-top:15px;'><span>使用新浪微博帐号登录</span></div>
+	  <div style='margin-top:5px;'><a id='connectBtn' href='#'><span class='sina_icon'></span><span class='sina_name'>新浪微博</span></a></div>  
 	</div>
   </div>
   </form>
@@ -49,10 +49,10 @@ if(!islogin())
   $slider_content ="
   <div id='featured_container'>
 	<div id='featured'> 
-	  <img src='img/slide1.jpg' />
-	  <img src='img/slide2.jpg' />
-	  <img src='img/slide3.jpg' />
-	  <img src='img/slide4.jpg' />
+	  <img src='img/slide1.jpg' alt='口立方'/>
+	  <img src='img/slide2.jpg' alt='口立方'/>
+	  <img src='img/slide3.jpg' alt='口立方'/>
+	  <img src='img/slide4.jpg' alt='口立方'/>
 	</div>
   </div>";
   echo $slider_content;
@@ -86,10 +86,10 @@ if(!islogin())
 	  $story_content .= "<li>
 						  <div class='story_wrap'>	
 							<a href='".$post_link."'>
-							  <img class='cover' src='".$post_pic_url."' />
+							  <img class='cover' src='".$post_pic_url."' alt='故事封面' />
 							</a>
 							<a class='title_wrap' href='".$post_link."'>
-							  <h1 class='title'>".$post_title."</h1>
+							  <span class='title'>".$post_title."</span>
 							</a>
 						  </div>
 						  <div class='story_meta'>
@@ -167,7 +167,7 @@ if(islogin())
 <?php
  include "./include/footer.htm";
 ?>	
-<script>
+<script type="text/javascript">
 $(document).ready(function() 
 {	
   $('.login_top').attr('name', 'modal').attr('href', '#dialog');
@@ -188,7 +188,7 @@ $(document).ready(function()
 	  data: getData, 
 	  beforeSend:function() 
 	  {
-		var imgloading = $("<span style='padding-left:180px;'><img src='/img/loading.gif' /></span>");
+		var imgloading = $("<span><img src='/img/loading.gif' alt='正在加载' /></span>");
 		$('this').html(imgloading);
 	  },
 	  success: function(data)
@@ -209,11 +209,6 @@ $(document).ready(function()
 	  type: 'GET',
 	  url: '/member/shufflestory.php',
 	  data: getData, 
-	  beforeSend:function() 
-	  {
-		var imgloading = $("<span style='padding-left:180px;'><img src='/img/loading.gif' /></span>");
-		$('this').html(imgloading);
-	  },
 	  success: function(data)
 	  {
 		$('#pop_list').html(data);

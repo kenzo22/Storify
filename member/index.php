@@ -57,22 +57,22 @@ else
   $content="<div id='storyContent' style='margin-bottom:0;'>
             <div id='boxes'>
 			  <div id='dialog' class='window' style='padding:0;'>
-			    <div style='background-color:#ababac; padding:5px;'><span>登录 koulifang.com</span><span><a href='#' class='close'/>关闭</a></span></div>
+			    <div style='background-color:#ababac; padding:5px;'><span>登录 koulifang.com</span><span><a href='#' class='close'>关闭</a></span></div>
 			    <form method='post' action='/login/login.php'>
 			    <div>
 				  <div id='login_modal'>
 				    <div><b> 邮 箱 &nbsp; </b><span><input type='text' name='email' id='email_login' onclick='this.value=\"\"'/></span></div>
 				    <div><b> 密 码 &nbsp; </b> <span><input type='password' name='passwd' id='pwd_login' onclick='this.value=\"\"'/> </span></div>
-				    <div><span> <input type='checkbox' name='autologin'>下次自动登录</span> | <span><a href='/login/forget_form.php'/>忘记密码了？</a><span></div>
+				    <div><span> <input type='checkbox' name='autologin' />下次自动登录</span> | <span><a href='/login/forget_form.php'>忘记密码了？</a><span></div>
 				    <div style='margin-top:5px;'>
 					  <input type='submit' id='login_modal_btn' value='登录'/>
 				    </div>
 				  </div>
 				  <div class='login_right'>
 				    <div style='margin-bottom:5px;'>还没有口立方帐号?</div>
-					<a class='large green awesome register_awesome' href='/register/register_form.php'/>马上注册 &raquo;</a>
-					<div style='margin-top:15px;'><span align='center'>使用新浪微博帐号登录</span></div>
-				    <div style='margin-top:5px;'><a id='connectBtn' href='#'><div class='sina_icon'></div><div class='sina_name'>新浪微博</div></a></div>  
+					<a class='large green awesome register_awesome' href='/register/register_form.php'>马上注册 &raquo;</a>
+					<div style='margin-top:15px;'><span>使用新浪微博帐号登录</span></div>
+				    <div style='margin-top:5px;'><a id='connectBtn' href='#'><span class='sina_icon'></span><span class='sina_name'>新浪微博</span></a></div>  
 				  </div>
 			    </div>
 			    </form>
@@ -81,7 +81,7 @@ else
 
 $content .= "
     <div id='weibo_dialog' class='window".$extra_class."'>
-	  <div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span id='publish_title' style='color: #336699;'>发表微博</span><span><a href='#' class='close'/>关闭</a></span></div>
+	  <div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span id='publish_title' style='color: #336699;'>发表微博</span><span><a href='#' class='close'>关闭</a></span></div>
 	  <div id='pub_wrapper'>
 	    <div class='float_r counter_wrapper'><span style='margin-left:28px; color: #B8B7B7;'>还可以输入</span><span class='word_counter'>140</span><span style='color: #B8B7B7;'>字</span></div>
 	    <textarea class='publish-tweet'></textarea>

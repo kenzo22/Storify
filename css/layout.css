@@ -206,6 +206,7 @@ padding: 0;
 max-height:170px;
 }
 #logo {float: left; margin-top:3px;}
+#logo a img{width:120px; height:39px; border:0;}
 #user_action {padding-left:10px; position:relative; top:10px;}
 
 .edit_story_btn, .my_story_btn, .login_top, .register_top{

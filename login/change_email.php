@@ -73,6 +73,7 @@ include "../include/footer.htm";
 <script type="text/javascript">
 $(function(){
     $('#login_email').bind('blur', function(){
+	$('#login_email_tip').text('');
 	if(this.value=='')
 	{
 	  $('#login_email_tip').text('Email不能为空').css('color', 'red').show();
@@ -84,6 +85,7 @@ $(function(){
 	})
 
 	$('#new_login_email').bind('blur', function(){
+	$('#new_login_email_tip').text('');
 	if(this.value=='')
 	{
 	  $('#new_login_email_tip').text('Email不能为空').css('color', 'red').show();
@@ -130,7 +132,7 @@ $(function(){
     var login_pwd_val = $('#login_pwd').val();
     var new_login_email_val = $('#new_login_email').val();
 	var new_email_cfm_val = $('#new_email_cfm').val();
-	var tip_flag = ($('#login_email_tip').css('color') == 'red') || ($('#new_login_email_tip').css('color') == 'red') || ($('#new_email_cfm_tip').css('color') == 'red');
+	var tip_flag = ($('#login_email_tip').text() != '') || ($('#new_login_email_tip').css('color') == 'red') || ($('#new_email_cfm_tip').css('color') == 'red');
 	if(tip_flag || login_email_val == '' || login_pwd_val == '' || new_login_email_val == '' || new_email_cfm_val == '')
     {
       $('.err_notify').remove();
