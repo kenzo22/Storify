@@ -178,3 +178,5 @@ $('#email_reg, #pwd_reg, #pwd_confirm, #name_reg, #code_reg, #agree_term').bind(
 
 })
 </script>
+</body>
+</html>

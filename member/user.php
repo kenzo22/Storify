@@ -1,6 +1,6 @@
 <?php
 $html_title = "口立方";
-include "../global.php";
+require "../global.php";
 require  "../include/header.php";
 include_once "../include/weibo_functions.php";
 include_once( '../weibo/config.php' );
@@ -849,7 +849,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 							  <div class='story_meta'>
 								<span>
 								  <a class='meta_date'>".$post_date."</a>
-								  <img src='".$user_profile_img."'/>
+								  <img src='".$user_profile_img."' alt='".$story_author_name."'/>
 								  <a class='meta_author' href='/member/user.php?user_id=".$post_author."'>".$story_author_name."</a>
 								</span>
 							  </div>
@@ -1358,7 +1358,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 		  <div class='clear'></div>
 		  </div>";
 		}
-		$story_content .="</div><div class='story_meta'><span><a class='meta_date'>".$post_date."</a><img src='".$user_profile_img."'/><a class='meta_author'>".$username."</a></span></div></li>";
+		$story_content .="</div><div class='story_meta'><span><a class='meta_date'>".$post_date."</a><img src='".$user_profile_img."' alt='".$username."' /><a class='meta_author'>".$username."</a></span></div></li>";
 	  }
 	  $story_content .="</ul></div>".$pagination."</div>";
   }
@@ -1698,3 +1698,5 @@ $(function(){
 <script type="text/javascript" src="../js/jquery.embedly.min.js"></script>
 <script type="text/javascript">var jiathis_config = {data_track_clickback:true};</script>
 <script type="text/javascript" src="http://v2.jiathis.com/code/jia.js?uid=1542042" charset="utf-8"></script>
+</body>
+</html>

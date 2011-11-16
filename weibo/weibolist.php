@@ -119,6 +119,8 @@ $msg = $c->show_status(3351803345848198);
 
 
 <?php include "../include/footer.htm"; ?>
+</body>
+</html>
 
 
 

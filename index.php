@@ -11,7 +11,6 @@ include "member/tagoperation.php";
 	<link type='text/css' rel='stylesheet' href="css/layout.css" />
     <link type="text/css" rel="stylesheet" href="css/orbit-1.2.3.css" />
 	<link type="image/ico" rel="shortcut icon"  href="img/favicon.ico" /> 
-	<script type="text/javascript" src="js/jquery.js"></script>
   </head>
   <body>
   <?php
@@ -76,13 +75,13 @@ include "member/tagoperation.php";
 	<a id='user_feedback_tab' href='/contact/contactform.htm'></a>
 	<div id='boxes'>  
 	<div id='dialog' class='window' style='padding:0;'>
-	  <div style='background-color:#ababac; padding:5px;'><span><a href='#' class='close'>关闭</a></span><span>登录 koulifang.com</span> | <span><a href='register/register_form.php'>还没有注册？</a><span></div>
+	  <div style='background-color:#ababac; padding:5px;'><span><a href='#' class='close'>关闭</a></span><span>登录 koulifang.com</span></div>
 	  <form method='post' action='login/login.php'>
 	  <div style='overflow:auto;'>
 		<div id='login_modal'>
 		  <div><b> 邮 箱 &nbsp; </b><span><input type='text' name='email' id='email_login' onclick='this.value=""'/></span></div>
 		  <div><b> 密 码 &nbsp; </b><span><input type='password' name='passwd' id='pwd_login' onclick='this.value=""'/> </span></div>
-		  <div><span> <input type='checkbox' name='autologin' />下次自动登录</span> | <span><a href='login/forget_form.php'>忘记密码了？</a><span></div>
+		  <div><span> <input type='checkbox' name='autologin' />下次自动登录</span> | <span><a href='login/forget_form.php'>忘记密码了？</a></span></div>
 		  <div style='margin-top:5px;'>
 			<input type='submit' id='login_modal_btn' value='登录'/>
 		  </div>
@@ -129,6 +128,7 @@ include "member/tagoperation.php";
 		  $post_pic_url = $story_item['post_pic_url'];
 		  $userresult = $DB->fetch_one_array("SELECT username, photo FROM ".$db_prefix."user where id='".$post_author."'");
 		  $user_profile_img = $userresult['photo'];
+		  $author_name = $userresult['username'];
 		  if($user_profile_img == '')
 		  {
 			$user_profile_img = '/img/douban_user_dft.jpg';
@@ -150,8 +150,8 @@ include "member/tagoperation.php";
 							  <div class='story_meta'>
 								<span>
 								  <a class='meta_date'>".$post_date."</a>
-								  <img src='".$user_profile_img."'/>
-								  <a class='meta_author' href='member/user.php?user_id=".$post_author."'>".$userresult['username']."</a>
+								  <img src='".$user_profile_img."' alt='".$author_name."'/>
+								  <a class='meta_author' href='member/user.php?user_id=".$post_author."'>".$author_name."</a>
 								</span>
 							  </div>
 							</li>";
@@ -223,145 +223,6 @@ include "member/tagoperation.php";
  include "./include/footer.htm";
 ?>	
 <script type="text/javascript" src="js/jquery.orbit-1.2.3.min.js"></script>
-<script type="text/javascript">
-function addBookmark() 
-{
-    var title='口立方';
-    var url='http://www.koulifang.com';
-    if(window.sidebar)
-	{
-      window.sidebar.addPanel(title, url, "");
-    }
-	else if(document.all) 
-	{
-      window.external.AddFavorite(url, title);
-    } 
-	else
-	{
-      alert('请按 Ctrl + D 为你的浏览器添加书签！');
-    }
-}
-
-$(function(){
-  $('.person_li').bind('mouseover', function(e){
-	e.preventDefault();
-	$('.person_li').css('display', 'block');
-  });
-  
-  $('.user_console').bind('mouseout', function(){
-	$('.person_li').slice(1, 4).css('display', 'none');
-  });
-	
-  $('.login_top').attr('name', 'modal').attr('href', '#dialog');
-  
-  $('#login_awesome').attr('name', 'modal').attr('href', '#dialog');
-  
-  var sequence_val = 0;
-  
-  $('#story_more').live('click', function(e){
-	e.preventDefault();
-	sequence_val = sequence_val+4;
-	var selElem = $('.time_range.selected');	
-	var flag_val = $('.time_range').index(selElem);
-	var getData = {flag:flag_val, sequence:sequence_val};
-	$.ajax({
-	  type: 'GET',
-	  url: '/member/shufflestory.php',
-	  data: getData, 
-	  beforeSend:function() 
-	  {
-		var imgloading = $("<span><img src='/img/loading.gif' alt='正在加载' /></span>");
-		$('this').html(imgloading);
-	  },
-	  success: function(data)
-	  {
-		$('#pop_list').html(data);
-	  }
-	  });
-  })
-  
-  $('.time_range').click(function(e){
-	e.preventDefault();
-	sequence_val = 0;
-	$('.time_range').removeClass('selected');
-	$(this).addClass('selected');
-	var flag_val = $('.time_range').index(this);
-	var getData = {flag:flag_val, sequence:0};
-	$.ajax({
-	  type: 'GET',
-	  url: '/member/shufflestory.php',
-	  data: getData, 
-	  success: function(data)
-	  {
-		$('#pop_list').html(data);
-	  }
-	  });
-  })
-  
-  $('#connectBtn').live('click', function(e)
-  {
-	e.preventDefault();
-	$.post('login/sina_auth.php', {}, 		
-	function(data, textStatus)
-	{
-	  $('.window').hide();
-	  self.location=data;
-	});
-  });
-	
-	//select all the a tag with name equal to modal
-	$('a[name=modal]').click(function(e) {
-		//Cancel the link behavior
-		e.preventDefault();
-		
-		//Get the A tag
-		var id = $(this).attr('href');
-	
-		//Get the screen height and width
-		var maskHeight = $(document).height();
-		var maskWidth = $(window).width();
-	
-		//Set heigth and width to mask to fill up the whole screen
-		$('#mask').css({'width':maskWidth,'height':maskHeight});
-		
-		//transition effect		
-		//$('#mask').fadeIn(1000);	
-		//$('#mask').fadeTo("slow",0.8);	
-	
-		//Get the window height and width
-		var winH = $(window).height();
-		var winW = $(window).width();
-              
-		//Set the popup window to center
-		$(id).css('top',  winH/2-$(id).height()/2);
-		$(id).css('left', winW/2-$(id).width()/2);
-	
-		//transition effect
-		$(id).fadeIn(1000); 
-	
-	});
-	
-	//if close button is clicked
-	$('.window .close').click(function (e) {
-		//Cancel the link behavior
-		e.preventDefault();
-		
-		$('#mask').hide();
-		$('.window').hide();
-	});		
-	
-	//if mask is clicked
-	$('#mask').click(function () {
-		$(this).hide();
-		$('.window').hide();
-	});		
-});
-
-$(window).load(function() {
-	$('#featured').orbit({
-	  advanceSpeed: 8000,
-	  bullets: true,
-	  directionalNav: false
-	});
-});
-</script>
+<script type="text/javascript" src="js/frontpage.js"></script>
+</body>
+</html>

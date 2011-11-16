@@ -87,7 +87,7 @@ echo $user_set;
 include "../include/footer.htm"
 ?>
 
-<script language='javascript' >
+<script type="text/javascript">
 $(function()
 {
   $('#update_btn a').click(function(e)
@@ -108,3 +108,5 @@ $(function()
   });
 });
 </script>
+</body>
+</html>
