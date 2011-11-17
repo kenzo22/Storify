@@ -28,17 +28,19 @@ while ($story_item = mysql_fetch_array($result))
   $post_summary = $story_item['post_summary'];
   $post_pic_url = $story_item['post_pic_url'];
   $post_date = dateFormatTrans($story_item['post_date'],$date_t);
+  $post_link = "/member/user.php?user_id=".$post_author."&post_id=".$story_id;
+  $post_link = htmlspecialchars($post_link);
   $content .=   "<li class='tagstory_li'>
                     <div class='wrapper'>
                         <a style='float:left; display:inline;' href='/member/user.php?user_id=".$post_author."&post_id=".$story_id."'>
                           <img src='".$post_pic_url."' />
                         </a>
 						<div class='text' style='margin-left:100px;'>
-						  <a href='/member/user.php?user_id=".$post_author."&post_id=".$story_id."'class='title'>".$post_title."</a>
+						  <a href='".$post_link."' class='title'>".$post_title."</a>
 						  <div>
                             <span class='update_at'>".$post_date."</span>&nbspby&nbsp<a href='/member/user.php?user_id=".$post_author."' muse_scanned='true'>".$userresult['username']."</a> 
                           </div>
-                          <div class='summary'>".$post_summary."<a href='/member/user.php?user_id=".$post_author."&post_id=".$story_id."'>[read more]</a> </div>
+                          <div class='summary'>".$post_summary."<a href='".$post_link."'>[read more]</a></div>
                         </div> 
                     </div>
                 </li>";

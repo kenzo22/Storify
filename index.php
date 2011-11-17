@@ -138,6 +138,8 @@ include "member/tagoperation.php";
 		  $temp_array = explode(" ", $story_item['post_date']);
 		  $post_date = $temp_array[0];
 		  $post_link = "/member/user.php?user_id=".$post_author."&post_id=".$story_item['ID'];
+		  //$post_link = htmlspecialchars($post_link, ENT_COMPAT, UTF-8);
+		  $post_link = htmlspecialchars($post_link);
 		  $story_content .= "<li>
 							  <div class='story_wrap'>	
 								<a href='".$post_link."'>
