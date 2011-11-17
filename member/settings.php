@@ -45,6 +45,7 @@ $user_set = "<div class='inner' style='margin-bottom:180px;'>
 				<a href='source.php'>第三方应用授权</a>
 			  </div>
 			</div>
+			<div class='clear'></div>
 			<form id='lzform' name='lzform' method='post'>
 			   <table style='clear:both' width='100%' align='center' cellpadding='5'>
 				 <tr>
