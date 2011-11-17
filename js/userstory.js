@@ -362,7 +362,7 @@ $(function(){
 	{
 	  e.preventDefault();
 	  var temp_array = $(this).attr('id').split('_');
-	  var post_id_val = temp_array[0]; 
+	  var post_id_val = temp_array[2]; 
 	  var getData = {post_id: post_id_val};
 	  $.get('diggoperation.php', getData,
 	  function(data, textStatus)
@@ -375,9 +375,9 @@ $(function(){
 		  }
 		  else
 		  {
-			var temp = $('#'+post_id_val+'_digg_count').text();
+			var temp = $('#digg_count_'+post_id_val).text();
 			var digg_count = 1+parseInt(temp);
-		    $('#'+post_id_val+'_digg_count').text(digg_count).attr('title', '累计赞'+digg_count+'次');
+		    $('#digg_count_'+post_id_val).text(digg_count).attr('title', '累计赞'+digg_count+'次');
 		  }
 		}
 	  });

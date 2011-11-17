@@ -123,7 +123,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  }
 	  $content = "<div id='boxes'>
 				  <div id='weibo_dialog' class='window".$extra_class."'>
-					<div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span id='publish_title' style='color: #336699;'>发表微博</span><span><a href='#' class='close'/>关闭</a></span></div>
+					<div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span id='publish_title' style='color: #336699;'>发表微博</span><span><a href='#' class='close'>关闭</a></span></div>
 					<div id='pub_wrapper'>
 					  <div class='float_r counter_wrapper'><span style='margin-left:28px; color: #B8B7B7;'>还可以输入</span><span class='word_counter'>140</span><span style='color: #B8B7B7;'>字</span></div>
 					  <textarea class='publish-tweet'></textarea>
@@ -139,7 +139,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	{
 	  $content = "<div id='boxes'>
 				  <div id='weibo_dialog' class='window disable'>
-					<div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span id='publish_title' style='color: #B8B7B7;'>发表微博</span><span><a href='#' class='close'/>关闭</a></span></div>
+					<div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span id='publish_title' style='color: #B8B7B7;'>发表微博</span><span><a href='#' class='close'>关闭</a></span></div>
 					<div class='imply_color' style='margin-bottom:10px;'>对不起，只有本站注册用户能使用该功能</div>
 					<div class='imply_color'>请您<a href='/login/login_form.php?next'>登录</a>或<a href='/register/register_form.php'>注册</a></div>
 				  </div>
@@ -329,7 +329,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 
 	$story_author_name = $userresult['username'];
 	$content .="<div id='story_header'>
-				  <div style='float:right; padding: 10px 10px 0 0'><img src='".$story_pic."' style='width:60px; height:60px;' /></div>
+				  <div style='float:right; padding: 10px 10px 0 0'><img src='".$story_pic."' style='width:60px; height:60px;' alt='故事封面'/></div>
 				  <div id='story_meta' style='margin-top:10px;'>
 				    <div class='story_title'>".$story_title."</div>
 				    <div class='story_author'>by<a href='http://koulifang.com/member/user.php?user_id=".$user_id."'>".$story_author_name."</a>, ".$story_time."</div>
@@ -341,7 +341,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 			$content .="</div>
 				  <div class='tool_wrapper'>
 					  <div class='story_share'>
-						<div class='digg_wrap'><a id='".$post_id."_act_digg' class='act_digg' title='赞一个'></a><span id='".$post_id."_digg_count' class='digg_counter' title='累计赞".$story_digg_count."次'>".$story_digg_count."</span></div>
+						<div class='digg_wrap'><a id='act_digg_".$post_id."' class='act_digg' title='赞一个'></a><span id='digg_count_".$post_id."' class='digg_counter' title='累计赞".$story_digg_count."次'>".$story_digg_count."</span></div>
 						<div id='ckepop'>
 							<span class='jiathis_txt'>分享到：</span>
 							<a class='jiathis_button_qzone'></a>
@@ -399,7 +399,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 
                 $content .="//@".$single_weibo['retweeted_status']['user']['name'].":".$single_weibo['retweeted_status']['text'];
                 if(isset($single_weibo['retweeted_status']['bmiddle_pic'])){
-                    $content .= "</span><div class='weibo_retweet_img' style='text-align:center;'><img src='".$single_weibo['retweeted_status']['bmiddle_pic']."' width='280px;' /></div>";
+                    $content .= "</span><div class='weibo_retweet_img' style='text-align:center;'><img src='".$single_weibo['retweeted_status']['bmiddle_pic']."' width='280px;' alt='微博配图'/></div>";
                 }
 				else
 				{
@@ -415,7 +415,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 			}
             $content .= "</div>";
             $content .= "<div class='story_signature'><span style='float:right;'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img_drop' src='"
-			.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><span class='signature_text'><div style='float:right; height:16px;'>
+			.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' /></a></span><span class='signature_text'><div style='float:right; height:16px;'>
 			<span><a class='weibo_from_drop' href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date_drop'>".$createTime."</div></span> </div></div></li>";
 		}
 		break;}
@@ -461,7 +461,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 			  <div class='douban_signature'>
 			    <span style='float:right;'>
 				  <a href='".$eventInitiator_url."' target='_blank'>
-				    <img class='profile_img_drop' src='".$eventInitiator_pic."' alt='".$eventInitiator_name."' border=0 />
+				    <img class='profile_img_drop' src='".$eventInitiator_pic."' alt='".$eventInitiator_name."' />
 				  </a>
 				</span>
 				<span class='signature_text'>
@@ -550,7 +550,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 				<div class='douban_signature'>
 				  <span style='float:right;'>
 					<a href='".$comment_author_link."' target='_blank'>
-					  <img class='profile_img_drop' src='".$comment_author_pic."' alt='".$doubanElement['author']['name']['$t']."' border=0 />
+					  <img class='profile_img_drop' src='".$comment_author_pic."' alt='".$doubanElement['author']['name']['$t']."' />
 					</a>
 				  </span>
 				  <span class='signature_text'>
@@ -693,7 +693,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 			}
 		}
 		$tweiboContent .= "</div><div class='story_signature'><span style='float:right;'><a href='http://t.qq.com/".$item['name']."' target='_blank'><img class='profile_img_drop' src='"
-		.$profileImgUrl."' alt='".$item['nick']."' border=0 /></a></span><span class='signature_text'><div style='float:right; height:16px; '>
+		.$profileImgUrl."' alt='".$item['nick']."' /></a></span><span class='signature_text'><div style='float:right; height:16px; '>
 		<span ><a class='weibo_from_drop' href='http://t.qq.com/".$item['name']."' target='_blank'>".$item['nick']."</a></span></div><div class='weibo_date_drop'>".$create_time."</div></span></div></div></li>tweibo_sep";
 	  }
 	  $tweibo_array = explode("tweibo_sep", $tweiboContent);
@@ -731,7 +731,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  <div class='user_profiles'>
 	    <div class='user_box'>
 		  <div class='user_info'>
-		    <div class='avatar'><a href='/member/user.php?user_id=".$story_author."'><img style='' width='80px' height='80px' src='".$user_profile_img."'></a></div>
+		    <div class='avatar'><a href='/member/user.php?user_id=".$story_author."'><img width='80px' height='80px' src='".$user_profile_img."' alt='".$userresult['username']."' /></a></div>
 			<div class='wrapper'>
 			  <div class='user_name'><a href='/member/user.php?user_id=".$story_author."'><span>".$userresult['username']."</span></a></div>";
 		  
@@ -756,7 +756,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
     $following_list = getFollowing($story_author);
     $follower_list=getFollower($story_author);
 
-	$content .="</div></div><P class='user-bio'>".$userresult['intro']."</P>
+	$content .="</div></div><p class='user-bio'>".$userresult['intro']."</p>
 				  <div class='usersfollowers'>
 					<div><span class='side_title'>粉丝</span><span style='vertical-align:top' class='count'>".sizeof($follower_list)."</span></div>
 					  <ul class='follower_list'>";
@@ -770,7 +770,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		{
 		  $usr_img = '/img/douban_user_dft.jpg';
 		}
-        $content .="<li id='follower_id_".$item['id']."'><a class='follow_mini_icon' href='/member/user.php?user_id=".$item['id']."'><img title='".$item['username']."' src='".$usr_img."'></a></li>";
+        $content .="<li id='follower_id_".$item['id']."'><a class='follow_mini_icon' href='/member/user.php?user_id=".$item['id']."'><img title='".$item['username']."' src='".$usr_img."' alt='".$item['username']."' /></a></li>";
     }
     $content .= "</ul>
                 </div>

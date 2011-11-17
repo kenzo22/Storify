@@ -43,7 +43,7 @@ if(islogin())
 				<span><a id='publishBtn' class='large blue awesome' href='./' >发布 &raquo;</a></span>
 			  </div>";
   $userresult=$DB->fetch_one_array("SELECT id, photo FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
-  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='口立方' accesskey='h' href='/'><img src='/img/koulifangbeta.png' alt='口立方' /></a></span>".$content."</div></div><BR>";
+  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='口立方' accesskey='h' href='/'><img src='/img/koulifangbeta.png' alt='口立方' /></a></span>".$content."</div></div>";
 }
 else
 {
@@ -53,7 +53,7 @@ else
 				<span><a id='publishBtn' class='large blue awesome disable' href='./' >发布 &raquo;</a></span>
 			  </div>";
   echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='口立方' accesskey='h' href='/'><img src='/img/koulifangbeta.png' alt='口立方' /></a></span>
-  ".$content."</div></div><BR>";
+  ".$content."</div></div>";
 }
 
 require ('../include/secureGlobals.php');
@@ -86,12 +86,12 @@ if(islogin())
       $hasYupoo = "yupoo_enable";
     }
   }
-  $content = "<div id='storyContent' style='margin-bottom:0;'>
+  $content = "<div id='storyContent'>
 				<div id='boxes'>";
 }
 else
 {
-  $content="<div id='storyContent' style='margin-bottom:0;'>
+  $content="<div id='storyContent'>
             <div id='boxes'>
 			  <div id='dialog' class='window' style='padding:0;'>
 			    <div style='background-color:#ababac; padding:5px;'><span>登录 koulifang.com</span><span><a href='#' class='close'>关闭</a></span></div>
@@ -121,7 +121,7 @@ $content .= "
 	  <div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span id='publish_title' style='color: #336699;'>发表微博</span><span><a href='#' class='close'>关闭</a></span></div>
 	  <div id='pub_wrapper'>
 	    <div class='float_r counter_wrapper'><span style='margin-left:28px; color: #B8B7B7;'>还可以输入</span><span class='word_counter'>140</span><span style='color: #B8B7B7;'>字</span></div>
-	    <textarea class='publish-tweet'></textarea>
+	    <textarea class='publish-tweet' cols='50' rows='3'></textarea>
 	    <a class='btn_w_publish large blue awesome'><span id='pub_text'>转发</span></a>
 	  </div>
 	  <div class='pub_imply_sina'><span style='margin-left:6px; margin-right:5px; color:#878787;'>发布到新浪微博需要绑定新浪微博帐号</span><a href='/member/source.php'>现在去绑定</a></div>
@@ -135,11 +135,11 @@ $content .= "
 	  <div id='sourcelist_container'>
 	    <div id='vtab'>
 		  <ul>
-		    <li class='weiboLi'><a><div class='source_img' title='新浪微博'></div></a></li>
-			<li class='tweiboLi'><a><div class='source_img' title='腾讯微博'></div></a></li>
-			<li class='doubanLi'><a><div class='source_img' title='豆瓣社区'></div></a></li>
-		    <li class='videoLi'><a><div class='source_img' title='优酷视频'></div></a></li>
-			<li class='yupooLi'><a><div class='source_img' title='又拍社区'></div></a></li>
+		    <li class='weiboLi'><a><span class='source_img' title='新浪微博'></span></a></li>
+			<li class='tweiboLi'><a><span class='source_img' title='腾讯微博'></span></a></li>
+			<li class='doubanLi'><a><span class='source_img' title='豆瓣社区'></span></a></li>
+		    <li class='videoLi'><a><span class='source_img' title='优酷视频'></span></a></li>
+			<li class='yupooLi'><a><span class='source_img' title='又拍社区'></span></a></li>
 		  </ul>
 		  <div id='weiboTabs'>
 		    <ul>
@@ -163,7 +163,7 @@ $content .= "
 			<div id='weibo_search'>
 		      <form id='source_controller_form' action='#'>
 		        <div class='sep'>         
-			      <input id='keywords' name='keywords' type='text'>
+			      <input id='keywords' name='keywords' type='text' />
 			      <button id='weibo_search_btn' type='submit' value='search'>搜索话题</button>
                 </div>
 		      </form>
@@ -191,7 +191,7 @@ $content .= "
 			<div id='douban_search'>
 		      <form action='#'>
 		        <div class='sep'>        
-			      <input id='d_keywords' name='d_keywords' type='text'>
+			      <input id='d_keywords' name='d_keywords' type='text' />
 			      <button id='douban_search_btn' type='submit' value='search'>搜索</button>
                 </div>
 		      </form>
@@ -200,8 +200,8 @@ $content .= "
 		  <div id='videoTabs'>
 		    <form action='#' style='padding-top:15px; padding-bottom:35px;'>
 		    <div>
-			  <label for='videoUrl'>优酷视频地址:</label><br />           
-			  <input style='margin-top:13px;' id='videoUrl' name='videoUrl' type='text'>
+			  <div>优酷视频地址:</div>          
+			  <input style='margin-top:13px;' id='videoUrl' name='videoUrl' type='text' />
 			  <button style='margin-top:13px;' type='submit' value='嵌入视频' id='embedVideo'>嵌入视频</button>
             </div>
 		    </form>
@@ -228,7 +228,7 @@ $content .= "
 			<div id='pic_search'>
 		      <form action='#'>
 		        <div class='sep'>           
-			      <input id='pic_keywords' name='pic_keywords' type='text'>
+			      <input id='pic_keywords' name='pic_keywords' type='text' />
 			      <button id='pic_search_btn' type='submit' value='search'>搜索</button>
                 </div>
 		      </form>
@@ -237,9 +237,11 @@ $content .= "
 		  
 		</div>
 		<ul id='source_list' class='connectedSortable'>
-		  <a class='trends_wrapper' href='#'>
-		    <span id='view_trends'>点击查看本周热门话题</span>
-		  </a>
+		  <li class='trends_li'>
+		    <a class='trends_wrapper' href='#'>
+		      <span id='view_trends'>点击查看本周热门话题</span>
+		    </a>
+		  </li>
 		</ul>    	
 	  </div>
 	</div>
@@ -288,18 +290,18 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 	
   $content .="<div id='story_header'>
 		  <div id='story_pic'>
-		    <p><img id='story_thumbnail' width='88' height='88' src='".$story_pic."' /></p>
+		    <p><img id='story_thumbnail' width='88' height='88' src='".$story_pic."' alt='故事封面' /></p>
 			<ul id='imagecontroller'>
 			  <li><a id='prev_img' href='#'></a></li>
 			  <li><a id='next_img' href='#'></a></li>
 			</ul>
 		  </div>
-		  <span > <input type='text' value='".$story_title."' name='story_title' id='sto_title'> </span>
+		  <span > <input type='text' value='".$story_title."' name='story_title' id='sto_title' /> </span>
 		  <div>
-		    <textarea id='sto_summary'>".$story_summary."</textarea>
+		    <textarea id='sto_summary' cols='40' rows='4'>".$story_summary."</textarea>
 		  </div>
 		  <div>
-		    <span ><input type='text' value='".$tags."' name='story_tag' id='sto_tag'></span>
+		    <span ><input type='text' value='".$tags."' name='story_tag' id='sto_tag' /></span>
 		  </div>
 		</div>
 		<div id='storylist_container'>
@@ -696,7 +698,7 @@ else
 		  </div>
 		  <span ><input type='text' value='' name='story_title' id='sto_title'></span>
 		  <div>
-		    <textarea id='sto_summary'></textarea>
+		    <textarea id='sto_summary' cols='40' rows='4'></textarea>
 		  </div>
 		  <div>
 		    <span ><input type='text' value='' name='story_tag' id='sto_tag'></span>
