@@ -35,7 +35,7 @@ $_SESSION['last_wkey']['oauth_token_secret']=$result['weibo_access_token_secret'
 //$ms  = $c->update("@Briggs 我刚刚引用了你的微博，快来看一看吧：http://t.cn/asvjDv我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博，我刚刚引用了你的微博"); // done
 
 //$me = $c->verify_credentials();
-$me = $c->show_status('3373801748919385');
+$me = $c->show_status('3381089974440527');
 //$me = $c->trends_timeline(1, 20, '保证金');
 //$me = $c->trends_daily();
 //$me = $c->trends_weekly();

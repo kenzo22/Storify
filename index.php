@@ -72,7 +72,7 @@ include "member/tagoperation.php";
 			 div.caption { background:transparent; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,endColorstr=#99000000);zoom: 1; }
 		</style>
 	<![endif]-->
-	<a id='user_feedback_tab' href='/contact/contactform.htm'></a>
+	<a id='user_feedback_tab' href='/contact/contactform.php'></a>
 	<div id='boxes'>  
 	<div id='dialog' class='window' style='padding:0;'>
 	  <div style='background-color:#ababac; padding:5px;'><span><a href='#' class='close'>关闭</a></span><span>登录 koulifang.com</span></div>

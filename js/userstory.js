@@ -272,7 +272,7 @@ $(function(){
 				}
 			  }
 			}
-			var w_id = 'w_'+ $(this).closest('li').attr('id');
+			var w_id = 'txt_'+ $(this).closest('li').attr('id');
 			$('.publish-tweet').attr('id', w_id);
 			
 			//Get the A tag
@@ -464,7 +464,7 @@ $(function(){
 	//publish and repost part
 	$('.btn_w_publish').live('click', function(e){
 	  var w_content_val = $('.publish-tweet').val();
-	  var id_val = $('.publish-tweet').attr('id').replace(/w_/,"");
+	  var id_val = $('.publish-tweet').attr('id').substr(6);
 	  var ope_val;
 	  if($('#pub_text').text() == '评论')
 	  {

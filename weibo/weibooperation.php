@@ -74,7 +74,7 @@ foreach( $weibo as $item )
   $createTime = dateFormat($item['created_at']);
   //$weibo_per_id = sprintf("%.0f", $item['id']);
   $weibo_per_id = number_format($item['id'], 0, '', '');
-  $weiboContent .= "<li class='weibo_drag sina' id='".$weibo_per_id."'><div class='handle'></div><div class='story_wrapper'><img class='profile_img' style='width: 32px; height: 32px; float:left; overflow: hidden; margin-top:3px;' 
+  $weiboContent .= "<li class='weibo_drag sina' id='w_".$weibo_per_id."'><div class='handle'></div><div class='story_wrapper'><img class='profile_img' style='width: 32px; height: 32px; float:left; overflow: hidden; margin-top:3px;' 
   src='".$item['user']['profile_image_url']."' alt='".$item['user']['screen_name']."' border=0 /><div class='weibo_content'><a class='user_page' href='http://weibo.com/".$item['user']['id']."' target='_blank' 
   style = 'display:block;'><span class='weibo_from'>".$item['user']['screen_name']."</span></a>";
     

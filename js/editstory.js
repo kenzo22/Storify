@@ -44,8 +44,8 @@ function show_weibo_card(id)
 
 function prepare_story_data(action_value)
 {
-	if(action_value !='Publish' &&  action_value !='Preview' && action_value != "Draft")
-        alert("not a proper operation:"+action_value);
+  if(action_value !='Publish' &&  action_value !='Preview' && action_value != "Draft")
+    alert("not a proper operation:"+action_value);
   var story_id_val;
   if (typeof(post_id)=="undefined" || post_id==null)
   {
@@ -65,7 +65,7 @@ function prepare_story_data(action_value)
 	if($(this).hasClass('sina'))
 	{
 	  story_content_val.content[i].type = 'weibo';
-	  var wid = $(this).attr('id');
+	  var wid = $(this).attr('id').substr(2);
 	  var wnic = $(this).find('.weibo_from_drop').text();
 	  var wuid = $(this).find('.weibo_from_drop').attr('href').replace(/http:\/\/weibo.com\//,"");
 	  var weibo_metadata = {id: wid, nic: wnic, uid: wuid};
@@ -74,7 +74,7 @@ function prepare_story_data(action_value)
 	else if($(this).hasClass('tencent'))
 	{
 	  story_content_val.content[i].type = 'tweibo';
-	  var tid = $(this).attr('id');
+	  var tid = $(this).attr('id').substr(2);
 	  var tnic = $(this).find('.weibo_from_drop').text();
 	  var tname = $(this).find('.weibo_from_drop').attr('href').replace(/http:\/\/t.qq.com\//,"");
 	  var tweibo_metadata = {id: tid, nic: tnic, name: tname};
@@ -99,7 +99,7 @@ function prepare_story_data(action_value)
 	  var item_type_val;
 	  item_type_val = temp_douban[j];
 	  story_content_val.content[i].type = 'douban';
-	  var item_per_id = $(this).attr('id');
+	  var item_per_id = $(this).attr('id').substr(2);
 	  var douban_metadata = {item_type: item_type_val, item_id: item_per_id};
 	  story_content_val.content[i].content = douban_metadata;
 	}
@@ -1137,7 +1137,7 @@ $(function() {
 		  e.preventDefault();
 		  var getUrl = '../douban/doubanreviewsoperation.php';
 		  var getData;
-		  var itemSubjectId = $(this).closest('.douban_drag').attr('id');
+		  var itemSubjectId = $(this).closest('.douban_drag').attr('id').substr(2);
 		  if($(this).hasClass('book'))
 		  {
 		    getData = {operation: 'bookReviews', subjectID: itemSubjectId, startIndex: bookReviewStartIndex, numResults: commentsPerQuery};
@@ -1689,7 +1689,7 @@ $(function() {
 				}
 			  }
 			}
-			var w_id = 'w_'+ $(this).closest('li').attr('id');
+			var w_id = 'txt_'+ $(this).closest('li').attr('id');
 			$('.publish-tweet').attr('id', w_id);
 			
 			//Get the A tag
@@ -1750,7 +1750,7 @@ $(function() {
 	//publish and repost part
 	$('.btn_w_publish').live('click', function(e){
 	  var w_content_val = $('.publish-tweet').val();
-	  var id_val = $('.publish-tweet').attr('id').replace(/w_/,"");
+	  var id_val = $('.publish-tweet').attr('id').substr(6);
 	  var ope_val;
 	  if($('#pub_text').text() == '评论')
 	  {

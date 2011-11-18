@@ -101,7 +101,7 @@ if($eventFlag == 0)
 	  }
 	 
 	  $doubanContent .= 
-		"<li class='douban_drag douban ".$item_type."' id='".$douban_per_id."'>
+		"<li class='douban_drag douban ".$item_type."' id='d_".$douban_per_id."'>
 		  <div class='handle'></div>
 		  <div class='douban_wrapper'>
 			<div class='douban_flag'>
@@ -159,7 +159,7 @@ else if($eventFlag == 1)
 	$eventInitiator_pic = getAuthorPic($eventDetail['author']['link']);
 	
 	$doubanContent .=
-	"<li class='douban_drag douban event' id='".$douban_per_id."'>
+	"<li class='douban_drag douban event' id='d_".$douban_per_id."'>
 	  <div class='douban_wrapper'>
 	    <img class='profile_img' style='width: 32px; height: 32px; float:left; overflow: hidden; margin-top:3px;' src='".$eventInitiator_pic."' title='".$eventInitiator_name."' alt='".$eventInitiator_name."' border=0 />
 	    <div style='margin-left:36px;'>

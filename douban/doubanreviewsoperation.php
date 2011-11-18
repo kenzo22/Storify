@@ -87,7 +87,7 @@ foreach( $doubanCommentsReturn['entry'] as $commentItem )
   $time_array = explode("T", $commentItem['updated']['$t']);
 
   $doubanContent.=
-		"<li class='douban_drag douban ".$item_type."' id='".$comment_per_id."'>
+		"<li class='douban_drag douban ".$item_type."' id='d_".$comment_per_id."'>
 		  <div class='handle'></div>
 		  <div class='douban_wrapper'>
 			<img class='profile_img' style='width: 32px; height: 32px; float:left; overflow: hidden; margin-top:3px;' src='".$comment_author_pic."' title='".$comment_author."' alt='".$comment_author."' border=0 />

@@ -375,7 +375,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		}
 		if (isset($single_weibo['error_code']) && isset($single_weibo['error'])){
             // skip deleted weibo
-            $content .="<li class='weibo_drop sina' id='$weibo_per_id' style='border:none;'><div class='story_wrapper'><div class='quote_sign'>“</div><div class='content_wrapper'><span class='weibo_text_drop'>此微博已被删除</span></div>";
+            $content .="<li class='weibo_drop sina' id='w_".$weibo_per_id."' style='border:none;'><div class='story_wrapper'><div class='quote_sign'>“</div><div class='content_wrapper'><span class='weibo_text_drop'>此微博已被删除</span></div>";
 			//$content .="<li class='weibo_drop sina' id='$weibo_per_id' style='border:none;'><div class='story_wrapper'><div><span class='weibo_text'>errorcode:".$single_weibo['error_code']."error".$single_weibo['error']."</span></div>";
             continue;
 		}
@@ -387,7 +387,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
             $single_weibo['text'] = subs_url($single_weibo['text'],'weibo');
 
 			$createTime = dateFormatTrans(dateFormat($single_weibo['created_at']),$date_t);
-			$content .="<li class='weibo_drop sina' id='$weibo_per_id' style='border:none;'>";
+			$content .="<li class='weibo_drop sina' id='w_".$weibo_per_id."' style='border:none;'>";
     		if (isset($single_weibo['retweeted_status'])){
                 
                 $content .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f is_repost sina'><span>转发</span></a><a href='#weibo_dialog' name='modal' class='comment_f sina'><span>评论</span></a></div>
@@ -424,7 +424,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		$tweibo_meta_data = $val['content'];
 		$tweibo_per_id = $tweibo_meta_data['id'];
 		$tweibo_id_array[] = $tweibo_per_id;
-		$content .="<li id='$tweibo_per_id'></li>"; 
+		$content .="<li id='t_".$tweibo_per_id."'></li>"; 
 		break;}
 		 
 		case "douban":{
@@ -439,7 +439,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		  $eventInitiator_pic = getAuthorPic($doubanElement['author']['link']);
 		  
 		  $content .=
-		 "<li class='douban_drop douban' id='$douban_save_per_id' style='border:none;'>
+		 "<li class='douban_drop douban' id='d_".$douban_save_per_id."' style='border:none;'>
 		    <div class='douban_wrapper'>
 			  <div class='quote_sign'>“</div>
 			  <div class='content_wrapper'>
@@ -525,7 +525,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 			$comment_rating = 2*$doubanElement['gd:rating']['@value'];
 			$time_array = explode("T", $doubanElement['updated']['$t']);
 			$content .=
-			"<li class='douban_drop douban' id='$douban_save_per_id' style='border:none;'>
+			"<li class='douban_drop douban' id='d_".$douban_save_per_id."' style='border:none;'>
 			  <div class='douban_wrapper'>
 			    <div class='quote_sign'>“</div>
 				<div class='content_wrapper'>
@@ -601,7 +601,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 			  $douban_item_date = "发行时间：".$pubDate;
 			}
 			$content .=
-			"<li class='douban_drop douban' id='$douban_save_per_id' style='border:none;'>
+			"<li class='douban_drop douban' id='d_".$douban_save_per_id."' style='border:none;'>
 			  <div class='douban_wrapper'>
 			    <div class='content_wrapper'>
 				<div class='item_info' style='overflow:auto;'>
@@ -667,7 +667,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		$item['text'] = tweibo_show_nick($item['text'],$tweibo[data][user]);
 		$item['text'] = subs_emotions($item['text'],"tweibo");
 
-		$tweiboContent .="<li id='".$item['id']."'>";
+		$tweiboContent .="<li id='t_".$item['id']."'>";
 
 		if(isset($item['source'])){
 			$tweiboContent .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f is_repost tencent'><span>转播</span></a><a href='#weibo_dialog' name='modal' class='comment_f tencent'><span>评论</span></a></div>
