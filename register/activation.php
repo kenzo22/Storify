@@ -31,7 +31,7 @@ if ($username!="" && $email!=""){
 			  $userresult=$DB->fetch_one_array("select id, username from ".$db_prefix."user where username='".$username."' AND email='".$email."'");
 			  $_SESSION['uid']=$userresult['id'];
 			  $_SESSION['username']=$userresult['username'];
-			  go("/member/source.php","用户激活成功！",6);
+			  go("/member/source.php","用户激活成功！",2);
 			  exit;
 		  }
 		}	
