@@ -30,6 +30,21 @@ ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
 font-family: 'Hiragino Sans GB','Microsoft YaHei',sans-serif !important;
 }
 
+.color_alert{
+color:red;
+}
+
+.page_title{
+color: #494949;
+display: block;
+font-size: 25px;
+font-weight: bold;
+line-height: 1.1;
+margin-top: 30px;
+padding: 0 0 20px;
+word-wrap: break-word;
+}
+
 h4{
 font-weight:540;
 }
@@ -47,8 +62,9 @@ input[type="checkbox"], input[type="radio"]{
 .float_l { float:left;}
 .float_r { float:right;}
 .field_name { width:80px; display:inline-block; }
-.err_notify{color:red; margin-top:5px;}
+.err_notify{color:red; margin-bottom:5px; padding-left:84px;}
 .form_tip {padding-left:20px; color:#666699; display:none;}
+#code_tip {padding-left:20px; color:#666699;}
 #term_tip {padding-left:76px; color:#666699; display:none;}
 .a_notify{width:100%; text-align:center; background-color: #FFF6EE;}
 .bn_submit { width:80px;height:28px;font-size:14px;line-height:28px; padding-bottom:3px;cursor:pointer; color:#000;}
@@ -75,9 +91,39 @@ width:920px;
 height:380px;
 }
 
-/* change pwd, email part feedback*/
+/* login form change pwd, email part feedback*/
+#login_form_wrapper{overflow:auto;}
+#login_form_f{margin-top:50px; float:left; width:620px; padding-bottom:10px;}
+#login_form_r{float:right; margin-top:100px;}
+#login_form_r .register_awesome{margin:5px 0 20px;}
+#login_form_r #connectBtn{margin-top:5px;}
+#login_form_f .form_title{
+color: #494949;
+display: block;
+font-size: 25px;
+font-weight: bold;
+line-height: 1.1;
+margin: 0;
+padding: 0 0 30px;
+word-wrap: break-word;
+}
+#login_form{padding-left:30px;}
+#login_form .color_alert{padding-left:38px;}
+#login_form .form_div {margin-bottom:20px;}
+#login_form .auto_login{
+padding-left:32px;
+}
+
+#login_form #loginbtn{
+padding:8px 0 0 36px;
+}
+
 #c_pwd_form .wrapper div, #c_email_form .wrapper div{
 margin-top:20px;
+}
+
+#c_pwd_form #btn_submit_modify, #c_email_form #btn_submit_modify{
+margin-left:80px;
 }
 
 #fb_form{
@@ -87,6 +133,24 @@ margin:50px 0;
 #fb_form input, #fb_form textarea{
 margin-bottom:20px;
 }
+
+/* setting page part */
+#lzform table{
+clear:both;
+width:100%;
+}
+
+#lzform .user_photo{
+float:left;
+width:80px;
+height:80px;
+}
+
+#lzform .update_profile_img{
+margin-left:10px;
+float:left;
+}
+/* setting page part end*/
 
 /* info source signature part */
 .douban_sig_logo{
@@ -119,6 +183,7 @@ cursor:pointer;
 }
 
 /* awesome button part */
+.awesome:link{color: #fff; }
 .awesome, .awesome:visited {
 background: #222 url(../img/alert-overlay.png) repeat-x; 
 display: inline-block; 
@@ -299,6 +364,10 @@ width: 70px;
 
 .person_li{
 display: none;
+}
+
+.person_li.display{
+display:block;
 }
 
 #storyContent{
@@ -491,6 +560,10 @@ padding-left:18px;
 height: 10px;
 }
 
+.footer_spacer{
+height:180px;
+}
+
 .published-steps .steps h2 {
 clear: left;
 font-size: 16px;
@@ -659,6 +732,15 @@ margin-right:420px;
 #source_ul li .unbind_source{
 margin-left:70px;
 }
+
+#source_wrapper{
+margin-top:40px;
+}
+
+#go_back_setting{
+text-align:right; 
+margin-bottom:40px;
+}
 /* end source page part */
 
 /* topic part */
@@ -673,6 +755,15 @@ margin-bottom:20px;
 
 .tagstory_li .wrapper{
 width:920px;
+}
+
+.tagstory_li .wrapper .meta{
+margin-left:100px;
+}
+
+.tagstory_li .wrapper .pic_meta{
+float:left; 
+display:inline;
 }
 
 .tagstory_li .wrapper a img{
@@ -2161,19 +2252,33 @@ margin-left:30px;
 }
 
 #login_modal {
-width:230px; 
+width:240px; 
 float:left;
 padding-top:6px;
+padding-left:20px;
 }
 
+#login_modal .form_div {margin-top:20px;}
+
+#login_modal .auto_login {margin-top:10px; padding-left:32px;}
+
+#login_modal #login_modal_btn{margin-left:36px;}
+
 .login_right{
-border-left:1px solid #333; 
-margin:20px 0 0 50px;
-padding:0px 45px 24px 66px; 
+border-left:1px solid #494949; 
+margin:20px 0 0 18px;
+padding:0px 45px 12px 66px; 
 float:left;
 }
-#login_modal div {margin-top:20px; padding-left:20px;}
-#login div {margin-top:20px;}
+
+.login_right .register_awesome{
+margin:5px 0 15px;
+}
+
+.login_right #connectBtn{
+margin-top:5px;
+}
+
 .showborder {border: 1px solid #C9C9C9;}
 #login_btn {padding: 3px 8px; border: 1px solid #C9C9C9; color: #336699; background: repeat-x; cursor:pointer;}
 #login_btn{border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px;}
@@ -2328,7 +2433,23 @@ clear:both;
 width:100%;
 }
 
-#sign_up div {margin-top:20px;}
+#sign_up div {margin-bottom:20px;}
+
+#sign_up #agree_term{
+margin-left:84px;
+}
+
+#sign_up #btn_submit_signup{
+padding-left:84px;
+margin-bottom:50px;
+}
+
+#a_flag{
+margin:160px 0 20px;
+color: #494949;
+font-size: 18px;
+font-weight: bold;
+}
 /*modal window part */
 
 #mask {
@@ -2356,7 +2477,7 @@ float:right;
 
 #boxes #dialog {
 width:550px;
-height:230px;
+height:216px;
 background-color:#ffffff;
 border-color:#ababac;
 border-style:solid;
@@ -2366,9 +2487,18 @@ border-radius: 9px;
 -webkit-border-radius: 9px;
 }
 
+#boxes #dialog .title_bar{
+background-color:#ababac; 
+padding:5px;
+}
+
 #boxes #dialog form{
 margin:0;
 padding:0;
+}
+
+#boxes #dialog form div.wrapper{
+overflow:auto;
 }
 
 #boxes #weibo_dialog {

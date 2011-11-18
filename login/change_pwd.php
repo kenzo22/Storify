@@ -13,8 +13,8 @@ if(!islogin())
 if($_POST['act']!="change_pwd")
 {
   $content = "<div class='inner'> 
-  <form method='post' id='c_pwd_form' style='margin-top:30px;'>
-    <h3> 修改密码 </h3>"; 
+  <form method='post' id='c_pwd_form'>
+    <div class='page_title'> 修改密码 </div>"; 
   
   if($_GET['next'] == 'error_flag'){
     $content .="<div class=\"err_notify\">密码不正确，请重新输入</div>";
@@ -22,26 +22,26 @@ if($_POST['act']!="change_pwd")
   $content .= "<div class='wrapper'> 
 	  <div>
 	    <span class='field_name'>你的当前密码:</span> 
-		<span ><input type='password' name='old_pwd' id='old_pwd' size='30' maxlength='100'></span>
+		<span ><input type='password' name='old_pwd' id='old_pwd' size='30' maxlength='100' /></span>
 		<span class='form_tip' id='old_pwd_tip'></span>
 	  </div> 
 	  <div>
 	    <span class='field_name'>你的新密码:</span> 
-	    <span ><input type='password' name='new_pwd' id='new_pwd' size='30' maxlength='100'></span>
+	    <span ><input type='password' name='new_pwd' id='new_pwd' size='30' maxlength='100' /></span>
 	    <span class='form_tip' id='new_pwd_tip'></span>
 	  </div>
 	  <div>
 	    <span class='field_name'>再输一次:</span> 
-	    <span ><input type='password' name='new_pwd_cfm' id='new_pwd_cfm' size='30' maxlength='100'></span>
+	    <span ><input type='password' name='new_pwd_cfm' id='new_pwd_cfm' size='30' maxlength='100' /></span>
 	    <span class='form_tip' id='new_pwd_cfm_tip'></span>
 	  </div>
-      <div style='margin:20px 0 0 80px;'>
+      <div>
 	    <a id='btn_submit_modify' class='large blue awesome'>确认修改密码 &raquo;</a> 
-	    <input type='hidden' name='act' value='change_pwd'>
+	    <input type='hidden' name='act' value='change_pwd' />
 	  </div>
 	</div>
   </form>
-  <div style='height:270px;'></div>
+  <div class='footer_spacer'></div>
   </div>";
   echo $content;
 }

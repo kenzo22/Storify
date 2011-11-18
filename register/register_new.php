@@ -7,33 +7,25 @@
   $email=$_POST['email'];
   $username=$_POST['username'];
   $passwd=$_POST['passwd'];
-  $invite_code=$_POST['invite_code'];
+  //$invite_code=$_POST['invite_code'];
   $reset_code_l = 8;
   $reset_code=produce_random_strdig($reset_code_l);
   $current_time = time();
 
   try   {
-	if (!filled_out($_POST)) {
-			throw new Exception('You have not filled the form out correctly - please go back and try again.');
+	if (!filled_out($_POST)) 
+	{
+	  throw new Exception('You have not filled the form out correctly - please go back and try again.');
 	}
-		
-	$result = $DB->query("select * from ".$db_prefix."user where email='".$email."'");
-	
-        if(!$result){
-	        throw new Exception('Could not execute query.');
-	}
-        if ($DB->num_rows($result)>0){
-                throw new Exception('That email is taken - go back and choose another one.');
-        }
 
-        $query="select * from ".$db_prefix."icode where ic_code='".$invite_code."'";
+        /*$query="select * from ".$db_prefix."icode where ic_code='".$invite_code."'";
         $result = $DB->query($query);
         if(!$result){
                 throw new Exception('执行一下sql语句失败:'.$query);
         }
         if ($DB->num_rows($result) != 1){
                 throw new Exception("无效的邀请码.");
-        }
+        }*/
 	
 	  $url = 'http://'.$_SERVER['SERVER_NAME'].dirname($_SERVER['SCRIPT_NAME']).'/activation.php';
 	  $url .= '?confirmation='.$reset_code.$current_time;
@@ -62,11 +54,11 @@
                          (null, '".$username."', sha1('".$passwd."'), '".$email."', '', '', '', 0, '', '', 0, '', '', 0, '', '', '', '".$register_time."', 0)");
 		$reset = $DB->query("insert into ".$db_prefix."reset values
                          (null, '".$username."', '".$email."', '".$reset_code."')");
-		$content="<div class='inner' style='padding-top:50px;'>
-		 <h1>激活帐号</h1>
+		$content="<div class='inner'>
+		 <div class='page_title'>激活帐号</div>
 		 <div>
 		   <p>请到 ".$email." 查阅来自口立方的邮件, 从邮件激活您的密码。</p>
-		   <h2 style='margin-top:160px;' id='a_flag'>没有收到确认信?...</h2>
+		   <div id='a_flag'>没有收到确认信?...</div>
 		   <input type='hidden' value='".$imply_txt."' id='imply_info' />
 		   <ol>
 			 <li>1.  检查一下上面的邮箱地址是否正确，错了就<a href='/register/register_form.php'>重新注册</a>一次吧:)</li>

@@ -13,8 +13,8 @@ if(!islogin())
 if($_POST['act']!="change_email")
 {
   $content = "<div class='inner'> 
-  <form method='post' id='c_email_form' style='margin-top:30px;'>
-    <h3> 修改登录邮箱 </h3>"; 
+  <form method='post' id='c_email_form'>
+    <div class='page_title'> 修改登录邮箱 </div>"; 
   
   if($_GET['next'] == 'error_flag'){
     $content .="<div class=\"err_notify\">帐号与登录密码不匹配，请重新输入</div>";
@@ -22,31 +22,31 @@ if($_POST['act']!="change_email")
   $content .= "<div class='wrapper'> 
 	  <div>
 	    <span class='field_name'>你的登录邮箱:</span> 
-		<span ><input type='text' name='login_email' id='login_email' size='30' maxlength='100'></span>
+		<span ><input type='text' name='login_email' id='login_email' size='30' maxlength='100' /></span>
 		<span class='form_tip' id='login_email_tip'></span>
 	  </div> 
 	  <div>
 	    <span class='field_name'>你的登录密码:</span> 
-	    <span ><input type='password' name='login_pwd' id='login_pwd' size='30' maxlength='100'></span>
+	    <span ><input type='password' name='login_pwd' id='login_pwd' size='30' maxlength='100' /></span>
 	    <span class='form_tip' id='login_pwd_tip'></span>
 	  </div>
 	  <div>
 	    <span class='field_name'>新登录邮箱:</span> 
-	    <span ><input type='text' name='new_login_email' id='new_login_email' size='30' maxlength='100'></span>
+	    <span ><input type='text' name='new_login_email' id='new_login_email' size='30' maxlength='100' /></span>
 	    <span class='form_tip' id='new_login_email_tip'></span>
 	  </div>
 	  <div>
 	    <span class='field_name'>再输入一次:</span> 
-	    <span ><input type='text' name='new_email_cfm' id='new_email_cfm' size='30' maxlength='100'></span>
+	    <span ><input type='text' name='new_email_cfm' id='new_email_cfm' size='30' maxlength='100' /></span>
 	    <span class='form_tip' id='new_email_cfm_tip'></span>
 	  </div>
-      <div style='margin:20px 0 0 80px;'>
+      <div>
 	    <a id='btn_submit_modify' class='large blue awesome'>确认修改邮箱 &raquo;</a> 
-	    <input type='hidden' name='act' value='change_email'>
+	    <input type='hidden' name='act' value='change_email' />
 	  </div>
 	</div>
   </form>
-  <div style='height:270px;'></div>
+  <div class='footer_spacer'></div>
   </div>";
   echo $content;
 }

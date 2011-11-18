@@ -87,7 +87,7 @@ $('#btn_submit_signup a').click(function(e)
   var pwd_val = $('#pwd_reg').val();
   var pwd_cfm_val = $('#pwd_confirm').val();
   var name_val = $('#name_reg').val();
-  var icode_val = $('#code_reg').val();
+  //var icode_val = $('#code_reg').val();
   if(pwd_val != pwd_cfm_val)
   {
     $('#pwd_confirm_tip').text('两次输入密码不一致，请重新输入').css('color', 'red');
@@ -100,11 +100,11 @@ $('#btn_submit_signup a').click(function(e)
   }
   
   var tip_flag = ($('#email_tip').css('color') == 'red') || ($('#pwd_tip').css('color') == 'red') || ($('#pwd_confirm_tip').css('color') == 'red') || ($('#name_tip').css('color') == 'red') || ($('#term_tip').css('color') == 'red');
-  if(tip_flag || email_val == '' || pwd_val == '' || pwd_cfm_val == '' || name_val == '' || icode_val == '')
+  if(tip_flag || email_val == '' || pwd_val == '' || pwd_cfm_val == '' || name_val == '')
   {
     e.preventDefault();
 	$('.err_notify').remove();
-	$('#register_title').append('<div class=\"err_notify\">表单有误或未填写完整</div>');
+	$('#register_title').after('<div class=\"err_notify\">表单有误或未填写完整</div>');
   }
   else
   {
@@ -112,7 +112,7 @@ $('#btn_submit_signup a').click(function(e)
   }
 })
 
-$('#email_reg, #pwd_reg, #pwd_confirm, #name_reg, #code_reg, #agree_term').bind('keyup', function(e)
+$('#email_reg, #pwd_reg, #pwd_confirm, #name_reg, #agree_term').bind('keyup', function(e)
 {
   var code = e.keyCode || e.which; 
   if(code == 13)
@@ -121,7 +121,7 @@ $('#email_reg, #pwd_reg, #pwd_confirm, #name_reg, #code_reg, #agree_term').bind(
 	  var pwd_val = $('#pwd_reg').val();
 	  var pwd_cfm_val = $('#pwd_confirm').val();
 	  var name_val = $('#name_reg').val();
-	  var icode_val = $('#code_reg').val();
+	  //var icode_val = $('#code_reg').val();
 	  if(pwd_val != pwd_cfm_val)
 	  {
 		$('#pwd_confirm_tip').text('两次输入密码不一致，请重新输入').css('color', 'red');
@@ -134,7 +134,7 @@ $('#email_reg, #pwd_reg, #pwd_confirm, #name_reg, #code_reg, #agree_term').bind(
 	  }
 	  
 	  var tip_flag = ($('#email_tip').css('color') == 'red') || ($('#pwd_tip').css('color') == 'red') || ($('#pwd_confirm_tip').css('color') == 'red') || ($('#name_tip').css('color') == 'red') || ($('#term_tip').css('color') == 'red');
-	  if(tip_flag || email_val == '' || pwd_val == '' || pwd_cfm_val == '' || name_val == '' || icode_val == '')
+	  if(tip_flag || email_val == '' || pwd_val == '' || pwd_cfm_val == '' || name_val == '')
 	  {
 		e.preventDefault();
 		$('.err_notify').remove();

@@ -17,7 +17,7 @@ $query="select ".$db_prefix."posts.* from ".$db_prefix."tag_story,".$db_prefix."
 $result=$DB->query($query);
 
 
-$content = "<div class='inner'><h2>#".$topic."# - 最热门</h2><ul id='tagstory_ul'>";
+$content = "<div class='inner'><div class='page_title'>#".$topic."# - 最热门</div><ul id='tagstory_ul'>";
 while ($story_item = mysql_fetch_array($result))
 {
   $story_id = $story_item['ID'];
@@ -32,13 +32,13 @@ while ($story_item = mysql_fetch_array($result))
   $post_link = htmlspecialchars($post_link);
   $content .=   "<li class='tagstory_li'>
                     <div class='wrapper'>
-                        <a style='float:left; display:inline;' href='/member/user.php?user_id=".$post_author."&post_id=".$story_id."'>
-                          <img src='".$post_pic_url."' />
+                        <a class='pic_meta' href='/member/user.php?user_id=".$post_author."&post_id=".$story_id."'>
+                          <img src='".$post_pic_url."' alt='故事封面'/>
                         </a>
-						<div class='text' style='margin-left:100px;'>
+						<div class='text meta'>
 						  <a href='".$post_link."' class='title'>".$post_title."</a>
 						  <div>
-                            <span class='update_at'>".$post_date."</span>&nbspby&nbsp<a href='/member/user.php?user_id=".$post_author."' muse_scanned='true'>".$userresult['username']."</a> 
+                            <span class='update_at'>".$post_date."</span><span style='padding:0 5px;'>by</span><a href='/member/user.php?user_id=".$post_author."'>".$userresult['username']."</a> 
                           </div>
                           <div class='summary'>".$post_summary."<a href='".$post_link."'>[read more]</a></div>
                         </div> 
@@ -47,7 +47,7 @@ while ($story_item = mysql_fetch_array($result))
 }
 $content .="</ul></div>";
 echo $content;
-echo "<script language='javascript' >
+echo "<script type='text/javascript' >
 		  $(function(){
 		    document.title = '#'+'$topic'+'#'+' - 口立方';
 		  });

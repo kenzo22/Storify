@@ -411,7 +411,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 			}
             if (isset($single_weibo['bmiddle_pic']))
 			{
-			  $content .= "<div class='weibo_img' style='text-align:center;'><img src='".$single_weibo['bmiddle_pic']."' width='280px;' /></div>";
+			  $content .= "<div class='weibo_img' style='text-align:center;'><img src='".$single_weibo['bmiddle_pic']."' width='280px;' alt='微博配图'/></div>";
 			}
             $content .= "</div>";
             $content .= "<div class='story_signature'><span style='float:right;'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img_drop' src='"
@@ -787,7 +787,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		{
 		  $usr_img = '/img/douban_user_dft.jpg';
 		}
-        $content .="<li id='following_id_".$item['id']."'><a class='follow_mini_icon' href='/member/user.php?user_id=".$item['id']."'><img title='".$item['username']."' src='".$usr_img."'></a></li>";
+        $content .="<li id='following_id_".$item['id']."'><a class='follow_mini_icon' href='/member/user.php?user_id=".$item['id']."'><img title='".$item['username']."' src='".$usr_img."' alt='".$item['username']."' /></a></li>";
     }
 	$total_count = 0;
 	$count_query = "select domain_name, refer_url, view_count from ".$db_prefix."pageview where story_id=".$post_id;
@@ -920,7 +920,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
   
   $story_content = "<div id='userstory_container' class='inner'>
 					  <div class='userinfo_wrapper'>
-						<div class='avatar'><a href='/member/user.php?user_id=".$user_id."'><img style='' width='80px' height='80px' src='".$user_avatar_img."'></a></div>
+						<div class='avatar'><a href='/member/user.php?user_id=".$user_id."'><img style='' width='80px' height='80px' src='".$user_avatar_img."' alt='".$username."' /></a></div>
 						<div class='misc_wrapper'>
 						  <div style='color: #333333; font-size:18px; margin-bottom:5px;'><a href='/member/user.php?user_id=".$user_id."'><span>".$username."</span></a></div>
 						  <div class='account_count'>

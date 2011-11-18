@@ -63,7 +63,7 @@ $(function(){
 	if(tip_flag || login_email_val == '' || login_pwd_val == '' || new_login_email_val == '' || new_email_cfm_val == '')
     {
       $('.err_notify').remove();
-	  $('#c_email_form h3').after('<div class=\"err_notify\">表单有误或未填写完整</div>');
+	  $('#c_email_form .page_title').after('<div class=\"err_notify\">表单有误或未填写完整</div>');
 	  e.preventDefault();
 	}
     else

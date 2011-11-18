@@ -24,18 +24,18 @@ if(!empty($result['photo']))
 	   $pattern = "/50$/";
 	   $user_profile_img = preg_replace($pattern,'100',$result['photo']);
 	 }
-	$userphoto="<img style='float:left;' width='80px' height='80px' src='".$user_profile_img."'> </img><div><a class='update_profile_img' style='margin-left:10px;float:left' href='uploadphoto.php'>更换头像</a></div>";
+	$userphoto="<img class='user_photo' src='".$user_profile_img."'> </img><div><a class='update_profile_img' href='uploadphoto.php'>更换头像</a></div>";
   }
   else
   {
-    $userphoto="<img style='float:left;' width='80px' height='80px' src='".$result['photo']."'> </img><div><a class='update_profile_img' style='margin-left:10px;float:left' href='uploadphoto.php'>更换头像</a></div>";
+    $userphoto="<img class='user_photo' src='".$result['photo']."'> </img><div><a class='update_profile_img' href='uploadphoto.php'>更换头像</a></div>";
   } 
 }    
 else
 {
-  $userphoto="<a class='update_profile_img' href='uploadphoto.php'>放你的头像上来</a>";
+  $userphoto="<a href='uploadphoto.php'>放你的头像上来</a>";
 }			
-$user_set = "<div class='inner' style='margin-bottom:180px;'>
+$user_set = "<div class='inner'>
 			<div><h2>".$result['username']."的帐号"."</h2></div>
 			<div class='setting_bar'>
 			  <div>
@@ -47,7 +47,7 @@ $user_set = "<div class='inner' style='margin-bottom:180px;'>
 			</div>
 			<div class='clear'></div>
 			<form id='lzform' name='lzform' method='post'>
-			   <table style='clear:both' width='100%' align='center' cellpadding='5'>
+			   <table align='center' cellpadding='5'>
 				 <tr>
 				   <td valign='top' align='right'>名　号: </td>
 				   <td valign='top'>

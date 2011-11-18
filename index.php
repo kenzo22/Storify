@@ -42,7 +42,7 @@ include "member/tagoperation.php";
 		  $user_profile_img = '/img/douban_user_dft.jpg';
 		}
 		$content="<ul class='user_console showborder'>
-				    <li class='person_li display' style='display:block;'><a class='person_a person_a_display' href='/member/user.php?user_id=".$userresult['id']."'><img id='person_img' src='".$user_profile_img."'><span id='person_name'>".$_SESSION['username']."</span></a></li>
+				    <li class='person_li display'><a class='person_a person_a_display' href='/member/user.php?user_id=".$userresult['id']."'><img id='person_img' src='".$user_profile_img."'><span id='person_name'>".$_SESSION['username']."</span></a></li>
 					<li class='person_li'><a class='person_a home_icon' href='/member/user.php?user_id=".$userresult['id']."'><img class='console_img' src='/img/home.png'/><span>我的主页</span></a></li>
 					<li class='person_li'><a class='person_a setting_icon' href='/member/settings.php'><img class='console_img' src='/img/setting.png'/><span>设置</span></a></li>
 					<li class='person_li'><a class='person_a quit_icon' href='/login/login.php?logout'><img class='console_img' src='/img/quit.png'/><span>退出<span></a></li>
@@ -74,23 +74,23 @@ include "member/tagoperation.php";
 	<![endif]-->
 	<a id='user_feedback_tab' href='/contact/contactform.php'></a>
 	<div id='boxes'>  
-	<div id='dialog' class='window' style='padding:0;'>
-	  <div style='background-color:#ababac; padding:5px;'><span><a href='#' class='close'>关闭</a></span><span>登录 koulifang.com</span></div>
+	<div id='dialog' class='window'>
+	  <div class='title_bar'><span><a href='#' class='close'>关闭</a></span><span>登录 koulifang.com</span></div>
 	  <form method='post' action='login/login.php'>
-	  <div style='overflow:auto;'>
+	  <div class='wrapper'>
 		<div id='login_modal'>
-		  <div><b> 邮 箱 &nbsp; </b><span><input type='text' name='email' id='email_login' onclick='this.value=""'/></span></div>
-		  <div><b> 密 码 &nbsp; </b><span><input type='password' name='passwd' id='pwd_login' onclick='this.value=""'/> </span></div>
-		  <div><span> <input type='checkbox' name='autologin' />下次自动登录</span> | <span><a href='login/forget_form.php'>忘记密码了？</a></span></div>
-		  <div style='margin-top:5px;'>
+		  <div class='form_div'><b> 邮 箱 &nbsp; </b><span><input type='text' name='email' id='email_login' onclick='this.value=""'/></span></div>
+		  <div class='form_div'><b> 密 码 &nbsp; </b><span><input type='password' name='passwd' id='pwd_login' onclick='this.value=""'/> </span></div>
+		  <div class='auto_login'><span> <input type='checkbox' name='autologin' />下次自动登录</span> | <span><a href='login/forget_form.php'>忘记密码了？</a></span></div>
+		  <div>
 			<input type='submit' id='login_modal_btn' value='登录'/>
 		  </div>
 		</div>
 		<div class='login_right'>
-		  <div style='margin-bottom:5px;'>还没有口立方帐号?</div>
+		  <div>还没有口立方帐号?</div>
 		  <a class='large green awesome register_awesome' href='/register/register_form.php'>马上注册 &raquo;</a>
-		  <div style='margin-top:15px;'><span>使用新浪微博帐号登录</span></div>
-		  <div style='margin-top:5px;'><a id='connectBtn' href='#'><span class='sina_icon'></span><span class='sina_name'>新浪微博</span></a></div>  
+		  <div><span>使用新浪微博帐号登录</span></div>
+		  <div><a id='connectBtn' href='#'><span class='sina_icon'></span><span class='sina_name'>新浪微博</span></a></div>  
 		</div>
 	  </div>
 	  </form>

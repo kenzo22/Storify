@@ -93,23 +93,23 @@ else
 {
   $content="<div id='storyContent'>
             <div id='boxes'>
-			  <div id='dialog' class='window' style='padding:0;'>
-			    <div style='background-color:#ababac; padding:5px;'><span>登录 koulifang.com</span><span><a href='#' class='close'>关闭</a></span></div>
+			  <div id='dialog' class='window'>
+			    <div class='title_bar'><span>登录 koulifang.com</span><span><a href='#' class='close'>关闭</a></span></div>
 			    <form method='post' action='/login/login.php'>
-			    <div>
+			    <div class='wrapper'>
 				  <div id='login_modal'>
-				    <div><b> 邮 箱 &nbsp; </b><span><input type='text' name='email' id='email_login' onclick='this.value=\"\"'/></span></div>
-				    <div><b> 密 码 &nbsp; </b> <span><input type='password' name='passwd' id='pwd_login' onclick='this.value=\"\"'/> </span></div>
-				    <div><span> <input type='checkbox' name='autologin' />下次自动登录</span> | <span><a href='/login/forget_form.php'>忘记密码了？</a></span></div>
-				    <div style='margin-top:5px;'>
+				    <div class='form_div'><b> 邮 箱 &nbsp; </b><span><input type='text' name='email' id='email_login' onclick='this.value=\"\"'/></span></div>
+				    <div class='form_div'><b> 密 码 &nbsp; </b> <span><input type='password' name='passwd' id='pwd_login' onclick='this.value=\"\"'/> </span></div>
+				    <div class='auto_login'><span> <input type='checkbox' name='autologin' />下次自动登录</span> | <span><a href='/login/forget_form.php'>忘记密码了？</a></span></div>
+				    <div>
 					  <input type='submit' id='login_modal_btn' value='登录'/>
 				    </div>
 				  </div>
 				  <div class='login_right'>
-				    <div style='margin-bottom:5px;'>还没有口立方帐号?</div>
+				    <div>还没有口立方帐号?</div>
 					<a class='large green awesome register_awesome' href='/register/register_form.php'>马上注册 &raquo;</a>
-					<div style='margin-top:15px;'><span>使用新浪微博帐号登录</span></div>
-				    <div style='margin-top:5px;'><a id='connectBtn' href='#'><span class='sina_icon'></span><span class='sina_name'>新浪微博</span></a></div>  
+					<div><span>使用新浪微博帐号登录</span></div>
+				    <div><a id='connectBtn' href='#'><span class='sina_icon'></span><span class='sina_name'>新浪微博</span></a></div>  
 				  </div>
 			    </div>
 			    </form>

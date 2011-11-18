@@ -215,16 +215,15 @@ function filled_out($form_vars) {
   return true;
 }
 
-
-
-function go($url,$info='',$time=0) { //提示信息
- if(!empty($info))
-	{   $info.="<br>如果没有跳转请点<a href=$url>这里</a>,$time 秒钟后将自动返回";
-		echo "<table height='200'><tr><td></td></tr></table><table  align='center' width='600' height='50' border='4'   bordercolor='#999999' style='   font-size:14px;'><tr><td bgcolor='#cfcfcf' align='center'> 提示信息：$info </td></tr></table>" ;
-    }
-   echo  "<META  HTTP-EQUIV=\"Refresh\"  CONTENT=\" $time;  URL=$url\" >" ;
-   exit;
-  
+function go($url,$info='',$time=0) 
+{
+  if(!empty($info))
+  {   
+    $info.="<br>如果没有跳转请点<a href=$url>这里</a>,$time 秒钟后将自动返回";
+    echo "<table height='200'><tr><td></td></tr></table><table  align='center' width='600' height='50' border='4' bordercolor='#999999' style='font-size:14px;'><tr><td bgcolor='#cfcfcf' align='center'> 提示信息：$info </td></tr></table>" ;
+  }
+  echo  "<META  HTTP-EQUIV=\"Refresh\"  CONTENT=\" $time;  URL=$url\" ><Meta http-equiv=\"Content-Type\" Content=\"text/html; Charset=utf-8\">" ;
+  exit;
 }
 
 function show_error($info,$url) { //提示信息
