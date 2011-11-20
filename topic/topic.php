@@ -4,20 +4,20 @@ require "../global.php";
 require  "../include/header.php";
 include '../include/secureGlobals.php';
 
-if(isset($_GET['topic']))
+if(isset($_GET['topic_id']))
 {
-  $topic = $_GET['topic'];
+  $topic_id = $_GET['topic_id'];
 }
 
 $date_t = date("Y-m-d H:i:s");
 
-$tagresult = $DB->fetch_one_array("SELECT id FROM ".$db_prefix."tag where name='".$topic."'");
-$tag_id = $tagresult['id'];
-$query="select ".$db_prefix."posts.* from ".$db_prefix."tag_story,".$db_prefix."posts where tag_id=".$tag_id." and story_id=".$db_prefix."posts.id and TO_DAYS(NOW())-TO_DAYS(post_modified) <=$MAX_DAYS order by ".$db_prefix."posts.post_digg_count desc limit 10";
+$tagresult = $DB->fetch_one_array("SELECT name FROM ".$db_prefix."tag where id='".$topic_id."'");
+$tag_name = $tagresult['name'];
+//$tag_id = $tagresult['id'];
+$query="select ".$db_prefix."posts.* from ".$db_prefix."tag_story,".$db_prefix."posts where tag_id=".$topic_id." and story_id=".$db_prefix."posts.id and TO_DAYS(NOW())-TO_DAYS(post_modified) <=$MAX_DAYS order by ".$db_prefix."posts.post_digg_count desc limit 10";
 $result=$DB->query($query);
 
-
-$content = "<div class='inner'><div class='page_title'>#".$topic."# - 最热门</div><ul id='tagstory_ul'>";
+$content = "<div class='inner'><div class='page_title'>#".$tag_name."# - 最热门</div><ul id='tagstory_ul'>";
 while ($story_item = mysql_fetch_array($result))
 {
   $story_id = $story_item['ID'];
@@ -40,7 +40,7 @@ while ($story_item = mysql_fetch_array($result))
 						  <div>
                             <span class='update_at'>".$post_date."</span><span style='padding:0 5px;'>by</span><a href='/member/user.php?user_id=".$post_author."'>".$userresult['username']."</a> 
                           </div>
-                          <div class='summary'>".$post_summary."<a href='".$post_link."'>[read more]</a></div>
+                          <div class='summary'>".$post_summary."<a href='".$post_link."'>[更多]</a></div>
                         </div> 
                     </div>
                 </li>";
@@ -49,7 +49,7 @@ $content .="</ul></div>";
 echo $content;
 echo "<script type='text/javascript' >
 		  $(function(){
-		    document.title = '#'+'$topic'+'#'+' - 口立方';
+		    document.title = '#'+'$tag_name'+'#'+' - 口立方';
 		  });
 		</script>";
 

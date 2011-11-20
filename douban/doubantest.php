@@ -23,8 +23,8 @@ $c = new DoubanClient( DB_AKEY , DB_SKEY , $accessToken , $accessTokenSecret);
 
 //$msg3 = $c->search_book('中秋附近的撒的数量放到冷水付款', 1, 20);
 //$msg3 = $c->search_movie_reviews(1424406, 1, 20);
-$msg3 = $c->search_music_reviews(1424406, 1, 20);
-//$msg3 = $c->search_book_reviews(3259440, 1, 20);
+//$msg3 = $c->search_music_reviews(1424406, 1, 20);
+$msg3 = $c->search_book_reviews(3259440, 1, 20);
 //$msg3 = $c->search_book_reviews(1527618, 1, 20);
 //$msg3 = $c->get_comment(2023817);
 //$msg3 = $c->get_book(3259440);

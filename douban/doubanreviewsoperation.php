@@ -84,32 +84,28 @@ foreach( $doubanCommentsReturn['entry'] as $commentItem )
   $comment_author_link = getAuthorLink($commentItem['author']['link']);
   $comment_author_pic = getAuthorPic($commentItem['author']['link']);
   $comment_rating = 2*$commentItem['gd:rating']['@value'];
-  $time_array = explode("T", $commentItem['updated']['$t']);
+  $time_array = explode("T", $commentItem['published']['$t']);
 
   $doubanContent.=
 		"<li class='douban_drag douban ".$item_type."' id='d_".$comment_per_id."'>
 		  <div class='handle'></div>
 		  <div class='douban_wrapper'>
-			<img class='profile_img' style='width: 32px; height: 32px; float:left; overflow: hidden; margin-top:3px;' src='".$comment_author_pic."' title='".$comment_author."' alt='".$comment_author."' border=0 />
-			<div style='margin-left:36px;'>
-			  <a href='".$comment_author_link."' target='_blank' class='douban_from' style = 'display:block;'>
+			<img class='profile_img' src='".$comment_author_pic."' title='".$comment_author."' alt='".$comment_author."' border=0 />
+			<div class='douban_content'>
+			  <a href='".$comment_author_link."' target='_blank' class='douban_from'>
 				<span>".$comment_author."</span>
 			  </a>
 			  <div class='douban_comments'>
-				<div class='comment_title' style='font-weight:bold;'>".$comments_title."</div>
-				<div class='comment_summary'>".$comments_summary."</div>
-				<div style='text-align:right;'>
-				  <a class='comment_full_url' href='".$fulltext_url."' target='_blank'>查看评论全文</a>
-				</div>
-				<div class='comment_date' style='text-align:right;'>".$time_array[0]."</div>
+				<div class='comment_title'>".$comments_title."</div>
+				<div class='comment_summary'>".$comments_summary."<a class='comment_full_url' href='".$fulltext_url."' target='_blank'>[查看评论全文]</a></div>
 			  </div>
 			  <div class='item_info'>
-				<a href='".$itemLink."' target='_blank'><img class='item_img' src='".$itemPic."' style='float:left;' /></a>
-				<div class='item_meta' style='margin-left:100px;'>
+				<a href='".$itemLink."' target='_blank'><img class='item_img' src='".$itemPic."' /></a>
+				<div class='item_meta'>
 				  <div><a class='item_title' href='".$itemLink."' target='_blank'>".$doubanItemMeta['title']['$t']."</a></div>
 				  <div class='item_author'>".$item_owner."</div>
 				  <div class='item_date'>".$item_date."</div>
-				  <div class=item_rating>".$comment_author."评分:".$comment_rating."</div>
+				  <span class=item_rating>".$comment_author."评分:".$comment_rating."</span>&nbsp&nbsp&nbsp&nbsp<span class='comment_date'>".$time_array[0]."</span>
 				  <div class='average_rating'>豆瓣评分：".$doubanItemMeta['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$doubanItemMeta['gd:rating']['@numRaters']."人参与投票</div>
 				</div>
 			  </div>

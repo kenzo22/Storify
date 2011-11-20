@@ -477,7 +477,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 			  $douban_item_date = "发行时间：".$pubDate;
 			}
 			$comment_rating = 2*$doubanElement['gd:rating']['@value'];
-			$time_array = explode("T", $doubanElement['updated']['$t']);
+			$time_array = explode("T", $doubanElement['published']['$t']);
 			$content .=
 			  "<li class='douban_drop douban ".$val['content']['item_type']."' id='d_".$douban_save_per_id."'>
 				<div class='cross' action='delete' onclick='remove_item(event)'></div>
@@ -487,10 +487,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 				  <div class='content_wrapper'>
 				  <div>
 					<div class='comment_title_drop' style='font-weight:bold;'>".$doubanElement['title']['$t']."</div>
-					<div class='comment_summary_drop'>".$doubanElement['summary']['$t']."</div>
-					<div style='text-align:right;'>
-					  <a href='".$doubanElement['link'][1]['@href']."' target='_blank'>查看评论全文</a>
-					</div>
+					<div class='comment_summary_drop'>".$doubanElement['summary']['$t']."<a href='".$doubanElement['link'][1]['@href']."' target='_blank'>[查看评论全文]</a></div>
 				  </div>
 				  <div class='item_info_drop' style='overflow:auto;'>
 					<a href='".$douban_per_url."' target='_blank'><img class='item_img_drop' src='".$itemPic."' style='float:left;' /></a>

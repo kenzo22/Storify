@@ -106,13 +106,13 @@ if($eventFlag == 0)
 		  <div class='douban_wrapper'>
 			<div class='douban_flag'>
 			<div class='item_info'>
-			  <a href='".$douban_per_url."' target='_blank'><img class='item_img' src='".$item_pic."' style='float:left;' /></a>
-			  <div class='item_meta' style='margin-left:100px;'>
+			  <a href='".$douban_per_url."' target='_blank'><img class='item_img' src='".$item_pic."' /></a>
+			  <div class='item_meta'>
 				<div><a class='item_title' href='".$douban_per_url."' target='_blank'>".$item['title']['$t']."</a></div>
 				<div class='item_author'>".$item_owner."</div>
 				<div class='item_date'>".$item_date."</div>
 				<div class='average_rating'>豆瓣评分：".$item['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$item['gd:rating']['@numRaters']."人参与投票</div>
-				<div style='text-align:right;'><a class='douban_review ".$item_type."' href='#'>".$item_review_text."</a></div>
+				<div><a class='douban_review ".$item_type."' href='#'>".$item_review_text."</a></div>
 			  </div>
 			</div>
 			</div>
@@ -161,9 +161,9 @@ else if($eventFlag == 1)
 	$doubanContent .=
 	"<li class='douban_drag douban event' id='d_".$douban_per_id."'>
 	  <div class='douban_wrapper'>
-	    <img class='profile_img' style='width: 32px; height: 32px; float:left; overflow: hidden; margin-top:3px;' src='".$eventInitiator_pic."' title='".$eventInitiator_name."' alt='".$eventInitiator_name."' border=0 />
-	    <div style='margin-left:36px;'>
-		  <a href='".$eventInitiator_url."' target='_blank' class='douban_from' style = 'display:block;'>
+	    <img class='profile_img' src='".$eventInitiator_pic."' title='".$eventInitiator_name."' alt='".$eventInitiator_name."' border=0 />
+	    <div class='douban_content'>
+		  <a href='".$eventInitiator_url."' target='_blank' class='douban_from'>
 		    <span>".$eventInitiator_name."</span>
 		  </a>
 		  <div class='event_meta'>
@@ -176,7 +176,7 @@ else if($eventFlag == 1)
 			<div class='event_location'>地点：".$eventWhere."</div>
 		  </div>
 		  <div class='event_img_wrapper'>
-		    <a href='".$eventLink."' target='_blank'><img class='item_img' src='".$eventImg."' style='float:left;' /></a>
+		    <a href='".$eventLink."' target='_blank'><img class='item_img' src='".$eventImg."' /></a>
 		  </div>
 		</div>
 	  </div>

@@ -917,7 +917,7 @@ $(function() {
 				{
 				  var douban_per_url = dragItem.find('.item_title').attr('href');
 				  var douban_comment_title = dragItem.find('.comment_title').text();
-				  var douban_comment_summary = dragItem.find('.comment_summary').text();
+				  var douban_comment_summary = dragItem.find('.comment_summary').html();
 				  var douban_comment_date = dragItem.find('.comment_date').text();
 				  var douban_comment_url = dragItem.find('.comment_full_url').attr('href');
 				  var douban_item_img = dragItem.find('.item_img').attr('src');
@@ -927,7 +927,7 @@ $(function() {
 				  var douban_average_rating = dragItem.find('.average_rating').text();
 				  var douban_item_rating = dragItem.find('.item_rating').text();
 				  doubanContent = ("<div class='cross' action='delete' onclick='remove_item(event)'></div><div class='handle'></div><div class='douban_wrapper'><div class='quote_sign'>“</div><div class='content_wrapper'><div><div class='comment_title_drop' style='font-weight:bold;'>"
-					+douban_comment_title+"</div><div class='comment_summary_drop'>"+douban_comment_summary+"</div><div style='text-align:right;'><a href='"+douban_comment_url+"' target='_blank'>查看评论全文</a></div></div><div class='item_info_drop' style='overflow:auto;'><a href='"+douban_per_url+"' target='_blank'><img class='item_img_drop' src='"
+					+douban_comment_title+"</div><div class='comment_summary_drop'>"+douban_comment_summary+"</div></div><div class='item_info_drop' style='overflow:auto;'><a href='"+douban_per_url+"' target='_blank'><img class='item_img_drop' src='"
 				  +douban_item_img+"' style='float:left;' /></a><div class='item_meta_drop' style='margin-left:100px;'><div><a class='item_title_drop' href='"+douban_per_url+"' target='_blank'>"+douban_item_title+"</a></div><div class='item_author_drop'>"
 				  +douban_item_author+"</div><div class='item_date_drop'>"+douban_item_date+"</div><div class=item_rating_drop>"+douban_item_rating+"</div><div class='average_rating_drop'>"+douban_average_rating+"</div></div></div></div><div id='douban_signature'><span style='float:right;'><a href='"+douban_profile_url+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
 					+douban_profile_img+"' alt='"+douban_profile_name+"' border=0 /></a></span><span class='signature_text_drop' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='douban_from_drop' href='"

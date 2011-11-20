@@ -72,7 +72,11 @@ include "member/tagoperation.php";
 			 div.caption { background:transparent; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,endColorstr=#99000000);zoom: 1; }
 		</style>
 	<![endif]-->
-	<a id='user_feedback_tab' href='/contact/contactform.php'></a>
+	<!--[if IE 6]>
+	<style type="text/css">
+	  #user_feedback_tab{display:none;}
+	</style>
+	<![endif]-->
 	<div id='boxes'>  
 	<div id='dialog' class='window'>
 	  <div class='title_bar'><span><a href='#' class='close'>关闭</a></span><span>登录 koulifang.com</span></div>
@@ -96,8 +100,9 @@ include "member/tagoperation.php";
 	  </form>
 	</div>
 	</div>
-
+    
 	<div id='main_content' class='inner'>
+	  <div><a id='user_feedback_tab' href='/contact/contactform.php'>feedback</a></div>
 	<?php
 	if(!islogin())
 	{
@@ -187,7 +192,7 @@ include "member/tagoperation.php";
 			$query = "select * from ".$db_prefix."tag_story,story_posts where tag_id='".$tag_id."' and story_id=story_posts.id and post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_modified) <=$MAX_DAYS";
 			$relationresult = $DB->query($query);
 			$tag_count = $DB->num_rows($relationresult);
-			$topic_link = "./topic/topic.php?topic=".$tag_name;
+			$topic_link = "./topic/topic.php?topic_id=".$tag_id;
 			
 			if($used_story){
 				foreach($used_story as $sid){
