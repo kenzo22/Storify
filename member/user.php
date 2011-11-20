@@ -123,7 +123,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  }
 	  $content = "<div id='boxes'>
 				  <div id='weibo_dialog' class='window".$extra_class."'>
-					<div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span id='publish_title' style='color: #336699;'>发表微博</span><span><a href='#' class='close'>关闭</a></span></div>
+					<div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span id='icon_flag'></span><span id='publish_title' style='color: #336699;'>发表微博</span><span><a href='#' class='close'>关闭</a></span></div>
 					<div id='pub_wrapper'>
 					  <div class='float_r counter_wrapper'><span style='margin-left:28px; color: #B8B7B7;'>还可以输入</span><span class='word_counter'>140</span><span style='color: #B8B7B7;'>字</span></div>
 					  <textarea class='publish-tweet'></textarea>
@@ -139,7 +139,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	{
 	  $content = "<div id='boxes'>
 				  <div id='weibo_dialog' class='window disable'>
-					<div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span id='publish_title' style='color: #B8B7B7;'>发表微博</span><span><a href='#' class='close'>关闭</a></span></div>
+					<div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span id='icon_flag'></span><span id='publish_title' style='color: #B8B7B7;'>发表微博</span><span><a href='#' class='close'>关闭</a></span></div>
 					<div class='imply_color' style='margin-bottom:10px;'>对不起，只有本站注册用户能使用该功能</div>
 					<div class='imply_color'>请您<a href='/login/login_form.php?next'>登录</a>或<a href='/register/register_form.php'>注册</a></div>
 				  </div>
@@ -415,8 +415,8 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 			}
             $content .= "</div>";
             $content .= "<div class='story_signature'><span style='float:right;'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img_drop' src='"
-			.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' /></a></span><span class='signature_text'><div style='float:right; height:16px;'>
-			<span><a class='weibo_from_drop' href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date_drop'>".$createTime."</div></span> </div></div></li>";
+			.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' /></a></span><div class='signature_text'><div style='float:right; height:16px;'>
+			<span><a class='weibo_from_drop' href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date_drop'>".$createTime."</div></div> </div></div></li>";
 		}
 		break;}
 		 
@@ -446,7 +446,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 			  <div class='event_summary'>".$doubanElement['summary'][0]['$t']."</div>
 			  <div style='margin-top:10px; overflow:auto;'>
 			    <a href='".$doubanElement['link'][1]['@href']."' target='_blank'>
-				  <img class='item_img' src='".$eventImg."' style='float:left;' />
+				  <img class='item_img' src='".$eventImg."' style='float:left;' alt='".$doubanElement['title']['$t']."' />
 				</a>
 				<div class='item_meta' style='margin-left:220px;'>
 				  <div class='event_title'>活动：<a href='".$eventLink."' target='_blank'>".$doubanElement['title']['$t']."</a></div>
@@ -464,14 +464,14 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 				    <img class='profile_img_drop' src='".$eventInitiator_pic."' alt='".$eventInitiator_name."' />
 				  </a>
 				</span>
-				<span class='signature_text'>
+				<div class='signature_text'>
 				  <div style='float:right; height:16px;'>
 				    <span >
 					  <a class='douban_from_drop' href='".$eventInitiator_url."' target='_blank'>".$eventInitiator_name."</a>
 					</span>
 				  </div>
 				  <div class='douban_date_drop'></div>
-				</span> 
+				</div> 
 			  </div>
 			</div>
 	      </li>";
@@ -553,14 +553,14 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 					  <img class='profile_img_drop' src='".$comment_author_pic."' alt='".$doubanElement['author']['name']['$t']."' />
 					</a>
 				  </span>
-				  <span class='signature_text'>
+				  <div class='signature_text'>
 					<div style='float:right; height:16px;'>
 					  <span >
 						<a class='douban_from_drop' href='".$doubanElement['author']['link'][1]['@href']."' target='_blank'>".$doubanElement['author']['name']['$t']."</a>
 					  </span>
 					</div>
 					<div class='douban_date_drop'>".$time_array[0]."</div>
-				  </span> 
+				  </div> 
 				</div>
 			  </div>
 			</li>";
@@ -644,7 +644,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		$author_nic = $photo_meta_data['nic'];
 		$photo_link = "http://www.yupoo.com/photos/".$photo_author."/".$photo_id."/";
 		$content .="<li class='photo_element'><div class='yupoo_wrapper'><a target='_blank' href='".$photo_link."'><img src='"
-				.$photo_per_url."'/></a><div style='line-height:1.5;'><a class='pic_title' target='_blank' href='".$photo_link."'>".$photo_title."</a></div><div style='line-height:1.5;'><a class='pic_author' target='_blank' href='http://www.yupoo.com/photos/".$photo_author."/'>".$author_nic."</a></div><div class='yupoo_sign'></div></div></li>";	 
+				.$photo_per_url."' alt='".$photo_title."' /></a><div style='line-height:1.5;'><a class='pic_title' target='_blank' href='".$photo_link."'>".$photo_title."</a></div><div style='line-height:1.5;'><a class='pic_author' target='_blank' href='http://www.yupoo.com/photos/".$photo_author."/'>".$author_nic."</a></div><div class='yupoo_sign'></div></div></li>";	 
 		break;}
 		 
 		default:
@@ -693,8 +693,8 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 			}
 		}
 		$tweiboContent .= "</div><div class='story_signature'><span style='float:right;'><a href='http://t.qq.com/".$item['name']."' target='_blank'><img class='profile_img_drop' src='"
-		.$profileImgUrl."' alt='".$item['nick']."' /></a></span><span class='signature_text'><div style='float:right; height:16px; '>
-		<span ><a class='weibo_from_drop' href='http://t.qq.com/".$item['name']."' target='_blank'>".$item['nick']."</a></span></div><div class='weibo_date_drop'>".$create_time."</div></span></div></div></li>tweibo_sep";
+		.$profileImgUrl."' alt='".$item['nick']."' /></a></span><div class='signature_text'><div style='float:right; height:16px; '>
+		<span ><a class='weibo_from_drop' href='http://t.qq.com/".$item['name']."' target='_blank'>".$item['nick']."</a></span></div><div class='weibo_date_drop'>".$create_time."</div></div></div></div></li>tweibo_sep";
 	  }
 	  $tweibo_array = explode("tweibo_sep", $tweiboContent);
 	  $tweibo_array_len = count($tweibo_array);

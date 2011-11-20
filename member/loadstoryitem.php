@@ -85,8 +85,8 @@ foreach($story_content_array as $key=>$val)
 		}
 		$content .= "</div>";
 		$content .= "<div class='story_signature'><span style='float:right;'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img_drop' src='"
-		.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><span class='signature_text'><div style='float:right; height:16px;'>
-		<span><a class='weibo_from_drop' href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date_drop'>".$createTime."</div></span> </div></div></li>";
+		.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><div class='signature_text'><div style='float:right; height:16px;'>
+		<span><a class='weibo_from_drop' href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date_drop'>".$createTime."</div></div> </div></div></li>";
 	}
 	break;}
 	 
@@ -133,14 +133,14 @@ foreach($story_content_array as $key=>$val)
 				<img class='profile_img_drop' src='".$eventInitiator_pic."' alt='".$eventInitiator_name."' border=0 />
 			  </a>
 			</span>
-			<span class='signature_text'>
+			<div class='signature_text'>
 			  <div style='float:right; height:16px;'>
 				<span >
 				  <a class='douban_from_drop' href='".$eventInitiator_url."' target='_blank'>".$eventInitiator_name."</a>
 				</span>
 			  </div>
 			  <div class='douban_date_drop'></div>
-			</span> 
+			</div> 
 		  </div>
 		</div>
 	  </li>";
@@ -221,14 +221,14 @@ foreach($story_content_array as $key=>$val)
 				  <img class='profile_img_drop' src='".$comment_author_pic."' alt='".$doubanElement['author']['name']['$t']."' border=0 />
 				</a>
 			  </span>
-			  <span class='signature_text'>
+			  <div class='signature_text'>
 				<div style='float:right; height:16px;'>
 				  <span >
 					<a class='douban_from' href='".$doubanElement['author']['link'][1]['@href']."' target='_blank'>".$doubanElement['author']['name']['$t']."</a>
 				  </span>
 				</div>
 				<div class='douban_date_drop'>".$time_array[0]."</div>
-			  </span> 
+			  </div> 
 			</div>
 		  </div>
 		</li>";
@@ -359,8 +359,8 @@ if(count($tweibo_id_array) > 0)
 		}
 	}
 	$tweiboContent .= "<div class='story_signature'><span style='float:right;'><a href='http://t.qq.com/".$item['name']."' target='_blank'><img class='profile_img_drop' src='"
-	.$profileImgUrl."' alt='".$item['nick']."' border=0 /></a></span><span class='signature_text'><div style='float:right; height:16px; '>
-	<span ><a class='weibo_from_drop' href='http://t.qq.com/".$item['name']."' target='_blank'>".$item['nick']."</a></span></div><div class='weibo_date_drop'>".$create_time."</div></span></div></div></li>tweibo_sep";
+	.$profileImgUrl."' alt='".$item['nick']."' border=0 /></a></span><div class='signature_text'><div style='float:right; height:16px; '>
+	<span ><a class='weibo_from_drop' href='http://t.qq.com/".$item['name']."' target='_blank'>".$item['nick']."</a></span></div><div class='weibo_date_drop'>".$create_time."</div></div></div></div></li>tweibo_sep";
   }
   $tweibo_array = explode("tweibo_sep", $tweiboContent);
   $tweibo_array_len = count($tweibo_array);

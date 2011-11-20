@@ -18,7 +18,13 @@ else if($_GET['next'] == 'inactivate')
 }
 else if(!empty($_GET['next']))
 {
-  $content .="<input type='hidden' value='".$_GET['next']."' name='redirect_info' id='redirect_info' />";
+  $redirec_temp = urldecode($_GET['next']);
+  $findme = "/member/user.php";
+  $pos = strpos($redirec_temp, $findme);
+  if ($pos !== false)
+  {
+    $content .="<input type='hidden' value='".$redirec_temp."' name='redirect_info' id='redirect_info' />";
+  }
 }
 $content .="<div class='form_div'><b> 邮 箱 &nbsp; </b><input type='text' name='email' id='email_login' size='30' /><span class='form_tip' id='email_tip'></span></div>
 			<div class='form_div'><b> 密 码 &nbsp; </b><input type='password' name='passwd' id='pwd_login' size='30' /><span class='form_tip' id='pwd_tip'></span></div>

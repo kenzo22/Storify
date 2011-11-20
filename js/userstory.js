@@ -173,6 +173,7 @@ $(function(){
 			$('#weibo_dialog .word_counter').text('140');
 			if($(this).hasClass('sina'))
 			{
+			  $('#boxes #weibo_dialog #icon_flag').removeClass().addClass('sina16_icon');
 			  if($('#boxes #weibo_dialog').hasClass('sina'))
 			  {
 				$('#pub_wrapper').show();
@@ -223,6 +224,7 @@ $(function(){
 			}
 			else if($(this).hasClass('tencent'))
 			{
+			  $('#boxes #weibo_dialog #icon_flag').removeClass().addClass('tencent16_icon');
 			  if($('#boxes #weibo_dialog').hasClass('tencent'))
 			  {
 				$('#pub_wrapper').show();

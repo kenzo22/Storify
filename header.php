@@ -1,8 +1,6 @@
 <?php
     //无数据库连接的网站头 
-    
-    include "config/global_config.php";
-    include "include/header.htm";
+    include "include/header.php";
 	require_once "include/functions.php";
 	require_once "include/user_auth_fns.php";
 	if(islogin())

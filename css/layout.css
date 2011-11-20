@@ -277,6 +277,8 @@ top:0;
 min-width: 120px;
 padding: 0;
 max-height:170px;
+border: 1px solid #C9C9C9;
+border-top:none;
 }
 #logo {float: left; margin-top:3px;}
 #logo a img{width:120px; height:39px; border:0;}
@@ -336,7 +338,7 @@ width: 70px;
 border: 1px solid rgba(0, 0, 0, 0.1);
 color: #000000 !important;
 display: block;
-height: 40px;
+height: 41px;
 line-height: 40px;
 overflow: hidden;
 text-decoration: none;
@@ -346,6 +348,10 @@ overflow: hidden;
 padding: 0;
 position: relative;
 width: 120px;
+}
+
+.person_a_display{
+border-top:none;
 }
 
 .person_a:hover{
@@ -2312,6 +2318,26 @@ margin-left: 3px;
 position: relative;
 top: 3px;
 width: 24px;
+}
+
+.tencent16_icon{
+background: url("../img/editsprite.png") no-repeat scroll 0 -463px transparent;
+height: 16px;
+width: 16px;
+margin:0 3px;
+float:left;
+position:relative;
+top:1px;
+}
+
+.sina16_icon{
+background: url("../img/editsprite.png") no-repeat scroll 0 -375px transparent;
+height: 16px;
+width: 16px;
+margin:0 3px;
+float:left;
+position:relative;
+top:1px;
 }
 
 .sina_name{

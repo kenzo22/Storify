@@ -52,7 +52,16 @@
 		$register_time=date("Y-m-d H:i:s");
 		$result = $DB->query("insert into ".$db_prefix."user values
                          (null, '".$username."', sha1('".$passwd."'), '".$email."', '', '', '', 0, '', '', 0, '', '', 0, '', '', '', '".$register_time."', 0)");
-		$reset = $DB->query("insert into ".$db_prefix."reset values
+		$result=$DB->fetch_one_array("SELECT * FROM ".$db_prefix."reset WHERE username='".$username."' AND email='".$email."'" );
+		
+		$query="select id from ".$db_prefix."reset where username='".$username."' AND email='".$email."'";
+		$reset_result=$DB->query($query);
+		if($DB->num_rows($reset_result) > 0)
+		{
+		  $DB->query("delete from ".$db_prefix."reset where username='".$username."' AND email='".$email."'");
+		}
+		
+		$result = $DB->query("insert into ".$db_prefix."reset values
                          (null, '".$username."', '".$email."', '".$reset_code."')");
 		$content="<div class='inner'>
 		 <div class='page_title'>激活帐号</div>

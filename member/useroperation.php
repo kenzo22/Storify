@@ -1,6 +1,6 @@
 <?php
-include "../connect_db.php";
-include "../include/functions.php";
+include_once "../connect_db.php";
+include_once "../include/functions.php";
 include "userrelation.php";
 include '../include/secureGlobals.php';
  
