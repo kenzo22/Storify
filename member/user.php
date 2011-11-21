@@ -136,7 +136,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	}
 	else
 	{
-	  $content = "<div id='mask'></div><div id='box_container'><div id='boxes'>
+	  $content = "<div id='box_container'><div id='boxes'>
 				  <div id='weibo_dialog' class='window disable'>
 					<div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span><a href='#' class='close'>关闭</a></span><span id='icon_flag'></span><span id='publish_title' style='color: #B8B7B7;'>发表微博</span></div>
 					<div class='imply_color' style='margin-bottom:10px;'>对不起，只有本站注册用户能使用该功能</div>
