@@ -121,30 +121,28 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  {
 	    $extra_class .=" tencent";
 	  }
-	  $content = "<div id='boxes'>
-				  <div id='weibo_dialog' class='window".$extra_class."'>
-					<div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span id='icon_flag'></span><span id='publish_title' style='color: #336699;'>发表微博</span><span><a href='#' class='close'>关闭</a></span></div>
-					<div id='pub_wrapper'>
-					  <div class='float_r counter_wrapper'><span style='margin-left:28px; color: #B8B7B7;'>还可以输入</span><span class='word_counter'>140</span><span style='color: #B8B7B7;'>字</span></div>
-					  <textarea class='publish-tweet'></textarea>
-					  <a class='btn_w_publish large blue awesome'><span id='pub_text'>转发</span></a>
-					</div>
-					<div class='pub_imply_sina'><span style='margin-left:6px; margin-right:5px; color:#878787;'>发布到新浪微博需要绑定新浪微博帐号</span><a href='/member/source.php'>现在去绑定</a></div>
-					<div class='pub_imply_tencent'><span style='margin-left:6px; margin-right:5px; color:#878787;'>发布到腾讯微博需要绑定腾讯微博帐号</span><a href='/member/source.php'>现在去绑定</a></div>
-				  </div>
-				  <div id='mask'></div>
-				</div>";
+	  $content = "<div id='boxes' class='box_container'>
+					<div id='weibo_dialog' class='window".$extra_class."'>
+					  <div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span><a href='#' class='close'>关闭</a></span><span id='icon_flag'></span><span id='publish_title' style='color: #336699;'>发表微博</span></div>
+					  <div id='pub_wrapper'>
+					    <div class='float_r counter_wrapper'><span style='margin-left:28px; color: #B8B7B7;'>还可以输入</span><span class='word_counter'>140</span><span style='color: #B8B7B7;'>字</span></div>
+					    <textarea class='publish-tweet'></textarea>
+					    <a class='btn_w_publish large blue awesome'><span id='pub_text'>转发</span></a>
+					  </div>
+					  <div class='pub_imply_sina'><span style='margin-left:6px; margin-right:5px; color:#878787;'>发布到新浪微博需要绑定新浪微博帐号</span><a href='/member/source.php'>现在去绑定</a></div>
+					  <div class='pub_imply_tencent'><span style='margin-left:6px; margin-right:5px; color:#878787;'>发布到腾讯微博需要绑定腾讯微博帐号</span><a href='/member/source.php'>现在去绑定</a></div>
+				    </div>
+				  </div>";
 	}
 	else
 	{
-	  $content = "<div id='boxes'>
-				  <div id='weibo_dialog' class='window disable'>
-					<div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span id='icon_flag'></span><span id='publish_title' style='color: #B8B7B7;'>发表微博</span><span><a href='#' class='close'>关闭</a></span></div>
-					<div class='imply_color' style='margin-bottom:10px;'>对不起，只有本站注册用户能使用该功能</div>
-					<div class='imply_color'>请您<a href='/login/login_form.php?next'>登录</a>或<a href='/register/register_form.php'>注册</a></div>
-				  </div>
-				  <div id='mask'></div>
-				</div>";
+	  $content = "<div id='boxes' class='box_container'>
+				    <div id='weibo_dialog' class='window disable'>
+					  <div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span><a href='#' class='close'>关闭</a></span><span id='icon_flag'></span><span id='publish_title' style='color: #B8B7B7;'>发表微博</span></div>
+					  <div class='imply_color' style='margin-bottom:10px;'>对不起，只有本站注册用户能使用该功能</div>
+					  <div class='imply_color'>请您<a href='/login/login_form.php?next'>登录</a>或<a href='/register/register_form.php'>注册</a></div>
+				    </div>
+				  </div>";
 	}
 	
 	if(!$login_status|| $story_author != $_SESSION['uid'])

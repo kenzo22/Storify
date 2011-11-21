@@ -93,7 +93,7 @@ else
   $content="<div id='storyContent'>
             <div id='boxes'>
 			  <div id='dialog' class='window'>
-			    <div class='title_bar'><span>登录 koulifang.com</span><span><a href='#' class='close'>关闭</a></span></div>
+			    <div class='title_bar'><span><a href='#' class='close'>关闭</a></span><span>登录 koulifang.com</span></div>
 			    <form method='post' action='/login/login.php'>
 			    <div class='wrapper'>
 				  <div id='login_modal'>
@@ -117,7 +117,7 @@ else
 
 $content .= "
     <div id='weibo_dialog' class='window".$extra_class."'>
-	  <div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span id='publish_title' style='color: #336699;'>发表微博</span><span><a href='#' class='close'>关闭</a></span></div>
+	  <div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span><a href='#' class='close'>关闭</a></span><span id='icon_flag'></span><span id='publish_title' style='color: #336699;'>发表微博</span></div>
 	  <div id='pub_wrapper'>
 	    <div class='float_r counter_wrapper'><span style='margin-left:28px; color: #B8B7B7;'>还可以输入</span><span class='word_counter'>140</span><span style='color: #B8B7B7;'>字</span></div>
 	    <textarea class='publish-tweet' cols='50' rows='3'></textarea>
@@ -686,7 +686,7 @@ else
 {
   $content .= "<div id='story_header'>
 		  <div id='story_pic'>
-		    <p><img id='story_thumbnail' width='88' height='88' src='' style='background-color:#EFEFEF;' alt='无封面'/></p>
+		    <p><img id='story_thumbnail' width='88' height='88' src='' style='background-color:#EFEFEF;' alt='故事封面'/></p>
 			<ul id='imagecontroller'>
 			  <li><a id='prev_img' href='#'></a></li>
 			  <li><a id='next_img' href='#'></a></li>
