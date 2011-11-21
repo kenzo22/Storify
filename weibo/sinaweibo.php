@@ -1,5 +1,5 @@
 <?php
-require_once '../oauth.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/oauth.php';
 require_once 'weibooauth.php';
 /** 
  * 新浪微博操作类 

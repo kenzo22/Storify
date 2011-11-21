@@ -1,8 +1,8 @@
 <?php
 $html_title = "重设密码 - 口立方";
-require "../global.php";
-require  "../include/header.php";
-include '../include/secureGlobals.php';
+require $_SERVER['DOCUMENT_ROOT']."/global.php";
+require  $_SERVER['DOCUMENT_ROOT']."/include/header.php";
+include $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php';
   if($_POST['act']!="cfm_pwd")
   {
 	$content="<div class='inner'>
@@ -46,8 +46,8 @@ include '../include/secureGlobals.php';
 	  exit;
 	}
   }
-  include "../include/footer.htm";
+  include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm";
 ?>
-<script type='text/javascript' src='../js/forget_pwd.js'></script>
+<script type='text/javascript' src='/js/forget_pwd.js'></script>
 </body>
 </html>

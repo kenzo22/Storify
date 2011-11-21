@@ -1,6 +1,6 @@
 <?php
-include "../connect_db.php";
-include "../include/mail_functions.php";
+include $_SERVER['DOCUMENT_ROOT']."/connect_db.php";
+include $_SERVER['DOCUMENT_ROOT']."/include/mail_functions.php";
 $email=$_POST['email'];
 $username=$_POST['uname'];
 $reset = $DB->fetch_one_array("select reset_code from ".$db_prefix."reset where username='".$username."' AND email='".$email."'");

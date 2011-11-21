@@ -1,6 +1,6 @@
 <?php
-require_once "../connect_db.php";
-include '../include/secureGlobals.php';
+require_once $_SERVER['DOCUMENT_ROOT']."/connect_db.php";
+include $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php';
 session_start();
 if(isset($_POST['email']))
 {
@@ -40,6 +40,6 @@ else
     $_SESSION['uid']=intval($userresult['id']);
   }
 }
-header("location: /index.php"); 
+header("location: /"); 
 exit;
 ?>

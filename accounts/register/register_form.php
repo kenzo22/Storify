@@ -1,10 +1,10 @@
 <?php
 $html_title = "用户注册 - 口立方";
-require "../global.php";
-require  "../include/header.php";
+require $_SERVER['DOCUMENT_ROOT']."/global.php";
+require $_SERVER['DOCUMENT_ROOT']."/include/header.php";
 if(islogin())
 {
-  header("location: /index.php"); 
+  header("location: /"); 
   exit;
 }
 ?>
@@ -24,8 +24,8 @@ if(islogin())
 </form>
 </div> 
 <?php
-include "../include/footer.htm";	 
+include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm";	 
 ?>
-<script type='text/javascript' src='../js/register.js'></script>
+<script type='text/javascript' src='/js/register.js'></script>
 </body>
 </html>

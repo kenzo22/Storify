@@ -1,12 +1,12 @@
 <?php
 $html_title = "更改登录邮箱 - 口立方";
-require "../global.php";
-require  "../include/header.php";
-include '../include/secureGlobals.php';
+require $_SERVER['DOCUMENT_ROOT']."/global.php";
+require $_SERVER['DOCUMENT_ROOT']."/include/header.php";
+include $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php';
 
 if(!islogin())
 {
-  header("location: /login/login_form.php"); 
+  header("location: /accounts/login/login_form.php"); 
   exit;
 }
 
@@ -65,12 +65,12 @@ else
   }
   else
   {
-    go("/login/change_email.php?next=error_flag");
+    header("location:/acounts/login/change_email.php?next=error_flag");
   }  
 }
 
-include "../include/footer.htm";	 
+include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm";	 
 ?>
-<script type='text/javascript' src='../js/change_email.js'></script>
+<script type='text/javascript' src='/js/change_email.js'></script>
 </body>
 </html>

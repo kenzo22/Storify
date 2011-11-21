@@ -1,6 +1,6 @@
 <?php
-require_once "../connect_db.php"; 
-require_once('../include/class.phpmailer.php');
+require_once $_SERVER['DOCUMENT_ROOT']."/connect_db.php"; 
+require_once($_SERVER['DOCUMENT_ROOT'].'/include/class.phpmailer.php');
 
 $email=$_GET['email'];
 
