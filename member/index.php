@@ -16,7 +16,6 @@ include_once( '../include/weibo_functions.php');
 	<title><?php print $html_title; ?></title>
 	<link type='text/css' href="../css/layout.css" rel='stylesheet' />
 	<link type="text/css" href="../css/jquery.ui.theme.css" rel="stylesheet" />
-	<link type="text/css" href="../css/jquery.ui.tabs.css" rel="stylesheet" />
 	<link type="text/css" rel="stylesheet" href="../CLEditor/jquery.cleditor.css" />
 	<link type="image/ico" rel="shortcut icon" href="../img/favicon.ico" /> 
   </head>
@@ -720,7 +719,7 @@ include "../include/footer.htm";
 <script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=2417356638" charset="utf-8"></script>
 <script type="text/javascript" src="../CLEditor/jquery.cleditor.min.js"></script>
 <script type="text/javascript" src="../js/jquery.embedly.min.js"></script>
-<script type='text/javascript' src='../js/jquery-ui-1.8.12.custom.min.js'></script>
+<script type='text/javascript' src='../js/jquery-ui-1.8.16.custom.min.js'></script>
 <script type='text/javascript' src='../js/editstory.js'></script>
 </body>
 </html>

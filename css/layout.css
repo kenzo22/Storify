@@ -175,10 +175,9 @@ right: 0;
 width: 25px;
 text-indent:-9000px;
 z-index: 100001;
-border-color: #007AC4 -moz-use-text-color #007AC4 #007AC4;
-border-style: outset none outset outset;
-border-width: 1px medium 1px 1px;
 cursor:pointer;
+border:1px solid #007AC4;
+border-right:none;
 }
 
 /* awesome button part */

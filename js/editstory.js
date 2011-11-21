@@ -1471,28 +1471,28 @@ $(function() {
 		
 		$('#story_list').click(function(e)
 		{
-		  e.preventDefault();
 		  if ($(e.target).is('.add_comment') || $(e.target).is('.add_text') || $(e.target).is('.addTextElementAnchor'))
 		  {
-		    var $comment_box = $("<li class='textElement editing'><div class='editingDiv'><form class='formTextElement'><textarea class='inputEditor' name='inputEditor'></textarea></form><div class='belowTextEdit'><div class='actions' style='padding-left:380px;'><button class='submit small blue submitComment' type='submit'>确定</button><button class='cancel small cancelEditor' type='reset'>取消</button></div></div></div></li><li class='addTextElementAnchor'><span><a class='add_comment'></a></span></li>");
+		    e.preventDefault();
+			var $comment_box = $("<li class='textElement editing'><div class='editingDiv'><form class='formTextElement'><textarea class='inputEditor' name='inputEditor'></textarea></form><div class='belowTextEdit'><div class='actions' style='padding-left:380px;'><button class='submit small blue submitComment' type='submit'>确定</button><button class='cancel small cancelEditor' type='reset'>取消</button></div></div></div></li><li class='addTextElementAnchor'><span><a class='add_comment'></a></span></li>");
 		    $(e.target).closest('li').after($comment_box);
 			$(".inputEditor").cleditor({
 			width:476,
 			height:150,
 			controls:"bold italic underline strikethrough link | font size",
-			
 			});
-			//$(e.target).closest('#input').cleditor();
 		  }
 		  
 		  if($(e.target).is('.cancelEditor'))
 		  {
+			e.preventDefault();
 			$(e.target).closest('.textElement').next('.addTextElementAnchor').remove();
 			$(e.target).closest('.textElement').remove();
 		  }
 		  
 		  if($(e.target).is('.submitComment'))
 		  {
+			e.preventDefault();
 			var $textElement = $(e.target).closest('.textElement');
 			var comment = $textElement.find('.inputEditor').val();
 			if(comment == '' || comment == '<br>')
