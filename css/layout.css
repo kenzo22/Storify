@@ -269,7 +269,9 @@ z-index:200;
 
 #top_bar .user_console {
 margin: 0; 
-float:right;
+position:absolute;
+right:0;
+top:0;
 min-width: 120px;
 padding: 0;
 max-height:170px;
@@ -1533,7 +1535,7 @@ position:relative;
 zoom:1;
 }
 
-#box_container{
+.box_container{
 position:relative;
 z-index:400;
 zoom:1;
@@ -2400,6 +2402,7 @@ border-top: 1px solid #E3E5E6;
 padding: 0 0 1px;
 margin-top:0;
 clear:both;
+position:relative;
 }
 	
 #footer .wrapper{overflow:auto;}
