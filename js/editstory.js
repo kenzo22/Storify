@@ -1479,7 +1479,7 @@ $(function() {
 			$(".inputEditor").cleditor({
 			width:476,
 			height:150,
-			controls:"bold italic underline strikethrough link | font size",
+			controls:"bold italic underline strikethrough link | font size"
 			});
 		  }
 		  
