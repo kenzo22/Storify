@@ -1,5 +1,5 @@
 <?php
-  require_once "../connect_db.php"; 
+  require_once $_SERVER['DOCUMENT_ROOT']."/connect_db.php";
   require_once('class.phpmailer.php');
   
   function check_email($field,$email,$table){

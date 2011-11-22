@@ -67,14 +67,14 @@ $user_set = "<div class='inner'>
 				   <td align='right'>登录邮箱: </td>
 				   <td valign='top'>
 					 <span>".$result['email']."</span>
-					 <a href='/login/change_email.php'>更改</a>
+					 <a href='/accounts/login/change_email.php'>更改</a>
 				   </td>
 				 </tr>
 				 <tr> 
 				 <tr>
 				   <td align='right'>登录密码: </td>
 				   <td valign='top'>
-					 <a href='/login/change_pwd.php'>更改</a>
+					 <a href='/accounts/login/change_pwd.php'>更改</a>
 				   </td>
 				 </tr>
 				 <tr>

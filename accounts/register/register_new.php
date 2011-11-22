@@ -1,8 +1,8 @@
 <?php
   $html_title = "用户注册 - 口立方";
-  require "../global.php";
-  require  "../include/header.php";
-  include "../include/mail_functions.php";
+  require $_SERVER['DOCUMENT_ROOT']."/global.php";
+  require  $_SERVER['DOCUMENT_ROOT']."/include/header.php";
+  include $_SERVER['DOCUMENT_ROOT']."/include/mail_functions.php";
 
   $email=$_POST['email'];
   $username=$_POST['username'];
@@ -89,8 +89,8 @@
      exit;
   }
   
-include "../include/footer.htm";
+include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm";
 ?>
-<script type='text/javascript' src='../js/resend_mail.js'></script>
+<script type='text/javascript' src='/js/resend_mail.js'></script>
 </body>
 </html>

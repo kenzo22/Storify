@@ -1,12 +1,12 @@
 <?php
 $html_title = "更改密码 - 口立方";
-require "../global.php";
-require  "../include/header.php";
-include '../include/secureGlobals.php';
+require $_SERVER['DOCUMENT_ROOT']."/global.php";
+require  $_SERVER['DOCUMENT_ROOT']."/include/header.php";
+include $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php';
 
 if(!islogin())
 {
-  header("location: /login/login_form.php"); 
+  header("location: /accounts/login/login_form.php"); 
   exit;
 }
 
@@ -54,16 +54,16 @@ else
   {
     $update_result=$DB->query("update ".$db_prefix."user set passwd='".$new_pwd."'  WHERE ID='".$_SESSION['uid']."'");
 	session_destroy();
-	go("/login/login_form.php", "修改密码成功，请重新登录", 2);
+	go("/accounts/login/login_form.php", "修改密码成功，请重新登录", 2);
   }
   else
   {
-    go("/login/change_pwd.php?next=error_flag");
+        header("location: /accounts/login/change_pwd.php?next=error_flag");
   }  
 }
 
-include "../include/footer.htm";	 
+include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm";	 
 ?>
-<script type='text/javascript' src='../js/change_pwd.js'></script>
+<script type='text/javascript' src='/js/change_pwd.js'></script>
 </body>
 </html>

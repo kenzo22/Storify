@@ -1,8 +1,8 @@
 <?php
-require_once "../connect_db.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/connect_db.php";
 session_start();
-include_once( '../weibo/config.php' );
-include_once( '../weibo/sinaweibo.php' );
+include_once( $_SERVER['DOCUMENT_ROOT'].'/weibo/config.php' );
+include_once( $_SERVER['DOCUMENT_ROOT'].'/weibo/sinaweibo.php' );
 
 $o = new WeiboOAuth( WB_AKEY , WB_SKEY , $_SESSION['wkeys']['oauth_token'] , $_SESSION['wkeys']['oauth_token_secret']  );
 
@@ -35,7 +35,7 @@ if (isset($msg['id'])){
 $result = $DB->fetch_one_array("select * from ".$db_prefix."user where weibo_user_id='".$weibo_uid."'");
 if(empty($result))
 {
-  header("location: /login/associate_form.php"); 
+  header("location: /accounts/login/associate_form.php"); 
   exit;
 }
 else
@@ -60,7 +60,7 @@ else
   $_SESSION['last_dkey']['oauth_token_secret']=$result['douban_access_token_secret'];
   $_SESSION['yupoo_token'] = $result['yupoo_token'];
   
-  header("location: /index.php"); 
+  header("location: /"); 
   exit;	
 }
 ?>

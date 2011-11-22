@@ -1,7 +1,7 @@
 <?php
-include "../connect_db.php";
-include "../include/functions.php";
-include '../include/secureGlobals.php';
+include $_SERVER['DOCUMENT_ROOT']."/connect_db.php";
+include $_SERVER['DOCUMENT_ROOT']."/include/functions.php";
+include $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php';
 session_start();
 
 if(isset($_GET['logout']))
@@ -18,12 +18,12 @@ if(isset($_GET['logout']))
 			{
 			  WB2.logout(function() 
 			  {
-				self.location = '/index.php';
+				self.location = '/';
 			  });
 			}
 		  </script>";	 
 	session_destroy();
-	header("location: /index.php");
+	header("location: /");
 	exit;
 }
 
@@ -94,13 +94,13 @@ if($email && $passwd)
 	  }
 	  else
 	  {
-		header("location: /index.php"); 
+		header("location: /"); 
 	  }
 	}	
   }
   else
   {
-	header("location: /login/login_form.php?next=error_flag"); 
+	header("location: /accounts/login/login_form.php?next=error_flag"); 
   }
 }
 ?>

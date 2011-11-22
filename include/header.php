@@ -3,7 +3,7 @@
   <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title><?php print $html_title; ?></title>
-	<link type='text/css' href="../css/layout.css" rel='stylesheet' />
+	<link type='text/css' href="/css/layout.css" rel='stylesheet' />
 	<link type="image/ico" rel="shortcut icon"  href="../img/favicon.ico" /> 
   </head>
   <body>
@@ -38,8 +38,8 @@
 		$content="<ul class='user_console'>
 				    <li class='person_li display'><a class='person_a person_a_display' href='/member/user.php?user_id=".$userresult['id']."'><img id='person_img' src='".$user_profile_img."'><span id='person_name'>".$_SESSION['username']."</span></a></li>
 					<li class='person_li'><a class='person_a home_icon' href='/member/user.php?user_id=".$userresult['id']."'><img class='console_img' src='/img/home.png'/><span>我的主页</span></a></li>
-					<li class='person_li'><a class='person_a setting_icon' href='/member/settings.php'><img class='console_img' src='/img/setting.png'/><span>设置</span></a></li>
-					<li class='person_li'><a class='person_a quit_icon' href='/login/login.php?logout'><img class='console_img' src='/img/quit.png'/><span>退出<span></a></li>
+					<li class='person_li'><a class='person_a setting_icon' href='/accounts/settings.php'><img class='console_img' src='/img/setting.png'/><span>设置</span></a></li>
+					<li class='person_li'><a class='person_a quit_icon' href='/accounts/login/login.php?logout'><img class='console_img' src='/img/quit.png'/><span>退出<span></a></li>
 		          </ul>";
 	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='口立方' accesskey='h' href='/'><img src='/img/koulifangbeta.png' alt='口立方' /></a></span>
 	  <span id='top_menu_a'><a class='edit_story_btn' href='/member'>创建故事</a></span>".$content."</div></div>";
@@ -56,7 +56,7 @@
 	  $_SESSION['last_tkey']['oauth_token'] = $token['tweibo_access_token'];
 	  $_SESSION['last_tkey']['oauth_token_secret'] = $token['tweibo_access_token_secret'];
   
-	  $content = "<span id='top_menu_b'><a class='register_top' href='/register/register_form.php'>注册</a><a class='login_top' href='/login/login_form.php?next=".urlencode($_SERVER['REQUEST_URI'])."'>登录</a><a class='edit_story_btn' href='/member'>创建故事</a></span>";
+	  $content = "<span id='top_menu_b'><a class='register_top' href='/accounts/register/register_form.php'>注册</a><a class='login_top' href='/accounts/login/login_form.php?next=".urlencode($_SERVER['REQUEST_URI'])."'>登录</a><a class='edit_story_btn' href='/member'>创建故事</a></span>";
 	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='口立方' accesskey='h' href='/'><img src='/img/koulifangbeta.png' alt='口立方' /></a></span>".$content."</div></div>";
 	}
 ?>

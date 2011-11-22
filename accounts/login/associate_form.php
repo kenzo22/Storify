@@ -1,13 +1,13 @@
 <?php
 $html_title = "微博帐号关联 - 口立方";
-require "../global.php";
-require  "../include/header.php";
-include_once( '../weibo/config.php' );
-include_once( '../weibo/sinaweibo.php' );
+require $_SERVER['DOCUMENT_ROOT']."/global.php";
+require $_SERVER['DOCUMENT_ROOT']."/include/header.php";
+include_once( $_SERVER['DOCUMENT_ROOT'].'/weibo/config.php' );
+include_once( $_SERVER['DOCUMENT_ROOT'].'/weibo/sinaweibo.php' );
 
 if(islogin())
 {
-  header("location: /index.php"); 
+  header("location: /"); 
   exit;
 }
 
@@ -83,8 +83,8 @@ $content = "<div class='form_wrapper'>
 			</div>";
 			
 echo $content;
-include "../include/footer.htm";	
+include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm";	
 ?>
-<script type='text/javascript' src='../js/associate.js'></script>
+<script type='text/javascript' src='/js/associate.js'></script>
 </body>
 </html>

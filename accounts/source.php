@@ -65,7 +65,7 @@ $content = "<div class='inner'>
   </ul>
 </div>
 <div id='go_back_setting'>
-  <span>&gt;&nbsp;<a href='./settings.php'>回到基本设置</a></span>
+  <span>&gt;&nbsp;<a href='/accounts/settings.php'>回到基本设置</a></span>
 </div>
 </div>";
 echo $content;

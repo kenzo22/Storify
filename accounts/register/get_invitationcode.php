@@ -1,7 +1,7 @@
 <?php
    $html_title = "获得邀请码 - 口立方";
-  include "../global.php";
-  include "../include/mail_functions.php";
+  include $_SERVER['DOCUMENT_ROOT']."/global.php";
+  include $_SERVER['DOCUMENT_ROOT']."/include/mail_functions.php";
   
   $icode_len=6;
   $icode_table=$db_prefix."icode";

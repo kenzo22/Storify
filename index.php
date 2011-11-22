@@ -1,16 +1,16 @@
 <?php
 $html_title = "口立方 - 新颖的社会媒体故事社区，帮助你用社会媒体讲故事";
-include "global.php"; 
-include "member/tagoperation.php";
+include 'global.php'; 
+include 'member/tagoperation.php';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title><?php print $html_title; ?></title>
-	<link type='text/css' rel='stylesheet' href="css/layout.css" />
-    <link type="text/css" rel="stylesheet" href="css/orbit-1.2.3.css" />
-	<link type="image/ico" rel="shortcut icon"  href="img/favicon.ico" /> 
+	<link type='text/css' rel='stylesheet' href="/css/layout.css" />
+    <link type="text/css" rel="stylesheet" href="/css/orbit-1.2.3.css" />
+	<link type="image/ico" rel="shortcut icon"  href="/img/favicon.ico" /> 
   </head>
   <body>
   <?php
@@ -44,8 +44,8 @@ include "member/tagoperation.php";
 		$content="<ul class='user_console'>
 				    <li class='person_li display'><a class='person_a person_a_display' href='/member/user.php?user_id=".$userresult['id']."'><img id='person_img' src='".$user_profile_img."'><span id='person_name'>".$_SESSION['username']."</span></a></li>
 					<li class='person_li'><a class='person_a home_icon' href='/member/user.php?user_id=".$userresult['id']."'><img class='console_img' src='/img/home.png'/><span>我的主页</span></a></li>
-					<li class='person_li'><a class='person_a setting_icon' href='/member/settings.php'><img class='console_img' src='/img/setting.png'/><span>设置</span></a></li>
-					<li class='person_li'><a class='person_a quit_icon' href='/login/login.php?logout'><img class='console_img' src='/img/quit.png'/><span>退出<span></a></li>
+					<li class='person_li'><a class='person_a setting_icon' href='/accounts/settings.php'><img class='console_img' src='/img/setting.png'/><span>设置</span></a></li>
+					<li class='person_li'><a class='person_a quit_icon' href='/accounts/login/login.php?logout'><img class='console_img' src='/img/quit.png'/><span>退出<span></a></li>
 		          </ul>";
 	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='口立方' accesskey='h' href='/'><img src='/img/koulifangbeta.png' alt='口立方' /></a></span>
 	  <span id='top_menu_a'><a class='edit_story_btn' href='/member'>创建故事</a></span>".$content."</div></div>";
@@ -62,7 +62,7 @@ include "member/tagoperation.php";
 	  $_SESSION['last_tkey']['oauth_token'] = $token['tweibo_access_token'];
 	  $_SESSION['last_tkey']['oauth_token_secret'] = $token['tweibo_access_token_secret'];
   
-	  $content = "<span id='top_menu_b'><a class='register_top' href='/register/register_form.php'>注册</a><a class='login_top' href='/login/login_form.php?next=".urlencode($_SERVER['REQUEST_URI'])."'>登录</a><a class='edit_story_btn' href='/member'>创建故事</a></span>";
+	  $content = "<span id='top_menu_b'><a class='register_top' href='/accounts/register/register_form.php'>注册</a><a class='login_top' href='/accounts/login/login_form.php?next=".urlencode($_SERVER['REQUEST_URI'])."'>登录</a><a class='edit_story_btn' href='/member'>创建故事</a></span>";
 	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='口立方' accesskey='h' href='/'><img src='/img/koulifangbeta.png' alt='口立方' /></a></span>".$content."</div></div>";
 	}
    ?>
@@ -80,19 +80,19 @@ include "member/tagoperation.php";
 	<div id='boxes'>  
 	<div id='dialog' class='window'>
 	  <div class='title_bar'><span><a href='#' class='close'>关闭</a></span><span>登录 koulifang.com</span></div>
-	  <form method='post' action='login/login.php'>
+	  <form method='post' action='/accounts/login/login.php'>
 	  <div class='wrapper'>
 		<div id='login_modal'>
 		  <div class='form_div'><b> 邮 箱 &nbsp; </b><span><input type='text' name='email' id='email_login' onclick='this.value=""'/></span></div>
 		  <div class='form_div'><b> 密 码 &nbsp; </b><span><input type='password' name='passwd' id='pwd_login' onclick='this.value=""'/> </span></div>
-		  <div class='auto_login'><span> <input type='checkbox' name='autologin' />下次自动登录</span> | <span><a href='login/forget_form.php'>忘记密码了？</a></span></div>
+		  <div class='auto_login'><span> <input type='checkbox' name='autologin' />下次自动登录</span> | <span><a href='/accounts/login/forget_form.php'>忘记密码了？</a></span></div>
 		  <div>
 			<input type='submit' id='login_modal_btn' value='登录'/>
 		  </div>
 		</div>
 		<div class='login_right'>
 		  <div>还没有口立方帐号?</div>
-		  <a class='large green awesome register_awesome' href='/register/register_form.php'>马上注册 &raquo;</a>
+		  <a class='large green awesome register_awesome' href='/accounts/register/register_form.php'>马上注册 &raquo;</a>
 		  <div><span>使用新浪微博帐号登录</span></div>
 		  <div><a id='connectBtn' href='#'><span class='sina_icon'></span><span class='sina_name'>新浪微博</span></a></div>  
 		</div>
@@ -227,9 +227,9 @@ include "member/tagoperation.php";
 	</div>
 
 <?php
- include "./include/footer.htm";
+ include 'include/footer.htm';
 ?>	
-<script type="text/javascript" src="js/jquery.orbit-1.2.3.min.js"></script>
-<script type="text/javascript" src="js/frontpage.js"></script>
+<script type="text/javascript" src="/js/jquery.orbit-1.2.3.min.js"></script>
+<script type="text/javascript" src="/js/frontpage.js"></script>
 </body>
 </html>
