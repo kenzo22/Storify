@@ -94,19 +94,19 @@ else
             <div id='boxes'>
 			  <div id='dialog' class='window'>
 			    <div class='title_bar'><span><a href='#' class='close'>关闭</a></span><span>登录 koulifang.com</span></div>
-			    <form method='post' action='/login/login.php'>
+			    <form method='post' action='/accounts/login/login.php'>
 			    <div class='wrapper'>
 				  <div id='login_modal'>
 				    <div class='form_div'><b> 邮 箱 &nbsp; </b><span><input type='text' name='email' id='email_login' onclick='this.value=\"\"'/></span></div>
 				    <div class='form_div'><b> 密 码 &nbsp; </b> <span><input type='password' name='passwd' id='pwd_login' onclick='this.value=\"\"'/> </span></div>
-				    <div class='auto_login'><span> <input type='checkbox' name='autologin' />下次自动登录</span> | <span><a href='/login/forget_form.php'>忘记密码了？</a></span></div>
+				    <div class='auto_login'><span> <input type='checkbox' name='autologin' />下次自动登录</span> | <span><a href='/accounts/login/forget_form.php'>忘记密码了？</a></span></div>
 				    <div>
 					  <input type='submit' id='login_modal_btn' value='登录'/>
 				    </div>
 				  </div>
 				  <div class='login_right'>
 				    <div>还没有口立方帐号?</div>
-					<a class='large green awesome register_awesome' href='/register/register_form.php'>马上注册 &raquo;</a>
+					<a class='large green awesome register_awesome' href='/accounts/register/register_form.php'>马上注册 &raquo;</a>
 					<div><span>使用新浪微博帐号登录</span></div>
 				    <div><a id='connectBtn' href='#'><span class='sina_icon'></span><span class='sina_name'>新浪微博</span></a></div>  
 				  </div>
@@ -253,7 +253,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 { 
   if(!islogin())
   {
-    header("location: /login/login_form.php"); 
+    header("location: /accounts/login/login_form.php"); 
     exit;
   } 
   $c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']  );
