@@ -23,7 +23,7 @@ $douban_uid = $msg['db:uid']['$t'];
 
 $result=$DB->query("update ".$db_prefix."user set douban_user_id='".$douban_uid."', douban_access_token='".$_SESSION['last_dkey']['oauth_token']."', douban_access_token_secret='".$_SESSION['last_dkey']['oauth_token_secret']."' WHERE id='".$_SESSION['uid']."'");
 
-header("location: ../member/source.php"); 
+header("location: ../accounts/source.php"); 
 exit;
 ?>
 

@@ -47,7 +47,7 @@ else
     $result=$DB->query("update ".$db_prefix."user set photo='".$photo."', weibo_user_id='".$weibo_uid."', weibo_access_token='".$_SESSION['last_wkey']['oauth_token']."', weibo_access_token_secret='".$_SESSION['last_wkey']['oauth_token_secret']."' WHERE id='".$_SESSION['uid']."'");
 
 
-header("location: ../member/source.php"); 
+header("location: ../accounts/source.php"); 
 exit;
 ?>
 

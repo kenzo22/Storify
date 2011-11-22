@@ -192,7 +192,7 @@ include 'member/tagoperation.php';
 			$query = "select * from ".$db_prefix."tag_story,story_posts where tag_id='".$tag_id."' and story_id=story_posts.id and post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_modified) <=$MAX_DAYS";
 			$relationresult = $DB->query($query);
 			$tag_count = $DB->num_rows($relationresult);
-			$topic_link = "./topic/topic.php?topic_id=".$tag_id;
+			$topic_link = "./member/topic.php?topic_id=".$tag_id;
 			
 			if($used_story){
 				foreach($used_story as $sid){

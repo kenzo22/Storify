@@ -47,7 +47,6 @@ $(function(){
   
   $('#connectBtn').live('click', function(e)
   {
-    debugger;
 	e.preventDefault();
 	$.post('/accounts/login/sina_auth.php', {}, 		
 	function(data, textStatus)

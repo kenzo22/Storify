@@ -34,6 +34,6 @@ $picData  = $y->search_user($userid, 1, $_SESSION['yupoo_token']);*/
 //krumo($picData);
 
 $result=$DB->query("update ".$db_prefix."user set yupoo_token='".$token."' WHERE id='".$_SESSION['uid']."'");
-header("location: ../member/source.php"); 
+header("location: ../accounts/source.php"); 
 exit;
 ?>

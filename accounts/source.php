@@ -4,7 +4,7 @@ require "../global.php";
 require  "../include/header.php";
 if(!islogin())
 {
-  header("location: /login/login_form.php"); 
+  header("location: /accounts/login/login_form.php"); 
   exit;
 } 
 $result=$DB->fetch_one_array("SELECT weibo_user_id, tweibo_access_token, douban_access_token, yupoo_token FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );

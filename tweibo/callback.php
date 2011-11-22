@@ -32,6 +32,6 @@ else
 }
   $result=$DB->query("update ".$db_prefix."user set photo='".$photo."', tweibo_user_id='".$user[Uid]."', tweibo_access_token='".$_SESSION['last_tkey']['oauth_token']."', tweibo_access_token_secret='".$_SESSION['last_tkey']['oauth_token_secret']."' WHERE id='".$_SESSION['uid']."'");
 
-header("location: ../member/source.php"); 
+header("location: ../accounts/source.php"); 
 exit;
 ?>
