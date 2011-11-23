@@ -55,7 +55,7 @@ input[type="checkbox"], input[type="radio"]{
 }
 
 /*common class*/
-.none{display:none;}
+.none{visibility:hidden;}
 .imply_color{color:#999999;}
 .bind_txt {text-align:center; margin-top:10px;}
 .div_center { clear:both; margin:auto; width:50%; overflow:hidden;}
@@ -785,10 +785,10 @@ height:80px;
 #story_list .story_signature {overflow:hidden; margin-bottom:10px; margin-right:20px;}
 #weibo_ul .story_signature {}
 
-#source_pane{position:fixed; top:65px; width:390px; height:800px; }
-#story_pane{width:510px; min-height: 754px;}
-#source_list{height:664px; overflow:auto; padding:0; margin:0; border: 1px solid #C9C9C9; border-top: none; border-radius:5px 5px 5px 5px; cursor:move;}
-#story_list{position: inherit; margin:0; min-height:605px; border: 1px solid #C9C9C9; border-radius:0px 0px 5px 5px; height:auto; overflow:hidden; list-style: none outside none;}
+#source_pane{position:fixed; top:65px; width:390px;}
+#story_pane{width:510px; background-color: #FFFFFF;}
+#source_list{overflow:auto; padding:0; margin:0; border: 1px solid #C9C9C9; border-top: none; border-radius:5px 5px 5px 5px; cursor:move;background-color: #FFFFFF;}
+#story_list{position: inherit; margin:0; padding:0; border: 1px solid #C9C9C9; border-radius:0px 0px 5px 5px; height:auto; overflow:hidden; list-style: none outside none;}
 #story {}
 #storylist_container {}
 .loadmore {padding: 0 150px 0 150px;}
@@ -2522,6 +2522,59 @@ top:0;
 z-index:300;
 background-color:#c7c7c7;
 display:none;
+}
+
+.n_mask {
+position:absolute;
+left:0;
+top:0;
+z-index:300;
+background-color:#2F2F2F;
+display:none;
+}
+
+.n_support{
+position:absolute;
+left:0;
+top:0;
+width:440px;
+height:220px;
+display:none;
+z-index:9999;
+background-color:#ffffff;
+border-color:#ababac;
+border-style:solid;
+border-width:1px;
+color:#494949;
+}
+
+.n_support .title_bar{
+background-color:#E2E2E2; 
+padding:5px 0;
+text-align:center;
+color:#494949;
+font-size: 22px;
+font-weight: 600;
+line-height: 1.3;
+}
+
+.n_support .go_back{
+float:right;
+margin-right:20px;
+padding:5px;
+border:1px solid #DDDDDD;
+}
+
+.n_support p{
+padding-left:20px;
+}
+
+.n_support ul li{
+list-style:disc inside;
+}
+
+.n_support ul li a:active{
+color:#666666;
 }
   
 #boxes .window {

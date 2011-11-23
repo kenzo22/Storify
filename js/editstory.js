@@ -1,6 +1,37 @@
 var embedCode, vtabIndex, followPage, myPage, userSearchPage, tuserSearchPage, myPageTimestamp, followTimestamp, usersearchTimestamp;
 var weiboSearhPage = 1, picSearchPage = 1, userpicSearchPage =1, colSearchPage = 1, recSearchPage = 1, tweibosearchPage = 1, doubanItemCounts = 10, commentsPerQuery = 5, eventStartIndex = 1, bookStartIndex = 1, bookReviewStartIndex = 1, movieStartIndex = 1, movieReviewStartIndex = 1, musicStartIndex = 1, musicReviewStartIndex = 1;
 
+if( typeof( window.innerHeight ) == 'number' ){
+//Non-IE
+myHeight = window.innerHeight;
+} else if( document.documentElement && document.documentElement.clientHeight) {
+//IE 6+ in 'standards compliant mode'
+myHeight = document.documentElement.clientHeight;
+}
+var l_used_height = 260;
+var r_user_height = 320;
+var height_adjust = 3;
+var l_list_height = myHeight -l_used_height;
+var r_list_height;
+
+var browser_info = $.browser;
+
+if (browser_info.mozilla )
+{
+  r_list_height = myHeight - r_user_height;
+}
+else if (browser_info.webkit) 
+{
+  r_list_height = myHeight - r_user_height-height_adjust;
+}
+else if (browser_info.msie) 
+{
+  r_list_height = myHeight - r_user_height+height_adjust;
+}
+$('#source_list').css('height', l_list_height);
+$('#story_list').css('min-height', r_list_height);   
+
+
 Array.prototype.getUnique = function()
 {
   var o = {};
@@ -450,7 +481,6 @@ $(function() {
 		{
 		  $('.weibo_drag').remove();
 		  $('.loadmore').remove();
-		  $('#source_list').css('height', '723px');
 		  $('#weibo_search').addClass('none');
 		  myPage = 1;
 		  myPageTimestamp = 0;
@@ -515,7 +545,6 @@ $(function() {
 		{
 		  $('.weibo_drag').remove();
 		  $('.loadmore').remove();
-		  $('#source_list').css('height', '723px');
 		  $('#weibo_search').addClass('none');
 		  followPage = 1;
 		  followTimestamp = 0;
@@ -580,7 +609,6 @@ $(function() {
 		{
 		  weiboSearhPage = 1;
 		  tweibosearchPage = 1;
-		  $('#source_list').css('height', '664px');
 		  $('#keywords').val('关键字').addClass('imply_color');
 		  $('#source_list').children().remove();
 		  if(0 == vtabIndex)
@@ -600,7 +628,6 @@ $(function() {
 		  userSearchPage = 1;
 		  tuserSearchPage = 1;
 		  //usersearchTimestamp = 0;
-		  $('#source_list').css('height', '664px');
 		  $('#keywords').val('微博用户名').addClass('imply_color');
 		  $('#source_list').children().remove();
 		  $('#weibo_search_btn').text('搜索用户');
@@ -1525,7 +1552,7 @@ $(function() {
 		  {
 		    $weiboTabs.tabs( "select" , 0 );
 		    $('#weibo_search').removeClass('none');
-			$('#source_list').css('height', '664px').children().remove();
+			$('#source_list').children().remove();
 			$('#keywords').val('关键字').addClass('imply_color');
 		  }
 		  selVTab = 1;
@@ -1536,7 +1563,7 @@ $(function() {
 		  if(2 != selVTab)
 		  {
 		    $doubanTabs.tabs( "select" , 0 );
-			$('#source_list').css('height', '664px').children().remove();
+			$('#source_list').children().remove();
 			$('#d_keywords').val('书名').addClass('imply_color');
 		  } 
 		  selVTab = 2;
@@ -1546,7 +1573,7 @@ $(function() {
 		{
 		  if(3 != selVTab)
 		  {
-		    $('#source_list').css('height', '664px').children().remove();
+		    $('#source_list').children().remove();
 		  } 
 		  selVTab = 3;
 		  $('#vtab>div').hide().eq(vtabIndex-1).show();
@@ -1556,7 +1583,7 @@ $(function() {
 		  if(4 != selVTab)
 		  {
 		    $picTabs.tabs( "select" , 0 );
-			$('#source_list').css('height', '664px').children().remove();
+			$('#source_list').children().remove();
 			$('#pic_keywords').val('关键字').addClass('imply_color');
 		  } 
 		  selVTab = 4;
@@ -1573,7 +1600,7 @@ $(function() {
 		  {
 		    $weiboTabs.tabs( "select" , 0 );
 		    $('#weibo_search').removeClass('none');
-			$('#source_list').css('height', '664px').children().remove();
+			$('#source_list').children().remove();
 			$('#source_list').append("<li class='trends_li'><a class='trends_wrapper' href='#'><span id='view_trends'>点击查看本周热门话题</span></a></li>");
 		  }
 		  selVTab = 0;
