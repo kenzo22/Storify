@@ -1,7 +1,7 @@
 <?php
-require_once "../connect_db.php";
-require_once "../include/functions.php";
-require ('../include/secureGlobals.php');
+require_once $_SERVER['DOCUMENT_ROOT']."/connect_db.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/include/functions.php";
+require ($_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php');
 session_start();
 
 $action=$_POST['action'];
@@ -143,12 +143,12 @@ else
 }
 if($action == 'Publish' || $action == 'Preview')
 {
-  $redirect_url = "user.php?user_id=".$_SESSION['uid']."&post_id=".$post_id;
+  $redirect_url = "/user/".$_SESSION['uid']."/".$post_id;
 }
     
 else if($action == 'Draft')
 {
-  $redirect_url = "user.php?user_id=".$_SESSION['uid'];
+  $redirect_url = "/user/".$_SESSION['uid'];
 }
 echo $redirect_url;
 

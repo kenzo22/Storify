@@ -1,15 +1,15 @@
 <?php
 $html_title = "口立方";
-require "../global.php";
-require  "../include/header.php";
-include_once "../include/weibo_functions.php";
-include_once( '../weibo/config.php' );
-include_once( '../weibo/sinaweibo.php' );
-include_once( '../tweibo/config.php' );
-include_once( '../tweibo/txwboauth.php' );
-include_once( '../douban/config.php' );
-include_once( '../douban/doubanapi.php' );
-include "userrelation.php";
+require $_SERVER['DOCUMENT_ROOT']."/global.php";
+require  $_SERVER['DOCUMENT_ROOT']."/include/header.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/include/weibo_functions.php";
+include_once( $_SERVER['DOCUMENT_ROOT'].'/weibo/config.php' );
+include_once( $_SERVER['DOCUMENT_ROOT'].'/weibo/sinaweibo.php' );
+include_once( $_SERVER['DOCUMENT_ROOT'].'/tweibo/config.php' );
+include_once( $_SERVER['DOCUMENT_ROOT'].'/tweibo/txwboauth.php' );
+include_once( $_SERVER['DOCUMENT_ROOT'].'/douban/config.php' );
+include_once( $_SERVER['DOCUMENT_ROOT'].'/douban/doubanapi.php' );
+include $_SERVER['DOCUMENT_ROOT']."/member/userrelation.php";
 ?>
 
 <!--[if IE]>     
@@ -307,12 +307,12 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 				<div class='spacer'></div>
 			  </div>";
 		$content .= "<div id='publish_container'>
-			  <div id='story_action'><span class='float_r'><a id='".$post_id."_delete' class='delete redirect png_fix'></a>&nbsp<a class='edit png_fix' href='/member/user.php?user_id=".$user_id."&post_id=".$post_id."&action=edit'></a></span><span><a class='publish_icon png_fix' title='已发布'></a>已发布</span></div>";
+			  <div id='story_action'><span class='float_r'><a id='".$post_id."_delete' class='delete redirect png_fix'></a>&nbsp<a class='edit png_fix' href='/user/".$user_id."/".$post_id."/edit'></a></span><span><a class='publish_icon png_fix' title='已发布'></a>已发布</span></div>";
 	  }
 	  else
 	  {
 	    $content .= "<div id='story_container'><div class='publish_wrapper'><div id='publish_container'>
-			  <div id='story_action'><span><a class='draft_icon png_fix' title='草稿'></a>草稿</span><span class='float_r'><a  class='publish' href='/member/user.php?user_id=".$user_id."&post_id=".$post_id."&action=publish'></a>&nbsp<a id='".$post_id."_delete' class='delete redirect png_fix'></a><a class='edit png_fix' href='/member/user.php?user_id=".$user_id."&post_id=".$post_id."&action=edit'></a></span></div>";
+			  <div id='story_action'><span><a class='draft_icon png_fix' title='草稿'></a>草稿</span><span class='float_r'><a  class='publish' href='/user/".$user_id."/".$post_id."&action=publish'></a>&nbsp<a id='".$post_id."_delete' class='delete redirect png_fix'></a><a class='edit png_fix' href='/user/".$user_id."/".$post_id."/edit'></a></span></div>";
 	  }	
 	}
 
@@ -330,7 +330,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 				  <div style='float:right; padding: 10px 10px 0 0'><img src='".$story_pic."' style='width:60px; height:60px;' alt='故事封面'/></div>
 				  <div id='story_meta' style='margin-top:10px;'>
 				    <div class='story_title'>".$story_title."</div>
-				    <div class='story_author'>by<a href='http://koulifang.com/member/user.php?user_id=".$user_id."'>".$story_author_name."</a>, ".$story_time."</div>
+				    <div class='story_author'>by<a href='http://koulifang.com/user/".$user_id."'>".$story_author_name."</a>, ".$story_time."</div>
 				    <div class='story_sum'>".$story_summary."</div>";
 			if($tags!='')
 			{
@@ -726,9 +726,9 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  <div class='user_profiles'>
 	    <div class='user_box'>
 		  <div class='user_info'>
-		    <div class='avatar'><a href='/member/user.php?user_id=".$story_author."'><img width='80px' height='80px' src='".$user_profile_img."' alt='".$userresult['username']."' /></a></div>
+		    <div class='avatar'><a href='/member/user/".$story_author."'><img width='80px' height='80px' src='".$user_profile_img."' alt='".$userresult['username']."' /></a></div>
 			<div class='wrapper'>
-			  <div class='user_name'><a href='/member/user.php?user_id=".$story_author."'><span>".$userresult['username']."</span></a></div>";
+			  <div class='user_name'><a href='/user/".$story_author."'><span>".$userresult['username']."</span></a></div>";
 		  
 	if(islogin() && $story_author != $_SESSION['uid'])
 	{
@@ -765,7 +765,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		{
 		  $usr_img = '/img/douban_user_dft.jpg';
 		}
-        $content .="<li id='follower_id_".$item['id']."'><a class='follow_mini_icon' href='/member/user.php?user_id=".$item['id']."'><img title='".$item['username']."' src='".$usr_img."' alt='".$item['username']."' /></a></li>";
+        $content .="<li id='follower_id_".$item['id']."'><a class='follow_mini_icon' href='/user/".$item['id']."'><img title='".$item['username']."' src='".$usr_img."' alt='".$item['username']."' /></a></li>";
     }
     $content .= "</ul>
                 </div>
@@ -782,7 +782,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		{
 		  $usr_img = '/img/douban_user_dft.jpg';
 		}
-        $content .="<li id='following_id_".$item['id']."'><a class='follow_mini_icon' href='/member/user.php?user_id=".$item['id']."'><img title='".$item['username']."' src='".$usr_img."' alt='".$item['username']."' /></a></li>";
+        $content .="<li id='following_id_".$item['id']."'><a class='follow_mini_icon' href='/user/".$item['id']."'><img title='".$item['username']."' src='".$usr_img."' alt='".$item['username']."' /></a></li>";
     }
 	$total_count = 0;
 	$count_query = "select domain_name, refer_url, view_count from ".$db_prefix."pageview where story_id=".$post_id;
@@ -824,7 +824,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		  $post_date = $story_item['post_date'];
 		  $temp_array = explode(" ", $story_item['post_date']);
 		  $post_date = $temp_array[0];
-		  $post_link = "/member/user.php?user_id=".$post_author."&post_id=".$story_item['ID'];
+		  $post_link = "/user/".$post_author."/".$story_item['ID'];
 		  $post_link = htmlspecialchars($post_link);
 		  $content .= "<li>
 							  <div class='story_wrap'>	
@@ -839,12 +839,12 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 								<span>
 								  <a class='meta_date'>".$post_date."</a>
 								  <img src='".$user_profile_img."' alt='".$story_author_name."'/>
-								  <a class='meta_author' href='/member/user.php?user_id=".$post_author."'>".$story_author_name."</a>
+								  <a class='meta_author' href='/user/".$post_author."'>".$story_author_name."</a>
 								</span>
 							  </div>
 							</li>";
 		}
-		$content .="</ul><a href='/member/user.php?user_id=".$story_author."'>访问".$story_author_name."的主页 &raquo;</a></div>";
+		$content .="</ul><a href='/user/".$story_author."'>访问".$story_author_name."的主页 &raquo;</a></div>";
 	}
 	
 	$content .="</div></div>";
@@ -861,12 +861,12 @@ else if(isset($_GET['user_id']) && isset($_GET['post_id']) && isset($_GET['actio
 	$story_action = $_GET['action'];
 	if(0 == strcmp($story_action, 'edit'))
 	{
-	  go("/member/index.php?user_id=".$user_id."&post_id=".$story_id);
+	    header("location: /user/".$user_id."/".$story_id."/edit");
 	}
 	else if(0 == strcmp($story_action, 'publish'))
 	{
 	  $result=$DB->query("update ".$db_prefix."posts set post_status='Published'  WHERE ID='".$story_id."'");
-	  go("/member/user.php?user_id=".$user_id."&post_id=".$story_id);
+	    header("location: /user/".$user_id."/".$story_id);
 	}
 	else
 	{
@@ -915,9 +915,9 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
   
   $story_content = "<div id='userstory_container' class='inner'>
 					  <div class='userinfo_wrapper'>
-						<div class='avatar'><a href='/member/user.php?user_id=".$user_id."'><img style='' width='80px' height='80px' src='".$user_avatar_img."' alt='".$username."' /></a></div>
+						<div class='avatar'><a href='/user/".$user_id."'><img style='' width='80px' height='80px' src='".$user_avatar_img."' alt='".$username."' /></a></div>
 						<div class='misc_wrapper'>
-						  <div style='color: #333333; font-size:18px; margin-bottom:5px;'><a href='/member/user.php?user_id=".$user_id."'><span>".$username."</span></a></div>
+						  <div style='color: #333333; font-size:18px; margin-bottom:5px;'><a href='/user/".$user_id."'><span>".$username."</span></a></div>
 						  <div class='account_count'>
 							<span>粉丝:</span><span class='fans_count'>".sizeof($follower_list)."</span>
 							<span>关注:</span><span class='follow_count'>".sizeof($following_list)."</span>
@@ -951,7 +951,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
   }
   else
   {	
-	$targetpage = "user.php?user_id=".$user_id; 
+	$targetpage = "/user/".$user_id; 
 	$limit = 12; 								//how many items to show per page
 	$page = $_GET['page'];
 	if($page) 
@@ -1069,7 +1069,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 		$post_date = $story_item['post_date'];
 		$temp_array = explode(" ", $story_item['post_date']);
 		$post_date = $temp_array[0];
-		$post_link = "/member/user.php?user_id=".$user_id."&post_id=".$story_item['ID'];
+		$post_link = "/user/".$user_id."/".$story_item['ID'];
 		$post_link = htmlspecialchars($post_link);
 		$story_content .="<li>
 							<div class='story_wrap'>
@@ -1084,7 +1084,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 		  $story_content .="<div class='editable'>
 		  <div class='actions'>
 			<a id='".$post_id."_delete' class='icon delete png_fix' title='删除' href='#'></a>
-			<a class='icon edit png_fix' title='编辑' href='/member/index.php?user_id=".$user_id."&post_id=".$post_id."'></a>
+			<a class='icon edit png_fix' title='编辑' href='/user/".$user_id."/".$post_id."/edit'></a>
 		  </div>
 		  <div class='status'>
 			<div class='".$post_status."'>
@@ -1113,10 +1113,10 @@ else
     exit;
   }
 }
-include "../include/footer.htm";
+include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm";
 ?>
 
-<script type='text/javascript' src='../js/userstory.js'></script>
+<script type='text/javascript' src='/js/userstory.js'></script>
 <script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=2417356638" charset="utf-8"></script>
 <script type="text/javascript">var jiathis_config = {data_track_clickback:true};</script>
 <script type="text/javascript" src="http://v2.jiathis.com/code/jia.js?uid=1542042" charset="utf-8"></script>

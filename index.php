@@ -42,8 +42,8 @@ include 'member/tagoperation.php';
 		  $user_profile_img = '/img/douban_user_dft.jpg';
 		}
 		$content="<ul class='user_console'>
-				    <li class='person_li display'><a class='person_a person_a_display' href='/member/user.php?user_id=".$userresult['id']."'><img id='person_img' src='".$user_profile_img."'><span id='person_name'>".$_SESSION['username']."</span></a></li>
-					<li class='person_li'><a class='person_a home_icon' href='/member/user.php?user_id=".$userresult['id']."'><img class='console_img' src='/img/home.png'/><span>我的主页</span></a></li>
+				    <li class='person_li display'><a class='person_a person_a_display' href='/user/".$userresult['id']."'><img id='person_img' src='".$user_profile_img."'><span id='person_name'>".$_SESSION['username']."</span></a></li>
+					<li class='person_li'><a class='person_a home_icon' href='/user/".$userresult['id']."'><img class='console_img' src='/img/home.png'/><span>我的主页</span></a></li>
 					<li class='person_li'><a class='person_a setting_icon' href='/accounts/settings.php'><img class='console_img' src='/img/setting.png'/><span>设置</span></a></li>
 					<li class='person_li'><a class='person_a quit_icon' href='/accounts/login/login.php?logout'><img class='console_img' src='/img/quit.png'/><span>退出<span></a></li>
 		          </ul>";
@@ -142,7 +142,7 @@ include 'member/tagoperation.php';
 		  $post_date = $story_item['post_date'];
 		  $temp_array = explode(" ", $story_item['post_date']);
 		  $post_date = $temp_array[0];
-		  $post_link = "/member/user.php?user_id=".$post_author."&post_id=".$story_item['ID'];
+		  $post_link = "/user/".$post_author."/".$story_item['ID'];
 		  //$post_link = htmlspecialchars($post_link, ENT_COMPAT, UTF-8);
 		  $post_link = htmlspecialchars($post_link);
 		  $story_content .= "<li>
@@ -158,7 +158,7 @@ include 'member/tagoperation.php';
 								<span>
 								  <a class='meta_date'>".$post_date."</a>
 								  <img src='".$user_profile_img."' alt='".$author_name."'/>
-								  <a class='meta_author' href='member/user.php?user_id=".$post_author."'>".$author_name."</a>
+								  <a class='meta_author' href='/user/".$post_author."'>".$author_name."</a>
 								</span>
 							  </div>
 							</li>";
@@ -229,7 +229,7 @@ include 'member/tagoperation.php';
 <div id="footer">
   <div class='wrapper'>
     <ul>
-      <li><a title="faq" href="http://www.koulifang.com/member/user.php?user_id=3&amp;post_id=4">用户帮助</a></li>
+      <li><a title="faq" href="http://koulifang.com/user/3/4">用户帮助</a></li>
       <li><a title="tos" href="#">使用条款</a></li>
       <li><a title="blog" href="#">博客</a></li>
       <li><a title="team" href="#">团队</a></li>
