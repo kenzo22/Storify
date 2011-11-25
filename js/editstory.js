@@ -184,9 +184,9 @@ function replaceURLWithHTMLLinks(source) {
 	return replaced;
 }
 
-function remove_item(event)
+function remove_item(evt)
 {
-	var $temp = $(event.target || event.srcElement).closest('li');
+	var $temp = $(evt.target || evt.srcElement).closest('li');
 	if($temp.index() == 1 && !$temp.hasClass('textElement') && !$temp.hasClass('video_drop'))
 	{
       var story_pic_url;
@@ -331,6 +331,13 @@ $(function() {
 		  e.preventDefault();
 		  change_story_pic('next');
 		});
+		
+		$('.cross').live('click', function(e){
+		  e.preventDefault();
+		  remove_item(e);
+		})
+		
+		show_weibo_card('story_list');
 		
 		var $weiboTabs = $( '#weiboTabs' ).tabs();
 		var $doubanTabs = $( '#doubanTabs' ).tabs();
@@ -813,17 +820,19 @@ $(function() {
 			tolerance: "pointer",
 			connectWith: ".connectedSortable",
 			cancel: ".weibo_drop, .douban_drop, .video_drop, .textElement, .tuser, .loadmore, .trends_li",
-			receive: function(event, ui) 
+			receive: function(evt, ui) 
 			{
 			  var dragItem = ui.item;
 			  var commentContent = ("<li class='addTextElementAnchor'><span><a class='add_comment'></a></span></li>");
-			  if(!dragItem.prev('li').hasClass('addTextElementAnchor'))
+			  var prev_li = dragItem.prev('li');
+			  var next_li = dragItem.next('li');
+			  if(!prev_li.hasClass('addTextElementAnchor'))
 			  {
-			    dragItem.before(commentContent)
+			    dragItem.before(commentContent);
 			  }
-			  if(!dragItem.next('li').hasClass('addTextElementAnchor'))
+			  if(!next_li.hasClass('addTextElementAnchor'))
 			  {
-			    dragItem.after(commentContent)
+			    dragItem.after(commentContent);
 			  }
 			  var list_item_have_pic = $('#story_list li:not(.addTextElementAnchor, .textElement, .video_drop)');
 			  if(dragItem.hasClass('weibo_drag'))
@@ -862,9 +871,9 @@ $(function() {
 				    weibo_retweet_img_content = "<div class='weibo_retweet_img_drop'><img src='"+weibo_retweet_img+"' /></div>";
 				  }
 				  dragItem.removeClass('weibo_drag').addClass('weibo_drop sina').children().remove();
-				  content = ("<div class='cross' action='delete' onclick='remove_item(event)'></div>"+item_action+"<div class='handle'></div><div class='story_wrapper'><div class='quote_sign'>“</div><div class='content_wrapper'><span class='weibo_text_drop'>"
-					+weibo_Text+"</span>"+weibo_retweet_img_content+weibo_img_content+"</div><div class='story_signature'><span style='float:right;'><a href='"+weibo_from_url+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
-					+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></span><span id='signature_text_drop' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='weibo_from_drop' href='"
+				  content = ("<div class='cross' action='delete'></div>"+item_action+"<div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>"
+					+weibo_Text+"</span>"+weibo_retweet_img_content+weibo_img_content+"</div><div class='story_signature'><span class='float_r'><a href='"+weibo_from_url+"' target='_blank'><img class='profile_img_drop' src='"
+					+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></span><span class='signature_text_drop'><div class='text_wrapper'><span ><a class='weibo_from_drop' href='"
 					+weibo_from_url+"' target='_blank'>"+weibo_from+"</a></span></div><div class='weibo_date_drop'>"+weibo_time+"</div></span> </div></div>");
 				  if(dragItem.index(list_item_have_pic) == 0)
 				  {
@@ -892,9 +901,9 @@ $(function() {
 				    weibo_retweet_img_content = "<div class='weibo_retweet_img_drop'><img src='"+weibo_retweet_img+"' /></div>";
 				  }
 				  dragItem.removeClass('weibo_drag').addClass('weibo_drop tencent').children().remove();
-				  content = ("<div class='cross' action='delete' onclick='remove_item(event)'></div>"+item_action+"<div class='handle'></div><div class='story_wrapper'><div class='quote_sign'>“</div><div class='content_wrapper'><span class='weibo_text_drop'>"
-					+weibo_Text+"</span>"+weibo_retweet_img_content+weibo_img_content+"</div><div class='story_signature'><span style='float:right;'><a href='"+weibo_from_url+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
-					+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></span><span id='signature_text_drop' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='weibo_from_drop' href='"
+				  content = ("<div class='cross' action='delete'></div>"+item_action+"<div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>"
+					+weibo_Text+"</span>"+weibo_retweet_img_content+weibo_img_content+"</div><div class='story_signature'><span class='float_r'><a href='"+weibo_from_url+"' target='_blank'><img class='profile_img_drop' src='"
+					+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></span><span class='signature_text_drop'><div class='text_wrapper'><span ><a class='weibo_from_drop' href='"
 					+weibo_from_url+"' target='_blank'>"+weibo_from+"</a></span></div><div class='weibo_date_drop'>"+weibo_time+"</div></span></div></div>");
 				  if(dragItem.index(list_item_have_pic) == 0)
 				  {
@@ -925,12 +934,12 @@ $(function() {
 				  var event_pic = dragItem.find('.event_img_wrapper img').attr('src');
 				  var event_location = dragItem.find('.event_location').text();
 				  var event_city = dragItem.find('.event_city').text();
-				  doubanContent=("<div class='cross' action='delete' onclick='remove_item(event)'></div><div class='handle'></div><div class='douban_wrapper'><div class='quote_sign'>“</div><div class='content_wrapper'><div class='event_summary_drop'>"+event_summary+"</div><div style='margin-top:10px; overflow:auto;'><a href='"
+				  doubanContent=("<div class='cross' action='delete'></div><div class='handle'></div><div class='douban_wrapper'><div class='content_wrapper'><div class='event_summary_drop'>"+event_summary+"</div><div style='margin-top:10px; overflow:auto;'><a href='"
 				  +event_link+"' target='_blank'><img class='item_img_drop' src='"+event_pic+"' style='float:left;' /></a><div class='item_meta_drop' style='margin-left:220px;'><div class='event_title_drop'>活动：<a href='"
 				  +event_link+"' target='_blank'>"+event_title+"</a></div><div class='event_initiator_drop'>发起人：<a href='"+event_initiator_url+"' target='_blank'>"
 				  +event_initiator_name+"</a></div><div class='start_time_drop'>"+event_start_time+"</div><div class='end_time_drop'>"+event_end_time+"</div><div class='event_city_drop'>"
-				  +event_city+"</div><div class='event_location_drop'>"+event_location+"</div></div></div></div><div id='douban_signature'><span style='float:right;'><a href='"+douban_profile_url+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
-					+douban_profile_img+"' alt='"+douban_profile_name+"' border=0 /></a></span><span class='signature_text_drop' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='douban_from_drop' href='"
+				  +event_city+"</div><div class='event_location_drop'>"+event_location+"</div></div></div></div><div class='douban_signature'><span class='float_r'><a href='"+douban_profile_url+"' target='_blank'><img class='profile_img_drop' src='"
+					+douban_profile_img+"' alt='"+douban_profile_name+"' border=0 /></a></span><span class='signature_text_drop'><div class='text_wrapper'><span ><a class='douban_from_drop' href='"
 					+douban_profile_url+"' target='_blank'>"+douban_profile_name+"</a></span></div><div class='douban_date_drop'></div></span> </div></div>");
 				  
 				  dragItem.removeClass('douban_drag').addClass('douban_drop').children().remove();
@@ -953,11 +962,11 @@ $(function() {
 				  var douban_item_date = dragItem.find('.item_date').text();
 				  var douban_average_rating = dragItem.find('.average_rating').text();
 				  var douban_item_rating = dragItem.find('.item_rating').text();
-				  doubanContent = ("<div class='cross' action='delete' onclick='remove_item(event)'></div><div class='handle'></div><div class='douban_wrapper'><div class='quote_sign'>“</div><div class='content_wrapper'><div><div class='comment_title_drop' style='font-weight:bold;'>"
+				  doubanContent = ("<div class='cross' action='delete'></div><div class='handle'></div><div class='douban_wrapper'><div class='content_wrapper'><div><div class='comment_title_drop' style='font-weight:bold;'>"
 					+douban_comment_title+"</div><div class='comment_summary_drop'>"+douban_comment_summary+"</div></div><div class='item_info_drop' style='overflow:auto;'><a href='"+douban_per_url+"' target='_blank'><img class='item_img_drop' src='"
 				  +douban_item_img+"' style='float:left;' /></a><div class='item_meta_drop' style='margin-left:100px;'><div><a class='item_title_drop' href='"+douban_per_url+"' target='_blank'>"+douban_item_title+"</a></div><div class='item_author_drop'>"
-				  +douban_item_author+"</div><div class='item_date_drop'>"+douban_item_date+"</div><div class=item_rating_drop>"+douban_item_rating+"</div><div class='average_rating_drop'>"+douban_average_rating+"</div></div></div></div><div id='douban_signature'><span style='float:right;'><a href='"+douban_profile_url+"' target='_blank'><img class='profile_img_drop' style='width: 32px; height: 32px; overflow: hidden; margin-top:2px;' src='"
-					+douban_profile_img+"' alt='"+douban_profile_name+"' border=0 /></a></span><span class='signature_text_drop' style=' margin-right:5px; float:right;' ><div style='text-align:right; height:16px;'><span ><a class='douban_from_drop' href='"
+				  +douban_item_author+"</div><div class='item_date_drop'>"+douban_item_date+"</div><div class=item_rating_drop>"+douban_item_rating+"</div><div class='average_rating_drop'>"+douban_average_rating+"</div></div></div></div><div class='douban_signature'><span class='float_r'><a href='"+douban_profile_url+"' target='_blank'><img class='profile_img_drop' src='"
+					+douban_profile_img+"' alt='"+douban_profile_name+"' border=0 /></a></span><span class='signature_text_drop'><div class='text_wrapper'><span ><a class='douban_from_drop' href='"
 					+douban_profile_url+"' target='_blank'>"+douban_profile_name+"</a></span></div><div class='douban_date_drop'>"+douban_comment_date+"</div></span> </div></div>");
 				  dragItem.removeClass('douban_drag').addClass('douban_drop').children().remove();
 				  if(dragItem.index(list_item_have_pic) == 0)
@@ -975,7 +984,7 @@ $(function() {
 				  dragItem.removeClass('douban_drag').addClass('douban_drop');
 				  dragItem.find('.douban_flag').removeClass().addClass('content_wrapper');
 				  dragItem.find('.douban_review').closest('div').remove();
-				  dragItem.prepend("<div class='cross' action='delete' onclick='remove_item(event)'></div>");
+				  dragItem.prepend("<div class='cross' action='delete'></div><div class='handle'></div>");
 				}
 			  }
 			  else if(dragItem.hasClass('video_Drag'))
@@ -984,7 +993,7 @@ $(function() {
 				var videoUrl = dragItem.find('.videoTitle').attr('href');
 				var videoTitle = dragItem.find('.videoTitle').text();
 				var videoEmbedCode;
-				var videoContent = ("<div class='cross' action='delete' onclick='remove_item(event)'></div><div class='handle'></div><div class='youku_wrapper'><div><a class='videoTitle' target='_blank' href='"
+				var videoContent = ("<div class='cross' action='delete'></div><div class='handle'></div><div class='youku_wrapper'><div><a class='videoTitle' target='_blank' href='"
 				+videoUrl+"'>"+videoTitle+"</a></div>"+embedCode+"</div>");
 				dragItem.removeClass('video_Drag').addClass('video_drop').children().remove();　
 			    dragItem.append(videoContent);
@@ -1005,7 +1014,7 @@ $(function() {
 				temp_array[temp_array_length-1] = "small";
 				picUrl = temp_array.join("\/");
 				
-				var picContent = ("<div class='cross' action='delete' onclick='remove_item(event)'></div><div class='handle'></div><div class='yupoo_wrapper'><a target='_blank' href='"+picLink+"'><img class='pic_img' src='"
+				var picContent = ("<div class='cross' action='delete'></div><div class='handle'></div><div class='yupoo_wrapper'><a target='_blank' href='"+picLink+"'><img class='pic_img' src='"
 				+picUrl+"'/></a><div style='line-height:1.5;'><a class='pic_title' target='_blank' href='"+picLink+"'>"+picTitle+"</a></div><div style='line-height:1.5;'><a class='pic_author' target='_blank' href='"+authorLink+"'>"+picAuthor+"</a></div><div class='yupoo_sign'></div></div>");
 				dragItem.removeClass('pic_Drag').addClass('pic_drop').children().remove();　
 			    dragItem.append(picContent);
@@ -1031,7 +1040,7 @@ $(function() {
 		  {
 			embedCode = oembed.code;
 			videoTitle = oembed.title;
-			var post = "<li class='video_Drag'><div class='handle'></div><div class='urlWrapper'><div><a class='videoTitle' target='_blank' href='"+videoUrl+"'>"+oembed.title+
+			var post = "<li class='video_Drag'><div class='urlWrapper'><div><a class='videoTitle' target='_blank' href='"+videoUrl+"'>"+oembed.title+
 			"</a></div><div class='videoContent'><div class='video_domain'><div class='video_favicon'></div><div class='video_author' style='display:inline; margin-left:3px;'><a target='_blank' href='"
 			+videoUrl+"'>v.youku.com</a></div></div><div><img class='youku_thumbnail' src='"+oembed.thumbnail_url+"' style='float:left; margin-right:5px; border: 1px solid #E9E9E9; padding:3px;'/><div class='video_description' style='line-height:1.5;'>"+oembed.description+"</div></div></div></div></li>";
 			$('#source_list').html(post);  
@@ -1493,7 +1502,7 @@ $(function() {
 		$('.addTextElementAnchor').live('mouseenter', function(){
 		  $(this).css('background-color','#FDFFD2').append('<span class=\"add_text\">点击添加文字</span>');
 		}).live('mouseleave', function(){
-		  $(this).css('background-color','#F9F9F9').find('.add_text').remove();
+		  $(this).css('background-color','#FFFFFF').find('.add_text').remove();
 		});
 		
 		$('#story_list').click(function(e)
@@ -1530,7 +1539,7 @@ $(function() {
 			else
 			{
 			  $(e.target).closest('.editingDiv').remove();
-			  var $commentDiv = $("<div class='cross' action='delete' onclick='remove_item(event)'></div><div class='handle'></div><div class='commentBox'>"+comment+"</div>");
+			  var $commentDiv = $("<div class='cross' action='delete'></div><div class='handle'></div><div class='commentBox'>"+comment+"</div>");
 			  $textElement.removeClass('editing').addClass('editted').append($commentDiv);
 			}
 		  }

@@ -373,7 +373,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		}
 		if (isset($single_weibo['error_code']) && isset($single_weibo['error'])){
             // skip deleted weibo
-            $content .="<li class='weibo_drop sina' id='w_".$weibo_per_id."' style='border:none;'><div class='story_wrapper'><div class='quote_sign'>“</div><div class='content_wrapper'><span class='weibo_text_drop'>此微博已被删除</span></div>";
+            $content .="<li class='weibo_drop sina' id='w_".$weibo_per_id."' style='border:none;'><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>此微博已被原作者删除</span></div></div></li>";
 			//$content .="<li class='weibo_drop sina' id='$weibo_per_id' style='border:none;'><div class='story_wrapper'><div><span class='weibo_text'>errorcode:".$single_weibo['error_code']."error".$single_weibo['error']."</span></div>";
             continue;
 		}
@@ -389,7 +389,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
     		if (isset($single_weibo['retweeted_status'])){
                 
                 $content .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f is_repost sina'><span>转发</span></a><a href='#weibo_dialog' name='modal' class='comment_f sina'><span>评论</span></a></div>
-				<div class='story_wrapper'><div class='quote_sign'>“</div><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text'];
+				<div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text'];
 				// show emotions in text
                 $single_weibo['retweeted_status']['text']=subs_emotions($single_weibo['retweeted_status']['text'],"weibo");
 
@@ -405,7 +405,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 				}
             }
 			else{
-			  $content .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f sina'><span>转发</span></a><a href='#weibo_dialog' name='modal' class='comment_f sina'><span>评论</span></a></div><div class='story_wrapper'><div class='quote_sign'>“</div><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text']."</span>";
+			  $content .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f sina'><span>转发</span></a><a href='#weibo_dialog' name='modal' class='comment_f sina'><span>评论</span></a></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text']."</span>";
 			}
             if (isset($single_weibo['bmiddle_pic']))
 			{
@@ -439,7 +439,6 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		  $content .=
 		 "<li class='douban_drop douban' id='d_".$douban_save_per_id."' style='border:none;'>
 		    <div class='douban_wrapper'>
-			  <div class='quote_sign'>“</div>
 			  <div class='content_wrapper'>
 			  <div class='event_summary'>".$doubanElement['summary'][0]['$t']."</div>
 			  <div style='margin-top:10px; overflow:auto;'>
@@ -457,13 +456,13 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 			  </div>
 			  </div>
 			  <div class='douban_signature'>
-			    <span style='float:right;'>
+			    <span class='float_r'>
 				  <a href='".$eventInitiator_url."' target='_blank'>
 				    <img class='profile_img_drop' src='".$eventInitiator_pic."' alt='".$eventInitiator_name."' />
 				  </a>
 				</span>
 				<div class='signature_text'>
-				  <div style='float:right; height:16px;'>
+				  <div class='text_wrapper'>
 				    <span >
 					  <a class='douban_from_drop' href='".$eventInitiator_url."' target='_blank'>".$eventInitiator_name."</a>
 					</span>
@@ -525,7 +524,6 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 			$content .=
 			"<li class='douban_drop douban' id='d_".$douban_save_per_id."' style='border:none;'>
 			  <div class='douban_wrapper'>
-			    <div class='quote_sign'>“</div>
 				<div class='content_wrapper'>
 				<div>
 				  <div class='comment_title'>".$doubanElement['title']['$t']."</div>
@@ -658,15 +656,15 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		$create_time = $time[year]."-".$time[mon]."-".$time[mday]." ".$time[hours].":".$time[minutes];
 		$create_time = dateFormatTrans($create_time, $date_t);
 		$profileImgUrl = $item['head']."/50";
+
+		$tweiboContent .="<li id='t_".$item['id']."'>";
 		
 		$item['text'] = tweibo_show_nick($item['text'],$tweibo[data][user]);
 		$item['text'] = subs_emotions($item['text'],"tweibo");
 
-		$tweiboContent .="<li id='t_".$item['id']."'>";
-
 		if(isset($item['source'])){
 			$tweiboContent .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f is_repost tencent'><span>转播</span></a><a href='#weibo_dialog' name='modal' class='comment_f tencent'><span>评论</span></a></div>
-			<div class='story_wrapper'><div class='quote_sign'>“</div><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text'];
+			<div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text'];
 			$item['source']['text'] = tweibo_show_nick($item['source']['text'],$tweibo[data][user]);
 			$item['source']['text'] = subs_emotions($item['source']['text'],"tweibo");
 
@@ -680,7 +678,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 			}
 		}else{
 			$tweiboContent .= "<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f tencent'><span>转播</span></a><a href='#weibo_dialog' name='modal' class='comment_f tencent'><span>评论</span></a></div>
-			<div class='story_wrapper'><div class='quote_sign'>“</div><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text']."</span>";
+			<div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text']."</span>";
 			if(isset($item['image'])){
 				foreach($item['image'] as $img_url){
 					$tweiboContent .="<div class='weibo_img_drop'><img src='".$img_url."/240' /></div>";
