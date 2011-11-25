@@ -125,7 +125,7 @@ else
     // show face gif 
     $item['text'] = subs_emotions($item['text'],"tweibo");
 
-    $weiboContent .= "<li class='weibo_drag tencent' id='t_".$item['id']."'><div class='handle'></div><div class='story_wrapper'><img class='profile_img' style='width: 32px; height: 32px; float:left; overflow: hidden; margin-top:3px;' 
+    $weiboContent .= "<li class='weibo_drag tencent' id='t_".$item['id']."'><div class='story_wrapper'><img class='profile_img' style='width: 32px; height: 32px; float:left; overflow: hidden; margin-top:3px;' 
     src='".$profileImgUrl."' alt='".$item['nick']."' border=0 /><div class='weibo_content'><a class='user_page' href='http://t.qq.com/".$item['name']."' target='_blank' 
     style = 'display:block;'><span class='weibo_from'>".$item['nick']."</span></a>";
     

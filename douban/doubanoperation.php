@@ -102,7 +102,6 @@ if($eventFlag == 0)
 	 
 	  $doubanContent .= 
 		"<li class='douban_drag douban ".$item_type."' id='d_".$douban_per_id."'>
-		  <div class='handle'></div>
 		  <div class='douban_wrapper'>
 			<div class='douban_flag'>
 			<div class='item_info'>

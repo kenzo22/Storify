@@ -25,6 +25,29 @@ list-style: none;
 }
 
 ul, ol, dl, p, table, pre, h1, h2, h3, h4, h5, h6 { margin-bottom: 15px; }
+/*reset */
+/* YUI reset */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { 
+	margin:0;
+	padding:0;
+}
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+fieldset,img { 
+	border:0;
+}
+address,caption,cite,code,dfn,em,strong,th,var {
+	font-style:normal;
+	font-weight:normal;
+}
+h1,h2,h3,h4,h5,h6 {
+	font-size:100%;
+	font-weight:normal;
+}
+
+/* YUI reset */
 
 .text {
 font-family: 'Hiragino Sans GB','Microsoft YaHei',sans-serif !important;
@@ -70,17 +93,6 @@ input[type="checkbox"], input[type="radio"]{
 .bn_submit { width:80px;height:28px;font-size:14px;line-height:28px; padding-bottom:3px;cursor:pointer; color:#000;}
 .title { height:50px;font-size:20px; font-weight:bold;}
 .clear{clear:both;}
-.quote_sign{
-width:26px;
-color: #AAAAAA;
-position:absolute;
-*left: -26px;
-font-family: Georgia;
-font-size: 56px;
-line-height: 45px;
-padding:0;
-zoom:1;
-}
 
 body.editor {
 background: none repeat-y scroll 0 0 #F9F9F9;
@@ -387,7 +399,7 @@ padding-top:65px;
 float:left;
 }
 .right_half{
-float:right;
+margin-left:410px;
 padding-bottom: 55px;
 }
 /* end header */
@@ -395,9 +407,10 @@ padding-bottom: 55px;
 /* paging part */
 div.pagination {
 font-family:Verdana,Tahoma,Arial,Helvetica,Sans-Serif;
+margin-top:20px;
 font-size: 13px;
 text-align:right;
-padding:4px 6px 4px 0;
+padding:4px 0;
 color:#313031;
 clear:both;
 }
@@ -785,10 +798,31 @@ height:80px;
 #story_list .story_signature {overflow:hidden; margin-bottom:10px; margin-right:20px;}
 #weibo_ul .story_signature {}
 
-#source_pane{position:fixed; top:65px; width:390px;}
+#source_pane{position:fixed; top:65px; width:390px; z-index:1000;}
+#sourcelist_container{}
 #story_pane{width:510px; background-color: #FFFFFF;}
-#source_list{overflow:auto; padding:0; margin:0; border: 1px solid #C9C9C9; border-top: none; border-radius:5px 5px 5px 5px; cursor:move;background-color: #FFFFFF;}
-#story_list{position: inherit; margin:0; padding:0; border: 1px solid #C9C9C9; border-radius:0px 0px 5px 5px; height:auto; overflow:hidden; list-style: none outside none;}
+
+#source_list{
+overflow:auto; 
+padding:0; 
+margin:0; 
+border: 1px solid #C9C9C9; 
+border-top: none; 
+border-radius:5px 5px 5px 5px; 
+cursor:move;
+background-color: #FFFFFF; 
+}
+
+#story_list{
+margin:0; 
+padding:0; 
+border: 1px solid #C9C9C9; 
+border-radius:0px 0px 5px 5px; 
+height:auto; 
+overflow:hidden; 
+list-style: none outside none;
+}
+
 #story {}
 #storylist_container {}
 .loadmore {padding: 0 150px 0 150px;}
@@ -800,14 +834,15 @@ height:80px;
 
 
 .weibo_drag, .video_Drag, .pic_Drag, .douban_drag{
-position:relative;
 padding:5px; 
 margin:8px; 
 border-color:#ababac;
 border-style:solid;
 border-width:1px;
 overflow:auto;
+z-index:10;
 }
+
 
 .douban_wrapper .event_img_wrapper .item_img{
 float:left;
@@ -847,8 +882,6 @@ position: absolute;
 top: 0;
 width: 13px;
 }
-
-
 
 .commentBox{
 padding-left:5px;
@@ -896,11 +929,6 @@ top:4px
   width:420px;
  }
  
- .video_drop1{
-  margin:auto;
-  width:95%;
- }
- 
   .video_drop{
   padding:0px 5px 5px 5px;
   border-color:#ababac;
@@ -908,7 +936,7 @@ top:4px
   border-width:1px;
   margin:auto;
   width:95%;
-  overflow:auto;
+  overflow:hidden;
   position:relative;
  }
   
@@ -955,7 +983,7 @@ clear:both;
 float:right;
 }
 
-.signature_text{
+.signature_text, .signature_text_drop{
 margin-right:5px; 
 float:right;
 zoom:1;
@@ -984,7 +1012,7 @@ margin-top:2px;
   border-width:1px;
   margin:auto;
   width:95%;
-  overflow:auto;
+  overflow:hidden;
   position:relative;
 }
   
@@ -1014,7 +1042,7 @@ box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 max-width:260px;
 _width: expression(document.body.clientWidth < 132? "130px" : document.body.clientWidth > 262? "260px" : "auto");
-overflow:hidden;
+overflow:auto;
 padding-top:5px;
 
 }
@@ -1029,7 +1057,8 @@ width: 16px;
 }
 
 .content_wrapper{
-margin-left:26px;
+padding-left:26px;
+background: url('../img/apostrophe.png') no-repeat scroll 0 0 transparent !important;
 /* deal with the issue IE6/7*/
 zoom:1;
 }
@@ -1058,7 +1087,7 @@ display:inline-block;
  .textElement{
 margin:auto;
 width:95%;
-overflow:auto;
+overflow:hidden;
 position:relative;
 }
  
@@ -1161,17 +1190,26 @@ display:block;
  #weibo_search ,  #douban_search,  #pic_search{
    padding-left:4px;
  }
-
- #weibo_search .sep,  #douban_search .sep,  #pic_search .sep{
-   padding-top:52px;
+ 
+ #weiboTabs ul,  #doubanTabs ul,  #picTabs ul{
+ overflow:hidden;
  }
  
- #weibo_search input,  #douban_search input,  #pic_search input, #videoTabs input{
-   width: 260px; vertical-align:top;
+  #weibo_search form,  #douban_search form,  #pic_search form{
+   margin:0;
+   padding:0;
+ }
+
+ #weibo_search .sep,  #douban_search .sep,  #pic_search .sep{
+  margin-top:10px;
+ }
+ 
+ #weibo_search #keywords,  #douban_search #d_keywords,  #pic_search #pic_keywords, #videoTabs #videoUrl{
+   width: 250px; vertical-align:middle;
  }
  
  #weibo_search_btn, #douban_search_btn, #pic_search_btn, #embedVideo{
-   vertical-align:top;
+   vertical-align:middle; margin-left:10px;
  }
  
 #douban_search_btn, #pic_search_btn{
@@ -1440,6 +1478,10 @@ zoom:1;
 
 .story_wrapper, .douban_wrapper, .urlWrapper, .yupooWrapper, .youku_wrapper, .commentBox{
 margin-left:13px;
+}
+
+.weibo_drag .story_wrapper, .douban_drag .douban_wrapper, .video_Drag .urlWrapper, .pic_Drag .yupooWrapper{
+margin-left:0;
 }
 
 #weibo_ul{
@@ -2230,6 +2272,10 @@ text-align: center;
 width: auto;
 }
 
+.top_nav #actions span{
+vertical-align:middle;
+}
+
 .aa_submit{
 margin-left: 60px;
 }
@@ -2302,7 +2348,9 @@ padding-left:20px;
 
 #login_modal .form_div {margin-top:20px;}
 
-#login_modal .auto_login {margin-top:10px; padding-left:32px;}
+#login_modal .auto_login {margin-top:10px; padding-left:36px;}
+
+.auto_login span input{margin-right:5px;}
 
 #login_modal #login_modal_btn{margin-left:36px;}
 
@@ -2635,10 +2683,9 @@ display:none;
 }
 
 #vtab {
-margin: auto;
+margin: 0 0 0 -40px;
 width: 430px;
-
-margin-left:-40px;
+position:relative;
 }
 
 #vtab > ul > li {
@@ -2665,17 +2712,18 @@ position: relative;
 
 
 #vtab > ul {
-float: left;
 width: 35px;
 text-align: left;
 display: block;
 margin: auto 0;
 padding: 0;
-position: relative;
+position: absolute;
 top: 40px;
+left:0;
 }
+
 #vtab > div{
-background-color: #fafafa;
+background-color: #FFFFFF;
 margin-left: 40px;
 border: 1px solid #ddd;
 min-height: 50px;
