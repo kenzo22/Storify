@@ -83,9 +83,9 @@ include 'member/tagoperation.php';
 	  <form method='post' action='/accounts/login/login.php'>
 	  <div class='wrapper'>
 		<div id='login_modal'>
-		  <div class='form_div'><b> 邮 箱 &nbsp; </b><span><input type='text' name='email' id='email_login' onclick='this.value=""'/></span></div>
-		  <div class='form_div'><b> 密 码 &nbsp; </b><span><input type='password' name='passwd' id='pwd_login' onclick='this.value=""'/> </span></div>
-		  <div class='auto_login'><span> <input type='checkbox' name='autologin' />下次自动登录</span> | <span><a href='/accounts/login/forget_form.php'>忘记密码了？</a></span></div>
+		  <div class='form_div'><span class='form_label'>邮&nbsp;箱</span><span><input type='text' name='email' id='email_login' onclick='this.value=""'/></span></div>
+		  <div class='form_div'><span class='form_label'>密&nbsp;码</span><span><input type='password' name='passwd' id='pwd_login' onclick='this.value=""'/> </span></div>
+		  <div class='auto_login'><span><input type='checkbox' name='autologin' />下次自动登录</span> | <span><a href='/accounts/login/forget_form.php'>忘记密码了？</a></span></div>
 		  <div>
 			<input type='submit' id='login_modal_btn' value='登录'/>
 		  </div>

@@ -14,7 +14,9 @@ String.prototype.len=function()
   return this.replace(/[^\x00-\xff]/g,"**").length;
 }
 
-$(function(){			  
+$(function(){
+	$('body').prepend("<div id='mask'></div>");
+			  
 	$('.follow').click(function(){
 	  var follow_info = $(this).attr('id');
 	  var follow_array = follow_info.split('_');

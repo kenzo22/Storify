@@ -121,7 +121,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  {
 	    $extra_class .=" tencent";
 	  }
-	  $content = "<div id='boxes'>
+	  $content = "<div id='boxes' class='p_relative'>
 					<div id='weibo_dialog' class='window".$extra_class."'>
 					  <div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span><a href='#' class='close'>关闭</a></span><span id='icon_flag'></span><span id='publish_title' style='color: #336699;'>发表微博</span></div>
 					  <div id='pub_wrapper'>
@@ -132,17 +132,17 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 					  <div class='pub_imply_sina'><span style='margin-left:6px; margin-right:5px; color:#878787;'>发布到新浪微博需要绑定新浪微博帐号</span><a href='/member/source.php'>现在去绑定</a></div>
 					  <div class='pub_imply_tencent'><span style='margin-left:6px; margin-right:5px; color:#878787;'>发布到腾讯微博需要绑定腾讯微博帐号</span><a href='/member/source.php'>现在去绑定</a></div>
 				    </div>
-				  </div><div id='mask'></div>";
+				  </div>";
 	}
 	else
 	{
-	  $content = "<div id='boxes'>
+	  $content = "<div id='boxes' class='p_relative'>
 				    <div id='weibo_dialog' class='window disable'>
 					  <div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span><a href='#' class='close'>关闭</a></span><span id='icon_flag'></span><span id='publish_title' style='color: #B8B7B7;'>发表微博</span></div>
 					  <div class='imply_color' style='margin-bottom:10px;'>对不起，只有本站注册用户能使用该功能</div>
 					  <div class='imply_color'>请您<a href='/login/login_form.php?next'>登录</a>或<a href='/register/register_form.php'>注册</a></div>
 				    </div>
-				  </div><div id='mask'></div>";
+				  </div>";
 	}
 	
 	if(!$login_status|| $story_author != $_SESSION['uid'])
@@ -411,8 +411,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 			{
 			  $content .= "<div class='weibo_img' style='text-align:center;'><img src='".$single_weibo['bmiddle_pic']."' width='280px;' alt='微博配图'/></div>";
 			}
-            $content .= "</div>";
-            $content .= "<div class='story_signature'><span class='float_r'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img_drop' src='"
+            $content .= "</div><div class='story_signature'><span class='float_r'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img_drop' src='"
 			.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' /></a></span><div class='signature_text'><div class='text_wrapper'>
 			<span><a class='weibo_from_drop' href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date_drop'>".$createTime."</div></div> </div></div></li>";
 		}

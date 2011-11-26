@@ -103,9 +103,9 @@ else
 			    <form method='post' action='/accounts/login/login.php'>
 			    <div class='wrapper'>
 				  <div id='login_modal'>
-				    <div class='form_div'><b> 邮 箱 &nbsp; </b><span><input type='text' name='email' id='email_login' onclick='this.value=\"\"'/></span></div>
-				    <div class='form_div'><b> 密 码 &nbsp; </b> <span><input type='password' name='passwd' id='pwd_login' onclick='this.value=\"\"'/> </span></div>
-				    <div class='auto_login'><span> <input type='checkbox' name='autologin' />下次自动登录</span> | <span><a href='/accounts/login/forget_form.php'>忘记密码了？</a></span></div>
+				    <div class='form_div'><span class='form_label'>邮&nbsp;箱</span><span><input type='text' name='email' id='email_login' onclick='this.value=\"\"'/></span></div>
+				    <div class='form_div'><span class='form_label'>密&nbsp;码</span><span><input type='password' name='passwd' id='pwd_login' onclick='this.value=\"\"'/> </span></div>
+				    <div class='auto_login'><span><input type='checkbox' name='autologin' />下次自动登录</span> | <span><a href='/accounts/login/forget_form.php'>忘记密码了？</a></span></div>
 				    <div>
 					  <input type='submit' id='login_modal_btn' value='登录'/>
 				    </div>
@@ -329,7 +329,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 	  }
 	  if (isset($single_weibo['error_code']) && isset($single_weibo['error']))
 	  {
-        $content .= "<li class='weibo_drop sina' id='w_".$weibo_per_id."'><div class='cross' action='delete' onclick='remove_item(event)'></div><div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>此微博已被原作者删除</span></div></div></li><li class='addTextElementAnchor'><span><a class='add_comment'></a></span></li>";
+        $content .= "<li class='weibo_drop sina' id='w_".$weibo_per_id."'><div class='cross'></div><div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>此微博已被原作者删除</span></div></div></li><li class='addTextElementAnchor'><span><a class='add_comment'></a></span></li>";
         continue;
 //		echo ('Error_code: '.$single_weibo['error_code'].';  Error: '.$single_weibo['error'] );
 //		return false;
@@ -343,7 +343,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
         $single_weibo['text'] = subs_url($single_weibo['text'],"weibo");
 
 		$createTime = dateFormat($single_weibo['created_at']);
-		$content .= "<li class='weibo_drop sina' id='w_".$weibo_per_id."'><div class='cross' action='delete' onclick='remove_item(event)'></div>";
+		$content .= "<li class='weibo_drop sina' id='w_".$weibo_per_id."'><div class='cross'></div>";
 
     	if (isset($single_weibo['retweeted_status'])){
             
@@ -364,16 +364,15 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 			}
         }
 		else{
-		  $content .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f sina'><span>转发</span></a><a href='#weibo_dialog' name='modal' class='comment_f sina'><span>评论</span></a></div><div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text'];
+		  $content .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f sina'><span>转发</span></a><a href='#weibo_dialog' name='modal' class='comment_f sina'><span>评论</span></a></div><div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text']."</span>";
 		}
         if (isset($single_weibo['bmiddle_pic']))
 		{
 		  $content .= "<div class='weibo_img_drop'><img src='".$single_weibo['bmiddle_pic']."' /></div>";
 		}     
-        $content .= "</div>";
-        $content .= "<div class='story_signature'><span class='float_r'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img_drop' src='"
-					.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><span class='signature_text_drop'><div class='text_wrapper'><span ><a class='weibo_from_drop' href='http://weibo.com/"
-					.$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date_drop'>".$createTime."</div></span></div></div></li><li class='addTextElementAnchor'><span>
+        $content .= "</div><div class='story_signature'><span class='float_r'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img_drop' src='"
+					.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><div class='signature_text_drop'><div class='text_wrapper'><span ><a class='weibo_from_drop' href='http://weibo.com/"
+					.$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date_drop'>".$createTime."</div></div></div></div></li><li class='addTextElementAnchor'><span>
 					<a class='add_comment'></a></span></li>";
 	  }
 		break;}
@@ -645,23 +644,23 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 
 			if($item['source']['text'] == null)
 				$item['source']['text'] = "此微博已被原作者删除。";
-			$tweiboContent .="||".$item['source']['nick']."(@".$item['source']['name']."):".$item['source']['text']."</span></div>";
+			$tweiboContent .="||".$item['source']['nick']."(@".$item['source']['name']."):".$item['source']['text']."</span>";
 			if(isset($item['source']['image'])){
 				foreach($item['source']['image'] as $re_img_url){
 					$tweiboContent .="<div class='weibo_retweet_img_drop'><img src='".$re_img_url."/240' /></div>";
 				}
 			}
 		}else{
-			$tweiboContent .= "<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f tencent'><span>转播</span></a><a href='#weibo_dialog' name='modal' class='comment_f tencent'><span>评论</span></a></div><div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text']."</span></div>";
+			$tweiboContent .= "<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f tencent'><span>转播</span></a><a href='#weibo_dialog' name='modal' class='comment_f tencent'><span>评论</span></a></div><div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text']."</span>";
 			if(isset($item['image'])){
 				foreach($item['image'] as $img_url){
 					$tweiboContent .="<div class='weibo_img_drop'><img src='".$img_url."/240' /></div>";
 				}
 			}
 		}
-		$tweiboContent .= "<div class='story_signature'><span class='float_r'><a href='http://t.qq.com/".$item['name']."' target='_blank'><img class='profile_img_drop' src='"
-		.$profileImgUrl."' alt='".$item['nick']."' border=0 /></a></span><span class='signature_text_drop'><div class='text_wrapper'>
-		<span ><a class='weibo_from_drop' href='http://t.qq.com/".$item['name']."' target='_blank'>".$item['nick']."</a></span></div><div class='weibo_date_drop'>".$create_time."</div></span></div></div></li><li class='addTextElementAnchor'><span><a class='add_comment'></a></span></li>tweibo_sep";
+		$tweiboContent .= "</div><div class='story_signature'><span class='float_r'><a href='http://t.qq.com/".$item['name']."' target='_blank'><img class='profile_img_drop' src='"
+		.$profileImgUrl."' alt='".$item['nick']."' border=0 /></a></span><div class='signature_text_drop'><div class='text_wrapper'>
+		<span ><a class='weibo_from_drop' href='http://t.qq.com/".$item['name']."' target='_blank'>".$item['nick']."</a></span></div><div class='weibo_date_drop'>".$create_time."</div></div></div></div></li><li class='addTextElementAnchor'><span><a class='add_comment'></a></span></li>tweibo_sep";
 	  }
 	  $tweibo_array = explode("tweibo_sep", $tweiboContent);
 	  $tweibo_array_len = count($tweibo_array);
