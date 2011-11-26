@@ -817,7 +817,6 @@ $(function() {
 		});
 		
 		$( "#source_list, #story_list" ).sortable({
-			tolerance: "pointer",
 			connectWith: ".connectedSortable",
 			cancel: ".weibo_drop, .douban_drop, .video_drop, .textElement, .tuser, .loadmore, .trends_li",
 			receive: function(evt, ui) 

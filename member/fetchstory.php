@@ -175,8 +175,7 @@ if(!empty($result))
 			{
 			  $content .= "<div class='weibo_img' style='text-align:center;'><img src='".$single_weibo['bmiddle_pic']."' width='280px;' /></div>";
 			}
-            $content .= "</div>";
-            $content .= "<div class='story_signature'><span class='float_r'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img_drop' src='"
+            $content .= "</div><div class='story_signature'><span class='float_r'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img_drop' src='"
 			.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><div class='signature_text'><div class='text_wrapper'>
 			<span ><a class='weibo_from_drop' href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date_drop'>".$createTime."</div></div> </div></div></li>";
 		}
@@ -439,21 +438,21 @@ if(!empty($result))
 
 			if($item['source']['text'] == null)
 				$item['source']['text'] = "此微博已被原作者删除。";
-			$tweiboContent .="||".$item['source']['nick']."(@".$item['source']['name']."):".$item['source']['text']."</span></div>";
+			$tweiboContent .="||".$item['source']['nick']."(@".$item['source']['name']."):".$item['source']['text']."</span>";
 			if(isset($item['source']['image'])){
 				foreach($item['source']['image'] as $re_img_url){
 					$tweiboContent .="<div class='weibo_retweet_img_drop'><img src='".$re_img_url."/240' /></div>";
 				}
 			}
 		}else{
-			$tweiboContent .= "<div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text']."</span></div>";
+			$tweiboContent .= "<div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text']."</span>";
 			if(isset($item['image'])){
 				foreach($item['image'] as $img_url){
 					$tweiboContent .="<div class='weibo_img_drop'><img src='".$img_url."/240' /></div>";
 				}
 			}
 		}
-		$tweiboContent .= "<div class='story_signature'><span class='float_r'><a href='http://t.qq.com/".$item['name']."' target='_blank'><img class='profile_img_drop' src='"
+		$tweiboContent .= "</div><div class='story_signature'><span class='float_r'><a href='http://t.qq.com/".$item['name']."' target='_blank'><img class='profile_img_drop' src='"
 		.$profileImgUrl."' alt='".$item['nick']."' border=0 /></a></span><div class='signature_text'><div class='text_wrapper'>
 		<span ><a class='weibo_from_drop' href='http://t.qq.com/".$item['name']."' target='_blank'>".$item['nick']."</a></span></div><div class='weibo_date_drop'>".$create_time."</div></div> </div></div></li>tweibo_sep";
 	  }

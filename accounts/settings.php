@@ -36,7 +36,7 @@ else
   $userphoto="<a href='uploadphoto.php'>放你的头像上来</a>";
 }			
 $user_set = "<div class='inner'>
-			<div><h2>".$result['username']."的帐号"."</h2></div>
+			<div class='page_title'>".$result['username']."的帐号"."</div>
 			<div class='setting_bar'>
 			  <div>
 				<span class='now'>

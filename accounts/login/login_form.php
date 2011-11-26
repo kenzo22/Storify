@@ -26,8 +26,8 @@ else if(!empty($_GET['next']))
     $content .="<input type='hidden' value='".$redirec_temp."' name='redirect_info' id='redirect_info' />";
   }
 }
-$content .="<div class='form_div'><b> 邮 箱 &nbsp; </b><input type='text' name='email' id='email_login' size='30' /><span class='form_tip' id='email_tip'></span></div>
-			<div class='form_div'><b> 密 码 &nbsp; </b><input type='password' name='passwd' id='pwd_login' size='30' /><span class='form_tip' id='pwd_tip'></span></div>
+$content .="<div class='form_div'><span class='form_label'>邮&nbsp;箱</span><input type='text' name='email' id='email_login' size='30' /><span class='form_tip' id='email_tip'></span></div>
+			<div class='form_div'><span class='form_label'>密&nbsp;码</span><input type='password' name='passwd' id='pwd_login' size='30' /><span class='form_tip' id='pwd_tip'></span></div>
 			<div class='auto_login'><span><input type='checkbox' name='autologin' />下次自动登录</span> | <span><a href='/accounts/login/forget_form.php'>忘记密码了？</a></span></div>
 			<div id='loginbtn'><a class='large blue awesome'>登 录 &raquo;</a></div>
 		  </form>
