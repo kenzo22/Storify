@@ -1,8 +1,8 @@
 <?php
 $html_title = "口立方";
-require "../global.php"; 
-require  "../include/header.php";
-include '../include/secureGlobals.php';
+require $_SERVER['DOCUMENT_ROOT']."/global.php"; 
+require $_SERVER['DOCUMENT_ROOT']."/include/header.php";
+include $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php';
 
 if(isset($_GET['topic_id']))
 {
@@ -28,17 +28,17 @@ while ($story_item = mysql_fetch_array($result))
   $post_summary = $story_item['post_summary'];
   $post_pic_url = $story_item['post_pic_url'];
   $post_date = dateFormatTrans($story_item['post_date'],$date_t);
-  $post_link = "/member/user.php?user_id=".$post_author."&post_id=".$story_id;
+  $post_link = "/user/".$post_author."/".$story_id;
   $post_link = htmlspecialchars($post_link);
   $content .=   "<li class='tagstory_li'>
                     <div class='wrapper'>
-                        <a class='pic_meta' href='/member/user.php?user_id=".$post_author."&post_id=".$story_id."'>
+                        <a class='pic_meta' href='/user/".$post_author."/".$story_id."'>
                           <img src='".$post_pic_url."' alt='故事封面'/>
                         </a>
 						<div class='text meta'>
 						  <a href='".$post_link."' class='title'>".$post_title."</a>
 						  <div>
-                            <span class='update_at'>".$post_date."</span><span style='padding:0 5px;'>by</span><a href='/member/user.php?user_id=".$post_author."'>".$userresult['username']."</a> 
+                            <span class='update_at'>".$post_date."</span><span style='padding:0 5px;'>by</span><a href='/user/".$post_author."'>".$userresult['username']."</a> 
                           </div>
                           <div class='summary'>".$post_summary."<a href='".$post_link."'>[更多]</a></div>
                         </div> 

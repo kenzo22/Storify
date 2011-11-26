@@ -1,7 +1,7 @@
 <?php
 $html_title = "口立方";
 require $_SERVER['DOCUMENT_ROOT']."/global.php";
-require  $_SERVER['DOCUMENT_ROOT']."/include/header.php";
+require $_SERVER['DOCUMENT_ROOT']."/include/header.php";
 include_once $_SERVER['DOCUMENT_ROOT']."/include/weibo_functions.php";
 include_once( $_SERVER['DOCUMENT_ROOT'].'/weibo/config.php' );
 include_once( $_SERVER['DOCUMENT_ROOT'].'/weibo/sinaweibo.php' );
@@ -312,7 +312,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  else
 	  {
 	    $content .= "<div id='story_container'><div class='publish_wrapper'><div id='publish_container'>
-			  <div id='story_action'><span><a class='draft_icon png_fix' title='草稿'></a>草稿</span><span class='float_r'><a  class='publish' href='/user/".$user_id."/".$post_id."&action=publish'></a>&nbsp<a id='".$post_id."_delete' class='delete redirect png_fix'></a><a class='edit png_fix' href='/user/".$user_id."/".$post_id."/edit'></a></span></div>";
+			  <div id='story_action'><span><a class='draft_icon png_fix' title='草稿'></a>草稿</span><span class='float_r'><a  class='publish' href='/user/".$user_id."/".$post_id."/publish'></a>&nbsp<a id='".$post_id."_delete' class='delete redirect png_fix'></a><a class='edit png_fix' href='/user/".$user_id."/".$post_id."/edit'></a></span></div>";
 	  }	
 	}
 
@@ -321,7 +321,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
     $tag_names = $DB->query($tag_query);
     if($DB->num_rows($tag_names) > 0){
         while($tag_name_row = $DB->fetch_array($tag_names)){
-            $tags .= "<a class='tag_item' href='/topic/topic.php?topic=".$tag_name_row['name']."'>".$tag_name_row['name']."</a>";
+            $tags .= "<a class='tag_item' href='/topic/".$tag_name_row['name']."'>".$tag_name_row['name']."</a>";
         }
     }
 
@@ -724,7 +724,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  <div class='user_profiles'>
 	    <div class='user_box'>
 		  <div class='user_info'>
-		    <div class='avatar'><a href='/member/user/".$story_author."'><img width='80px' height='80px' src='".$user_profile_img."' alt='".$userresult['username']."' /></a></div>
+		    <div class='avatar'><a href='/user/".$story_author."'><img width='80px' height='80px' src='".$user_profile_img."' alt='".$userresult['username']."' /></a></div>
 			<div class='wrapper'>
 			  <div class='user_name'><a href='/user/".$story_author."'><span>".$userresult['username']."</span></a></div>";
 		  

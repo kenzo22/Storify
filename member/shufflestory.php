@@ -1,5 +1,5 @@
 <?php
-require_once "../connect_db.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/connect_db.php";
 $flag=$_GET['flag'];
 $sequence=$_GET['sequence'];
 
@@ -42,7 +42,7 @@ function show_content(&$content, $db_result)
 	$post_date = $story_item['post_date'];
 	$temp_array = explode(" ", $story_item['post_date']);
 	$post_date = $temp_array[0];
-	$post_link = "/member/user.php?user_id=".$post_author."&post_id=".$story_item['ID'];
+	$post_link = "/user/".$post_author."/".$story_item['ID'];
 	$content .=  "<li>
 						  <div class='story_wrap'>	
 							<a href='".$post_link."'>
@@ -56,7 +56,7 @@ function show_content(&$content, $db_result)
 							<span>
 							  <a class='meta_date'>".$post_date."</a>
 							  <img src='".$user_profile_img."' alt='".$author_name."'/>
-							  <a class='meta_author' href='member/user.php?user_id=".$post_author."'>".$author_name."</a>
+							  <a class='meta_author' href='/user/".$post_author."'>".$author_name."</a>
 							</span>
 						  </div>
 						</li>";

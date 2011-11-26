@@ -1,13 +1,13 @@
 <?php
-require_once "../connect_db.php";
-require_once "../include/functions.php";
-include_once "../include/weibo_functions.php";
-include_once( '../weibo/config.php' );
-include_once( '../weibo/sinaweibo.php' );
-include_once( '../tweibo/config.php' );
-include_once( '../tweibo/txwboauth.php' );
-include_once( '../douban/config.php' );
-include_once( '../douban/doubanapi.php' );
+require_once $_SERVER['DOCUMENT_ROOT']."/connect_db.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/include/functions.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/include/weibo_functions.php";
+include_once $_SERVER['DOCUMENT_ROOT'].'/weibo/config.php' ;
+include_once $_SERVER['DOCUMENT_ROOT'].'/weibo/sinaweibo.php' ;
+include_once $_SERVER['DOCUMENT_ROOT'].'/tweibo/config.php' ;
+include_once $_SERVER['DOCUMENT_ROOT'].'/tweibo/txwboauth.php' ;
+include_once $_SERVER['DOCUMENT_ROOT'].'/douban/config.php' ;
+include_once $_SERVER['DOCUMENT_ROOT'].'/douban/doubanapi.php' ;
 
 
 $date_t = date("Y-m-d H:i:s");
@@ -88,7 +88,7 @@ if(!empty($result))
   $tag_names = $DB->query($tag_query);
   if($DB->num_rows($tag_names) > 0){
       while($tag_name_row = $DB->fetch_array($tag_names)){
-          $tags .= "<a class='tag_item' href='/topic/topic.php?topic=".$tag_name_row['name']."'>".$tag_name_row['name']."</a>";
+          $tags .= "<a class='tag_item' href='/topic/".$tag_name_row['name']."'>".$tag_name_row['name']."</a>";
       }
   }
 
@@ -96,7 +96,7 @@ if(!empty($result))
 				<div style='float:right; padding: 0 10px 0 0'><img src='".$story_pic."' style='width:60px; height:60px;' /></div>
 				<div id='story_meta' style='margin-top:10px;'>
 				  <div class='story_title'>".$story_title."</div>
-				  <div class='story_author'>by<a href='http://koulifang.com/member/user.php?user_id=".$user_id."'>".$userresult['username']."</a>, ".$story_time."</div>
+				  <div class='story_author'>by<a href='http://www.koulifang.com/user/".$user_id."'>".$userresult['username']."</a>, ".$story_time."</div>
 				  <div class='story_sum'>".$story_summary."</div>";
 			if($tags!='')
 			{

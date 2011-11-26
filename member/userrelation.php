@@ -1,6 +1,6 @@
 <?php
-include_once "../connect_db.php";
-include_once "../include/functions.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/connect_db.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/include/functions.php";
 
 $ftable=$db_prefix."follow";
 

@@ -75,6 +75,7 @@ function show_weibo_card(id)
 
 function prepare_story_data(action_value)
 {
+    debugger;
   if(action_value !='Publish' &&  action_value !='Preview' && action_value != "Draft")
     alert("not a proper operation:"+action_value);
   var story_id_val;
@@ -1139,7 +1140,7 @@ $(function() {
 		  {
 		      var story_title_txt = $('#sto_title').attr('value');
 			  var postdata; 
-			  var posturl = 'publish.php';
+			  var posturl = '/member/publish.php';
 			  if($(e.target).is('#publishBtn'))
 			  {
 				postdata = prepare_story_data('Publish');

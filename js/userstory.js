@@ -29,7 +29,7 @@ $(function(){
 		operation_val = 'unfollow';
 	  }
 	  var postdata = {operation: operation_val, uid: userid};
-	  $.post('useroperation.php', postdata,
+	  $.post('/member/useroperation.php', postdata,
 		  function(data, textStatus)
 		  {
 			if('success'==textStatus)
@@ -74,7 +74,7 @@ $(function(){
 			operation_val = 'unfollow';
 		  }
 		  var postdata = {operation: operation_val, uid: userid};
-		  $.post('useroperation.php', postdata,
+		  $.post('/member/useroperation.php', postdata,
 			  function(data, textStatus)
 			  {
 				if('success'==textStatus)
@@ -349,7 +349,7 @@ $(function(){
 		  {
             if($('#'+post_id_val+'_delete').hasClass('redirect'))
 			{
-			  self.location = '/member/user.php?user_id='+data;
+			  self.location = '/user/'+data;
 			}
 			else
 			{
