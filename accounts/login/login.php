@@ -54,7 +54,7 @@ if($email && $passwd)
 	$_SESSION['weibo_uid']=intval($result['weibo_user_id']);
 	if(0 == $_SESSION['weibo_uid'] && '' == $result['tweibo_access_token'])
 	{
-	  header("location: /member/source.php");
+	  header("location: /accounts/source.php");
 	  exit;
 	}
 	else

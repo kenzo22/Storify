@@ -19,14 +19,28 @@ $weiboContent = "";
 
 if('list_ht' == $operation)
 {
-  $ht = $c->trends_weekly();
-  $ht = array_values($ht['trends']);
-  $weiboContent.="<div id='trends_wrapper'>";
-  foreach( $ht[0] as $item )
+  $ht_weekly = $c->trends_weekly();
+  $ht_daily = $c->trends_daily();
+  $ht_hourly = $c->trends_hourly();
+  $ht_weekly = array_values($ht_weekly['trends']);
+  $ht_daily = array_values($ht_daily['trends']);
+  $ht_hourly = array_values($ht_hourly['trends']);
+  $weiboContent.="<li class='ht_wrapper'><h3 class='clear'>一周热门话题</h3>";
+  foreach( $ht_weekly[0] as $item1 )
   {
-    $weiboContent.="<div><a class='list_t_weibo' href='#'>".$item['name']."</a></div>";
+    $weiboContent.="<span><a class='list_t_weibo' href='#'>".$item1['name']."</a></span>";
   }
-  $weiboContent.="</div>";
+  $weiboContent .="</li><li class='ht_wrapper'><h3 class='clear'>24小时热门话题</h3>";
+  foreach( $ht_daily[0] as $item2 )
+  {
+    $weiboContent.="<span><a class='list_t_weibo' href='#'>".$item2['name']."</a></span>";
+  }
+  $weiboContent .="</li><li class='ht_wrapper'><h3 class='clear'>1小时热门话题</h3>";
+  foreach( $ht_hourly[0] as $item3 )
+  {
+    $weiboContent.="<span><a class='list_t_weibo' href='#'>".$item3['name']."</a></span>";
+  }
+  $weiboContent.="</li>";
   echo $weiboContent;
   exit;
 }

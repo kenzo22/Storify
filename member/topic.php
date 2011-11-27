@@ -30,10 +30,14 @@ while ($story_item = mysql_fetch_array($result))
   $post_date = dateFormatTrans($story_item['post_date'],$date_t);
   $post_link = "/member/user.php?user_id=".$post_author."&post_id=".$story_id;
   $post_link = htmlspecialchars($post_link);
+  if($post_pic_url == '')
+  {
+    $post_pic_url = getUserPic($post_author);
+  }
   $content .=   "<li class='tagstory_li'>
                     <div class='wrapper'>
                         <a class='pic_meta' href='/member/user.php?user_id=".$post_author."&post_id=".$story_id."'>
-                          <img src='".$post_pic_url."' alt='故事封面'/>
+                          <img src='".$post_pic_url."' alt=''/>
                         </a>
 						<div class='text meta'>
 						  <a href='".$post_link."' class='title'>".$post_title."</a>

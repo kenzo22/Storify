@@ -63,7 +63,6 @@ else
 
 require ('../include/secureGlobals.php');
 
-$extra_class = "";
 $hasSina = "sina_disable";
 $hasTencent = "tencent_disable";
 $hasYupoo = "yupoo_disable";
@@ -79,20 +78,17 @@ if(islogin())
     if(0 != $userresult['weibo_user_id'])
     {
       $hasSina = "sina_enable";
-	  $extra_class .=" sina";
     }
     if('' != $userresult['tweibo_access_token'])
     {
       $hasTencent = "tencent_enable";
-	  $extra_class .=" tencent";
     }
     if('' != $userresult['yupoo_token'])
     {
       $hasYupoo = "yupoo_enable";
     }
   }
-  $content = "<div id='storyContent'>
-				<div id='boxes'>";
+  $content = "<div id='storyContent'>";
 }
 else
 {
@@ -118,23 +114,11 @@ else
 				  </div>
 			    </div>
 			    </form>
-			  </div>";
+			  </div>
+			</div>";
 }
 
-$content .= "
-    <div id='weibo_dialog' class='window".$extra_class."'>
-	  <div style='background-color:#f3f3f3; padding:5px; margin-bottom:10px;'><span><a href='#' class='close'>关闭</a></span><span id='icon_flag'></span><span id='publish_title' style='color: #336699;'>发表微博</span></div>
-	  <div id='pub_wrapper'>
-	    <div class='float_r counter_wrapper'><span style='margin-left:28px; color: #B8B7B7;'>还可以输入</span><span class='word_counter'>140</span><span style='color: #B8B7B7;'>字</span></div>
-	    <textarea class='publish-tweet' cols='50' rows='3'></textarea>
-	    <a class='btn_w_publish large blue awesome'><span id='pub_text'>转发</span></a>
-	  </div>
-	  <div class='pub_imply_sina'><span style='margin-left:6px; margin-right:5px; color:#878787;'>发布到新浪微博需要绑定新浪微博帐号</span><a href='/member/source.php'>现在去绑定</a></div>
-	  <div class='pub_imply_tencent'><span style='margin-left:6px; margin-right:5px; color:#878787;'>发布到腾讯微博需要绑定腾讯微博帐号</span><a href='/member/source.php'>现在去绑定</a></div>
-  </div>
-  <div id='mask'></div>
-  </div>
-  <div class='inner'>
+$content .= "<div class='inner'>
 	<div class='left_half'>
 	<div id='source_pane'>
 	  <div id='sourcelist_container'>
@@ -241,13 +225,33 @@ $content .= "
 		  </div>
 		  
 		</div>
-		<ul id='source_list' class='connectedSortable'>
-		  <li class='trends_li'>
-		    <a class='trends_wrapper' href='#'>
-		      <span id='view_trends'>点击查看本周热门话题</span>
-		    </a>
-		  </li>
-		</ul>    	
+		<ul id='source_list' class='connectedSortable'>";
+$c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']  );
+//load sina huati info
+$ht_weekly = $c->trends_weekly();
+$ht_daily = $c->trends_daily();
+$ht_hourly = $c->trends_hourly();
+$ht_weekly = array_values($ht_weekly['trends']);
+$ht_daily = array_values($ht_daily['trends']);
+$ht_hourly = array_values($ht_hourly['trends']);
+$content.="<li class='ht_wrapper'><h3 class='clear'>一周热门话题</h3>";
+foreach( $ht_weekly[0] as $item1 )
+{
+  $content.="<span><a class='list_t_weibo' href='#'>".$item1['name']."</a></span>";
+}
+$content .="</li><li class='ht_wrapper'><h3 class='clear'>24小时热门话题</h3>";
+foreach( $ht_daily[0] as $item2 )
+{
+$content.="<span><a class='list_t_weibo' href='#'>".$item2['name']."</a></span>";
+}
+$content .="</li><li class='ht_wrapper'><h3 class='clear'>1小时热门话题</h3>";
+foreach( $ht_hourly[0] as $item3 )
+{
+$content.="<span><a class='list_t_weibo' href='#'>".$item3['name']."</a></span>";
+}
+$content.="</li>";
+
+$content .=	"</ul>    	
 	  </div>
 	</div>
 	</div>
@@ -262,7 +266,6 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
     header("location: /accounts/login/login_form.php"); 
     exit;
   } 
-  $c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']  );
   $t = new TWeiboClient( MB_AKEY , MB_SKEY , $_SESSION['last_tkey']['oauth_token'] , $_SESSION['last_tkey']['oauth_token_secret']  );
   $d = new DoubanClient( DB_AKEY , DB_SKEY , $_SESSION['last_dkey']['oauth_token'] , $_SESSION['last_dkey']['oauth_token_secret']  );
   $post_id = $_GET['post_id'];
@@ -277,6 +280,10 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
   $story_title=$result['post_title'];
   $story_summary=$result['post_summary'];
   $story_pic=$result['post_pic_url'];
+  if($story_pic == '')
+  {
+    $story_pic = "/img/story_dft.jpg";
+  }
   
   $tag_query = "select name from story_tag,story_tag_story where story_tag.id=tag_id and story_id=".$post_id;
   $tag_names = $DB->query($tag_query);
@@ -295,7 +302,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 	
   $content .="<div id='story_header'>
 		  <div id='story_pic'>
-		    <p><img id='story_thumbnail' width='88' height='88' src='".$story_pic."' alt='故事封面' /></p>
+		    <p><img id='story_thumbnail' width='88' height='88' src='".$story_pic."' alt='' /></p>
 			<ul id='imagecontroller'>
 			  <li><a id='prev_img' href='#'></a></li>
 			  <li><a id='next_img' href='#'></a></li>
@@ -347,7 +354,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 
     	if (isset($single_weibo['retweeted_status'])){
             
-            $content .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f is_repost sina'><span>转发</span></a><a href='#weibo_dialog' name='modal' class='comment_f sina'><span>评论</span></a></div><div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text'];
+            $content .="<div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text'];
 			// show emotions in text
             $single_weibo['retweeted_status']['text'] = subs_emotions($single_weibo['retweeted_status']['text'],"weibo");
 
@@ -364,7 +371,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 			}
         }
 		else{
-		  $content .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f sina'><span>转发</span></a><a href='#weibo_dialog' name='modal' class='comment_f sina'><span>评论</span></a></div><div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text']."</span>";
+		  $content .="<div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text']."</span>";
 		}
         if (isset($single_weibo['bmiddle_pic']))
 		{
@@ -635,7 +642,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 		$tweiboContent .="<li id='t_".$item['id']."'>";
 
 		if(isset($item['source'])){
-			$tweiboContent .="<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f is_repost tencent'><span>转播</span></a><a href='#weibo_dialog' name='modal' class='comment_f tencent'><span>评论</span></a></div><div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text'];
+			$tweiboContent .="<div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text'];
 			//nick name
 			$item['source']['text'] = tweibo_show_nick($item['source']['text'],$tweibo[data][user]);
 			
@@ -651,7 +658,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 				}
 			}
 		}else{
-			$tweiboContent .= "<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f tencent'><span>转播</span></a><a href='#weibo_dialog' name='modal' class='comment_f tencent'><span>评论</span></a></div><div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text']."</span>";
+			$tweiboContent .= "<div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text']."</span>";
 			if(isset($item['image'])){
 				foreach($item['image'] as $img_url){
 					$tweiboContent .="<div class='weibo_img_drop'><img src='".$img_url."/240' /></div>";
@@ -688,7 +695,7 @@ else
 {
   $content .= "<div id='story_header'>
 		  <div id='story_pic'>
-		    <p><img id='story_thumbnail' width='88' height='88' src='' style='background-color:#EFEFEF;' alt='故事封面'/></p>
+		    <p><img id='story_thumbnail' width='88' height='88' src='/img/story_dft.jpg' alt=''/></p>
 			<ul id='imagecontroller'>
 			  <li><a id='prev_img' href='#'></a></li>
 			  <li><a id='next_img' href='#'></a></li>

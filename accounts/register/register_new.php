@@ -75,6 +75,7 @@
 			 <li>3.  稍等几分钟，若仍旧没收到确认信，让口立方<a id='a_resend' href='#'>重发一封激活邮件</a></li>
 		   </ol>
 		 </div>
+		 <div class='footer_spacer'></div>
 		</div>";
 		echo $content;
 		if (!$result) {

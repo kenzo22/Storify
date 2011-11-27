@@ -11,7 +11,7 @@ background: url("../img/bg.jpg") repeat fixed 0 0 #F9F9F9;
 }
 td { padding:5px;}
 img { border-width: 0; image-rendering: optimizeQuality; -ms-interpolation-mode: bicubic; }
-input { border:1px solid #999; color:#333; height:20px; vertical-align: middle; }
+input { border:1px solid #999; color:#333; height:20px; vertical-align: middle; line-height:20px;}
 textarea {border:1px solid #999; color:#333; font-size:12px;}
 
 a{cursor:pointer;}
@@ -803,7 +803,7 @@ height:80px;
 
 /* edit story part*/
 .weibo_content{overflow:hidden;}
-#story_list .story_signature {overflow:hidden; margin-bottom:10px; margin-right:20px;}
+#story_list .story_signature {overflow:hidden; margin-bottom:5px;}
 #weibo_ul .story_signature {}
 
 #source_pane{position:fixed; top:65px; width:390px; z-index:1000;}
@@ -898,7 +898,7 @@ padding-left:5px;
 .list_t_weibo{
 background: none repeat scroll 0 0 #E1F0F7;
 border-radius: 30px 30px 30px 30px;
-display: inline-block;
+display:inline-block;
 margin: 0 5px 5px 0;
 padding: 0 10px;
 text-decoration: none;
@@ -910,9 +910,21 @@ padding:8px;
 overflow:auto;
 }
 
-#trends_wrapper div{
-float:left; 
-margin-right:10px;
+#source_list li.ht_wrapper{
+margin:15px 0 25px 20px;
+overflow:auto;
+}
+
+#source_list li.ht_wrapper h3{
+font-size:12px;
+color:#333333;
+font-weight:580;
+padding-bottom:15px;
+}
+
+#source_list li.ht_wrapper span{
+margin-left:10px;
+display:inline-block;
 }
  
 .video_Drag, .pic_Drag{
@@ -1290,7 +1302,11 @@ width: 46px;
 }
  
 #sto_title{
-width:360px; margin:1px 0 10px; font-weight:bold;height:30px;
+width:360px; 
+margin:1px 0 10px; 
+font-weight:bold;
+height:30px;
+line-height:30px;
 }
  
 #sto_summary{
@@ -1298,7 +1314,10 @@ width:360px; height:80px; margin-bottom:10px;
 }
  
 #sto_tag{
-width:480px; margin:0; height:25px;
+width:480px; 
+margin:0; 
+height:25px;
+line-height:25px;
 }
 
 .trends_wrapper{
@@ -2660,7 +2679,6 @@ color:#666666;
 }
 
 #boxes{
-
 z-index:400;
 zoom:1;
 }
