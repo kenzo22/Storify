@@ -153,7 +153,7 @@
 		var getData = {link: permalink};
 		
 		jQuery.ajax({
-          url: 'http://koulifang.com/member/fetchstory.php',
+          url: 'http://www.koulifang.com/member/fetchstory.php',
 		  data: getData, 
           success: function(data) {
             this.widgetNode = jQuery(data);
