@@ -1,9 +1,8 @@
 <?php
-require_once "../connect_db.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/connect_db.php";
 session_start();
-include_once( 'config.php' );
-//include_once( 'weibooauth.php' );
-include_once( 'sinaweibo.php' );
+include_once 'config.php';
+include_once 'sinaweibo.php';
 
 $o = new WeiboOAuth( WB_AKEY , WB_SKEY , $_SESSION['wkeys']['oauth_token'] , $_SESSION['wkeys']['oauth_token_secret']  );
 
@@ -47,7 +46,7 @@ else
     $result=$DB->query("update ".$db_prefix."user set photo='".$photo."', weibo_user_id='".$weibo_uid."', weibo_access_token='".$_SESSION['last_wkey']['oauth_token']."', weibo_access_token_secret='".$_SESSION['last_wkey']['oauth_token_secret']."' WHERE id='".$_SESSION['uid']."'");
 
 
-header("location: ../accounts/source.php"); 
+header("location: /accounts/source"); 
 exit;
 ?>
 

@@ -16,7 +16,7 @@ include_once( $_SERVER['DOCUMENT_ROOT'].'/include/weibo_functions.php');
 	<title><?php print $html_title; ?></title>
 	<link type='text/css' href="/css/layout.css" rel='stylesheet' />
 	<link type="text/css" href="/css/jquery.ui.theme.css" rel="stylesheet" />
-	<link type="text/css" rel="stylesheet" href="../CLEditor/jquery.cleditor.css" />
+	<link type="text/css" rel="stylesheet" href="/CLEditor/jquery.cleditor.css" />
 	<link type="image/ico" rel="shortcut icon" href="/img/favicon.ico" /> 
   </head>
   <body class='editor' onload='javascript:return bindonbeforeunload();'>
@@ -112,7 +112,7 @@ else
 				  </div>
 				  <div class='login_right'>
 				    <div>还没有口立方帐号?</div>
-					<a class='large green awesome register_awesome' href='/accounts/register/register_form.php'>马上注册 &raquo;</a>
+					<a class='large green awesome register_awesome' href='/accounts/register'>马上注册 &raquo;</a>
 					<div><span>使用新浪微博帐号登录</span></div>
 				    <div><a id='connectBtn' href='#'><span class='sina_icon'></span><span class='sina_name'>新浪微博</span></a></div>  
 				  </div>
@@ -129,8 +129,8 @@ $content .= "
 	    <textarea class='publish-tweet' cols='50' rows='3'></textarea>
 	    <a class='btn_w_publish large blue awesome'><span id='pub_text'>转发</span></a>
 	  </div>
-	  <div class='pub_imply_sina'><span style='margin-left:6px; margin-right:5px; color:#878787;'>发布到新浪微博需要绑定新浪微博帐号</span><a href='/member/source.php'>现在去绑定</a></div>
-	  <div class='pub_imply_tencent'><span style='margin-left:6px; margin-right:5px; color:#878787;'>发布到腾讯微博需要绑定腾讯微博帐号</span><a href='/member/source.php'>现在去绑定</a></div>
+	  <div class='pub_imply_sina'><span style='margin-left:6px; margin-right:5px; color:#878787;'>发布到新浪微博需要绑定新浪微博帐号</span><a href='/accounts/source'>现在去绑定</a></div>
+	  <div class='pub_imply_tencent'><span style='margin-left:6px; margin-right:5px; color:#878787;'>发布到腾讯微博需要绑定腾讯微博帐号</span><a href='/accounts/source'>现在去绑定</a></div>
   </div>
   <div id='mask'></div>
   </div>

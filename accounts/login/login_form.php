@@ -19,7 +19,7 @@ else if($_GET['next'] == 'inactivate')
 else if(!empty($_GET['next']))
 {
   $redirec_temp = urldecode($_GET['next']);
-  $findme = "/member/user.php";
+  $findme = "/accouts/user";
   $pos = strpos($redirec_temp, $findme);
   if ($pos !== false)
   {
@@ -34,7 +34,7 @@ $content .="<div class='form_div'><span class='form_label'>邮&nbsp;箱</span><i
 		</div>
 		<div id='login_form_r'>
 		  <div>还没有口立方帐号?</div>
-		  <a class='large green awesome register_awesome' href='/accounts/register/register_form.php'>马上注册 &raquo;</a>
+		  <a class='large green awesome register_awesome' href='/accounts/register'>马上注册 &raquo;</a>
 		  <div><span>使用新浪微博帐号登录</span></div>
 		  <div><a id='connectBtn' href='#'><span class='sina_icon'></span><span class='sina_name'>新浪微博</span></a></div>
 		</div>

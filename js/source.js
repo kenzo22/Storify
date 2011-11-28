@@ -5,7 +5,7 @@ var postdata;
 if($(this).text() == '添加')
 {
   postdata = {operation: 'add'};
-  $.post('weibosource.php', postdata,
+  $.post('/accounts/weibosource.php', postdata,
   function(data, textStatus)
   {					
 	self.location = data;
@@ -14,7 +14,7 @@ if($(this).text() == '添加')
 else
 {
   postdata = {operation: 'delete'};
-  $.post('weibosource.php', postdata,
+  $.post('/accounts/weibosource.php', postdata,
   function(data, textStatus)
   {	
     if(textStatus == 'success')
@@ -33,7 +33,7 @@ var postdata;
 if($(this).text() == '添加')
 {
   postdata = {operation: 'add'};
-  $.post('tweibosource.php', postdata,
+  $.post('/accounts/tweibosource.php', postdata,
   function(data, textStatus)
   {					
 	self.location = data;
@@ -42,7 +42,7 @@ if($(this).text() == '添加')
 else
 {
   postdata = {operation: 'delete'};
-  $.post('tweibosource.php', postdata,
+  $.post('/accounts/tweibosource.php', postdata,
   function(data, textStatus)
   {	
     if(textStatus == 'success')
@@ -61,7 +61,7 @@ var postdata;
 if($(this).text() == '添加')
 {
   postdata = {operation: 'add'};
-  $.post('doubansource.php', postdata,
+  $.post('/accounts/doubansource.php', postdata,
   function(data, textStatus)
   {					
 	self.location = data;
@@ -70,7 +70,7 @@ if($(this).text() == '添加')
 else
 {
   postdata = {operation: 'delete'};
-  $.post('doubansource.php', postdata,
+  $.post('/accounts/doubansource.php', postdata,
   function(data, textStatus)
   {	
     if(textStatus == 'success')
@@ -89,7 +89,7 @@ var postdata;
 if($(this).text() == '添加')
 {
   postdata = {operation: 'add'};
-  $.post('yupoosource.php', postdata,
+  $.post('/accounts/yupoosource.php', postdata,
   function(data, textStatus)
   {					
 	self.location = data;
@@ -98,7 +98,7 @@ if($(this).text() == '添加')
 else
 {
   postdata = {operation: 'delete'};
-  $.post('yupoosource.php', postdata,
+  $.post('/accounts/yupoosource.php', postdata,
   function(data, textStatus)
   {	
     if(textStatus == 'success')

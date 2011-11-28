@@ -1,7 +1,7 @@
 <?php
 $html_title = "口立方 - 新颖的社会媒体故事社区，帮助你用社会媒体讲故事";
-include 'global.php'; 
-include 'member/tagoperation.php';
+include $_SERVER['DOCUMENT_ROOT'].'/global.php'; 
+include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -44,7 +44,7 @@ include 'member/tagoperation.php';
 		$content="<ul class='user_console'>
 				    <li class='person_li display'><a class='person_a person_a_display' href='/user/".$userresult['id']."'><img id='person_img' src='".$user_profile_img."'><span id='person_name'>".$_SESSION['username']."</span></a></li>
 					<li class='person_li'><a class='person_a home_icon' href='/user/".$userresult['id']."'><img class='console_img' src='/img/home.png'/><span>我的主页</span></a></li>
-					<li class='person_li'><a class='person_a setting_icon' href='/accounts/settings.php'><img class='console_img' src='/img/setting.png'/><span>设置</span></a></li>
+					<li class='person_li'><a class='person_a setting_icon' href='/accounts/setting'><img class='console_img' src='/img/setting.png'/><span>设置</span></a></li>
 					<li class='person_li'><a class='person_a quit_icon' href='/accounts/login/login.php?logout'><img class='console_img' src='/img/quit.png'/><span>退出<span></a></li>
 		          </ul>";
 	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='口立方' accesskey='h' href='/'><img src='/img/koulifangbeta.png' alt='口立方' /></a></span>
@@ -62,7 +62,7 @@ include 'member/tagoperation.php';
 	  $_SESSION['last_tkey']['oauth_token'] = $token['tweibo_access_token'];
 	  $_SESSION['last_tkey']['oauth_token_secret'] = $token['tweibo_access_token_secret'];
   
-	  $content = "<span id='top_menu_b'><a class='register_top' href='/accounts/register/register_form.php'>注册</a><a class='login_top' href='/accounts/login/login_form.php?next=".urlencode($_SERVER['REQUEST_URI'])."'>登录</a><a class='edit_story_btn' href='/member'>创建故事</a></span>";
+	  $content = "<span id='top_menu_b'><a class='register_top' href='/accounts/register'>注册</a><a class='login_top' href='/accounts/login/login_form.php?next=".urlencode($_SERVER['REQUEST_URI'])."'>登录</a><a class='edit_story_btn' href='/member'>创建故事</a></span>";
 	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='口立方' accesskey='h' href='/'><img src='/img/koulifangbeta.png' alt='口立方' /></a></span>".$content."</div></div>";
 	}
    ?>
@@ -92,7 +92,7 @@ include 'member/tagoperation.php';
 		</div>
 		<div class='login_right'>
 		  <div>还没有口立方帐号?</div>
-		  <a class='large green awesome register_awesome' href='/accounts/register/register_form.php'>马上注册 &raquo;</a>
+		  <a class='large green awesome register_awesome' href='/accounts/register'>马上注册 &raquo;</a>
 		  <div><span>使用新浪微博帐号登录</span></div>
 		  <div><a id='connectBtn' href='#'><span class='sina_icon'></span><span class='sina_name'>新浪微博</span></a></div>  
 		</div>

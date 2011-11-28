@@ -11,7 +11,7 @@ if(!empty($reset))
 }
 else
 {
-  go("/accounts/register/register_form.php","没有这个注册用户！",2);
+  go("/accounts/register","没有这个注册用户！",2);
   exit;
 }
 if ($username!="" && $email!=""){
@@ -20,7 +20,7 @@ if ($username!="" && $email!=""){
 	{
 		if($result['activate'] == 1)
 		{
-		  go("/","您之前已经激活了，请登录！",2);
+		    header("location:/");
 		  exit;
 		}
 		else
@@ -31,7 +31,7 @@ if ($username!="" && $email!=""){
 			  $userresult=$DB->fetch_one_array("select id, username from ".$db_prefix."user where username='".$username."' AND email='".$email."'");
 			  $_SESSION['uid']=$userresult['id'];
 			  $_SESSION['username']=$userresult['username'];
-			  go("/accounts/source.php","用户激活成功！",2);
+			    go("/accounts/source","即将为您自动登录",2);
 			  exit;
 		  }
 		}	

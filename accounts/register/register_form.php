@@ -9,7 +9,7 @@ if(islogin())
 }
 ?>
 <div class='inner'>
-<form method='post' action='register_new.php' id='register_form'> 
+<form method='post' action='/accounts/register_notice' id='register_form'> 
   <div id='register_title' class='page_title'>用户注册</div>  
   <div id='sign_up'> 
     <div><span class='field_name'>邮 箱</span> <span > <input type='text' name='email' id='email_reg' size='30' maxlength='100' /> </span> <span class='form_tip' id='email_tip'></span></div> 

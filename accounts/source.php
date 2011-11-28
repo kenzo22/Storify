@@ -1,7 +1,7 @@
 <?php
 $html_title = "第三方授权 - 口立方";
-require "../global.php";
-require  "../include/header.php";
+require $_SERVER['DOCUMENT_ROOT']."/global.php";
+require $_SERVER['DOCUMENT_ROOT']."/include/header.php";
 if(!islogin())
 {
   header("location: /accounts/login/login_form.php"); 
@@ -64,13 +64,13 @@ $content = "<div class='inner'>
   </ul>
 </div>
 <div id='go_back_setting'>
-  <span>&gt;&nbsp;<a href='/accounts/settings.php'>回到基本设置</a></span>
+  <span>&gt;&nbsp;<a href='/accounts/setting'>回到基本设置</a></span>
 </div>
 </div>";
 echo $content;
-include "../include/footer.htm";
+include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm";
 ?>
 
-<script type='text/javascript' src='../js/source.js'></script>
+<script type='text/javascript' src='/js/source.js'></script>
 </body>
 </html>

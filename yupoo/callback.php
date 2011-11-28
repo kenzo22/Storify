@@ -1,9 +1,8 @@
 <?php
-require_once "../connect_db.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/connect_db.php";
 session_start();
-include_once( 'config.php' );
-include_once( 'yupoo.php' );
-//include_once( '../tweibo/demo/class.krumo.php' );
+include_once 'config.php';
+include_once 'yupoo.php';
 
 $y = new YupooAPI( YB_AKEY , YB_SKEY);
 
@@ -34,6 +33,6 @@ $picData  = $y->search_user($userid, 1, $_SESSION['yupoo_token']);*/
 //krumo($picData);
 
 $result=$DB->query("update ".$db_prefix."user set yupoo_token='".$token."' WHERE id='".$_SESSION['uid']."'");
-header("location: ../accounts/source.php"); 
+header("location: /accounts/source"); 
 exit;
 ?>

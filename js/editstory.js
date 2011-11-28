@@ -501,7 +501,7 @@ $(function() {
 		  {
 		    if($(this).hasClass('sina_disable'))
 			{
-			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>查看我的关注需要绑定新浪微博帐号</div><a href='/member/source.php'>马上绑定</a></div>";
+			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>查看我的关注需要绑定新浪微博帐号</div><a href='/accounts/source'>马上绑定</a></div>";
 			  $('#source_list').html(imply_txt);
 			  return false;
 			}
@@ -510,7 +510,7 @@ $(function() {
 		  {
 		    if($(this).hasClass('tencent_disable'))
 			{
-			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>查看我的广播需要绑定腾讯微博帐号</div><a href='/member/source.php'>马上绑定</a></div>";
+			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>查看我的广播需要绑定腾讯微博帐号</div><a href='/accounts/source'>马上绑定</a></div>";
 			  $('#source_list').html(imply_txt);
 			  return false;
 			}
@@ -565,7 +565,7 @@ $(function() {
 		  {
 		    if($(this).hasClass('sina_disable'))
 			{
-			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>查看我的关注需要绑定新浪微博帐号</div><a href='/member/source.php'>马上绑定</a></div>";
+			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>查看我的关注需要绑定新浪微博帐号</div><a href='/accounts/source'>马上绑定</a></div>";
 			  $('#source_list').html(imply_txt);
 			  return false;
 			}
@@ -574,7 +574,7 @@ $(function() {
 		  {
 		    if($(this).hasClass('tencent_disable'))
 			{
-			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>查看我的收听需要绑定腾讯微博帐号</div><a href='/member/source.php'>马上绑定</a></div>";
+			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>查看我的收听需要绑定腾讯微博帐号</div><a href='/accounts/source'>马上绑定</a></div>";
 			  $('#source_list').html(imply_txt);
 			  return false;
 			}
@@ -786,7 +786,7 @@ $(function() {
 		  {
 		    if($('#user_tab_pic').hasClass('yupoo_disable'))
 			{
-			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>用户搜索功能需要绑定又拍帐号</div><a href='/member/source.php'>马上绑定</a></div>";
+			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>用户搜索功能需要绑定又拍帐号</div><a href='/accounts/source'>马上绑定</a></div>";
 			  $('#source_list').html(imply_txt);
 			  return false;
 			}

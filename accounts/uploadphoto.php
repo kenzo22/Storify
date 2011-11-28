@@ -1,7 +1,7 @@
 <?php
 $html_title = "上传照片 - 口立方";
-require "../global.php";
-require  "../include/header.php";
+require $_SERVER['DOCUMENT_ROOT']."/global.php";
+require $_SERVER['DOCUMENT_ROOT']."/include/header.php";
 $uid=intval($_SESSION['uid']);
 
 $result=$DB->fetch_one_array("select * from story_user where id=".$uid);
@@ -9,10 +9,10 @@ $result=$DB->fetch_one_array("select * from story_user where id=".$uid);
 if($_POST['act'] == 'uploadphoto')
 {
 	if(!islogin())  
-		go("/login","请先登录..",2);
+		header("location:/accounts/login/");
 
     if ((($_FILES["photofile"]["type"] == "image/png") || ($_FILES["photofile"]["type"] == "image/gif") || ($_FILES["photofile"]["type"] == "image/jpeg") || ($_FILES["photofile"]["type"] == "image/jpg") ||
-	($_FILES["photofile"]["type"] == "image/pjpeg") || ($_FILES["photofile"]["type"] == "image/bmp")) && ($_FILES["photofile"]["size"] < 5000000))	
+	($_FILES["photofile"]["type"] == "image/pjpeg") || ($_FILES["photofile"]["type"] == "image/bmp")) && ($_FILES["photofile"]["size"] < 8000000))	
 	{
 	  $err_code=$_FILESs['photofile']['error'];
 	  if ($err_code > 0)
@@ -66,7 +66,7 @@ if($_POST['act'] == 'uploadphoto')
 			}
 			chmod($local_file,0755);
 			$DB->query("update ".$db_prefix."user set photo='".$stored_file."' where  ID=".$uid);
-			header("location: ./user_setting.php"); 
+			header("location: /accounts/setting"); 
 			/*echo "<script language='javascript' >
 				window.onload = function()
 				{
@@ -139,7 +139,7 @@ else
 	echo $content;
 }
 
-include "../include/footer.htm"
+include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm"
 ?>
 <script type="text/javascript">
 $('#upload_btn').click(function(e)

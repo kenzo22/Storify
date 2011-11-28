@@ -1,7 +1,7 @@
 <?php
   $html_title = "用户注册 - 口立方";
   require $_SERVER['DOCUMENT_ROOT']."/global.php";
-  require  $_SERVER['DOCUMENT_ROOT']."/include/header.php";
+  require $_SERVER['DOCUMENT_ROOT']."/include/header.php";
   include $_SERVER['DOCUMENT_ROOT']."/include/mail_functions.php";
 
   $email=$_POST['email'];
@@ -27,7 +27,7 @@
                 throw new Exception("无效的邀请码.");
         }*/
 	
-	  $url = 'http://'.$_SERVER['SERVER_NAME'].dirname($_SERVER['SCRIPT_NAME']).'/activation.php';
+	  $url = 'http://'.$_SERVER['SERVER_NAME'].'/accounts/activation';
 	  $url .= '?confirmation='.$reset_code.$current_time;
 
 	 
@@ -70,7 +70,7 @@
 		   <div id='a_flag'>没有收到确认信?...</div>
 		   <input type='hidden' value='".$imply_txt."' id='imply_info' />
 		   <ol>
-			 <li>1.  检查一下上面的邮箱地址是否正确，错了就<a href='/register/register_form.php'>重新注册</a>一次吧:)</li>
+			 <li>1.  检查一下上面的邮箱地址是否正确，错了就<a href='/accounts/register'>重新注册</a>一次吧:)</li>
 			 <li>2.  看看是否在邮箱的垃圾箱里</li>
 			 <li>3.  稍等几分钟，若仍旧没收到确认信，让口立方<a id='a_resend' href='#'>重发一封激活邮件</a></li>
 		   </ol>

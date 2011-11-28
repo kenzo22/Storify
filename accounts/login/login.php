@@ -41,7 +41,7 @@ if($email && $passwd)
 	$activate = intval($result['activate']);
 	if($activate == 0)
 	{
-	  header("location: /login/login_form.php?next=inactivate");
+	  header("location: /accounts/login/inactivate");
 	  exit;
 	}
 	$_SESSION['uid']=intval($result['id']);
@@ -54,7 +54,7 @@ if($email && $passwd)
 	$_SESSION['weibo_uid']=intval($result['weibo_user_id']);
 	if(0 == $_SESSION['weibo_uid'] && '' == $result['tweibo_access_token'])
 	{
-	  header("location: /member/source.php");
+	  header("location: /accounts/source");
 	  exit;
 	}
 	else
@@ -89,7 +89,6 @@ if($email && $passwd)
 	  
 	  if(isset($redirect_info))
 	  {
-	    //go($redirect_info);
 		header("location: ".$redirect_info); 
 	  }
 	  else
@@ -100,7 +99,7 @@ if($email && $passwd)
   }
   else
   {
-	header("location: /accounts/login/login_form.php?next=error_flag"); 
+	header("location: /accounts/login/error"); 
   }
 }
 ?>

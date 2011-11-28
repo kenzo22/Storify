@@ -1,8 +1,8 @@
 <?php
-require_once "../connect_db.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/connect_db.php";
 session_start();
-include_once( 'config.php' );
-include_once( 'doubanapi.php' );
+include_once $_SERVER['DOCUMENT_ROOT'].'/douban/config.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/douban/doubanapi.php';
 
 $o = new DoubanOAuth( DB_AKEY , DB_SKEY , $_SESSION['dkeys']['oauth_token'] , $_SESSION['dkeys']['oauth_token_secret']  );
 
@@ -23,7 +23,7 @@ $douban_uid = $msg['db:uid']['$t'];
 
 $result=$DB->query("update ".$db_prefix."user set douban_user_id='".$douban_uid."', douban_access_token='".$_SESSION['last_dkey']['oauth_token']."', douban_access_token_secret='".$_SESSION['last_dkey']['oauth_token_secret']."' WHERE id='".$_SESSION['uid']."'");
 
-header("location: ../accounts/source.php"); 
+header("location: /accounts/source"); 
 exit;
 ?>
 

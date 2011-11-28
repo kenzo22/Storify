@@ -1,7 +1,7 @@
 <?php
 $html_title = "用户设置 - 口立方";
-require "../global.php";
-require  "../include/header.php";
+require $_SERVER['DOCUMENT_ROOT']."/global.php";
+require  $_SERVER['DOCUMENT_ROOT']."/include/header.php";
 if(!islogin())
 {
   header("location: /login/login_form.php"); 
@@ -24,16 +24,16 @@ if(!empty($result['photo']))
 	   $pattern = "/50$/";
 	   $user_profile_img = preg_replace($pattern,'100',$result['photo']);
 	 }
-	$userphoto="<img class='user_photo' src='".$user_profile_img."'> </img><div><a class='update_profile_img' href='uploadphoto.php'>更换头像</a></div>";
+	$userphoto="<img class='user_photo' src='".$user_profile_img."'> </img><div><a class='update_profile_img' href='/accounts/uploadphoto'>更换头像</a></div>";
   }
   else
   {
-    $userphoto="<img class='user_photo' src='".$result['photo']."'> </img><div><a class='update_profile_img' href='uploadphoto.php'>更换头像</a></div>";
+    $userphoto="<img class='user_photo' src='".$result['photo']."'> </img><div><a class='update_profile_img' href='/accounts/uploadphoto'>更换头像</a></div>";
   } 
 }    
 else
 {
-  $userphoto="<a href='uploadphoto.php'>放你的头像上来</a>";
+  $userphoto="<a href=/accounts/uploadphoto'>放你的头像上来</a>";
 }			
 $user_set = "<div class='inner'>
 			<div class='page_title'>".$result['username']."的帐号"."</div>
@@ -42,7 +42,7 @@ $user_set = "<div class='inner'>
 				<span class='now'>
 				  <span>基本设置</span>
 				</span>
-				<a href='source.php'>第三方应用授权</a>
+				<a href='/accounts/source'>第三方应用授权</a>
 			  </div>
 			</div>
 			<div class='clear'></div>
@@ -67,14 +67,14 @@ $user_set = "<div class='inner'>
 				   <td align='right'>登录邮箱: </td>
 				   <td valign='top'>
 					 <span>".$result['email']."</span>
-					 <a href='/accounts/login/change_email.php'>更改</a>
+					 <a href='/accounts/change_email'>更改</a>
 				   </td>
 				 </tr>
 				 <tr> 
 				 <tr>
 				   <td align='right'>登录密码: </td>
 				   <td valign='top'>
-					 <a href='/accounts/login/change_pwd.php'>更改</a>
+					 <a href='/accounts/change_pwd'>更改</a>
 				   </td>
 				 </tr>
 				 <tr>
@@ -85,7 +85,7 @@ $user_set = "<div class='inner'>
 			</form>
 			</div>";
 echo $user_set;
-include "../include/footer.htm"
+include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm"
 ?>
 
 <script type="text/javascript">
@@ -98,7 +98,7 @@ $(function()
 	var username_val = $('#user_name').val();
 	var userintro_val = $('#user_intro').val();
 	var postdata = {username: username_val, userintro: userintro_val};			  
-    $.post('modifysetting.php', postdata,
+    $.post('/accounts/modifysetting', postdata,
     function(data, textStatus)
     {
 	  if("success" == textStatus)

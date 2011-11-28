@@ -1,8 +1,8 @@
 <?php
-require_once "../connect_db.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/connect_db.php";
 session_start();
-include_once( 'config.php' );
-include_once( 'txwboauth.php' );
+include_once 'config.php';
+include_once 'txwboauth.php';
 
 
 $o = new TWeiboOAuth( MB_AKEY , MB_SKEY , $_SESSION['tkeys']['oauth_token'] , $_SESSION['tkeys']['oauth_token_secret']  );
@@ -32,6 +32,6 @@ else
 }
   $result=$DB->query("update ".$db_prefix."user set photo='".$photo."', tweibo_user_id='".$user[Uid]."', tweibo_access_token='".$_SESSION['last_tkey']['oauth_token']."', tweibo_access_token_secret='".$_SESSION['last_tkey']['oauth_token_secret']."' WHERE id='".$_SESSION['uid']."'");
 
-header("location: ../accounts/source.php"); 
+header("location: /accounts/source"); 
 exit;
 ?>

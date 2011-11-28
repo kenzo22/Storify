@@ -61,11 +61,11 @@ else
   {
     $update_result=$DB->query("update ".$db_prefix."user set email='".$new_login_email."'  WHERE email='".$login_email."' AND passwd='".$login_pwd."'" );
 	session_destroy();
-	go("/login/login_form.php", "修改邮箱成功，请重新登录", 2);
+	go("/accounts/login", "修改邮箱成功，请重新登录", 2);
   }
   else
   {
-    header("location:/acounts/login/change_email.php?next=error_flag");
+    header("location:/acounts/change_email/error");
   }  
 }
 

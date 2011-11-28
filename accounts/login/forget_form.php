@@ -1,7 +1,7 @@
 <?php
 $html_title = "重设密码 - 口立方";
 require $_SERVER['DOCUMENT_ROOT']."/global.php";
-require  $_SERVER['DOCUMENT_ROOT']."/include/header.php";
+require $_SERVER['DOCUMENT_ROOT']."/include/header.php";
 include $_SERVER['DOCUMENT_ROOT']."/include/mail_functions.php";
 include $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php';
 
@@ -22,7 +22,7 @@ if($_GET['act']!="forget_pwd")
 	  </div>
 	</div>
 	<div class='float_r'>
-      <span>还没有口立方帐号，<a href='/accounts/register/register_form.php'/>立即注册？</a></span>
+      <span>还没有口立方帐号，<a href='/accounts/register'/>立即注册？</a></span>
     </div>
 </form>
 <div style='height:270px;'></div>
@@ -69,7 +69,7 @@ else
 	              <h2> 重设密码 </h2> 
 				  <div class='float_l'><span>请到 ".$email." 查阅来自口立方的邮件, 从邮件重设你的密码。<span></div>
 				  <div class='float_r'>
-					<span>还没有口立方帐号，<a href='/acounts/register/register_form.php'/>立即注册？</a></span>
+					<span>还没有口立方帐号，<a href='/acounts/register'/>立即注册？</a></span>
 				  </div>
 				  <div style='height:250px;'></div>
 				</div>";

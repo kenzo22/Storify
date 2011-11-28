@@ -26,7 +26,7 @@ $(function(){
 	  else
 	  {
 		var $email  = $(this).val();
-		var url = '../register/check_email.php?email='+$email;
+		var url = '/accounts/register/check_email.php?email='+$email;
 		$.get(url, function(data){
 		if(data =='1')
 		{
