@@ -93,10 +93,8 @@
 		//Koulifang.ready = true;
 		//getStories();
 		require('http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=2417356638', function() {
-			require('http://v2.jiathis.com/code/jia.js?uid=1542042', function() {
 				Koulifang.ready = true;
 				getStories();
-			});
 		});
 	}
 	
@@ -191,6 +189,10 @@
 					}); 
 				});
 			});
+			
+			require('http://v2.jiathis.com/code/jia.js', function() {
+			});
+			
           },
           scriptCharset: "utf-8",
           type: "GET"
