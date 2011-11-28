@@ -58,6 +58,7 @@
 		var script_tag = document.createElement('script');
 		script_tag.setAttribute("type", "text/javascript");
 		script_tag.setAttribute("src", jsfile);
+		script_tag.setAttribute("charset", "utf-8");
 		if (typeof callback == 'function') {
 			script_tag.onload = callback;
 			script_tag.onreadystatechange = function() { // IE
@@ -70,7 +71,7 @@
 	
 	function setenv()
 	{
-	  KOULIFANG_BASE_URL = 'http://koulifang.com';
+	  KOULIFANG_BASE_URL = 'http://www.koulifang.com';
 	}
 	
 	function debug(msg, obj) {
@@ -91,15 +92,11 @@
 		jQuery('head').append('<link rel="stylesheet" href="' + KOULIFANG_BASE_URL + '/css/widget.css' + '" type="text/css" />');
 		//Koulifang.ready = true;
 		//getStories();
-		/*require('http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=2417356638', function() {
-			require('http://v2.jiathis.com/code/jia.js', function() {
+		require('http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=2417356638', function() {
+			require('http://v2.jiathis.com/code/jia.js?uid=1542042', function() {
 				Koulifang.ready = true;
 				getStories();
 			});
-		});*/
-		require('http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=2417356638', function() {
-				Koulifang.ready = true;
-				getStories();
 		});
 	}
 	
@@ -193,9 +190,6 @@
 					search: true
 					}); 
 				});
-			});
-			
-			require('http://v2.jiathis.com/code/jia.js', function() {
 			});
           },
           scriptCharset: "utf-8",

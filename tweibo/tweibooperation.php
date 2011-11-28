@@ -28,7 +28,7 @@ else if('my_follow' == $operation)
 else if('weibo_search' == $operation)
 {
   $keywords = $_GET['keywords'];
-  $tweibo  = $c->search_t($keywords, $page, $itemsPerPage);
+  $tweibo  = $c->search_t($keywords, $page, $itemsPerPage, 'json', 2);
   if($tweibo['data'] == NULL)
   {
     echo "<div class='imply_color' style='text-align:center;'>对不起，没有找到相关的微博</div>";
