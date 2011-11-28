@@ -465,12 +465,13 @@ $ip = "Unknown";
     } 
 
 //2.Search/t 搜索微博
-    function search_t($keyword,$page=1,$pagesize=20,$format='json')
+    function search_t($keyword,$page=1,$pagesize=20,$format='json',$sorttype=2)
 	   {
-    	$param['format']=$format;
+		$param['format']=$format;
     	$param['page']=$page;
     	$param['pagesize']=$pagesize;
     	$param['keyword']=$keyword;
+		$param['sorttype']=$sorttype;
         return $this->oauth->get( 'http://open.t.qq.com/api/search/t' ,$param); 
     } 
 

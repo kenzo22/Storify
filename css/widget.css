@@ -1,3 +1,7 @@
+.float_r{
+float:right;
+}
+
 #publish_container{
 border-color:#ababac;
 border-style:solid;
@@ -23,15 +27,6 @@ list-style: none outside none;
 #publish_container a:visited { color: #666699; text-decoration: none;}
 #publish_container a:hover { color: #666666; text-decoration: none;}
 #publish_container a:active { color: #FFFFFF; text-decoration: none;}
-
-.quote_sign{
-color: #AAAAAA;
-float: left;
-font-family: Georgia;
-font-size: 56px;
-line-height: 45px;
-margin-left: 2px;
-}
 
 .story_title{
   padding-left:20px;
@@ -156,8 +151,9 @@ position:relative;
 zoom:1;
 }
 
-.story_wrapper, .douban_wrapper, .urlWrapper, .yupooWrapper, .youku_wrapper, .commentBox{
-margin-left:13px;
+.douban_signature .text_wrapper, .story_signature .text_wrapper{
+float:right;
+height:16px;
 }
 
 .item_action{

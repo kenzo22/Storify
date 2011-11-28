@@ -30,6 +30,10 @@ while ($story_item = mysql_fetch_array($result))
   $post_date = dateFormatTrans($story_item['post_date'],$date_t);
   $post_link = "/user/".$post_author."/".$story_id;
   $post_link = htmlspecialchars($post_link);
+  if($post_pic_url == '')
+  {
+    $post_pic_url = getUserPic($post_author);
+  }
   $content .=   "<li class='tagstory_li'>
                     <div class='wrapper'>
                         <a class='pic_meta' href='/user/".$post_author."/".$story_id."'>

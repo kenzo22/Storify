@@ -8,8 +8,8 @@ myHeight = window.innerHeight;
 //IE 6+ in 'standards compliant mode'
 myHeight = document.documentElement.clientHeight;
 }
-var l_used_height = 260;
-var r_user_height = 320;
+var l_used_height = 267;
+var r_user_height = 326;
 var height_adjust = 3;
 var l_list_height = myHeight -l_used_height;
 var r_list_height;
@@ -613,7 +613,7 @@ $(function() {
 		  });
 		});
 		
-		$('#search_tab').click(function()
+		$('#search_tab').click(function(e)
 		{
 		  weiboSearhPage = 1;
 		  tweibosearchPage = 1;
@@ -622,7 +622,25 @@ $(function() {
 		  if(0 == vtabIndex)
 		  {
 		    $('#weibo_search_btn').text('搜索话题');
-			$('#source_list').append("<li class='trends_li'><a class='trends_wrapper' href='#'><span id='view_trends' href='#'>点击查看本周热门话题</span></a><li>");
+			e.preventDefault();
+		    var getUrl = '../weibo/weibooperation.php';
+		    var getData;
+		    getData = {operation: 'list_ht'};
+		  
+		    $.ajax({
+		    type: 'GET',
+		    url: getUrl,
+		    data: getData, 
+		    beforeSend:function() 
+		    {
+		      var imgloading = $("<span style='padding-left:180px;'><img src='../img/loading.gif' /></span>");
+		      $('#source_list').html(imgloading);
+		    },
+		    success: function(data)
+		    {
+			  $('#source_list').html(data);
+		    }
+		    }); 
 		  }
 		  else
 		  {
@@ -819,7 +837,7 @@ $(function() {
 		
 		$( "#source_list, #story_list" ).sortable({
 			connectWith: ".connectedSortable",
-			cancel: ".weibo_drop, .douban_drop, .video_drop, .textElement, .tuser, .loadmore, .trends_li",
+			cancel: ".weibo_drop, .douban_drop, .video_drop, .textElement, .tuser, .loadmore, .ht_wrapper",
 			receive: function(evt, ui) 
 			{
 			  var dragItem = ui.item;
@@ -843,8 +861,7 @@ $(function() {
 				var position = ui.position;
 			　  var weibo_id = dragItem.find('.weibo_drag').attr('id');
 			　  var weibo_Text= dragItem.find('.weibo_text').html();
-			    var repost_flag = dragItem.find('.weibo_text').hasClass('is_repost');
-				var item_action;
+			    //var repost_flag = dragItem.find('.weibo_text').hasClass('is_repost');
 			　  var weibo_from = dragItem.find('.weibo_from').text();
 			　  //var weibo_from_id = dragItem.find('.user_page').attr('href').replace(/http:\/\/weibo.com\//,"");
 			  　var weibo_time = dragItem.find('.create_time').text();
@@ -852,14 +869,6 @@ $(function() {
 				var content;	
 				if(dragItem.hasClass('sina'))
 				{
-				  if(repost_flag)
-				  {
-				    item_action = "<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f is_repost sina'><span>转发</span></a><a href='#weibo_dialog' name='modal' class='comment_f sina'><span>评论</span></a></div>";
-				  }
-				  else
-				  {
-				    item_action = "<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f sina'><span>转发</span></a><a href='#weibo_dialog' name='modal' class='comment_f sina'><span>评论</span></a></div>";
-				  }
 				  if(dragItem.find('.weibo_img img').length != 0)
 				  {
 				    var weibo_img = dragItem.find('.weibo_img img').attr('src').replace(/thumbnail/,"bmiddle");
@@ -871,10 +880,10 @@ $(function() {
 				    weibo_retweet_img_content = "<div class='weibo_retweet_img_drop'><img src='"+weibo_retweet_img+"' /></div>";
 				  }
 				  dragItem.removeClass('weibo_drag').addClass('weibo_drop sina').children().remove();
-				  content = ("<div class='cross' action='delete'></div>"+item_action+"<div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>"
+				  content = ("<div class='cross' action='delete'></div><div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>"
 					+weibo_Text+"</span>"+weibo_retweet_img_content+weibo_img_content+"</div><div class='story_signature'><span class='float_r'><a href='"+weibo_from_url+"' target='_blank'><img class='profile_img_drop' src='"
-					+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></span><span class='signature_text_drop'><div class='text_wrapper'><span ><a class='weibo_from_drop' href='"
-					+weibo_from_url+"' target='_blank'>"+weibo_from+"</a></span></div><div class='weibo_date_drop'>"+weibo_time+"</div></span> </div></div>");
+					+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></span><div class='signature_text_drop'><div class='text_wrapper'><span><a class='weibo_from_drop' href='"
+					+weibo_from_url+"' target='_blank'>"+weibo_from+"</a></span></div><div class='weibo_date_drop'>"+weibo_time+"</div></div></div></div>");
 				  if(dragItem.index(list_item_have_pic) == 0)
 				  {
 				    $('#story_thumbnail').attr('src', weibo_photo.replace(/(\d+)\/50\/(\d+)/, "$1\/180\/$2"));
@@ -882,14 +891,6 @@ $(function() {
 				}
 				else
 				{
-				  if(repost_flag)
-				  {
-				    item_action = "<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f is_repost tencent'><span>转播</span></a><a href='#weibo_dialog' name='modal' class='comment_f tencent'><span>评论</span></a></div>";
-				  }
-				  else
-				  {
-				    item_action = "<div class='item_action'><a href='#weibo_dialog' name='modal' class='repost_f tencent'><span>转播</span></a><a href='#weibo_dialog' name='modal' class='comment_f tencent'><span>评论</span></a></div>";
-				  }
 				  if(dragItem.find('.weibo_img img').length != 0)
 				  {
 				    var weibo_img = dragItem.find('.weibo_img img').attr('src').replace(/120$/,"240");
@@ -901,10 +902,10 @@ $(function() {
 				    weibo_retweet_img_content = "<div class='weibo_retweet_img_drop'><img src='"+weibo_retweet_img+"' /></div>";
 				  }
 				  dragItem.removeClass('weibo_drag').addClass('weibo_drop tencent').children().remove();
-				  content = ("<div class='cross' action='delete'></div>"+item_action+"<div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>"
+				  content = ("<div class='cross' action='delete'></div><div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>"
 					+weibo_Text+"</span>"+weibo_retweet_img_content+weibo_img_content+"</div><div class='story_signature'><span class='float_r'><a href='"+weibo_from_url+"' target='_blank'><img class='profile_img_drop' src='"
-					+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></span><span class='signature_text_drop'><div class='text_wrapper'><span ><a class='weibo_from_drop' href='"
-					+weibo_from_url+"' target='_blank'>"+weibo_from+"</a></span></div><div class='weibo_date_drop'>"+weibo_time+"</div></span></div></div>");
+					+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></span><div class='signature_text_drop'><div class='text_wrapper'><span ><a class='weibo_from_drop' href='"
+					+weibo_from_url+"' target='_blank'>"+weibo_from+"</a></span></div><div class='weibo_date_drop'>"+weibo_time+"</div></div></div></div>");
 				  if(dragItem.index(list_item_have_pic) == 0)
 				  {
 					$('#story_thumbnail').attr('src', weibo_photo.replace(/50$/, "180"));
@@ -1094,22 +1095,6 @@ $(function() {
 		  });
 		}	
 		
-		/*$('#story_list').hover(function(e){
-		if ($(e.target).is('.weibo_drop'))
-		{
-		  //$('.cross').css('visibility', 'hidden');
-		  $(e.target).children('.cross').css('visibility', 'visible');
-		}
-		},
-		function(ev)
-		{
-		  if ($(ev.target).is('.weibo_drop'))
-		  {
-		    //$('.cross').css('visibility', 'hidden');
-			$(ev.target).children('.cross').css('visibility', 'hidden');
-		  }
-		});*/
-		
 		$('#story_list li').live('mouseover', function(e)
 		{
 		  $(this).find('.cross').css('visibility', 'visible');
@@ -1211,29 +1196,6 @@ $(function() {
 		  var getData;
 		  var tUserName = $(this).closest('.weibo_drag').attr('id');
 		  getData = {operation: 'user_search', keywords: tUserName, page: 0, timestamp: usersearchTimestamp};
-		  
-		  $.ajax({
-		  type: 'GET',
-		  url: getUrl,
-		  data: getData, 
-		  beforeSend:function() 
-		  {
-		    var imgloading = $("<span style='padding-left:180px;'><img src='../img/loading.gif' /></span>");
-		    $('#source_list').html(imgloading);
-		  },
-		  success: function(data)
-		  {
-			$('#source_list').html(data);
-		  }
-		  }); 
-		});
-		
-		//sina weibo list trends
-		$('.trends_wrapper').live('click', function(e){
-		  e.preventDefault();
-		  var getUrl = '../weibo/weibooperation.php';
-		  var getData;
-		  getData = {operation: 'list_ht'};
 		  
 		  $.ajax({
 		  type: 'GET',
@@ -1610,151 +1572,29 @@ $(function() {
 		    $weiboTabs.tabs( "select" , 0 );
 		    $('#weibo_search').removeClass('none');
 			$('#source_list').children().remove();
-			$('#source_list').append("<li class='trends_li'><a class='trends_wrapper' href='#'><span id='view_trends'>点击查看本周热门话题</span></a></li>");
+		    var getUrl = '../weibo/weibooperation.php';
+		    var getData;
+		    getData = {operation: 'list_ht'};
+		  
+		    $.ajax({
+		    type: 'GET',
+		    url: getUrl,
+		    data: getData, 
+		    beforeSend:function() 
+		    {
+		      var imgloading = $("<span style='padding-left:180px;'><img src='../img/loading.gif' /></span>");
+		      $('#source_list').html(imgloading);
+		    },
+		    success: function(data)
+		    {
+			  $('#source_list').html(data);
+		    }
+		    });
 		  }
 		  selVTab = 0;
 		  $('#vtab>div').hide().eq(vtabIndex).show();
 		}
         }).eq(0).click();
-		
-		
-		//select all the a tag with name equal to modal
-		$('a[name=modal]').live('click', function(e){
-			e.preventDefault();
-			$('.publish-tweet').val('');
-			$('#weibo_dialog .word_counter').text('140');
-			if($(this).hasClass('sina'))
-			{
-			  $('#boxes #weibo_dialog #icon_flag').removeClass().addClass('sina16_icon');
-			  if($('#boxes #weibo_dialog').hasClass('sina'))
-			  {
-				//$('.btn_w_publish, .count_wrapper, .publish-tweet').show();
-				$('#pub_wrapper').show();
-				$('.pub_imply_sina, .pub_imply_tencent').hide();
-				if($(this).hasClass('repost_f'))
-				{
-				  $('#pub_text').text('转发').removeClass().addClass('sina');
-				  $('#publish_title').text('转发微博');
-				  if($(this).hasClass('is_repost'))
-				  {
-					var weibo_li = $(this).closest('li');
-					var repost_txt = ('//@'+ weibo_li.find('.weibo_from_drop').text() + ': ' + weibo_li.find('.weibo_text_drop').text());
-					repost_txt = repost_txt.substr(0, repost_txt.lastIndexOf('//@'));
-					var repost_len=(280-repost_txt.len())/2;
-					$('.publish-tweet').val(repost_txt);
-					if(repost_len<0)
-					{
-					  var pub_tweet = $('.publish-tweet');
-					  var i_max_len = pub_tweet.val().length+repost_len;
-					  pub_tweet.attr('maxlength', i_max_len);
-					  var i_cut_txt = pub_tweet.val().substr(0, i_max_len);
-					  pub_tweet.val(i_cut_txt);
-					  repost_len = 0;
-					}
-					$('#weibo_dialog .word_counter').text(Math.floor(repost_len));
-				  } 
-				}
-				else
-				{
-				  $('#pub_text').removeClass().addClass('sina');
-				  $('#pub_text').text('评论');
-				  $('#publish_title').text('评论微博');
-				}
-			  }
-			  else if(!$('#boxes #weibo_dialog').hasClass('disable'))
-			  {
-				$('#pub_wrapper, .pub_imply_tencent').hide();
-				$('.pub_imply_sina').show();
-				if($(this).hasClass('repost_f'))
-				{
-				  $('#publish_title').text('转发微博');
-				}
-				else
-				{
-				  $('#publish_title').text('评论微博');
-				}
-			  }
-			}
-			else if($(this).hasClass('tencent'))
-			{
-			  $('#boxes #weibo_dialog #icon_flag').removeClass().addClass('tencent16_icon');
-			  if($('#boxes #weibo_dialog').hasClass('tencent'))
-			  {
-				$('#pub_wrapper').show();
-				$('.pub_imply_sina, .pub_imply_tencent').hide();
-				if($(this).hasClass('repost_f'))
-				{
-				  $('#pub_text').text('转播').removeClass().addClass('tencent');
-				  $('#publish_title').text('转播微博');
-				  if($(this).hasClass('is_repost'))
-				  {
-					var weibo_li = $(this).closest('li');
-					var repost_txt = ('||'+ weibo_li.find('.weibo_from_drop').text() + '(@' + weibo_li.find('.weibo_from_drop').attr('href').replace(/http:\/\/t.qq.com\//,'') +'): ' + weibo_li.find('.weibo_text_drop').text());
-					var match_array=repost_txt.match(/\|\|.*?\(@.*?\):[^|]+/g);
-					repost_txt = repost_txt.replace(match_array[match_array.length-1],'')
-					var repost_len=(280-repost_txt.len())/2;
-					$('.publish-tweet').val(repost_txt);
-					if(repost_len<0)
-					{
-					  var pub_tweet = $('.publish-tweet');
-					  var i_max_len = pub_tweet.val().length+repost_len;
-					  pub_tweet.attr('maxlength', i_max_len);
-					  var i_cut_txt = pub_tweet.val().substr(0, i_max_len);
-					  pub_tweet.val(i_cut_txt);
-					  repost_len = 0;
-					}
-					$('#weibo_dialog .word_counter').text(Math.floor(repost_len));
-				  } 
-				}
-				else
-				{
-				  $('#pub_text').removeClass().addClass('tencent');
-				  $('#pub_text').text('评论');
-				  $('#publish_title').text('评论微博');
-				}
-			  }
-			  else if(!$('#boxes #weibo_dialog').hasClass('disable'))
-			  {
-				$('#pub_wrapper, .pub_imply_sina').hide();
-				$('.pub_imply_tencent').show();
-				if($(this).hasClass('repost_f'))
-				{
-				  $('#publish_title').text('转播微博');
-				}
-				else
-				{
-				  $('#publish_title').text('评论微博');
-				}
-			  }
-			}
-			var w_id = 'txt_'+ $(this).closest('li').attr('id');
-			$('.publish-tweet').attr('id', w_id);
-			
-			//Get the A tag
-			var id = $(this).attr('href');
-
-			//Get the screen height and width
-			var maskHeight = $(document).height();
-			var maskWidth = $(window).width();
-
-			//Set heigth and width to mask to fill up the whole screen
-			$('#mask').css({'width':maskWidth,'height':maskHeight});	
-			$('#mask').show().css('opacity', '0.7');
-			//$('#mask').fadeTo('slow',0.8);	
-
-			//Get the window height and width
-			var winH = $(window).height();
-			var winW = $(window).width();
-			var scrollTop = $(document).scrollTop();
-			var scrollLeft = $(document).scrollLeft();
-				  
-			//Set the popup window to center
-			$(id).css('top',  winH/2-$(id).height()/2+scrollTop-100);
-			$(id).css('left', winW/2-$(id).width()/2+scrollLeft);
-
-			$(id).show(); 
-
-		});
 
 		$('.window .close').click(function (e) {
 			e.preventDefault();
@@ -1766,60 +1606,4 @@ $(function() {
 			$(this).hide();
 			$('.window').hide();
 		});	
-		
-	$('.publish-tweet').live('keyup', function(e){
-      var word_remain=(280-$(this).val().len())/2;
-	  if(word_remain == 0)
-	  {
-		var max_len = $(this).val().length;
-		$(this).attr('maxlength', max_len);
-	  }
-	  if(word_remain < 0)
-	  {
-		var max_len = $(this).val().length+word_remain;
-		$(this).attr('maxlength', max_len);
-		var cut_txt = $(this).val().substr(0, max_len);
-		$(this).val(cut_txt);
-		word_remain = 0;
-	  }
-	  $('#weibo_dialog .word_counter').text(Math.floor(word_remain));
-	});
-	
-	//publish and repost part
-	$('.btn_w_publish').live('click', function(e){
-	  var w_content_val = $('.publish-tweet').val();
-	  var id_val = $('.publish-tweet').attr('id').substr(6);
-	  var ope_val;
-	  if($('#pub_text').text() == '评论')
-	  {
-	    ope_val = 'comment';
-	  }
-	  else
-	  {
-	    ope_val = 'repost';
-	  }
-	  var postUrl;
-	  var postData;
-	  if($('#pub_text').hasClass('sina'))
-	  {
-	    postUrl = '../weibo/postweibo.php';
-	  }
-	  else
-	  {
-	    postUrl = '../tweibo/posttweibo.php';
-	  }
-	  postData = {operation: ope_val, id: id_val, weibo_content: w_content_val};
-
-	  $.ajax({
-	  type: 'POST',
-	  url: postUrl,
-	  data: postData, 
-	  success: function(data)
-	  {
-		$('#mask').hide();
-		$('.window').hide();
-	  }
-	  });
-	});
-	  
 	});

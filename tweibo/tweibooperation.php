@@ -28,7 +28,7 @@ else if('my_follow' == $operation)
 else if('weibo_search' == $operation)
 {
   $keywords = $_GET['keywords'];
-  $tweibo  = $c->search_t($keywords, $page, $itemsPerPage);
+  $tweibo  = $c->search_t($keywords, $page, $itemsPerPage, 'json', 2);
   if($tweibo['data'] == NULL)
   {
     echo "<div class='imply_color' style='text-align:center;'>对不起，没有找到相关的微博</div>";
@@ -62,6 +62,7 @@ else if('user_search' == $operation)
 }
 
 $info = $tweibo['data']['info'];
+$total_num = $tweibo['data']['totalnum'];
 if('list_user' == $operation)
 {
   $weiboContent = "";
@@ -94,7 +95,7 @@ if('list_user' == $operation)
 						 </div>
 					   <li>";
   }
-  if($itemsPerPage*$page<$tweibo['data']['totalnum'])
+  if($itemsPerPage*$page<$total_num)
   {
     $weiboContent .="<a class='loadmore tuser'><span>更多</span></a>";
   }
@@ -104,13 +105,20 @@ else
   $weiboContent = "";
   if('weibo_search' == $operation)
   {
-    if($itemsPerPage*$page >= $tweibo['data']['totalnum'])
+    if($itemsPerPage*$page >= $total_num)
 	  $load_more_flag = false;
   }
   else
   {
     if( $tweibo['data']['hasnext'] == 1)
+	{
 	  $load_more_flag = false;
+	}
+	//address the tencent my weibo bug
+	if($itemsPerPage >= $total_num)
+	{
+	  $load_more_flag = false;
+	}			
   }
   foreach( $info as $item )
   {

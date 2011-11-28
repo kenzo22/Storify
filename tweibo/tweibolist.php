@@ -46,9 +46,9 @@ echo '<li>'.iconv("GBK",'UTF-8',$file).'</li>';
 
 
 //$me=$c->t_show("35679111898021");
-$tweibo_id_array = array(61612038401549, 35679111898021);
-$tweibo_ids = implode(",", $tweibo_id_array);
-$me  = $c->t_list($tweibo_ids);
+//$tweibo_id_array = array(61612038401549, 35679111898021);
+//$tweibo_ids = implode(",", $tweibo_id_array);
+//$me  = $c->t_list($tweibo_ids);
 //$me=$c->t_list(61612038401549);
 //$me=$c->search_t("英超");
 //$me=$c->t_comment('6655109647289', 'hahtfffffest');
@@ -56,6 +56,7 @@ $me  = $c->t_list($tweibo_ids);
 //$me = $c->user_other_info('jiapenglei');
 //$me = $c->search_user('杨澜', 3, 20);
 //$me = $c->search_by_tag('创业');
+$me = $c->broadcast_timeline(0, 0, 20);
 var_dump($me);
 
 /*echo "<pre>";

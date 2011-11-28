@@ -76,7 +76,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	$story_status=$result['post_status'];
 	$story_content=$result['post_content'];
 	$story_digg_count=$result['post_digg_count'];
-	$embed_code = "<script src=\"http://koulifang.com/user/".$story_author."/".$story_embed.".js\"></script>";
+	$embed_code = "<script src=\"http://www.koulifang.com/user/".$story_author."/".$story_embed.".js\"></script>";
 	//get the profile image of the story author
 	$user_profile_img;
     if(substr($userresult['photo'], 0, 4) == 'http')
@@ -326,12 +326,16 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
     }
 
 	$story_author_name = $userresult['username'];
-	$content .="<div id='story_header'>
-				  <div style='float:right; padding: 10px 10px 0 0'><img src='".$story_pic."' style='width:60px; height:60px;' alt='故事封面'/></div>
-				  <div id='story_meta' style='margin-top:10px;'>
-				    <div class='story_title'>".$story_title."</div>
-				    <div class='story_author'>by<a href='http://koulifang.com/user/".$user_id."'>".$story_author_name."</a>, ".$story_time."</div>
-				    <div class='story_sum'>".$story_summary."</div>";
+	$content .="<div id='story_header'>";
+	
+	if($story_pic != '')
+	{
+	  $content .= "<div style='float:right; padding: 10px 10px 0 0'><img src='".$story_pic."' style='width:60px; height:60px;' alt=''/></div>";
+	}		  
+	$content .="<div id='story_meta' style='margin-top:10px;'>
+				  <div class='story_title'>".$story_title."</div>
+				  <div class='story_author'>by<a href='http://www.koulifang.com/user/".$user_id."'>".$story_author_name."</a>, ".$story_time."</div>
+				  <div class='story_sum'>".$story_summary."</div>";
 			if($tags!='')
 			{
 			  $content .="<div class='story_tag'>标签:".$tags."</div>";
@@ -826,7 +830,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		  $content .= "<li>
 							  <div class='story_wrap'>	
 								<a href='".$post_link."'>
-								  <img class='cover' src='".$post_pic_url."' alt='故事封面'/>
+								  <img class='cover' src='".$post_pic_url."' alt=''/>
 								</a>
 								<a class='title_wrap' href='".$post_link."'>
 								  <span class='title'>".$post_title."</span>
@@ -1071,7 +1075,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 		$story_content .="<li>
 							<div class='story_wrap'>
 							  <a href='".$post_link."'>
-								<img class='cover' src='".$post_pic_url."' alt='故事封面' />
+								<img class='cover' src='".$post_pic_url."' alt='' />
 							  </a>
 							  <a class='title_wrap' href='".$post_link."'>
 								<span class='title'>".$post_title."</span>

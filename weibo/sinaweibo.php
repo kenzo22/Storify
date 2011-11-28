@@ -104,6 +104,12 @@ class WeiboClient
         $param['base_app'] = 0;	
 		return $this->oauth->get('http://api.t.sina.com.cn/trends/daily.json' , $param); 
 	}
+	
+	function trends_hourly()
+	{
+        $param['base_app'] = 0;	
+		return $this->oauth->get('http://api.t.sina.com.cn/trends/hourly.json' , $param); 
+	}
 
     /** 
      * 最新 @用户的 

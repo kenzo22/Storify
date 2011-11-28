@@ -208,14 +208,21 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 			if(++$tag_i > 7)
 				break;
 			$used_story[] = $item['id'];
-		
+		    if($item['post_pic_url'] != '')
+			{
+			  $pic_url = $item['post_pic_url'];
+			}
+			else
+			{
+			  $pic_url = "/img/event_dft.jpg";
+			}
 			$tag_content .="<li>
 							  <div class='topic_meta'>
 								<span class='story_count'>".$tag_count."</span>
 								<a class='topic_title' href='".$topic_link."'>#".$tag_name."#</a>
 							  </div>
 							  <a href='".$topic_link."'>
-								<img class='topic_cover' src='".$item['post_pic_url']."' />
+								<img class='topic_cover' src='".$pic_url."' />
 							  </a>
 							  <a class='title_wrap' href='".$topic_link."'><h1 class='title'>".$item['post_title']."</h1></a>
 							</li>";
