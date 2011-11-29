@@ -169,7 +169,41 @@
 		  jsonpCallback: 'jsonpCallback',
           success: function(data) {
 		    debugger;
-			alert(data.message);
+			
+			this.widgetNode = jQuery(data.content);
+			jQuery('script[src^="' + self.permalink + '"]').first().after(this.widgetNode);
+			jQuery('#embed_a').toggle(function(e){
+				  e.preventDefault();
+				  jQuery('#embed_bar').slideDown("slow");
+				  jQuery('.arrow_up').css('display', 'inline-block');
+				  jQuery('.arrow_down').hide();
+				  jQuery('#embed_bar span .sto_embed').select();
+				  return false;
+				},
+				function(e){
+				  e.preventDefault();
+				  jQuery('#embed_bar').slideUp("slow");
+				  jQuery('.arrow_down').show();
+				  jQuery('.arrow_up').hide();
+				  jQuery('#embed_bar span .sto_embed').select();
+				  return false;
+				});
+				
+		    jQuery('.sto_embed').click(function(){
+			  jQuery(this).select();
+			});
+			
+			jQuery('#weibo_ul li.sina').each(function()
+			{
+				var id_val = jQuery(this).attr('id');
+				WB2.anyWhere(function(W){
+				W.widget.hoverCard({
+					id: id_val,
+					search: true
+					}); 
+				});
+			});
+			
 			require('http://v2.jiathis.com/code/jia.js', function() {
 			});
           }
