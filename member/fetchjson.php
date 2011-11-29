@@ -56,6 +56,18 @@ else
     $story_summary=$result['post_summary'];
     $story_pic=$result['post_pic_url'];
     $story_content=$result['post_content'];
+	$temp_array = json_decode($story_content, true);
+	$story_content_array = $temp_array['content'];
+	
+	$tag_query = "select name from story_tag,story_tag_story where story_tag.id=tag_id and story_id=".$post_id;
+	$tag_names = $DB->query($tag_query);
+	if($DB->num_rows($tag_names) > 0)
+	{
+	  while($tag_name_row = $DB->fetch_array($tag_names))
+	  {
+		$tag_array[] = $tag_name_row['name'];
+	  }
+	}
   }
   
   $obj->id = $user_id;
@@ -64,7 +76,7 @@ else
   $obj->pic = $story_pic;
   $obj->time = $story_time;
   $obj->embed = $story_embed;
- 
+  $obj->tags = $tag_array;
   $obj->message = "Hello " . $obj->summary;
 
   echo $_GET['callback']. '(' . json_encode($obj) . ');';
