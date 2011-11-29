@@ -169,6 +169,44 @@
 		  jsonpCallback: 'jsonpCallback',
           success: function(data) {
 		    debugger;
+			var story_tags = "";
+			var tags = data.tags;
+			for(var o in tags)
+			{
+			  story_tags += tags[o][0];
+			}
+			var story_content ="<div id='publish_container'>\n\
+								  <div id='story_header' style='margin:0; padding:0;'>\n\
+								    <div style='float:right; padding: 0 10px 0 0'>\n\
+									  <img src='"+data.pic+"' style='width:60px; height:60px;' />\n\
+									</div>\n\
+									<div id='story_meta' style='margin-top:10px;'>\n\
+									  <div class='story_title'>"+data.title+"</div>\n\
+									  <div class='story_author'>by<a href='http://koulifang.com/member/user.php?user_id="+data.id+"'>"+data.author+"</a>, "+data.time+"</div>\n\
+									  <div class='story_sum'>"+data.summary+"</div>\n\
+									</div>\n\
+									<div class='tool_wrapper'>\n\
+									  <div class='story_share'>\n\
+										<div id='ckepop'>\n\
+											<span class='jiathis_txt'>分享到：</span>\n\
+											<a class='jiathis_button_qzone'></a>\n\
+											<a class='jiathis_button_tsina'></a>\n\
+											<a class='jiathis_button_tqq'></a>\n\
+											<a class='jiathis_button_renren'></a>\n\
+											<a class='jiathis_button_kaixin001'></a>\n\
+											<a href='http://www.jiathis.com/share?uid=1542042' class='jiathis jiathis_txt jtico jtico_jiathis' target='_blank'></a>\n\
+											<a class='jiathis_counter_style'></a>\n\
+										</div>\n\
+										<div id='story_embed'>\n\
+										  <a href='#' id='embed_a'>嵌入故事<span class='arrow_down'></span><span class='arrow_up'></span></a>\n\
+										</div>\n\
+									  </div>\n\
+									  <div id='embed_bar'><span style='margin-left:20px;'>复制嵌入代码:</span><span><input type='text' class='sto_embed' value='"+data.embed+"' size='68' /></span><a title='如何嵌入' class='embed_how'></a></div>\n\
+									</div>\n\
+								  </div>\n\
+								  <ul id='weibo_ul' style='padding:0;'>"+data.content+"</ul>\n\
+								  <div style='display: block; padding:0 10px 0 5px; text-align:right;'>Powered by <a name='poweredby' target='_blank' href='http://koulifang.com'>口立方</a></div>\n\
+								</div>";
 			
 			this.widgetNode = jQuery(data.content);
 			jQuery('script[src^="' + self.permalink + '"]').first().after(this.widgetNode);

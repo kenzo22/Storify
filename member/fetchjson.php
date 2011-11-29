@@ -55,6 +55,7 @@ else
     $story_title=$result['post_title'];
     $story_summary=$result['post_summary'];
     $story_pic=$result['post_pic_url'];
+	$author_name = $userresult['username'];
     $story_content=$result['post_content'];
 	$temp_array = json_decode($story_content, true);
 	$story_content_array = $temp_array['content'];
@@ -68,37 +69,7 @@ else
 		$tag_array[] = $tag_name_row['name'];
 	  }
 	}
-	$content = "<div id='publish_container'>";
-	  $content .="<div id='story_header' style='margin:0; padding:0;'>
-				<div style='float:right; padding: 0 10px 0 0'><img src='".$story_pic."' style='width:60px; height:60px;' /></div>
-				<div id='story_meta' style='margin-top:10px;'>
-				  <div class='story_title'>".$story_title."</div>
-				  <div class='story_author'>by<a href='http://koulifang.com/member/user.php?user_id=".$user_id."'>".$userresult['username']."</a>, ".$story_time."</div>
-				  <div class='story_sum'>".$story_summary."</div>";
-			if($tags!='')
-			{
-			  $content .="<div class='story_tag'>标签:".$tags."</div>";
-			}
-			$content .="</div>
-				<div class='tool_wrapper'>
-				  <div class='story_share'>
-					<div id='ckepop'>
-						<span class='jiathis_txt'>分享到：</span>
-						<a class='jiathis_button_qzone'></a>
-						<a class='jiathis_button_tsina'></a>
-						<a class='jiathis_button_tqq'></a>
-						<a class='jiathis_button_renren'></a>
-						<a class='jiathis_button_kaixin001'></a>
-						<a href='http://www.jiathis.com/share?uid=1542042' class='jiathis jiathis_txt jtico jtico_jiathis' target='_blank'></a>
-						<a class='jiathis_counter_style'></a>
-					</div>
-					<div id='story_embed'>
-					  <a href='#' id='embed_a'>嵌入故事<span class='arrow_down'></span><span class='arrow_up'></span></a>
-					</div>
-				  </div>
-				  <div id='embed_bar'><span style='margin-left:20px;'>复制嵌入代码:</span><span><input type='text' class='sto_embed' value='".$embed_code."' size='68' /></span><a title='如何嵌入' class='embed_how'></a></div>
-			    </div>
-			  </div><ul id='weibo_ul' style='padding:0;'>";
+	$content = "";
 			  
     foreach($story_content_array as $key=>$val)
     {
@@ -451,19 +422,17 @@ else
 	    $content = str_replace("<li id='$tkey'>","<li class='weibo_drop tencent' id='$tkey' style='border:none;'>".$tval, $content);
 	  }
 	}
-		  
-  $content .="</ul><div style='display: block; padding:0 10px 0 5px; text-align:right;'>Powered by <a name='poweredby' target='_blank' href='http://koulifang.com'>口立方</a></div></div>";
   }
   
   $obj->id = $user_id;
   $obj->title = $story_title;
+  $obj->author = $author_name
   $obj->summary = $story_summary;
   $obj->pic = $story_pic;
   $obj->time = $story_time;
   $obj->embed = $story_embed;
   $obj->tags = $tag_array;
   $obj->content = $content;
-  $obj->message = "Hello " . $obj->summary;
 
   echo $_GET['callback']. '(' . json_encode($obj) . ');';
 }
