@@ -169,7 +169,7 @@
 		  jsonpCallback: 'jsonpCallback',
           success: function(data) {
 		    debugger;
-			alert(data.mesage);
+			alert(data.message);
 			require('http://v2.jiathis.com/code/jia.js', function() {
 			});
           }
