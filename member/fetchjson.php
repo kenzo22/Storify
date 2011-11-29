@@ -55,7 +55,6 @@ else
     $story_title=$result['post_title'];
     $story_summary=$result['post_summary'];
     $story_pic=$result['post_pic_url'];
-	$author_name = $userresult['username'];
     $story_content=$result['post_content'];
 	$temp_array = json_decode($story_content, true);
 	$story_content_array = $temp_array['content'];
@@ -426,7 +425,6 @@ else
   
   $obj->id = $user_id;
   $obj->title = $story_title;
-  $obj->author = $author_name
   $obj->summary = $story_summary;
   $obj->pic = $story_pic;
   $obj->time = $story_time;
