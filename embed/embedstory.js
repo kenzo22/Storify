@@ -25,10 +25,10 @@
 	ENV = (typeof ENV == 'undefined') ? 'production' : ENV;
 
 /******** Load jQuery if not present *********/
-	if (window.jQuery === undefined || window.jQuery.fn.jquery !== '1.4.2') {
+	if (window.jQuery === undefined || window.jQuery.fn.jquery !== '1.5.2') {
 		var script_tag = document.createElement('script');
 		script_tag.setAttribute("type", "text/javascript");
-		script_tag.setAttribute("src", "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js");
+		script_tag.setAttribute("src", "http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js");
 		script_tag.onload = scriptLoadHandler;
 		script_tag.onreadystatechange = function() { // Same thing but for IE
 			if (this.readyState == 'complete' || this.readyState == 'loaded') {
@@ -143,31 +143,33 @@
 	}
 	
 	function jsonpCallback(data){
-	    debugger;
-        jQuery('body').prepend("<div id='jsonpResult'></div>");
-		jQuery('#jsonpResult').text(data.message);
+
     }
 	
 	Koulifang.Story = function(permalink, options) {
 		debugger;
 		this.permalink = permalink;
-	    this.slug = permalink.substr(permalink.lastIndexOf('/') + 1);
+		var link_array = permalink.split('/');
+		var link_array_len = link_array.length;
+		var identifier = link_array[link_array_len-2];
+        var embed_name = link_array[link_array_len-1];
+	    this.slug = embed_name;
         this.nodeId = 'sfywdgt_StorifyWidget_' + this.slug.replace(/_|\-/g,'');
 	    var self = this,
 			story = {},
 			html = '',
 			elements;
-		//var getData = {link: permalink};
+		var getData = {id: identifier, name: embed_name};
 		
 		jQuery.ajax({
-          url: 'http://www.koulifang.com/member/jsonptest.php',
-		  data: {name: 'xinkenzo'},
+          url: 'http://www.koulifang.com/member/fetchjson.php',
+		  data: getData,
 		  dataType: 'jsonp',
 		  jsonp: 'callback',
 		  jsonpCallback: 'jsonpCallback',
-          success: function() {
-			debugger;
-			alert("success");
+          success: function(data) {
+		    debugger;
+			alert(data.mesage);
 			require('http://v2.jiathis.com/code/jia.js', function() {
 			});
           }
