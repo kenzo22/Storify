@@ -169,8 +169,9 @@
 		  jsonpCallback: 'jsonpCallback',
           success: function(data) {
 		    debugger;
+			var story_content ="<div id='publish_container'><div id='story_header' style='margin:0; padding:0;'><div style='float:right; padding: 0 10px 0 0'><img src='"+data.pic+"' style='width:60px; height:60px;' /></div><div id='story_meta' style='margin-top:10px;'><div class='story_title'>"+data.title+"</div><div class='story_author'>by<a href='http://koulifang.com/member/user.php?user_id="+data.id+"'>"+data.author+"</a>, "+data.time+"</div><div class='story_sum'>"+data.summary+"</div></div><div class='tool_wrapper'><div class='story_share'><div id='ckepop'><span class='jiathis_txt'>分享到：</span><a class='jiathis_button_qzone'></a><a class='jiathis_button_tsina'></a><a class='jiathis_button_tqq'></a><a class='jiathis_button_renren'></a><a class='jiathis_button_kaixin001'></a><a href='http://www.jiathis.com/share?uid=1542042' class='jiathis jiathis_txt jtico jtico_jiathis' target='_blank'></a><a class='jiathis_counter_style'></a></div><div id='story_embed'><a href='#' id='embed_a'>嵌入故事<span class='arrow_down'></span><span class='arrow_up'></span></a></div></div><div id='embed_bar'><span style='margin-left:20px;'>复制嵌入代码:</span><span><input type='text' class='sto_embed' value='"+data.embed+"' size='68' /></span><a title='如何嵌入' class='embed_how'></a></div></div></div><ul id='weibo_ul' style='padding:0;'>"+data.content+"</ul><div style='display: block; padding:0 10px 0 5px; text-align:right;'>Powered by <a name='poweredby' target='_blank' href='http://koulifang.com'>口立方</a></div></div>";
 			
-			this.widgetNode = jQuery(data.content);
+			this.widgetNode = jQuery(story_content);
 			jQuery('script[src^="' + self.permalink + '"]').first().after(this.widgetNode);
 			jQuery('#embed_a').toggle(function(e){
 				  e.preventDefault();
