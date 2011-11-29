@@ -9,7 +9,6 @@ include_once( '../tweibo/txwboauth.php' );
 include_once( '../douban/config.php' );
 include_once( '../douban/doubanapi.php' );
 
-
 $date_t = date("Y-m-d H:i:s");
 //select a random item from the publictoken pool
 $token = $DB->fetch_one_array("select * from ".$db_prefix."publictoken where id='1'");
