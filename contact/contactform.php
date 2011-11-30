@@ -1,10 +1,10 @@
 <?php
 $html_title = "意见反馈 - 口立方";
-require "../global.php";
-require  "../include/header.php";
+require $_SERVER['DOCUMENT_ROOT']."/global.php";
+require $_SERVER['DOCUMENT_ROOT']."/include/header.php";
 ?>
 <div class='inner'>
-  <form id='fb_form' action="processfeedback.php" method="post">
+  <form id='fb_form' action="/processfeedback" method="post">
 	<div class='title'> 请告诉我们您的建议 </div>  
 	<div>您的姓名：</div>
 	<input id='name_val' type="text" name="user_name" />
@@ -19,8 +19,8 @@ require  "../include/header.php";
 </div>
     
 <?php
-include "../include/footer.htm";	 
+include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm";	 
 ?>
-<script type='text/javascript' src='../js/feedback.js'></script>
+<script type='text/javascript' src='/js/feedback.js'></script>
 </body>
 </html>

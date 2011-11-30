@@ -61,7 +61,7 @@ $content = "<div class='form_wrapper'>
 			    </div>
 			  </div>
 			  <div id='form_1'>
-			    <form method='post' action='account_associate.php'> 
+			    <form method='post' action='/accounts/associate'> 
 				  <div style='display:inline; margin:0;padding:0;' ><input type='hidden' value='".$weibo_uid."' name='weibo_uid' /></div>
 				  <div style='display:inline; margin:0;padding:0;' ><input type='hidden' value='".$photo."' name='weibo_photo' /></div>
 				  <div><label>电子邮箱</label><input id='email' type='text' value='' size='50' name='email' maxlength='50' /><span class='form_tip' id='email_tip'></span></div>
@@ -70,7 +70,7 @@ $content = "<div class='form_wrapper'>
 			    </form>
 			  </div>
 			  <div id='form_2' style='display:none;'>
-			    <form method='post' action='account_associate.php'>
+			    <form method='post' action='/accounts/associate'>
 				  <div style='display:inline; margin:0;padding:0;' ><input type='hidden' value='".$weibo_uid."' name='weibo_uid' /></div>
 				  <div style='display:inline; margin:0;padding:0;' ><input type='hidden' value='".$photo."' name='weibo_photo' /></div>
 				  <div><label>电子邮箱</label><input id='user_email' type='text' value='' size='50' name='user_email' maxlength='50' /><span class='form_tip' id='user_email_tip'></span></div>

@@ -7,7 +7,11 @@ $content ="<div class='inner'>
 			 <div id='login_form_wrapper'>
 			   <div id='login_form_f'>
 			     <div class='form_title'>用户登录</div>
-			     <form method='post' id='login_form' action='login.php'>";
+			     <form method='post' id='login_form' action='/accounts/login/login'>";
+
+if(islogin())
+    header("location:/");
+
 if($_GET['next'] == 'error_flag')
 {
   $content .="<div><span class='color_alert'>您的Email和密码不符，请再试一次</span></div>";
@@ -28,7 +32,7 @@ else if(!empty($_GET['next']))
 }
 $content .="<div class='form_div'><span class='form_label'>邮&nbsp;箱</span><input type='text' name='email' id='email_login' size='30' /><span class='form_tip' id='email_tip'></span></div>
 			<div class='form_div'><span class='form_label'>密&nbsp;码</span><input type='password' name='passwd' id='pwd_login' size='30' /><span class='form_tip' id='pwd_tip'></span></div>
-			<div class='auto_login'><span><input type='checkbox' name='autologin' />下次自动登录</span> | <span><a href='/accounts/login/forget_form.php'>忘记密码了？</a></span></div>
+			<div class='auto_login'><span><input type='checkbox' name='autologin' />下次自动登录</span> | <span><a href='/accounts/forget_password'>忘记密码了？</a></span></div>
 			<div id='loginbtn'><a class='large blue awesome'>登 录 &raquo;</a></div>
 		  </form>
 		</div>

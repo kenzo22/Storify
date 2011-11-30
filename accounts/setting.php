@@ -4,7 +4,7 @@ require $_SERVER['DOCUMENT_ROOT']."/global.php";
 require  $_SERVER['DOCUMENT_ROOT']."/include/header.php";
 if(!islogin())
 {
-  header("location: /login/login_form.php"); 
+  header("location: /accounts/login"); 
   exit;
 }
 $uid=intval($_SESSION['uid']);

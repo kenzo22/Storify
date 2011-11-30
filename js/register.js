@@ -83,7 +83,6 @@ $('#agree_term').click(function(e){
 
 $('#btn_submit_signup a').click(function(e)
 {
-    debugger;
   var email_val = $('#email_reg').val();
   var pwd_val = $('#pwd_reg').val();
   var pwd_cfm_val = $('#pwd_confirm').val();

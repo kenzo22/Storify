@@ -35,7 +35,11 @@ else
   $result=$DB->fetch_one_array("SELECT * FROM ".$db_prefix."user WHERE email='".$email."'");
   if(!empty($result))
   {
-    $username = $result['username']; 
+        if (!$result['activate']) {
+            echo "请先激活帐号。";
+        }
+        else {
+        $username = $result['username']; 
 	
 	$reset = $DB->fetch_one_array("select reset_code from ".$db_prefix."reset where username='".$username."' AND email='".$email."'");
 	if(!empty($reset))
@@ -44,7 +48,7 @@ else
 	}
 	$current_time = time();
 	
-    $url = 'http://'.$_SERVER['SERVER_NAME'].dirname($_SERVER['SCRIPT_NAME']).'/forget_passwd.php';
+    $url = 'http://'.$_SERVER['SERVER_NAME'].'/accounts/reset_password';
     $url .= '?confirmation='.$reset_code.$current_time;
 
     $subject = "重设".$username."在口立方的密码";
@@ -80,6 +84,10 @@ else
       echo "Mailer Error: ";
     }
   }
+    }
+  else{
+    echo "您没有注册。";
+    }
 }
 
 include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm";	 

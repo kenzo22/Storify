@@ -33,10 +33,11 @@ if (isset($msg['id'])){
 }
 
 $result = $DB->fetch_one_array("select * from ".$db_prefix."user where weibo_user_id='".$weibo_uid."'");
+var_dump($weibo_uid);
+var_dump($result);
 if(empty($result))
 {
-  header("location: /accounts/login/associate_form.php"); 
-  exit;
+  header("location: /accounts/associate_form"); 
 }
 else
 {
@@ -61,6 +62,5 @@ else
   $_SESSION['yupoo_token'] = $result['yupoo_token'];
   
   header("location: /"); 
-  exit;	
 }
 ?>

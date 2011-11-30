@@ -11,8 +11,7 @@ if(!empty($reset))
 $current_time = time();
 try
 {
-	$url = 'http://'.$_SERVER['SERVER_NAME'].dirname($_SERVER['SCRIPT_NAME']).'/activation.php';
-	//$url .= '?un='.urlencode($username).'&em='.urlencode($email);
+	$url = 'http://'.$_SERVER['SERVER_NAME'].'/accounts/activation';
 	$url .= '?confirmation='.$reset_code.$current_time;
 	$subject="口立方注册用户激活邮件";
 	$message='<p>欢迎您在口立方注册用户，请点击以下链接以激活您的帐户:<br/><br/>
@@ -30,11 +29,11 @@ try
 	(这是一封自动产生的email，请勿回复。)</p>';
 	if(sendEmail($email,$subject,$message))
 	{
-      echo '1';	
+            echo '1';	
  	}
 	else
 	{
-	  echo '0';
+	    echo '0';
 	}
 }
 catch (Exception $e) 

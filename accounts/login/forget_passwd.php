@@ -1,7 +1,7 @@
 <?php
 $html_title = "重设密码 - 口立方";
 require $_SERVER['DOCUMENT_ROOT']."/global.php";
-require  $_SERVER['DOCUMENT_ROOT']."/include/header.php";
+require $_SERVER['DOCUMENT_ROOT']."/include/header.php";
 include $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php';
   if($_POST['act']!="cfm_pwd")
   {
@@ -27,7 +27,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php';
     $current_time = time();
     if(($current_time-$send_time)>43200)
     {
-      go("/login/forget_form.php","该链接已过期失效，请重新到忘记密码页面生成新链接",2);
+      go("/accounts/forget_password","该链接已过期失效，请重新到忘记密码页面生成新链接",2);
       exit;
     }
 	$reset = $DB->fetch_one_array("select username, email from ".$db_prefix."reset where reset_code='".$reset_code."'");
@@ -42,7 +42,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php';
       $pwd=sha1($_POST['new_pwd']);
 	  $DB->query("update ".$db_prefix."user set passwd='".$pwd."' where username='".$username."' AND email='".$email."'");
       session_destroy();
-	  go("/login/login_form.php","修改密码成功,请重新登陆",2);
+	  go("/accounts/login","修改密码成功,请重新登陆",2);
 	  exit;
 	}
   }

@@ -101,6 +101,9 @@ if($email && $passwd)
   {
 	header("location: /accounts/login/error"); 
   }
+}else
+{
+    header("location:/accounts/login");
 }
 ?>
 <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=2417356638" type="text/javascript" charset="utf-8"></script>

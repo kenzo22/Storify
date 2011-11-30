@@ -41,5 +41,4 @@ else
   }
 }
 header("location: /"); 
-exit;
 ?>

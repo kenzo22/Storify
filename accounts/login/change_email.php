@@ -6,7 +6,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php';
 
 if(!islogin())
 {
-  header("location: /accounts/login/login_form.php"); 
+  header("location: /accounts/login"); 
   exit;
 }
 
