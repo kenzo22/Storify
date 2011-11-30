@@ -182,56 +182,57 @@
 			
 			for(var sub in content_obj)
 			{
-			  switch(sub.type)
+			  var sub_item = content_obj[sub];
+			  switch(sub_item.type)
 			  {
 			    case 'weibo':
-				  if(sub.text = '')
+				  if(sub_item.text = '')
 				  {
-				    content +="<li class='weibo_drop sina' id='w_"+sub.per_id+"' style='border:none;'><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>此微博已被删除</span></div></div></li>";
+				    content +="<li class='weibo_drop sina' id='w_"+sub_item.per_id+"' style='border:none;'><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>此微博已被删除</span></div></div></li>";
 				  }
 				  else
 				  {
 				    var img_content = '';
 					var retweet_img_content = '';
-					if(sub.img != '')
+					if(sub_item.img != '')
 					{
-					  img_content +="<div class='weibo_img' style='text-align:center;'><img src='"+sub.img+"' width='280px;' /></div>";
+					  img_content +="<div class='weibo_img' style='text-align:center;'><img src='"+sub_item.img+"' width='280px;' /></div>";
 					}
-					if(sub.retweet_img != '')
+					if(sub_item.retweet_img != '')
 					{
-					  retweet_img_content +="<div class='weibo_retweet_img' style='text-align:center;'><img src='"+sub.retweet_img+"' width='280px;' /></div>";
+					  retweet_img_content +="<div class='weibo_retweet_img' style='text-align:center;'><img src='"+sub_item.retweet_img+"' width='280px;' /></div>";
 					}
-					content +="<li class='weibo_drop sina' id='w_"+sub.per_id+"' style='border:none;'><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>"+sub.text+"</span>"+retweet_img_content+img_content+"</div><div class='story_signature'><span class='float_r'><a href='http://weibo.com/"+sub.uid+"' target='_blank'><img class='profile_img_drop' src='"+sub.u_profile+"' alt='"+sub.u_name+"' border=0 /></a></span><div class='signature_text'><div class='text_wrapper'><span ><a class='weibo_from_drop' href='http://weibo.com/"+sub.uid+"' target='_blank'>"+sub.u_name+"</a></span></div><div class='weibo_date_drop'>"+sub.time+"</div></div></div></div></li>";
+					content +="<li class='weibo_drop sina' id='w_"+sub_item.per_id+"' style='border:none;'><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>"+sub_item.text+"</span>"+retweet_img_content+img_content+"</div><div class='story_signature'><span class='float_r'><a href='http://weibo.com/"+sub_item.uid+"' target='_blank'><img class='profile_img_drop' src='"+sub_item.u_profile+"' alt='"+sub_item.u_name+"' border=0 /></a></span><div class='signature_text'><div class='text_wrapper'><span ><a class='weibo_from_drop' href='http://weibo.com/"+sub_item.uid+"' target='_blank'>"+sub_item.u_name+"</a></span></div><div class='weibo_date_drop'>"+sub_item.time+"</div></div></div></div></li>";
 				  }
 				  break;
 				case 'tweibo':
-				  if(sub.img != '')
+				  if(sub_item.img != '')
 				  {
-					img_content +="<div class='weibo_img_drop'><img src='"+sub.img+"/240' /></div>";
+					img_content +="<div class='weibo_img_drop'><img src='"+sub_item.img+"/240' /></div>";
 				  }
-				  if(sub.retweet_img != '')
+				  if(sub_item.retweet_img != '')
 				  {
-				    retweet_img_content +="<div class='weibo_retweet_img_drop'><img src='"+sub.retweet_img+"/240' /></div>";
+				    retweet_img_content +="<div class='weibo_retweet_img_drop'><img src='"+sub_item.retweet_img+"/240' /></div>";
 				  }
-				  content +="<li id='t_"+sub.per_id+"'><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>"+sub.text+"</span>"+retweet_img_content+img_content+"</div><div class='story_signature'><span class='float_r'><a href='http://t.qq.com/"+sub.u_name+"' target='_blank'><img class='profile_img_drop' src='"+sub.u_profile+"' alt='"+sub.u_nick+"' border=0 /></a></span><div class='signature_text'><div class='text_wrapper'><span><a class='weibo_from_drop' href='http://t.qq.com/"+sub.u_name+"' target='_blank'>"+sub.u_nick+"</a></span></div><div class='weibo_date_drop'>"+sub.time+"</div></div></div></div></li>";
+				  content +="<li id='t_"+sub_item.per_id+"'><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>"+sub_item.text+"</span>"+retweet_img_content+img_content+"</div><div class='story_signature'><span class='float_r'><a href='http://t.qq.com/"+sub_item.u_name+"' target='_blank'><img class='profile_img_drop' src='"+sub_item.u_profile+"' alt='"+sub_item.u_nick+"' border=0 /></a></span><div class='signature_text'><div class='text_wrapper'><span><a class='weibo_from_drop' href='http://t.qq.com/"+sub_item.u_name+"' target='_blank'>"+sub_item.u_nick+"</a></span></div><div class='weibo_date_drop'>"+sub_item.time+"</div></div></div></div></li>";
 				  break;
 				case 'douban_event':
-				  content +="";
+				  content +="<li class='douban_drop douban' id='d_"+sub_item.per_id+"' style='border:none;'><div class='douban_wrapper'><div class='content_wrapper'><div class='event_summary'>"+sub_item.event_summary+"</div><div style='margin-top:10px; overflow:auto;'><a href='"+sub_item.event_link+"' target='_blank'><img class='item_img' src='"+sub_item.event_pic+"' style='float:left;' /></a><div class='item_meta' style='margin-left:220px;'><div class='event_title'>活动：<a href='"+sub_item.event_link+"' target='_blank'>"+sub_item.event_title+"</a></div><div class='event_initiator'>发起人：<a href='"+sub_item.event_initiator_link+"' target='_blank'>"+sub_item.event_initiator_name+"</a></div><div class='start_time'>"+sub_item.start_time+"</div><div class='end_time'>"+sub_item.end_time+"</div><div class='event_city'>"+sub_item.event_city+"</div><div class='event_location'>"+sub_item.event_location+"</div></div></div></div><div id='douban_signature'><span style='float:right;'><a href='"+sub_item.event_initiator_link+"' target='_blank'><img class='profile_img_drop' src='"+sub_item.event_initiator_pic+"' alt='"+sub_item.event_initiator_name+"' border=0 /></a></span><div class='signature_text'><div style='float:right; height:16px;'><span ><a class='douban_from_drop' href='"+sub_item.event_initiator_link+"' target='_blank'>"+sub_item.event_initiator_name+"</a></span></div><div class='douban_date_drop'></div></div> </div></div></li>";
 				  break;
 				case 'douban_review':
-				  content +="";
+				  content +="<li class='douban_drop douban' id='d_"+sub_item.per_id+"' style='border:none;'><div class='douban_wrapper'><div class='content_wrapper'><div><div class='comment_title'>"+sub_item.comment_title+"</div><div class='comment_summary'>"+sub_item.comment_summary+"<a href='"+sub_item.comment_link+"' target='_blank'>[查看评论全文]</a></div></div><div class='item_info' style='overflow:auto;'><a href='"+sub_item.item_link+"' target='_blank'><img class='item_img' src='"+sub_item.item_pic+"' /></a><div class='item_meta'><div><a class='item_title' href='"+sub_item.item_link+"' target='_blank'>"+sub_item.item_title+"</a></div><div class='item_author'>"+sub_item.item_author+"</div><div class='item_date'>"+sub_item.item_date+"</div><div class=item_rating>"+sub_item.comment_author+"评分:"+sub_item.rating+"</div><div class='average_rating'>豆瓣评分:"+sub_item.average_rating+"&nbsp&nbsp&nbsp&nbsp共"+sub_item.num_raters+"人参与投票</div></div></div></div><div id='douban_signature'><span class='float_r'><a href='"+sub_item.comment_author_link+"' target='_blank'><img class='profile_img' style='width: 32px; height: 32px; overflow: hidden; margin-top:5px;' src='"+sub_item.comment_author_pic+"' alt='"+sub_item.comment_author+"' border=0 /></a></span><div class='signature_text'><div class='text_wrapper'><span ><a class='douban_from' href='"+sub_item.comment_author_link+"' target='_blank'>"+sub_item.comment_author+"</a></span></div><div class='douban_date_drop'>".$time_array[0]."</div></div> </div></div></li>";
 				  break;
 				case 'douban_item':
-				  content +="";
+				  content +="<li class='douban_drop douban' id='d_"+sub_item.per_id+"' style='border:none;'><div class='douban_wrapper'><div class='content_wrapper'><div class='item_info' style='overflow:auto;'><a href='"+sub_item.item_link+"' target='_blank'><img class='item_img' src='"+sub_item.item_pic+"' /></a><div class='item_meta'><div><a class='item_title' href='"+sub_item.item_link+"' target='_blank'>"+sub_item.item_title+"</a></div><div class='item_author'>"+sub_item.item_author+"</div><div class='item_date'>"+sub_item.item_date+"</div><div class='average_rating'>豆瓣评分:"+sub_item.average_rating+"&nbsp&nbsp&nbsp&nbsp共"+sub_item.num_raters+"人参与投票</div></div></div></div><div class='douban_sig_logo'></div></div></li>";
 				  break;
 				case 'comment':
-				  content +="<li class='textElement'><div class='commentBox'>"+sub.text+"</div></li>";
+				  content +="<li class='textElement'><div class='commentBox'>"+sub_item.text+"</div></li>";
 				  break;
 				case 'photo':
-				  content +="<li class='photo_element'><div class='yupoo_wrapper'><a target='_blank' href='"+sub.photo_link+"'><img src='"+sub.photo_url+"'/></a><div style='line-height:1.5;'><a class='pic_title' target='_blank' href='"+sub.photo_link+"'>"+sub.title+"</a></div><div style='line-height:1.5;'><a class='pic_author' target='_blank' href='http://www.yupoo.com/photos/"+sub.author+"/'>"+sub.author_nic+"</a></div><div class='yupoo_sign'></div></div></li>";
+				  content +="<li class='photo_element'><div class='yupoo_wrapper'><a target='_blank' href='"+sub_item.photo_link+"'><img src='"+sub_item.photo_url+"'/></a><div style='line-height:1.5;'><a class='pic_title' target='_blank' href='"+sub_item.photo_link+"'>"+sub_item.title+"</a></div><div style='line-height:1.5;'><a class='pic_author' target='_blank' href='http://www.yupoo.com/photos/"+sub_item.author+"/'>"+sub_item.author_nic+"</a></div><div class='yupoo_sign'></div></div></li>";
 				  break;
 				case 'video':
-				  content +="<li class='video_element'><div><a class='videoTitle' target='_blank' href='"+sub.url+"'>"+sub.title+"</a></div><div class='embed'><embed src='"+sub.src+"' quality='high' width='420' height='340' align='middle' allowscriptaccess='always' allowfullscreen='true' mode='transparent' type='application/x-shockwave-flash' wmode='opaque'></embed></div></li>";
+				  content +="<li class='video_element'><div><a class='videoTitle' target='_blank' href='"+sub_item.url+"'>"+sub_item.title+"</a></div><div class='embed'><embed src='"+sub_item.src+"' quality='high' width='420' height='340' align='middle' allowscriptaccess='always' allowfullscreen='true' mode='transparent' type='application/x-shockwave-flash' wmode='opaque'></embed></div></li>";
 				  break;
 				default:
 				  break;
