@@ -534,6 +534,10 @@ font-size: 14px;
 font-weight:400;
 }
 
+.notify-content div{
+color: #878787;
+}
+
 .published-steps .post-tab span, .published-steps .notify-tab span, .published-steps .share-tab span {
 color: #878787;
 font-size: 12px;
@@ -604,6 +608,19 @@ margin: 0 20px 5px 0;
 .tweet_control{
 float:right;
 margin-right:2px;
+}
+
+.tweet_control .tweet_btn{
+margin-left:15px;
+vertical-align:middle;
+}
+
+.tweet_control #tweibo_f{
+margin-left:20px;
+}
+
+.tweet_control #remain_txt{
+margin-left:28px;
 }
 
 .word_counter {
@@ -851,6 +868,14 @@ overflow:auto;
 z-index:10;
 }
 
+.douban_wrapper .content_wrapper .event_wrapper{
+margin-top:10px; 
+overflow:auto;
+}
+
+.douban_wrapper .content_wrapper .event_wrapper .item_meta{
+margin-left:220px;
+}
 
 .douban_wrapper .event_img_wrapper .item_img{
 float:left;
@@ -866,6 +891,10 @@ margin-top:3px;
 
 .douban_wrapper .comment_title{
 font-weight:bold;
+}
+
+.douban_wrapper .item_info{
+overflow:auto;
 }
 
 .douban_wrapper .item_info a img{
@@ -969,6 +998,10 @@ top:4px
   overflow:hidden;
   position:relative;
  }
+ 
+.weibo_retweet_img, .weibo_img{
+text-align:center;
+}
   
 .douban_date_drop{
 background: url("../img/editsprite.png") no-repeat scroll 0 -39px transparent;
@@ -1455,7 +1488,7 @@ margin-right:10px;
 #embed_bar{
 background: none repeat scroll 0 0 #EFEFEF;
 display:none;
-padding: 5px 0;
+padding: 5px 0 5px 20px;
 clear:both;
 }
 
@@ -1505,7 +1538,21 @@ width: 16px;
 overflow:auto;
 width:100%;
 zoom:1;
+}
+
+#publish_container #story_header #story_img{
+float:right; 
+padding: 10px 10px 0 0
+}
+
+#publish_container #story_header #story_meta{
+margin-top:10px;
 } 
+
+#publish_container #story_header #story_img img{
+width:60px; 
+height:60px;
+}
 
 #story_list .story_wrapper, #story_list .douban_wrapper, #story_list .urlWrapper, #story_list .yupooWrapper, #story_list .youku_wrapper, #story_list .commentBox{
 margin-left:13px;
@@ -1513,6 +1560,7 @@ margin-left:13px;
 
 #weibo_ul{
 margin-left:0;
+padding:0;
 }
  
 #weibo_ul li{
@@ -1522,6 +1570,7 @@ margin-top:25px;
 #weibo_ul .douban_drop{
 width:98%;
 position: relative;
+border:none;
 }
 
 #weibo_ul .douban_drop .douban_wrapper{
@@ -1533,6 +1582,7 @@ zoom:1;
 
 #weibo_ul .weibo_drop{
 width:98%;
+border:none;
 }
 
 #weibo_ul .story_wrapper{
@@ -1983,6 +2033,14 @@ float:left;
 width:150px; 
 height:90px;
 margin-left:10px;
+}
+
+.userinfo_wrapper #user_intro{
+float:left; 
+width:450px;
+margin-left:20px; 
+color:#333333; 
+font-size:12px;
 }
 
 .userinfo_wrapper .misc_wrapper .account_count{
@@ -2513,7 +2571,7 @@ position:relative;
 #footer ul li { display: inline; float: left; margin: 0 0 0 18px; font-size: 1.1em; }
 
 /*temporarily comment out */
-.blue2 {color:#438cc3}
+.gray {color: #B8B7B7;}
 
 /*singin part */
 #signin p {
@@ -2737,8 +2795,28 @@ padding:10px;
 zoom:1;
 }
 
+#boxes #weibo_dialog .alert{
+margin-bottom:10px;
+}
+
+#boxes #weibo_dialog .title_bar{
+background-color:#f3f3f3; 
+padding:5px; 
+margin-bottom:10px;
+}
+
+#boxes #weibo_dialog .title_bar #publish_title{
+color: #B8B7B7;
+}
+
 .pub_imply_sina, .pub_imply_tencent{
 display:none;
+}
+
+.pub_imply_sina span, .pub_imply_tencent span, .sina_user span, .tentcent_user span{
+margin-left:3px; 
+margin-right:5px; 
+color:#878787;
 }
 
 #vtab {
