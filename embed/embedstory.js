@@ -229,7 +229,7 @@
 				  content +="<li class='textElement'><div class='commentBox'>"+sub_item.text+"</div></li>";
 				  break;
 				case 'photo':
-				  content +="<li class='photo_element'><div class='yupoo_wrapper'><a target='_blank' href='"+sub_item.photo_link+"'><img src='"+sub_item.photo_url+"'/></a><div style='line-height:1.5;'><a class='pic_title' target='_blank' href='"+sub_item.photo_link+"'>"+sub_item.title+"</a></div><div style='line-height:1.5;'><a class='pic_author' target='_blank' href='http://www.yupoo.com/photos/"+sub_item.author+"/'>"+sub_item.author_nic+"</a></div><div class='yupoo_sign'></div></div></li>";
+				  content +="<li class='photo_element'><div class='yupoo_wrapper'><a target='_blank' href='"+sub_item.photo_link+"'><img src='"+sub_item.photo_url+"'/></a><div style='line-height:1.5;'><a class='pic_title' target='_blank' href='"+sub_item.photo_link+"'>"+sub_item.title+"</a></div><div style='line-height:1.5;'><a class='pic_author' target='_blank' href='http://www.yupoo.com/photos/"+sub_item.author+"'>"+sub_item.author_nic+"</a></div><div class='yupoo_sign'></div></div></li>";
 				  break;
 				case 'video':
 				  content +="<li class='video_element'><div><a class='videoTitle' target='_blank' href='"+sub_item.url+"'>"+sub_item.title+"</a></div><div class='embed'><embed src='"+sub_item.src+"' quality='high' width='420' height='340' align='middle' allowscriptaccess='always' allowfullscreen='true' mode='transparent' type='application/x-shockwave-flash' wmode='opaque'></embed></div></li>";

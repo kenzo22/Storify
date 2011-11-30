@@ -611,9 +611,9 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 	  $photo_per_url = $photo_meta_data['url'];	
 	  $photo_id = $photo_meta_data['id'];
 	  $author_nic = $photo_meta_data['nic'];
-	  $photo_link = "http://www.yupoo.com/photos/".$photo_author."/".$photo_id."/";
+	  $photo_link = "http://www.yupoo.com/photos/".$photo_author."/".$photo_id;
 	  $content .="<li class='pic_drop'><div class='cross' action='delete' onclick='remove_item(event)'></div><div class='handle'></div><div class='yupoo_wrapper'><a target='_blank' href='".$photo_link."'><img class='pic_img' src='"
-				.$photo_per_url."'/></a><div style='line-height:1.5;'><a class='pic_title' target='_blank' href='".$photo_link."'>".$photo_title."</a></div><div style='line-height:1.5;'><a class='pic_author' target='_blank' href='http://www.yupoo.com/photos/".$photo_author."/'>".$author_nic."</a></div><div class='yupoo_sign'></div></div></li><li class='addTextElementAnchor'><span><a class='add_comment'></a></span></li>"; 
+				.$photo_per_url."'/></a><div style='line-height:1.5;'><a class='pic_title' target='_blank' href='".$photo_link."'>".$photo_title."</a></div><div style='line-height:1.5;'><a class='pic_author' target='_blank' href='http://www.yupoo.com/photos/".$photo_author."'>".$author_nic."</a></div><div class='yupoo_sign'></div></div></li><li class='addTextElementAnchor'><span><a class='add_comment'></a></span></li>"; 
 		break;}
 		
 	  default:

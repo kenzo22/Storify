@@ -35,7 +35,6 @@ else
   if(!empty($result))
   {
     $post_id = $result['ID'];
-    //update view count for external websites
     $refer_url = $_SERVER['HTTP_REFERER'];
     $temp_array = explode("/", $refer_url);
     $domain_name = $temp_array[3];
@@ -84,15 +83,11 @@ else
 		$meta['per_id'] = $weibo_per_id;
 		
 		if (isset($single_weibo['error_code']) && isset($single_weibo['error'])){
-            $content .="<li class='weibo_drop sina' id='w_".$weibo_per_id."' style='border:none;'><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>此微博已被删除</span></div>";
 			$meta['text'] = '';
             continue;
 		}
 		if (isset($single_weibo['id']) && isset($single_weibo['text'])){
-            
-            // show emotions in text
             $single_weibo['text'] = subs_emotions($single_weibo['text'],"weibo");
-
             $single_weibo['text'] = subs_url($single_weibo['text'],'weibo');
 			
 			$meta['text'] = $single_weibo['text'];
@@ -100,36 +95,26 @@ else
 			$createTime = dateFormatTrans(dateFormat($single_weibo['created_at']),$date_t);
 			
 			$meta['time'] = $createTime;
-			$content .="<li class='weibo_drop sina' id='w_".$weibo_per_id."' style='border:none;'>";
     		if (isset($single_weibo['retweeted_status'])){
-                
-                $content .="<div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text'];
-				// show emotions in text
                 $single_weibo['retweeted_status']['text']=subs_emotions($single_weibo['retweeted_status']['text'],"weibo");
 
                 $single_weibo['retweeted_status']['text']=subs_url($single_weibo['retweeted_status']['text']);
-
-                $content .="//@".$single_weibo['retweeted_status']['user']['name'].":".$single_weibo['retweeted_status']['text'];
 				
 				$meta['text'] .= "//@".$single_weibo['retweeted_status']['user']['name'].":".$single_weibo['retweeted_status']['text'];
 				
                 if(isset($single_weibo['retweeted_status']['bmiddle_pic'])){
-                    $content .= "</span><div class='weibo_retweet_img' style='text-align:center;'><img src='".$single_weibo['retweeted_status']['bmiddle_pic']."' width='280px;' /></div>";
 					$meta['retweet_img'] = $single_weibo['retweeted_status']['bmiddle_pic'];
                 }
 				else
 				{
-				  $content .= "</span>";
 				  $meta['retweet_img'] = '';
 				}
             }
 			else{
-			  $content .="<div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text']."</span>";
 			  $meta['retweet_img'] = '';
 			}
             if (isset($single_weibo['bmiddle_pic']))
 			{
-			  $content .= "<div class='weibo_img' style='text-align:center;'><img src='".$single_weibo['bmiddle_pic']."' width='280px;' /></div>";
 			  $meta['img'] = $single_weibo['bmiddle_pic'];
 			}
 			else
@@ -140,9 +125,6 @@ else
 			$meta['u_name'] = $single_weibo['user']['screen_name'];
 			$meta['u_profile'] = $single_weibo['user']['profile_image_url'];
 			$content_array[] = $meta;
-            $content .= "</div><div class='story_signature'><span class='float_r'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img_drop' src='"
-			.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><div class='signature_text'><div class='text_wrapper'>
-			<span ><a class='weibo_from_drop' href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date_drop'>".$createTime."</div></div> </div></div></li>";
 		}
 		break;}
 		 
@@ -150,12 +132,12 @@ else
 		$tweibo_meta_data = $val['content'];
 		$tweibo_per_id = $tweibo_meta_data['id'];
 		$tweibo_id_array[] = $tweibo_per_id;
-		$content .="<li id='t_".$tweibo_per_id."'></li>"; 
 		$meta = array();
 		$meta['type'] = 'tweibo';
 		$meta['per_id'] = $tweibo_per_id;
 		$content_array[] = $meta;
-		break;}
+		break;
+		}
 		 
 		case "douban":{
 		$douban_save_per_id = $val['content']['item_id'];
@@ -183,43 +165,6 @@ else
 		  $meta['event_city'] = $doubanElement['db:location']['$t'];
 		  $meta['event_location'] = $doubanElement['gd:where']['@valueString'];
 		  $content_array[] = $meta;
-		  
-		  $content .=
-		 "<li class='douban_drop douban' id='d_".$douban_save_per_id."' style='border:none;'>
-		    <div class='douban_wrapper'>
-			  <div class='content_wrapper'>
-			  <div class='event_summary'>".$doubanElement['summary'][0]['$t']."</div>
-			  <div style='margin-top:10px; overflow:auto;'>
-			    <a href='".$doubanElement['link'][1]['@href']."' target='_blank'>
-				  <img class='item_img' src='".$eventImg."' style='float:left;' />
-				</a>
-				<div class='item_meta' style='margin-left:220px;'>
-				  <div class='event_title'>活动：<a href='".$eventLink."' target='_blank'>".$doubanElement['title']['$t']."</a></div>
-				  <div class='event_initiator'>发起人：<a href='".$eventInitiator_url."' target='_blank'>".$eventInitiator_name."</a></div>
-				  <div class='start_time'>".$doubanElement['gd:when']['startTime']."</div>
-				  <div class='end_time'>".$doubanElement['gd:when']['endTime']."</div>
-				  <div class='event_city'>".$doubanElement['db:location']['$t']."</div>
-				  <div class='event_location'>".$doubanElement['gd:where']['@valueString']."</div>
-				</div>
-			  </div>
-			  </div>
-			  <div id='douban_signature'>
-			    <span style='float:right;'>
-				  <a href='".$eventInitiator_url."' target='_blank'>
-				    <img class='profile_img_drop' src='".$eventInitiator_pic."' alt='".$eventInitiator_name."' border=0 />
-				  </a>
-				</span>
-				<div class='signature_text'>
-				  <div style='float:right; height:16px;'>
-				    <span >
-					  <a class='douban_from_drop' href='".$eventInitiator_url."' target='_blank'>".$eventInitiator_name."</a>
-					</span>
-				  </div>
-				  <div class='douban_date_drop'></div>
-				</div> 
-			  </div>
-			</div>
-	      </li>";
 		}
 		else
 		{
@@ -287,43 +232,6 @@ else
 			$meta['average_rating'] = $douban_item_meta['gd:rating']['@average'];
 			$meta['num_raters'] = $douban_item_meta['gd:rating']['@numRaters'];
 			$content_array[] = $meta;
-			
-			$content .=
-			"<li class='douban_drop douban' id='d_".$douban_save_per_id."' style='border:none;'>
-			  <div class='douban_wrapper'>
-				<div class='content_wrapper'>
-				<div>
-				  <div class='comment_title'>".$doubanElement['title']['$t']."</div>
-				  <div class='comment_summary'>".$doubanElement['summary']['$t']."<a href='".$doubanElement['link'][1]['@href']."' target='_blank'>[查看评论全文]</a></div>
-				</div>
-				<div class='item_info' style='overflow:auto;'>
-				  <a href='".$douban_per_url."' target='_blank'><img class='item_img' src='".$itemPic."' /></a>
-				  <div class='item_meta'>
-					<div><a class='item_title' href='".$douban_per_url."' target='_blank'>".$doubanElement['db:subject']['title']['$t']."</a></div>
-					<div class='item_author'>".$douban_item_author."</div>
-					<div class='item_date'>".$douban_item_date."</div>
-					<div class=item_rating>".$doubanElement['author']['name']['$t']."评分:".$comment_rating."</div>
-					<div class='average_rating'>豆瓣评分:".$douban_item_meta['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$douban_item_meta['gd:rating']['@numRaters']."人参与投票</div>
-				  </div>
-				</div>
-				</div>
-				<div id='douban_signature'>
-				  <span class='float_r'>
-					<a href='".$comment_author_link."' target='_blank'>
-					  <img class='profile_img' style='width: 32px; height: 32px; overflow: hidden; margin-top:5px;' src='".$comment_author_pic."' alt='".$doubanElement['author']['name']['$t']."' border=0 />
-					</a>
-				  </span>
-				  <div class='signature_text'>
-					<div class='text_wrapper'>
-					  <span >
-						<a class='douban_from' href='".$doubanElement['author']['link'][1]['@href']."' target='_blank'>".$doubanElement['author']['name']['$t']."</a>
-					  </span>
-					</div>
-					<div class='douban_date_drop'>".$time_array[0]."</div>
-				  </div> 
-				</div>
-			  </div>
-			</li>";
 		  }
 		  else if($val['content']['item_type'] == 'book' || $val['content']['item_type'] == 'movie' || $val['content']['item_type'] == 'music')
 		  {
@@ -369,31 +277,12 @@ else
 			$meta['average_rating'] = $douban_item_meta['gd:rating']['@average'];
 			$meta['num_raters'] = $douban_item_meta['gd:rating']['@numRaters'];
 			$content_array[] = $meta;
-			
-			$content .=
-			"<li class='douban_drop douban' id='d_".$douban_save_per_id."' style='border:none;'>
-			  <div class='douban_wrapper'>
-			    <div class='content_wrapper'>
-				<div class='item_info' style='overflow:auto;'>
-				  <a href='".$itemLink."' target='_blank'><img class='item_img' src='".$itemPic."' /></a>
-				  <div class='item_meta'>
-					<div><a class='item_title' href='".$itemLink."' target='_blank'>".$douban_item_meta['title']['$t']."</a></div>
-					<div class='item_author'>".$douban_item_author."</div>
-					<div class='item_date'>".$douban_item_date."</div>
-					<div class='average_rating'>豆瓣评分:".$douban_item_meta['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$douban_item_meta['gd:rating']['@numRaters']."人参与投票</div>
-				  </div>
-				</div>
-				</div>
-				<div class='douban_sig_logo'></div>
-			  </div>
-			</li>";
 		  }
 		}
 		break;}
 		 
 		case "comment":{
 		$comment_text = $val['content'];
-		$content .="<li class='textElement'><div class='commentBox'>".$comment_text."</div></li>";
 		$meta = array();
 		$meta['type'] = 'comment';
 		$meta['text'] = $comment_text;
@@ -405,8 +294,6 @@ else
 		$video_title = $video_meta['title'];
 		$video_src = $video_meta['src'];
 		$video_url = $video_meta['url'];
-		$content .="<li class='video_element'><div><a class='videoTitle' target='_blank' href='".$video_url."'>".$video_title."</a></div><div class='embed'>
-		<embed src='".$video_src."' quality='high' width='420' height='340' align='middle' allowscriptaccess='always' allowfullscreen='true' mode='transparent' type='application/x-shockwave-flash' wmode='opaque'></embed></div></li>";
 		$meta = array();
 		$meta['type'] = 'video';
 		$meta['title'] = $video_meta['title'];
@@ -422,9 +309,6 @@ else
 		$photo_per_url = $photo_meta_data['url'];
 		$photo_id = $photo_meta_data['id'];
 		$author_nic = $photo_meta_data['nic'];
-		$photo_link = "http://www.yupoo.com/photos/".$photo_author."/".$photo_id."/";
-		$content .="<li class='photo_element'><div class='yupoo_wrapper'><a target='_blank' href='".$photo_link."'><img src='"
-				.$photo_per_url."'/></a><div style='line-height:1.5;'><a class='pic_title' target='_blank' href='".$photo_link."'>".$photo_title."</a></div><div style='line-height:1.5;'><a class='pic_author' target='_blank' href='http://www.yupoo.com/photos/".$photo_author."/'>".$author_nic."</a></div><div class='yupoo_sign'></div></div></li>";	 
 		$meta = array();
 		$meta['type'] = 'photo';
 		$meta['title'] = $photo_meta_data['title'];
@@ -432,7 +316,7 @@ else
 		$meta['photo_url'] = $photo_meta_data['url'];
 		$meta['photo_id'] = $photo_meta_data['id'];
 		$meta['author_nic'] = $photo_meta_data['nic'];
-		$meta['photo_link'] = "http://www.yupoo.com/photos/".$photo_author."/".$photo_id."/";
+		$meta['photo_link'] = "http://www.yupoo.com/photos/".$photo_author."/".$photo_id;
 		$content_array[] = $meta;
 		break;
 		}
@@ -446,7 +330,6 @@ else
 	  $tweibo_ids = implode(",", $tweibo_id_array);
 	  $tweibo  = $t->t_list($tweibo_ids);
 	  $info = $tweibo['data']['info'];
-	  $tweiboContent = "";
 	  foreach( $info as $item )
 	  {
 		$time = getdate($item['timestamp']);
@@ -460,10 +343,7 @@ else
 		$t_meta['time'] = $create_time;
 		$t_meta['u_profile'] = $profileImgUrl;
 		
-		//show nick name
 		$item['text'] = tweibo_show_nick($item['text'],$tweibo[data][user]);
-
-		// show face gif 
 		$item['text'] = subs_emotions($item['text'],"tweibo");
 		$t_meta['text'] = $item['text'];
 		$t_meta['img'] = '';
@@ -472,58 +352,28 @@ else
 		$t_meta['u_nick'] = $item['nick'];
 		$t_meta['u_name'] = $item['name'];
 
-		$tweiboContent .="<li id='t_".$item['id']."'>";
-
 		if(isset($item['source'])){
-			$tweiboContent .="<div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text'];
-			//nick name
 			$item['source']['text'] = tweibo_show_nick($item['source']['text'],$tweibo[data][user]);
-			
-			// emotion substution
 			$item['source']['text'] = subs_emotions($item['source']['text'],"tweibo");
 
 			if($item['source']['text'] == null)
 				$item['source']['text'] = "此微博已被原作者删除。";
-			$tweiboContent .="||".$item['source']['nick']."(@".$item['source']['name']."):".$item['source']['text']."</span>";
 			
 			$t_meta['text'] .= "||".$item['source']['nick']."(@".$item['source']['name']."):".$item['source']['text'];
 			
 			if(isset($item['source']['image'])){
 				foreach($item['source']['image'] as $re_img_url){
-					$tweiboContent .="<div class='weibo_retweet_img_drop'><img src='".$re_img_url."/240' /></div>";
 					$t_meta['retweet_img'] .= $re_img_url."/240 ";
 				}
 			}
 		}else{
-			$tweiboContent .= "<div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$item['text']."</span>";
 			if(isset($item['image'])){
 				foreach($item['image'] as $img_url){
-					$tweiboContent .="<div class='weibo_img_drop'><img src='".$img_url."/240' /></div>";
 					$t_meta['img'] .= $img_url."/240 ";
 				}
 			}
 		}
 		$t_meta_array[] = $t_meta;
-		$tweiboContent .= "</div><div class='story_signature'><span class='float_r'><a href='http://t.qq.com/".$item['name']."' target='_blank'><img class='profile_img_drop' src='"
-		.$profileImgUrl."' alt='".$item['nick']."' border=0 /></a></span><div class='signature_text'><div class='text_wrapper'>
-		<span ><a class='weibo_from_drop' href='http://t.qq.com/".$item['name']."' target='_blank'>".$item['nick']."</a></span></div><div class='weibo_date_drop'>".$create_time."</div></div> </div></div></li>tweibo_sep";
-	  }
-	  $tweibo_array = explode("tweibo_sep", $tweiboContent);
-	  $tweibo_array_len = count($tweibo_array);
-	  $tweibo_array_asoc = array();
-	  for($i=0; $i<$tweibo_array_len-1; $i++)
-	  {
-	    $temp_t = $tweibo_array[$i];
-		$first_q = strpos($temp_t, "'");
-		$second_q = strpos(substr($temp_t, $first_q+1), "'");
-		$t_per_id = substr($temp_t, $first_q+1, $second_q);
-		$first_t = strpos($temp_t, ">");
-		$second_t = strpos($temp_t, "</li>");
-		$tweibo_array_asoc[$t_per_id] = substr($temp_t, $first_t+1, $second_t-$first_t-1);
-	  }
-	  foreach($tweibo_array_asoc as $tkey=>$tval)
-	  {
-	    $content = str_replace("<li id='$tkey'>","<li class='weibo_drop tencent' id='$tkey' style='border:none;'>".$tval, $content);
 	  }
 	  $content_array_length = count($content_array);
 	  $t_meta_array_length = count($t_meta_array);
@@ -550,7 +400,6 @@ else
   $obj->time = $story_time;
   $obj->embed = $story_embed;
   $obj->tags = $tag_array;
-  $obj->content = $content;
   $obj->content_array = $content_array;
 
   echo $_GET['callback']. '(' . json_encode($obj) . ');';
