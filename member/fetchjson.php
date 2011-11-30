@@ -182,6 +182,7 @@ else
 		  $meta['end_time'] = $doubanElement['gd:when']['endTime'];
 		  $meta['event_city'] = $doubanElement['db:location']['$t'];
 		  $meta['event_location'] = $doubanElement['gd:where']['@valueString'];
+		  $content_array[] = $meta;
 		  
 		  $content .=
 		 "<li class='douban_drop douban' id='d_".$douban_save_per_id."' style='border:none;'>
@@ -285,6 +286,7 @@ else
 			$meta['rating'] = $comment_rating;
 			$meta['average_rating'] = $douban_item_meta['gd:rating']['@average'];
 			$meta['num_raters'] = $douban_item_meta['gd:rating']['@numRaters'];
+			$content_array[] = $meta;
 			
 			$content .=
 			"<li class='douban_drop douban' id='d_".$douban_save_per_id."' style='border:none;'>
@@ -366,6 +368,8 @@ else
 			$meta['item_title'] = $douban_item_meta['title']['$t'];
 			$meta['average_rating'] = $douban_item_meta['gd:rating']['@average'];
 			$meta['num_raters'] = $douban_item_meta['gd:rating']['@numRaters'];
+			$content_array[] = $meta;
+			
 			$content .=
 			"<li class='douban_drop douban' id='d_".$douban_save_per_id."' style='border:none;'>
 			  <div class='douban_wrapper'>
@@ -428,6 +432,7 @@ else
 		$meta['photo_url'] = $photo_meta_data['url'];
 		$meta['photo_id'] = $photo_meta_data['id'];
 		$meta['author_nic'] = $photo_meta_data['nic'];
+		$meta['photo_link'] = "http://www.yupoo.com/photos/".$photo_author."/".$photo_id."/";
 		$content_array[] = $meta;
 		break;
 		}
