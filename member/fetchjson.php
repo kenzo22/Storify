@@ -79,6 +79,7 @@ else
 		$weibo_meta_data = $val['content'];
 		$weibo_per_id = $weibo_meta_data['id'];
 		$single_weibo  = $c->show_status($weibo_per_id );
+		$meta = array();
 		$meta['type'] = 'weibo'; 
 		$meta['per_id'] = $weibo_per_id;
 		
@@ -150,6 +151,10 @@ else
 		$tweibo_per_id = $tweibo_meta_data['id'];
 		$tweibo_id_array[] = $tweibo_per_id;
 		$content .="<li id='t_".$tweibo_per_id."'></li>"; 
+		$meta = array();
+		$meta['type'] = 'tweibo';
+		$meta['per_id'] = $tweibo_per_id;
+		$content_array[] = $meta;
 		break;}
 		 
 		case "douban":{
@@ -344,6 +349,7 @@ else
 		case "comment":{
 		$comment_text = $val['content'];
 		$content .="<li class='textElement'><div class='commentBox'>".$comment_text."</div></li>";
+		$meta = array();
 		$meta['type'] = 'comment';
 		$meta['text'] = $comment_text;
 		$content_array[] = $meta;
@@ -356,6 +362,7 @@ else
 		$video_url = $video_meta['url'];
 		$content .="<li class='video_element'><div><a class='videoTitle' target='_blank' href='".$video_url."'>".$video_title."</a></div><div class='embed'>
 		<embed src='".$video_src."' quality='high' width='420' height='340' align='middle' allowscriptaccess='always' allowfullscreen='true' mode='transparent' type='application/x-shockwave-flash' wmode='opaque'></embed></div></li>";
+		$meta = array();
 		$meta['type'] = 'video';
 		$meta['title'] = $video_meta['title'];
 		$meta['url'] = $video_meta['url'];
@@ -373,7 +380,7 @@ else
 		$photo_link = "http://www.yupoo.com/photos/".$photo_author."/".$photo_id."/";
 		$content .="<li class='photo_element'><div class='yupoo_wrapper'><a target='_blank' href='".$photo_link."'><img src='"
 				.$photo_per_url."'/></a><div style='line-height:1.5;'><a class='pic_title' target='_blank' href='".$photo_link."'>".$photo_title."</a></div><div style='line-height:1.5;'><a class='pic_author' target='_blank' href='http://www.yupoo.com/photos/".$photo_author."/'>".$author_nic."</a></div><div class='yupoo_sign'></div></div></li>";	 
-		break;
+		$meta = array();
 		$meta['type'] = 'photo';
 		$meta['title'] = $photo_meta_data['title'];
 		$meta['author'] = $photo_meta_data['author'];
@@ -381,6 +388,7 @@ else
 		$meta['photo_id'] = $photo_meta_data['id'];
 		$meta['author_nic'] = $photo_meta_data['nic'];
 		$content_array[] = $meta;
+		break;
 		}
 		 
 		default:
@@ -400,11 +408,23 @@ else
 		$create_time = dateFormatTrans($create_time, $date_t);
 		$profileImgUrl = $item['head']."/50";
 		
+		$t_meta = array();
+		$t_meta['type'] = 'tweibo';
+		$t_meta['per_id'] = $item['id'];
+		$t_meta['time'] = $create_time;
+		$t_meta['u_profile'] = $profileImgUrl;
+		
 		//show nick name
 		$item['text'] = tweibo_show_nick($item['text'],$tweibo[data][user]);
 
 		// show face gif 
 		$item['text'] = subs_emotions($item['text'],"tweibo");
+		$t_meta['text'] = $item['text'];
+		$t_meta['img'] = '';
+		$t_meta['retweet_img'] = '';
+		
+		$t_meta['u_nick'] = $item['nick'];
+		$t_meta['u_name'] = $item['name'];
 
 		$tweiboContent .="<li id='t_".$item['id']."'>";
 
@@ -419,9 +439,13 @@ else
 			if($item['source']['text'] == null)
 				$item['source']['text'] = "此微博已被原作者删除。";
 			$tweiboContent .="||".$item['source']['nick']."(@".$item['source']['name']."):".$item['source']['text']."</span>";
+			
+			$t_meta['text'] .= "||".$item['source']['nick']."(@".$item['source']['name']."):".$item['source']['text'];
+			
 			if(isset($item['source']['image'])){
 				foreach($item['source']['image'] as $re_img_url){
 					$tweiboContent .="<div class='weibo_retweet_img_drop'><img src='".$re_img_url."/240' /></div>";
+					$t_meta['retweet_img'] .= $re_img_url."/240 ";
 				}
 			}
 		}else{
@@ -429,9 +453,11 @@ else
 			if(isset($item['image'])){
 				foreach($item['image'] as $img_url){
 					$tweiboContent .="<div class='weibo_img_drop'><img src='".$img_url."/240' /></div>";
+					$t_meta['img'] .= $img_url."/240 ";
 				}
 			}
 		}
+		$t_meta_array[] = $t_meta;
 		$tweiboContent .= "</div><div class='story_signature'><span class='float_r'><a href='http://t.qq.com/".$item['name']."' target='_blank'><img class='profile_img_drop' src='"
 		.$profileImgUrl."' alt='".$item['nick']."' border=0 /></a></span><div class='signature_text'><div class='text_wrapper'>
 		<span ><a class='weibo_from_drop' href='http://t.qq.com/".$item['name']."' target='_blank'>".$item['nick']."</a></span></div><div class='weibo_date_drop'>".$create_time."</div></div> </div></div></li>tweibo_sep";
@@ -452,6 +478,21 @@ else
 	  foreach($tweibo_array_asoc as $tkey=>$tval)
 	  {
 	    $content = str_replace("<li id='$tkey'>","<li class='weibo_drop tencent' id='$tkey' style='border:none;'>".$tval, $content);
+	  }
+	  $content_array_length = count($content_array);
+	  $t_meta_array_length = count($t_meta_array);
+	  for($i=0; $i<$content_array_length; $i++)
+	  {
+	    if($content_array[$i]['type'] == 'tweibo')
+		{
+		  for($j=0; $j<$t_meta_array_length; $j++)
+		  {
+		    if($content_array[$i]['per_id'] == $t_meta_array[$j]['per_id'])
+		    {
+		      $content_array[$i] = array_merge($content_array[$i], $t_meta_array[$j]);
+		    }
+		  }
+		}
 	  }
 	}
   }
