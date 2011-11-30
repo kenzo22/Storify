@@ -46,7 +46,7 @@ function show_content(&$content, $db_result)
 	$content .=  "<li>
 						  <div class='story_wrap'>	
 							<a href='".$post_link."'>
-							  <img class='cover' src='".$post_pic_url."' alt='故事封面' />
+							  <img class='cover' src='".$post_pic_url."' alt='' />
 							</a>
 							<a class='title_wrap' href='".$post_link."'>
 							  <span class='title'>".$post_title."</span>

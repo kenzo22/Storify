@@ -9,7 +9,6 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/tweibo/txwboauth.php' ;
 include_once $_SERVER['DOCUMENT_ROOT'].'/douban/config.php' ;
 include_once $_SERVER['DOCUMENT_ROOT'].'/douban/doubanapi.php' ;
 
-
 $date_t = date("Y-m-d H:i:s");
 //select a random item from the publictoken pool
 $token = $DB->fetch_one_array("select * from ".$db_prefix."publictoken where id='1'");
