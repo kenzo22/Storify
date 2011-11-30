@@ -94,7 +94,7 @@ else
 
             $single_weibo['text'] = subs_url($single_weibo['text'],'weibo');
 			
-			//$meta['text'] = $single_weibo['text'];
+			$meta['text'] = $single_weibo['text'];
 
 			$createTime = dateFormatTrans(dateFormat($single_weibo['created_at']),$date_t);
 			
@@ -110,7 +110,7 @@ else
 
                 $content .="//@".$single_weibo['retweeted_status']['user']['name'].":".$single_weibo['retweeted_status']['text'];
 				
-				$meta['text'] = $single_weibo['text']."//@".$single_weibo['retweeted_status']['user']['name'].":".$single_weibo['retweeted_status']['text'];
+				$meta['text'] .= "//@".$single_weibo['retweeted_status']['user']['name'].":".$single_weibo['retweeted_status']['text'];
 				
                 if(isset($single_weibo['retweeted_status']['bmiddle_pic'])){
                     $content .= "</span><div class='weibo_retweet_img' style='text-align:center;'><img src='".$single_weibo['retweeted_status']['bmiddle_pic']."' width='280px;' /></div>";
@@ -124,6 +124,7 @@ else
             }
 			else{
 			  $content .="<div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>".$single_weibo['text']."</span>";
+			  $meta['retweet_img'] = '';
 			}
             if (isset($single_weibo['bmiddle_pic']))
 			{
@@ -342,7 +343,10 @@ else
 		 
 		case "comment":{
 		$comment_text = $val['content'];
-		$content .="<li class='textElement'><div class='commentBox'>".$comment_text."</div></li>";	
+		$content .="<li class='textElement'><div class='commentBox'>".$comment_text."</div></li>";
+		$meta['type'] = 'comment';
+		$meta['text'] = $comment_text;
+		$content_array[] = $meta;
 		break;}
 		 
 		case "video":{
@@ -352,6 +356,11 @@ else
 		$video_url = $video_meta['url'];
 		$content .="<li class='video_element'><div><a class='videoTitle' target='_blank' href='".$video_url."'>".$video_title."</a></div><div class='embed'>
 		<embed src='".$video_src."' quality='high' width='420' height='340' align='middle' allowscriptaccess='always' allowfullscreen='true' mode='transparent' type='application/x-shockwave-flash' wmode='opaque'></embed></div></li>";
+		$meta['type'] = 'video';
+		$meta['title'] = $video_meta['title'];
+		$meta['url'] = $video_meta['url'];
+		$meta['src'] = $video_meta['src'];
+		$content_array[] = $meta;
 		break;}
 		 
 		case "photo":{
@@ -364,7 +373,15 @@ else
 		$photo_link = "http://www.yupoo.com/photos/".$photo_author."/".$photo_id."/";
 		$content .="<li class='photo_element'><div class='yupoo_wrapper'><a target='_blank' href='".$photo_link."'><img src='"
 				.$photo_per_url."'/></a><div style='line-height:1.5;'><a class='pic_title' target='_blank' href='".$photo_link."'>".$photo_title."</a></div><div style='line-height:1.5;'><a class='pic_author' target='_blank' href='http://www.yupoo.com/photos/".$photo_author."/'>".$author_nic."</a></div><div class='yupoo_sign'></div></div></li>";	 
-		break;}
+		break;
+		$meta['type'] = 'photo';
+		$meta['title'] = $photo_meta_data['title'];
+		$meta['author'] = $photo_meta_data['author'];
+		$meta['photo_url'] = $photo_meta_data['url'];
+		$meta['photo_id'] = $photo_meta_data['id'];
+		$meta['author_nic'] = $photo_meta_data['nic'];
+		$content_array[] = $meta;
+		}
 		 
 		default:
 		break;
