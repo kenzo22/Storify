@@ -159,14 +159,29 @@ else
 		 
 		case "douban":{
 		$douban_save_per_id = $val['content']['item_id'];
+		$meta = array();
+		$meta['per_id'] = $douban_save_per_id;
 		if($val['content']['item_type'] == 'event')
 		{
+		  $meta['type'] = 'douban_event';
 		  $doubanElement = $d->get_event($douban_save_per_id);
 		  $eventImg = getItemPic($doubanElement['link']);
 		  $eventLink = getItemLink($doubanElement['link']);
 		  $eventInitiator_url = getAuthorLink($doubanElement['author']['link']);
 		  $eventInitiator_name = $doubanElement['author']['name']['$t'];
 		  $eventInitiator_pic = getAuthorPic($doubanElement['author']['link']);
+		  
+		  $meta['event_title'] = $doubanElement['title']['$t'];
+		  $meta['event_summary'] = $doubanElement['summary'][0]['$t'];
+		  $meta['event_link'] = getItemLink($doubanElement['link']);
+		  $meta['event_initiator_name'] = $doubanElement['author']['name']['$t'];
+		  $meta['event_initiator_pic'] = getAuthorPic($doubanElement['author']['link']);
+		  $meta['event_initiator_link'] = getAuthorLink($doubanElement['author']['link']);
+		  $meta['event_pic'] = getItemPic($doubanElement['link']);
+		  $meta['start_time'] = $doubanElement['gd:when']['startTime'];
+		  $meta['end_time'] = $doubanElement['gd:when']['endTime'];
+		  $meta['event_city'] = $doubanElement['db:location']['$t'];
+		  $meta['event_location'] = $doubanElement['gd:where']['@valueString'];
 		  
 		  $content .=
 		 "<li class='douban_drop douban' id='d_".$douban_save_per_id."' style='border:none;'>
@@ -209,7 +224,8 @@ else
 		{
 		  if($val['content']['item_type'] == 'bookReviews' || $val['content']['item_type'] == 'movieReviews' || $val['content']['item_type'] == 'musicReviews')
 		  {
-		    $douban_item_meta;
+		    $meta['type'] = 'douban_review';
+			$douban_item_meta;
 		    $douban_item_date;
 		    $douban_item_author;
 		    $doubanElement = $d->get_comment($douban_save_per_id);
@@ -253,6 +269,23 @@ else
 			}
 			$comment_rating = 2*$doubanElement['gd:rating']['@value'];
 			$time_array = explode("T", $doubanElement['published']['$t']);
+			
+			$meta['comment_title'] = $doubanElement['title']['$t'];
+			$meta['comment_summary'] = $doubanElement['summary']['$t'];
+			$meta['comment_link'] = $doubanElement['link'][1]['@href'];
+			$meta['comment_author'] = $doubanElement['author']['name']['$t'];
+			$meta['comment_author_link'] = $comment_author_link;
+			$meta['comment_author_pic'] = $comment_author_pic;
+			$meta['comment_date'] = $time_array[0];
+			$meta['item_author'] = $douban_item_author;
+			$meta['item_date'] = $douban_item_date;
+			$meta['item_link'] = getItemLink($douban_item_meta['link']);
+			$meta['item_pic'] = getItemPic($douban_item_meta['link']);
+			$meta['item_title'] = $douban_item_meta['title']['$t'];
+			$meta['rating'] = $comment_rating;
+			$meta['average_rating'] = $douban_item_meta['gd:rating']['@average'];
+			$meta['num_raters'] = $douban_item_meta['gd:rating']['@numRaters'];
+			
 			$content .=
 			"<li class='douban_drop douban' id='d_".$douban_save_per_id."' style='border:none;'>
 			  <div class='douban_wrapper'>
@@ -292,7 +325,8 @@ else
 		  }
 		  else if($val['content']['item_type'] == 'book' || $val['content']['item_type'] == 'movie' || $val['content']['item_type'] == 'music')
 		  {
-		    if($val['content']['item_type'] == 'book')
+		    $meta['type'] = 'douban_item';
+			if($val['content']['item_type'] == 'book')
 			{
 			  $douban_item_meta = $d->get_book($douban_save_per_id);
 			}
@@ -325,6 +359,13 @@ else
 			  $douban_item_author = "表演者：".$author;
 			  $douban_item_date = "发行时间：".$pubDate;
 			}
+			$meta['item_author'] = $douban_item_author;
+			$meta['item_date'] = $douban_item_date;
+			$meta['item_link'] = getItemLink($douban_item_meta['link']);
+			$meta['item_pic'] = getItemPic($douban_item_meta['link']);
+			$meta['item_title'] = $douban_item_meta['title']['$t'];
+			$meta['average_rating'] = $douban_item_meta['gd:rating']['@average'];
+			$meta['num_raters'] = $douban_item_meta['gd:rating']['@numRaters'];
 			$content .=
 			"<li class='douban_drop douban' id='d_".$douban_save_per_id."' style='border:none;'>
 			  <div class='douban_wrapper'>
