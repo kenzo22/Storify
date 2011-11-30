@@ -69,6 +69,7 @@ else
 	  }
 	}
 	$content = "";
+	$content_array[] = array();
 			  
     foreach($story_content_array as $key=>$val)
     {
@@ -78,15 +79,12 @@ else
 		$weibo_meta_data = $val['content'];
 		$weibo_per_id = $weibo_meta_data['id'];
 		$single_weibo  = $c->show_status($weibo_per_id );
+		$meta['type'] = 'weibo'; 
+		$meta['per_id'] = $weibo_per_id;
 		
-		if ($single_weibo === false || $single_weibo === null){
-		echo "<br/><br/><br/><br/><br/>Error occured";
-		//return false;
-		}
 		if (isset($single_weibo['error_code']) && isset($single_weibo['error'])){
-            // skip deleted weibo
             $content .="<li class='weibo_drop sina' id='w_".$weibo_per_id."' style='border:none;'><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>此微博已被删除</span></div>";
-			//$content .="<li class='weibo_drop sina' id='$weibo_per_id' style='border:none;'><div class='story_wrapper'><div><span class='weibo_text'>errorcode:".$single_weibo['error_code']."error".$single_weibo['error']."</span></div>";
+			$meta['text'] = '';
             continue;
 		}
 		if (isset($single_weibo['id']) && isset($single_weibo['text'])){
@@ -95,8 +93,12 @@ else
             $single_weibo['text'] = subs_emotions($single_weibo['text'],"weibo");
 
             $single_weibo['text'] = subs_url($single_weibo['text'],'weibo');
+			
+			//$meta['text'] = $single_weibo['text'];
 
 			$createTime = dateFormatTrans(dateFormat($single_weibo['created_at']),$date_t);
+			
+			$meta['time'] = $createTime;
 			$content .="<li class='weibo_drop sina' id='w_".$weibo_per_id."' style='border:none;'>";
     		if (isset($single_weibo['retweeted_status'])){
                 
@@ -107,12 +109,17 @@ else
                 $single_weibo['retweeted_status']['text']=subs_url($single_weibo['retweeted_status']['text']);
 
                 $content .="//@".$single_weibo['retweeted_status']['user']['name'].":".$single_weibo['retweeted_status']['text'];
+				
+				$meta['text'] = $single_weibo['text']."//@".$single_weibo['retweeted_status']['user']['name'].":".$single_weibo['retweeted_status']['text'];
+				
                 if(isset($single_weibo['retweeted_status']['bmiddle_pic'])){
                     $content .= "</span><div class='weibo_retweet_img' style='text-align:center;'><img src='".$single_weibo['retweeted_status']['bmiddle_pic']."' width='280px;' /></div>";
+					$meta['retweet_img'] = $single_weibo['retweeted_status']['bmiddle_pic'];
                 }
 				else
 				{
 				  $content .= "</span>";
+				  $meta['retweet_img'] = '';
 				}
             }
 			else{
@@ -121,7 +128,16 @@ else
             if (isset($single_weibo['bmiddle_pic']))
 			{
 			  $content .= "<div class='weibo_img' style='text-align:center;'><img src='".$single_weibo['bmiddle_pic']."' width='280px;' /></div>";
+			  $meta['img'] = $single_weibo['bmiddle_pic'];
 			}
+			else
+			{
+			  $meta['img'] = '';
+			}
+			$meta['uid'] = $single_weibo['user']['id'];
+			$meta['u_name'] = $single_weibo['user']['screen_name'];
+			$meta['u_profile'] = $single_weibo['user']['profile_image_url'];
+			$content_array[] = $meta;
             $content .= "</div><div class='story_signature'><span class='float_r'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img_drop' src='"
 			.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><div class='signature_text'><div class='text_wrapper'>
 			<span ><a class='weibo_from_drop' href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'>".$single_weibo['user']['screen_name']."</a></span></div><div class='weibo_date_drop'>".$createTime."</div></div> </div></div></li>";
@@ -431,6 +447,7 @@ else
   $obj->embed = $story_embed;
   $obj->tags = $tag_array;
   $obj->content = $content;
+  $obj->content_array = $content_array;
 
   echo $_GET['callback']. '(' . json_encode($obj) . ');';
 }
