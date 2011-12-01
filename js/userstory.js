@@ -123,11 +123,11 @@ $(function(){
 		  
 		  $.ajax({
 			type: 'POST',
-			url: 'loadstoryitem.php',
+			url: '/member/loadstoryitem.php',
 			data: postdata, 
 			beforeSend:function() 
 			{
-			  var imgloading = $("<img src='../img/loading.gif' />");
+			  var imgloading = $("<img src='/img/loading.gif' />");
 			  $('.load_more').html(imgloading);
 			},
 			success: function(data){
@@ -344,7 +344,7 @@ $(function(){
 	  {
 	    var post_id_val = $(this).attr('id').replace(/_delete/, "");
 	    var getData = {post_id: post_id_val};
-	    $.get('removestory.php', getData,
+	    $.get('/member/removestory.php', getData,
 	    function(data, textStatus)
 	    {
 		  if(textStatus == 'success')
@@ -368,7 +368,7 @@ $(function(){
 	  var temp_array = $(this).attr('id').split('_');
 	  var post_id_val = temp_array[2]; 
 	  var getData = {post_id: post_id_val};
-	  $.get('diggoperation.php', getData,
+	  $.get('/member/diggoperation.php', getData,
 	  function(data, textStatus)
 	  {
 		if(textStatus == 'success')
@@ -482,11 +482,11 @@ $(function(){
 	  var postData;
 	  if($('#pub_text').hasClass('sina'))
 	  {
-	    postUrl = '../weibo/postweibo.php';
+	    postUrl = '/weibo/postweibo.php';
 	  }
 	  else
 	  {
-	    postUrl = '../tweibo/posttweibo.php';
+	    postUrl = '/tweibo/posttweibo.php';
 	  }
 	  postData = {operation: ope_val, id: id_val, weibo_content: w_content_val};
 
@@ -526,7 +526,7 @@ $(function(){
 	      tweibo_content_val += $('.notify-tweet').val();
 		  var postUrl;
 		  var postData;
-		  postUrl = '../tweibo/posttweibo.php';
+		  postUrl = '/tweibo/posttweibo.php';
 		  postData = {operation: 'publish', weibo_content: tweibo_content_val};
 
 		  $.ajax({
@@ -545,7 +545,7 @@ $(function(){
 	      weibo_content_val += $('.notify-tweet').val();
 		  var postUrl;
 		  var postData;
-		  postUrl = '../weibo/postweibo.php';
+		  postUrl = '/weibo/postweibo.php';
 		  postData = {operation: 'publish', weibo_content: weibo_content_val};
 
 		  $.ajax({
