@@ -1,10 +1,10 @@
 <?php
 @header('Content-Type:text/html;charset=utf-8');
-include "../connect_db.php";
+include $_SERVER['DOCUMENT_ROOT']."/connect_db.php";
 session_start();
-require_once( '../weibo/config.php' );
-require_once( '../weibo/sinaweibo.php' );
-include '../include/secureGlobals.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/weibo/config.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/weibo/sinaweibo.php';
+include $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php';
 
 $operation = $_POST['operation'];
 if($operation == 'add')

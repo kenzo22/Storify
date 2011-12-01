@@ -43,9 +43,9 @@ set_magic_quotes_runtime(0);
 if(islogin())
 { 
   $content="<div id='actions'>
-				<span><a id='draftBtn' href='/member' >保存草稿</a></span>
-				<span><a id='previewBtn' href='/member' >预览</a></span>
-				<span><a id='publishBtn' class='large blue awesome' href='/member' >发布 &raquo;</a></span>
+				<span><a id='draftBtn' href='/draft' >保存草稿</a></span>
+				<span><a id='previewBtn' href='/preview' >预览</a></span>
+				<span><a id='publishBtn' class='large blue awesome' href='/create' >发布 &raquo;</a></span>
 			  </div>";
   $userresult=$DB->fetch_one_array("SELECT id, photo FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
   echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='口立方' accesskey='h' href='/'><img src='/img/koulifangbeta.png' alt='口立方' /></a></span>".$content."</div></div>";
@@ -54,9 +54,9 @@ else
 {
   getPublicToken();
   $content="<div id='actions'>
-			  <span><a id='draftBtn' class='disable' href='/member' >保存草稿</a></span>
-			  <span><a id='previewBtn' class='disable' href='/member' >预览</a></span>
-			  <span><a id='publishBtn' class='large blue awesome disable' href='/member' >发布 &raquo;</a></span>
+			  <span><a id='draftBtn' class='disable' href='/draft' >保存草稿</a></span>
+			  <span><a id='previewBtn' class='disable' href='/preview' >预览</a></span>
+			  <span><a id='publishBtn' class='large blue awesome disable' href='/publish' >发布 &raquo;</a></span>
 			</div>";
   echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='口立方' accesskey='h' href='/'><img src='/img/koulifangbeta.png' alt='口立方' /></a></span>".$content."</div></div>";
 }

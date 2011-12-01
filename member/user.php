@@ -317,11 +317,11 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	}
 
     // get tags for this story
-    $tag_query = "select name from story_tag,story_tag_story where story_tag.id=tag_id and story_id=".$post_id;
+    $tag_query = "select tag_id,name from story_tag,story_tag_story where story_tag.id=tag_id and story_id=".$post_id;
     $tag_names = $DB->query($tag_query);
     if($DB->num_rows($tag_names) > 0){
         while($tag_name_row = $DB->fetch_array($tag_names)){
-            $tags .= "<a class='tag_item' href='/topic/".$tag_name_row['name']."'>".$tag_name_row['name']."</a>";
+            $tags .= "<a class='tag_item' href='/topic/".$tag_name_row['tag_id']."'>".$tag_name_row['name']."</a>";
         }
     }
 
@@ -918,9 +918,9 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
   
   $story_content = "<div id='userstory_container' class='inner'>
 					  <div class='userinfo_wrapper'>
-						<div class='avatar'><a href='/member/user/".$user_id."'><img width='80px' height='80px' src='".$user_avatar_img."' alt='".$username."' /></a></div>
+						<div class='avatar'><a href='/user/".$user_id."'><img width='80px' height='80px' src='".$user_avatar_img."' alt='".$username."' /></a></div>
 						<div class='misc_wrapper'>
-						  <div class='user_name'><a href='/member/user/".$user_id."'><span>".$username."</span></a></div>
+						  <div class='user_name'><a href='/user/".$user_id."'><span>".$username."</span></a></div>
 						  <div class='account_count'>
 							<span>粉丝:</span><span class='fans_count'>".sizeof($follower_list)."</span>
 							<span>关注:</span><span class='follow_count'>".sizeof($following_list)."</span>
@@ -950,7 +950,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
   if(0 == $total_pages)
   {
     $story_content.="<div style='height:30px;'></div><h4 class='text'>你可以用口立方报道新闻，追踪网络热点事件，汇总美食，旅游，时尚周边信息，写书评影评，等等～～～</h4>
-	<a class='large green awesome' href='/member'>开始创建 &raquo;</a><div class='footer_spacer'></div></div></div>";
+	<a class='large green awesome' href='/create'>开始创建 &raquo;</a><div class='footer_spacer'></div></div></div>";
   }
   else
   {	
