@@ -8,7 +8,7 @@ require_once( $_SERVER['DOCUMENT_ROOT'].'/weibo/sinaweibo.php' );
 $o = new WeiboOAuth( WB_AKEY , WB_SKEY  );
 
 $wkeys = $o->getRequestToken();
-$aurl = $o->getAuthorizeURL( $wkeys['oauth_token'] ,false , 'http://www.koulifang.com/accounts/weibo_login');
+$aurl = $o->getAuthorizeURL( $wkeys['oauth_token'] ,false , 'http://koulifang.com/accounts/weibo_login');
 $_SESSION['wkeys'] = $wkeys;
 echo $aurl;
 ?>

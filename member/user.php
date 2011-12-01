@@ -652,6 +652,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  $tweibo  = $t->t_list($tweibo_ids);
 	  $info = $tweibo['data']['info'];
 	  $tweiboContent = "";
+	  if($info != null){
 	  foreach( $info as $item )
 	  {
 		$time = getdate($item['timestamp']);
@@ -707,6 +708,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  foreach($tweibo_array_asoc as $tkey=>$tval)
 	  {
 	    $content = str_replace("<li id='$tkey'>","<li class='weibo_drop tencent' id='$tkey'>".$tval, $content);
+	  }
 	  }
 	}
 	

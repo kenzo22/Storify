@@ -101,7 +101,8 @@ if($email && $passwd)
   {
 	header("location: /accounts/login/error"); 
   }
-}else
+}
+else
 {
     header("location:/accounts/login");
 }

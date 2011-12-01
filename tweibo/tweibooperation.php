@@ -31,7 +31,7 @@ else if('weibo_search' == $operation)
   $tweibo  = $c->search_t($keywords, $page, $itemsPerPage, 'json', 2);
   if($tweibo['data'] == NULL)
   {
-    echo "<div class='imply_color' style='text-align:center;'>对不起，没有找到相关的微博</div>";
+    echo "<div class='imply_color center'>对不起，没有找到相关的微博</div>";
     exit;
   }
 }
@@ -41,12 +41,12 @@ else if('list_user' == $operation)
   $tweibo  = $c->search_user($keywords, $page, $itemsPerPage);
   if($tweibo == NULL)
   {
-    echo "<div class='imply_color' style='text-align:center;'>没有更多用户了</div>";
+    echo "<div class='imply_color center'>没有更多用户了</div>";
     exit;
   }
   if($tweibo['data'] == NULL  && $tweibo['msg'] == 'have no user')
   {
-    echo "<div class='imply_color' style='text-align:center;'>此腾讯微博用户不存在</div>";
+    echo "<div class='imply_color center'>此腾讯微博用户不存在</div>";
     exit;
   }
 }
@@ -56,7 +56,7 @@ else if('user_search' == $operation)
   $tweibo  = $c->user_timeline($keywords, $page, $timestamp, $itemsPerPage);
   if($tweibo['data'] == NULL)
   {
-    echo "<div class='imply_color' style='text-align:center;'>对不起，没有找到相关的微博</div>";
+    echo "<div class='imply_color center'>对不起，没有找到相关的微博</div>";
     exit;
   }
 }
@@ -77,23 +77,18 @@ if('list_user' == $operation)
 	 { 
 	   $profileImgUrl = $item['head']."/100";
 	 }	 
-	 $weiboContent .= "<li id='".$item['name']."' class='weibo_drag tuser'>
-					     <div>
-						   <div>
-						     <a href='#' target='_blank'><img src='".$profileImgUrl."' style='float:left; width:100px; height:100px;' /></a>
-							 <div class='person_meta' style='margin-left:130px;'>
-							   <div>".$item['nick']."  (@".$item['name'].")</div>
-							   <div>".$item['location']."</div>
-							   <div>听众:".$item['fansnum']."</div>
-							   <div>收听:".$item['idolnum']."</div>
-							   <div><a class='list_tweibo' href='#'>查看微博</a></div>
-							 </div>
-						   </div>
-						   <div style='text-align:right;'>
-							 <img border='0' style='width:16px; height:16px;' src='/img/tencent16.png'/>
-						   </div>
-						 </div>
-					   <li>";
+	 $weiboContent .="<li id='".$item['name']."' class='weibo_drag tuser'>
+					    <div class='user_wrapper'>
+						  <a href='#' target='_blank'><img src='".$profileImgUrl."' alt='' /></a>
+						  <div class='person_meta'>
+						    <div>".$item['nick']."  (@".$item['name'].")</div>
+							<div>".$item['location']."</div>
+							<div>听众:".$item['fansnum']."</div>
+							<div>收听:".$item['idolnum']."</div>
+							<div><a class='list_tweibo' href='#'>查看微博</a></div>
+						  </div>
+						</div>
+					  <li>";
   }
   if($itemsPerPage*$page<$total_num)
   {
@@ -133,9 +128,7 @@ else
     // show face gif 
     $item['text'] = subs_emotions($item['text'],"tweibo");
 
-    $weiboContent .= "<li class='weibo_drag tencent' id='t_".$item['id']."'><div class='story_wrapper'><img class='profile_img' style='width: 32px; height: 32px; float:left; overflow: hidden; margin-top:3px;' 
-    src='".$profileImgUrl."' alt='".$item['nick']."' border=0 /><div class='weibo_content'><a class='user_page' href='http://t.qq.com/".$item['name']."' target='_blank' 
-    style = 'display:block;'><span class='weibo_from'>".$item['nick']."</span></a>";
+    $weiboContent .= "<li class='weibo_drag tencent' id='t_".$item['id']."'><div class='story_wrapper'><img class='profile_img' src='".$profileImgUrl."' alt='".$item['nick']."' border=0 /><div class='weibo_content'><div><a class='user_page' href='http://t.qq.com/".$item['name']."' target='_blank'><span class='weibo_from'>".$item['nick']."</span></a></div>";
     
     if(isset($item['source']))
 	{
@@ -151,7 +144,7 @@ else
 
         if(isset($item['source']['image'])){
             foreach($item['source']['image'] as $re_img_url){
-                $weiboContent .="<div class='weibo_retweet_img'><img src='".$re_img_url."/120' /></div>";
+                $weiboContent .="<div class='weibo_retweet_img'><img src='".$re_img_url."/120' alt='' /></div>";
             }
         }
     }
@@ -162,7 +155,7 @@ else
 	if(isset($item['image']))
 	{
 		foreach($item['image'] as $img_url){
-			$weiboContent .="<div class='weibo_img'><img src='".$img_url."/120' /></div>";
+			$weiboContent .="<div class='weibo_img'><img src='".$img_url."/120' alt='' /></div>";
 		}
     }
     $weiboContent .= "</div><span class='create_time'>".$create_time."</span></div></li>";

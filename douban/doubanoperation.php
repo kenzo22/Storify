@@ -47,7 +47,7 @@ if($eventFlag == 0)
 	$totalResults = $doubanReturn['opensearch:totalResults']['$t'];
 	if($totalResults == 0)
     {
-      echo "<div class='imply_color' style='text-align:center;'>对不起，没有找到相关的".$imply_txt."</div>";
+      echo "<div class='imply_color center'>对不起，没有找到相关的".$imply_txt."</div>";
       exit;
     }
 	foreach( $doubanReturn['entry'] as $item )
@@ -99,15 +99,16 @@ if($eventFlag == 0)
 		$item_review_text = "查看豆瓣乐评";
 		$load_more_text = "更多音乐";
 	  }
+	  $item_title = $item['title']['$t'];
 	 
 	  $doubanContent .= 
 		"<li class='douban_drag douban ".$item_type."' id='d_".$douban_per_id."'>
 		  <div class='douban_wrapper'>
 			<div class='douban_flag'>
 			<div class='item_info'>
-			  <a href='".$douban_per_url."' target='_blank'><img class='item_img' src='".$item_pic."' /></a>
+			  <a href='".$douban_per_url."' target='_blank'><img class='item_img' src='".$item_pic."' alt='".$item_title."' /></a>
 			  <div class='item_meta'>
-				<div><a class='item_title' href='".$douban_per_url."' target='_blank'>".$item['title']['$t']."</a></div>
+				<div><a class='item_title' href='".$douban_per_url."' target='_blank'>".$item_title."</a></div>
 				<div class='item_author'>".$item_owner."</div>
 				<div class='item_date'>".$item_date."</div>
 				<div class='average_rating'>豆瓣评分：".$item['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$item['gd:rating']['@numRaters']."人参与投票</div>
@@ -132,7 +133,7 @@ else if($eventFlag == 1)
   $totalEvents = $eventReturn['openSearch:totalResults']['$t'];
   if($totalEvents == 0)
   {
-    echo "<div class='imply_color' style='text-align:center;'>对不起，没有找到相关的活动</div>";
+    echo "<div class='imply_color center'>对不起，没有找到相关的活动</div>";
     exit;
   }
   foreach( $eventReturn['entry'] as $eventItem )
@@ -175,7 +176,7 @@ else if($eventFlag == 1)
 			<div class='event_location'>地点：".$eventWhere."</div>
 		  </div>
 		  <div class='event_img_wrapper'>
-		    <a href='".$eventLink."' target='_blank'><img class='item_img' src='".$eventImg."' /></a>
+		    <a href='".$eventLink."' target='_blank'><img class='item_img' src='".$eventImg."' alt='".$eventTitle."' /></a>
 		  </div>
 		</div>
 	  </div>

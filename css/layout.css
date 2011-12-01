@@ -53,6 +53,14 @@ color:red;
 position:relative;
 }
 
+.center{
+text-align:center;
+}
+
+.loading_wrapper{
+padding-left:180px;
+}
+
 .page_title{
 color: #494949;
 display: block;
@@ -858,7 +866,7 @@ list-style: none outside none;
 .weibo_img_drop img, .weibo_retweet_img_drop img{width:280px;}
 
 
-.weibo_drag, .video_Drag, .pic_Drag, .douban_drag{
+.weibo_drag, .video_drag, .pic_drag, .douban_drag{
 padding:5px; 
 margin:8px; 
 border-color:#ababac;
@@ -868,12 +876,57 @@ overflow:auto;
 z-index:10;
 }
 
+.video_drag .video_author{
+display:inline; 
+margin-left:3px;
+}
+
+.video_drag .youku_thumbnail{
+float:left; 
+margin-right:5px; 
+border: 1px solid #E9E9E9; 
+padding:3px;
+}
+
+.video_drag .video_description{
+margin-left:85px;
+}
+
+.weibo_drag .story_wrapper .profile_img{
+width: 32px; 
+height: 32px; 
+float:left; 
+overflow: hidden; 
+margin-top:3px;
+}
+
+.weibo_drag .user_wrapper a img{
+float:left; 
+width:100px; 
+height:100px;
+}
+
+.weibo_drag .user_wrapper .person_meta{
+margin-left:130px;
+}
+
+.pic_drag .yupooWrapper img{
+float:left; 
+border: 1px solid #E9E9E9; 
+padding:3px;
+}
+
+.pic_drag .yupooWrapper .wrapper{
+margin-left:96px;
+overflow:hidden;
+}
+
 .douban_wrapper .content_wrapper .event_wrapper{
 margin-top:10px; 
 overflow:auto;
 }
 
-.douban_wrapper .content_wrapper .event_wrapper .item_meta{
+.douban_wrapper .content_wrapper .event_wrapper .item_meta, .douban_wrapper .content_wrapper .event_wrapper .item_meta_drop{
 margin-left:220px;
 }
 
@@ -889,11 +942,11 @@ overflow: hidden;
 margin-top:3px;
 }
 
-.douban_wrapper .comment_title{
+.douban_wrapper .comment_title, .douban_wrapper .comment_title_drop{
 font-weight:bold;
 }
 
-.douban_wrapper .item_info{
+.douban_wrapper .item_info, .douban_wrapper .item_info_drop{
 overflow:auto;
 }
 
@@ -903,6 +956,10 @@ float:left;
 
 .douban_wrapper .item_info .item_meta{
 margin-left:92px;
+}
+
+.douban_wrapper .item_info_drop .item_meta_drop{
+margin-left:100px;
 }
 
 .douban_signature .text_wrapper, .story_signature .text_wrapper{
@@ -954,10 +1011,6 @@ padding-bottom:15px;
 #source_list li.ht_wrapper span{
 margin-left:10px;
 display:inline-block;
-}
- 
-.video_Drag, .pic_Drag{
-overflow:auto;
 }
 
 .video_favicon{
@@ -1059,7 +1112,7 @@ margin-top:2px;
   position:relative;
 }
   
-  .pic_drop{padding:0px 5px 5px 5px;
+  .pic_drop{padding:0px 5px 12px 5px;
   border-color:#ababac;
   border-style:solid;
   border-width:1px;
@@ -1142,6 +1195,10 @@ margin:auto;
 width:95%;
 overflow:hidden;
 position:relative;
+}
+
+.textElement .actions{
+padding-left:380px;
 }
  
  .cover{
@@ -1268,6 +1325,15 @@ display:block;
 #douban_search_btn, #pic_search_btn{
    width: 76px;
  }
+ 
+#videoTabs form{
+padding-top:15px; 
+padding-bottom:29px;
+}
+
+#videoTabs form input, #videoTabs form button{
+margin-top:13px;
+}
  
  #story_pic{
  width:100px;
@@ -2360,6 +2426,13 @@ text-align: center;
 width: auto;
 }
 
+.top_nav #actions{
+display:block; 
+position:absolute; 
+top:4px; 
+right:0;
+}
+
 .top_nav #actions span{
 vertical-align:middle;
 }
@@ -2846,7 +2919,6 @@ z-index: 10;
 background-color: #FFFFFF !important;
 position: relative;
 }
-
 
 #vtab > ul {
 width: 35px;

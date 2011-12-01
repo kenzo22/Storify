@@ -44,15 +44,15 @@ else if('musicReviews' == $operation)
 $totalCommentsNum = $doubanCommentsReturn['opensearch:totalResults']['$t'];
 if($totalCommentsNum == 0)
 {
-  echo "<div class='imply_color' style='text-align:center;'>".$imply_txt."</div>";
+  echo "<div class='imply_color center'>".$imply_txt."</div>";
   exit;
 }
 
 $pubDate = getPubDate($doubanItemMeta['db:attribute']);
 $itemPic = getItemPic($doubanItemMeta['link']);
 $itemLink = getItemLink($doubanItemMeta['link']);
-
 $author = getAuthors($doubanItemMeta['author']);
+$item_title = $doubanItemMeta['title']['$t'];
 
 if('bookReviews' == $operation)
 {
@@ -99,9 +99,9 @@ foreach( $doubanCommentsReturn['entry'] as $commentItem )
 				<div class='comment_summary'>".$comments_summary."<a class='comment_full_url' href='".$fulltext_url."' target='_blank'>[查看评论全文]</a></div>
 			  </div>
 			  <div class='item_info'>
-				<a href='".$itemLink."' target='_blank'><img class='item_img' src='".$itemPic."' /></a>
+				<a href='".$itemLink."' target='_blank'><img class='item_img' src='".$itemPic."' alt='".$item_title."' /></a>
 				<div class='item_meta'>
-				  <div><a class='item_title' href='".$itemLink."' target='_blank'>".$doubanItemMeta['title']['$t']."</a></div>
+				  <div><a class='item_title' href='".$itemLink."' target='_blank'>".$item_title."</a></div>
 				  <div class='item_author'>".$item_owner."</div>
 				  <div class='item_date'>".$item_date."</div>
 				  <span class=item_rating>".$comment_author."评分:".$comment_rating."</span>&nbsp&nbsp&nbsp&nbsp<span class='comment_date'>".$time_array[0]."</span>

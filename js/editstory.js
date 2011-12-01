@@ -75,7 +75,6 @@ function show_weibo_card(id)
 
 function prepare_story_data(action_value)
 {
-    debugger;
   if(action_value !='Publish' &&  action_value !='Preview' && action_value != "Draft")
     alert("not a proper operation:"+action_value);
   var story_id_val;
@@ -535,7 +534,7 @@ $(function() {
 		  data: getData, 
 		  beforeSend:function() 
 		  {
-		    var imgloading = $("<span style='padding-left:180px;'><img src='../img/loading.gif' /></span>");
+		    var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
 		    $('#source_list').html(imgloading);
 		  },
 		  success: function(data)
@@ -599,7 +598,7 @@ $(function() {
 		  data: getData, 
 		  beforeSend:function() 
 		  {
-			var imgloading = $("<span style='padding-left:180px;'><img src='../img/loading.gif' /></span>");
+			var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
 		    $('#source_list').html(imgloading);
 		  },
 		  success: function(data)
@@ -633,7 +632,7 @@ $(function() {
 		    data: getData, 
 		    beforeSend:function() 
 		    {
-		      var imgloading = $("<span style='padding-left:180px;'><img src='../img/loading.gif' /></span>");
+		      var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
 		      $('#source_list').html(imgloading);
 		    },
 		    success: function(data)
@@ -705,7 +704,7 @@ $(function() {
 		  data: getData, 
 		  beforeSend:function() 
 		  {
-		    var imgloading = $("<span style='padding-left:180px;'><img src='../img/loading.gif' /></span>");
+		    var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
 		    $('#source_list').html(imgloading);
 		  },
 		  success: function(data)
@@ -745,7 +744,7 @@ $(function() {
 		  data: getData, 
 		  beforeSend:function() 
 		  {
-		    var imgloading = $("<span style='padding-left:180px;'><img src='../img/loading.gif' /></span>");
+		    var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
 		    $('#source_list').html(imgloading);
 		  },
 		  success: function(data)
@@ -760,7 +759,6 @@ $(function() {
 		{
 		  picSearchPage = 1;
 		  $('#source_list').children().remove();
-		  $('#source_list').css('height', '664px');
 		  $('#pic_keywords').val('关键字').addClass('imply_color');
 		});
 		
@@ -768,7 +766,6 @@ $(function() {
 		{
 		  userpicSearchPage = 1;
 		  $('#source_list').children().remove();
-		  $('#source_list').css('height', '664px');
 		  $('#pic_keywords').val('又拍用户名，注意不是昵称').addClass('imply_color');
 		});
 		
@@ -776,7 +773,6 @@ $(function() {
 		{
 		  colSearchPage = 1;
 		  $('#source_list').children().remove();
-		  $('#source_list').css('height', '664px');
 		  $('#pic_keywords').val('又拍用户名，注意不是昵称').addClass('imply_color');
 		});
 		
@@ -784,7 +780,6 @@ $(function() {
 		{
 		  recSearchPage = 1;
 		  $('#source_list').children().remove();
-		  $('#source_list').css('height', '664px');
 		  $('#pic_keywords').val('可指定日期如2010-6,默认搜索全部').addClass('imply_color');
 		});
 		
@@ -825,7 +820,7 @@ $(function() {
 		  data: getData, 
 		  beforeSend:function() 
 		  {
-		    var imgloading = $("<span style='padding-left:180px;'><img src='../img/loading.gif' /></span>");
+		    var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
 		    $('#source_list').html(imgloading);
 		  },
 		  success: function(data)
@@ -935,8 +930,8 @@ $(function() {
 				  var event_pic = dragItem.find('.event_img_wrapper img').attr('src');
 				  var event_location = dragItem.find('.event_location').text();
 				  var event_city = dragItem.find('.event_city').text();
-				  doubanContent=("<div class='cross' action='delete'></div><div class='handle'></div><div class='douban_wrapper'><div class='content_wrapper'><div class='event_summary_drop'>"+event_summary+"</div><div style='margin-top:10px; overflow:auto;'><a href='"
-				  +event_link+"' target='_blank'><img class='item_img_drop' src='"+event_pic+"' style='float:left;' /></a><div class='item_meta_drop' style='margin-left:220px;'><div class='event_title_drop'>活动：<a href='"
+				  doubanContent=("<div class='cross' action='delete'></div><div class='handle'></div><div class='douban_wrapper'><div class='content_wrapper'><div class='event_summary_drop'>"+event_summary+"</div><div class='event_wrapper'><a href='"
+				  +event_link+"' target='_blank'><img class='item_img_drop float_l' src='"+event_pic+"' /></a><div class='item_meta_drop'><div class='event_title_drop'>活动：<a href='"
 				  +event_link+"' target='_blank'>"+event_title+"</a></div><div class='event_initiator_drop'>发起人：<a href='"+event_initiator_url+"' target='_blank'>"
 				  +event_initiator_name+"</a></div><div class='start_time_drop'>"+event_start_time+"</div><div class='end_time_drop'>"+event_end_time+"</div><div class='event_city_drop'>"
 				  +event_city+"</div><div class='event_location_drop'>"+event_location+"</div></div></div></div><div class='douban_signature'><span class='float_r'><a href='"+douban_profile_url+"' target='_blank'><img class='profile_img_drop' src='"
@@ -963,9 +958,9 @@ $(function() {
 				  var douban_item_date = dragItem.find('.item_date').text();
 				  var douban_average_rating = dragItem.find('.average_rating').text();
 				  var douban_item_rating = dragItem.find('.item_rating').text();
-				  doubanContent = ("<div class='cross' action='delete'></div><div class='handle'></div><div class='douban_wrapper'><div class='content_wrapper'><div><div class='comment_title_drop' style='font-weight:bold;'>"
-					+douban_comment_title+"</div><div class='comment_summary_drop'>"+douban_comment_summary+"</div></div><div class='item_info_drop' style='overflow:auto;'><a href='"+douban_per_url+"' target='_blank'><img class='item_img_drop' src='"
-				  +douban_item_img+"' style='float:left;' /></a><div class='item_meta_drop' style='margin-left:100px;'><div><a class='item_title_drop' href='"+douban_per_url+"' target='_blank'>"+douban_item_title+"</a></div><div class='item_author_drop'>"
+				  doubanContent = ("<div class='cross' action='delete'></div><div class='handle'></div><div class='douban_wrapper'><div class='content_wrapper'><div><div class='comment_title_drop'>"
+					+douban_comment_title+"</div><div class='comment_summary_drop'>"+douban_comment_summary+"</div></div><div class='item_info_drop'><a href='"+douban_per_url+"' target='_blank'><img class='item_img_drop float_l' src='"
+				  +douban_item_img+"' /></a><div class='item_meta_drop'><div><a class='item_title_drop' href='"+douban_per_url+"' target='_blank'>"+douban_item_title+"</a></div><div class='item_author_drop'>"
 				  +douban_item_author+"</div><div class='item_date_drop'>"+douban_item_date+"</div><div class=item_rating_drop>"+douban_item_rating+"</div><div class='average_rating_drop'>"+douban_average_rating+"</div></div></div></div><div class='douban_signature'><span class='float_r'><a href='"+douban_profile_url+"' target='_blank'><img class='profile_img_drop' src='"
 					+douban_profile_img+"' alt='"+douban_profile_name+"' border=0 /></a></span><span class='signature_text_drop'><div class='text_wrapper'><span ><a class='douban_from_drop' href='"
 					+douban_profile_url+"' target='_blank'>"+douban_profile_name+"</a></span></div><div class='douban_date_drop'>"+douban_comment_date+"</div></span> </div></div>");
@@ -988,7 +983,7 @@ $(function() {
 				  dragItem.prepend("<div class='cross' action='delete'></div><div class='handle'></div>");
 				}
 			  }
-			  else if(dragItem.hasClass('video_Drag'))
+			  else if(dragItem.hasClass('video_drag'))
 			  {
 			    //var thumbnailUrl = dragItem.find('.youku_thumbnail').attr('src');
 				var videoUrl = dragItem.find('.videoTitle').attr('href');
@@ -996,14 +991,14 @@ $(function() {
 				var videoEmbedCode;
 				var videoContent = ("<div class='cross' action='delete'></div><div class='handle'></div><div class='youku_wrapper'><div><a class='videoTitle' target='_blank' href='"
 				+videoUrl+"'>"+videoTitle+"</a></div>"+embedCode+"</div>");
-				dragItem.removeClass('video_Drag').addClass('video_drop').children().remove();　
+				dragItem.removeClass('video_drag').addClass('video_drop').children().remove();　
 			    dragItem.append(videoContent);
 				/*if(dragItem.index() == 1)
 				{
 				  $('#story_thumbnail').attr('src', thumbnailUrl);
 				}*/
 			  }
-			  else if(dragItem.hasClass('pic_Drag'))
+			  else if(dragItem.hasClass('pic_drag'))
 			  {
 				var picUrl = dragItem.find('img').attr('src');
 				var picTitle = dragItem.find('.pic_title').text();
@@ -1016,8 +1011,8 @@ $(function() {
 				picUrl = temp_array.join("\/");
 				
 				var picContent = ("<div class='cross' action='delete'></div><div class='handle'></div><div class='yupoo_wrapper'><a target='_blank' href='"+picLink+"'><img class='pic_img' src='"
-				+picUrl+"'/></a><div style='line-height:1.5;'><a class='pic_title' target='_blank' href='"+picLink+"'>"+picTitle+"</a></div><div style='line-height:1.5;'><a class='pic_author' target='_blank' href='"+authorLink+"'>"+picAuthor+"</a></div><div class='yupoo_sign'></div></div>");
-				dragItem.removeClass('pic_Drag').addClass('pic_drop').children().remove();　
+				+picUrl+"'/></a><div><a class='pic_title' target='_blank' href='"+picLink+"'>"+picTitle+"</a></div><div><a class='pic_author' target='_blank' href='"+authorLink+"'>"+picAuthor+"</a></div><div class='yupoo_sign'></div></div>");
+				dragItem.removeClass('pic_drag').addClass('pic_drop').children().remove();　
 			    dragItem.append(picContent);
 				if(dragItem.index(list_item_have_pic) == 0)
 				{
@@ -1031,7 +1026,7 @@ $(function() {
 		$('#embedVideo').click(function(e)
 		{
 		  e.preventDefault();
-		  var imgloading = $("<span style='padding-left:180px;'><img src='../img/loading.gif' /></span>");
+		  var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
 		  $('#source_list').html(imgloading);
 		  
 		  var videoTitle;
@@ -1041,9 +1036,7 @@ $(function() {
 		  {
 			embedCode = oembed.code;
 			videoTitle = oembed.title;
-			var post = "<li class='video_Drag'><div class='urlWrapper'><div><a class='videoTitle' target='_blank' href='"+videoUrl+"'>"+oembed.title+
-			"</a></div><div class='videoContent'><div class='video_domain'><div class='video_favicon'></div><div class='video_author' style='display:inline; margin-left:3px;'><a target='_blank' href='"
-			+videoUrl+"'>v.youku.com</a></div></div><div><img class='youku_thumbnail' src='"+oembed.thumbnail_url+"' style='float:left; margin-right:5px; border: 1px solid #E9E9E9; padding:3px;'/><div class='video_description' style='line-height:1.5;'>"+oembed.description+"</div></div></div></div></li>";
+			var post = "<li class='video_drag'><div class='urlWrapper'><div><a class='videoTitle' target='_blank' href='"+videoUrl+"'>"+oembed.title+"</a></div><div class='videoContent'><div class='video_domain'><div class='video_favicon'></div><div class='video_author'><a target='_blank' href='"+videoUrl+"'>v.youku.com</a></div></div><div><img class='youku_thumbnail' src='"+oembed.thumbnail_url+"' /><div class='video_description'>"+oembed.description+"</div></div></div></div></li>";
 			$('#source_list').html(post);  
 		  }		  			
           });
@@ -1178,7 +1171,7 @@ $(function() {
 		  data: getData, 
 		  beforeSend:function() 
 		  {
-		    var imgloading = $("<span style='padding-left:180px;'><img src='../img/loading.gif' /></span>");
+		    var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
 		    $('#source_list').html(imgloading);
 		  },
 		  success: function(data)
@@ -1203,7 +1196,7 @@ $(function() {
 		  data: getData, 
 		  beforeSend:function() 
 		  {
-		    var imgloading = $("<span style='padding-left:180px;'><img src='../img/loading.gif' /></span>");
+		    var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
 		    $('#source_list').html(imgloading);
 		  },
 		  success: function(data)
@@ -1227,7 +1220,7 @@ $(function() {
 		  data: getData, 
 		  beforeSend:function() 
 		  {
-		    var imgloading = $("<span style='padding-left:180px;'><img src='../img/loading.gif' /></span>");
+		    var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
 		    $('#source_list').html(imgloading);
 		  },
 		  success: function(data)
@@ -1472,7 +1465,7 @@ $(function() {
 		  if ($(e.target).is('.add_comment') || $(e.target).is('.add_text') || $(e.target).is('.addTextElementAnchor'))
 		  {
 		    e.preventDefault();
-			var $comment_box = $("<li class='textElement editing'><div class='editingDiv'><form class='formTextElement'><textarea class='inputEditor' name='inputEditor'></textarea></form><div class='belowTextEdit'><div class='actions' style='padding-left:380px;'><button class='submit small blue submitComment' type='submit'>确定</button><button class='cancel small cancelEditor' type='reset'>取消</button></div></div></div></li><li class='addTextElementAnchor'><span><a class='add_comment'></a></span></li>");
+			var $comment_box = $("<li class='textElement editing'><div class='editingDiv'><form class='formTextElement'><textarea class='inputEditor' name='inputEditor'></textarea></form><div class='belowTextEdit'><div class='actions'><button class='submit submitComment' type='submit'>确定</button><button class='cancel cancelEditor' type='reset'>取消</button></div></div></div></li><li class='addTextElementAnchor'><span><a class='add_comment'></a></span></li>");
 		    $(e.target).closest('li').after($comment_box);
 			$(".inputEditor").cleditor({
 			width:476,
@@ -1582,7 +1575,7 @@ $(function() {
 		    data: getData, 
 		    beforeSend:function() 
 		    {
-		      var imgloading = $("<span style='padding-left:180px;'><img src='../img/loading.gif' /></span>");
+		      var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
 		      $('#source_list').html(imgloading);
 		    },
 		    success: function(data)

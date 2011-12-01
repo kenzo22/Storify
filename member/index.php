@@ -42,7 +42,7 @@ if (get_magic_quotes_gpc()) {  //magic_quotes_gpc开了会加"\" 先去掉
 set_magic_quotes_runtime(0);
 if(islogin())
 { 
-  $content="<div id='actions' style='display:block; position:absolute; top:4px; right:0;'>
+  $content="<div id='actions'>
 				<span><a id='draftBtn' href='/member' >保存草稿</a></span>
 				<span><a id='previewBtn' href='/member' >预览</a></span>
 				<span><a id='publishBtn' class='large blue awesome' href='/member' >发布 &raquo;</a></span>
@@ -52,7 +52,7 @@ if(islogin())
 }
 else
 {
-  $content="<div id='actions' style='display:block; position:absolute; top:4px; right:0;'>
+  $content="<div id='actions'>
 				<span><a id='draftBtn' class='disable' href='/member' >保存草稿</a></span>
 				<span><a id='previewBtn' class='disable' href='/member' >预览</a></span>
 				<span><a id='publishBtn' class='large blue awesome disable' href='/member' >发布 &raquo;</a></span>
@@ -187,11 +187,11 @@ $content .= "<div class='inner'>
 		    </div>
 		  </div>
 		  <div id='videoTabs'>
-		    <form action='#' style='padding-top:15px; padding-bottom:29px;'>
+		    <form action='#'>
 		    <div>
 			  <div>优酷视频地址:</div>          
-			  <input style='margin-top:13px;' id='videoUrl' name='videoUrl' type='text' />
-			  <button style='margin-top:13px;' type='submit' value='嵌入视频' id='embedVideo'>嵌入视频</button>
+			  <input id='videoUrl' name='videoUrl' type='text' />
+			  <button type='submit' value='嵌入视频' id='embedVideo'>嵌入视频</button>
             </div>
 		    </form>
 		  </div>
@@ -317,7 +317,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 		  </div>
 		</div>
 		<div id='storylist_container'>
-		  <ul id='story_list' class='connectedSortable' style='padding:0;'><li class='addTextElementAnchor'>
+		  <ul id='story_list' class='connectedSortable'><li class='addTextElementAnchor'>
 			  <span><a class='add_comment'></a></span></li>";
   
   foreach($story_content_array['content'] as $key=>$val)
@@ -410,11 +410,11 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 			<div class='douban_wrapper'>
 			  <div class='content_wrapper'>
 			  <div class='event_summary_drop'>".$doubanElement['summary'][0]['$t']."</div>
-			  <div style='margin-top:10px; overflow:auto;'>
+			  <div class='event_wrapper'>
 				<a href='".$doubanElement['link'][1]['@href']."' target='_blank'>
-				  <img class='item_img_drop' src='".$eventImg."' style='float:left;' />
+				  <img class='item_img_drop float_l' src='".$eventImg."' />
 				</a>
-				<div class='item_meta_drop' style='margin-left:220px;'>
+				<div class='item_meta_drop'>
 				  <div class='event_title_drop'>活动：<a href='".$eventLink."' target='_blank'>".$doubanElement['title']['$t']."</a></div>
 				  <div class='event_initiator_drop'>发起人：<a href='".$eventInitiator_url."' target='_blank'>".$eventInitiator_name."</a></div>
 				  <div class='start_time_drop'>".$doubanElement['gd:when']['startTime']."</div>
@@ -495,12 +495,12 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 				<div class='douban_wrapper'>
 				  <div class='content_wrapper'>
 				  <div>
-					<div class='comment_title_drop' style='font-weight:bold;'>".$doubanElement['title']['$t']."</div>
+					<div class='comment_title_drop'>".$doubanElement['title']['$t']."</div>
 					<div class='comment_summary_drop'>".$doubanElement['summary']['$t']."<a href='".$doubanElement['link'][1]['@href']."' target='_blank'>[查看评论全文]</a></div>
 				  </div>
-				  <div class='item_info_drop' style='overflow:auto;'>
-					<a href='".$douban_per_url."' target='_blank'><img class='item_img_drop' src='".$itemPic."' style='float:left;' /></a>
-					<div class='item_meta_drop' style='margin-left:100px;'>
+				  <div class='item_info_drop'>
+					<a href='".$douban_per_url."' target='_blank'><img class='item_img_drop float_l' src='".$itemPic."' /></a>
+					<div class='item_meta_drop'>
 					  <div>
 						<a class='item_title_drop' href='".$douban_per_url."' target='_blank'>".$doubanElement['db:subject']['title']['$t']."</a>
 					  </div>
@@ -570,9 +570,9 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 			  <div class='handle'></div>
 			  <div class='douban_wrapper'>
 			    <div class='content_wrapper'>
-				<div class='item_info' style='overflow:auto;'>
-				  <a href='".$itemLink."' target='_blank'><img class='item_img' src='".$itemPic."' style='float:left;' /></a>
-				  <div class='item_meta' style='margin-left:100px;'>
+				<div class='item_info'>
+				  <a href='".$itemLink."' target='_blank'><img class='item_img float_l' src='".$itemPic."' /></a>
+				  <div class='item_meta'>
 					<div><a class='item_title' href='".$itemLink."' target='_blank'>".$douban_item_meta['title']['$t']."</a></div>
 					<div class='item_author'>".$douban_item_author."</div>
 					<div class='item_date'>".$douban_item_date."</div>
@@ -613,7 +613,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 	  $author_nic = $photo_meta_data['nic'];
 	  $photo_link = "http://www.yupoo.com/photos/".$photo_author."/".$photo_id;
 	  $content .="<li class='pic_drop'><div class='cross' action='delete' onclick='remove_item(event)'></div><div class='handle'></div><div class='yupoo_wrapper'><a target='_blank' href='".$photo_link."'><img class='pic_img' src='"
-				.$photo_per_url."'/></a><div style='line-height:1.5;'><a class='pic_title' target='_blank' href='".$photo_link."'>".$photo_title."</a></div><div style='line-height:1.5;'><a class='pic_author' target='_blank' href='http://www.yupoo.com/photos/".$photo_author."'>".$author_nic."</a></div><div class='yupoo_sign'></div></div></li><li class='addTextElementAnchor'><span><a class='add_comment'></a></span></li>"; 
+				.$photo_per_url."'/></a><div><a class='pic_title' target='_blank' href='".$photo_link."'>".$photo_title."</a></div><div><a class='pic_author' target='_blank' href='http://www.yupoo.com/photos/".$photo_author."'>".$author_nic."</a></div><div class='yupoo_sign'></div></div></li><li class='addTextElementAnchor'><span><a class='add_comment'></a></span></li>"; 
 		break;}
 		
 	  default:
@@ -710,7 +710,7 @@ else
 		  </div>
 		</div>
 		<div id='storylist_container'>
-		  <ul id='story_list' class='connectedSortable' style='padding:0;'>
+		  <ul id='story_list' class='connectedSortable'>
 		    <li class='addTextElementAnchor'>
 			  <span><a class='add_comment'></a></span>
 		    </li>

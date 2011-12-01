@@ -23,7 +23,7 @@ else if($_GET['next'] == 'inactivate')
 else if(!empty($_GET['next']))
 {
   $redirec_temp = urldecode($_GET['next']);
-  $findme = "/accouts/user";
+  $findme = "/user/";
   $pos = strpos($redirec_temp, $findme);
   if ($pos !== false)
   {

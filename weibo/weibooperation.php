@@ -61,7 +61,7 @@ else if('weibo_search' == $operation)
   $weibo  = $c->trends_timeline($page, $itemsPerPage, $keywords);
   if(count($weibo) == 0)
   {
-    echo "<div class='imply_color' style='text-align:center;'>对不起，没有找到相关的微博</div>";
+    echo "<div class='imply_color center'>对不起，没有找到相关的微博</div>";
     exit;
   }
 }
@@ -71,7 +71,7 @@ else if('user_search' == $operation)
   $weibo  = $c->user_timeline($page, $itemsPerPage, $keywords);
   if(count($weibo) == 0)
   {
-    echo "<div class='imply_color' style='text-align:center;'>此新浪微博用户不存在</div>";
+    echo "<div class='imply_color center'>此新浪微博用户不存在</div>";
     exit;
   }
   if( $weibo[0]['user']['statuses_count'] - $page*$itemsPerPage <= 0)
@@ -88,9 +88,7 @@ foreach( $weibo as $item )
   $createTime = dateFormat($item['created_at']);
   //$weibo_per_id = sprintf("%.0f", $item['id']);
   $weibo_per_id = number_format($item['id'], 0, '', '');
-  $weiboContent .= "<li class='weibo_drag sina' id='w_".$weibo_per_id."'><div class='story_wrapper'><img class='profile_img' style='width: 32px; height: 32px; float:left; overflow: hidden; margin-top:3px;' 
-  src='".$item['user']['profile_image_url']."' alt='".$item['user']['screen_name']."' border=0 /><div class='weibo_content'><a class='user_page' href='http://weibo.com/".$item['user']['id']."' target='_blank' 
-  style = 'display:block;'><span class='weibo_from'>".$item['user']['screen_name']."</span></a>";
+  $weiboContent .= "<li class='weibo_drag sina' id='w_".$weibo_per_id."'><div class='story_wrapper'><img class='profile_img' src='".$item['user']['profile_image_url']."' alt='".$item['user']['screen_name']."' border=0 /><div class='weibo_content'><div><a class='user_page' href='http://weibo.com/".$item['user']['id']."' target='_blank'><span class='weibo_from'>".$item['user']['screen_name']."</span></a></div>";
     
     if (isset($item['retweeted_status']))
 	{
@@ -104,7 +102,7 @@ foreach( $weibo as $item )
 		$weiboContent .= "<span class='weibo_text is_repost'>".$item['text']."//@".$item['retweeted_status']['user']['name'].":".$item['retweeted_status']['text'];
         if(isset($item['retweeted_status']['thumbnail_pic']))
 		{
-          $weiboContent .= "</span><div class='weibo_retweet_img'><img src='".$item['retweeted_status']['thumbnail_pic']."' /></div>";
+          $weiboContent .= "</span><div class='weibo_retweet_img'><img src='".$item['retweeted_status']['thumbnail_pic']."' alt='' /></div>";
         }
 		else
 		{
@@ -117,7 +115,7 @@ foreach( $weibo as $item )
 	}
 	if (isset($item['thumbnail_pic']))
 	{
-	  $weiboContent .= "<div class='weibo_img'><img src='".$item['thumbnail_pic']."' /></div>";
+	  $weiboContent .= "<div class='weibo_img'><img src='".$item['thumbnail_pic']."' alt='' /></div>";
 	}
     $weiboContent .= "</div><span class='create_time'>".$createTime."</span></div></li>";
 }

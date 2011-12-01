@@ -57,7 +57,7 @@ $('#email_login, #pwd_login').bind('keyup', function(e)
 $('#connectBtn').live('click', function(e)
 {
 e.preventDefault();
-$.post('sina_auth.php', {}, 		
+$.post('/accounts/login/sina_auth.php', {}, 		
 function(data, textStatus)
 {
   self.location=data;
