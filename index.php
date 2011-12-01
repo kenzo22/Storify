@@ -52,16 +52,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
     }
 	else
 	{
-	  //select a random item from the publictoken pool
-	  $token = $DB->fetch_one_array("select * from ".$db_prefix."publictoken where id='1'");
-	  if($_SESSION['last_wkey']['oauth_token'] == '')
-	  {
-	    $_SESSION['last_wkey']['oauth_token'] = $token['weibo_access_token'];
-	    $_SESSION['last_wkey']['oauth_token_secret'] = $token['weibo_access_token_secret'];
-	  }
-	  $_SESSION['last_tkey']['oauth_token'] = $token['tweibo_access_token'];
-	  $_SESSION['last_tkey']['oauth_token_secret'] = $token['tweibo_access_token_secret'];
-  
+	  getPublicToken();
 	  $content = "<span id='top_menu_b'><a class='register_top' href='/accounts/register'>注册</a><a class='login_top' href='/accounts/login?next=".urlencode($_SERVER['REQUEST_URI'])."'>登录</a><a class='edit_story_btn' href='/member'>创建故事</a></span>";
 	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='口立方' accesskey='h' href='/'><img src='/img/koulifangbeta.png' alt='口立方' /></a></span>".$content."</div></div>";
 	}

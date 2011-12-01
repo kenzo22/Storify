@@ -52,13 +52,13 @@ if(islogin())
 }
 else
 {
+  getPublicToken();
   $content="<div id='actions'>
-				<span><a id='draftBtn' class='disable' href='/member' >保存草稿</a></span>
-				<span><a id='previewBtn' class='disable' href='/member' >预览</a></span>
-				<span><a id='publishBtn' class='large blue awesome disable' href='/member' >发布 &raquo;</a></span>
-			  </div>";
-  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='口立方' accesskey='h' href='/'><img src='/img/koulifangbeta.png' alt='口立方' /></a></span>
-  ".$content."</div></div>";
+			  <span><a id='draftBtn' class='disable' href='/member' >保存草稿</a></span>
+			  <span><a id='previewBtn' class='disable' href='/member' >预览</a></span>
+			  <span><a id='publishBtn' class='large blue awesome disable' href='/member' >发布 &raquo;</a></span>
+			</div>";
+  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='口立方' accesskey='h' href='/'><img src='/img/koulifangbeta.png' alt='口立方' /></a></span>".$content."</div></div>";
 }
 
 require ($_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php');
@@ -228,26 +228,35 @@ $content .= "<div class='inner'>
 		<ul id='source_list' class='connectedSortable'>";
 $c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']  );
 //load sina huati info
-$ht_weekly = $c->trends_weekly();
-$ht_daily = $c->trends_daily();
-$ht_hourly = $c->trends_hourly();
-$ht_weekly = array_values($ht_weekly['trends']);
-$ht_daily = array_values($ht_daily['trends']);
-$ht_hourly = array_values($ht_hourly['trends']);
+$ht_weekly = $c->trends_weekly();   
 $content.="<li class='ht_wrapper'><h3 class='clear'>一周热门话题</h3>";
-foreach( $ht_weekly[0] as $item1 )
+if($ht_weekly['trends'])
 {
-  $content.="<span><a class='list_t_weibo' href='#'>".$item1['name']."</a></span>";
+  $ht_weekly = array_values($ht_weekly['trends']); 
+  foreach( $ht_weekly[0] as $item1 )
+  {
+    $content.="<span><a class='list_t_weibo' href='#'>".$item1['name']."</a></span>";
+  }
 }
 $content .="</li><li class='ht_wrapper'><h3 class='clear'>24小时热门话题</h3>";
-foreach( $ht_daily[0] as $item2 )
+$ht_daily = $c->trends_daily();
+if($ht_daily['trends'])
 {
-$content.="<span><a class='list_t_weibo' href='#'>".$item2['name']."</a></span>";
+  $ht_daily = array_values($ht_daily['trends']);
+  foreach( $ht_daily[0] as $item2 )
+  {
+    $content.="<span><a class='list_t_weibo' href='#'>".$item2['name']."</a></span>";
+  }
 }
 $content .="</li><li class='ht_wrapper'><h3 class='clear'>1小时热门话题</h3>";
-foreach( $ht_hourly[0] as $item3 )
+$ht_hourly = $c->trends_hourly();
+if($ht_hourly['trends'])
 {
-$content.="<span><a class='list_t_weibo' href='#'>".$item3['name']."</a></span>";
+  $ht_hourly = array_values($ht_hourly['trends']);
+  foreach( $ht_hourly[0] as $item3 )
+  {
+    $content.="<span><a class='list_t_weibo' href='#'>".$item3['name']."</a></span>";
+  }
 }
 $content.="</li>";
 
@@ -447,6 +456,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 	    if($val['content']['item_type'] == 'bookReviews' || $val['content']['item_type'] == 'movieReviews' || $val['content']['item_type'] == 'musicReviews')
 		{
 			$doubanElement = $d->get_comment($douban_save_per_id);
+			$comment_author_name = $doubanElement['author']['name']['$t'];
 			$comment_author_link = getAuthorLink($doubanElement['author']['link']);
 			$comment_author_pic = getAuthorPic($doubanElement['author']['link']);
 			$itemPic = getItemPic($doubanElement['db:subject']['link']);
@@ -506,7 +516,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 					  </div>
 					  <div class='item_author_drop'>".$douban_item_author."</div>
 					  <div class='item_date_drop'>".$douban_item_date."</div>
-					  <div class=item_rating_drop>".$doubanElement['author']['name']['$t']."评分:".$comment_rating."</div>
+					  <div class=item_rating_drop>".$comment_author_name."评分:".$comment_rating."</div>
 					  <div class='average_rating_drop'>豆瓣评分:".$douban_item_meta['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$douban_item_meta['gd:rating']['@numRaters']."人参与投票</div>
 					</div>
 				  </div>
@@ -514,13 +524,13 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 				  <div class='douban_signature'>
 					<span class='float_r'>
 					  <a href='".$comment_author_link."' target='_blank'>
-						<img class='profile_img_drop' src='".$comment_author_pic."' alt='".$doubanElement['author']['name']['$t']."' border=0 />
+						<img class='profile_img_drop' src='".$comment_author_pic."' alt='".$comment_author_name."' border=0 />
 					  </a>
 					</span>
 					<span class='signature_text_drop'>
 					  <div class='text_wrapper'>
 						<span >
-						  <a class='douban_from_drop' href='".$doubanElement['author']['link'][1]['@href']."' target='_blank'>".$doubanElement['author']['name']['$t']."</a>
+						  <a class='douban_from_drop' href='".$comment_author_link."' target='_blank'>".$comment_author_name."</a>
 						</span>
 					  </div>
 					  <div class='douban_date_drop'>".$time_array[0]."</div>

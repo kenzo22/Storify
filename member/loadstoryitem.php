@@ -146,7 +146,7 @@ foreach($story_content_array as $key=>$val)
 		$douban_item_date;
 		$douban_item_author;
 		$doubanElement = $d->get_comment($douban_save_per_id);
-		
+		$comment_author_name = $doubanElement['author']['name']['$t'];
 		$comment_author_link = getAuthorLink($doubanElement['author']['link']);
 		$comment_author_pic = getAuthorPic($doubanElement['author']['link']);
 		$itemPic = getItemPic($doubanElement['db:subject']['link']);
@@ -200,7 +200,7 @@ foreach($story_content_array as $key=>$val)
 				<div><a class='item_title' href='".$douban_per_url."' target='_blank'>".$doubanElement['db:subject']['title']['$t']."</a></div>
 				<div class='item_author'>".$douban_item_author."</div>
 				<div class='item_date'>".$douban_item_date."</div>
-				<div class=item_rating>".$doubanElement['author']['name']['$t']."评分:".$comment_rating."</div>
+				<div class=item_rating>".$comment_author_name."评分:".$comment_rating."</div>
 				<div class='average_rating'>豆瓣评分:".$douban_item_meta['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$douban_item_meta['gd:rating']['@numRaters']."人参与投票</div>
 			  </div>
 			</div>
@@ -208,13 +208,13 @@ foreach($story_content_array as $key=>$val)
 			<div id='douban_signature'>
 			  <span class='float_r'>
 				<a href='".$comment_author_link."' target='_blank'>
-				  <img class='profile_img_drop' src='".$comment_author_pic."' alt='".$doubanElement['author']['name']['$t']."' border=0 />
+				  <img class='profile_img_drop' src='".$comment_author_pic."' alt='".$comment_author_name."' border=0 />
 				</a>
 			  </span>
 			  <div class='signature_text'>
 				<div class='text_wrapper'>
 				  <span >
-					<a class='douban_from' href='".$doubanElement['author']['link'][1]['@href']."' target='_blank'>".$doubanElement['author']['name']['$t']."</a>
+					<a class='douban_from' href='".$comment_author_link."' target='_blank'>".$comment_author_name."</a>
 				  </span>
 				</div>
 				<div class='douban_date_drop'>".$time_array[0]."</div>

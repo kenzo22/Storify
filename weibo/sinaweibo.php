@@ -36,6 +36,11 @@ class WeiboClient
 	{
 	    return $this->oauth->get('http://api.t.sina.com.cn/emotions.json'); 
 	}
+	
+	function rate_limit()
+	{
+	  return $this->oauth->get('http://api.t.sina.com.cn/account/rate_limit_status.json'); 
+	}
 	 
     function public_timeline() 
     { 

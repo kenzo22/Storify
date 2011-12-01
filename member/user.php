@@ -484,6 +484,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		    $douban_item_author;
 		    $doubanElement = $d->get_comment($douban_save_per_id);
 			
+			$comment_author_name = $doubanElement['author']['name']['$t'];
 			$comment_author_link = getAuthorLink($doubanElement['author']['link']);
 			$comment_author_pic = getAuthorPic($doubanElement['author']['link']);
 			$itemPic = getItemPic($doubanElement['db:subject']['link']);
@@ -537,7 +538,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 					<div><a class='item_title' href='".$douban_per_url."' target='_blank'>".$doubanElement['db:subject']['title']['$t']."</a></div>
 					<div class='item_author'>".$douban_item_author."</div>
 					<div class='item_date'>".$douban_item_date."</div>
-					<div class=item_rating>".$doubanElement['author']['name']['$t']."评分:".$comment_rating."</div>
+					<div class=item_rating>".$comment_author_name."评分:".$comment_rating."</div>
 					<div class='average_rating'>豆瓣评分:".$douban_item_meta['gd:rating']['@average']."&nbsp&nbsp&nbsp&nbsp共".$douban_item_meta['gd:rating']['@numRaters']."人参与投票</div>
 				  </div>
 				</div>
@@ -545,13 +546,13 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 				<div class='douban_signature'>
 				  <span class='float_r'>
 					<a href='".$comment_author_link."' target='_blank'>
-					  <img class='profile_img_drop' src='".$comment_author_pic."' alt='".$doubanElement['author']['name']['$t']."' />
+					  <img class='profile_img_drop' src='".$comment_author_pic."' alt='".$comment_author_name."' />
 					</a>
 				  </span>
 				  <div class='signature_text'>
 					<div class='text_wrapper'>
 					  <span >
-						<a class='douban_from_drop' href='".$doubanElement['author']['link'][1]['@href']."' target='_blank'>".$doubanElement['author']['name']['$t']."</a>
+						<a class='douban_from_drop' href='".$comment_author_link."' target='_blank'>".$comment_author_name."</a>
 					  </span>
 					</div>
 					<div class='douban_date_drop'>".$time_array[0]."</div>
@@ -978,7 +979,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 		$pagination .= "<div class=\"pagination\">";
 		//previous button
 		if ($page > 1) 
-			$pagination.= "<a href=\"$targetpage&page=$prev\">« 前页</a>";
+			$pagination.= "<a href=\"$targetpage/page=$prev\">« 前页</a>";
 		else
 			$pagination.= "<span class=\"disabled\">« 前页</span>";	
 		
@@ -990,7 +991,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 				if ($counter == $page)
 					$pagination.= "<span class=\"current\">$counter</span>";
 				else
-					$pagination.= "<a href=\"$targetpage&page=$counter\">$counter</a>";					
+					$pagination.= "<a href=\"$targetpage/page=$counter\">$counter</a>";					
 			}
 		}
 		elseif($lastpage > 5 + ($adjacents * 2))	//enough pages to hide some
@@ -1003,48 +1004,48 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 					if ($counter == $page)
 						$pagination.= "<span class=\"current\">$counter</span>";
 					else
-						$pagination.= "<a href=\"$targetpage&page=$counter\">$counter</a>";					
+						$pagination.= "<a href=\"$targetpage/page=$counter\">$counter</a>";					
 				}
 				$pagination.= "...";
-				$pagination.= "<a href=\"$targetpage&page=$lpm1\">$lpm1</a>";
-				$pagination.= "<a href=\"$targetpage&page=$lastpage\">$lastpage</a>";		
+				$pagination.= "<a href=\"$targetpage/page=$lpm1\">$lpm1</a>";
+				$pagination.= "<a href=\"$targetpage/page=$lastpage\">$lastpage</a>";		
 			}
 			//in middle; hide some front and some back
 			elseif($lastpage - ($adjacents * 2) > $page && $page > ($adjacents * 2))
 			{
-				$pagination.= "<a href=\"$targetpage&page=1\">1</a>";
-				$pagination.= "<a href=\"$targetpage&page=2\">2</a>";
+				$pagination.= "<a href=\"$targetpage/page=1\">1</a>";
+				$pagination.= "<a href=\"$targetpage/page=2\">2</a>";
 				$pagination.= "...";
 				for ($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
 				{
 					if ($counter == $page)
 						$pagination.= "<span class=\"current\">$counter</span>";
 					else
-						$pagination.= "<a href=\"$targetpage&page=$counter\">$counter</a>";					
+						$pagination.= "<a href=\"$targetpage/page=$counter\">$counter</a>";					
 				}
 				$pagination.= "...";
-				$pagination.= "<a href=\"$targetpage&page=$lpm1\">$lpm1</a>";
-				$pagination.= "<a href=\"$targetpage&page=$lastpage\">$lastpage</a>";		
+				$pagination.= "<a href=\"$targetpage/page=$lpm1\">$lpm1</a>";
+				$pagination.= "<a href=\"$targetpage/page=$lastpage\">$lastpage</a>";		
 			}
 			//close to end; only hide early pages
 			else
 			{
-				$pagination.= "<a href=\"$targetpage&page=1\">1</a>";
-				$pagination.= "<a href=\"$targetpage&page=2\">2</a>";
+				$pagination.= "<a href=\"$targetpage/page=1\">1</a>";
+				$pagination.= "<a href=\"$targetpage/page=2\">2</a>";
 				$pagination.= "...";
 				for ($counter = $lastpage - (2 + ($adjacents * 2)); $counter <= $lastpage; $counter++)
 				{
 					if ($counter == $page)
 						$pagination.= "<span class=\"current\">$counter</span>";
 					else
-						$pagination.= "<a href=\"$targetpage&page=$counter\">$counter</a>";					
+						$pagination.= "<a href=\"$targetpage/page=$counter\">$counter</a>";					
 				}
 			}
 		}
 		
 		//next button
 		if ($page < $counter - 1) 
-			$pagination.= "<a href=\"$targetpage&page=$next\">后页 »</a>";
+			$pagination.= "<a href=\"$targetpage/page=$next\">后页 »</a>";
 		else
 			$pagination.= "<span class=\"disabled\">后页 »</span>";
 		$pagination.= "</div>\n";		

@@ -78,4 +78,19 @@ function getUserPic($uid)
   return $user_profile_img;
 }
 
+function getPublicToken()
+{
+  global $_SESSION;
+  global $DB;
+  global $db_prefix;
+  $token = $DB->fetch_one_array("select * from ".$db_prefix."publictoken where id='1'");
+  if($_SESSION['last_wkey']['oauth_token'] == '')
+  {
+	$_SESSION['last_wkey']['oauth_token'] = $token['weibo_access_token'];
+	$_SESSION['last_wkey']['oauth_token_secret'] = $token['weibo_access_token_secret'];
+  }
+  $_SESSION['last_tkey']['oauth_token'] = $token['tweibo_access_token'];
+  $_SESSION['last_tkey']['oauth_token_secret'] = $token['tweibo_access_token_secret'];
+}
+
 ?>

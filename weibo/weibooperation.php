@@ -19,26 +19,35 @@ $weiboContent = "";
 
 if('list_ht' == $operation)
 {
-  $ht_weekly = $c->trends_weekly();
-  $ht_daily = $c->trends_daily();
-  $ht_hourly = $c->trends_hourly();
-  $ht_weekly = array_values($ht_weekly['trends']);
-  $ht_daily = array_values($ht_daily['trends']);
-  $ht_hourly = array_values($ht_hourly['trends']);
+  $ht_weekly = $c->trends_weekly();   
   $weiboContent.="<li class='ht_wrapper'><h3 class='clear'>一周热门话题</h3>";
-  foreach( $ht_weekly[0] as $item1 )
+  if($ht_weekly['trends'])
   {
-    $weiboContent.="<span><a class='list_t_weibo' href='#'>".$item1['name']."</a></span>";
+    $ht_weekly = array_values($ht_weekly['trends']); 
+	foreach( $ht_weekly[0] as $item1 )
+    {
+      $weiboContent.="<span><a class='list_t_weibo' href='#'>".$item1['name']."</a></span>";
+    }
   }
   $weiboContent .="</li><li class='ht_wrapper'><h3 class='clear'>24小时热门话题</h3>";
-  foreach( $ht_daily[0] as $item2 )
+  $ht_daily = $c->trends_daily();
+  if($ht_daily['trends'])
   {
-    $weiboContent.="<span><a class='list_t_weibo' href='#'>".$item2['name']."</a></span>";
+    $ht_daily = array_values($ht_daily['trends']);
+    foreach( $ht_daily[0] as $item2 )
+    {
+      $weiboContent.="<span><a class='list_t_weibo' href='#'>".$item2['name']."</a></span>";
+    }
   }
   $weiboContent .="</li><li class='ht_wrapper'><h3 class='clear'>1小时热门话题</h3>";
-  foreach( $ht_hourly[0] as $item3 )
+  $ht_hourly = $c->trends_hourly();
+  if($ht_hourly['trends'])
   {
-    $weiboContent.="<span><a class='list_t_weibo' href='#'>".$item3['name']."</a></span>";
+    $ht_hourly = array_values($ht_hourly['trends']);
+    foreach( $ht_hourly[0] as $item3 )
+    {
+      $weiboContent.="<span><a class='list_t_weibo' href='#'>".$item3['name']."</a></span>";
+    }
   }
   $weiboContent.="</li>";
   echo $weiboContent;
@@ -58,6 +67,7 @@ else if('weibo_search' == $operation)
 {
   $keywords = $_GET['keywords'];
   //$weibo  = $c->search_weibo($page, $itemsPerPage, $keywords);
+  //error_code 400
   $weibo  = $c->trends_timeline($page, $itemsPerPage, $keywords);
   if(count($weibo) == 0)
   {
@@ -80,21 +90,17 @@ else if('user_search' == $operation)
 
 foreach( $weibo as $item )
 {
-    //show emotions
     $item['text'] = subs_emotions($item['text'],"weibo");
 
     $item['text'] = subs_url($item['text']);
 
   $createTime = dateFormat($item['created_at']);
-  //$weibo_per_id = sprintf("%.0f", $item['id']);
   $weibo_per_id = number_format($item['id'], 0, '', '');
   $weiboContent .= "<li class='weibo_drag sina' id='w_".$weibo_per_id."'><div class='story_wrapper'><img class='profile_img' src='".$item['user']['profile_image_url']."' alt='".$item['user']['screen_name']."' border=0 /><div class='weibo_content'><div><a class='user_page' href='http://weibo.com/".$item['user']['id']."' target='_blank'><span class='weibo_from'>".$item['user']['screen_name']."</span></a></div>";
     
     if (isset($item['retweeted_status']))
 	{
-        // show emotions in text
         $item['retweeted_status']['text'] = subs_emotions($item['retweeted_status']['text'],"weibo");
-
         $item['retweeted_status']['text'] = subs_url($item['retweeted_status']['text']);
 
         $createTime = dateFormat($item['created_at']);
