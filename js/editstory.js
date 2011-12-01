@@ -1,5 +1,9 @@
 var embedCode, vtabIndex, followPage, myPage, userSearchPage, tuserSearchPage, myPageTimestamp, followTimestamp, usersearchTimestamp;
 var weiboSearhPage = 1, picSearchPage = 1, userpicSearchPage =1, colSearchPage = 1, recSearchPage = 1, tweibosearchPage = 1, doubanItemCounts = 10, commentsPerQuery = 5, eventStartIndex = 1, bookStartIndex = 1, bookReviewStartIndex = 1, movieStartIndex = 1, movieReviewStartIndex = 1, musicStartIndex = 1, musicReviewStartIndex = 1;
+var weibo_url = '/weibo/weibooperation.php';
+var tweibo_url = '/tweibo/tweibooperation.php';
+var douban_url = '/douban/doubanoperation.php';
+var yupoo_url = '/yupoo/yupoooperation.php';
 
 if( typeof( window.innerHeight ) == 'number' ){
 //Non-IE
@@ -519,12 +523,12 @@ $(function() {
 		  var getData;
 		  if(sinaFlag)
 		  {
-		    getUrl = '../weibo/weibooperation.php';
+		    getUrl = weibo_url;
 			getData = {operation: 'my_weibo', page: myPage};
 		  }
 		  else
 		  {
-		    getUrl = '../tweibo/tweibooperation.php';
+		    getUrl = tweibo_url;
 			getData = {operation: 'my_weibo', page: 0, timestamp: myPageTimestamp};
 		  }
 		  
@@ -583,12 +587,12 @@ $(function() {
 		  var getData;
 		  if(sinaFlag)
 		  {
-		    getUrl = '../weibo/weibooperation.php';
+		    getUrl = weibo_url;
 			getData = {operation: 'my_follow', page: followPage};
 		  }
 		  else
 		  {
-		    getUrl = '../tweibo/tweibooperation.php';
+		    getUrl = tweibo_url;
 			getData = {operation: 'my_follow', page: 0, timestamp: followTimestamp};
 		  }
 		  
@@ -622,7 +626,7 @@ $(function() {
 		  {
 		    $('#weibo_search_btn').text('搜索话题');
 			e.preventDefault();
-		    var getUrl = '../weibo/weibooperation.php';
+		    var getUrl = weibo_url;
 		    var getData;
 		    getData = {operation: 'list_ht'};
 		  
@@ -674,12 +678,12 @@ $(function() {
 		  {
 		    if(0 == vtabIndex)
 		    {
-		      getUrl = '../weibo/weibooperation.php';
+		      getUrl = weibo_url;
 			  getData = {operation: 'user_search', keywords: words, page:userSearchPage};
 		    }
 		    else
 		    {
-			  getUrl = '../tweibo/tweibooperation.php';
+			  getUrl = tweibo_url;
 			  getData = {operation: 'list_user', keywords: words, page: tuserSearchPage};
 		    }	
 		  }
@@ -687,13 +691,13 @@ $(function() {
 		  {
 			if(0 == vtabIndex)
 		    {
-		      getUrl = '../weibo/weibooperation.php';
+		      getUrl = weibo_url;
 			  getData = {operation: 'weibo_search', keywords: words, page:weiboSearhPage};
 		    }
 		    else
 		    {
 		      //need to revise according to Tencen API
-			  getUrl = '../tweibo/tweibooperation.php';
+			  getUrl = tweibo_url;
 			  getData = {operation: 'weibo_search', keywords: words, page:tweibosearchPage};
 		    }	
 		  }
@@ -722,7 +726,7 @@ $(function() {
 		$('#douban_search_btn').click(function(e){
 		  e.preventDefault();
 		  var doubanSelected = $doubanTabs.tabs('option', 'selected');
-		  var getUrl = '../douban/doubanoperation.php';
+		  var getUrl = douban_url;
 		  var keywords_val = $('#d_keywords').val();
 		  var getData;
 		  switch(doubanSelected)
@@ -789,7 +793,7 @@ $(function() {
 		  $('.loadmore').remove();
 		  var words = $('#pic_keywords').val();
 		  var selected = $picTabs.tabs('option', 'selected');
-		  var getUrl = '../yupoo/yupoooperation.php';
+		  var getUrl = yupoo_url;
 		  var getData;
 		  if(0 == selected)
 		  {
@@ -1149,7 +1153,7 @@ $(function() {
 		//douban reviews part
 		$('.douban_review').live('click', function(e){
 		  e.preventDefault();
-		  var getUrl = '../douban/doubanreviewsoperation.php';
+		  var getUrl = '/douban/doubanreviewsoperation.php';
 		  var getData;
 		  var itemSubjectId = $(this).closest('.douban_drag').attr('id').substr(2);
 		  if($(this).hasClass('book'))
@@ -1185,7 +1189,7 @@ $(function() {
 		$('.list_tweibo').live('click', function(e){
 		  usersearchTimestamp = 0;
 		  e.preventDefault();
-		  var getUrl = '../tweibo/tweibooperation.php';
+		  var getUrl = tweibo_url;
 		  var getData;
 		  var tUserName = $(this).closest('.weibo_drag').attr('id');
 		  getData = {operation: 'user_search', keywords: tUserName, page: 0, timestamp: usersearchTimestamp};
@@ -1209,7 +1213,7 @@ $(function() {
 		$('.list_t_weibo').live('click', function(e){
 		  e.preventDefault();
 		  weiboSearhPage = 1;
-		  var getUrl = '../weibo/weibooperation.php';
+		  var getUrl = weibo_url;
 		  var getData;
 		  var words_val = $(this).text();
 		  getData = {operation: 'weibo_search', keywords: words_val, page: weiboSearhPage};
@@ -1256,14 +1260,14 @@ $(function() {
 			  if(0 == vtabIndex)
 		      {
 		        words = $('#keywords').val();
-				getUrl = '../weibo/weibooperation.php';
+				getUrl = weibo_url;
 				weiboSearhPage++;
 				getData = {operation: 'weibo_search', keywords: words, page: weiboSearhPage};
 		      }
 		      else if(1 == vtabIndex)
 		      {
 		        words = $('#keywords').val();
-				getUrl = '../tweibo/tweibooperation.php';
+				getUrl = tweibo_url;
 				//weibosearchTimestamp = $('.loadmore span').attr('id');
 				tweibosearchPage++;
 				getData = {operation: 'weibo_search', keywords: words, page: tweibosearchPage}; 
@@ -1273,13 +1277,13 @@ $(function() {
 				var loadMoreItem = $('.loadmore');
 				if(loadMoreItem.hasClass('book'))
 				{
-				  getUrl = '../douban/doubanoperation.php';
+				  getUrl = douban_url;
 				  bookStartIndex = bookStartIndex+doubanItemCounts;
 				  getData = {operation: 'book', keywords: $('#d_keywords').val(), startIndex: bookStartIndex, numResults: doubanItemCounts};
 				}
 				else if(loadMoreItem.hasClass('bookReviews'))
 				{
-				  getUrl = '../douban/doubanreviewsoperation.php';
+				  getUrl = '/douban/doubanreviewsoperation.php';
 				  bookReviewStartIndex = bookReviewStartIndex+commentsPerQuery;
 				  getData = {operation: 'bookReviews', subjectID: loadMoreItem.attr('id'), startIndex: bookReviewStartIndex, numResults: commentsPerQuery};
 				}
@@ -1287,7 +1291,7 @@ $(function() {
 			  else if(4 == vtabIndex)
 			  {
 			    words = $('#pic_keywords').val();
-				getUrl = '../yupoo/yupoooperation.php';
+				getUrl = yupoo_url;
 				picSearchPage++;
 				getData = {operation: 'pic_search', keywords: words, page: picSearchPage};
 			  }
@@ -1308,13 +1312,13 @@ $(function() {
 			{
 			  if(0 == vtabIndex)
 		      {
-		        getUrl = '../weibo/weibooperation.php';
+		        getUrl = weibo_url;
 				myPage++;
 				getData = {operation: 'my_weibo', page: myPage}
 		      }
 		      else if(1 == vtabIndex)
 		      {
-		        getUrl = '../tweibo/tweibooperation.php';
+		        getUrl = tweibo_url;
 				myPageTimestamp = $('.loadmore span').attr('id');
 				getData = {operation: 'my_weibo', page: 1, timestamp: myPageTimestamp}; 
 		      }
@@ -1323,13 +1327,13 @@ $(function() {
 				var loadMoreItem = $('.loadmore');
 				if(loadMoreItem.hasClass('movie'))
 				{
-				  getUrl = '../douban/doubanoperation.php';
+				  getUrl = douban_url;
 				  movieStartIndex = movieStartIndex+doubanItemCounts;
 				  getData = {operation: 'movie', keywords: $('#d_keywords').val(), startIndex: movieStartIndex, numResults: doubanItemCounts};
 				}
 				else if(loadMoreItem.hasClass('movieReviews'))
 				{
-				  getUrl = '../douban/doubanreviewsoperation.php';
+				  getUrl = '/douban/doubanreviewsoperation.php';
 				  movieReviewStartIndex = movieReviewStartIndex+commentsPerQuery;
 				  getData = {operation: 'movieReviews', subjectID: loadMoreItem.attr('id'), startIndex: movieReviewStartIndex, numResults: commentsPerQuery};
 				}
@@ -1337,7 +1341,7 @@ $(function() {
 			  else if(4 == vtabIndex)
 			  {
 			    words = $('#pic_keywords').val();
-				getUrl = '../yupoo/yupoooperation.php';
+				getUrl = yupoo_url;
 				userpicSearchPage++;
 				getData = {operation: 'user_search', keywords: words, page: userpicSearchPage};
 			  }
@@ -1356,13 +1360,13 @@ $(function() {
 			{
 			  if(0 == vtabIndex)
 		      {
-		        getUrl = '../weibo/weibooperation.php';
+		        getUrl = weibo_url;
 				followPage++;
 				getData = {operation: 'my_follow', page: followPage}
 		      }
 		      else if(1 == vtabIndex)
 		      {
-		        getUrl = '../tweibo/tweibooperation.php';
+		        getUrl = tweibo_url;
 				followTimestamp = $('.loadmore span').attr('id');
 				getData = {operation: 'my_follow', page: 1, timestamp: followTimestamp};
 		      }
@@ -1371,13 +1375,13 @@ $(function() {
 				var loadMoreItem = $('.loadmore');
 				if(loadMoreItem.hasClass('music'))
 				{
-				  getUrl = '../douban/doubanoperation.php';
+				  getUrl = douban_url;
 				  musicStartIndex = musicStartIndex+doubanItemCounts;
 				  getData = {operation: 'music', keywords: $('#d_keywords').val(), startIndex: musicStartIndex, numResults: doubanItemCounts};
 				}
 				else if(loadMoreItem.hasClass('musicReviews'))
 				{
-				  getUrl = '../douban/doubanreviewsoperation.php';
+				  getUrl = '/douban/doubanreviewsoperation.php';
 				  musicReviewStartIndex = musicReviewStartIndex+commentsPerQuery;
 				  getData = {operation: 'musicReviews', subjectID: loadMoreItem.attr('id'), startIndex: musicReviewStartIndex, numResults: commentsPerQuery};
 				}
@@ -1385,7 +1389,7 @@ $(function() {
 			  else if(4 == vtabIndex)
 			  {
 			    words = $('#pic_keywords').val();
-				getUrl = '../yupoo/yupoooperation.php';
+				getUrl = yupoo_url;
 				colSearchPage++;
 				getData = {operation: 'col_search', keywords: words, page: colSearchPage};
 			  }
@@ -1406,13 +1410,13 @@ $(function() {
 			  //var words = $('#keywords').val();
 			  if(0 == vtabIndex)
 		      {
-		        getUrl = '../weibo/weibooperation.php';
+		        getUrl = weibo_url;
 				userSearchPage++;
 				getData = {operation: 'user_search', keywords: $('#keywords').val(), page:userSearchPage};
 		      }
 		      else if(1 == vtabIndex)
 		      {
-				getUrl = '../tweibo/tweibooperation.php';
+				getUrl = tweibo_url;
 				//usersearchTimestamp = $('.loadmore span').attr('id');
 				//getData = {operation: 'user_search', keywords: $('#keywords').val(), page: 1, timestamp: usersearchTimestamp};
 				if($(e.target).closest('.loadmore').hasClass('tuser'))
@@ -1429,14 +1433,14 @@ $(function() {
 		      }
 			  else if(2 == vtabIndex)
 		      {
-		        getUrl = '../douban/doubanoperation.php';
+		        getUrl = douban_url;
 				eventStartIndex = eventStartIndex+doubanItemCounts;
 				getData = {operation: 'event', keywords: $('#d_keywords').val(), startIndex: eventStartIndex, numResults: doubanItemCounts};
 		      }
 			  else if(4 == vtabIndex)
 			  {
 			    words = $('#pic_keywords').val();
-				getUrl = '../yupoo/yupoooperation.php';
+				getUrl = yupoo_url;
 				recSearchPage++;
 				getData = {operation: 'rec_search', keywords: words, page: recSearchPage};
 			  }
@@ -1565,7 +1569,7 @@ $(function() {
 		    $weiboTabs.tabs( "select" , 0 );
 		    $('#weibo_search').removeClass('none');
 			$('#source_list').children().remove();
-		    var getUrl = '../weibo/weibooperation.php';
+		    var getUrl = weibo_url;
 		    var getData;
 		    getData = {operation: 'list_ht'};
 		  

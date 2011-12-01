@@ -38,7 +38,6 @@ h1,h2,h3,h4,h5,h6 {
 	font-size:100%;
 	font-weight:normal;
 }
-
 /* YUI reset */
 
 .text {
@@ -668,60 +667,6 @@ width: 426px;
 overflow:auto;
 }
 /* end published steps part */
-
-/*slider part */
-#page-wrap{ 
-background: white; width: 920px; margin: 0 auto; 
-padding:0; 
-}
-
-#slider{
-background: white url(../img/slider-bg.jpg); height: 227px; overflow: hidden;
-position: relative; margin: 50px 0; 
-}
-								  
-#slider2{ 
-background: white; height: 227px; overflow: hidden;
-position: relative; margin: 50px 0;
-}
-								  
-/* DEFAULT is for three panels in width, adjust as needed
-This only matters if JS is OFF, otherwise JS sets this. */								  
-#mover{ width: 2760px; position: relative; }
-.slide{
-padding: 40px 30px; 
-width: 860px; 
-float: left; 
-position: relative;
-}
-.slide h1{
-font-family: Helvetica, Sans-Serif;
-font-size: 30px; 
-letter-spacing: -1px;
-color: #ac0000;
-}
-.slide p{
-color: #999; 
-font-size: 12px; 
-line-height: 22px; 
-width: 300px;
-}
-.slide img{ 
-position: absolute; 
-top: 60px; 
-left: 400px; 
-}
-#slider-stopper{ 
-position: absolute; 
-top: 1px; 
-right: 20px; 
-background: #438CC3; 
-color: white;
-padding: 3px 8px; 
-font-size: 10px; 
-text-transform: uppercase; 
-}
-/*end slider part */
 								  
 /* source page part */
 #source_ul{
@@ -908,6 +853,11 @@ height:100px;
 
 .weibo_drag .user_wrapper .person_meta{
 margin-left:130px;
+}
+
+.weibo_drag .user_wrapper .person_meta .view_weibo{
+background: url("../img/editsprite.png") no-repeat scroll 0 -463px transparent;
+padding-left:20px;
 }
 
 .pic_drag .yupooWrapper img{
@@ -1435,30 +1385,7 @@ div#more{
 margin:10px 0;
 }
 
-.loadmore {
-background-color:#FFFFFF;
-background-image:url("../img/more.gif");
-background-position:left top;
-background-repeat:repeat-x;
-border-color:#DDDDDD #AAAAAA #AAAAAA #DDDDDD;
-border-style:solid;
-border-width:1px;
-display:block;
-font-size:14px;
-font-weight:bold;
-height:15px;
-line-height:1.5em;
-outline:medium none;
-padding:6px 0;
-text-align:center;
-text-shadow:1px 1px 1px #FFFFFF;
-width:95%;
-margin: 0 auto;
-margin-bottom:6px;
-}
- 
-/* publish part*/
-.load_more {
+.loadmore, .load_more{
 background-color:#FFFFFF;
 background-image:url("../img/more.gif");
 background-position:left top;
@@ -1471,16 +1398,18 @@ font-size:14px;
 font-weight:bold;
 height:22px;
 line-height:1.5em;
-margin-bottom:6px;
 outline:medium none;
 padding:6px 0;
 text-align:center;
 text-shadow:1px 1px 1px #FFFFFF;
 width:95%;
 margin: 0 auto;
+margin-bottom:6px;
 }
+ 
+/* publish part*/
 .load_more {
-	-moz-border-radius:5px 5px 5px 5px;
+-moz-border-radius:5px 5px 5px 5px;
 }
 .load_more:hover {
 background-position:left -78px;

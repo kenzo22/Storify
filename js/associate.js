@@ -81,7 +81,7 @@ else
   var email_val  = $('#email').val();
   var pwd_val = $(this).val();
   var postdata={email: email_val, pwd: pwd_val};
-  var url = 'check_credential.php';
+  var url = '/accounts/login/check_credential.php';
   $.post(url, postdata, function(data){
   if(data =='0')
   {

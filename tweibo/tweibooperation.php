@@ -85,7 +85,7 @@ if('list_user' == $operation)
 							<div>".$item['location']."</div>
 							<div>听众:".$item['fansnum']."</div>
 							<div>收听:".$item['idolnum']."</div>
-							<div><a class='list_tweibo' href='#'>查看微博</a></div>
+							<div class='view_weibo'><a class='list_tweibo' href='#'>查看微博</a></div>
 						  </div>
 						</div>
 					  <li>";
