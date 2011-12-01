@@ -1,17 +1,17 @@
 <?php
 @header('Content-Type:text/html;charset=utf-8');
-include "../connect_db.php";
+include $_SERVER['DOCUMENT_ROOT']."/connect_db.php";
 session_start();
-require_once( '../douban/config.php' );
-require_once( '../douban/doubanapi.php' );
-include '../include/secureGlobals.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/douban/config.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/douban/doubanapi.php';
+include $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php';
 
 $operation = $_POST['operation'];
 if($operation == 'add')
 {
   $d = new DoubanOAuth( DB_AKEY , DB_SKEY  );
   $dkeys = $d->getRequestToken();
-  $durl = $d->getAuthorizeURL( $dkeys['oauth_token'] ,false , 'http://koulifang.com/douban/callback.php');
+  $durl = $d->getAuthorizeURL( $dkeys['oauth_token'] ,false , 'http://koulifang.com/douban/callback');
   $_SESSION['dkeys'] = $dkeys;
   echo $durl;
 }

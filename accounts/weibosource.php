@@ -12,9 +12,7 @@ if($operation == 'add')
   $o = new WeiboOAuth( WB_AKEY , WB_SKEY  );
 
   $wkeys = $o->getRequestToken();
-  //$aurl = $o->getAuthorizeURL( $keys['oauth_token'] ,false , $_SERVER['SCRIPT_URI'].'/callback.php');
-  //$aurl = $o->getAuthorizeURL( $keys['oauth_token'] ,false , $_SERVER['REQUEST_URI'].'/callback.php');
-  $aurl = $o->getAuthorizeURL( $wkeys['oauth_token'] ,false , 'http://koulifang.com/weibo/callback.php');
+  $aurl = $o->getAuthorizeURL( $wkeys['oauth_token'] ,false , 'http://koulifang.com/weibo/callback');
   $_SESSION['wkeys'] = $wkeys;
   echo $aurl;
 }
