@@ -27,6 +27,7 @@ include $_SERVER['DOCUMENT_ROOT']."/member/userrelation.php";
 
 <?php
 $date_t = date("Y-m-d H:i:s");
+$login_status = islogin();
 
 if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action']))
 {
@@ -109,7 +110,6 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	$story_content_array = array_slice($temp_array['content'], 0, $items_perpage, true);
 	$weibo_id_array = array();
 	$tweibo_id_array = array();
-	$login_status = islogin();
 	if($login_status)
 	{
 	  $extra_class = "";
@@ -307,12 +307,12 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 				<div class='spacer'></div>
 			  </div>";
 		$content .= "<div id='publish_container'>
-			  <div id='story_action'><span class='float_r'><a id='".$post_id."_delete' class='delete redirect png_fix'></a>&nbsp<a class='edit png_fix' href='/user/".$user_id."/".$post_id."/edit'></a></span><span><a class='publish_icon png_fix' title='已发布'></a>已发布</span></div>";
+			  <div id='story_action'><span class='float_r'><a id='".$post_id."_delete' class='delete redirect png_fix' title='删除'></a>&nbsp<a class='edit png_fix' href='/user/".$user_id."/".$post_id."/edit' title='编辑'></a></span><span><a class='publish_icon png_fix' title='已发布'></a>已发布</span></div>";
 	  }
 	  else
 	  {
 	    $content .= "<div id='story_container'><div class='publish_wrapper'><div id='publish_container'>
-			  <div id='story_action'><span><a class='draft_icon png_fix' title='草稿'></a>草稿</span><span class='float_r'><a  class='publish' href='/user/".$user_id."/".$post_id."/publish'></a>&nbsp<a id='".$post_id."_delete' class='delete redirect png_fix'></a><a class='edit png_fix' href='/user/".$user_id."/".$post_id."/edit'></a></span></div>";
+			  <div id='story_action'><span><a class='draft_icon png_fix' title='草稿'></a>草稿</span><span class='float_r'><a  class='publish' href='/user/".$user_id."/".$post_id."/publish' title='发布'></a>&nbsp<a id='".$post_id."_delete' class='delete redirect png_fix' title='删除'></a><a class='edit png_fix' href='/user/".$user_id."/".$post_id."/edit' title='编辑'></a></span></div>";
 	  }	
 	}
 
@@ -733,7 +733,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 			<div class='wrapper'>
 			  <div class='user_name'><a href='/user/".$story_author."'><span>".$userresult['username']."</span></a></div>";
 		  
-	if(islogin() && $story_author != $_SESSION['uid'])
+	if($login_status && $story_author != $_SESSION['uid'])
 	{
 	  $login_user_id = $_SESSION['uid'];
 	  
@@ -927,7 +927,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 							<span>故事:".$total_pages."</span>
 						  </div>";
 					  
-  if(islogin() && $user_id != $_SESSION['uid'])
+  if($login_status && $user_id != $_SESSION['uid'])
   {
 	  $login_user_id = $_SESSION['uid'];
 	  
@@ -949,8 +949,15 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
   
   if(0 == $total_pages)
   {
-    $story_content.="<div style='height:30px;'></div><h4 class='text'>你可以用口立方报道新闻，追踪网络热点事件，汇总美食，旅游，时尚周边信息，写书评影评，等等～～～</h4>
-	<a class='large green awesome' href='/create'>开始创建 &raquo;</a><div class='footer_spacer'></div></div></div>";
+    $story_content.="<div style='height:30px;'></div>";
+	if($login_status && $user_id == $_SESSION['uid'])
+	{
+	  $story_content.="<h4 class='text'>你可以用口立方报道新闻，追踪网络热点事件，汇总美食，旅游，时尚周边信息，写书评影评，等等～</h4><a class='large green awesome' href='/create'>开始创建 &raquo;</a><div class='footer_spacer'></div></div></div>";
+	}
+	else
+	{
+	  $story_content.="<div class='footer_spacer'></div></div></div>";
+	}
   }
   else
   {	
@@ -1082,7 +1089,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 							  <a class='title_wrap' href='".$post_link."'>
 								<span class='title'>".$post_title."</span>
 							  </a>";
-		if(islogin() && $user_id == $_SESSION['uid'])
+		if($login_status && $user_id == $_SESSION['uid'])
 		{
 		  $story_content .="<div class='editable'>
 		  <div class='actions'>
@@ -1110,7 +1117,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 
 else
 {
-  if(!islogin())
+  if(!$login_status)
   {
     header("location: /accounts/login"); 
     exit;

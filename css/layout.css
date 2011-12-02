@@ -613,6 +613,8 @@ margin: 0 20px 5px 0;
 .tweet_control{
 float:right;
 margin-right:2px;
+overflow:auto;
+height:40px;
 }
 
 .tweet_control .tweet_btn{
@@ -1255,11 +1257,6 @@ display:block;
  
  #weiboTabs ul,  #doubanTabs ul,  #picTabs ul{
  overflow:hidden;
- }
- 
-  #weibo_search form,  #douban_search form,  #pic_search form{
-   margin:0;
-   padding:0;
  }
 
  #weibo_search .sep,  #douban_search .sep,  #pic_search .sep{

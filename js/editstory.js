@@ -313,6 +313,19 @@ function change_story_pic(direction)
 }
 
 $(function() {				
+		var $weiboTabs = $( '#weiboTabs' ).tabs();
+		var $doubanTabs = $( '#doubanTabs' ).tabs();
+		var $picTabs = $( '#picTabs' ).tabs();
+		
+		$('#keywords, #d_keywords, #videoUrl, #pic_keywords').bind('keyup', function(e)
+		{
+		  var code = e.keyCode || e.which; 
+		  if(code == 13)
+		  {
+			$(this).next().click();
+		  }
+		});
+		
 		$('#connectBtn').live('click', function(e)
 	    {
 		  e.preventDefault();
@@ -343,9 +356,6 @@ $(function() {
 		
 		show_weibo_card('story_list');
 		
-		var $weiboTabs = $( '#weiboTabs' ).tabs();
-		var $doubanTabs = $( '#doubanTabs' ).tabs();
-		var $picTabs = $( '#picTabs' ).tabs();
 		var tag_txt = $('#sto_tag').val();
 		if(tag_txt == ' ')
 		{

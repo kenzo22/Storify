@@ -31,6 +31,10 @@ function show_content(&$content, $db_result)
   {
 	$post_author = $story_item['post_author'];
 	$post_pic_url = $story_item['post_pic_url'];
+	if($post_pic_url == '')
+	{
+      $post_pic_url = '/img/event_dft.jpg';
+	}
 	$userresult = $DB->fetch_one_array("SELECT username, photo FROM story_user where id='".$post_author."'");
 	$author_name = $userresult['username'];
 	$user_profile_img = $userresult['photo'];

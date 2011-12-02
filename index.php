@@ -122,6 +122,10 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 		{
 		  $post_author = $story_item['post_author'];
 		  $post_pic_url = $story_item['post_pic_url'];
+		  if($post_pic_url == '')
+		  {
+		    $post_pic_url = '/img/event_dft.jpg';
+		  }
 		  $userresult = $DB->fetch_one_array("SELECT username, photo FROM ".$db_prefix."user where id='".$post_author."'");
 		  $user_profile_img = $userresult['photo'];
 		  $author_name = $userresult['username'];
@@ -139,7 +143,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 		  $story_content .= "<li>
 							  <div class='story_wrap'>	
 								<a href='".$post_link."'>
-								  <img class='cover' src='".$post_pic_url."' alt='故事封面' />
+								  <img class='cover' src='".$post_pic_url."' alt='' />
 								</a>
 								<a class='title_wrap' href='".$post_link."'>
 								  <span class='title'>".$post_title."</span>

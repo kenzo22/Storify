@@ -150,12 +150,12 @@ $content .= "<div class='inner'>
 		      
 	        </div>
 			<div id='weibo_search'>
-		      <form id='source_controller_form' action='#'>
+		      <div>
 		        <div class='sep'>         
-			      <input id='keywords' name='keywords' type='text' />
-			      <button id='weibo_search_btn' type='submit' value='search'>搜索话题</button>
+			      <input id='keywords' name='keywords' type='text' value='' />
+			      <button id='weibo_search_btn'  value='search' type='button'>搜索话题</button>
                 </div>
-		      </form>
+		      </div>
 		    </div>
 		  </div>
 		  <div id='doubanTabs'>
@@ -178,22 +178,22 @@ $content .= "<div class='inner'>
 		      
 	        </div>
 			<div id='douban_search'>
-		      <form action='#'>
+		      <div>
 		        <div class='sep'>        
-			      <input id='d_keywords' name='d_keywords' type='text' />
-			      <button id='douban_search_btn' type='submit' value='search'>搜索</button>
+			      <input id='d_keywords' name='d_keywords' type='text' value='' />
+			      <button id='douban_search_btn' value='search' type='button'>搜索</button>
                 </div>
-		      </form>
+		      </div>
 		    </div>
 		  </div>
 		  <div id='videoTabs'>
-		    <form action='#'>
+		    <div>
 		    <div>
 			  <div>优酷视频地址:</div>          
-			  <input id='videoUrl' name='videoUrl' type='text' />
-			  <button type='submit' value='嵌入视频' id='embedVideo'>嵌入视频</button>
+			  <input id='videoUrl' name='videoUrl' type='text' value='' />
+			  <button value='嵌入视频' id='embedVideo' type='button'>嵌入视频</button>
             </div>
-		    </form>
+		    </div>
 		  </div>
 		  <div id='picTabs'>
 		    <ul>
@@ -215,12 +215,12 @@ $content .= "<div class='inner'>
 
 	        </div> 
 			<div id='pic_search'>
-		      <form action='#'>
+		      <div>
 		        <div class='sep'>           
-			      <input id='pic_keywords' name='pic_keywords' type='text' />
-			      <button id='pic_search_btn' type='submit' value='search'>搜索</button>
+			      <input id='pic_keywords' name='pic_keywords' type='text' value='' />
+			      <button id='pic_search_btn' value='search' type='button'>搜索</button>
                 </div>
-		      </form>
+		      </div>
 		    </div>
 		  </div>
 		  
