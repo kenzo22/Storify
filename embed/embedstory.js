@@ -194,11 +194,11 @@
 					var retweet_img_content = '';
 					if(sub_item.img != '')
 					{
-					  img_content +="<div class='weibo_img'><img src='"+sub_item.img+"' width='280px;' /></div>";
+					  img_content +="<div class='weibo_img_drop'><img src='"+sub_item.img+"' width='280px;' /></div>";
 					}
 					if(sub_item.retweet_img != '')
 					{
-					  retweet_img_content +="<div class='weibo_retweet_img'><img src='"+sub_item.retweet_img+"' width='280px;' /></div>";
+					  retweet_img_content +="<div class='weibo_retweet_img_drop'><img src='"+sub_item.retweet_img+"' width='280px;' /></div>";
 					}
 					content +="<li class='weibo_drop sina' id='w_"+sub_item.per_id+"'><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>"+sub_item.text+"</span>"+retweet_img_content+img_content+"</div><div class='story_signature'><span class='float_r'><a href='http://weibo.com/"+sub_item.uid+"' target='_blank'><img class='profile_img_drop' src='"+sub_item.u_profile+"' alt='"+sub_item.u_name+"' border=0 /></a></span><div class='signature_text'><div class='text_wrapper'><span ><a class='weibo_from_drop' href='http://weibo.com/"+sub_item.uid+"' target='_blank'>"+sub_item.u_name+"</a></span></div><div class='weibo_date_drop'>"+sub_item.time+"</div></div></div></div></li>";
 				  }

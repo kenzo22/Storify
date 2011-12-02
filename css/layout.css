@@ -14,7 +14,7 @@ img { border-width: 0; image-rendering: optimizeQuality; -ms-interpolation-mode:
 input { border:1px solid #999; color:#333; height:20px; vertical-align: middle; line-height:20px;}
 textarea {border:1px solid #999; color:#333; font-size:12px;}
 
-a{cursor:pointer;}
+a{cursor:pointer;outline:none; hide-focus: expression(this.hideFocus=true);}
 a:link { color: #336699; text-decoration: none;}
 a:visited { color: #666699; text-decoration: none;}
 a:hover { color: #666666; text-decoration: none;}
@@ -126,7 +126,7 @@ padding-left:36px;
 }
 
 #login_form #email_login, #login_form #pwd_login{
-width:220px;
+width:200px;
 }
 
 #login_form #loginbtn{
@@ -575,15 +575,13 @@ overflow:auto;
 }
 
 .notify-content .sina_user{
-background: url("../img/editsprite.png") no-repeat scroll 0 -372px transparent;
-height:20px;
-padding-left:18px;
+overflow:auto;
+margin-left:20px;
 }
 
 .notify-content .tencent_user{
-background: url("../img/editsprite.png") no-repeat scroll 0 -460px transparent;
-height:20px;
-padding-left:18px;
+overflow:auto;
+margin-left:20px;
 }
 
 .spacer {
@@ -618,8 +616,12 @@ margin-right:2px;
 }
 
 .tweet_control .tweet_btn{
-margin-left:15px;
+text-align:right;
 vertical-align:middle;
+}
+
+.tweet_control .gray.flag{
+margin-right:15px;
 }
 
 .tweet_control #tweibo_f{
@@ -776,7 +778,7 @@ height:80px;
 #story_list .story_signature {overflow:hidden; margin-bottom:5px;}
 #weibo_ul .story_signature {}
 
-#source_pane{position:fixed; top:65px; width:390px; z-index:1000;}
+#source_pane{position:fixed; top:65px; width:390px; z-index:100;}
 #sourcelist_container{}
 #story_pane{width:510px; background-color: #FFFFFF;}
 
@@ -787,7 +789,6 @@ margin:0;
 border: 1px solid #C9C9C9; 
 border-top: none; 
 border-radius:5px 5px 5px 5px; 
-cursor:move;
 background-color: #FFFFFF; 
 }
 
@@ -819,6 +820,11 @@ border-style:solid;
 border-width:1px;
 overflow:auto;
 z-index:10;
+cursor:move;
+}
+
+.weibo_drag.tuser{
+cursor:default;
 }
 
 .video_drag .video_author{
@@ -1001,10 +1007,6 @@ top:4px
   overflow:hidden;
   position:relative;
  }
- 
-.weibo_retweet_img, .weibo_img{
-text-align:center;
-}
   
 .douban_date_drop{
 background: url("../img/editsprite.png") no-repeat scroll 0 -39px transparent;
@@ -2566,7 +2568,7 @@ position:relative;
 }
 	
 #footer .wrapper{overflow:auto;}
-.editor #footer {width:100%; position:fixed; bottom: 0; height:40px; z-index:200;background: none repeat scroll 0 0 #F9F9F9;}
+.editor #footer {width:100%; position:fixed; bottom: 0; height:40px; z-index:1200;background: none repeat scroll 0 0 #F9F9F9;}
 .editor #footer .wrapper{position:absolute; width:920px; left:50%; margin-left:-460px;}
 #footer p { color: #BBBBBB; font-size: 1.1em; }
 #footer ul { float: right; list-style: none; padding: 0;}

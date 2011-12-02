@@ -105,7 +105,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
     }
 	
 	$temp_array = json_decode($story_content, true);
-	$items_perpage = 10;
+	$items_perpage = 20;
 	$story_content_array = array_slice($temp_array['content'], 0, $items_perpage, true);
 	$weibo_id_array = array();
 	$tweibo_id_array = array();
@@ -210,7 +210,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		  if($w_array_length>0)
 		  {
 		    $weiboFlag=true;
-		    $content.="<div id='weibo_card_area' class='sina_user'>";
+		    $content.="<div class='sina16_icon'></div><div id='weibo_card_area' class='sina_user'>";
 		    for($i=0; $i<$w_array_length; $i++)
 		    {
 		      $w_user_count += utf8_strlen($w_nic_array[$i]);
@@ -224,7 +224,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		{
 		  if($w_array_length>0)
 		  {
-		    $content.="<div class='sina_user'>
+		    $content.="<div class='sina16_icon'></div><div class='sina_user'>
 				<span>发布到新浪微博需要绑定新浪微博帐号</span><a href='/accounts/source'>现在去绑定</a>
 				</div>";
 		  } 
@@ -253,7 +253,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		  if($t_array_length>0)
 		  {
 		    $tweiboFlag=true;
-		    $content.="<div class='tencent_user clear'>";
+		    $content.="<div class='tencent16_icon'></div><div class='tencent_user'>";
 		    foreach($t_array as $tkey=>$tval)
 		    {
 		      $t_user_count += utf8_strlen($tkey);
@@ -267,7 +267,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		{
 		  if($t_array_length>0)
 		  {
-		    $content.="<div class='tencent_user clear'>
+		    $content.="<div class='tencent16_icon'></div><div class='tencent_user'>
 					   <span>广播到腾讯微博需要绑定腾讯微博帐号</span><a href='/accounts/source'>现在去绑定</a>
 					</div>";
 		  }
@@ -286,7 +286,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		  $base_txt = "我刚刚引用了你的微博，快来看一看吧：";
 		  $word_remain = ceil(140-($user_count/2+strlen($url_short)/2+strlen($base_txt)/3));
 		  $content.="<textarea class='notify-tweet' name='tweet'>".$base_txt.$url_short."</textarea>
-		  <div class='tweet_control'><input id='weibo_f' type='checkbox' name='weibo_f'".$weibo_check.$weibo_dis." /><span>发布到新浪微博</span><input id='tweibo_f' type='checkbox' name='tweibo_f'".$tweibo_check.$tweibo_dis." /><span>发布到腾讯微博</span><span id='remain_txt' class='gray'>还可以输入</span><span class='word_counter'>".$word_remain."</span><span class='gray'>字</span><a class='tweet_btn large blue awesome'>发布 &raquo;</a></div>";
+		  <div class='tweet_control'><input id='weibo_f' type='checkbox' name='weibo_f'".$weibo_check.$weibo_dis." /><span>发布到新浪微博</span><input id='tweibo_f' type='checkbox' name='tweibo_f'".$tweibo_check.$tweibo_dis." /><span>发布到腾讯微博</span><span id='remain_txt' class='gray'>还可以输入</span><span class='word_counter'>".$word_remain."</span><span class='gray flag'>字</span><a class='tweet_btn large blue awesome'>发布 &raquo;</a></div>";
 		}
 		if($w_array_length == 0 && $t_array_length == 0)
 		{
@@ -400,7 +400,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 
                 $content .="//@".$single_weibo['retweeted_status']['user']['name'].":".$single_weibo['retweeted_status']['text'];
                 if(isset($single_weibo['retweeted_status']['bmiddle_pic'])){
-                    $content .= "</span><div class='weibo_retweet_img'><img src='".$single_weibo['retweeted_status']['bmiddle_pic']."' width='280px;' alt='微博配图'/></div>";
+                    $content .= "</span><div class='weibo_retweet_img_drop'><img src='".$single_weibo['retweeted_status']['bmiddle_pic']."' width='280px;' alt='微博配图'/></div>";
                 }
 				else
 				{
@@ -412,7 +412,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 			}
             if (isset($single_weibo['bmiddle_pic']))
 			{
-			  $content .= "<div class='weibo_img'><img src='".$single_weibo['bmiddle_pic']."' width='280px;' alt='微博配图'/></div>";
+			  $content .= "<div class='weibo_img_drop'><img src='".$single_weibo['bmiddle_pic']."' width='280px;' alt='微博配图'/></div>";
 			}
             $content .= "</div><div class='story_signature'><span class='float_r'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img_drop' src='"
 			.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' /></a></span><div class='signature_text'><div class='text_wrapper'>

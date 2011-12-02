@@ -23,7 +23,7 @@ if(!$result)
 {
   throw new Exception('Could not execute query.');
 }
-$items_perpage = 10;
+$items_perpage = 20;
 $story_content=$result['post_content'];
 $temp_array = json_decode($story_content, true);
 $story_content_array = array_slice($temp_array['content'], $first_item, $items_perpage, true);
@@ -63,7 +63,7 @@ foreach($story_content_array as $key=>$val)
 
 			$content .="//@".$single_weibo['retweeted_status']['user']['name'].":".$single_weibo['retweeted_status']['text'];
 			if(isset($single_weibo['retweeted_status']['bmiddle_pic'])){
-				$content .= "</span><div class='weibo_retweet_img'><img src='".$single_weibo['retweeted_status']['bmiddle_pic']."' width='280px;' /></div>";
+				$content .= "</span><div class='weibo_retweet_img_drop'><img src='".$single_weibo['retweeted_status']['bmiddle_pic']."' width='280px;' /></div>";
 			}
 			else
 			{
@@ -75,7 +75,7 @@ foreach($story_content_array as $key=>$val)
 		}
 		if (isset($single_weibo['bmiddle_pic']))
 		{
-		  $content .= "<div class='weibo_img'><img src='".$single_weibo['bmiddle_pic']."' width='280px;' /></div>";
+		  $content .= "<div class='weibo_img_drop'><img src='".$single_weibo['bmiddle_pic']."' width='280px;' /></div>";
 		}
 		$content .= "</div><div class='story_signature'><span class='float_r'><a href='http://weibo.com/".$single_weibo['user']['id']."' target='_blank'><img class='profile_img_drop' src='"
 		.$single_weibo['user']['profile_image_url']."' alt='".$single_weibo['user']['screen_name']."' border=0 /></a></span><div class='signature_text'><div class='text_wrapper'>

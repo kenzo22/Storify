@@ -403,12 +403,14 @@ $(function(){
 		$('.steps .post-content').css('display', 'none');
 		$('.steps .share-content').css('display', 'none');
 		$('.steps .notify-content').toggle();
+		$('.tabs .notify-tab').blur();
 	  }
 	  else if (target.is('.tabs .share-tab'))
 	  {
 		$('.steps .post-content').css('display', 'none');
 		$('.steps .notify-content').css('display', 'none');
 		$('.steps .share-content').toggle();
+		$('.tabs .share-tab').blur();
 	  }
 	});
 	
