@@ -1134,10 +1134,12 @@ $(function() {
 		  {
 			var winH = $(window).height();
 			var winW = $(window).width();
+			var scrollTop = $(document).scrollTop();
+			var scrollLeft = $(document).scrollLeft();
 			var login_dialog = $('#boxes #dialog');
 				  
-			login_dialog.css('top',  winH/2-login_dialog.height()/2);
-			login_dialog.css('left', winW/2-login_dialog.width()/2);
+			login_dialog.css('top',  winH/2-login_dialog.height()/2+scrollTop-100);
+			login_dialog.css('left', winW/2-login_dialog.width()/2+scrollLeft);
 		
 			login_dialog.fadeIn(1000);
 		  }

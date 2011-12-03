@@ -20,6 +20,7 @@ else
     if(textStatus == 'success')
 	{
 	  $('#sina_weibo').text('添加');
+	  $('#sina_weibo').prev().text('未添加帐号');
 	  $('.modify_notify').remove();
 	  $('#source_ul').before(data);
 	}
@@ -48,6 +49,7 @@ else
     if(textStatus == 'success')
 	{
 	  $('#tencent_weibo').text('添加');
+	  $('#tencent_weibo').prev().text('未添加帐号');
 	  $('.modify_notify').remove();
 	  $('#source_ul').before(data);
 	}
@@ -76,6 +78,7 @@ else
     if(textStatus == 'success')
 	{
 	  $('#douban_forum').text('添加');
+	  $('#douban_forum').prev().text('未添加帐号');
 	  $('.modify_notify').remove();
 	  $('#source_ul').before(data);
 	}
@@ -104,6 +107,7 @@ else
     if(textStatus == 'success')
 	{
 	  $('#yupoo_pic').text('添加');
+	  $('#yupoo_pic').prev().text('未添加帐号');
 	  $('.modify_notify').remove();
 	  $('#source_ul').before(data);
 	}

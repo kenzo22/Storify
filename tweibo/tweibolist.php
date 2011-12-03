@@ -56,7 +56,8 @@ echo '<li>'.iconv("GBK",'UTF-8',$file).'</li>';
 //$me = $c->user_other_info('jiapenglei');
 //$me = $c->search_user('杨澜', 3, 20);
 //$me = $c->search_by_tag('创业');
-$me = $c->broadcast_timeline(0, 0, 20);
+//$me = $c->broadcast_timeline(0, 0, 20);
+$me = $c->home_timeline(0, 0, 20);
 var_dump($me);
 
 /*echo "<pre>";

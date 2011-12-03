@@ -127,7 +127,7 @@ foreach( $weibo as $item )
 }
 if($load_more_flag)
 {
-  $weiboContent .="<a class='loadmore'><span>更多</span></a>";
+  $weiboContent .="<a class='loadmore'>更多</a>";
 }
 echo $weiboContent;
 

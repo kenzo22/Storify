@@ -110,7 +110,7 @@ else
 	  $load_more_flag = false;
 	}
 	//address the tencent my weibo bug
-	if($itemsPerPage >= $total_num)
+	if('my_weibo' == $operation && $itemsPerPage >= $total_num)
 	{
 	  $load_more_flag = false;
 	}			

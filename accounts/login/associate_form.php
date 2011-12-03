@@ -66,7 +66,7 @@ $content = "<div class='form_wrapper'>
 				  <div style='display:inline; margin:0;padding:0;' ><input type='hidden' value='".$photo."' name='weibo_photo' /></div>
 				  <div><label>电子邮箱</label><input id='email' type='text' value='' size='50' name='email' maxlength='50' /><span class='form_tip' id='email_tip'></span></div>
 				  <div><label>密码</label><input id='pwd' type='password' value='' size='50' name='pwd' maxlength='50' /><span class='form_tip' id='pwd_tip'></span></div>
-				  <div class='aa_submit large blue awesome'><a class='cfm_awesome'>确定关联 &raquo;</a></div>
+				  <div class='aa_submit'><a class='cfm_awesome large blue awesome'>确定关联 &raquo;</a></div>
 			    </form>
 			  </div>
 			  <div id='form_2' style='display:none;'>
@@ -77,7 +77,7 @@ $content = "<div class='form_wrapper'>
 				  <div><label>用户名</label><input id='user_name' type='text' value='' size='50' name='user_name' maxlength='50' /><span class='form_tip' id='user_name_tip'></span></div>  
 				  <div><label>密码</label><input id='user_pwd' type='password' value='' size='50' name='user_pwd' maxlength='50' /><span class='form_tip' id='user_pwd_tip'></span></div>
 				  <div><label>确认密码</label><input id='user_pwd_confirm' type='password' value='' size='50' name='user_pwd_confirm' maxlength='50' /><span class='form_tip' id='pwd_confirm_tip'></span></div> 
-				  <div class='aa_submit large blue awesome'><a class='cfm_awesome'>创建帐号并关联 &raquo;</a></div>
+				  <div class='aa_submit'><a class='cfm_awesome large blue awesome'>创建帐号并关联 &raquo;</a></div>
 			    </form>
 			  </div>
 			</div>";
