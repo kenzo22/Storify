@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__FILE__).'/'.'connect_db.php';
+require_once $_SERVER['DOCUMENT_ROOT']."/connect_db.php"; 
 $email=$_POST['email'];
 $pwd=sha1(trim($_POST["pwd"]));
 try

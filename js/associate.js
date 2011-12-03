@@ -21,7 +21,7 @@ if(!/.+@.+\.[a-zA-Z]{2,4}$/.test(this.value))
 else
 {
   var email  = $(this).val();
-  var url = '/register/check_email.php?email='+email;
+  var url = '/accounts/register/check_email.php?email='+email;
   $.get(url, function(data){
   if(data =='1')
   {
@@ -32,7 +32,7 @@ else
 	$('#email_tip').text('抱歉，该邮箱还未注册').css('color', 'red').show();
   }
   return false;
-  })
+  });
 }
 }
 });
@@ -52,7 +52,7 @@ if(!/.+@.+\.[a-zA-Z]{2,4}$/.test(this.value))
 else
 {
   var email  = $(this).val();
-  var url = '/register/check_email.php?email='+email;
+  var url = '/accounts/register/check_email.php?email='+email;
   $.get(url, function(data){
   if(data =='1')
   {
@@ -63,7 +63,7 @@ else
 	$('#user_email_tip').text('该邮箱可以使用').css('color', '#666699').show();
   }
   return false;
-  })
+  });
 }
 }
 });
@@ -90,10 +90,10 @@ else
   }
   else
   {
-    $('#pwd_tip').text('密码输入正确').css('color', '#666699').show();
+	$('#pwd_tip').text('密码输入正确').css('color', '#666699').show();
   }
   return false;
-  })
+  });
 }
 })
 
