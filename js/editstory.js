@@ -387,6 +387,20 @@ $(function() {
 		  
 		$('#d_keywords').val('书名').addClass('imply_color');
 		
+		$('#videoUrl').val('浏览器地址栏url').addClass('imply_color');
+		
+		$('#videoUrl').blur(function(){
+		  if($(this).val() == '')
+		  {
+		    $(this).val('浏览器地址栏url').addClass('imply_color');
+		  }
+		}).focus(function(){
+		  if($(this).val() == '浏览器地址栏url')
+		  {
+		    $(this).val('').removeClass('imply_color');
+		  }
+		});
+		
 		/*$('#doubanTabs').click(function(e){
 		  debugger;
 		  var target=e.target?e.target:e.srcElement;

@@ -1275,12 +1275,12 @@ display:block;
    width: 76px;
  }
  
-#videoTabs form{
-padding-top:15px; 
+#videoTabs .wrapper{
+padding-top:16px; 
 padding-bottom:29px;
 }
 
-#videoTabs form input, #videoTabs form button{
+#videoTabs .wrapper input, #videoTabs .wrapper button{
 margin-top:13px;
 }
  

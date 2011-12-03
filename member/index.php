@@ -187,12 +187,12 @@ $content .= "<div class='inner'>
 		    </div>
 		  </div>
 		  <div id='videoTabs'>
-		    <div>
-		    <div>
-			  <div>优酷视频地址:</div>          
-			  <input id='videoUrl' name='videoUrl' type='text' value='' />
-			  <button value='嵌入视频' id='embedVideo' type='button'>嵌入视频</button>
-            </div>
+		    <div class='wrapper'>
+		      <div>
+			    <div>优酷视频地址:</div>          
+			    <input id='videoUrl' name='videoUrl' type='text' value='' />
+			    <button value='嵌入视频' id='embedVideo' type='button'>嵌入视频</button>
+              </div>
 		    </div>
 		  </div>
 		  <div id='picTabs'>
