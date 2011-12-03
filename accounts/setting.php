@@ -52,7 +52,7 @@ $user_set = "<div class='inner'>
 				   <td valign='top' align='right'>名　号: </td>
 				   <td valign='top'>
 					 <input id='user_name' name='user_name' type='text' size='15' maxlength='15' value='".$result['username']."'/>
-					 <br/>名号30天内只能修改一次。<br/>
+					 <span id='name_tip' class='form_tip'></span>
 				   </td>
 				 </tr>
 				 <tr>
@@ -88,26 +88,6 @@ echo $user_set;
 include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm"
 ?>
 
-<script type="text/javascript">
-$(function()
-{
-  $('#update_btn a').click(function(e)
-  {
-	e.preventDefault();
-	$('.update_notify').remove();
-	var username_val = $('#user_name').val();
-	var userintro_val = $('#user_intro').val();
-	var postdata = {username: username_val, userintro: userintro_val};			  
-    $.post('/accounts/modifysetting', postdata,
-    function(data, textStatus)
-    {
-	  if("success" == textStatus)
-	  {
-	    $('#lzform').before(data);
-	  }
-    });
-  });
-});
-</script>
+<script type='text/javascript' src='/js/setting.js'></script>
 </body>
 </html>

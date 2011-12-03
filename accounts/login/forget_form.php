@@ -9,7 +9,7 @@ if($_GET['act']!="forget_pwd")
 {
   $content = "<div class='inner'> 
   <form method='get' id='f_pwd_form' style='margin-top:30px; overflow:auto;'>
-    <h2> 重设密码 </h2>  
+    <h2 class='page_title'> 重设密码 </h2>  
     <div id='forget_passwd' style='float:left;'> 
 	  <div>
 	    <span style='margin-right:10px;'>邮箱:</span> 
@@ -24,22 +24,24 @@ if($_GET['act']!="forget_pwd")
 	<div class='float_r'>
       <span>还没有口立方帐号，<a href='/accounts/register'/>立即注册？</a></span>
     </div>
-</form>
-<div style='height:270px;'></div>
+  </form>
+  <div style='height:270px;'></div>
 </div>";
   echo $content;
 }
 else
 {
-  $email=$_GET['email'];  
+  $email=$_GET['email'];
   $result=$DB->fetch_one_array("SELECT * FROM ".$db_prefix."user WHERE email='".$email."'");
   if(!empty($result))
   {
-        if (!$result['activate']) {
-            echo "请先激活帐号。";
-        }
-        else {
-        $username = $result['username']; 
+	if(!$result['activate']) 
+	{
+	  echo "请先激活帐号。";
+	}
+	else 
+	{
+	$username = $result['username']; 
 	
 	$reset = $DB->fetch_one_array("select reset_code from ".$db_prefix."reset where username='".$username."' AND email='".$email."'");
 	if(!empty($reset))
@@ -70,7 +72,7 @@ else
     if(sendEmail($email,$subject,$message))
     {
       $content="<div class='inner' style='padding-top:30px;'> 
-	              <h2> 重设密码 </h2> 
+	              <h2 class='page_title'> 重设密码 </h2> 
 				  <div class='float_l'><span>请到 ".$email." 查阅来自口立方的邮件, 从邮件重设你的密码。<span></div>
 				  <div class='float_r'>
 					<span>还没有口立方帐号，<a href='/acounts/register'/>立即注册？</a></span>
@@ -83,11 +85,12 @@ else
     {
       echo "Mailer Error: ";
     }
+    }
   }
-    }
-  else{
+  else
+  {
     echo "您没有注册。";
-    }
+  }
 }
 
 include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm";	 
