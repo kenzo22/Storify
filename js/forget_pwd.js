@@ -44,5 +44,4 @@ $('#btn_cfm_pwd').click(function(e)
     $('#new_pwd_form').submit();
   }
 })
-
 })

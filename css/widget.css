@@ -1,367 +1,63 @@
-.float_r{
-float:right;
-}
-
-#publish_container{
-border-color:#ababac;
-border-style:solid;
-border-width:1px;
-border-radius: 5px;
--moz-border-radius: 5px;
--webkit-border-radius: 5px;
-width:660px;
-font-size: 12px;
-line-height: 22px;
-}
-
-#publish_container ul{
-list-style: none outside none;
-}
-
-#publish_container li{
-list-style: none outside none;
-}
-
-#publish_container a{cursor:pointer;}
-#publish_container a:link { color: #336699; text-decoration: none;}
-#publish_container a:visited { color: #666699; text-decoration: none;}
-#publish_container a:hover { color: #666666; text-decoration: none;}
-#publish_container a:active { color: #FFFFFF; text-decoration: none;}
-
-#publish_container #story_header{
-overflow:auto;
-width:100%;
-zoom:1;
-margin:0; 
-padding:0;
-}
-
-#publish_container #story_header #story_meta{
-margin-top:10px;
-} 
-
-#publish_container #story_header #story_img{
-float:right; 
-padding: 10px 10px 0 0
-} 
-
-#publish_container #story_header #story_img img{
-width:60px; 
-height:60px;
-}
-
-.story_title{
-  padding-left:20px;
-  font-size: 30px;
-  font-weight: 300;
-  line-height: 1.4;
-}
-
-.story_author{
-  padding-left:20px;
-}
-
-.story_author a{
-  margin-left:8px;
-}
-
-.story_sum{
-  padding-left:20px;
-  margin-top:10px;
-  color:#555555;
-}
-
-.story_tag{
-  margin-top:5px;
-  padding-left:20px;
-  color:#555555;
-}
-
-.tag_item{
-background: none repeat scroll 0 0 #F2F7FC;
-border: 1px solid #D1E3EF;
-padding: 3px;
-margin-left:5px;
-}
-
-.tool_wrapper{
-  border-bottom: 1px solid #E6E6E6;
-  overflow:auto;
-}
-
-.story_share{
-  overflow:auto;
-  padding:5px 0 5px 20px;
-}
-
-#story_embed{
-  float:right;
-  margin: -10px 10px 0 0;
-}
-
-.sto_embed{
-margin-left:10px;
-margin-right:10px;
-}
-
-#embed_bar{
-background: none repeat scroll 0 0 #EFEFEF;
-display:none;
-padding: 5px 0 5px 20px;
-clear:both;
-}
-
-#embed_bar .embed_how{
-background: url("../img/usersprite.png") no-repeat scroll 0 -350px transparent;
-width:20px;
-height:20px;
-display:inline-block;
-vertical-align:middle;
-}
-
-#story_embed .arrow_down{
-background: url("../img/usersprite.png") no-repeat scroll 0 0 transparent;
-width:16px;
-height:16px;
-display:inline-block;
-}
-
-#story_embed .arrow_up{
-background: url("../img/usersprite.png") no-repeat scroll 0 -32px transparent;
-width:16px;
-height:16px;
-display:none;
-}
-
-#weibo_ul li{
-margin-top:25px;
-}
-
-.textElement{
-margin:auto;
-width:95%;
-overflow:auto;
-position:relative;
-}
-
-#weibo_ul .douban_drop{
-width:98%;
-position: relative;
-border:none;
-}
-
-#weibo_ul .douban_drop .douban_wrapper{
-width:70%;
-margin:0 auto;
-position:relative;
-zoom:1;
-}
-
-.douban_wrapper .content_wrapper .event_wrapper{
-margin-top:10px; 
-overflow:auto;
-}
-
-.douban_wrapper .content_wrapper .event_wrapper .item_meta{
-margin-left:220px;
-}
-
-.douban_wrapper .comment_title{
-font-weight:bold;
-}
-
-.douban_wrapper .item_info{
-overflow:auto;
-}
-
-.douban_wrapper .item_info a img{
-float:left;
-}
-
-.douban_wrapper .item_info .item_meta{
-margin-left:92px;
-}
-
-.douban_drop{padding:0px 5px 5px 5px;
-margin:auto;
-overflow:hidden;
-position:relative;
-}
-
-#weibo_ul .weibo_drop{
-width:98%;
-border:none;
-}
-
-#weibo_ul .story_wrapper{
-width:70%;
-margin:0 auto;
-position:relative;
-zoom:1;
-}
-
-.douban_signature .text_wrapper, .story_signature .text_wrapper{
-float:right;
-height:16px;
-}
-
-.item_action{
-border: 1px solid rgba(0, 0, 0, 0.3);
-border-radius: 5px;
--moz-border-radius: 5px;
--webkit-border-radius: 5px;
-display: block;
-height: auto;
-margin: 0 -10px 0 0 !important;
-opacity: 0.3;
-padding: 0 !important;
-position: absolute;
-right: -55px;
-width: 87px;
-z-index: 100;
-}
-
-#weibo_ul .item_action{
-top: 5px;
-}
-
-.item_action a{
-display:block;
-}
-.item_action a img{
-margin-left:5px;
-vertical-align:top;
-margin-top:2px;
-}
-
-.item_action a span{
-margin-left:5px;
-vertical-align:top;
-}
-
-.item_action:hover{
-opacity: 1;
-right: -5px;
-background-color:rgba(245,245,245,0.9);
-}
-
-.content_wrapper{
-padding-left:26px;
-background: url('../img/apostrophe.png') no-repeat scroll 0 0 transparent !important;
-}
-
-#weibo_ul{
-margin:0 0 15px 0;
-padding:0;
-}
-
-.weibo_drop{padding:0px 5px 5px 5px;
-border-color:#ababac;
-border-style:solid;
-border-width:1px;
-border-radius: 5px;
--moz-border-radius: 5px;
--webkit-border-radius: 5px;
-margin:auto;
-width:98%;
-overflow:hidden;
-position:relative;}
-
-.signature_text{
-margin-right:5px; 
-float:right;
-zoom:1;
-}
-
-.profile_img_drop{
-width: 32px; 
-height: 32px; 
-overflow: auto; 
-margin-top:2px;
-}
-
-.douban_date_drop{
-background: url("../img/editsprite.png") no-repeat scroll 0 -39px transparent;
-padding-left:17px;
-height: 16px; 
-margin-top:3px;
-color:#939393;
-clear:both;
-float:right;
-}
-
-.douban_sig_logo{
-background: url("../img/editsprite.png") no-repeat scroll 0 -39px transparent;
-width:16px; 
-height:16px;
-display:inline-block;
-float:right;
-}
-
-li.sina .weibo_date_drop{
-background: url("../img/editsprite.png") no-repeat scroll 0 -375px transparent;
-padding-left:17px;
-height: 16px; 
-margin-top:3px;
-color:#939393;
-clear:both;
-float:right;
-}
-
-li.tencent .weibo_date_drop{
-background: url("../img/editsprite.png") no-repeat scroll 0 -463px transparent;
-padding-left:17px;
-height: 16px; 
-margin-top:3px;
-color:#939393;
-clear:both;
-float:right;
-}
-
-.weibo_from_drop{
-color:#000000;
-}
-
-.weibo_img, .weibo_retweet_img{margin:3px 0; text-align:center;}
-.weibo_img_drop, .weibo_retweet_img_drop{margin:3px 0; text-align:center;}
-.weibo_img_drop img, .weibo_retweet_img_drop img{width:280px;}
-
-.yupoo_wrapper{
-position:relative;
-margin:0px auto; 
-text-align:center; 
-border: 5px solid #FFFFFF; box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); 
-max-width: 260px;
-}
-
-.yupoo_sign{
-background: url("../img/editsprite.png") no-repeat scroll 0 -591px transparent;
-height: 16px;
-right: 10px;
-position: absolute;
-bottom: 0;
-width: 16px;
-}
-
- .video_element{
-  margin:0 auto;
-  width:420px;
- }
- 
- .kou_signature{
-display: block; 
-padding:0 10px 5px 5px; 
-text-align:right;
-}
-
-.kou_signature span{
-vertical-align:bottom;
-margin-right:5px;
-}
-
-.kou_signature a{
-background: url("../img/usersprite.png") no-repeat scroll 0 -264px transparent;
-display:inline-block;
-width: 35px; 
-height: 38px;
-}
+.float_r{float:right}
+#publish_container{border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;width:660px;font-size:12px;line-height:22px;border-color:#ababac;border-style:solid;border-width:1px}
+#publish_container a{cursor:pointer}
+#publish_container a:link{color:#369;text-decoration:none}
+#publish_container a:visited{color:#669;text-decoration:none}
+#publish_container a:hover{color:#666;text-decoration:none}
+#publish_container a:active{color:#FFF;text-decoration:none}
+#publish_container #story_header{overflow:auto;width:100%;zoom:1;margin:0;padding:0}
+#publish_container #story_header #story_meta{margin-top:10px}
+#publish_container #story_header #story_img{float:right;padding:10px 10px 0 0}
+#publish_container #story_header #story_img img{width:60px;height:60px}
+.story_title{padding-left:20px;font-size:30px;font-weight:300;line-height:1.4}
+.story_author{padding-left:20px}
+.story_author a{margin-left:8px}
+.story_sum{padding-left:20px;margin-top:10px;color:#555}
+.story_tag{margin-top:5px;padding-left:20px;color:#555}
+.tag_item{background:none repeat scroll 0 0 #F2F7FC;border:1px solid #D1E3EF;margin-left:5px;padding:3px}
+.tool_wrapper{border-bottom:1px solid #E6E6E6;overflow:auto}
+.story_share{overflow:auto;padding:5px 0 5px 20px}
+#story_embed{float:right;margin:-10px 10px 0 0}
+.sto_embed{margin-left:10px;margin-right:10px}
+#embed_bar{background:none repeat scroll 0 0 #EFEFEF;display:none;clear:both;padding:5px 0 5px 20px}
+#embed_bar .embed_how{background:url("../img/usersprite.png") no-repeat scroll 0 -350px transparent;width:20px;height:20px;display:inline-block;vertical-align:middle}
+#story_embed .arrow_down{background:url("../img/usersprite.png") no-repeat scroll 0 0 transparent;width:16px;height:16px;display:inline-block}
+#story_embed .arrow_up{background:url("../img/usersprite.png") no-repeat scroll 0 -32px transparent;width:16px;height:16px;display:none}
+#weibo_ul li{margin-top:25px}
+.textElement{width:95%;overflow:auto;position:relative;margin:auto}
+#weibo_ul .douban_drop{width:98%;position:relative;border:none}
+.douban_wrapper .content_wrapper .event_wrapper{margin-top:10px;overflow:auto}
+.douban_wrapper .content_wrapper .event_wrapper .item_meta{margin-left:220px}
+.douban_wrapper .comment_title{font-weight:700}
+.douban_wrapper .item_info{overflow:auto}
+.douban_wrapper .item_info a img{float:left}
+.douban_wrapper .item_info .item_meta{margin-left:92px}
+.douban_drop{overflow:hidden;position:relative;margin:auto;padding:0 5px 5px}
+#weibo_ul .weibo_drop{width:98%;border:none}
+.douban_signature .text_wrapper,.story_signature .text_wrapper{float:right;height:16px}
+.item_action{border:1px solid rgba(0, 0, 0, 0.3);border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;display:block;height:auto;opacity:0.3;position:absolute;right:-55px;width:87px;z-index:100;margin:0 -10px 0 0 !important;padding:0!important}
+#weibo_ul .item_action{top:5px}
+.item_action a{display:block}
+.item_action a img{margin-left:5px;vertical-align:top;margin-top:2px}
+.item_action a span{margin-left:5px;vertical-align:top}
+.item_action:hover{opacity:1;right:-5px;background-color:rgba(245,245,245,0.9)}
+.content_wrapper{padding-left:26px;background:url('../img/apostrophe.png') no-repeat scroll 0 0 transparent!important}
+#weibo_ul{margin:0 0 15px;padding:0}
+.weibo_drop{border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;width:98%;overflow:hidden;position:relative;border-color:#ababac;border-style:solid;border-width:1px;margin:auto;padding:0 5px 5px}
+.signature_text{margin-right:5px;float:right;zoom:1}
+.profile_img_drop{width:32px;height:32px;overflow:auto;margin-top:2px}
+.douban_date_drop{background:url("../img/editsprite.png") no-repeat scroll 0 -39px transparent;padding-left:17px;height:16px;margin-top:3px;color:#939393;clear:both;float:right}
+.douban_sig_logo{background:url("../img/editsprite.png") no-repeat scroll 0 -39px transparent;width:16px;height:16px;display:inline-block;float:right}
+li.sina .weibo_date_drop{background:url("../img/editsprite.png") no-repeat scroll 0 -375px transparent;padding-left:17px;height:16px;margin-top:3px;color:#939393;clear:both;float:right}
+li.tencent .weibo_date_drop{background:url("../img/editsprite.png") no-repeat scroll 0 -463px transparent;padding-left:17px;height:16px;margin-top:3px;color:#939393;clear:both;float:right}
+.weibo_from_drop{color:#000}
+.weibo_img_drop img,.weibo_retweet_img_drop img{width:280px}
+.yupoo_wrapper{position:relative;text-align:center;border:5px solid #FFF;box-shadow:0 0 10px rgba(0, 0, 0, 0.4);max-width:260px;margin:0 auto}
+.yupoo_sign{background:url("../img/editsprite.png") no-repeat scroll 0 -591px transparent;height:16px;right:10px;position:absolute;bottom:0;width:16px}
+.video_element{width:420px;margin:0 auto}
+.kou_signature{display:block;text-align:right;padding:0 10px 5px 5px}
+.kou_signature span{vertical-align:bottom;margin-right:5px}
+.kou_signature a{background:url("../img/usersprite.png") no-repeat scroll 0 -264px transparent;display:inline-block;width:35px;height:38px}
+#publish_container ul,#publish_container li{list-style:none outside none}
+#weibo_ul .douban_drop .douban_wrapper,#weibo_ul .story_wrapper{width:70%;position:relative;zoom:1;margin:0 auto}
+.weibo_img,.weibo_retweet_img,.weibo_img_drop,.weibo_retweet_img_drop{text-align:center;margin:3px 0}

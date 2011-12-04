@@ -30,7 +30,7 @@ $(function(){
 	}
 	});
   
-  $('#btn_submit_modify').click(function(e)
+  $('#btn_pwd_modify').click(function(e)
   {
 	var old_pwd_val = $('#old_pwd').val();
     var new_pwd_val = $('#new_pwd').val();

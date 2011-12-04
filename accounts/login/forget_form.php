@@ -95,6 +95,6 @@ else
 
 include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm";	 
 ?>
-<script type='text/javascript' src='/js/forget_form.js'></script>
+<script type='text/javascript' src='/js/forget_general.js'></script>
 </body>
 </html>

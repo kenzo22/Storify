@@ -92,6 +92,6 @@
   
 include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm";
 ?>
-<script type='text/javascript' src='/js/resend_mail.js'></script>
+<script type='text/javascript' src='/js/register.js'></script>
 </body>
 </html>

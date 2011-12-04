@@ -41,7 +41,7 @@ if($_POST['act']!="change_email")
 	    <span class='form_tip' id='new_email_cfm_tip'></span>
 	  </div>
       <div>
-	    <a id='btn_submit_modify' class='large blue awesome'>确认修改邮箱 &raquo;</a> 
+	    <a id='btn_email_modify' class='large blue awesome'>确认修改邮箱 &raquo;</a> 
 	    <input type='hidden' name='act' value='change_email' />
 	  </div>
 	</div>
@@ -52,6 +52,7 @@ if($_POST['act']!="change_email")
 }
 else
 {
+  $uid=intval($_SESSION['uid']);
   $login_email=$_POST['login_email'];
   $login_pwd=sha1(trim($_POST["login_pwd"]));
   $new_login_email=$_POST['new_login_email'];
@@ -60,6 +61,9 @@ else
   if(!empty($result))
   {
     $update_result=$DB->query("update ".$db_prefix."user set email='".$new_login_email."'  WHERE email='".$login_email."' AND passwd='".$login_pwd."'" );
+	$userresult = $DB->fetch_one_array("SELECT username FROM ".$db_prefix."user where id='".$uid."'");
+	$username = $userresult['username'];
+	$DB->query("update ".$db_prefix."reset set email='".$new_login_email."' where username='".$username."'");
 	session_destroy();
 	go("/accounts/login", "修改邮箱成功，请重新登录", 2);
   }
@@ -71,6 +75,6 @@ else
 
 include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm";	 
 ?>
-<script type='text/javascript' src='/js/change_email.js'></script>
+<script type='text/javascript' src='/js/general_setting.js'></script>
 </body>
 </html>

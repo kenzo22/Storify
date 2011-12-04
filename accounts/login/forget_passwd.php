@@ -48,6 +48,6 @@ else
 }
 include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm";
 ?>
-<script type='text/javascript' src='/js/forget_pwd.js'></script>
+<script type='text/javascript' src='/js/forget_general.js'></script>
 </body>
 </html>

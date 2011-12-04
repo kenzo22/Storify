@@ -71,6 +71,6 @@ echo $content;
 include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm";
 ?>
 
-<script type='text/javascript' src='/js/source.js'></script>
+<script type='text/javascript' src='/js/general_setting.js'></script>
 </body>
 </html>

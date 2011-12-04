@@ -88,6 +88,6 @@ echo $user_set;
 include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm"
 ?>
 
-<script type='text/javascript' src='/js/setting.js'></script>
+<script type='text/javascript' src='/js/general_setting.js'></script>
 </body>
 </html>

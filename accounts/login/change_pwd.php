@@ -36,7 +36,7 @@ if($_POST['act']!="change_pwd")
 	    <span class='form_tip' id='new_pwd_cfm_tip'></span>
 	  </div>
       <div>
-	    <a id='btn_submit_modify' class='large blue awesome'>确认修改密码 &raquo;</a> 
+	    <a id='btn_pwd_modify' class='large blue awesome'>确认修改密码 &raquo;</a> 
 	    <input type='hidden' name='act' value='change_pwd' />
 	  </div>
 	</div>
@@ -64,6 +64,6 @@ else
 
 include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm";	 
 ?>
-<script type='text/javascript' src='/js/change_pwd.js'></script>
+<script type='text/javascript' src='/js/general_setting.js'></script>
 </body>
 </html>

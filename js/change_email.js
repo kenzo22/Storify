@@ -53,7 +53,7 @@ $(function(){
 	}
 	})
   
-  $('#btn_submit_modify').click(function(e)
+  $('#btn_email_modify').click(function(e)
   {
 	var login_email_val = $('#login_email').val();
     var login_pwd_val = $('#login_pwd').val();
