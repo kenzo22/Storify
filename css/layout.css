@@ -85,7 +85,7 @@ div.pagination span.current{border:1px solid #b7d8ee;font-weight:700;color:#444;
 #topUsers ol li{list-style-type:decimal}
 .category h3{border-bottom:1px solid #E6E6E6;color:#999;padding-bottom:15px;font-size:20px;font-weight:500;text-shadow:0 1px 0 #FFFFFF, 0 1px 0 #EEE;margin:40px 0 0}
 .published-steps{background:none repeat scroll 0 0 #FFF;border:1px solid #ABABAC;box-shadow:0 0 5px rgba(212, 212, 212, 0.3);font-size:12px;width:660px;margin:0 0 5px;padding:10px 0 0}
-.published-steps .tabs{margin-bottom:-1px;padding:0 10px}
+.published-steps .tabs{margin-bottom:-1px;padding:0 0 0 10px}
 .published-steps .post-tab,.published-steps .notify-tab,.published-steps .share-tab{background:0 repeat scroll 0 0 #FFF;border:1px solid #ABABAC;position:relative;text-align:left;text-shadow:none;width:199px;color:#444;display:inline-block;font-size:13px;font-weight:700;line-height:1;text-decoration:none;cursor:pointer;margin:0 12px 0 0;padding:10px}
 .published-steps .post-tab .icon{background:url("../img/usersprite.png") no-repeat scroll 0 -232px transparent;height:21px;width:21px;float:left}
 .published-steps .notify-tab .icon{background:url("../img/usersprite.png") no-repeat scroll 0 -386px transparent;height:21px;float:left;width:21px}

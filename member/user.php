@@ -28,11 +28,36 @@ include $_SERVER['DOCUMENT_ROOT']."/member/userrelation.php";
 <?php
 $date_t = date("Y-m-d H:i:s");
 $login_status = islogin();
+$user_id = $_GET['user_id'];
+$self_flag = false;
+$follow_flag = false;
+if($login_status && $user_id == $_SESSION['uid'])
+{
+  $self_flag = true;
+}
+else if($login_status && $user_id != $_SESSION['uid'])
+{
+  $follow_flag = true;
+}
 
 if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action']))
 {
 	$post_id = $_GET['post_id'];
-	$user_id = $_GET['user_id'];
+	
+	$c = new WeiboClient(WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']);
+	$t = new TWeiboClient(MB_AKEY , MB_SKEY , $_SESSION['last_tkey']['oauth_token'] , $_SESSION['last_tkey']['oauth_token_secret']);
+	$d = new DoubanClient(DB_AKEY , DB_SKEY , $_SESSION['last_dkey']['oauth_token'] , $_SESSION['last_dkey']['oauth_token_secret']);
+	$result = $DB->fetch_one_array("select * from ".$db_prefix."posts where ID='".$post_id."'");
+	if(!$result)
+	{
+	  throw new Exception('Could not execute query.');
+	}
+	if(!$self_flag && $result['post_status'] != 'Published')
+	{
+	  go("/","您要查看的故事不存在",2);
+      exit;
+	}
+	
 	//update the page view
 	$selResult = $DB->fetch_one_array("SELECT id FROM ".$db_prefix."pageview WHERE story_id='".$post_id."' AND domain_name='koulifang.com'" );
 	if(!empty($selResult))
@@ -42,15 +67,6 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	else
 	{
 	  $viewresult=$DB->query("insert into ".$db_prefix."pageview values(null, '".$post_id."', 'koulifang.com', '', 1)");
-	}
-	
-	$c = new WeiboClient(WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']);
-	$t = new TWeiboClient(MB_AKEY , MB_SKEY , $_SESSION['last_tkey']['oauth_token'] , $_SESSION['last_tkey']['oauth_token_secret']);
-	$d = new DoubanClient(DB_AKEY , DB_SKEY , $_SESSION['last_dkey']['oauth_token'] , $_SESSION['last_dkey']['oauth_token_secret']);
-	$result = $DB->fetch_one_array("select * from ".$db_prefix."posts where ID='".$post_id."'");
-	if(!$result)
-	{
-	  throw new Exception('Could not execute query.');
 	}
 	$story_author = $result['post_author'];
 	
@@ -145,7 +161,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 				  </div>";
 	}
 	
-	if(!$login_status|| $story_author != $_SESSION['uid'])
+	if(!$self_flag)
 	{
 	  $content .= "<div id='story_container'><div class='publish_wrapper'><div id='publish_container'>";
 	}
@@ -739,7 +755,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 			<div class='wrapper'>
 			  <div class='user_name'><a href='/user/".$story_author."'><span>".$userresult['username']."</span></a></div>";
 		  
-	if($login_status && $story_author != $_SESSION['uid'])
+	if($follow_flag)
 	{
 	  $login_user_id = $_SESSION['uid'];
 	  
@@ -865,7 +881,6 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 
 else if(isset($_GET['user_id']) && isset($_GET['post_id']) && isset($_GET['action']))
 {
-	$user_id = $_GET['user_id'];
 	$story_id = $_GET['post_id'];
 	$story_action = $_GET['action'];
 	if(0 == strcmp($story_action, 'edit'))
@@ -888,7 +903,6 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
   $tbl_name="story_posts";
   // How many adjacent pages should be shown on each side?
   $adjacents = 3;
-  $user_id = $_GET['user_id'];
   $userresult = $DB->fetch_one_array("SELECT username, photo, intro FROM ".$db_prefix."user where id='".$user_id."'");
   $username = $userresult['username'];
   
@@ -918,7 +932,14 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
   $following_list = getFollowing($user_id);
   $follower_list=getFollower($user_id);
   
-  $query = "SELECT COUNT(*) as num FROM $tbl_name where post_author='".$user_id."'";
+  if($self_flag)
+  {
+    $query = "SELECT COUNT(*) as num FROM $tbl_name where post_author='".$user_id."'";
+  }
+  else
+  {
+    $query = "SELECT COUNT(*) as num FROM $tbl_name where post_author='".$user_id."' and post_status = 'Published'";
+  }
   $total_pages = mysql_fetch_array(mysql_query($query));
   $total_pages = $total_pages[num];
   
@@ -933,7 +954,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 							<span>故事:".$total_pages."</span>
 						  </div>";
 					  
-  if($login_status && $user_id != $_SESSION['uid'])
+  if($follow_flag)
   {
 	  $login_user_id = $_SESSION['uid'];
 	  
@@ -956,7 +977,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
   if(0 == $total_pages)
   {
     $story_content.="<div style='height:30px;'></div>";
-	if($login_status && $user_id == $_SESSION['uid'])
+	if($self_flag)
 	{
 	  $story_content.="<h4 class='text'>你可以用口立方报道新闻，追踪网络热点事件，汇总美食，旅游，时尚周边信息，写书评影评，等等～</h4><a class='large green awesome' href='/create'>开始创建 &raquo;</a><div class='footer_spacer'></div></div></div>";
 	}
@@ -976,7 +997,14 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 		$start = 0;								//if no page var is given, set start to 0
 	
 	/* Get data. */
-	$sql = "SELECT * FROM $tbl_name where post_author='".$user_id."'LIMIT $start, $limit";
+	if($self_flag)
+	{
+	  $sql = "SELECT * FROM $tbl_name where post_author='".$user_id."'LIMIT $start, $limit";
+	}
+	else
+	{
+	  $sql = "SELECT * FROM $tbl_name where post_author='".$user_id."' and post_status = 'Published' LIMIT $start, $limit";
+	}
 	$result = mysql_query($sql);
 	
 	/* Setup page vars for display. */
@@ -1095,7 +1123,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 							  <a class='title_wrap' href='".$post_link."'>
 								<span class='title'>".$post_title."</span>
 							  </a>";
-		if($login_status && $user_id == $_SESSION['uid'])
+		if($self_flag)
 		{
 		  $story_content .="<div class='editable'>
 		  <div class='actions'>

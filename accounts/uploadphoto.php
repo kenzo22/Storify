@@ -32,7 +32,7 @@ if($_POST['act'] == 'uploadphoto')
 	  }
 	  echo "<div class='spacer'></div><a class='large blue awesome' href='/accounts/uploadphoto'>重新上传 &raquo;</a><div class='footer_spacer'></div></div>";
     }
-	else if(($_FILES["photofile"]["type"] == "image/png") || ($_FILES["photofile"]["type"] == "image/gif") || ($_FILES["photofile"]["type"] == "image/jpeg") || ($_FILES["photofile"]["type"] == "image/jpg") ||
+	else if(($_FILES["photofile"]["type"] == "image/png") || ($_FILES["photofile"]["type"] == "image/x-png") || ($_FILES["photofile"]["type"] == "image/gif") || ($_FILES["photofile"]["type"] == "image/jpeg") || ($_FILES["photofile"]["type"] == "image/jpg") ||
 	($_FILES["photofile"]["type"] == "image/pjpeg") || ($_FILES["photofile"]["type"] == "image/bmp"))	
 	{
 	  $upload_dir= "../img/user/"; 
