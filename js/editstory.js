@@ -1,9 +1,5 @@
 var embedCode, vtabIndex, followPage, myPage, userSearchPage, tuserSearchPage, myPageTimestamp, followTimestamp, usersearchTimestamp;
-var weiboSearhPage = 1, picSearchPage = 1, userpicSearchPage =1, colSearchPage = 1, recSearchPage = 1, tweibosearchPage = 1, doubanItemCounts = 10, commentsPerQuery = 5, eventStartIndex = 1, bookStartIndex = 1, bookReviewStartIndex = 1, movieStartIndex = 1, movieReviewStartIndex = 1, musicStartIndex = 1, musicReviewStartIndex = 1;
-var weibo_url = '/weibo/weibooperation.php';
-var tweibo_url = '/tweibo/tweibooperation.php';
-var douban_url = '/douban/doubanoperation.php';
-var yupoo_url = '/yupoo/yupoooperation.php';
+var weiboSearhPage = 1, picSearchPage = 1, userpicSearchPage =1, colSearchPage = 1, recSearchPage = 1, tweibosearchPage = 1, doubanItemCounts = 10, commentsPerQuery = 5, eventStartIndex = 1, bookStartIndex = 1, bookReviewStartIndex = 1, movieStartIndex = 1, movieReviewStartIndex = 1, musicStartIndex = 1, musicReviewStartIndex = 1, weibo_url = '/weibo/weibooperation.php', tweibo_url = '/tweibo/tweibooperation.php', douban_url = '/douban/doubanoperation.php', yupoo_url = '/yupoo/yupoooperation.php';
 
 if( typeof( window.innerHeight ) == 'number' ){
 //Non-IE
@@ -12,11 +8,7 @@ myHeight = window.innerHeight;
 //IE 6+ in 'standards compliant mode'
 myHeight = document.documentElement.clientHeight;
 }
-var l_used_height = 267;
-var r_user_height = 326;
-var height_adjust = 3;
-var l_list_height = myHeight -l_used_height;
-var r_list_height;
+var l_used_height = 267, r_user_height = 326, height_adjust = 3, l_list_height = myHeight -l_used_height, r_list_height;
 
 var browser_info = $.browser;
 
@@ -38,8 +30,7 @@ $('#story_list').css('min-height', r_list_height);
 
 Array.prototype.getUnique = function()
 {
-  var o = {};
-  var i, e;
+  var o = {}, i, e;
   for (i=0; e=this[i]; i++) {o[e]=1};
   var a=new Array();
   for (e in o)
@@ -239,9 +230,7 @@ function remove_item(evt)
 
 function change_story_pic(direction)
 {
-  var item_pic_url;
-  var story_pic_array = [];
-  var url_array_length = story_pic_array.length;
+  var item_pic_url, story_pic_array = [], url_array_length = story_pic_array.length;
   $('#story_list li:not(.addTextElementAnchor, .textElement, .video_drop)').each(function(index){
 	if($(this).hasClass('sina'))
     {
@@ -401,38 +390,6 @@ $(function() {
 		  }
 		});
 		
-		/*$('#doubanTabs').click(function(e){
-		  debugger;
-		  var target=e.target?e.target:e.srcElement;
-		  if($(e.target).is('#doubanTabs ul li a'))
-		  {
-		    $('#source_list').children().remove();
-			$('#d_keywords').css('color', '#999999');
-			var atrClass = $(target).attr('class');
-			switch(artClass)
-			{
-			  case('book_tab'): 
-			  bookStartIndex = 1;
-			  $('#d_keywords').val('书名');
-			  break;
-			  case('movie_tab'): 
-			  movieStartIndex = 1;
-			  $('#d_keywords').val('电影名');
-			  break;
-			  case('music_tab'): 
-			  musicStartIndex = 1;
-			  $('#d_keywords').val('歌曲名');
-			  break;
-			  case('event_tab'): 
-			  eventStartIndex = 1;
-			  $('#d_keywords').val('搜活动');
-			  break;
-			  default:
-			  break;
-			}
-		  }
-		});*/
-		
 		$('#book_tab').click(function(){
 		  bookStartIndex = 1;
 		  $('#d_keywords').val('书名').addClass('imply_color');
@@ -543,8 +500,7 @@ $(function() {
 			}
 		  }
 		  
-		  var getUrl;
-		  var getData;
+		  var getUrl, getData;
 		  if(sinaFlag)
 		  {
 		    getUrl = weibo_url;
@@ -607,8 +563,7 @@ $(function() {
 			}
 		  }
 		  
-		  var getUrl;
-		  var getData;
+		  var getUrl, getData;
 		  if(sinaFlag)
 		  {
 		    getUrl = weibo_url;
@@ -881,8 +836,6 @@ $(function() {
 				var weibo_img_content = "";
 				var weibo_retweet_img_content = "";
 				var weibo_from_url = dragItem.find('.user_page').attr('href');
-				var position = ui.position;
-			　  var weibo_id = dragItem.find('.weibo_drag').attr('id');
 			　  var weibo_Text= dragItem.find('.weibo_text').html();
 			    //var repost_flag = dragItem.find('.weibo_text').hasClass('is_repost');
 			　  var weibo_from = dragItem.find('.weibo_from').text();
@@ -979,7 +932,6 @@ $(function() {
 				  var douban_comment_title = dragItem.find('.comment_title').text();
 				  var douban_comment_summary = dragItem.find('.comment_summary').html();
 				  var douban_comment_date = dragItem.find('.comment_date').text();
-				  var douban_comment_url = dragItem.find('.comment_full_url').attr('href');
 				  var douban_item_img = dragItem.find('.item_img').attr('src');
 				  var douban_item_title = dragItem.find('.item_title').text();
 				  var douban_item_author = dragItem.find('.item_author').text();
@@ -1016,7 +968,6 @@ $(function() {
 			    //var thumbnailUrl = dragItem.find('.youku_thumbnail').attr('src');
 				var videoUrl = dragItem.find('.videoTitle').attr('href');
 				var videoTitle = dragItem.find('.videoTitle').text();
-				var videoEmbedCode;
 				var videoContent = ("<div class='cross' action='delete'></div><div class='handle'></div><div class='youku_wrapper'><div><a class='videoTitle' target='_blank' href='"
 				+videoUrl+"'>"+videoTitle+"</a></div>"+embedCode+"</div>");
 				dragItem.removeClass('video_drag').addClass('video_drop').children().remove();　
@@ -1432,8 +1383,6 @@ $(function() {
 			}
 			else
 			{
-			  //add user search function
-			  //var words = $('#keywords').val();
 			  if(0 == vtabIndex)
 		      {
 		        getUrl = weibo_url;

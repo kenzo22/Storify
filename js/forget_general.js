@@ -15,8 +15,8 @@ $(function()
 		}
 		else
 		{
-		  var email  = $(this).val();
-		  var url = '/register/check_email.php?email='+email;
+		  var email  = $(this).val(),
+		      url = '/accounts/register/check_email.php?email='+email;
 		  $.get(url, function(data){
 		  if(data !='1')
 		  {
@@ -33,8 +33,8 @@ $(function()
   });
   $('#btn_submit_forget').click(function(e)
   {
-	var email_val = $('#signup_email').val();
-	var tip_flag = $('#email_tip').css('color') == 'red';
+	var email_val = $('#signup_email').val(),
+	    tip_flag = $('#email_tip').css('color') == 'red';
 	if(tip_flag || email_val == '')
     {
       e.preventDefault();
@@ -72,8 +72,8 @@ $(function()
 
 	$('#btn_cfm_pwd').click(function(e)
 	{
-	  var pwd_val = $('#new_pwd').val();
-	  var pwd_cfm_val = $('#pwd_confirm').val();
+	  var pwd_val = $('#new_pwd').val(),
+	      pwd_cfm_val = $('#pwd_confirm').val();
 	  if(pwd_val != pwd_cfm_val)
 	  {
 		$('#pwd_confirm_tip').text('两次输入密码不一致，请重新输入').css('color', 'red');

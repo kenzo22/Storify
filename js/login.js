@@ -22,9 +22,9 @@ if(this.value=='')
 
 $('#loginbtn').click(function(e)
 {
-  var email_val = $('#email_login').val();
-  var pwd_val = $('#pwd_login').val();
-  var tip_flag = ($('#email_tip').text() != '') || ($('#pwd_tip').text() != '');
+  var email_val = $('#email_login').val(),
+      pwd_val = $('#pwd_login').val(),
+      tip_flag = ($('#email_tip').text() != '') || ($('#pwd_tip').text() != '');
   if(tip_flag || email_val == '' || pwd_val == '')
   {
     e.preventDefault();
@@ -40,9 +40,9 @@ $('#email_login, #pwd_login').bind('keyup', function(e)
   var code = e.keyCode || e.which; 
   if(code == 13)
   {
-    var email_val = $('#email_login').val();
-    var pwd_val = $('#pwd_login').val();
-    var tip_flag = ($('#email_tip').text() != '') || ($('#pwd_tip').text() != '');
+    var email_val = $('#email_login').val(),
+        pwd_val = $('#pwd_login').val(),
+        tip_flag = ($('#email_tip').text() != '') || ($('#pwd_tip').text() != '');
     if(tip_flag || email_val == '' || pwd_val == '')
     {
       e.preventDefault();

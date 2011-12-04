@@ -14,8 +14,8 @@ else
   }
   else
   {
-    var $email  = $(this).val();
-    var url = '/accounts/register/check_email.php?email='+$email;
+    var email  = $(this).val(),
+		url = '/accounts/register/check_email.php?email='+email;
     $.get(url, function(data){
     if(data =='1')
     {
@@ -66,8 +66,8 @@ if(this.value=='')
 }
 else
 {
-  var cArr = this.value.match(/[^\x00-\xff]/ig);   
-  var name_length = this.value.length + (cArr == null ? 0 : cArr.length);
+  var cArr = this.value.match(/[^\x00-\xff]/ig),   
+	  name_length = this.value.length + (cArr == null ? 0 : cArr.length);
   if(name_length > 14)
   {
     $('#name_tip').text('名号长度不能超过14个英文或7个汉字').css('color', 'red');
@@ -88,11 +88,10 @@ $('#agree_term').click(function(e){
 
 $('#btn_submit_signup a').click(function(e)
 {
-  var email_val = $('#email_reg').val();
-  var pwd_val = $('#pwd_reg').val();
-  var pwd_cfm_val = $('#pwd_confirm').val();
-  var name_val = $('#name_reg').val();
-  //var icode_val = $('#code_reg').val();
+  var email_val = $('#email_reg').val(),
+	  pwd_val = $('#pwd_reg').val(),
+      pwd_cfm_val = $('#pwd_confirm').val(),
+      name_val = $('#name_reg').val();
   if(pwd_val != pwd_cfm_val)
   {
     $('#pwd_confirm_tip').text('两次输入密码不一致，请重新输入').css('color', 'red');
@@ -122,11 +121,10 @@ $('#email_reg, #pwd_reg, #pwd_confirm, #name_reg, #agree_term').bind('keyup', fu
   var code = e.keyCode || e.which; 
   if(code == 13)
   {
-      var email_val = $('#email_reg').val();
-	  var pwd_val = $('#pwd_reg').val();
-	  var pwd_cfm_val = $('#pwd_confirm').val();
-	  var name_val = $('#name_reg').val();
-	  //var icode_val = $('#code_reg').val();
+      var email_val = $('#email_reg').val(),
+	      pwd_val = $('#pwd_reg').val(),
+	      pwd_cfm_val = $('#pwd_confirm').val(),
+	      name_val = $('#name_reg').val();
 	  if(pwd_val != pwd_cfm_val)
 	  {
 		$('#pwd_confirm_tip').text('两次输入密码不一致，请重新输入').css('color', 'red');
@@ -154,13 +152,12 @@ $('#email_reg, #pwd_reg, #pwd_confirm, #name_reg, #agree_term').bind('keyup', fu
 
 $('#a_resend').click(function(e)
 {
-    debugger;
   e.preventDefault();
   $('.a_notify').remove();
-  var ori_info = $('#imply_info').val();
-  var info = decodeURIComponent(ori_info);
-  var temp_array = info.split('&');
-  var postdata = {uname: temp_array[0], email: temp_array[1]};
+  var ori_info = $('#imply_info').val(),
+      info = decodeURIComponent(ori_info),
+      temp_array = info.split('&'),
+      postdata = {uname: temp_array[0], email: temp_array[1]};
   $.post('/accounts/register/send_mail.php', postdata,
 	function(data, textStatus)
 	{					

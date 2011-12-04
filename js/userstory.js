@@ -1,7 +1,6 @@
 Array.prototype.getUnique = function()
 {
-  var o = {};
-  var i, e;
+  var o = {}, i, e;
   for (i=0; e=this[i]; i++) {o[e]=1};
   var a=new Array();
   for (e in o)
@@ -18,10 +17,10 @@ $(function(){
 	$('body').prepend("<div id='mask'></div>");
 			  
 	$('.follow').click(function(){
-	  var follow_info = $(this).attr('id');
-	  var follow_array = follow_info.split('_');
-	  var userid = follow_array[2];
-	  var operation_val = $(this).text();
+	  var follow_info = $(this).attr('id'),
+	      follow_array = follow_info.split('_'),
+	      userid = follow_array[2],
+	      operation_val = $(this).text();
 	  if('关注' == operation_val)
 	  {
 		operation_val = 'follow';
@@ -30,7 +29,7 @@ $(function(){
 	  {
 		operation_val = 'unfollow';
 	  }
-	  var postdata = {operation: operation_val, uid: userid};
+	  var postdata = {operation: operation_val, uid: userid}, temp='';
 	  $.post('/member/useroperation.php', postdata,
 		  function(data, textStatus)
 		  {
@@ -38,12 +37,12 @@ $(function(){
 			{
 			  if(operation_val == 'follow')
 			  {
-				var temp = $('.account_count .fans_count').text();
+				temp = $('.account_count .fans_count').text();
 				$('.account_count .fans_count').text(parseInt(temp)+1);
 			  }
 			  else
 			  {
-				var temp = $('.account_count .fans_count').text();
+				temp = $('.account_count .fans_count').text();
 				$('.account_count .fans_count').text(parseInt(temp)-1);
 			  }
 			  $('.follow').toggle();
@@ -63,10 +62,10 @@ $(function(){
 	});
 	  
 	  $('.follow_btn').click(function(){
-		  var follow_btn_info = $(this).attr('id');
-		  var info_array = follow_btn_info.split('_');
-		  var userid = info_array[2];
-		  var operation_val = $(this).text();
+		  var follow_btn_info = $(this).attr('id'),
+		      info_array = follow_btn_info.split('_'),
+		      userid = info_array[2],
+		      operation_val = $(this).text();
 		  if('关注' == operation_val)
 		  {
 			operation_val = 'follow';
@@ -75,7 +74,7 @@ $(function(){
 		  {
 			operation_val = 'unfollow';
 		  }
-		  var postdata = {operation: operation_val, uid: userid};
+		  var postdata = {operation: operation_val, uid: userid}, temp='';
 		  $.post('/member/useroperation.php', postdata,
 			  function(data, textStatus)
 			  {
@@ -83,7 +82,7 @@ $(function(){
 				{
 				  if(operation_val == 'follow')
 				  {
-					var temp = $('.usersfollowers .count').text();
+					temp = $('.usersfollowers .count').text();
 					$('.usersfollowers .count').text(parseInt(temp)+1);
 					$('.follower_list').append(data);
 				  }
@@ -91,7 +90,7 @@ $(function(){
 				  {
 					var user_id=info_array[0];
 					$('#follower_id_'+user_id).remove();
-					var temp = $('.usersfollowers .count').text();
+					temp = $('.usersfollowers .count').text();
 					$('.usersfollowers .count').text(parseInt(temp)-1);
 				  }
 				  $('.follow_btn').toggle();
@@ -114,12 +113,14 @@ $(function(){
 	  $('.load_more').live('click',function(e)
 		{
 		  e.preventDefault();
-		  var more_id_val = $(this).attr('id');
-		  var more_array = more_id_val.split('_');
-		  var post_id_val = more_array[2];
-		  var first_item_val = more_array[0];
-		  var temp = first_item_val - 1;
-		  var postdata = {post_id: post_id_val, first_item: first_item_val};			  
+		  var id_val='',
+		      more_id_val = $(this).attr('id'),
+		      more_array = more_id_val.split('_'),
+		      post_id_val = more_array[2],
+		      first_item_val = more_array[0],
+		      temp = first_item_val - 1,
+		      postdata = {post_id: post_id_val, first_item: first_item_val},
+			  imgloading = $("<img src='/img/loading.gif' />");
 		  
 		  $.ajax({
 			type: 'POST',
@@ -127,7 +128,6 @@ $(function(){
 			data: postdata, 
 			beforeSend:function() 
 			{
-			  var imgloading = $("<img src='/img/loading.gif' />");
 			  $('.load_more').html(imgloading);
 			},
 			success: function(data){
@@ -137,7 +137,7 @@ $(function(){
 				  {
 					if($(this).hasClass('sina'))
 					{
-					  var id_val = $(this).attr('id');
+					  id_val = $(this).attr('id');
 					  WB2.anyWhere(function(W){
 					  W.widget.hoverCard({
 						id: id_val,
@@ -279,28 +279,20 @@ $(function(){
 			var w_id = 'txt_'+ $(this).closest('li').attr('id');
 			$('.publish-tweet').attr('id', w_id);
 			
-			//Get the A tag
 			var id = $(this).attr('href');
 
-			//Get the screen height and width
-			var maskHeight = $(document).height();
-			var maskWidth = $(window).width();
+			var maskHeight = $(document).height(),
+			    maskWidth = $(window).width(),
+			    winH = $(window).height(),
+			    winW = $(window).width();
 
-			//Set heigth and width to mask to fill up the whole screen
 			$('#mask').css({'width':maskWidth,'height':maskHeight});	
 			$('#mask').show().css('opacity', '0.7');
-			//$('#mask').fadeTo('slow',0.8);	
-
-			//Get the window height and width
-			var winH = $(window).height();
-			var winW = $(window).width();
-			var scrollTop = $(document).scrollTop();
-			var scrollLeft = $(document).scrollLeft();
+			var scrollTop = $(document).scrollTop(),
+			    scrollLeft = $(document).scrollLeft();
 				  
-			//Set the popup window to center
 			$(id).css('top',  winH/2-$(id).height()/2+scrollTop-100);
 			$(id).css('left', winW/2-$(id).width()/2+scrollLeft);
-
 			$(id).show(); 
 
 		});
@@ -342,8 +334,8 @@ $(function(){
 	  var r=confirm("确定删除这个故事吗?");
 	  if (r==true)
 	  {
-	    var post_id_val = $(this).attr('id').replace(/_delete/, "");
-	    var getData = {post_id: post_id_val};
+	    var post_id_val = $(this).attr('id').replace(/_delete/, ""),
+	        getData = {post_id: post_id_val};
 	    $.get('/member/removestory.php', getData,
 	    function(data, textStatus)
 	    {
@@ -415,8 +407,7 @@ $(function(){
 	});
 	
 	$('.notify-tweet').live('keyup', function(e){
-	  var w_user_count = 0;
-	  var t_user_count = 0;
+	  var w_user_count = 0, t_user_count = 0;
 	  $('.sina_user .notify-user input').each(function()
 	  {
 	    if($(this).attr('checked'))
@@ -480,8 +471,7 @@ $(function(){
 	  {
 	    ope_val = 'repost';
 	  }
-	  var postUrl;
-	  var postData;
+	  var postUrl, postData;
 	  if($('#pub_text').hasClass('sina'))
 	  {
 	    postUrl = '/weibo/postweibo.php';
@@ -506,8 +496,7 @@ $(function(){
 	
 	$('.tweet_btn').live('click', function(e){
 	  e.preventDefault();
-	  var weibo_content_val = '';
-	  var tweibo_content_val = '';
+	  var weibo_content_val = '', tweibo_content_val = '';
 	  $('.sina_user .notify-user input').each(function()
 	  {
 	    if($(this).attr('checked'))
@@ -526,8 +515,7 @@ $(function(){
 	  if(($('#tweibo_f').attr('checked')) && (tweibo_content_val != ''))
 	  {
 	      tweibo_content_val += $('.notify-tweet').val();
-		  var postUrl;
-		  var postData;
+		  var postUrl, postData;
 		  postUrl = '/tweibo/posttweibo.php';
 		  postData = {operation: 'publish', weibo_content: tweibo_content_val};
 
@@ -545,8 +533,7 @@ $(function(){
 	  if(($('#weibo_f').attr('checked')) && (weibo_content_val != ''))
 	  {
 	      weibo_content_val += $('.notify-tweet').val();
-		  var postUrl;
-		  var postData;
+		  var postUrl, postData;
 		  postUrl = '/weibo/postweibo.php';
 		  postData = {operation: 'publish', weibo_content: weibo_content_val};
 

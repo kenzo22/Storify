@@ -20,8 +20,8 @@ if(!/.+@.+\.[a-zA-Z]{2,4}$/.test(this.value))
 }
 else
 {
-  var email  = $(this).val();
-  var url = '/accounts/register/check_email.php?email='+email;
+  var email  = $(this).val(),
+      url = '/accounts/register/check_email.php?email='+email;
   $.get(url, function(data){
   if(data =='1')
   {
@@ -51,8 +51,8 @@ if(!/.+@.+\.[a-zA-Z]{2,4}$/.test(this.value))
 }
 else
 {
-  var email  = $(this).val();
-  var url = '/accounts/register/check_email.php?email='+email;
+  var email  = $(this).val(),
+      url = '/accounts/register/check_email.php?email='+email;
   $.get(url, function(data){
   if(data =='1')
   {
@@ -78,10 +78,10 @@ if(this.value=='')
 }
 else
 {
-  var email_val  = $('#email').val();
-  var pwd_val = $(this).val();
-  var postdata={email: email_val, pwd: pwd_val};
-  var url = '/accounts/login/check_credential.php';
+  var email_val  = $('#email').val(),
+      pwd_val = $(this).val(),
+      postdata={email: email_val, pwd: pwd_val},
+      url = '/accounts/login/check_credential.php';
   $.post(url, postdata, function(data){
   if(data =='0')
   {
@@ -132,8 +132,8 @@ if(this.value=='')
 }
 else
 {
-  var cArr = this.value.match(/[^\x00-\xff]/ig);   
-  var name_length = this.value.length + (cArr == null ? 0 : cArr.length);
+  var cArr = this.value.match(/[^\x00-\xff]/ig),   
+      name_length = this.value.length + (cArr == null ? 0 : cArr.length);
   if(name_length > 14)
   {
     $('#user_name_tip').text('名号长度不能超过14个英文或7个汉字').css('color', 'red');
@@ -142,27 +142,27 @@ else
 })
 
 $('.aa_submit').click(function(e){
-var submitFlag = true;
+var submitFlag = true, email='', username='', pwd='', pwd_confirm='', tip_flag = true;
 if($('#form_1').is(':hidden'))
 {
-  var email = $('#user_email').val();
-  var username = $('#user_name').val();
-  var pwd = $('#user_pwd').val();
-  var pwd_confirm = $('#user_pwd_confirm').val();
+  email = $('#user_email').val();
+  username = $('#user_name').val();
+  pwd = $('#user_pwd').val();
+  pwd_confirm = $('#user_pwd_confirm').val();
   if(pwd != pwd_confirm)
   {
     $('#pwd_confirm_tip').text('两次输入密码不一致，请重新输入').css('color', 'red');
     $('#user_pwd_confirm').val('');
   }
-  var tip_flag = ($('#user_email_tip').css('color') == 'red') || ($('#user_name_tip').css('color') == 'red') || ($('#user_pwd_tip').css('color') == 'red') || ($('#pwd_confirm_tip').css('color') == 'red');
+  tip_flag = ($('#user_email_tip').css('color') == 'red') || ($('#user_name_tip').css('color') == 'red') || ($('#user_pwd_tip').css('color') == 'red') || ($('#pwd_confirm_tip').css('color') == 'red');
   if(tip_flag || email == '' || username == '' || pwd == '' || pwd_confirm == '')
   submitFlag = false;
 }
 else if($('#form_2').is(':hidden'))
 {
-  var email = $('#email').val();
-  var pwd = $('#pwd').val();
-  var tip_flag = ($('#email_tip').css('color') == 'red') || ($('#pwd_tip').css('color') == 'red');
+  email = $('#email').val();
+  pwd = $('#pwd').val();
+  tip_flag = ($('#email_tip').css('color') == 'red') || ($('#pwd_tip').css('color') == 'red');
   if(tip_flag || email == '' || pwd == '')
   submitFlag = false;
 }

@@ -13,10 +13,10 @@ $('#email_val').bind('blur', function()
 
 $('#btn_submit_fb').click(function(e)
 {
-  var name_val = $('#name_val').val();
-  var email_val = $('#email_val').val();
-  var fb_val = $('#fb_val').val();
-  var tip = $('#email_tip').text();
+  var name_val = $('#name_val').val(),
+      email_val = $('#email_val').val(),
+      fb_val = $('#fb_val').val(),
+      tip = $('#email_tip').text();
   if(tip != '' || name_val == '' || email_val == '' || fb_val == '')
   {
     $('.err_notify').remove();

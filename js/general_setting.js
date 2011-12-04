@@ -125,8 +125,8 @@ $(function(){
   }
   else
   {
-    var cArr = this.value.match(/[^\x00-\xff]/ig);   
-    var name_length = this.value.length + (cArr == null ? 0 : cArr.length);
+    var cArr = this.value.match(/[^\x00-\xff]/ig),   
+        name_length = this.value.length + (cArr == null ? 0 : cArr.length);
     if(name_length > 14)
     {
       $('#name_tip').text('名号长度不能超过14个英文或7个汉字').css('color', 'red');
@@ -138,8 +138,8 @@ $(function(){
   {
 	e.preventDefault();
 	$('.update_notify').remove();
-	var username_val = $('#user_name').val();
-	var userintro_val = $('#user_intro').val();
+	var username_val = $('#user_name').val(),
+	    userintro_val = $('#user_intro').val();
 	if(($('#name_tip').css('color') == 'red') || username_val == '')
 	{
 	  return false;
@@ -184,8 +184,8 @@ $(function(){
 	  }
 	  else
 	  {
-		var $email  = $(this).val();
-		var url = '/accounts/register/check_email.php?email='+$email;
+		var email  = $(this).val(),
+		    url = '/accounts/register/check_email.php?email='+email;
 		$.get(url, function(data){
 		if(data =='1')
 		{
@@ -214,11 +214,11 @@ $(function(){
   
   $('#btn_email_modify').click(function(e)
   {
-	var login_email_val = $('#login_email').val();
-    var login_pwd_val = $('#login_pwd').val();
-    var new_login_email_val = $('#new_login_email').val();
-	var new_email_cfm_val = $('#new_email_cfm').val();
-	var tip_flag = ($('#login_email_tip').text() != '') || ($('#new_login_email_tip').css('color') == 'red') || ($('#new_email_cfm_tip').css('color') == 'red');
+	var login_email_val = $('#login_email').val(),
+        login_pwd_val = $('#login_pwd').val(),
+        new_login_email_val = $('#new_login_email').val(),
+	    new_email_cfm_val = $('#new_email_cfm').val(),
+	    tip_flag = ($('#login_email_tip').text() != '') || ($('#new_login_email_tip').css('color') == 'red') || ($('#new_email_cfm_tip').css('color') == 'red');
 	if(tip_flag || login_email_val == '' || login_pwd_val == '' || new_login_email_val == '' || new_email_cfm_val == '')
     {
       $('.err_notify').remove();
@@ -264,10 +264,10 @@ $(function(){
   
   $('#btn_pwd_modify').click(function(e)
   {
-	var old_pwd_val = $('#old_pwd').val();
-    var new_pwd_val = $('#new_pwd').val();
-    var pwd_cfm_val = $('#new_pwd_cfm').val();
-	var tip_flag = ($('#old_pwd_tip').text() != '') || ($('#new_pwd_tip').css('color') == 'red') || ($('#new_pwd_cfm_tip').text() != '');
+	var old_pwd_val = $('#old_pwd').val(),
+        new_pwd_val = $('#new_pwd').val(),
+        pwd_cfm_val = $('#new_pwd_cfm').val(),
+	    tip_flag = ($('#old_pwd_tip').text() != '') || ($('#new_pwd_tip').css('color') == 'red') || ($('#new_pwd_cfm_tip').text() != '');
 	if(tip_flag || old_pwd_val == '' || new_pwd_val == '' || pwd_cfm_val == '' || pwd_cfm_val == '')
     {
       $('.err_notify').remove();

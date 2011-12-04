@@ -397,7 +397,8 @@ div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,block
 .float_r,.btn_w_publish,#boxes .close{float:right}
 #login_form_wrapper,#homepage .inner .category,.douban_wrapper .item_info,.douban_wrapper .item_info_drop,.user_info,#footer .wrapper,#boxes #dialog form div.wrapper{overflow:auto}
 #login_form_r #connectBtn,.login_right #connectBtn{margin-top:5px}
-#login_form .form_div,#fb_form input,#fb_form textarea,.tagstory_li,#sign_up div{margin-bottom:20px}
+#login_form .form_div,.tagstory_li,#sign_up div{margin-bottom:20px}
+#fb_form .label{margin-top:20px}
 #login_form .auto_login,.create_time{padding-left:36px}
 #c_pwd_form .wrapper div,#c_email_form .wrapper div,#login_modal .form_div{margin-top:20px}
 #c_pwd_form #btn_submit_modify,#c_email_form #btn_submit_modify,#btn_cfm_pwd{margin-left:80px}
