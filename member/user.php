@@ -72,7 +72,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	$story_embed = $result['embed_name'];
 	$story_time = dateFormatTrans($result['post_date'],$date_t);
 	$story_title=$result['post_title'];
-	$story_summary=$result['post_summary'];
+	$story_summary=nl2br($result['post_summary']);
 	$story_pic=$result['post_pic_url'];
 	$story_status=$result['post_status'];
 	$story_content=$result['post_content'];
@@ -760,7 +760,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
     $following_list = getFollowing($story_author);
     $follower_list=getFollower($story_author);
 
-	$content .="</div></div><p class='user-bio'>".$userresult['intro']."</p>
+	$content .="</div></div><p class='user-bio'>".nl2br($userresult['intro'])."</p>
 				  <div class='usersfollowers'>
 					<div><span class='side_title'>粉丝</span><span class='count'>".sizeof($follower_list)."</span></div>
 					  <ul class='follower_list'>";
@@ -950,7 +950,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 	  }
   }
   
-  $story_content .="</div><div id='user_intro'>".$userresult['intro']."</div></div><div class='userstory_list'>";
+  $story_content .="</div><div id='user_intro'>".nl2br($userresult['intro'])."</div></div><div class='userstory_list'>";
   
   
   if(0 == $total_pages)
