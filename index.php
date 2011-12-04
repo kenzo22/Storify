@@ -228,9 +228,19 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	?>
 	</div>
 
-<?php
-include $_SERVER['DOCUMENT_ROOT'].'/include/footer.htm';
-?>
+<div id="footer">
+  <div class='wrapper'>
+    <ul>
+      <li><a title="faq" href="http://www.koulifang.com/user/3/4">用户帮助</a></li>
+      <li><a title="tos" href="#">使用条款</a></li>
+      <li><a title="contact" href='/contactus'>联系我们</a></li>
+      <li><span>书签: </span><a onclick="addBookmark();return false;" href="#">收藏我们</a></li>
+      <li>关注我们：<a title="storify" href="http://weibo.com/2329577672" target="_blank" class="twitter-anywhere-user">微博</a></li>
+    </ul>
+    <p>&copy; 2011 Koulifang.com. All rights reserved. 沪ICP备11038197号</p>
+  </div>
+</div>
+<script type="text/javascript" src="/js/jquery.js"></script>
 <script type="text/javascript" src="/js/jquery.orbit-1.2.3.min.js"></script>
 <script type="text/javascript" src="/js/frontpage.js"></script>
 </body>

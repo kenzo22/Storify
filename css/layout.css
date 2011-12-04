@@ -2729,6 +2729,10 @@ border:1px solid #DDDDDD;
 padding-left:20px;
 }
 
+.n_support ul{
+margin:10px 0 10px 25px;
+}
+
 .n_support ul li{
 list-style:disc inside;
 }

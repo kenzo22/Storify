@@ -48,8 +48,9 @@ else
       $viewresult=$DB->query("insert into ".$db_prefix."pageview values(null, '".$post_id."', '".$domain_name."', '".$refer_url."', 1)");
     }
 	
-	$userresult = $DB->fetch_one_array("select username, intro, photo from ".$db_prefix."user where id='".$result['post_author']."'");
-    $story_embed = $result['embed_name'];
+	$userresult = $DB->fetch_one_array("select username from ".$db_prefix."user where id='".$result['post_author']."'");
+    $story_author = $userresult['username'];
+	$story_embed = $result['embed_name'];
     $story_time = dateFormatTrans($result['post_date'],$date_t);
     $story_title=$result['post_title'];
     $story_summary=$result['post_summary'];
@@ -394,6 +395,7 @@ else
   }
   
   $obj->id = $user_id;
+  $obj->author = $story_author;
   $obj->title = $story_title;
   $obj->summary = $story_summary;
   $obj->pic = $story_pic;
