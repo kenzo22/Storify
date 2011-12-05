@@ -18,12 +18,13 @@ if(!isset($_GET['id']) || !isset($_GET['name']) || !isset($_GET['callback']))
 else
 {
   $date_t = date("Y-m-d H:i:s");
-  $token = $DB->fetch_one_array("select * from ".$db_prefix."publictoken where id='1'");
-
-  $w_token = $token['weibo_access_token'];
-  $w_token_secret  = $token['weibo_access_token_secret'];
-  $t_token = $token['tweibo_access_token'];
-  $t_token_secret = $token['tweibo_access_token_secret'];
+  session_start();
+  getPublicToken();
+  $w_token = $_SESSION['last_wkey']['oauth_token'];
+  $w_token_secret  = $_SESSION['last_wkey']['oauth_token_secret'];
+  $t_token = $_SESSION['last_tkey']['oauth_token'];
+  $t_token_secret = $_SESSION['last_tkey']['oauth_token_secret'];
+  session_destroy();
 
   $c = new WeiboClient(WB_AKEY , WB_SKEY , $w_token , $w_token_secret);
   $t = new TWeiboClient(MB_AKEY , MB_SKEY , $t_token , $t_token_secret);
