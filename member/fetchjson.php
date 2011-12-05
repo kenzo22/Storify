@@ -18,13 +18,16 @@ if(!isset($_GET['id']) || !isset($_GET['name']) || !isset($_GET['callback']))
 else
 {
   $date_t = date("Y-m-d H:i:s");
-  session_start();
-  getPublicToken();
-  $w_token = $_SESSION['last_wkey']['oauth_token'];
+
+  $w_token = '3dded3c1a69e0e24609b04c3bc07d3ee';
+  $w_token_secret  = '4815f86a2f8dcbbca4a307535b1a82d8';
+  $t_token = '1fce15f8b9d3449ea9a031adf9138f95';
+  $t_token_secret = '2a4a03d0dac0951f06d3e7b5b30a1ea0';
+  /*$w_token = $_SESSION['last_wkey']['oauth_token'];
   $w_token_secret  = $_SESSION['last_wkey']['oauth_token_secret'];
   $t_token = $_SESSION['last_tkey']['oauth_token'];
-  $t_token_secret = $_SESSION['last_tkey']['oauth_token_secret'];
-  session_destroy();
+  $t_token_secret = $_SESSION['last_tkey']['oauth_token_secret'];*/
+
 
   $c = new WeiboClient(WB_AKEY , WB_SKEY , $w_token , $w_token_secret);
   $t = new TWeiboClient(MB_AKEY , MB_SKEY , $t_token , $t_token_secret);
