@@ -367,7 +367,7 @@ div.inner{width:920px;overflow:hidden;position:relative;margin:0 auto}
 #footer p{color:#BBB;font-size:1.1em}
 #footer ul{float:right;list-style:none;padding:0}
 #footer ul li{display:inline;float:left;font-size:1.1em;margin:0 0 0 18px}
-#sign_up #agree_term{margin-left:84px}
+#sign_up #agree_term{margin:0 8px 0 84px}
 #sign_up #btn_submit_signup{padding-left:84px;margin-bottom:50px}
 #a_flag{color:#494949;font-size:18px;font-weight:700;margin:160px 0 20px}
 #mask{position:absolute;left:0;top:0;z-index:300;background-color:#c7c7c7;display:none;zoom:1}
@@ -397,7 +397,7 @@ div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,block
 .float_r,.btn_w_publish,#boxes .close{float:right}
 #login_form_wrapper,#homepage .inner .category,.douban_wrapper .item_info,.douban_wrapper .item_info_drop,.user_info,#footer .wrapper,#boxes #dialog form div.wrapper{overflow:auto}
 #login_form_r #connectBtn,.login_right #connectBtn{margin-top:5px}
-#login_form .form_div,.tagstory_li,#sign_up div{margin-bottom:20px}
+#login_form .form_div,#sign_up div{margin-bottom:20px}
 #fb_form .label{margin-top:20px}
 #login_form .auto_login,.create_time{padding-left:36px}
 #c_pwd_form .wrapper div,#c_email_form .wrapper div,#login_modal .form_div{margin-top:20px}
@@ -408,6 +408,7 @@ div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,block
 .person_li.display,.view_count a{display:block}
 .notify-content .sina_user,.notify-content .tencent_user{overflow:auto;margin-left:20px}
 #source_wrapper p,.story_author,.n_support p{padding-left:20px}
+.tagstory_li{margin-bottom:20px;overflow:auto}
 .tagstory_li .wrapper .meta,.douban_wrapper .item_info_drop .item_meta_drop{margin-left:100px}
 .weibo_content,#weiboTabs ul,#doubanTabs ul,#picTabs ul{overflow:hidden}
 .weibo_content,.douban_content,#login_modal #login_modal_btn{margin-left:36px}
@@ -423,3 +424,8 @@ div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,block
 #previewBtn,#draftBtn{color:#444;font-size:12px;font-weight:700;height:32px;line-height:32px;text-align:center;width:auto;padding:9px 12px}
 #login_btn:hover,#login_modal_btn:hover,#copy_btn:hover{background-color:#f5f5f5}
 .gray,#boxes #weibo_dialog .title_bar #publish_title{color:#B8B7B7}
+#term_content{font-size:13px}
+#term_content h3{font-size:14px;font-weight:bold;margin:10px 0 10px}
+#term_content ol,#term_content ul{padding:0 0 0 20px}
+#term_content ol li{list-style:decimal outside}
+#term_content ul li{list-style:disc outside}

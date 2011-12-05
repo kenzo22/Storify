@@ -14,7 +14,7 @@ $date_t = date("Y-m-d H:i:s");
 $tagresult = $DB->fetch_one_array("SELECT name FROM ".$db_prefix."tag where id='".$topic_id."'");
 $tag_name = $tagresult['name'];
 //$tag_id = $tagresult['id'];
-$query="select ".$db_prefix."posts.* from ".$db_prefix."tag_story,".$db_prefix."posts where tag_id=".$topic_id." and story_id=".$db_prefix."posts.id and TO_DAYS(NOW())-TO_DAYS(post_modified) <=$MAX_DAYS order by ".$db_prefix."posts.post_digg_count desc limit 10";
+$query="select ".$db_prefix."posts.* from ".$db_prefix."tag_story,".$db_prefix."posts where post_status = 'Published' and tag_id=".$topic_id." and story_id=".$db_prefix."posts.id and TO_DAYS(NOW())-TO_DAYS(post_modified) <=$MAX_DAYS order by ".$db_prefix."posts.post_digg_count desc limit 10";
 $result=$DB->query($query);
 
 $content = "<div class='inner'><div class='page_title'>#".$tag_name."# - 最热门</div><ul id='tagstory_ul'>";
