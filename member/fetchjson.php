@@ -18,16 +18,20 @@ if(!isset($_GET['id']) || !isset($_GET['name']) || !isset($_GET['callback']))
 else
 {
   $date_t = date("Y-m-d H:i:s");
-
-  $w_token = '3dded3c1a69e0e24609b04c3bc07d3ee';
-  $w_token_secret  = '4815f86a2f8dcbbca4a307535b1a82d8';
-  $t_token = '1fce15f8b9d3449ea9a031adf9138f95';
-  $t_token_secret = '2a4a03d0dac0951f06d3e7b5b30a1ea0';
-  /*$w_token = $_SESSION['last_wkey']['oauth_token'];
-  $w_token_secret  = $_SESSION['last_wkey']['oauth_token_secret'];
-  $t_token = $_SESSION['last_tkey']['oauth_token'];
-  $t_token_secret = $_SESSION['last_tkey']['oauth_token_secret'];*/
-
+  $weibo_access_token =           array('3dded3c1a69e0e24609b04c3bc07d3ee', 'a5a036de79ad7bb7e71446366d9c69ab', '9a0db78eaffe82ee099f17c8937f29cf');
+  $weibo_access_token_secret =    array('4815f86a2f8dcbbca4a307535b1a82d8', 'ddd74ff5df9a06325822cefdec81e10e', '0175d039c755cc3b128c134f30b9af3c');
+  $tweibo_access_token =          array('1fce15f8b9d3449ea9a031adf9138f95', '4fc29d6f9721471fabfb38ce56298f48');
+  $tweibo_access_token_secret =   array('2a4a03d0dac0951f06d3e7b5b30a1ea0', '355354af7961e5bbc154238dca72a75a');
+  
+  $max = sizeof($weibo_access_token);
+  $indx = rand(0,$max-1);
+  $w_token = $weibo_access_token[$indx];
+  $w_token_secret  = $weibo_access_token_secret[$indx];
+  
+  $tmax = sizeof($tweibo_access_token);
+  $tindx = rand(0,$max-1);
+  $t_token = $tweibo_access_token[$tindx];
+  $t_token_secret = $tweibo_access_token_secret[$tindx];
 
   $c = new WeiboClient(WB_AKEY , WB_SKEY , $w_token , $w_token_secret);
   $t = new TWeiboClient(MB_AKEY , MB_SKEY , $t_token , $t_token_secret);
