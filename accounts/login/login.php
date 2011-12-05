@@ -1,6 +1,7 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT']."/connect_db.php";
 include $_SERVER['DOCUMENT_ROOT']."/include/functions.php";
+include $_SERVER['DOCUMENT_ROOT']."/include/user_auth_fns.php";
 include $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php';
 session_start();
 
@@ -59,25 +60,13 @@ if($email && $passwd)
 	}
 	else
 	{
-	  //select a random item from the publictoken pool
-	  $token = $DB->fetch_one_array("select * from ".$db_prefix."publictoken where id='1'");
-	  
-	  if($result['weibo_access_token'] == '')
-	  {
-		$_SESSION['last_wkey']['oauth_token'] = $token['weibo_access_token'];
-		$_SESSION['last_wkey']['oauth_token_secret'] = $token['weibo_access_token_secret'];
-	  }
-	  else
+	  getPublicToken();
+	  if($result['weibo_access_token'] != '')
 	  {
 		$_SESSION['last_wkey']['oauth_token']=$result['weibo_access_token'];
 		$_SESSION['last_wkey']['oauth_token_secret']=$result['weibo_access_token_secret'];
 	  }
-	  if($result['tweibo_access_token'] == '')
-	  {
-		$_SESSION['last_tkey']['oauth_token'] = $token['tweibo_access_token'];
-		$_SESSION['last_tkey']['oauth_token_secret'] = $token['tweibo_access_token_secret'];
-	  }
-	  else
+	  if($result['tweibo_access_token'] != '')
 	  {
 		$_SESSION['last_tkey']['oauth_token']=$result['tweibo_access_token'];
 		$_SESSION['last_tkey']['oauth_token_secret']=$result['tweibo_access_token_secret'];

@@ -23,23 +23,13 @@ function islogin()
        $_SESSION['uid']=intval($userinfo['id']);
        $_SESSION['username']=$userinfo['username'];
 	   
-	   $token = $DB->fetch_one_array("select * from ".$db_prefix."publictoken where id='1'");
-	   if($userinfo['weibo_access_token'] == '')
-	   {
-		 $_SESSION['last_wkey']['oauth_token'] = $token['weibo_access_token'];
-		 $_SESSION['last_wkey']['oauth_token_secret'] = $token['weibo_access_token_secret'];
-	   }
-	   else
+	   getPublicToken();
+	   if($userinfo['weibo_access_token'] != '')
 	   {
 		 $_SESSION['last_wkey']['oauth_token']=$userinfo['weibo_access_token'];
 		 $_SESSION['last_wkey']['oauth_token_secret']=$userinfo['weibo_access_token_secret'];
 	   }
-	   if($userinfo['tweibo_access_token'] == '')
-	   {
-		 $_SESSION['last_tkey']['oauth_token'] = $token['tweibo_access_token'];
-		 $_SESSION['last_tkey']['oauth_token_secret'] = $token['tweibo_access_token_secret'];
-	   }
-	   else
+	   if($userinfo['tweibo_access_token'] != '')
 	   {
 		 $_SESSION['last_tkey']['oauth_token']=$userinfo['tweibo_access_token'];
 		 $_SESSION['last_tkey']['oauth_token_secret']=$userinfo['tweibo_access_token_secret'];
@@ -62,12 +52,12 @@ function islogin()
 
 function getUserInfo($email, $password)
 {
-global $DB;
-global $db_prefix;
-$email=(trim($email));
-$passwd=trim($password);
-$result = $DB->fetch_one_array("SELECT * FROM story_user WHERE email='".$email."' AND passwd='".$passwd."'");
-return $result;
+  global $DB;
+  global $db_prefix;
+  $email=(trim($email));
+  $passwd=trim($password);
+  $result = $DB->fetch_one_array("SELECT * FROM story_user WHERE email='".$email."' AND passwd='".$passwd."'");
+  return $result;
 }
 
 function getUserPic($uid)
@@ -87,23 +77,23 @@ function getUserPic($uid)
 
 function getPublicToken()
 {
-    global $weibo_access_token, $tweibo_access_token, $weibo_access_token_secret, $tweibo_access_token_secret;
-    global $_SESSION;
+  global $weibo_access_token, $tweibo_access_token, $weibo_access_token_secret, $tweibo_access_token_secret;
+  global $_SESSION;
   if($_SESSION['last_wkey']['oauth_token'] == '')
   {
-        $max = sizeof($weibo_access_token);
-        $indx = rand(0,$max-1);
+	$max = sizeof($weibo_access_token);
+	$indx = rand(0,$max-1);
 	$_SESSION['last_wkey']['oauth_token'] = $weibo_access_token[$indx];
 	$_SESSION['last_wkey']['oauth_token_secret'] =  $weibo_access_token_secret[$indx];
   }
 
-    if($_SESSION['last_tkey']['oauth_token'] == '')
-    {
-        $max = sizeof($tweibo_access_token);
-        $indx = rand(0, $max-1);
-        $_SESSION['last_tkey']['oauth_token'] =  $tweibo_access_token[$indx];
-        $_SESSION['last_tkey']['oauth_token_secret'] = $tweibo_access_token_secret[$indx];
-    }
+  if($_SESSION['last_tkey']['oauth_token'] == '')
+  {
+    $max = sizeof($tweibo_access_token);
+	$indx = rand(0, $max-1);
+	$_SESSION['last_tkey']['oauth_token'] =  $tweibo_access_token[$indx];
+	$_SESSION['last_tkey']['oauth_token_secret'] = $tweibo_access_token_secret[$indx];
+  }
 }
 
 ?>
