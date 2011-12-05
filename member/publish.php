@@ -10,6 +10,10 @@ $story_title=$_POST['story_title'];
 $story_summary=$_POST['story_summary'];
 $story_tag=$_POST['story_tag'];
 $story_pic=$_POST['story_pic'];
+if($story_pic == '/img/story_dft.jpg')
+{
+  $story_pic = '';
+}
 $story_content=$_POST['story_content'];
 
 $tag_table=$db_prefix."tag";

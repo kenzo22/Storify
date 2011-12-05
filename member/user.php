@@ -846,6 +846,10 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		{
 		  $post_author = $story_item['post_author'];
 		  $post_pic_url = $story_item['post_pic_url'];
+		  if($post_pic_url == '')
+		  {
+		    $post_pic_url = '/img/event_dft.jpg';
+		  }
 		  $post_title = $story_item['post_title'];
 		  $post_date = $story_item['post_date'];
 		  $temp_array = explode(" ", $story_item['post_date']);
@@ -1105,6 +1109,10 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 		$post_id = $story_item['ID'];
 		$post_title = $story_item['post_title'];
 		$post_pic_url = $story_item['post_pic_url'];
+		if($post_pic_url == '')
+		{
+	      $post_pic_url = '/img/event_dft.jpg';
+		}
 		$post_status = $story_item['post_status'];
 		if(0 == strcmp($post_status, 'Published'))
 		{
