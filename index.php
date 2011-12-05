@@ -64,9 +64,9 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 		</style>
 	<![endif]-->
 	<!--[if IE 6]>
-	<style type="text/css">
-	  #user_feedback_tab{display:none;}
-	</style>
+	  <style type="text/css">
+	    #user_feedback_tab{display:none;}
+	  </style>
 	<![endif]-->
 	<div id='boxes'>  
 	<div id='dialog' class='window'>
