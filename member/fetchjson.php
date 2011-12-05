@@ -37,7 +37,7 @@ else
     $post_id = $result['ID'];
     $refer_url = $_SERVER['HTTP_REFERER'];
     $temp_array = explode("/", $refer_url);
-    $domain_name = $temp_array[3];
+    $domain_name = $temp_array[2];
     $selResult = $DB->fetch_one_array("SELECT id FROM ".$db_prefix."pageview WHERE story_id='".$post_id."' AND domain_name='".$domain_name."'" );
     if(!empty($selResult))
     {

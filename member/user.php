@@ -50,7 +50,8 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	$result = $DB->fetch_one_array("select * from ".$db_prefix."posts where ID='".$post_id."'");
 	if(!$result)
 	{
-	  throw new Exception('Could not execute query.');
+	  go("/","您要查看的故事不存在",2);
+      exit;
 	}
 	if(!$self_flag && $result['post_status'] != 'Published')
 	{
@@ -904,6 +905,11 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
   // How many adjacent pages should be shown on each side?
   $adjacents = 3;
   $userresult = $DB->fetch_one_array("SELECT username, photo, intro FROM ".$db_prefix."user where id='".$user_id."'");
+  if(!$userresult)
+  {
+    go("/","您要查看的用户不存在",2);
+    exit;
+  }
   $username = $userresult['username'];
   
   $user_profile_img = $userresult['photo'];
