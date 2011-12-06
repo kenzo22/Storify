@@ -10,6 +10,9 @@ $results=$DB->query($query);
 $query="delete from ".$db_prefix."tag_story where story_id=".$post_id;
 $DB->query($query);
 
+$query="delete from ".$db_prefix."pageview where story_id=".$post_id;
+$DB->query($query);
+
 // delete tag if no story is bined
 while($item=$DB->fetch_array($results)){
 	$query="select * from ".$db_prefix."tag_story where tag_id=".$item['tag_id'];
