@@ -29,7 +29,7 @@ else
   $w_token_secret  = $weibo_access_token_secret[$indx];
   
   $tmax = sizeof($tweibo_access_token);
-  $tindx = rand(0,$max-1);
+  $tindx = rand(0,$tmax-1);
   $t_token = $tweibo_access_token[$tindx];
   $t_token_secret = $tweibo_access_token_secret[$tindx];
 

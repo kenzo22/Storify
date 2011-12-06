@@ -44,12 +44,15 @@ else
   $_SESSION['uid']=intval($result['id']);
   $_SESSION['username']=$result['username'];
   
-  $token = $DB->fetch_one_array("select * from ".$db_prefix."publictoken where id='1'");
+  $tweibo_access_token =          array('1fce15f8b9d3449ea9a031adf9138f95', '4fc29d6f9721471fabfb38ce56298f48');
+  $tweibo_access_token_secret =   array('2a4a03d0dac0951f06d3e7b5b30a1ea0', '355354af7961e5bbc154238dca72a75a');
+  $tmax = sizeof($tweibo_access_token);
+  $tindx = rand(0,$tmax-1);
 	  
   if($result['tweibo_access_token'] == '')
   {
-	$_SESSION['last_tkey']['oauth_token'] = $token['tweibo_access_token'];
-	$_SESSION['last_tkey']['oauth_token_secret'] = $token['tweibo_access_token_secret'];
+	$_SESSION['last_tkey']['oauth_token'] = $tweibo_access_token[$tindx];
+	$_SESSION['last_tkey']['oauth_token_secret'] = $tweibo_access_token_secret[$tindx];
   }
   else
   {
