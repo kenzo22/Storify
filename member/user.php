@@ -170,6 +170,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	{
 	  if(0 == strcmp($story_status, 'Published'))
 	  {
+		$publish_flag = true;
 		$content .= "<div id='story_container'>
 					  <div class='publish_wrapper'>
 					  <div class='published-steps'>
@@ -330,7 +331,8 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  }
 	  else
 	  {
-	    $content .= "<div id='story_container'><div class='publish_wrapper'><div id='publish_container'>
+	    $publish_flag = false;
+		$content .= "<div id='story_container'><div class='publish_wrapper'><div id='publish_container'>
 			  <div id='story_action'><span><a class='draft_icon png_fix' title='草稿'></a>草稿</span><span class='float_r'><a  class='publish' href='/user/".$user_id."/".$post_id."/publish' title='发布'></a>&nbsp<a id='".$post_id."_delete' class='delete redirect png_fix' title='删除'></a><a class='edit png_fix' href='/user/".$user_id."/".$post_id."/edit' title='编辑'></a></span></div>";
 	  }	
 	}
@@ -355,12 +357,14 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 				  <div class='story_title'>".$story_title."</div>
 				  <div class='story_author'>by<a href='http://www.koulifang.com/user/".$user_id."'>".$story_author_name."</a>, ".$story_time."</div>
 				  <div class='story_sum'>".$story_summary."</div>";
-			if($tags!='')
-			{
-			  $content .="<div class='story_tag'>标签:".$tags."</div>";
-			}
-			$content .="</div>
-				  <div class='tool_wrapper'>
+	if($tags!='')
+	{
+	  $content .="<div class='story_tag'>标签:".$tags."</div>";
+	}
+	$content .="</div>";
+	if($publish_flag)
+	{
+	  $content .= "<div class='tool_wrapper'>
 					  <div class='story_share'>
 						<div class='digg_wrap'><a id='act_digg_".$post_id."' class='act_digg' title='赞一个'></a><span id='digg_count_".$post_id."' class='digg_counter' title='累计赞".$story_digg_count."次'>".$story_digg_count."</span></div>
 						<div id='ckepop'>
@@ -382,8 +386,13 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 						<span><input type='text' class='sto_embed' value='".$embed_code."' size='71' /></span>
 						<a title='如何嵌入' class='embed_how' href='http://www.koulifang.com/user/3/4' target='_blank'></a>
 					  </div>
-				  </div>
-				</div><ul id='weibo_ul'>";
+				    </div>";
+	}
+    else
+    {
+	  $content .= "<div class='tool_wrapper'></div>";
+	}	
+	$content .=	"</div><ul id='weibo_ul'>";
 	
 	foreach($story_content_array as $key=>$val)
 	{
