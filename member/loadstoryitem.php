@@ -376,7 +376,7 @@ if(count($tweibo_id_array) > 0)
 if((count($temp_array['content'])-$first_item) > $items_perpage)
 {
   $next_item_id = $first_item + $items_perpage;
-  $content .="<div id='more'><a id='".$next_item_id."_post_".$post_id."' class='load_more' href='#'>更多</a></div>";
+  $content .="<li id='more'><a id='".$next_item_id."_post_".$post_id."' class='load_more' href='#'>更多</a></li>";
 }
 echo $content;
 ?>

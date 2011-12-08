@@ -72,6 +72,14 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	$story_author = $result['post_author'];
 	
 	$userresult = $DB->fetch_one_array("SELECT username, intro, photo, weibo_user_id, tweibo_access_token FROM ".$db_prefix."user where id='".$_SESSION['uid']."'");
+	if($userresult['photo'] == '')
+    {
+	  $current_user_pic = '/img/douban_user_dft.jpg';
+    }
+    else
+    {
+	  $current_user_pic =$userresult['photo'];
+    }
 	$has_sina = false;
 	$has_tencent = false;
 	if($userresult['weibo_user_id'] != 0)
@@ -162,15 +170,22 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 				  </div>";
 	}
 	
+	if(0 == strcmp($story_status, 'Published'))
+	{
+	  $publish_flag = true;
+	}
+	else
+	{
+	  $publish_flag = false;
+	}
 	if(!$self_flag)
 	{
 	  $content .= "<div id='story_container'><div class='publish_wrapper'><div id='publish_container'>";
 	}
 	else
 	{
-	  if(0 == strcmp($story_status, 'Published'))
+	  if($publish_flag)
 	  {
-		$publish_flag = true;
 		$content .= "<div id='story_container'>
 					  <div class='publish_wrapper'>
 					  <div class='published-steps'>
@@ -331,7 +346,6 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  }
 	  else
 	  {
-	    $publish_flag = false;
 		$content .= "<div id='story_container'><div class='publish_wrapper'><div id='publish_container'>
 			  <div id='story_action'><span><a class='draft_icon png_fix' title='草稿'></a>草稿</span><span class='float_r'><a  class='publish' href='/user/".$user_id."/".$post_id."/publish' title='发布'></a>&nbsp<a id='".$post_id."_delete' class='delete redirect png_fix' title='删除'></a><a class='edit png_fix' href='/user/".$user_id."/".$post_id."/edit' title='编辑'></a></span></div>";
 	  }	
@@ -747,14 +761,99 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	
 	if(count($temp_array['content']) > $items_perpage)
 	{
-	  $content .="</ul><div id='more'><a id='".$items_perpage."_post_".$post_id."' class='load_more' href='#'>更多</a></div>";
+	  $content .="<li id='more'><a id='".$items_perpage."_post_".$post_id."' class='load_more' href='#'>更多</a></li>";
+	}
+	$content .="</ul>";
+	
+	$query="select COUNT(*) as num from ".$db_prefix."comments where comment_post_id =".$post_id;
+	$reply_result = mysql_fetch_array(mysql_query($query));
+	$reply_count = $reply_result[num];
+	
+	$content .="<div class='kou_signature'><span>Powered by</span><a title='口立方' name='poweredby' target='_blank' href='http://koulifang.com'></a></div></div>
+	<div id='reply_container'>  
+	  <div id='count_wrapper'><span>评论</span><span class='reply_count'> (".$reply_count.") </span></div>
+	  <div id='comment_container'>";
+	if($login_status)
+	{
+	  $content.="<img src='".$current_user_pic."' alt='' />
+				 <div id='input_wrapper'>
+				   <textarea rows='1' cols='20' value='' type='text' id='reply_input'></textarea>
+				   <a class='large blue awesome post_comment' id='comment_".$post_id."_".$_SESSION['uid']."'>发表评论 &raquo;</a>
+				 </div>";
 	}
 	else
 	{
-	  $content .="</ul>";
+	  $content.="<div><span>发表评论</span><a id='login_require' href='/accounts/login?next=".urlencode($_SERVER['REQUEST_URI'])."'>请登录</a></div>"; 
+	}
+	$content .="<div class='clear'></div>
+        <ul id='comment_list'>";
+		
+	$sql="select * from ".$db_prefix."comments where comment_post_id=".$post_id." order by comment_id desc limit 0, 10";
+	$comment_result = mysql_query($sql);
+	
+	if($self_flag || !$login_status)
+	{
+	  if($self_flag)
+	  {
+	    $comment_action = "<span class='float_r'><a href='#' class='reply_comment'>回复</a> | <a href='#' class='del_comment'>删除</a></span>";
+	  }
+	  else
+	  {
+	    $comment_action = '';
+	  }
+	  while ($item = mysql_fetch_array($comment_result))
+	  {
+	    $comment_id = $item['comment_id'];
+	    $pic_url = $item['comment_author_pic'];
+	    $comment_author = $item['comment_author'];
+	    $comment_author_id = $item['user_id'];
+		$comment_time = dateFormatTrans($item['comment_date'],$date_t);
+	    $comment_content = $item['comment_content'];
+	    $content.="<li id='comment_".$comment_id."'>
+			   <a href='/user/".$comment_author_id."' target='_blank'><img alt='' src='".$pic_url."' /></a>
+			   <div class='comment_wrapper'>
+			     <div class='comment_author'><a href='/user/".$comment_author_id."' target='_blank'>".$comment_author."</a></div>
+				 <div>".$comment_content."</div>
+				 <div class='comment_action'>".$comment_action."<span>".$comment_time."</span></div>
+			   </div>
+			 </li>";
+	  }
+	}
+	else
+	{
+	  while ($item = mysql_fetch_array($comment_result))
+	  {
+	    $comment_id = $item['comment_id'];
+	    $pic_url = $item['comment_author_pic'];
+	    $comment_author = $item['comment_author'];
+	    $comment_author_id = $item['user_id'];
+		if(0 == strcmp($comment_author_id, $_SESSION['uid']))
+		{
+		  $comment_action = "<span class='float_r'><a href='#' class='reply_comment'>回复</a> | <a href='#' class='del_comment'>删除</a></span>";
+		}
+		else
+		{
+		  $comment_action = "<span class='float_r'><a href='#' class='reply_comment'>回复</a></span>";
+		}
+	    $comment_time = dateFormatTrans($item['comment_date'],$date_t);
+	    $comment_content = $item['comment_content'];
+	    $content.="<li id='comment_".$comment_id."'>
+			   <a href='/user/".$comment_author_id."' target='_blank'><img alt='' src='".$pic_url."' /></a>
+			   <div class='comment_wrapper'>
+			     <div class='comment_author'><a href='/user/".$comment_author_id."' target='_blank'>".$comment_author."</a></div>
+				 <div>".$comment_content."</div>
+				 <div class='comment_action'>".$comment_action."<span>".$comment_time."</span></div>
+			   </div>
+			 </li>";
+	  }
 	}
 	
-	$content .="<div class='kou_signature'><span>Powered by</span><a title='口立方' name='poweredby' target='_blank' href='http://koulifang.com'></a></div></div>
+    if($reply_count > 10)
+    {
+	  $content .="<li><a id='more_comments_".$post_id."_".$comment_id."' class='load_more'>更多评论</a></li>";
+	}	
+	$content .="</ul></div>	
+	</div>
 	<div class='spacer'></div>
 	</div>
 	<div id='userinfo_container'>
