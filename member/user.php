@@ -380,7 +380,6 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	{
 	  $content .= "<div class='tool_wrapper'>
 					  <div class='story_share'>
-						<div class='digg_wrap'><a id='act_digg_".$post_id."' class='act_digg' title='赞一个'></a><span id='digg_count_".$post_id."' class='digg_counter' title='累计赞".$story_digg_count."次'>".$story_digg_count."</span></div>
 						<div id='ckepop'>
 							<span class='jiathis_txt'>分享到：</span>
 							<a class='jiathis_button_qzone'></a>
@@ -771,7 +770,11 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	
 	$content .="<div class='kou_signature'><span>Powered by</span><a title='口立方' name='poweredby' target='_blank' href='http://koulifang.com'></a></div></div>
 	<div id='reply_container'>  
-	  <div id='count_wrapper'><span>评论</span><span class='reply_count'> (".$reply_count.") </span></div>
+	  <div id='count_wrapper'>
+		<span id='digg_count_".$post_id."' class='digg_counter' title='累计赞".$story_digg_count."次'>".$story_digg_count."</span>
+		<a id='act_digg_".$post_id."' class='act_digg' title='赞一个'></a>
+		<span>评论 (".$reply_count.") </span>
+	  </div>
 	  <div id='comment_container'>";
 	if($login_status)
 	{

@@ -119,12 +119,26 @@ if($lastpage > 1)
 
 while ($story_item = mysql_fetch_array($result))
 {
+  $view_count = 0;
   $story_id = $story_item['ID'];
+  $query="select COUNT(*) as num from ".$db_prefix."comments where comment_post_id =".$story_id;
+  $reply_result = mysql_fetch_array(mysql_query($query));
+  $reply_count = $reply_result[num];
+  
+  $view_query = "select view_count from ".$db_prefix."pageview where story_id=".$story_id;
+  $viewResult = $DB->query($view_query);
+  if($DB->num_rows($viewResult) > 0)
+  {
+	while($count_result_row = $DB->fetch_array($viewResult)){
+		$view_count += $count_result_row['view_count'];
+	}
+  }
   //need to change to fetch the 10 most popular story in this topic category
   $post_author = $story_item['post_author'];
   $userresult = $DB->fetch_one_array("SELECT username FROM ".$db_prefix."user where id='".$post_author."'");
   $post_title = $story_item['post_title'];
   $post_summary = $story_item['post_summary'];
+  $digg_count = $story_item['post_digg_count'];
   $post_pic_url = $story_item['post_pic_url'];
   $post_date = dateFormatTrans($story_item['post_date'],$date_t);
   $post_link = "/user/".$post_author."/".$story_id;
@@ -144,6 +158,7 @@ while ($story_item = mysql_fetch_array($result))
                             <span class='update_at'>".$post_date."</span><span style='padding:0 5px;'>by</span><a href='/user/".$post_author."'>".$userresult['username']."</a> 
                           </div>
                           <div class='summary'>".$post_summary."<a href='".$post_link."'>[更多]</a></div>
+						  <div class='count_wrapper'><span>评论 (".$reply_count."次) </span> | <span>顶 (".$digg_count."次) </span> | <span>浏览 (".$view_count."次) </span></div>
                         </div> 
                     </div>
                 </li>";

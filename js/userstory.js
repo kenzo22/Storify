@@ -563,7 +563,7 @@ $(function(){
 		$(this).val('我想说...').addClass('imply_color');
 	  }
 	}).focus(function(){
-	  if($(this).val() == '我想说...')
+	  if($(this).val() == '我想说...' && $(this).hasClass('imply_color'))
 	  {
 		$(this).val('').removeClass('imply_color');
 	  }
@@ -577,11 +577,16 @@ $(function(){
 	
 	$('.post_comment').click(function(e){
 	  e.preventDefault();
-	  var temp_array = $(this).attr('id').split('_'),
+	  var comment_input = $('#reply_input');
+	      temp_array = $(this).attr('id').split('_'),
 	      user_id_val = temp_array[2],
 		  post_id_val = temp_array[1],
-	      content_val = $('#reply_input').val();
+	      content_val = comment_input.val();
 	      getData = {post_id: post_id_val, user_id: user_id_val, comment_content: content_val};
+	  if(content_val == '' || (content_val == '我想说...' && comment_input.hasClass('imply_color')))
+	  {
+	    return false;
+	  }
 	  $.get('/member/postcomment.php', getData,
 	  function(data, textStatus)
 	  {
