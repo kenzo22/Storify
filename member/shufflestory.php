@@ -85,7 +85,7 @@ if($item_count > 0)
 	    $sequence = $sequence%$item_count;
 	  }
 	}
-    $query = "select * from ".$db_prefix."posts where post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_date) <=$time_range order by post_digg_count desc limit $sequence, 4";
+    $query = "select * from ".$db_prefix."posts where post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_date) <=$time_range order by popular_count desc limit $sequence, 4";
     $result= $DB->query($query);
     $fetch_count = $DB->num_rows($result);
     if($fetch_count == 4 || $sequence == 0)
@@ -96,7 +96,7 @@ if($item_count > 0)
     {
       $remain_count = 4 - $fetch_count;
       show_content($story_content, $result);
-      $query = "select * from ".$db_prefix."posts where post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_date) <=$time_range order by post_digg_count desc limit 0, $remain_count";
+      $query = "select * from ".$db_prefix."posts where post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_date) <=$time_range order by popular_count desc limit 0, $remain_count";
       $remain_result= $DB->query($query);
       show_content($story_content, $remain_result);
     }

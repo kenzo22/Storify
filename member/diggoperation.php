@@ -1,6 +1,7 @@
 <?php
 require_once "../connect_db.php";
 include '../include/secureGlobals.php';
+include '../include/user_auth_fns.php';
 session_start();
 
 $post_id=$_GET['post_id'];
@@ -17,6 +18,8 @@ if(!empty($_COOKIE['votesid']))
   else
   {
     $result=$DB->query("update ".$db_prefix."posts set post_digg_count=post_digg_count+1  WHERE ID='".$post_id."'");
+	$score = getPopularScore($post_id);
+	$result=$DB->query("update ".$db_prefix."posts set popular_count='".$score."'  WHERE ID='".$post_id."'");
     $cookie_sid[]=$post_id;
     $cookie_sid=join(',',$cookie_sid);
     setcookie("votesid",$cookie_sid,time()+3600*4);
@@ -26,6 +29,8 @@ if(!empty($_COOKIE['votesid']))
 else
 {
   $result=$DB->query("update ".$db_prefix."posts set post_digg_count=post_digg_count+1  WHERE ID='".$post_id."'");
+  $score = getPopularScore($post_id);
+  $result=$DB->query("update ".$db_prefix."posts set popular_count='".$score."'  WHERE ID='".$post_id."'");
   $cookie_sid=$post_id;
   setcookie("votesid",$cookie_sid,time()+3600*4);
   echo 1;

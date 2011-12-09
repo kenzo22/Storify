@@ -1,6 +1,7 @@
 <?php
 require_once "../connect_db.php";
 require_once "../include/functions.php";
+require_once '../include/user_auth_fns.php';
 include_once "../include/weibo_functions.php";
 include_once( '../weibo/config.php' );
 include_once( '../weibo/sinaweibo.php' );
@@ -55,6 +56,8 @@ else
     {
       $viewresult=$DB->query("insert into ".$db_prefix."pageview values(null, '".$post_id."', '".$domain_name."', '".$refer_url."', 1)");
     }
+	$score = getPopularScore($post_id);
+	$DB->query("update ".$db_prefix."posts set popular_count='".$score."'  WHERE ID='".$post_id."'");
 	
 	$userresult = $DB->fetch_one_array("select username from ".$db_prefix."user where id='".$result['post_author']."'");
     $story_author = $userresult['username'];

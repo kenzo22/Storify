@@ -34,7 +34,7 @@ if(0 == $story_id)
     $embed_name_l = 12;
     $embed_name=produce_random_strdig($embed_name_l);
 	$DB->query("insert into ".$db_prefix."posts values
-                         (null, '".$_SESSION['uid']."', '".$pulish_time."', '".$pulish_time."', '".$embed_name."', '".$story_title."', '".$story_summary."', '".$story_pic."','".$story_content."', '".$post_status."', '".$pulish_time."', '".$pulish_time."', 0)");
+                         (null, '".$_SESSION['uid']."', '".$pulish_time."', '".$pulish_time."', '".$embed_name."', '".$story_title."', '".$story_summary."', '".$story_pic."','".$story_content."', '".$post_status."', '".$pulish_time."', '".$pulish_time."', 0, 0)");
 
 //get the post_id
     $result=$DB->fetch_one_array("SELECT ID FROM ".$db_prefix."posts where post_author='".$_SESSION['uid']."' AND post_title='".$story_title."' AND post_date='".$pulish_time."'" );

@@ -1,6 +1,7 @@
 <?php
 require_once "../connect_db.php";
 include '../include/secureGlobals.php';
+include '../include/user_auth_fns.php';
 session_start();
 
 $user_id=$_GET['user_id'];
@@ -21,6 +22,8 @@ else
 }
 
 $DB->query("insert into ".$db_prefix."comments values(null, '".$post_id."', '".$comment_author_name."', '".$comment_author_pic."', '".$comment_time."', '".$comment_time."', '".$comment_content."', '".$user_id."')");
+$score = getPopularScore($post_id);
+$result=$DB->query("update ".$db_prefix."posts set popular_count='".$score."'  WHERE ID='".$post_id."'");
 $commentresult = $DB->fetch_one_array("select comment_id, comment_content from ".$db_prefix."comments WHERE comment_content='".$comment_content."' and comment_date='".$comment_time."'");
 if($commentresult)
 {

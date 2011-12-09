@@ -127,7 +127,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 		<ul id='pop_list' class='sto_cover_list'>
 		<?php
 		$story_content = '';
-		$i_query = "select * from ".$db_prefix."posts where post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_date) <=7 order by post_digg_count desc limit 4";
+		$i_query = "select * from ".$db_prefix."posts where post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_date) <=7 order by popular_count desc limit 4";
 		$result=$DB->query($i_query);
 		while ($story_item = mysql_fetch_array($result))
 		{
@@ -206,7 +206,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 				}
 			}
 			//need to fetch the title of the most popular story which has this specific tag
-			$query="select story_posts.id,".$db_prefix."posts.post_title,".$db_prefix."posts.post_pic_url from ".$db_prefix."tag_story,".$db_prefix."posts where tag_id=".$tag_id." and story_id=".$db_prefix."posts.id ".$s_query." and story_posts.post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_modified) <=$MAX_DAYS order by ".$db_prefix."posts.post_digg_count desc";
+			$query="select story_posts.id,".$db_prefix."posts.post_title,".$db_prefix."posts.post_pic_url from ".$db_prefix."tag_story,".$db_prefix."posts where tag_id=".$tag_id." and story_id=".$db_prefix."posts.id ".$s_query." and story_posts.post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_modified) <=$MAX_DAYS order by ".$db_prefix."posts.popular_count desc";
 			$result=$DB->query($query);
 			$item=$DB->fetch_array($result);
 			if(!$item)

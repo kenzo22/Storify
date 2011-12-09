@@ -96,4 +96,31 @@ function getPublicToken()
   }
 }
 
+function getPopularScore($post_id)
+{
+  global $DB;
+  global $db_prefix;
+  $view_count = 0;
+  $comment_weight = 5;
+  $digg_weight = 3;
+  $view_weight = 2;
+  $result = $DB->fetch_one_array("SELECT post_digg_count FROM ".$db_prefix."posts where id='".$post_id."'");
+  $digg_count = $result['post_digg_count'];
+  
+  $query="select COUNT(*) as num from ".$db_prefix."comments where comment_post_id =".$post_id;
+  $result = mysql_fetch_array(mysql_query($query));
+  $comment_count = intval($result[num]);
+  
+  $query = "select view_count from ".$db_prefix."pageview where story_id=".$post_id;
+  $result = $DB->query($query);
+  if($DB->num_rows($result) > 0)
+  {
+	while($row = $DB->fetch_array($result)){
+		$view_count += $row['view_count'];
+	}
+  }
+  $popularScore = $comment_weight*$comment_count + $digg_weight*$digg_count + $view_weight*$view_count;
+  return $popularScore; 
+}
+
 ?>

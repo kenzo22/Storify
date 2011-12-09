@@ -293,6 +293,9 @@ li#more{margin:10px 0}
 .editable .actions .icon.delete{background:url("../img/usersprite.png") no-repeat scroll 0 -64px transparent;height:16px;width:16px;display:inline-block}
 .editable .actions .icon.edit{background:url("../img/usersprite.png") no-repeat scroll 0 -200px transparent;height:16px;width:16px;display:inline-block}
 #userstory_container, #tagstory_container{margin-bottom:30px;overflow:auto;zoom:1;position:relative}
+#tagstory_container #sort_type{margin-bottom:20px;background-color: #DDDDDD;overflow: hidden; width:300px;padding:7px 0 0 40px;font-size:16px;border-radius:5px}
+#tagstory_container #sort_type a{margin-right:40px;padding:3px 8px}
+#tagstory_container #sort_type a.now{background-color:#FFF;}
 #userstory_container .userinfo_wrapper{width:880px;overflow:auto;padding-top:15px;margin:20px auto 10px}
 .userinfo_wrapper .misc_wrapper{float:left;width:150px;height:90px;margin-left:10px}
 .userinfo_wrapper #user_intro{float:left;width:450px;margin-left:20px;color:#333;font-size:12px}

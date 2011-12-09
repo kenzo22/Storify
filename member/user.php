@@ -69,6 +69,8 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	{
 	  $viewresult=$DB->query("insert into ".$db_prefix."pageview values(null, '".$post_id."', 'koulifang.com', '', 1)");
 	}
+	$score = getPopularScore($post_id);
+	$DB->query("update ".$db_prefix."posts set popular_count='".$score."'  WHERE ID='".$post_id."'");
 	$story_author = $result['post_author'];
 	
 	$userresult = $DB->fetch_one_array("SELECT username, intro, photo, weibo_user_id, tweibo_access_token FROM ".$db_prefix."user where id='".$_SESSION['uid']."'");
