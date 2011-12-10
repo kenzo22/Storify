@@ -200,7 +200,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 			
 			if($used_story){
 				foreach($used_story as $sid){
-					$s_query = " and story_posts.id !=".$sid;
+					$s_query .= " and story_posts.id !=".$sid;
 				}
 			}
 			//need to fetch the title of the most popular story which has this specific tag

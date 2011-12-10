@@ -4,6 +4,9 @@ function getPopularTags($n)
     global $DB;
     global $MAX_DAYS;
     
+    if($n <=0)
+        return null;
+
     if(!$MAX_DAYS)
         $MAX_DAYS=30;
     $tags_array=array();
@@ -23,13 +26,38 @@ function getPopularTags($n)
         $tag_story_array[$tag_id]=$num;
     }
     arsort($tag_story_array);
-    $i=0;
+    $sentinel = 0;
     $popularTags=array();
+    $temp_key=array();
+    $temp_array=array();
     foreach($tag_story_array as $key=>$value)
     {
-        if(++$i > $n)
+        if(sizeof($popularTags) >= $n)
             break;
-        $popularTags[]=$key;
+
+        if(!$sentinel) {
+            $sentinel = $value;
+            $temp_key[] = $key;
+            $temp_array[$key] = $value;
+            continue;
+        }
+        if($sentinel > $value){
+            $sentinel = $value;
+            if(sizeof($popularTags) + sizeof($temp_key) <= $n){
+                foreach($temp_key as $item)
+                    $popularTags[]=$item;
+                $temp_key=array();
+                $temp_array=array();
+            }else{
+                $left = $n - sizeof($popularTags); 
+                $key_rr = array_rand($temp_array,$left);
+                foreach($key_rr as $item)
+                    $popularTags[]=$item;
+                $temp_array=array();
+            }
+        }
+        $temp_key[] = $key;
+        $temp_array[$key] = $value;
     }
     return $popularTags;
 }
