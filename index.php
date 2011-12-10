@@ -256,9 +256,9 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 			  $u_photo = 'img/douban_user_dft.jpg';
 			}
 			$u_link = "/user/".$u_id;
-			$user_content.="<li class='float_l' style='margin:0 14px 7px 0;width:50px;overflow:auto;'>
-							  <a href='".$u_link."' title='".$u_name."'><img style='width:50px;height:50px;' src='".$u_photo."' /></a>
-							  <div style='overflow:hidden;white-space:nowrap;width:50px;text-overflow:ellipsis;text-align:center;'><span><a href='".$u_link."' title='".$u_name."'>".$u_name."</a></span></div>
+			$user_content.="<li>
+							  <a href='".$u_link."' title='".$u_name."'><img src='".$u_photo."' /></a>
+							  <div><span><a href='".$u_link."' title='".$u_name."'>".$u_name."</a></span></div>
 							</li>";
 		  }
 		  echo $user_content;

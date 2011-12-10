@@ -82,8 +82,9 @@ div.pagination a:hover,div.pagination a:active{color:#0066a7;border:1px solid #b
 div.pagination span.current{border:1px solid #b7d8ee;font-weight:700;color:#444;background-color:#d2eaf6;margin:0 3px;padding:5px 6px 4px 5px}
 #trendTopics{float:left;width:550px;margin-right:40px}
 #topUsers{overflow:hidden;width:320px;float:left}
-#topUsers ol{margin:5px;padding:0 0 0 20px}
-#topUsers ol li{list-style-type:decimal}
+#topUsers ul li{float:left;margin:0 14px 7px 0;width:50px;height:80px;display:inline;text-align:center}
+#topUsers ul li div{overflow:hidden;white-space:nowrap;width:50px;text-overflow:ellipsis;text-align:center}
+#topUsers ul li img{width:50px;height:50px;border:0px}
 .category h3{border-bottom:1px solid #E6E6E6;color:#999;padding-bottom:10px;font-size:20px;font-weight:500;text-shadow:0 1px 0 #FFFFFF, 0 1px 0 #EEE;margin:40px 0 18px}
 .published-steps{background:none repeat scroll 0 0 #FFF;border:1px solid #ABABAC;box-shadow:0 0 5px rgba(212, 212, 212, 0.3);font-size:12px;width:660px;margin:0 0 5px;padding:10px 0 0}
 .published-steps .tabs{margin-bottom:-1px;padding:0 0 0 10px}
