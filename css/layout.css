@@ -183,6 +183,7 @@ li.tencent .weibo_date_drop{background:url("../img/editsprite.png") no-repeat sc
 .cover{display:block;height:186px;position:relative;width:186px;padding:0}
 .title_wrap{bottom:13px;position:absolute;width:185px;text-align:left;margin:0;word-wrap:break-word;word-break:break-all}
 .topic_list .title_wrap{width:100px}
+.topic_list .topic_title{float:left;overflow:hidden;white-space:nowrap;width:90px;text-overflow:ellipsis;}
 .topic_cover{background-repeat:no-repeat;display:block;height:100px;overflow:hidden;position:relative;width:100px;padding:0}
 .topic_cover .title_wrap{bottom:13px;position:absolute;width:100px;text-align:left;margin:0}
 .title_wrap .title{background:none repeat scroll 0 0 #000;color:#FFF;display:inline;font:bold;text-shadow:0 0 2px rgba(0, 0, 0, 0.8);text-transform:uppercase;padding:1px 0}
@@ -195,7 +196,7 @@ li.tencent .weibo_date_drop{background:url("../img/editsprite.png") no-repeat sc
 .videoLi .source_img{background:url("../img/editsprite.png") no-repeat scroll 0 -119px transparent;height:24px;width:24px;display:block}
 .yupooLi .source_img{background:url("../img/editsprite.png") no-repeat scroll 0 -631px transparent;height:24px;width:24px;display:block}
 #weibo_search,#douban_search,#pic_search{padding-left:4px}
-#weibo_search #keywords,#douban_search #d_keywords,#pic_search #pic_keywords,#videoTabs #videoUrl{width:250px;vertical-align:middle}
+#weibo_search #keywords,#douban_search #d_keywords,#pic_search #pic_keywords,#videoTabs #videoUrl{width:265px;vertical-align:middle}
 #weibo_search_btn,#douban_search_btn,#pic_search_btn,#embedVideo{vertical-align:middle;margin-left:10px}
 #douban_search_btn,#pic_search_btn{width:76px}
 #videoTabs .wrapper{padding-top:16px;padding-bottom:29px}
@@ -448,3 +449,5 @@ div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,block
 #reply_container #comment_container #input_wrapper{margin-left:60px}
 #reply_container #comment_container #reply_input{overflow-y: auto; width:575px; height:50px; border: 1px solid #DDD;padding:3px}
 #reply_container #comment_container .post_comment{margin:10px 5px 10px 0; float:right}
+#doubanTabs.ui-tabs .ui-tabs-nav li, #picTabs.ui-tabs .ui-tabs-nav li {width:84px}
+#doubanTabs.ui-tabs .ui-tabs-nav li a, #picTabs.ui-tabs .ui-tabs-nav li a {width:68px;text-align:center}

@@ -221,10 +221,8 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 			  $pic_url = "/img/event_dft.jpg";
 			}
 			$tag_content .="<li>
-							  <div class='topic_meta'>
-								<span class='story_count'>".$tag_count."</span>
-								<a class='topic_title' href='".$topic_link."'>#".$tag_name."#</a>
-							  </div>
+							  <a class='topic_title' href='".$topic_link."' title='".$tag_name."'>#".$tag_name."#</a>
+							  <span class='ttstory_count'>".$tag_count."</span>
 							  <a href='".$topic_link."'>
 								<img class='topic_cover' src='".$pic_url."' />
 							  </a>
@@ -242,9 +240,6 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 		<?php
 		  $user_content='';
 		  $query = "SELECT id, username, photo from ".$db_prefix."user ORDER BY RAND() LIMIT 10";
-		  
-		  
-		  
 		  $result=$DB->query($query);
 		  while ($user_item = mysql_fetch_array($result))
 		  {

@@ -115,6 +115,13 @@ class WeiboClient
         $param['base_app'] = 0;	
 		return $this->oauth->get('http://api.t.sina.com.cn/trends/hourly.json' , $param); 
 	}
+	
+	function get_favorite($page = 1)
+	{
+	  $param = array(); 
+	  $param['page'] = $page;
+      return $this->oauth->get('http://api.t.sina.com.cn/favorites.json', $param ); 
+	}
 
     /** 
      * 最新 @用户的 

@@ -25,6 +25,10 @@ else if('my_follow' == $operation)
 {
   $tweibo  = $c->home_timeline($page, $timestamp, $itemsPerPage);
 }
+else if('my_fav' == $operation)
+{
+  $tweibo  = $c->fav_list_t($page, $timestamp, $itemsPerPage);
+}
 else if('weibo_search' == $operation)
 {
   $keywords = $_GET['keywords'];
@@ -110,7 +114,7 @@ else
 	  $load_more_flag = false;
 	}
 	//address the tencent my weibo bug
-	if('my_weibo' == $operation && $itemsPerPage >= $total_num)
+	if(('my_weibo' == $operation && $itemsPerPage >= $total_num) || 'my_fav' == $operation)
 	{
 	  $load_more_flag = false;
 	}			

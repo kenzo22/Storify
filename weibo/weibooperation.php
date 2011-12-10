@@ -63,6 +63,12 @@ else if('my_follow' == $operation)
 {
   $weibo  = $c->friends_timeline($page, $itemsPerPage);
 }
+else if('my_fav' == $operation)
+{
+  $weibo  = $c->get_favorite($page);
+  if(count($weibo)<20)
+  $load_more_flag = false;
+}
 else if('weibo_search' == $operation)
 {
   $keywords = $_GET['keywords'];

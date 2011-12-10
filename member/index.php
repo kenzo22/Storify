@@ -144,9 +144,10 @@ $content .= "<div class='inner'>
 		  <div id='weiboTabs'>
 		    <ul>
 			  <li><a id='search_tab' href='#tabs-1'>话题搜索</a></li>
-		      <li><a id='my_tab' class='".$hasSina." ".$hasTencent."' href='#tabs-2'>我的微博</a></li>
-		      <li><a id='follow_tab' class='".$hasSina." ".$hasTencent."' href='#tabs-3'>我的关注</a></li>
-		      <li><a id='user_tab' href='#tabs-4'>用户搜索</a></li>
+			  <li><a id='user_tab' href='#tabs-2'>用户搜索</a></li>
+		      <li><a id='my_tab' class='".$hasSina." ".$hasTencent."' href='#tabs-3'>我的微博</a></li>
+		      <li><a id='follow_tab' class='".$hasSina." ".$hasTencent."' href='#tabs-4'>我的关注</a></li>
+			  <li><a id='favorite_tab' class='".$hasSina." ".$hasTencent."' href='#tabs-5'>我的收藏</a></li>
 	        </ul> 
 			<div id='tabs-1'> 
 
@@ -158,6 +159,9 @@ $content .= "<div class='inner'>
 
 	        </div> 
 	        <div id='tabs-4'> 
+		      
+	        </div>
+			<div id='tabs-5'> 
 		      
 	        </div>
 			<div id='weibo_search'>

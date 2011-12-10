@@ -86,6 +86,7 @@ $ip = "Unknown";
 		$param['name']=$name;
         return $this->oauth->get('http://open.t.qq.com/api/statuses/user_timeline',$param); 
     } 
+	
 
    // @提到我的微博时间线
    function  mentions_timeline($pageflag=0,$pagetime=0,$reqnum=20,$format='json')
@@ -561,7 +562,8 @@ $ip = "Unknown";
     	$param['pagetime']=$pagetime;
     	$param['reqnum']=$reqnum;
         return $this->oauth->get( 'http://open.t.qq.com/api/fav/list_t' ,$param); 
-    } 
+    }
+
 //4.fav/addht 收藏话题
     function fav_add_ht($id,$format='json') 
     { 
