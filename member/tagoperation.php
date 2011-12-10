@@ -27,11 +27,14 @@ function getPopularTags($n)
     }
     arsort($tag_story_array);
     $sentinel = 0;
+    $num=0;
     $popularTags=array();
     $temp_key=array();
     $temp_array=array();
+    $len = sizeof($tag_story_array);
     foreach($tag_story_array as $key=>$value)
     {
+        ++$num;
         if(sizeof($popularTags) >= $n)
             break;
 
@@ -41,7 +44,7 @@ function getPopularTags($n)
             $temp_array[$key] = $value;
             continue;
         }
-        if($sentinel > $value){
+        if($num == $len | $sentinel > $value){
             $sentinel = $value;
             if(sizeof($popularTags) + sizeof($temp_key) <= $n){
                 foreach($temp_key as $item)
