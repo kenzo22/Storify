@@ -175,16 +175,14 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	  </div>
 	  <div><a id='story_more'>换一组看看</a></div>
 	</div>
-	<?php
-	if(islogin())
-	{
-		$tag_content = "<div class='category'>
-						<div id='trendTopics'>
-						  <h3 class='blue'>热门话题</h3>
-						  <div class='topic_list'>
-							<ul>";
-		//need change to fetch the most popular topic from the database
-		$tags=getPopularTags(10);
+	<div class='category'>
+	  <div id='trendTopics'>
+	    <h3>热门话题</h3>
+	    <div class='topic_list'>
+		  <ul>
+		<?php
+		$tag_content='';
+		$tags=getPopularTags(8);
 		$used_story=array();
 		$s_query='';
 		$tag_i=0;
@@ -211,7 +209,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 			$item=$DB->fetch_array($result);
 			if(!$item)
 				continue;
-			if(++$tag_i > 7)
+			if(++$tag_i > 4)
 				break;
 			$used_story[] = $item['id'];
 		    if($item['post_pic_url'] != '')
@@ -233,11 +231,42 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 							  <a class='title_wrap' href='".$topic_link."'><h1 class='title'>".$item['post_title']."</h1></a>
 							</li>";
 		}
-		$tag_content .= "</ul></div></div></div>";
 		echo $tag_content;
-	}		  
-	?>
+	    ?>
+	      </ul>
+		</div>
+	  </div>
+	  <div id='topUsers' class='float_l'>
+	    <h3>随便看看</h3>
+	    <ul>
+		<?php
+		  $user_content='';
+		  $query = "SELECT id, username, photo from ".$db_prefix."user ORDER BY RAND() LIMIT 10";
+		  
+		  
+		  
+		  $result=$DB->query($query);
+		  while ($user_item = mysql_fetch_array($result))
+		  {
+		    $u_id = $user_item['id'];
+			$u_name = $user_item['username'];
+			$u_photo = $user_item['photo'];
+			if(empty($u_photo))
+			{
+			  $u_photo = 'img/douban_user_dft.jpg';
+			}
+			$u_link = "/user/".$u_id;
+			$user_content.="<li class='float_l' style='margin:0 14px 7px 0;width:50px;overflow:auto;'>
+							  <a href='".$u_link."' title='".$u_name."'><img style='width:50px;height:50px;' src='".$u_photo."' /></a>
+							  <div style='overflow:hidden;white-space:nowrap;width:50px;text-overflow:ellipsis;text-align:center;'><span><a href='".$u_link."' title='".$u_name."'>".$u_name."</a></span></div>
+							</li>";
+		  }
+		  echo $user_content;
+		?>
+	    </ul>
+	  </div>
 	</div>
+  </div>
 
 <div id="footer">
   <div class='wrapper'>

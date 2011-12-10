@@ -328,7 +328,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 			  <li><a id='next_img' href='#'></a></li>
 			</ul>
 		  </div>
-		  <span > <input type='text' value='".$story_title."' name='story_title' id='sto_title' /> </span>
+		  <span > <input type='text' value='".$story_title."' name='story_title' id='sto_title' maxlength='48' /> </span>
 		  <div>
 		    <textarea id='sto_summary' cols='40' rows='4'>".$story_summary."</textarea>
 		  </div>
@@ -722,7 +722,7 @@ else
 			  <li><a id='next_img' href='#'></a></li>
 			</ul>
 		  </div>
-		  <span ><input type='text' value='' name='story_title' id='sto_title' /></span>
+		  <span ><input type='text' value='' name='story_title' id='sto_title' maxlength='48' /></span>
 		  <div>
 		    <textarea id='sto_summary' cols='40' rows='4'></textarea>
 		  </div>
