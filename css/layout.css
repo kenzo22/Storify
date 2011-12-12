@@ -368,12 +368,13 @@ div.inner{width:920px;overflow:hidden;position:relative;margin:0 auto}
 #user.pre ul{margin:11px 0 0}
 #user ul li{float:left;font-size:1.1em;line-height:1.2;margin:0 0 0 3px}
 #user ul li a{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px}
-#footer{width:920px;border-top:1px solid #E3E5E6;clear:both;position:relative;margin:0 auto;padding:0 0 1px}
-.editor #footer{width:100%;position:fixed;bottom:0;height:40px;z-index:1200;background:none repeat scroll 0 0 #F9F9F9}
+#footer{width:920px;border-top:1px solid #E3E5E6;clear:both;position:relative;margin:0 auto;padding:5px 0 20px}
+.editor #footer{width:100%;position:fixed;bottom:0;height:40px;z-index:1200;background:none repeat scroll 0 0 #F9F9F9;padding:5px 0 0}
 .editor #footer .wrapper{position:absolute;width:920px;left:50%;margin-left:-460px}
 #footer p{color:#BBB;font-size:1.1em}
 #footer ul{float:right;list-style:none;padding:0}
 #footer ul li{display:inline;float:left;font-size:1.1em;margin:0 0 0 18px}
+#footer ul li span img{float:left;margin-top:2px;width:16px;height:16px}
 #sign_up #agree_term{margin:0 8px 0 84px}
 #sign_up #btn_submit_signup{padding-left:84px;margin-bottom:50px}
 #a_flag{color:#494949;font-size:18px;font-weight:700;margin:160px 0 20px}

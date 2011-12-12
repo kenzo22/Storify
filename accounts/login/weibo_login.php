@@ -33,8 +33,6 @@ if (isset($msg['id'])){
 }
 
 $result = $DB->fetch_one_array("select * from ".$db_prefix."user where weibo_user_id='".$weibo_uid."'");
-var_dump($weibo_uid);
-var_dump($result);
 if(empty($result))
 {
   header("location: /accounts/associate_form"); 

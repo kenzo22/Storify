@@ -15,6 +15,7 @@ $c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] 
 $weibo;
 $keywords;
 $load_more_flag = true;
+$fav_flag = false;
 $weiboContent = "";
 
 if('list_ht' == $operation)
@@ -65,6 +66,7 @@ else if('my_follow' == $operation)
 }
 else if('my_fav' == $operation)
 {
+  $fav_flag = true;
   $weibo  = $c->get_favorite($page);
   if(count($weibo)<20)
   $load_more_flag = false;
@@ -129,7 +131,15 @@ foreach( $weibo as $item )
 	{
 	  $weiboContent .= "<div class='weibo_img'><img src='".$item['thumbnail_pic']."' alt='' /></div>";
 	}
-    $weiboContent .= "</div><span class='create_time'>".$createTime."</span></div></li>";
+	if($fav_flag)
+	{
+	  $weiboContent .= "</div><div><span class='float_r'><a class='del_fav remove_flag' href='#'>[取消收藏]</a></span>";
+	}
+	else
+	{
+	  $weiboContent .= "</div><div><span class='float_r'><a class='add_fav' href='#'>[收藏]</a></span>";
+	}
+	$weiboContent .= "<span class='create_time'>".$createTime."</span></div></div></li>";
 }
 if($load_more_flag)
 {

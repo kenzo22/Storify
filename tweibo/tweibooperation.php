@@ -12,6 +12,7 @@ $page = $_GET['page'];
 $timestamp = $_GET['timestamp'];
 $itemsPerPage = 20;
 $load_more_flag = true;
+$fav_flag = false;
 
 $c = new TWeiboClient( MB_AKEY , MB_SKEY , $_SESSION['last_tkey']['oauth_token'] , $_SESSION['last_tkey']['oauth_token_secret']  );
 $tweibo;
@@ -27,6 +28,7 @@ else if('my_follow' == $operation)
 }
 else if('my_fav' == $operation)
 {
+  $fav_flag = true;
   $tweibo  = $c->fav_list_t($page, $timestamp, $itemsPerPage);
 }
 else if('weibo_search' == $operation)
@@ -162,8 +164,15 @@ else
 			$weiboContent .="<div class='weibo_img'><img src='".$img_url."/120' alt='' /></div>";
 		}
     }
-    $weiboContent .= "</div><span class='create_time'>".$create_time."</span></div></li>";
-
+    if($fav_flag)
+	{
+	  $weiboContent .= "</div><div><span class='float_r'><a class='del_fav remove_flag' href='#'>[取消收藏]</a></span>";
+	}
+	else
+	{
+	  $weiboContent .= "</div><div><span class='float_r'><a class='add_fav' href='#'>[收藏]</a></span>";
+	}
+    $weiboContent .= "<span class='create_time'>".$create_time."</span></div></div></li>";
   }
   if($load_more_flag)
   {
