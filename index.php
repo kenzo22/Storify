@@ -220,13 +220,20 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 			{
 			  $pic_url = "/img/event_dft.jpg";
 			}
+			$p_title = $item['post_title'];
+			$p_length = utf8_strlen($p_title);
+			if($p_length>48)
+			{
+			  $p_title = utf8Substr($p_title, 0, 20);
+			  $p_title .="...";
+			}
 			$tag_content .="<li>
 							  <a class='topic_title' href='".$topic_link."' title='".$tag_name."'>#".$tag_name."#</a>
 							  <span class='ttstory_count'>".$tag_count."</span>
 							  <a href='".$topic_link."'>
 								<img class='topic_cover' src='".$pic_url."' />
 							  </a>
-							  <a class='title_wrap' href='".$topic_link."'><h1 class='title'>".$item['post_title']."</h1></a>
+							  <a class='title_wrap' href='".$topic_link."'><h1 class='title'>".$p_title."</h1></a>
 							</li>";
 		}
 		echo $tag_content;

@@ -28,6 +28,13 @@ function produce_random_strdig($length=6)
 	}
 }
 
+function utf8Substr($str, $from, $len)
+{
+    return preg_replace('#^(?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){0,'.$from.'}'.
+                       '((?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){0,'.$len.'}).*#s',
+                       '$1',$str);
+}
+
 function utf8_strlen($str) { 
      $count = 0; 
      for($i = 0; $i < strlen($str); $i++){ 

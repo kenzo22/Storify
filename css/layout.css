@@ -187,7 +187,7 @@ li.tencent .weibo_date_drop{background:url("../img/editsprite.png") no-repeat sc
 .topic_cover{background-repeat:no-repeat;display:block;height:100px;overflow:hidden;position:relative;width:100px;padding:0}
 .topic_cover .title_wrap{bottom:13px;position:absolute;width:100px;text-align:left;margin:0}
 .title_wrap .title{background:none repeat scroll 0 0 #000;color:#FFF;display:inline;font:bold;text-shadow:0 0 2px rgba(0, 0, 0, 0.8);text-transform:uppercase;padding:1px 0}
-.topic_list .title_wrap .title{font-size:14px;height:40px}
+.topic_list .title_wrap .title{font-size:14px;font-weight:500}
 .title_wrap .title:hover{background:none repeat scroll 0 0 #ABABAC}
 .weiboLi,.tweiboLi,.doubanLi,.videoLi,.yupooLi{padding:5px 0 5px 5px}
 .weiboLi .source_img{background:url("../img/editsprite.png") no-repeat scroll 0 -415px transparent;height:24px;width:24px;display:block}
