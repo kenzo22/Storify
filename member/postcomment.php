@@ -28,7 +28,7 @@ $commentresult = $DB->fetch_one_array("select comment_id, comment_content from "
 if($commentresult)
 {
   $comment_id = $commentresult['comment_id'];
-  $comment_content = $commentresult['comment_content'];
+  $comment_content = nl2br($commentresult['comment_content']);
 }
 
 $content ="<li id='comment_".$comment_id."' style='display:none;'>

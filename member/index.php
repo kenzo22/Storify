@@ -54,6 +54,7 @@ set_magic_quotes_runtime(0);
 if(islogin())
 { 
   $content="<div id='actions'>
+				<span id='flag_".$_SESSION['uid']."'><a id='dropBtn' class='login_flag' href='#' >放弃</a></span>
 				<span><a id='draftBtn' href='/draft' >保存草稿</a></span>
 				<span><a id='previewBtn' href='/preview' >预览</a></span>
 				<span><a id='publishBtn' class='large blue awesome' href='/create' >发布 &raquo;</a></span>
@@ -65,6 +66,7 @@ else
 {
   getPublicToken();
   $content="<div id='actions'>
+			  <span><a id='dropBtn' href='#' >放弃</a></span>
 			  <span><a id='draftBtn' class='disable' href='/draft' >保存草稿</a></span>
 			  <span><a id='previewBtn' class='disable' href='/preview' >预览</a></span>
 			  <span><a id='publishBtn' class='large blue awesome disable' href='/publish' >发布 &raquo;</a></span>

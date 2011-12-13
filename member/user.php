@@ -813,7 +813,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	    $comment_author = $item['comment_author'];
 	    $comment_author_id = $item['user_id'];
 		$comment_time = dateFormatTrans($item['comment_date'],$date_t);
-	    $comment_content = $item['comment_content'];
+	    $comment_content = nl2br($item['comment_content']);
 	    $content.="<li id='comment_".$comment_id."'>
 			   <a href='/user/".$comment_author_id."' target='_blank'><img alt='' src='".$pic_url."' /></a>
 			   <div class='comment_wrapper'>
@@ -841,7 +841,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		  $comment_action = "<span class='float_r'><a href='#' class='reply_comment'>回复</a></span>";
 		}
 	    $comment_time = dateFormatTrans($item['comment_date'],$date_t);
-	    $comment_content = $item['comment_content'];
+	    $comment_content = nl2br($item['comment_content']);
 	    $content.="<li id='comment_".$comment_id."'>
 			   <a href='/user/".$comment_author_id."' target='_blank'><img alt='' src='".$pic_url."' /></a>
 			   <div class='comment_wrapper'>
