@@ -1191,7 +1191,7 @@ $(function() {
 			  }
 			  else
 			  {
-				var r=confirm("确定放弃吗? 故事的内容不会被保存。");
+				var r=confirm("确定放弃吗? 您本次做的更改不会保存。");
 				if (r==true)
 				{
 				  if(target.hasClass('login_flag'))
