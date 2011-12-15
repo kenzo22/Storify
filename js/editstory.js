@@ -106,6 +106,11 @@ function prepare_story_data(action_value)
 	  var tweibo_metadata = {id: tid, nic: tnic, name: tname};
 	  story_content_val.content[i].content = tweibo_metadata;
 	}
+	else if($(this).hasClass('img_upload_drop'))
+	{
+	  story_content_val.content[i].type = 'upload_img';
+	  story_content_val.content[i].content = $(this).find('img').attr('src');
+	}
 	else if($(this).hasClass('textElement'))
 	{
 	  if($(this).hasClass('editing'))
@@ -1040,6 +1045,13 @@ $(function() {
 				  dragItem.prepend("<div class='cross' action='delete'></div><div class='handle'></div>");
 				}
 			  }
+			  else if(dragItem.hasClass('img_upload_drag'))
+			  {
+			    var imgSrc = dragItem.find('img').attr('src'),
+				    imgContent = ("<div class='cross' action='delete'></div><div class='handle'></div><div class='img_wrapper'><img src='"+imgSrc+"'></div>");
+				dragItem.removeClass('img_upload_drag').addClass('img_upload_drop').children().remove();　
+			    dragItem.append(imgContent);
+			  }
 			  else if(dragItem.hasClass('video_drag'))
 			  {
 			    //var thumbnailUrl = dragItem.find('.youku_thumbnail').attr('src');
@@ -1658,93 +1670,147 @@ $(function() {
 		  });
 		})
 		
+		var button = $('#upload_btn'), interval;
+		
+		new AjaxUpload(button, {
+			action: '/member/imgupload.php', 
+			name: 'photofile',
+			onSubmit : function(file, ext)
+			{		
+				ext = ext.toLowerCase();
+				if (ext && /^(jpg|png|jpeg|gif|bmp)$/.test(ext))
+				{
+				  button.text('正在上传');
+				  this.disable();
+				  interval = window.setInterval(function(){
+					var text = button.text();
+					if (text.length < 13){
+						button.text(text + '.');					
+					} else {
+						button.text('正在上传');				
+					}
+				  }, 200);
+				}
+				else
+				{
+				  $('<div class=\"imply_color center\">不支持该文件类型</div>').appendTo('#source_list');
+				  return false;	
+				}
+			},
+			onComplete: function(file, response){
+				button.text('添加照片');		
+				window.clearInterval(interval);
+				this.enable();
+				$('#source_list .imply_color').remove();
+				$('#source_list').append(response);
+			}
+		});
+		
 		var $items = $('#vtab>ul>li');
 		var selVTab = 0;
-        $items.click(function() {
+        $items.click(function(){
         $items.removeClass('selected');
         $(this).addClass('selected');
         vtabIndex = $items.index($(this));
-		if(1 == vtabIndex)
-		{
-		  $('#search_tab').text('微博搜索');
-		  $('#my_tab').text('我的广播');
-		  $('#follow_tab').text('我的收听');
-		  $('#weibo_search_btn').text('搜索微博');
-		  if(1 != selVTab)
-		  {
-		    $weiboTabs.tabs( "select" , 0 );
-		    $('#weibo_search').removeClass('none');
-			$('#source_list').children().remove();
-			$('#keywords').val('关键字').addClass('imply_color');
-		  }
-		  selVTab = 1;
-		  $('#vtab>div').hide().eq(vtabIndex-1).show();
-		}
-		else if(2 == vtabIndex)
-		{
-		  if(2 != selVTab)
-		  {
-		    $doubanTabs.tabs( "select" , 0 );
-			$('#source_list').children().remove();
-			$('#d_keywords').val('书名').addClass('imply_color');
-		  } 
-		  selVTab = 2;
-		  $('#vtab>div').hide().eq(vtabIndex-1).show();
-		}
-		else if(3 == vtabIndex)
-		{
-		  if(3 != selVTab)
-		  {
-		    $('#source_list').children().remove();
-		  } 
-		  selVTab = 3;
-		  $('#vtab>div').hide().eq(vtabIndex-1).show();
-		}
-		else if(4 == vtabIndex)
-		{
-		  if(4 != selVTab)
-		  {
-		    $picTabs.tabs( "select" , 0 );
-			$('#source_list').children().remove();
-			$('#pic_keywords').val('关键字').addClass('imply_color');
-		  } 
-		  selVTab = 4;
-		  $('#vtab>div').hide().eq(vtabIndex-1).show();
-		}
-        else
-		{
-		  $('#search_tab').text('话题搜索');
-		  $('#my_tab').text('我的微博');
-		  $('#follow_tab').text('我的关注');
-		  $('#weibo_search_btn').text('搜索话题');
-		  $('#keywords').val('关键字').addClass('imply_color');
-		  if(0 != selVTab)
-		  {
-		    $weiboTabs.tabs( "select" , 0 );
-		    $('#weibo_search').removeClass('none');
-			$('#source_list').children().remove();
-		    var getUrl = weibo_url;
-		    var getData;
-		    getData = {operation: 'list_ht'};
-		  
-		    $.ajax({
-		    type: 'GET',
-		    url: getUrl,
-		    data: getData, 
-		    beforeSend:function() 
-		    {
-		      var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
-		      $('#source_list').html(imgloading);
-		    },
-		    success: function(data)
-		    {
-			  $('#source_list').html(data);
-		    }
-		    });
-		  }
-		  selVTab = 0;
-		  $('#vtab>div').hide().eq(vtabIndex).show();
-		}
+		switch(vtabIndex)
+	    {
+		  case 0:
+			{
+			  $('#search_tab').text('话题搜索');
+			  $('#my_tab').text('我的微博');
+			  $('#follow_tab').text('我的关注');
+			  $('#weibo_search_btn').text('搜索话题');
+			  $('#keywords').val('关键字').addClass('imply_color');
+			  if(0 != selVTab)
+			  {
+				$weiboTabs.tabs( "select" , 0 );
+				$('#weibo_search').removeClass('none');
+				$('#source_list').children().remove();
+				var getUrl = weibo_url;
+				var getData;
+				getData = {operation: 'list_ht'};
+			  
+				$.ajax({
+				type: 'GET',
+				url: getUrl,
+				data: getData, 
+				beforeSend:function() 
+				{
+				  var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
+				  $('#source_list').html(imgloading);
+				},
+				success: function(data)
+				{
+				  $('#source_list').html(data);
+				}
+				});
+			  }
+			  selVTab = 0;
+			  $('#vtab>div').hide().eq(vtabIndex).show();
+			  break;
+			}
+		  case 1: 
+			{
+			  $('#search_tab').text('微博搜索');
+			  $('#my_tab').text('我的广播');
+			  $('#follow_tab').text('我的收听');
+			  $('#weibo_search_btn').text('搜索微博');
+			  if(1 != selVTab)
+			  {
+				$weiboTabs.tabs( "select" , 0 );
+				$('#weibo_search').removeClass('none');
+				$('#source_list').children().remove();
+				$('#keywords').val('关键字').addClass('imply_color');
+			  }
+			  selVTab = 1;
+			  $('#vtab>div').hide().eq(vtabIndex-1).show();
+			  break;
+			}
+		  case 2: 
+			{
+			  if(2 != selVTab)
+			  {
+				$doubanTabs.tabs( "select" , 0 );
+				$('#source_list').children().remove();
+				$('#d_keywords').val('书名').addClass('imply_color');
+			  } 
+			  selVTab = 2;
+			  $('#vtab>div').hide().eq(vtabIndex-1).show();
+			  break;
+			}
+		  case 3:
+			{
+			  if(3 != selVTab)
+			  {
+				$('#source_list').children().remove();
+			  } 
+			  selVTab = 3;
+			  $('#vtab>div').hide().eq(vtabIndex-1).show();
+			  break;
+			}		  
+		  case 4: 
+			{
+			  if(4 != selVTab)
+			  {
+				$picTabs.tabs( "select" , 0 );
+				$('#source_list').children().remove();
+				$('#pic_keywords').val('关键字').addClass('imply_color');
+			  } 
+			  selVTab = 4;
+			  $('#vtab>div').hide().eq(vtabIndex-1).show();
+			  break;
+			}
+		  case 5: 
+			{
+			  if(5 != selVTab)
+			  {
+				$('#source_list').children().remove();
+			  } 
+			  selVTab = 5;
+			  $('#vtab>div').hide().eq(vtabIndex-1).show();
+			  break;
+			}
+	    }
         }).eq(0).click();
 
 		$('.window .close').click(function (e) {

@@ -158,7 +158,6 @@ div.pagination span.current{border:1px solid #b7d8ee;font-weight:700;color:#444;
 .douban_signature .text_wrapper,.story_signature .text_wrapper{float:right;height:16px}
 .handle{background:url("../img/textture.png") repeat-y scroll center top #EFEFEF;border-right:1px solid #BBB;bottom:0;left:0;position:absolute;top:0;width:13px}
 .commentBox{padding-left:5px}
-.commentBox img{max-width:400px}
 .list_t_weibo{background:none repeat scroll 0 0 #E1F0F7;border-radius:30px 30px 30px 30px;display:inline-block;text-decoration:none;margin:0 5px 5px 0;padding:0 10px}
 #trends_wrapper{overflow:auto;margin:8px 8px 8px 14px;padding:8px}
 #source_list li.ht_wrapper{overflow:auto;margin:15px 0 25px 20px}
@@ -192,18 +191,19 @@ li.tencent .weibo_date_drop{background:url("../img/editsprite.png") no-repeat sc
 .title_wrap .title{background:none repeat scroll 0 0 #000;color:#FFF;display:inline;font:bold;text-shadow:0 0 2px rgba(0, 0, 0, 0.8);text-transform:uppercase;padding:1px 0}
 .topic_list .title_wrap .title{font-size:14px;font-weight:500}
 .title_wrap .title:hover{background:none repeat scroll 0 0 #ABABAC}
-.weiboLi,.tweiboLi,.doubanLi,.videoLi,.yupooLi{padding:5px 0 5px 5px}
+.weiboLi,.tweiboLi,.doubanLi,.videoLi,.yupooLi,.impUploadLi{padding:5px 0 5px 5px}
 .weiboLi .source_img{background:url("../img/editsprite.png") no-repeat scroll 0 -415px transparent;height:24px;width:24px;display:block}
 .tweiboLi .source_img{background:url("../img/editsprite.png") no-repeat scroll 0 -503px transparent;height:24px;width:24px;display:block}
 .doubanLi .source_img{background:url("../img/editsprite.png") no-repeat scroll 0 -207px transparent;height:24px;width:24px;display:block}
 .videoLi .source_img{background:url("../img/editsprite.png") no-repeat scroll 0 -119px transparent;height:24px;width:24px;display:block}
 .yupooLi .source_img{background:url("../img/editsprite.png") no-repeat scroll 0 -631px transparent;height:24px;width:24px;display:block}
+.impUploadLi .source_img{background:url("../img/pic_add.png") no-repeat scroll 0 0 transparent;height:24px;width:24px;display:block}
 #weibo_search,#douban_search,#pic_search{padding-left:4px}
 #weibo_search #keywords,#douban_search #d_keywords,#pic_search #pic_keywords,#videoTabs #videoUrl{width:265px;vertical-align:middle}
 #weibo_search_btn,#douban_search_btn,#pic_search_btn,#embedVideo{vertical-align:middle;margin-left:10px}
 #douban_search_btn,#pic_search_btn{width:76px}
-#videoTabs .wrapper{padding-top:16px;padding-bottom:29px}
-#videoTabs .wrapper input,#videoTabs .wrapper button{margin-top:13px}
+#videoTabs .wrapper,#imgUploadTabs .wrapper{padding-top:16px;padding-bottom:29px}
+#videoTabs .wrapper input,#videoTabs .wrapper button,#imgUploadTabs .wrapper button{margin-top:13px}
 #story_pic{width:100px;min-height:100px;float:left;margin-right:20px}
 #prev_img{background:url("../img/editsprite.png") no-repeat scroll 16px -167px transparent;height:16px;width:16px}
 #next_img{background:url("../img/editsprite.png") no-repeat scroll 16px -335px transparent;height:16px;width:16px}
@@ -240,11 +240,11 @@ li#more{margin:10px 0}
 #publish_container #story_header{overflow:auto;width:100%;zoom:1}
 #publish_container #story_header #story_img{float:right;padding:10px 10px 0 0}
 #publish_container #story_header #story_img img{width:60px;height:60px}
-#story_list .story_wrapper,#story_list .douban_wrapper,#story_list .urlWrapper,#story_list .yupooWrapper,#story_list .youku_wrapper,#story_list .commentBox{margin-left:13px}
+#story_list .story_wrapper,#story_list .douban_wrapper,#story_list .urlWrapper,#story_list .yupooWrapper,#story_list .youku_wrapper,#story_list .commentBox,#story_list .img_wrapper{margin-left:13px}
 #weibo_ul{margin-left:0;padding:0}
 #weibo_ul li{margin-top:25px}
 #weibo_ul .douban_drop{width:98%;position:relative;border:none}
-#weibo_ul .weibo_drop{width:98%;border:none}
+#weibo_ul .weibo_drop,#weibo_ul .img_upload_drop{width:98%;border:none}
 .item_action{border:1px solid;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;display:block;height:auto;opacity:0.3;-moz-opacity:0.3;-khtml-opacity:0.3;position:absolute;right:-55px;width:87px;z-index:100;margin:0 -10px 0 0 !important;padding:0!important}
 #weibo_ul .item_action{top:5px}
 #story_list .item_action{bottom:7px}
@@ -427,7 +427,7 @@ div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,block
 .weibo_content,#weiboTabs ul,#doubanTabs ul,#picTabs ul{overflow:hidden}
 .weibo_content,.douban_content,#login_modal #login_modal_btn{margin-left:36px}
 .weibo_drag .story_wrapper .profile_img,.douban_wrapper .profile_img{width:32px;height:32px;float:left;overflow:hidden;margin-top:3px}
-.video_drop,.weibo_drop,.douban_drop{width:95%;overflow:hidden;position:relative;border-color:#ababac;border-style:solid;border-width:1px;margin:auto;padding:0 5px 5px}
+.video_drop,.weibo_drop,.douban_drop,.img_upload_drop{width:95%;overflow:hidden;position:relative;border-color:#ababac;border-style:solid;border-width:1px;margin:auto;padding:0 5px 5px}
 #weibo_search .sep,#douban_search .sep,#pic_search .sep,#publish_container #story_header #story_meta{margin-top:10px}
 #weibo_ul .douban_drop .douban_wrapper,#weibo_ul .story_wrapper{width:70%;position:relative;zoom:1;margin:0 auto}
 .editable .publish_icon,.editable .draft_icon{position:relative;top:3px;margin:0 3px 0 0}
@@ -458,3 +458,7 @@ div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,block
 #reply_container #comment_container .post_comment{margin:10px 5px 10px 0; float:right}
 #doubanTabs.ui-tabs .ui-tabs-nav li, #picTabs.ui-tabs .ui-tabs-nav li {width:84px}
 #doubanTabs.ui-tabs .ui-tabs-nav li a, #picTabs.ui-tabs .ui-tabs-nav li a {width:68px;text-align:center}
+.img_upload_drag .img_wrapper{overflow:auto;z-index:10;cursor:move;border-color:#ababac;border-style:solid;border-width:1px;margin:8px;padding:5px;text-align:center}
+.img_upload_drag .img_wrapper img{max-width:300px;_width:expression(document.body.clientWidth < 152? "150px" : document.body.clientWidth > 302? "300px" : "auto");}
+.img_upload_drop .img_wrapper{text-align:center}
+.img_upload_drop .img_wrapper img{max-width:340px;_width:expression(document.body.clientWidth < 172? "170px" : document.body.clientWidth > 342? "340px" : "auto");}

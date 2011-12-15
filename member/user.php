@@ -483,6 +483,11 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		$tweibo_id_array[] = $tweibo_per_id;
 		$content .="<li id='t_".$tweibo_per_id."'></li>"; 
 		break;}
+		
+		case "upload_img":{
+		$img_src = $val['content'];
+		$content .="<li class='img_upload_drop'><div class='img_wrapper'><img src='".$img_src."' /></div></li>";	
+		break;}
 		 
 		case "douban":{
 		$douban_save_per_id = $val['content']['item_id'];

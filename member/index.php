@@ -142,6 +142,7 @@ $content .= "<div class='inner'>
 			<li class='doubanLi'><a><span class='source_img' title='豆瓣社区'></span></a></li>
 		    <li class='videoLi'><a><span class='source_img' title='优酷视频'></span></a></li>
 			<li class='yupooLi'><a><span class='source_img' title='又拍社区'></span></a></li>
+			<li class='impUploadLi'><a><span class='source_img' title='上传图片'></span></a></li>
 		  </ul>
 		  <div id='weiboTabs'>
 		    <ul>
@@ -238,6 +239,12 @@ $content .= "<div class='inner'>
 			      <button id='pic_search_btn' value='search' type='button'>搜索</button>
                 </div>
 		      </div>
+		    </div>
+		  </div>
+		  <div id='imgUploadTabs'>
+		    <div class='wrapper'>
+		      <div>JPG,GIF,PNG或BMP文件,不超过600K。</div>
+		      <button id='upload_btn'>添加照片</button>
 		    </div>
 		  </div>
 		  
@@ -417,6 +424,11 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 	  $content .="<li id='t_".$tweibo_per_id."'></li>";
 	  break;
       }
+	  
+	  case "upload_img":{
+		$img_src = $val['content'];
+		$content .="<li class='img_upload_drop'><div class='cross'></div><div class='handle'></div><div class='img_wrapper'><img src='".$img_src."' /></div></li><li class='addTextElementAnchor'><span><a class='add_comment'></a></span></li>";	
+		break;}
 		
 	  case "douban":{
 	  $douban_save_per_id = $val['content']['item_id'];	
@@ -431,7 +443,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 	  
 	    $content .=
 		 "<li class='douban_drop douban event' id='d_".$douban_save_per_id."'>
-			<div class='cross' action='delete' onclick='remove_item(event)'></div>
+			<div class='cross'></div>
 			<div class='handle'></div>
 			<div class='douban_wrapper'>
 			  <div class='content_wrapper'>
@@ -757,6 +769,7 @@ include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm";
 <script type="text/javascript" src="/CLEditor/jquery.cleditor.min.js"></script>
 <script type="text/javascript" src="/js/jquery.embedly.min.js"></script>
 <script type='text/javascript' src='/js/jquery-ui-1.8.16.custom.min.js'></script>
+<script type='text/javascript' src='/js/ajaxupload.js'></script>
 <script type='text/javascript' src='/js/editstory.js'></script>
 </body>
 </html>
