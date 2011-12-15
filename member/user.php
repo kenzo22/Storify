@@ -348,8 +348,18 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  }
 	  else
 	  {
-		$content .= "<div id='story_container'><div class='publish_wrapper'><div id='publish_container'>
-			  <div id='story_action'><span><a class='draft_icon png_fix' title='草稿'></a>草稿</span><span class='float_r'><a  class='publish' href='/user/".$user_id."/".$post_id."/publish' title='发布'></a>&nbsp<a id='".$post_id."_delete' class='delete redirect png_fix' title='删除'></a><a class='edit png_fix' href='/user/".$user_id."/".$post_id."/edit' title='编辑'></a></span></div>";
+		$content .= "<div id='story_container'>
+		               <div class='publish_wrapper'>
+					     <h3 id='draft_imply'>发布故事，分享到社交媒体，让大家都来欣赏品评你的作品~</h3>
+						 <div id='draft_action'>  
+						   <a class='edit png_fix medium green awesome' href='/user/".$user_id."/".$post_id."/edit' title='继续编辑'>继续编辑 &raquo;</a>
+						   <a id='".$post_id."_delete' class='delete redirect png_fix medium yellow awesome' title='删了重来'>删了重来 &raquo;</a>
+						   <a class='publish medium blue awesome' href='/user/".$user_id."/".$post_id."/publish' title='发布故事'>发布故事 &raquo;</a>
+					     </div>
+						 <div id='publish_container'>
+			               <div id='story_action'>
+						     <span><a class='draft_icon png_fix' title='草稿'></a>草稿</span>
+						   </div>";
 	  }	
 	}
 

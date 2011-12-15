@@ -55,6 +55,8 @@ body.editor{background:none repeat-y scroll 0 0 #F9F9F9}
 .green.awesome:hover{background-color:#84DA50}
 .blue.awesome,.blue.awesome:visited{background-color:#007AC4}
 .blue.awesome:hover{background-color:#39D}
+.yellow.awesome,.yellow.awesome:visited{background-color:#ffb515}
+.yellow.awesome:hover{background-color:#ffc500}
 #top_bar{background:none repeat scroll 0 0 #FFF;border-bottom:1px solid #D4D4D4;border-top:1px solid #FFF;box-shadow:0 2px 5px rgba(212, 212, 212, 0.3);height:42px;width:100%;position:relative;z-index:20;margin:0 auto}
 #top_bar .top_nav{height:42px;border-bottom:none;color:#737373;width:920px;z-index:200;position:absolute;left:50%;margin:0 auto 0 -460px}
 #top_bar .top_nav #top_menu_a{position:absolute;right:130px;overflow:auto;height:42px}
@@ -156,6 +158,7 @@ div.pagination span.current{border:1px solid #b7d8ee;font-weight:700;color:#444;
 .douban_signature .text_wrapper,.story_signature .text_wrapper{float:right;height:16px}
 .handle{background:url("../img/textture.png") repeat-y scroll center top #EFEFEF;border-right:1px solid #BBB;bottom:0;left:0;position:absolute;top:0;width:13px}
 .commentBox{padding-left:5px}
+.commentBox img{max-width:400px}
 .list_t_weibo{background:none repeat scroll 0 0 #E1F0F7;border-radius:30px 30px 30px 30px;display:inline-block;text-decoration:none;margin:0 5px 5px 0;padding:0 10px}
 #trends_wrapper{overflow:auto;margin:8px 8px 8px 14px;padding:8px}
 #source_list li.ht_wrapper{overflow:auto;margin:15px 0 25px 20px}
@@ -253,6 +256,9 @@ li#more{margin:10px 0}
 #story_container{width:920px;padding-top:50px;min-height:650px;position:relative;zoom:1;margin:0 auto}
 .box_container{position:relative;z-index:400;zoom:1}
 .publish_wrapper{float:left;width:664px;height:auto}
+.publish_wrapper #draft_imply{color:#999;font-size:20px;fong-weight:500;margin-bottom:10px}
+.publish_wrapper #draft_action{margin-bottom:20px}
+.publish_wrapper #draft_action a{margin-right:20px}
 .follower_list,.following_list{list-style-type:none;overflow:auto;margin:5px 0 15px;padding:0}
 .side_title{vertical-align:top;font-size:12px;color:#555}
 .user-bio{color:#555;font-size:12px;line-height:1.5;text-shadow:1px 1px 0 #FFF;margin:3px 0 7px;padding:5px}
