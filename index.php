@@ -179,36 +179,36 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	if(islogin())
 	{
 	    $new_content = "<div id='new_wrapper'><h3>最新发布</h3><ul id='mycarousel' class='jcarousel-skin-tango sto_cover_list'>";
-            $uid = $_SESSION['uid'];
-            $follow_query="select follow_id from ".$db_prefix."follow, story_posts where user_id=".$uid." and follow_id = post_author and post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_date) <=7 group by follow_id";
-            $fol_result = $DB->query($follow_query);
-            $fol_array = array();
-            $item__array = array();
-            while($item = mysql_fetch_array($fol_result))
-                $fol_array[] = $item['follow_id'];
-            $len = sizeof($fol_array);
-            if ($len >= 10){
-                $ran_keys = array_rand($fol_array, 10);
-                foreach($ran_keys as $idx){
-                    $query = "select * from story_posts where post_author=".$fol_array[$idx]." order by post_date desc limit 1";
-                    $story_result = $DB->query($query);
-                    $item_array[] = mysql_fetch_array($story_result);
-                }
-            }else if ($len > 0)
-                foreach($fol_array as $fid){
-                    $query = "select * from story_posts where post_author=".$fid." order by post_date desc limit 1";
-                    $story_result = $DB->query($query);
-                    $item_array[] = mysql_fetch_array($story_result);
-                }
-            $left = 10 - $len;
-            if( $left < 10 )
-                $new_query="select * from ".$db_prefix."follow, story_posts where user_id=".$uid." and follow_id != post_author and post_status = 'Published' order by post_date desc limit ".$left;
-            else
-                $new_query="select * from story_posts where post_status = 'Published' order by post_date desc limit $left";
-            $others_result = $DB->query($new_query);
-            while($item=$DB->fetch_array($others_result))
-                $item_array[] = $item;
-            foreach($item_array as $story_item)
+		$uid = $_SESSION['uid'];
+		$follow_query="select follow_id from ".$db_prefix."follow, story_posts where user_id=".$uid." and follow_id = post_author and post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_date) <=7 group by follow_id";
+		$fol_result = $DB->query($follow_query);
+		$fol_array = array();
+		$item__array = array();
+		while($item = mysql_fetch_array($fol_result))
+			$fol_array[] = $item['follow_id'];
+		$len = sizeof($fol_array);
+		if ($len >= 10){
+			$ran_keys = array_rand($fol_array, 10);
+			foreach($ran_keys as $idx){
+				$query = "select * from story_posts where post_author=".$fol_array[$idx]." order by post_date desc limit 1";
+				$story_result = $DB->query($query);
+				$item_array[] = mysql_fetch_array($story_result);
+			}
+		}else if ($len > 0)
+			foreach($fol_array as $fid){
+				$query = "select * from story_posts where post_author=".$fid." order by post_date desc limit 1";
+				$story_result = $DB->query($query);
+				$item_array[] = mysql_fetch_array($story_result);
+			}
+		$left = 10 - $len;
+		if( $left < 10 )
+			$new_query="select * from ".$db_prefix."follow, story_posts where user_id=".$uid." and follow_id != post_author and post_status = 'Published' order by post_date desc limit ".$left;
+		else
+			$new_query="select * from story_posts where post_status = 'Published' order by post_date desc limit $left";
+		$others_result = $DB->query($new_query);
+		while($item=$DB->fetch_array($others_result))
+			$item_array[] = $item;
+		foreach($item_array as $story_item)
 	  {
 	    $post_author = $story_item['post_author'];
 	    $post_pic_url = $story_item['post_pic_url'];
@@ -248,7 +248,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 						</li>";
 	  }
 	  $new_content.="</ul></div>";
-            echo $new_content;	  
+      echo $new_content;	  
 	}
 	?>
 	<div class='category'>
@@ -258,59 +258,15 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 		  <ul>
 		<?php
 		$tag_content='';
-		$tags=getPopularTags(8);
-		$used_story=array();
-		$s_query='';
-		$tag_i=0;
+		$tags=getPopularTags(16);
 		foreach($tags as $tag_id)
 		{
 			$query = "select * from ".$db_prefix."tag where id=".$tag_id;
 			$results=$DB->query($query);
 			$tag_item=$DB->fetch_array($results);
-
 			$tag_name = $tag_item['name'];
-			$query = "select * from ".$db_prefix."tag_story,story_posts where tag_id='".$tag_id."' and story_id=story_posts.id and post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_modified) <=$MAX_DAYS";
-			$relationresult = $DB->query($query);
-			$tag_count = $DB->num_rows($relationresult);
 			$topic_link = "/topic/".$tag_id;
-			
-			if($used_story){
-				foreach($used_story as $sid){
-					$s_query .= " and story_posts.id !=".$sid;
-				}
-			}
-			//need to fetch the title of the most popular story which has this specific tag
-			$query="select story_posts.id,".$db_prefix."posts.post_title,".$db_prefix."posts.post_pic_url from ".$db_prefix."tag_story,".$db_prefix."posts where tag_id=".$tag_id." and story_id=".$db_prefix."posts.id ".$s_query." and story_posts.post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_modified) <=$MAX_DAYS order by ".$db_prefix."posts.popular_count desc";
-			$result=$DB->query($query);
-			$item=$DB->fetch_array($result);
-			if(!$item)
-				continue;
-			if(++$tag_i > 4)
-				break;
-			$used_story[] = $item['id'];
-		    if($item['post_pic_url'] != '')
-			{
-			  $pic_url = $item['post_pic_url'];
-			}
-			else
-			{
-			  $pic_url = "/img/event_dft.jpg";
-			}
-			$p_title = $item['post_title'];
-			$p_length = utf8_strlen($p_title);
-			if($p_length>48)
-			{
-			  $p_title = utf8Substr($p_title, 0, 20);
-			  $p_title .="...";
-			}
-			$tag_content .="<li>
-							  <a class='topic_title' href='".$topic_link."' title='".$tag_name."'>#".$tag_name."#</a>
-							  <span class='ttstory_count'>".$tag_count."</span>
-							  <a href='".$topic_link."'>
-								<img class='topic_cover' src='".$pic_url."' />
-							  </a>
-							  <a class='title_wrap' href='".$topic_link."'><h1 class='title'>".$p_title."</h1></a>
-							</li>";
+			$tag_content .="<li><a class='topic_title' href='".$topic_link."' title='".$tag_name."'>#".$tag_name."#</a></li>";
 		}
 		echo $tag_content;
 	    ?>

@@ -184,12 +184,8 @@ li.tencent .weibo_date_drop{background:url("../img/editsprite.png") no-repeat sc
 .textElement .actions{padding-left:380px}
 .cover{display:block;height:186px;position:relative;width:186px;padding:0}
 .title_wrap{bottom:13px;position:absolute;width:185px;text-align:left;margin:0;word-wrap:break-word;word-break:break-all}
-.topic_list .title_wrap{width:100px}
-.topic_list .topic_title{float:left;overflow:hidden;white-space:nowrap;width:90px;text-overflow:ellipsis;}
-.topic_cover{background-repeat:no-repeat;display:block;height:100px;overflow:hidden;position:relative;width:100px;padding:0}
-.topic_cover .title_wrap{bottom:13px;position:absolute;width:100px;text-align:left;margin:0}
+.topic_list .topic_title{float:left;overflow:hidden;white-space:nowrap;width:100px;text-overflow:ellipsis;}
 .title_wrap .title{background:none repeat scroll 0 0 #000;color:#FFF;display:inline;font:bold;text-shadow:0 0 2px rgba(0, 0, 0, 0.8);text-transform:uppercase;padding:1px 0}
-.topic_list .title_wrap .title{font-size:14px;font-weight:500}
 .title_wrap .title:hover{background:none repeat scroll 0 0 #ABABAC}
 .weiboLi,.tweiboLi,.doubanLi,.videoLi,.yupooLi,.impUploadLi{padding:5px 0 5px 5px}
 .weiboLi .source_img{background:url("../img/editsprite.png") no-repeat scroll 0 -415px transparent;height:24px;width:24px;display:block}
@@ -330,7 +326,7 @@ li#more{margin:10px 0}
 #story_more:hover{background:#e6e6e8;background:-moz-linear-gradient(center top , #F4F4F5, #E6E6E8) repeat scroll 0 0 transparent;background:-webkit-gradient(linear,left top,left bottom,from(#f4f4f5),to(#e6e6e8));filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f4f4f5',endColorstr='#e6e6e8')}
 #story_more:active{background:-moz-linear-gradient(center top , #DDDDDD, #DDDDDD) repeat scroll 0 0 transparent;background:-webkit-gradient(linear,left top,left bottom,from(#ddd),to(#ddd));filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#DDDDDD',endColorstr='#DDDDDD');border:1px solid #AAAAAA;height:29px}
 .topic_list ul{margin-left:0;overflow:auto;padding:0}
-.topic_list ul li{position:relative;float:left;border:1px solid #DDD;border-radius:3px 3px 3px 3px;color:#323232;display:inline-block;text-decoration:none;width:100px;zoom:1;margin:0 16px 0 9px;padding:5px}
+.topic_list ul li{position:relative;float:left;color:#323232;display:inline-block;text-decoration:none;zoom:1;margin:0 0 0 9px;padding:5px}
 .story_count{float:right;color:#555}
 .form_wrapper{width:760px;overflow:hidden;margin:50px auto}
 #account_meta{background-color:#FAFAFA;border:1px solid #CCC;border-radius:3px 3px 3px 3px;position:relative;margin:0 0 20px}
