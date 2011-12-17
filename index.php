@@ -178,9 +178,37 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	<?php
 	if(islogin())
 	{
-	  $new_content = "<div id='new_wrapper'><h3>最新发布</h3><ul id='mycarousel' class='jcarousel-skin-tango sto_cover_list'>";
-	  $result=$DB->query("SELECT * FROM ".$db_prefix."posts order by popular_count desc limit 10");
-	  while ($story_item = mysql_fetch_array($result))
+	    $new_content = "<div id='new_wrapper'><h3>最新发布</h3><ul id='mycarousel' class='jcarousel-skin-tango sto_cover_list'>";
+            $uid = $_SESSION['uid'];
+            $follow_query="select follow_id from ".$db_prefix."follow, story_posts where user_id=".$uid." and follow_id = post_author and post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_date) <=7 group by follow_id";
+            $fol_result = $DB->query($follow_query);
+            $fol_array = array();
+            $item__array = array();
+            while($item = mysql_fetch_array($fol_result))
+                $fol_array[] = $item['follow_id'];
+            $len = sizeof($fol_array);
+            if ($len >= 10){
+                $ran_keys = array_rand($fol_array, 10);
+                foreach($ran_keys as $idx){
+                    $query = "select * from story_posts where post_author=".$fol_array[$idx]." order by post_date desc limit 1";
+                    $story_result = $DB->query($query);
+                    $item_array[] = mysql_fetch_array($story_result);
+                }
+            }else if ($len > 0)
+                foreach($fol_array as $fid){
+                    $query = "select * from story_posts where post_author=".$fid." order by post_date desc limit 1";
+                    $story_result = $DB->query($query);
+                    $item_array[] = mysql_fetch_array($story_result);
+                }
+            $left = 10 - $len;
+            if( $left < 10 )
+                $new_query="select * from ".$db_prefix."follow, story_posts where user_id=".$uid." and follow_id != post_author and post_status = 'Published' order by post_date desc limit ".$left;
+            else
+                $new_query="select * from story_posts where post_status = 'Published' order by post_date desc limit $left";
+            $others_result = $DB->query($new_query);
+            while($item=$DB->fetch_array($others_result))
+                $item_array[] = $item;
+            foreach($item_array as $story_item)
 	  {
 	    $post_author = $story_item['post_author'];
 	    $post_pic_url = $story_item['post_pic_url'];
@@ -220,7 +248,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 						</li>";
 	  }
 	  $new_content.="</ul></div>";
-      echo $new_content;	  
+            echo $new_content;	  
 	}
 	?>
 	<div class='category'>
