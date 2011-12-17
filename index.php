@@ -175,6 +175,54 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	  </div>
 	  <div><a id='story_more'>换一组看看</a></div>
 	</div>
+	<?php
+	if(islogin())
+	{
+	  $new_content = "<div id='new_wrapper'><h3>最新发布</h3><ul id='mycarousel' class='jcarousel-skin-tango sto_cover_list'>";
+	  $result=$DB->query("SELECT * FROM ".$db_prefix."posts order by popular_count desc limit 10");
+	  while ($story_item = mysql_fetch_array($result))
+	  {
+	    $post_author = $story_item['post_author'];
+	    $post_pic_url = $story_item['post_pic_url'];
+		if($post_pic_url == '')
+		{
+		  $post_pic_url = '/img/event_dft.jpg';
+		}
+	    $userresult = $DB->fetch_one_array("SELECT username, photo FROM ".$db_prefix."user where id='".$post_author."'");
+	    $user_profile_img = $userresult['photo'];
+		$author_name = $userresult['username'];
+		if($user_profile_img == '')
+		{
+		  $user_profile_img = '/img/douban_user_dft.jpg';
+		}
+	    $post_title = $story_item['post_title'];
+	    $post_date = $story_item['post_date'];
+	    $temp_array = explode(" ", $story_item['post_date']);
+	    $post_date = $temp_array[0];
+		$post_link = "/user/".$post_author."/".$story_item['ID'];
+		$post_link = htmlspecialchars($post_link);
+	    $new_content .= "<li>
+						  <div class='story_wrap'>	
+							<a href='".$post_link."'>
+							  <img class='cover' src='".$post_pic_url."' alt='' />
+							</a>
+							<a class='title_wrap' href='".$post_link."'>
+							  <span class='title'>".$post_title."</span>
+							</a>
+						  </div>
+						  <div class='story_meta'>
+							<span>
+							  <a class='meta_date'>".$post_date."</a>
+							  <img src='".$user_profile_img."' alt='".$author_name."'/>
+							  <a class='meta_author' href='/user/".$post_author."'>".$author_name."</a>
+							</span>
+						  </div>
+						</li>";
+	  }
+	  $new_content.="</ul></div>";
+      echo $new_content;	  
+	}
+	?>
 	<div class='category'>
 	  <div id='trendTopics'>
 	    <h3>热门话题</h3>
@@ -284,6 +332,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 </div>
 <script type="text/javascript" src="/js/jquery.js"></script>
 <script type="text/javascript" src="/js/jquery.orbit-1.2.3.min.js"></script>
+<script type="text/javascript" src="/js/jquery.jcarousel.min.js"></script>
 <script type="text/javascript" src="/js/frontpage.js"></script>
 </body>
 </html>
