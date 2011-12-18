@@ -30,6 +30,10 @@ if($commentresult)
   $comment_id = $commentresult['comment_id'];
   $comment_content = nl2br($commentresult['comment_content']);
 }
+if($comment_author_pic == '')
+{
+  $comment_author_pic = '/img/douban_user_dft.jpg';
+}
 
 $content ="<li id='comment_".$comment_id."' style='display:none;'>
 			  <a class='float_l' href='/user/".$user_id."' target='_blank'><img alt='' src='".$comment_author_pic."' /></a>

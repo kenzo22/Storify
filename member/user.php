@@ -825,6 +825,10 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  {
 	    $comment_id = $item['comment_id'];
 	    $pic_url = $item['comment_author_pic'];
+		if($pic_url == '')
+		{
+		  $pic_url = '/img/douban_user_dft.jpg';
+		}
 	    $comment_author = $item['comment_author'];
 	    $comment_author_id = $item['user_id'];
 		$comment_time = dateFormatTrans($item['comment_date'],$date_t);
@@ -845,6 +849,10 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  {
 	    $comment_id = $item['comment_id'];
 	    $pic_url = $item['comment_author_pic'];
+		if($pic_url == '')
+		{
+		  $pic_url = '/img/douban_user_dft.jpg';
+		}
 	    $comment_author = $item['comment_author'];
 	    $comment_author_id = $item['user_id'];
 		if(0 == strcmp($comment_author_id, $_SESSION['uid']))
