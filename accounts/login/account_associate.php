@@ -40,5 +40,5 @@ else
     $_SESSION['uid']=intval($userresult['id']);
   }
 }
-header("location: /"); 
+header("location: /tour"); 
 ?>

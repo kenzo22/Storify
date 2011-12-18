@@ -53,8 +53,8 @@ else
 
 $content = "<div class='inner'>
 <div id='source_wrapper'>
-  <h4 class='text'>你可以用口立方报道新闻，追踪网络热点事件，汇总美食，旅游，时尚周边信息，写书评影评，等等～</h4>
-  <p class='text'>我们建议您添加下面的信息源，您之后可以在 设置 -> 第三方应用授权 里作出更改</p>
+  <h1 class='text'>你可以用口立方报道新闻，追踪网络热点事件，汇总美食，旅游，时尚信息，写书评影评，还有更多～</h1>
+  <p class='text'>我们建议您添加下面的信息源以获得最好的口立方体验，您之后可以在 设置 -> 第三方应用授权 里作出更改</p>
   <ul id='source_ul'>
     <li><span class='source_status'><label>".$weibo_status."</label><a id='sina_weibo' class='unbind_source' href='#'>".$weibo_action."</a></span><a href='http://weibo.com' target='_blank' class='sina_source' title='新浪微博'><span>新浪微博</span></a></li>
     <li><span class='source_status'><label>".$tweibo_status."</label><a id='tencent_weibo' class='unbind_source' href='#'>".$tweibo_action."</a></span><a href='http://t.qq.com' target='_blank' class='tencent_source' title='腾讯微博'><span>腾讯微博</span></a></li> 

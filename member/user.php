@@ -971,7 +971,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	    <div class='user_info_title'>总浏览次数: <span>".$total_count."</span></div>".$view_content."
 	  </div>";
 		  
-	$i_query = "select * from ".$db_prefix."posts where post_status = 'Published' and post_author='".$user_id."' and ID!='".$post_id."' order by post_digg_count desc limit 3";
+	$i_query = "select * from ".$db_prefix."posts where post_status = 'Published' and post_author='".$user_id."' and ID!='".$post_id."' order by post_date desc limit 3";
 	$more_result=$DB->query($i_query);
 	if($DB->num_rows($more_result) > 0)
 	{
