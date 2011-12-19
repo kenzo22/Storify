@@ -917,9 +917,7 @@ $(function() {
 				var weibo_retweet_img_content = "";
 				var weibo_from_url = dragItem.find('.user_page').attr('href');
 			　  var weibo_Text= dragItem.find('.weibo_text').html();
-			    //var repost_flag = dragItem.find('.weibo_text').hasClass('is_repost');
 			　  var weibo_from = dragItem.find('.weibo_from').text();
-			　  //var weibo_from_id = dragItem.find('.user_page').attr('href').replace(/http:\/\/weibo.com\//,"");
 			  　var weibo_time = dragItem.find('.create_time').text();
 			　  var weibo_photo = dragItem.find('.profile_img').attr('src');
 				var content;	
@@ -1045,7 +1043,9 @@ $(function() {
 			  }
 			  else if(dragItem.hasClass('img_upload_drag'))
 			  {
-			    var imgSrc = dragItem.find('img').attr('src'),
+			    /*var cloned = dragItem.clone(true);
+				    $('#source_list').prepend(cloned);*/
+				var imgSrc = dragItem.find('img').attr('src'),
 				    imgContent = ("<div class='cross' action='delete'></div><div class='handle'></div><div class='img_wrapper'><img src='"+imgSrc+"'></div>");
 				if(dragItem.index(list_item_have_pic) == 0)
 				{
@@ -1056,17 +1056,12 @@ $(function() {
 			  }
 			  else if(dragItem.hasClass('video_drag'))
 			  {
-			    //var thumbnailUrl = dragItem.find('.youku_thumbnail').attr('src');
 				var videoUrl = dragItem.find('.videoTitle').attr('href');
 				var videoTitle = dragItem.find('.videoTitle').text();
 				var videoContent = ("<div class='cross' action='delete'></div><div class='handle'></div><div class='youku_wrapper'><div><a class='videoTitle' target='_blank' href='"
 				+videoUrl+"'>"+videoTitle+"</a></div>"+embedCode+"</div>");
 				dragItem.removeClass('video_drag').addClass('video_drop').children().remove();　
 			    dragItem.append(videoContent);
-				/*if(dragItem.index() == 1)
-				{
-				  $('#story_thumbnail').attr('src', thumbnailUrl);
-				}*/
 			  }
 			  else if(dragItem.hasClass('pic_drag'))
 			  {
@@ -1087,7 +1082,6 @@ $(function() {
 				if(dragItem.index(list_item_have_pic) == 0)
 				{
 				  $('#story_thumbnail').attr('src', picUrl.replace(/small$/, "square"));
-				  //$('#story_thumbnail').attr('src', picUrl);
 				}
 			  }
 			}
