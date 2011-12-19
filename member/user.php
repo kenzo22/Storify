@@ -199,7 +199,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 						  </button>
 						  <button class='notify-tab'>
 							<div class='icon'></div>
-							<h2>通告</h2>
+							<h2>一键知会</h2>
 							<span>喝水不忘挖井人</span>
 						  </button>
 						  <button class='share-tab'>

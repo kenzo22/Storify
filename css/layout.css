@@ -469,6 +469,19 @@ div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,block
 .tour_section p{font-size:15px;line-height:1.6em;color:#666}
 .tour_section .float_l{margin-right:40px}
 .tour_section .float_r{margin-left:40px}
+.tip_container{position:absolute;z-index:5000}
+.tip_container .tip_arrow{position:absolute;display:block;width:0;height:0;overflow:hidden;float:left;border:8px solid transparent;}
+.tip_arrow.top{border-top-width:0; border-bottom:10px solid #fcf9a4;top:-10px;left:50%;margin-left:-5px}
+.tip_arrow.left{border-left-width:0; border-right:10px solid #fcf9a4;top:50%;left:-10px;margin-top:-5px}
+.tip_arrow.right{border-right-width:0; border-left:10px solid #fcf9a4;top:50%;right:-10px;margin-top:-5px}
+.tip_wrapper{background-color: #fcf9a4;color: #000;max-width: 400px;padding: 6px 8px}
+.tip_wrapper .tip_actions{text-align:right}
+.tip_wrapper .tip_actions a{text-decoration:underline;color:#000}
+.tip_wrapper .tip_actions .tip_hide{margin-right:10px}
+#first_tip{top:180px;right:180px}
+#second_tip{top:70px;left:10px}
+#third_tip{top:320px;left:325px}
+#fourth_tip{top:210px;left:500px}
 .jcarousel-skin-tango .jcarousel-container{-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;background:#FCFCFC;border:1px solid #CCCCCC}
 .jcarousel-skin-tango .jcarousel-direction-rtl{direction:rtl}
 .jcarousel-skin-tango .jcarousel-container-horizontal{padding:10px 0 10px}
