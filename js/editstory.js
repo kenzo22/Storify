@@ -409,25 +409,37 @@ $(function() {
 		
 		$('#book_tab').click(function(){
 		  bookStartIndex = 1;
-		  $('#d_keywords').val('书名').addClass('imply_color');
+		  if($('#d_keywords').hasClass('imply_color'))
+		  {
+		    $('#d_keywords').val('书名');
+		  }
 		  $('#source_list').children().remove();
 		});
 		
 		$('#movie_tab').click(function(){
 		  movieStartIndex = 1;
-		  $('#d_keywords').val('电影名').addClass('imply_color');
+		  if($('#d_keywords').hasClass('imply_color'))
+		  {
+		    $('#d_keywords').val('电影名');
+		  }
 		  $('#source_list').children().remove();
 		});
 		
 		$('#music_tab').click(function(){
 		  musicStartIndex = 1;
-		  $('#d_keywords').val('歌曲名').addClass('imply_color');
+		  if($('#d_keywords').hasClass('imply_color'))
+		  {
+		    $('#d_keywords').val('歌曲名');
+		  }
 		  $('#source_list').children().remove();
 		});
 		
 		$('#event_tab').click(function(e){
 		   eventStartIndex = 1;
-		   $('#d_keywords').val('搜活动').addClass('imply_color');
+		   if($('#d_keywords').hasClass('imply_color'))
+		   {
+		     $('#d_keywords').val('搜活动');
+		   }
 		   $('#source_list').children().remove();
 		});
 		
@@ -679,7 +691,10 @@ $(function() {
 		{
 		  weiboSearhPage = 1;
 		  tweibosearchPage = 1;
-		  $('#keywords').val('关键字').addClass('imply_color');
+		  if($('#keywords').hasClass('imply_color'))
+		  {
+		    $('#keywords').val('关键字');
+		  }
 		  $('#source_list').children().remove();
 		  if(0 == vtabIndex)
 		  {
@@ -715,8 +730,10 @@ $(function() {
 		{
 		  userSearchPage = 1;
 		  tuserSearchPage = 1;
-		  //usersearchTimestamp = 0;
-		  $('#keywords').val('微博用户名').addClass('imply_color');
+		  if($('#keywords').hasClass('imply_color'))
+		  {
+		    $('#keywords').val('微博用户名');
+		  }
 		  $('#source_list').children().remove();
 		  $('#weibo_search_btn').text('搜索用户');
 		  $('#weibo_search').addClass('imply_color').removeClass('none');
@@ -1718,12 +1735,15 @@ $(function() {
 			  $('#my_tab').text('我的微博');
 			  $('#follow_tab').text('我的关注');
 			  $('#weibo_search_btn').text('搜索话题');
-			  $('#keywords').val('关键字').addClass('imply_color');
 			  if(0 != selVTab)
 			  {
 				$weiboTabs.tabs( "select" , 0 );
 				$('#weibo_search').removeClass('none');
 				$('#source_list').children().remove();
+				if($('#keywords').hasClass('imply_color'))
+				{
+				  $('#keywords').val('关键字');
+				}
 				var getUrl = weibo_url;
 				var getData;
 				getData = {operation: 'list_ht'};
@@ -1758,7 +1778,10 @@ $(function() {
 				$weiboTabs.tabs( "select" , 0 );
 				$('#weibo_search').removeClass('none');
 				$('#source_list').children().remove();
-				$('#keywords').val('关键字').addClass('imply_color');
+				if($('#keywords').hasClass('imply_color'))
+				{
+				  $('#keywords').val('关键字');
+				}
 			  }
 			  selVTab = 1;
 			  $('#vtab>div').hide().eq(vtabIndex-1).show();
@@ -1770,7 +1793,10 @@ $(function() {
 			  {
 				$doubanTabs.tabs( "select" , 0 );
 				$('#source_list').children().remove();
-				$('#d_keywords').val('书名').addClass('imply_color');
+				if($('#d_keywords').hasClass('imply_color'))
+				{
+				  $('#d_keywords').val('书名');
+				}
 			  } 
 			  selVTab = 2;
 			  $('#vtab>div').hide().eq(vtabIndex-1).show();
