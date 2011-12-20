@@ -41,6 +41,7 @@ include_once( $_SERVER['DOCUMENT_ROOT'].'/include/weibo_functions.php');
 <?php
 session_start();
 $debug=1;
+$login_flag = false;
 
 if (!empty($_SERVER[HTTP_REFERER])) $url=htmlspecialchars($_SERVER[HTTP_REFERER]); 
 
@@ -53,6 +54,7 @@ if (get_magic_quotes_gpc()) {  //magic_quotes_gpc开了会加"\" 先去掉
 set_magic_quotes_runtime(0);
 if(islogin())
 { 
+  $login_flag = true;
   $content="<div id='actions'>
 				<span id='flag_".$_SESSION['uid']."'><a id='dropBtn' class='login_flag' href='#' >放弃</a></span>
 				<span><a id='draftBtn' href='/draft' >保存草稿</a></span>
@@ -79,7 +81,7 @@ require ($_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php');
 $hasSina = "sina_disable";
 $hasTencent = "tencent_disable";
 $hasYupoo = "yupoo_disable";
-if(islogin())
+if($login_flag)
 {
   $userresult=$DB->fetch_one_array("SELECT weibo_user_id, tweibo_access_token, yupoo_token FROM ".$db_prefix."user where id='".$_SESSION['uid']."'");
   if(!$userresult)
@@ -102,9 +104,11 @@ if(islogin())
     }
   }
   $content = "<div id='storyContent'>";
+  $img_content = "<button id='upload_btn'>添加照片</button>";
 }
 else
 {
+  $img_content = "<div class='bind_txt'><div class='imply_color'>上传图片需要登录口立方</div><a href='/accounts/login'>马上登录</a></div>";
   $content="<div id='storyContent'>
             <div id='boxes'>
 			  <div id='dialog' class='window'>
@@ -243,11 +247,9 @@ $content .= "<div class='inner'>
 		  </div>
 		  <div id='imgUploadTabs'>
 		    <div class='wrapper'>
-		      <div>JPG,GIF,PNG或BMP文件,不超过600K。</div>
-		      <button id='upload_btn'>添加照片</button>
+		      <div>JPG,GIF,PNG或BMP文件,不超过600K。</div>".$img_content."
 		    </div>
 		  </div>
-		  
 		</div>
 		<ul id='source_list' class='connectedSortable'>";
 $c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']  );
@@ -294,7 +296,7 @@ $content .=	"</ul>
 	  
 if(isset($_GET['user_id']) && isset($_GET['post_id']))
 { 
-  if(!islogin())
+  if(!$login_flag)
   {
     header("location: /accounts/login"); 
     exit;

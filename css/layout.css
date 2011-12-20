@@ -199,8 +199,10 @@ li.tencent .weibo_date_drop{background:url("../img/editsprite.png") no-repeat sc
 #weibo_search #keywords,#douban_search #d_keywords,#pic_search #pic_keywords,#videoTabs #videoUrl{width:265px;vertical-align:middle}
 #weibo_search_btn,#douban_search_btn,#pic_search_btn,#embedVideo{vertical-align:middle;margin-left:10px}
 #douban_search_btn,#pic_search_btn{width:76px}
-#videoTabs .wrapper,#imgUploadTabs .wrapper{padding-top:16px;padding-bottom:29px}
-#videoTabs .wrapper input,#videoTabs .wrapper button,#imgUploadTabs .wrapper button{margin-top:13px}
+#videoTabs .wrapper{padding-top:16px;padding-bottom:29px}
+#imgUploadTabs .wrapper{padding:16px 0 12px}
+#imgUploadTabs .wrapper button{margin:13px 0 17px}
+#videoTabs .wrapper input,#videoTabs .wrapper button{margin-top:13px}
 #story_pic{width:100px;min-height:100px;float:left;margin-right:20px}
 #prev_img{background:url("../img/editsprite.png") no-repeat scroll 16px -167px transparent;height:16px;width:16px}
 #next_img{background:url("../img/editsprite.png") no-repeat scroll 16px -335px transparent;height:16px;width:16px}
