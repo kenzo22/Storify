@@ -484,6 +484,7 @@ div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,block
 #second_tip{top:70px;left:10px}
 #third_tip{top:320px;left:325px}
 #fourth_tip{top:210px;left:500px}
+#more_info{position:absolute;bottom:8px;right:8px;z-index:100}
 .jcarousel-skin-tango .jcarousel-container{-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;background:#FCFCFC;border:1px solid #CCCCCC}
 .jcarousel-skin-tango .jcarousel-direction-rtl{direction:rtl}
 .jcarousel-skin-tango .jcarousel-container-horizontal{padding:10px 0 10px}

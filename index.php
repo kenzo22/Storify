@@ -116,6 +116,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 		  <img src='img/slide3.jpg' alt='口立方'/>
 		  <img src='img/slide4.jpg' alt='口立方'/>
 		</div>
+		<div id='more_info'><a class='large blue awesome' href='/tour'>了解更多 &raquo;</a></div>
 	  </div>";
 	  echo $slider_content;
 	}

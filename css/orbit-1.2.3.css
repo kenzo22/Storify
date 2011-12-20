@@ -9,6 +9,7 @@
 /* PUT IN YOUR SLIDER ID AND SIZE TO MAKE LOAD BEAUTIFULLY
    ================================================== */
 #featured_container{
+position:relative;
 margin:40px 0 20px 0;
 }   
    
