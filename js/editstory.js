@@ -226,8 +226,18 @@ function replaceURLWithHTMLLinks(source) {
 function remove_item(evt)
 {
   var $temp = $(evt.target || evt.srcElement).closest('li');
+  if($temp.hasClass('img_upload_drop'))
+  {
+	var rm_flag = true,
+	    rm_file = $temp.find('img').attr('src').substr(12); 
+  }
   $temp.next('li').remove();
   $temp.hide('slow', function(){$temp.remove();});
+  if(rm_flag)
+  {
+    var getData = {file: rm_file};
+	$.get('/member/imgdelete.php', getData);
+  }
 }
 
 function change_story_pic(direction)
