@@ -1125,7 +1125,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
     $story_content.="<div style='height:30px;'></div>";
 	if($self_flag)
 	{
-	  $story_content.="<h4 class='text'>你可以用口立方报道新闻，追踪网络热点事件，汇总美食，旅游，时尚周边信息，写书评影评，等等～</h4><a class='large green awesome' href='/create'>开始创建 &raquo;</a><div class='footer_spacer'></div></div></div>";
+	  $story_content.="<h3 id='first_imply' class='text'>快来发布你的第一篇吧，你可以用口立方报道新闻，追踪网络热点事件，更多精彩等着你来挖掘～</h3><a class='large green awesome' href='/create'>开始创建 &raquo;</a><div class='footer_spacer'></div></div></div>";
 	}
 	else
 	{

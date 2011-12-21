@@ -121,12 +121,10 @@ div.pagination span.current{border:1px solid #b7d8ee;font-weight:700;color:#444;
 #source_ul li a.tencent_source{background:url("../img/sourcesprite.png") no-repeat scroll 0 -128px transparent;height:32px;display:inline-block;padding-left:170px}
 #source_ul li a.douban_source{background:url("../img/sourcesprite.png") no-repeat scroll 0 0 transparent;height:32px;display:inline-block;padding-left:170px}
 #source_ul li a.yupoo_source{background:url("../img/sourcesprite.png") no-repeat scroll 0 -255px transparent;height:30px;display:inline-block;padding-left:170px}
-#source_ul li a.youku_source{background:url("../img/sourcesprite.png") no-repeat scroll 0 -192px transparent;height:31px;display:inline-block;padding-left:170px}
 #source_ul li .source_status{float:right;margin-right:420px}
 #source_ul li .unbind_source{margin-left:70px}
 #source_wrapper{margin-top:40px}
-#source_wrapper h1{font-size:20px;color:#494949;font-weight:500;margin-bottom:15px}
-#source_wrapper p{font-size:15px;color:#666}
+#source_wrapper h1{font-size:16px;color:#666;font-weight:500;margin-bottom:25px}
 #go_back_setting{text-align:right;margin-bottom:40px}
 #tagstory_ul{margin:10px 0 30px;padding:0}
 .tagstory_li .wrapper{width:920px;overflow:auto;padding-bottom:5px}
@@ -309,6 +307,7 @@ li#more{margin:10px 0}
 .userinfo_wrapper #user_intro{float:left;width:450px;margin-left:20px;color:#333;font-size:12px}
 .userinfo_wrapper .misc_wrapper .account_count{margin-bottom:5px}
 .userstory_list ul{overflow:auto;zoom:1;padding:0}
+.userstory_list #first_imply{font-size:14px;font-weight:600;margin-bottom:5px}
 .userstory_list ul li{border:1px solid #DDD;border-radius:3px 3px 3px 3px;color:#323232;display:inline;text-decoration:none;height:218px;width:188px;float:left;margin:20px 10px 0 18px;padding:5px 5px 2px}
 #popular{clear:both;margin-bottom:20px}
 #popular h3, #new_wrapper h3{color:#999;margin-top:30px;padding-bottom:15px;font-size:20px;font-weight:500}
