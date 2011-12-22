@@ -69,7 +69,7 @@ class VideoUrlParser
      * @access public
      * @return void
      */
-    static public function parse($url='', $createObject=true){
+    public function parse($url='', $createObject=true){
         $lowerurl = strtolower($url);
         preg_match(self::CHECK_URL_VALID, $lowerurl, $matches);
         if(!$matches) return false;
@@ -103,8 +103,8 @@ class VideoUrlParser
             $data = false;
         }
 
-        if($data && $createObject) 
-            $data['object'] = "<embed src=\"{$data['swf']}\" quality=\"high\" width=\"480\" height=\"400\" align=\"middle\" allowNetworking=\"all\" allowScriptAccess=\"always\" type=\"application/x-shockwave-flash\"></embed>";
+        //if($data && $createObject) 
+            //$data['object'] = "<embed src=\"{$data['swf']}\" quality=\"high\" width=\"480\" height=\"400\" align=\"middle\" allowNetworking=\"all\" allowScriptAccess=\"always\" type=\"application/x-shockwave-flash\"></embed>";
         return $data;
     }
 
@@ -142,8 +142,8 @@ class VideoUrlParser
             $data['host']='youku';
             $data['img'] = $json['data'][0]['logo'];
             $data['title'] = $json['data'][0]['title'];
-            $data['url'] = $url;
-            $data['swf'] = "http://player.youku.com/player.php/sid/{$videoID[1]}/v.swf";
+            //$data['url'] = $url;
+            //$data['swf'] = "http://player.youku.com/player.php/sid/{$videoID[1]}/v.swf";
 
             return $data;
         } else {

@@ -1,8 +1,10 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'].'/class/videoUrlParser.php';
 
-$url = $_POST['url'];
-$obj = VideoUrlParser::parse($url);
+$url = $_GET['url'];
+$parser = new VideoUrlParser();
+//$obj = VideoUrlParser::parse($url);
+$obj = $parser->parse($url);
 if($obj)
     echo json_encode($obj);
 else
