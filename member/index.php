@@ -531,7 +531,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 			$time_array = explode("T", $doubanElement['published']['$t']);
 			$content .=
 			  "<li class='douban_drop douban ".$val['content']['item_type']."' id='d_".$douban_save_per_id."'>
-				<div class='cross' action='delete' onclick='remove_item(event)'></div>
+				<div class='cross'></div>
 				<div class='handle'></div>
 				<div class='douban_wrapper'>
 				  <div class='content_wrapper'>
@@ -607,7 +607,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 			}
 			$content .=
 			"<li class='douban_drop douban ".$val['content']['item_type']."' id='d_".$douban_save_per_id."'>
-			  <div class='cross' action='delete' onclick='remove_item(event)'></div>
+			  <div class='cross'></div>
 			  <div class='handle'></div>
 			  <div class='douban_wrapper'>
 			    <div class='content_wrapper'>
@@ -631,7 +631,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 		
 	  case "comment":{
 	  $comment_text = $val['content'];
-	  $content .="<li class='textElement editted'><div class='cross' action='delete' onclick='remove_item(event)'></div><div class='handle'></div><div class='commentBox'>"
+	  $content .="<li class='textElement editted'><div class='cross'></div><div class='handle'></div><div class='commentBox'>"
 	  .$comment_text."</div></li><li class='addTextElementAnchor'><span><a class='add_comment'></a></span></li>";		
 		break;}	
 		
@@ -640,7 +640,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 	  $video_title = $video_meta['title'];
 	  $video_src = $video_meta['src'];
 	  $video_url = $video_meta['url'];
-	  $content .="<li class='video_drop'><div class='cross' action='delete' onclick='remove_item(event)'></div><div class='handle'></div><div class='youku_wrapper'><div><a class='videoTitle' target='_blank' href='"
+	  $content .="<li class='video_drop'><div class='cross'></div><div class='handle'></div><div class='youku_wrapper'><div><a class='videoTitle' target='_blank' href='"
 	  .$video_url."'>".$video_title."</a></div><div class='embed'><embed src='".$video_src."' quality='high' width='420' height='340' align='middle' allowscriptaccess='always' allowfullscreen='true' mode='transparent' type='application/x-shockwave-flash' wmode='opaque'></embed></div></div></li>
 	  <li class='addTextElementAnchor'><span><a class='add_comment'></a></span></li>";    	
 		break;}
@@ -653,7 +653,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 	  $photo_id = $photo_meta_data['id'];
 	  $author_nic = $photo_meta_data['nic'];
 	  $photo_link = "http://www.yupoo.com/photos/".$photo_author."/".$photo_id;
-	  $content .="<li class='pic_drop'><div class='cross' action='delete' onclick='remove_item(event)'></div><div class='handle'></div><div class='yupoo_wrapper'><a target='_blank' href='".$photo_link."'><img class='pic_img' src='"
+	  $content .="<li class='pic_drop'><div class='cross'></div><div class='handle'></div><div class='yupoo_wrapper'><a target='_blank' href='".$photo_link."'><img class='pic_img' src='"
 				.$photo_per_url."'/></a><div><a class='pic_title' target='_blank' href='".$photo_link."'>".$photo_title."</a></div><div><a class='pic_author' target='_blank' href='http://www.yupoo.com/photos/".$photo_author."'>".$author_nic."</a></div><div class='yupoo_sign'></div></div></li><li class='addTextElementAnchor'><span><a class='add_comment'></a></span></li>"; 
 		break;}
 		
@@ -724,7 +724,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 	  }
 	  foreach($tweibo_array_asoc as $tkey=>$tval)
 	  {
-		$content = str_replace("<li id='$tkey'></li>","<li class='weibo_drop tencent' id='$tkey'><div class='cross' action='delete' onclick='remove_item(event)'></div>".$tval, $content);
+		$content = str_replace("<li id='$tkey'></li>","<li class='weibo_drop tencent' id='$tkey'><div class='cross'></div>".$tval, $content);
 	  }
   }
   
