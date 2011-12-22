@@ -190,7 +190,7 @@ li.tencent .weibo_date_drop{background:url("../img/editsprite.png") no-repeat sc
 .weiboLi .source_img{background:url("../img/editsprite.png") no-repeat scroll 0 -415px transparent;height:24px;width:24px;display:block}
 .tweiboLi .source_img{background:url("../img/editsprite.png") no-repeat scroll 0 -503px transparent;height:24px;width:24px;display:block}
 .doubanLi .source_img{background:url("../img/editsprite.png") no-repeat scroll 0 -207px transparent;height:24px;width:24px;display:block}
-.videoLi .source_img{background:url("../img/editsprite.png") no-repeat scroll 0 -119px transparent;height:24px;width:24px;display:block}
+.videoLi .source_img{background:url("../img/video.png") no-repeat scroll 0 0 transparent;height:24px;width:24px;display:block}
 .yupooLi .source_img{background:url("../img/editsprite.png") no-repeat scroll 0 -631px transparent;height:24px;width:24px;display:block}
 .impUploadLi .source_img{background:url("../img/pic_add.png") no-repeat scroll 0 0 transparent;height:24px;width:24px;display:block}
 #weibo_search,#douban_search,#pic_search{padding-left:4px}
