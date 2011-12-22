@@ -105,10 +105,7 @@ class VideoUrlParser
 
         if($data && $createObject) 
             $data['object'] = "<embed src=\"{$data['swf']}\" quality=\"high\" width=\"480\" height=\"400\" align=\"middle\" allowNetworking=\"all\" allowScriptAccess=\"always\" type=\"application/x-shockwave-flash\"></embed>";
-        if($data)
-            echo json_encode($data);
-        else
-            echo '';
+        return $data;
     }
 
     /**
@@ -120,7 +117,7 @@ class VideoUrlParser
         preg_match("#id\_(\w+)#", $url, $videoID);
 
         $html = self::_cget($url);
-        if(empty($html)
+        if(empty($html))
             return false;
         preg_match('#show_info_short">(.*?)<#',$html,$desc);
         if(!empty($desc[1]))
