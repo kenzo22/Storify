@@ -1103,17 +1103,26 @@ $(function() {
 		  e.preventDefault();
 		  var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
 		  $('#source_list').html(imgloading);		  
-		  var videoUrl = $('#videoUrl').val(),
+		  var post,
+		      imply = "<div class='imply_color center'>请检查输入的视频链接是否可以正常访问或再试一次</div>",
+		      videoInput = $('#videoUrl'),
+		      videoUrl = videoInput.val(),
 		      getData = {url: videoUrl},
-		      getUrl = '/member/embedVideo.php';
+		      getUrl = '/member/embedVideo.php',
+			  patt = new RegExp("youku\.com/"),
+              validFlag = patt.test(videoUrl);  
+		  if(videoInput.hasClass('imply_color') || !validFlag)
+          {
+		    post = imply;
+			$('#source_list').html(post);   
+			return false;
+		  }		  
 		  $.get(getUrl, getData,
 		  function(data, textStatus)
 		  {
 			if(textStatus == 'success')
 			{
-			  debugger;
-			  var post;
-			  if(data.error == 0)
+			  if(data.errorcode == 0)
 			  {
 				embedCode = data.embedcode;
 			    var title = data.title,
@@ -1128,7 +1137,7 @@ $(function() {
 			  }
 			  else
 			  {
-			    post = "<div class='imply_color center'>请检查输入的URL是否可以正常访问或再试一次</div>";
+			    post = imply;
 			  }
 			  $('#source_list').html(post);   
 			}
