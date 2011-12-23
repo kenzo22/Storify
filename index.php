@@ -15,12 +15,6 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	  var _gaq = _gaq || [];
 	  _gaq.push(['_setAccount', 'UA-27514721-1']);
 	  _gaq.push(['_trackPageview']);
-
-	  (function() {
-		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	  })();
 	</script>	
   </head>
   <body>
@@ -319,5 +313,13 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 <script type="text/javascript" src="/js/jquery.orbit-1.2.3.min.js"></script>
 <script type="text/javascript" src="/js/jquery.jcarousel.min.js"></script>
 <script type="text/javascript" src="/js/frontpage.js"></script>
+<script type="text/javascript">
+  (function() 
+  {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
 </body>
 </html>
