@@ -7,6 +7,4 @@ $parser = new VideoUrlParser();
 $obj = $parser->parse($url);
 if($obj)
     echo json_encode($obj);
-else
-    echo '';
 ?>

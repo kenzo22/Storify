@@ -1111,8 +1111,9 @@ $(function() {
 		  {
 			if(textStatus == 'success')
 			{
+			  debugger;
 			  var post;
-			  if(data != '')
+			  if(data.error == 0)
 			  {
 				embedCode = data.embedcode;
 			    var title = data.title,
