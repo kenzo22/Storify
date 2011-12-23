@@ -114,28 +114,36 @@ class VideoUrlParser
      * http://player.youku.com/player.php/sid/XMjU0NjI2Njg4/v.swf
      */ 
     private function _parseYouku($url){
+        preg_match("#v_playlist\/#", $url, $mat);
+        if($mat){
+            $html = self::_cget($url);
+            if(!$html)
+                return false;
+            preg_match('#id="link1" value="(.*?)"#',$html,$matches);
+            if(!$matches)
+                return false;
+            $url = $matches[1];
+        }
         preg_match("#id\_(\w+)#", $url, $videoID);
+        if(!$videoID) return false;
 
         $html = self::_cget($url);
-        if(empty($html))
-            return false;
-        preg_match('#show_info_short">(.*?)<#',$html,$desc);
+        preg_match('#show_info_short">([^<]+)<#',$html,$desc);
         if(!empty($desc[1]))
             $data['desc']=$desc[1];
+        if(!$data['desc']){
+            preg_match('#class="info" id="long" style="display:none;">\s+<div class="item">([^<]*)<\/div>#',$html,$mach);
+            if($mach)
+                $data['desc']=$mach[1];
+        }
+
         preg_match('#<embed.*<\/embed>#',$html,$embedcode);
-		if(!empty($embedcode)){
+        if(!empty($embedcode)){
             $patten[0]='#width="\d+"#';
             $patten[1]='#height="\d+"#';
             $replace[0]='width="420"';
             $replace[1]='height="340"';
             $data['embedcode']=preg_replace($patten,$replace,$embedcode[0]);
-        } 
-        if (empty($videoID)){
-            preg_match("#v_playlist\/#", $url, $mat);
-            if(!$mat) return false;
-
-            preg_match("#videoId2\s*=\s*\'(\w+)\'#", $html, $videoID);
-            if(!$videoID) return false;
         }
 
         $link = "http://v.youku.com/player/getPlayList/VideoIDS/{$videoID[1]}/timezone/+08/version/5/source/out?password=&ran=2513&n=3";
