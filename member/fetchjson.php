@@ -150,6 +150,12 @@ else
 		$content_array[] = $meta;
 		break;
 		}
+		
+		case "upload_img":{
+		$meta = array();
+		$meta['type'] = 'upload_img';
+		$meta['img_src'] = $val['content'];	
+		break;}
 		 
 		case "douban":{
 		$douban_save_per_id = $val['content']['item_id'];

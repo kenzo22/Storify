@@ -6,7 +6,7 @@ require  $_SERVER['DOCUMENT_ROOT']."/include/header.php";
 <div class="inner">
 <div id='tour_wrapper'>
   <h1 id='tour_title'><a class='float_r large green awesome' href='/accounts/source'>开始使用 &raquo;</a>欢迎来到口立方</h1>
-  <h3 id='tour_sub'>我们提供优秀的平台，帮助你用社会媒体讲故事</h3>  
+  <h3 id='tour_sub'>一个新颖的社会媒体故事社区，帮助你用社会媒体讲故事</h3>  
   <div class='tour_section'>
     <img class='float_l' src='img/tour1.png' />
 	<h2>新颖的讲述方式</h2>
