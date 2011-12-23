@@ -3,6 +3,7 @@ $html_title = "口立方";
 require "../global.php";
 require  "../include/header.php";
 include_once( 'config.php' );
+include $_SERVER['DOCUMENT_ROOT'].'/class/videoUrlParser.php';
 //include_once( 'weibooauth.php' );
 include_once( 'sinaweibo.php' );
 
@@ -23,7 +24,7 @@ echo "after"."<br />";*/
 //echo "secret".$_SESSION['last_wkey']['oauth_token_secret']."<br />";
 
 
-$c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']  );
+//$c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']  );
 //$me = $c->user_timeline(1, 20, '风景');
 //$me  = $c->search_weibo(1, 20, '风景饭第三方但是洛克菲勒但是');
 
@@ -36,7 +37,7 @@ $_SESSION['last_wkey']['oauth_token_secret']=$result['weibo_access_token_secret'
 
 //$me = $c->verify_credentials();
 //$me = $c->rate_limit();
-$me = $c->get_favorite();
+//$me = $c->get_favorite();
 //$me = $c->show_status('3381089974440527');
 //$me = $c->trends_timeline(1, 20, '保证金');
 //$me = $c->trends_daily();
@@ -47,7 +48,10 @@ $me = $c->get_favorite();
 
 //echo $me[0]['url_short'];
 echo "<br /><br /><br />";
-var_dump($me);
+$url="http://v.youku.com/v_show/id_XMzM1Mzg2NjM2.html";
+$obj = VideoUrlParser::parse($url);
+var_dump($obj);
+//var_dump($me);
 
 /*
 $prefix="../img/weibo/";

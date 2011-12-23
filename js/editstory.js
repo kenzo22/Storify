@@ -1114,14 +1114,14 @@ $(function() {
 			  var post;
 			  if(data != '')
 			  {
-			    embedCode = data.embedcode;
+				embedCode = data.embedcode;
 			    var title = data.title,
 			      description = data.desc,
 				  domain = data.host+".com",
 				  thumbnail = data.img;
 				if(typeof description === 'undefined')
                 {
-				  description = "test";
+				  description = "";
 				}				
 				post = "<li class='video_drag'><div class='videoTitle'><a target='_blank' href='"+videoUrl+"'>"+title+"</a></div><div class='videoContent'><img class='video_thumbnail' src='"+thumbnail+"' /><div class='video_wrapper'><div class='video_domain'><a target='_blank' href='"+videoUrl+"'>"+domain+"</a></div><div class='video_description'>"+description+"</div></div></div></li>";
 			  }
