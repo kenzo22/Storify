@@ -1,5 +1,5 @@
 var embedCode, vtabIndex, followPage, myPage, favPage, userSearchPage, tuserSearchPage, myPageTimestamp, followTimestamp, favTimestamp, usersearchTimestamp;
-var weiboSearhPage = 1, picSearchPage = 1, userpicSearchPage =1, colSearchPage = 1, recSearchPage = 1, tweibosearchPage = 1, doubanItemCounts = 10, commentsPerQuery = 5, eventStartIndex = 1, bookStartIndex = 1, bookReviewStartIndex = 1, movieStartIndex = 1, movieReviewStartIndex = 1, musicStartIndex = 1, musicReviewStartIndex = 1, weibo_url = '/weibo/weibooperation.php', tweibo_url = '/tweibo/tweibooperation.php', douban_url = '/douban/doubanoperation.php', yupoo_url = '/yupoo/yupoooperation.php';
+var weiboSearhPage = 1, picSearchPage = 1, userpicSearchPage =1, colSearchPage = 1, recSearchPage = 1, tweibosearchPage = 1, doubanItemCounts = 10, commentsPerQuery = 5, eventStartIndex = 1, bookStartIndex = 1, bookReviewStartIndex = 1, movieStartIndex = 1, movieReviewStartIndex = 1, musicStartIndex = 1, musicReviewStartIndex = 1, weibo_url = '/weibo/weibooperation.php', tweibo_url = '/tweibo/tweibooperation.php', douban_url = '/douban/doubanoperation.php', douban_rurl = '/douban/doubanreviewsoperation.php', yupoo_url = '/yupoo/yupoooperation.php';
 
 if( typeof( window.innerHeight ) == 'number' ){
 //Non-IE
@@ -206,21 +206,6 @@ function prepare_story_data(action_value)
   var story_pic_val = $('#story_thumbnail').attr('src');
   var storydata = {story_id: story_id_val, story_title: story_title_val, story_summary: story_summary_val, story_pic: story_pic_val, story_tag: story_tag_val, story_content: story_content_val_string, action:action_value};	
   return storydata;
-}
-
-function append_content(id_array, content_array)
-{
-  for (var i in id_array)
-  {
-	var $contentToAppend = $(content_array[i]);
-	$("#" + id_array[i]).append($contentToAppend);
-  }
-}
-
-function replaceURLWithHTMLLinks(source) {
-	var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-    replaced = source.replace(exp,"<a href='$1' target='_blank'>$1</a>"); 
-	return replaced;
 }
 
 function remove_item(evt)
@@ -1000,22 +985,22 @@ $(function() {
 			  }
 			  else if(dragItem.hasClass('douban_drag'))
 			  {
-				var doubanContent = "";
-				var douban_profile_img = dragItem.find('.profile_img').attr('src');
-				var douban_profile_name = dragItem.find('.profile_img').attr('title');
-				var douban_profile_url = dragItem.find('.douban_from').attr('href');
+				var doubanContent = "",
+				    douban_profile_img = dragItem.find('.profile_img').attr('src'),
+				    douban_profile_name = dragItem.find('.profile_img').attr('title'),
+				    douban_profile_url = dragItem.find('.douban_from').attr('href');
 				if(dragItem.hasClass('event'))
 				{
-				  var event_title = dragItem.find('.event_title a').text();
-				  var event_summary = dragItem.find('.event_summary').text();
-				  var event_initiator_name = dragItem.find('.event_initiator a').text();
-				  var event_initiator_url = dragItem.find('.event_initiator a').attr('href');
-				  var event_start_time = dragItem.find('.start_time').text();
-				  var event_end_time = dragItem.find('.end_time').text();
-				  var event_link = dragItem.find('.event_title a').attr('href');
-				  var event_pic = dragItem.find('.event_img_wrapper img').attr('src');
-				  var event_location = dragItem.find('.event_location').text();
-				  var event_city = dragItem.find('.event_city').text();
+				  var event_title = dragItem.find('.event_title a').text(),
+					  event_summary = dragItem.find('.event_summary').text(),
+					  event_initiator_name = dragItem.find('.event_initiator a').text(),
+					  event_initiator_url = dragItem.find('.event_initiator a').attr('href'),
+					  event_start_time = dragItem.find('.start_time').text(),
+					  event_end_time = dragItem.find('.end_time').text(),
+					  event_link = dragItem.find('.event_title a').attr('href'),
+					  event_pic = dragItem.find('.event_img_wrapper img').attr('src'),
+					  event_location = dragItem.find('.event_location').text(),
+					  event_city = dragItem.find('.event_city').text();
 				  doubanContent=("<div class='cross' action='delete'></div><div class='handle'></div><div class='douban_wrapper'><div class='content_wrapper'><div class='event_summary_drop'>"+event_summary+"</div><div class='event_wrapper'><a href='"
 				  +event_link+"' target='_blank'><img class='item_img_drop float_l' src='"+event_pic+"' /></a><div class='item_meta_drop'><div class='event_title_drop'>活动：<a href='"
 				  +event_link+"' target='_blank'>"+event_title+"</a></div><div class='event_initiator_drop'>发起人：<a href='"+event_initiator_url+"' target='_blank'>"
@@ -1033,16 +1018,16 @@ $(function() {
 				}
 				else if(dragItem.hasClass('bookReviews') || dragItem.hasClass('movieReviews') || dragItem.hasClass('musicReviews'))
 				{
-				  var douban_per_url = dragItem.find('.item_title').attr('href');
-				  var douban_comment_title = dragItem.find('.comment_title').text();
-				  var douban_comment_summary = dragItem.find('.comment_summary').html();
-				  var douban_comment_date = dragItem.find('.comment_date').text();
-				  var douban_item_img = dragItem.find('.item_img').attr('src');
-				  var douban_item_title = dragItem.find('.item_title').text();
-				  var douban_item_author = dragItem.find('.item_author').text();
-				  var douban_item_date = dragItem.find('.item_date').text();
-				  var douban_average_rating = dragItem.find('.average_rating').text();
-				  var douban_item_rating = dragItem.find('.item_rating').text();
+				  var douban_per_url = dragItem.find('.item_title').attr('href'),
+					  douban_comment_title = dragItem.find('.comment_title').text(),
+					  douban_comment_summary = dragItem.find('.comment_summary').html(),
+					  douban_comment_date = dragItem.find('.comment_date').text(),
+					  douban_item_img = dragItem.find('.item_img').attr('src'),
+					  douban_item_title = dragItem.find('.item_title').text(),
+					  douban_item_author = dragItem.find('.item_author').text(),
+					  douban_item_date = dragItem.find('.item_date').text(),
+					  douban_average_rating = dragItem.find('.average_rating').text(),
+					  douban_item_rating = dragItem.find('.item_rating').text();
 				  doubanContent = ("<div class='cross' action='delete'></div><div class='handle'></div><div class='douban_wrapper'><div class='content_wrapper'><div><div class='comment_title_drop'>"
 					+douban_comment_title+"</div><div class='comment_summary_drop'>"+douban_comment_summary+"</div></div><div class='item_info_drop'><a href='"+douban_per_url+"' target='_blank'><img class='item_img_drop float_l' src='"
 				  +douban_item_img+"' /></a><div class='item_meta_drop'><div><a class='item_title_drop' href='"+douban_per_url+"' target='_blank'>"+douban_item_title+"</a></div><div class='item_author_drop'>"
@@ -1070,8 +1055,6 @@ $(function() {
 			  }
 			  else if(dragItem.hasClass('img_upload_drag'))
 			  {
-			    /*var cloned = dragItem.clone(true);
-				    $('#source_list').prepend(cloned);*/
 				var imgSrc = dragItem.find('img').attr('src'),
 				    imgContent = ("<div class='cross' action='delete'></div><div class='handle'></div><div class='img_wrapper'><img src='"+imgSrc+"'></div>");
 				if(dragItem.index(list_item_have_pic) == 0)
@@ -1093,13 +1076,13 @@ $(function() {
 			  }
 			  else if(dragItem.hasClass('pic_drag'))
 			  {
-				var picUrl = dragItem.find('img').attr('src');
-				var picTitle = dragItem.find('.pic_title').text();
-				var picLink = dragItem.find('.pic_title').attr('href');
-				var picAuthor = dragItem.find('.pic_author').text();
-				var authorLink = dragItem.find('.pic_author').attr('href');
-				var temp_array = picUrl.split("\/");
-				var temp_array_length = temp_array.length;
+				var picUrl = dragItem.find('img').attr('src'),
+					picTitle = dragItem.find('.pic_title').text(),
+					picLink = dragItem.find('.pic_title').attr('href'),
+					picAuthor = dragItem.find('.pic_author').text(),
+					authorLink = dragItem.find('.pic_author').attr('href'),
+					temp_array = picUrl.split("\/"),
+					temp_array_length = temp_array.length;
 				temp_array[temp_array_length-1] = "small";
 				picUrl = temp_array.join("\/");
 				
@@ -1150,25 +1133,6 @@ $(function() {
 			}
 		  },'json');
 		})
-		
-		/*$('#embedVideo').click(function(e)
-		{
-		  e.preventDefault();
-		  var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
-		  $('#source_list').html(imgloading);
-		  
-		  var videoTitle;
-		  var videoUrl = $('#videoUrl').val();
-		  $.embedly(videoUrl, {key: '4ac512dca79011e0aeec4040d3dc5c07', maxWidth: 420, wrapElement: 'div', method : "afterParent"  }, function(oembed){				
-          if (oembed != null)
-		  {
-			embedCode = oembed.code;
-			videoTitle = oembed.title;
-			var post = "<li class='video_drag'><div class='videoTitle'><a target='_blank' href='"+videoUrl+"'>"+oembed.title+"</a></div><div class='videoContent'><img class='video_thumbnail' src='"+oembed.thumbnail_url+"' /><div class='video_wrapper'><div class='video_domain'><a target='_blank' href='"+videoUrl+"'>youku.com</a></div><div class='video_description'>"+oembed.description+"</div></div></div></li>";
-			$('#source_list').html(post);  
-		  }		  			
-          });
-		})*/
 		
 		if($('#sto_title').val() =='')
 		{
@@ -1298,7 +1262,7 @@ $(function() {
 		//douban reviews part
 		$('.douban_review').live('click', function(e){
 		  e.preventDefault();
-		  var getUrl = '/douban/doubanreviewsoperation.php';
+		  var getUrl = douban_rurl;
 		  var getData;
 		  var itemSubjectId = $(this).closest('.douban_drag').attr('id').substr(2);
 		  if($(this).hasClass('book'))
@@ -1428,7 +1392,7 @@ $(function() {
 				}
 				else if(loadMoreItem.hasClass('bookReviews'))
 				{
-				  getUrl = '/douban/doubanreviewsoperation.php';
+				  getUrl = douban_rurl;
 				  bookReviewStartIndex = bookReviewStartIndex+commentsPerQuery;
 				  getData = {operation: 'bookReviews', subjectID: loadMoreItem.attr('id'), startIndex: bookReviewStartIndex, numResults: commentsPerQuery};
 				}
@@ -1487,7 +1451,7 @@ $(function() {
 				}
 				else if(loadMoreItem.hasClass('movieReviews'))
 				{
-				  getUrl = '/douban/doubanreviewsoperation.php';
+				  getUrl = douban_rurl;
 				  movieReviewStartIndex = movieReviewStartIndex+commentsPerQuery;
 				  getData = {operation: 'movieReviews', subjectID: loadMoreItem.attr('id'), startIndex: movieReviewStartIndex, numResults: commentsPerQuery};
 				}
@@ -1535,7 +1499,7 @@ $(function() {
 				}
 				else if(loadMoreItem.hasClass('musicReviews'))
 				{
-				  getUrl = '/douban/doubanreviewsoperation.php';
+				  getUrl = douban_rurl;
 				  musicReviewStartIndex = musicReviewStartIndex+commentsPerQuery;
 				  getData = {operation: 'musicReviews', subjectID: loadMoreItem.attr('id'), startIndex: musicReviewStartIndex, numResults: commentsPerQuery};
 				}
