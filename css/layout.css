@@ -142,7 +142,7 @@ div.pagination span.current{border:1px solid #b7d8ee;font-weight:700;color:#444;
 .weibo_img_drop img,.weibo_retweet_img_drop img{width:280px}
 .weibo_drag,.video_drag,.pic_drag,.douban_drag{overflow:auto;z-index:10;cursor:move;border-color:#ababac;border-style:solid;border-width:1px;margin:8px;padding:5px}
 .weibo_drag.tuser{cursor:default}
-.video_drag .video_thumbnail{float:left;margin-right:5px;border:1px solid #E9E9E9;padding:3px;width:100px;height:100px}
+.video_drag .video_thumbnail{float:left;margin:6px 5px 0 0;border:1px solid #E9E9E9;padding:3px;width:100px;height:100px}
 .video_drag .video_wrapper{margin-left:125px}
 .weibo_drag .user_wrapper a img{float:left;width:100px;height:100px}
 .weibo_drag .user_wrapper .person_meta{margin-left:130px}
