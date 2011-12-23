@@ -1087,7 +1087,7 @@ $(function() {
                     videoUrl = videoItem.attr('href'),
 				    videoTitle = videoItem.text();
 				var videoContent = ("<div class='cross' action='delete'></div><div class='handle'></div><div class='youku_wrapper'><div><a class='videoTitle' target='_blank' href='"
-				+videoUrl+"'>"+videoTitle+"</a></div>"+embedCode+"</div>");
+				+videoUrl+"'>"+videoTitle+"</a></div><div class='embed'>"+embedCode+"</div></div>");
 				dragItem.removeClass('video_drag').addClass('video_drop').children().remove();　
 			    dragItem.append(videoContent);
 			  }

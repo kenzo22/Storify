@@ -211,7 +211,7 @@ $content .= "<div class='inner'>
 		  <div id='videoTabs'>
 		    <div class='wrapper'>
 		      <div>
-			    <div>视频地址(目前支持优酷，土豆):</div>          
+			    <div>优酷视频地址:</div>          
 			    <input id='videoUrl' name='videoUrl' type='text' value='' />
 			    <button value='嵌入视频' id='embedVideo' type='button'>嵌入视频</button>
               </div>

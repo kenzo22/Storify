@@ -123,8 +123,13 @@ class VideoUrlParser
         if(!empty($desc[1]))
             $data['desc']=$desc[1];
         preg_match('#<embed.*<\/embed>#',$html,$embedcode);
-        if(!empty($embedcode))
-            $data['embedcode']=$embedcode[0];
+		if(!empty($embedcode)){
+            $patten[0]='#width="\d+"#';
+            $patten[1]='#height="\d+"#';
+            $replace[0]='width="420"';
+            $replace[1]='height="340"';
+            $data['embedcode']=preg_replace($patten,$replace,$embedcode[0]);
+        } 
         if (empty($videoID)){
             preg_match("#v_playlist\/#", $url, $mat);
             if(!$mat) return false;
