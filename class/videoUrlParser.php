@@ -8,6 +8,9 @@
  * @author Dijia Huang <huangdijia@gmail.com> 
  * @license PHP Version 3.0 {@link http://www.php.net/license/3_0.txt}
  *
+ * @version 1.2
+ * @author icecoffe
+ *
  * Usage
  * require_once "VideoUrlParser.class.php";
  * $urls[] = "http://v.youku.com/v_show/id_XMjI4MDM4NDc2.html";
@@ -72,8 +75,10 @@ class VideoUrlParser
     public function parse($url='', $createObject=true){
         $lowerurl = strtolower($url);
         preg_match(self::CHECK_URL_VALID, $lowerurl, $matches);
-        if(!$matches) return false;
-
+        if(!$matches) {
+            $data['errorcode']=2;
+            return $data;
+        }
         switch($matches[1]){
         case 'youku.com':
             $data = self::_parseYouku($url);
@@ -100,9 +105,8 @@ class VideoUrlParser
             $data = self::_parseQq($url);
             break;
         default:
-            $data = false;
+            $data['errorcode']=2;
         }
-
         //if($data && $createObject) 
             //$data['object'] = "<embed src=\"{$data['swf']}\" quality=\"high\" width=\"480\" height=\"400\" align=\"middle\" allowNetworking=\"all\" allowScriptAccess=\"always\" type=\"application/x-shockwave-flash\"></embed>";
         return $data;
@@ -117,15 +121,22 @@ class VideoUrlParser
         preg_match("#v_playlist\/#", $url, $mat);
         if($mat){
             $html = self::_cget($url);
-            if(!$html)
-                return false;
+            if(!$html){
+                $data['errorcode']=1;
+                return $data;
+            }
             preg_match('#id="link1" value="(.*?)"#',$html,$matches);
-            if(!$matches)
-                return false;
+            if(!$matches){
+                $data['errorcode']=1;
+                return $data;
+            }
             $url = $matches[1];
         }
         preg_match("#id\_(\w+)#", $url, $videoID);
-        if(!$videoID) return false;
+        if(!$videoID){
+            $data['errorcode']=1;
+            return $data;
+        }
 
         $html = self::_cget($url);
         preg_match('#show_info_short">([^<]+)<#',$html,$desc);
@@ -151,16 +162,16 @@ class VideoUrlParser
         $retval = self::_cget($link);
         if ($retval) {
             $json = json_decode($retval, true);
-
+            $data['errorcode']=0;
             $data['host']='youku';
             $data['img'] = $json['data'][0]['logo'];
             $data['title'] = $json['data'][0]['title'];
             //$data['url'] = $url;
             //$data['swf'] = "http://player.youku.com/player.php/sid/{$videoID[1]}/v.swf";
-
             return $data;
         } else {
-            return false;
+            $data['errorcode']=1;
+            return $data;
         }
     }
 
