@@ -197,7 +197,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 			}
 		$left = 10 - $len;
 		if( $left < 10 )
-			$new_query="select post_author,post_pic_url,post_title,post_date,story_posts.ID from ".$db_prefix."follow, story_posts where user_id=".$uid." and follow_id != post_author and post_status = 'Published' group by story_posts.ID order by post_date desc limit ".$left;
+			$new_query="select post_author,post_pic_url,post_title,post_date,story_posts.ID from story_posts where post_author not in (select follow_id from story_follow where user_id=".$uid.") and post_status = 'Published' group by story_posts.ID order by post_date desc limit ".$left;
 		else
 			$new_query="select * from story_posts where post_status = 'Published' order by post_date desc limit $left";
 		$others_result = $DB->query($new_query);
