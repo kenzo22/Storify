@@ -214,22 +214,23 @@ class VideoUrlParser
             preg_match("/iid\s*=\s*.*?\|\|\s*(\d+)/", $html, $matches);
             $iid = $matches[1];
 
-            preg_match("/iid:$iid(.*?)\}/sx", $html, $matches);
+            preg_match("/(iid:$iid.*?)\}/sx", $html, $matches);
             $str = str_replace("\n", "", $matches[1]);
             $str = str_replace(" ", "", $str);
-            $str = str_replace(',title','"title"',$str);
-            $str = preg_replace('#rat.*?,#','',$str);
-            $str = "{" . str_replace("'", "\"", $str) . "}";
-            $str = preg_replace("/,(\w+):/", ',"\\1":', $str);
-
-            $json = json_decode(iconv("GBK", "UTF-8", $str));
-
+            preg_match('#title:"(.*?)".*?pic:"(.*?)"#s',$str,$info);
+            if(!$info){
+                $data['errorcode']=1;
+                return $data;
+            }
             $data['errorcode']=0;
-            $data['img'] = $json->pic;
-            $data['title'] = $json->title;
+            $data['title'] = iconv('gbk','utf-8',$info[1]);
+            $data['img'] = $info[2];
             $data['url'] = $url;
             $data['swf'] = "http://www.tudou.com/l/{$icode}/&iid={$iid}/v.swf";
             $data['embedcode']='<embed src="'.$data['swf'].'" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="opaque" width="420" height="340"></embed>';
+            preg_match('#shortDesc:"(.*?)"#',$str,$desc);
+            if($desc)
+                $data['desc']=$desc[1];
             return $data;
         }
 
