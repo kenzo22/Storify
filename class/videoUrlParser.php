@@ -230,7 +230,7 @@ class VideoUrlParser
             $data['embedcode']='<embed src="'.$data['swf'].'" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="opaque" width="420" height="340"></embed>';
             preg_match('#shortDesc:"(.*?)"#',$str,$desc);
             if($desc)
-                $data['desc']=$desc[1];
+                $data['desc']=iconv('gbk','utf-8',$desc[1]);
             return $data;
         }
 
