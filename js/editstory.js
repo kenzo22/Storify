@@ -1,1 +1,1872 @@
-var embedCode,vtabIndex,followPage,myPage,favPage,userSearchPage,tuserSearchPage,myPageTimestamp,followTimestamp,favTimestamp,usersearchTimestamp;var weiboSearhPage=1,picSearchPage=1,userpicSearchPage=1,colSearchPage=1,recSearchPage=1,tweibosearchPage=1,doubanItemCounts=10,commentsPerQuery=5,eventStartIndex=1,bookStartIndex=1,bookReviewStartIndex=1,movieStartIndex=1,movieReviewStartIndex=1,musicStartIndex=1,musicReviewStartIndex=1,weibo_url="/weibo/weibooperation.php",tweibo_url="/tweibo/tweibooperation.php",douban_url="/douban/doubanoperation.php",douban_rurl="/douban/doubanreviewsoperation.php",yupoo_url="/yupoo/yupoooperation.php";if(typeof(window.innerHeight)=="number"){myHeight=window.innerHeight}else{if(document.documentElement&&document.documentElement.clientHeight){myHeight=document.documentElement.clientHeight}}var l_used_height=267,r_user_height=326,height_adjust=3,l_list_height=myHeight-l_used_height,r_list_height;var browser_info=$.browser;if(browser_info.mozilla){r_list_height=myHeight-r_user_height}else{if(browser_info.webkit){r_list_height=myHeight-r_user_height-height_adjust}else{if(browser_info.msie){r_list_height=myHeight-r_user_height+height_adjust}}}$("#source_list").css("height",l_list_height);$("#story_list").css("min-height",r_list_height);Array.prototype.getUnique=function(){var f={},c,d;for(c=0;d=this[c];c++){f[d]=1}var b=new Array();for(d in f){b.push(d)}return b};String.prototype.len=function(){return this.replace(/[^\x00-\xff]/g,"**").length};function bindonbeforeunload(){window.onbeforeunload=popalert}function unbindonbeforeunload(){window.onbeforeunload=null}function popalert(){return"本页面要求您确认您要离开 - 您输入的数据可能不会被保存"}function createCookie(c,d,e){if(e){var b=new Date();b.setTime(b.getTime()+(e*24*60*60*1000));var a="; expires="+b.toGMTString()}else{var a=""}document.cookie=c+"="+d+a+"; path=/"}function readCookie(b){var e=b+"=";var a=document.cookie.split(";");for(var d=0;d<a.length;d++){var f=a[d];while(f.charAt(0)==" "){f=f.substring(1,f.length)}if(f.indexOf(e)==0){return f.substring(e.length,f.length)}}return null}function eraseCookie(a){createCookie(a,"",-1)}function show_weibo_card(a){WB2.anyWhere(function(b){b.widget.hoverCard({id:a,search:true})})}function prepare_story_data(i){if(i!="Publish"&&i!="Preview"&&i!="Draft"){alert("not a proper operation:"+i)}var a;if(typeof(post_id)=="undefined"||post_id==null){a=0}else{a=post_id}var h=new Object;h.content=[];$("#story_list li:not(.addTextElementAnchor)").each(function(K){h.content[K]={};h.content[K].id=K;if($(this).hasClass("sina")){h.content[K].type="weibo";var y=$(this).attr("id").substr(2);var s=$(this).find(".weibo_from_drop").text();var n=$(this).find(".weibo_from_drop").attr("href").replace(/http:\/\/weibo.com\//,"");var F={id:y,nic:s,uid:n};h.content[K].content=F}else{if($(this).hasClass("tencent")){h.content[K].type="tweibo";var L=$(this).attr("id").substr(2);var J=$(this).find(".weibo_from_drop").text();var D=$(this).find(".weibo_from_drop").attr("href").replace(/http:\/\/t.qq.com\//,"");var O={id:L,nic:J,name:D};h.content[K].content=O}else{if($(this).hasClass("img_upload_drop")){h.content[K].type="upload_img";h.content[K].content=$(this).find("img").attr("src")}else{if($(this).hasClass("textElement")){if($(this).hasClass("editing")){var o=$(this).find(".inputEditor").val();temp=o.replace(/(\&nbsp;|\<br\>)/g,"");temp=$.trim(temp);if(!(temp=="")){h.content[K].type="comment";h.content[K].content=o}}else{h.content[K].type="comment";h.content[K].content=$(this).find(".commentBox").html()}}else{if($(this).hasClass("douban")){var G=$(this).attr("class");var v=G.split(" ");var A=v.length;var H;for(H=0;H<A;H++){if(v[H]!="douban"&&v[H]!="douban_drop"){break}}var q;q=v[H];h.content[K].type="douban";var u=$(this).attr("id").substr(2);var p={item_type:q,item_id:u};h.content[K].content=p}else{if($(this).hasClass("video_drop")){h.content[K].type="video";var z=$(this).find(".videoTitle").text();var m=$(this).find("embed").attr("src");var N=$(this).find(".videoTitle").attr("href");var x={title:z,src:m,url:N};h.content[K].content=x}else{if($(this).hasClass("pic_drop")){h.content[K].type="photo";var I=$(this).find(".pic_title").text();var w=$(this).find(".pic_author").attr("href").replace(/http:\/\/www.yupoo.com\/photos\//,"");var t=$(this).find(".pic_author").text();var r=$(this).find(".pic_title").attr("href");var B=r.split("/");var M=B.length;var C=B[M-1];var E=$(this).find(".pic_img").attr("src");var l={id:C,title:I,author:w,nic:t,url:E};h.content[K].content=l}}}}}}}});var e=JSON.stringify(h);var b=$("#sto_title").attr("value");var c=$("#sto_summary").val();var f=(c=="给你的故事写一个简短的描述"?"":c);var g=$("#sto_tag").attr("value");var j=(g=="添加故事标签，空格或逗号分隔"?"":g);var d=$("#story_thumbnail").attr("src");var k={story_id:a,story_title:b,story_summary:f,story_pic:d,story_tag:j,story_content:e,action:i};return k}function remove_item(b){var e=$(b.target||b.srcElement).closest("li");if(e.hasClass("img_upload_drop")){var c=true,d=e.find("img").attr("src").substr(12)}e.next("li").remove();e.hide("slow",function(){e.remove()});if(c){var a={file:d};$.get("/member/imgdelete.php",a)}}function change_story_pic(g){var f,b=[],d=b.length;$("#story_list img").each(function(h){f=$(this).attr("src");if(f!=""){if($(this).hasClass("profile_img_drop")){if($(this).closest("li").hasClass("sina")){f=f.replace(/(\d+)\/50\/(\d+)/,"$1/180/$2")}else{if($(this).closest("li").hasClass("tencent")){f=f.replace(/50$/,"180")}}}b[d]=f;d++}});b=b.getUnique();var e=b.length;var a=$("#story_thumbnail").attr("src");var c;for(c=0;c<e;c++){if(b[c]===a){break}}if(c==e){c=0}else{if(g=="next"){c=c+1;if(c==e){c=0}}else{if(g=="prev"){c=c-1;if(c<0){c=e-1}}}}$("#story_thumbnail").attr("src",b[c])}$(function(){var f=$("#weiboTabs").tabs();var b=$("#doubanTabs").tabs();var i=$("#picTabs").tabs();if(null==readCookie("editortip")){var h="<div id='first_tip' class='tip_container'><div class='tip_arrow top'></div><div class='tip_wrapper'><strong>小贴士1/4: 开始创建</strong><br>输入故事标题，描述，标签<br>左右箭头可以用来选择故事的封面<div class='tip_actions'><a class='tip_hide' href='#'>隐藏</a><a class='tip_next' href='#'>下一条 &raquo;</a></div></div></div>";$("#storyContent .inner").prepend(h);createCookie("editortip","tippopflag",365)}$("#first_tip .tip_next").live("click",function(){$("#first_tip").remove();var j="<div id='second_tip' class='tip_container'><div class='tip_arrow left'></div><div class='tip_wrapper'><strong>小贴士2/4: 寻找素材</strong><br>切换信息源来寻找喜欢的素材<div class='tip_actions'><a class='tip_hide' href='#'>隐藏</a><a class='tip_next' href='#'>下一条 &raquo;</a></div></div></div>";$("#storyContent .inner").prepend(j)});$("#second_tip .tip_next").live("click",function(){$("#second_tip").remove();var j="<div id='third_tip' class='tip_container'><div class='tip_arrow left'></div><div class='tip_arrow right'></div><div class='tip_wrapper'><strong>小贴士3/4: 组织素材</strong><br>将喜欢的素材从左栏拖放到右栏<br>别忘了可以选择放置的位置<div class='tip_actions'><a class='tip_hide' href='#'>隐藏</a><a class='tip_next' href='#'>下一条 &raquo;</a></div></div></div>";$("#storyContent .inner").prepend(j)});$("#third_tip .tip_next").live("click",function(){$("#third_tip").remove();var j="<div id='fourth_tip' class='tip_container'><div class='tip_arrow top'></div><div class='tip_wrapper'><strong>小贴士4/4: 添加文字</strong><br>点击T图标给故事添加文字<div class='tip_actions'><a class='tip_hide' href='#'>隐藏</a></div></div></div>";$("#storyContent .inner").prepend(j)});$(".tip_container .tip_hide").live("click",function(){$(".tip_container").remove()});$("#keywords, #d_keywords, #videoUrl, #pic_keywords").bind("keyup",function(k){var j=k.keyCode||k.which;if(j==13){$(this).next().click()}});$("#connectBtn").live("click",function(j){j.preventDefault();$.post("/accounts/login/sina_auth.php",{},function(k,l){$("#dialog.window").hide();self.location=k})});$("#prev_img").click(function(j){j.preventDefault();change_story_pic("prev")});$("#next_img").click(function(j){j.preventDefault();change_story_pic("next")});$(".cross").live("click",function(j){j.preventDefault();remove_item(j)});show_weibo_card("story_list");var c=$("#sto_tag").val();if(c==" "){$("#sto_tag").val("添加故事标签，空格或逗号分隔").addClass("imply_color")}$("#keywords").val("关键字").addClass("imply_color");$("#keywords").blur(function(){if($(this).val()==""){var j=f.tabs("option","selected");if(j==0){$(this).val("关键字").addClass("imply_color")}else{if(j==1){$(this).val("微博用户名").addClass("imply_color")}}}}).focus(function(){var j=f.tabs("option","selected");if((j==0&&$(this).val()=="关键字")||(j==1&&$(this).val()=="微博用户名")){$(this).val("").removeClass("imply_color")}});$("#d_keywords").val("书名").addClass("imply_color");$("#videoUrl").val("浏览器地址栏url").addClass("imply_color");$("#videoUrl").blur(function(){if($(this).val()==""){$(this).val("浏览器地址栏url").addClass("imply_color")}}).focus(function(){if($(this).val()=="浏览器地址栏url"){$(this).val("").removeClass("imply_color")}});$("#book_tab").click(function(){bookStartIndex=1;if($("#d_keywords").hasClass("imply_color")){$("#d_keywords").val("书名")}$("#source_list").children().remove()});$("#movie_tab").click(function(){movieStartIndex=1;if($("#d_keywords").hasClass("imply_color")){$("#d_keywords").val("电影名")}$("#source_list").children().remove()});$("#music_tab").click(function(){musicStartIndex=1;if($("#d_keywords").hasClass("imply_color")){$("#d_keywords").val("歌曲名")}$("#source_list").children().remove()});$("#event_tab").click(function(j){eventStartIndex=1;if($("#d_keywords").hasClass("imply_color")){$("#d_keywords").val("搜活动")}$("#source_list").children().remove()});$("#d_keywords").blur(function(){if($(this).val()==""){$(this).addClass("imply_color");var j=b.tabs("option","selected");switch(j){case 0:$(this).val("书名");break;case 1:$(this).val("电影名");break;case 2:$(this).val("歌曲名");break;case 3:$(this).val("搜活动");break}}}).focus(function(){var k=b.tabs("option","selected");var j=$(this).val();if((k==0&&j=="书名")||(k==1&&j=="电影名")||(k==2&&j=="歌曲名")||(k==3&&j=="搜活动")){$(this).val("").removeClass("imply_color")}});$("#pic_keywords").val("关键字").addClass("imply_color");$("#pic_keywords").blur(function(){if($(this).val()==""){$(this).addClass("imply_color");var j=i.tabs("option","selected");if(j==0){$(this).val("关键字")}else{if(j==1||j==2){$(this).val("又拍用户名，注意不是昵称")}else{$(this).val("可指定日期如2010-6,默认搜索全部")}}}}).focus(function(){var j=i.tabs("option","selected");var k=$(this).val();if((j==0&&k=="关键字")||(j==1&&k=="又拍用户名，注意不是昵称")||(j==2&&k=="又拍用户名，注意不是昵称")||(j==3&&k=="可指定日期如2010-6,默认搜索全部")){$(this).val("").removeClass("imply_color")}});$("#my_tab").click(function(){$(".weibo_drag").remove();$(".loadmore").remove();$("#weibo_search").addClass("none");myPage=1;myPageTimestamp=0;if(0==vtabIndex){var k=true}if(k){if($(this).hasClass("sina_disable")){var m="<div class='bind_txt'><div class='imply_color'>查看我的关注需要绑定新浪微博帐号</div><a href='/accounts/source'>马上绑定</a></div>";$("#source_list").html(m);return false}}else{if($(this).hasClass("tencent_disable")){var m="<div class='bind_txt'><div class='imply_color'>查看我的广播需要绑定腾讯微博帐号</div><a href='/accounts/source'>马上绑定</a></div>";$("#source_list").html(m);return false}}var l,j;if(k){l=weibo_url;j={operation:"my_weibo",page:myPage}}else{l=tweibo_url;j={operation:"my_weibo",page:0,timestamp:myPageTimestamp}}$.ajax({type:"GET",url:l,data:j,beforeSend:function(){var n=$("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");$("#source_list").html(n)},success:function(n){$("#source_list").html(n);if(0==vtabIndex){show_weibo_card("source_list")}}})});$("#follow_tab").click(function(){$(".weibo_drag").remove();$(".loadmore").remove();$("#weibo_search").addClass("none");followPage=1;followTimestamp=0;if(0==vtabIndex){var k=true}if(k){if($(this).hasClass("sina_disable")){var m="<div class='bind_txt'><div class='imply_color'>查看我的关注需要绑定新浪微博帐号</div><a href='/accounts/source'>马上绑定</a></div>";$("#source_list").html(m);return false}}else{if($(this).hasClass("tencent_disable")){var m="<div class='bind_txt'><div class='imply_color'>查看我的收听需要绑定腾讯微博帐号</div><a href='/accounts/source'>马上绑定</a></div>";$("#source_list").html(m);return false}}var l,j;if(k){l=weibo_url;j={operation:"my_follow",page:followPage}}else{l=tweibo_url;j={operation:"my_follow",page:0,timestamp:followTimestamp}}$.ajax({type:"GET",url:l,data:j,beforeSend:function(){var n=$("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");$("#source_list").html(n)},success:function(n){$("#source_list").html(n);if(0==vtabIndex){show_weibo_card("source_list")}}})});$("#favorite_tab").click(function(){$(".weibo_drag").remove();$(".loadmore").remove();$("#weibo_search").addClass("none");favPage=1;favTimestamp=0;if(0==vtabIndex){var k=true}if(k){if($(this).hasClass("sina_disable")){var m="<div class='bind_txt'><div class='imply_color'>查看我的关注需要绑定新浪微博帐号</div><a href='/accounts/source'>马上绑定</a></div>";$("#source_list").html(m);return false}}else{if($(this).hasClass("tencent_disable")){var m="<div class='bind_txt'><div class='imply_color'>查看我的收听需要绑定腾讯微博帐号</div><a href='/accounts/source'>马上绑定</a></div>";$("#source_list").html(m);return false}}var l,j;if(k){l=weibo_url;j={operation:"my_fav",page:favPage}}else{l=tweibo_url;j={operation:"my_fav",page:0,timestamp:favTimestamp}}$.ajax({type:"GET",url:l,data:j,beforeSend:function(){var n=$("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");$("#source_list").html(n)},success:function(n){$("#source_list").html(n);if(0==vtabIndex){show_weibo_card("source_list")}}})});$("#search_tab").click(function(l){weiboSearhPage=1;tweibosearchPage=1;if($("#keywords").hasClass("imply_color")){$("#keywords").val("关键字")}$("#source_list").children().remove();if(0==vtabIndex){$("#weibo_search_btn").text("搜索话题");l.preventDefault();var k=weibo_url;var j;j={operation:"list_ht"};$.ajax({type:"GET",url:k,data:j,beforeSend:function(){var m=$("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");$("#source_list").html(m)},success:function(m){$("#source_list").html(m)}})}else{$("#weibo_search_btn").text("搜索微博")}$("#weibo_search").addClass("imply_color").removeClass("none")});$("#user_tab").click(function(){userSearchPage=1;tuserSearchPage=1;if($("#keywords").hasClass("imply_color")){$("#keywords").val("微博用户名")}$("#source_list").children().remove();$("#weibo_search_btn").text("搜索用户");$("#weibo_search").addClass("imply_color").removeClass("none")});$("#weibo_search_btn").click(function(m){m.preventDefault();weiboSearhPage=1;userSearchPage=1;tuserSearchPage=1;tweibosearchPage=1;$(".loadmore").remove();var n=$("#keywords").val();var l=$("#weibo_search_btn").text();var k;var j;if(l==="搜索用户"){if(0==vtabIndex){k=weibo_url;j={operation:"user_search",keywords:n,page:userSearchPage}}else{k=tweibo_url;j={operation:"list_user",keywords:n,page:tuserSearchPage}}}else{if(0==vtabIndex){k=weibo_url;j={operation:"weibo_search",keywords:n,page:weiboSearhPage}}else{k=tweibo_url;j={operation:"weibo_search",keywords:n,page:tweibosearchPage}}}$.ajax({type:"GET",url:k,data:j,beforeSend:function(){var o=$("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");$("#source_list").html(o)},success:function(o){$("#source_list").html(o);if(0==vtabIndex){show_weibo_card("source_list")}}})});$("#douban_search_btn").click(function(n){n.preventDefault();var k=b.tabs("option","selected");var l=douban_url;var m=$("#d_keywords").val();var j;switch(k){case 0:j={operation:"book",keywords:m,startIndex:bookStartIndex,numResults:doubanItemCounts};break;case 1:j={operation:"movie",keywords:m,startIndex:movieStartIndex,numResults:doubanItemCounts};break;case 2:j={operation:"music",keywords:m,startIndex:musicStartIndex,numResults:doubanItemCounts};break;case 3:j={operation:"event",keywords:m,startIndex:eventStartIndex,numResults:doubanItemCounts};break;default:break}$.ajax({type:"GET",url:l,data:j,beforeSend:function(){var o=$("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");$("#source_list").html(o)},success:function(o){$("#source_list").html(o)}})});$("#search_tab_pic").click(function(){picSearchPage=1;$("#source_list").children().remove();$("#pic_keywords").val("关键字").addClass("imply_color")});$("#user_tab_pic").click(function(){userpicSearchPage=1;$("#source_list").children().remove();$("#pic_keywords").val("又拍用户名，注意不是昵称").addClass("imply_color")});$("#collect_tab_pic").click(function(){colSearchPage=1;$("#source_list").children().remove();$("#pic_keywords").val("又拍用户名，注意不是昵称").addClass("imply_color")});$("#recom_tab_pic").click(function(){recSearchPage=1;$("#source_list").children().remove();$("#pic_keywords").val("可指定日期如2010-6,默认搜索全部").addClass("imply_color")});$("#pic_search_btn").click(function(m){m.preventDefault();$(".loadmore").remove();var n=$("#pic_keywords").val();var l=i.tabs("option","selected");var k=yupoo_url;var j;if(0==l){j={operation:"pic_search",keywords:n,page:picSearchPage}}else{if(1==l){if($("#user_tab_pic").hasClass("yupoo_disable")){var o="<div class='bind_txt'><div class='imply_color'>用户搜索功能需要绑定又拍帐号</div><a href='/accounts/source'>马上绑定</a></div>";$("#source_list").html(o);return false}j={operation:"user_search",keywords:n,page:userpicSearchPage}}else{if(2==l){j={operation:"col_search",keywords:n,page:colSearchPage}}else{if(3==l){j={operation:"rec_search",keywords:n,page:recSearchPage}}}}}$.ajax({type:"GET",url:k,data:j,beforeSend:function(){var p=$("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");$("#source_list").html(p)},success:function(p){$("#source_list").html(p)}})});$("#source_list, #story_list").sortable({connectWith:".connectedSortable",cancel:".weibo_drop, .douban_drop, .img_upload_drop, .video_drop, .addTextElementAnchor, .textElement, .tuser, .loadmore, .ht_wrapper, .bind_txt",receive:function(P,U){var D=U.item;var E=("<li class='addTextElementAnchor'><span><a class='add_comment'></a></span></li>");var N=D.prev("li");var Z=D.next("li");if(!N.hasClass("addTextElementAnchor")){D.before(E)}if(!Z.hasClass("addTextElementAnchor")){D.after(E)}var L=$("#story_list li:not(.addTextElementAnchor, .textElement, .video_drop)");if(D.hasClass("weibo_drag")){var R="";var B="";var x=D.find(".user_page").attr("href");var ag=D.find(".weibo_text").html();var Y=D.find(".weibo_from").text();var z=D.find(".create_time").text();var aa=D.find(".profile_img").attr("src");var t;if(D.hasClass("sina")){if(D.find(".weibo_img img").length!=0){var u=D.find(".weibo_img img").attr("src").replace(/thumbnail/,"bmiddle");R="<div class='weibo_img_drop'><img src='"+u+"' /></div>"}if(D.find(".weibo_retweet_img img").length!=0){var ae=D.find(".weibo_retweet_img img").attr("src").replace(/thumbnail/,"bmiddle");B="<div class='weibo_retweet_img_drop'><img src='"+ae+"' /></div>"}D.removeClass("weibo_drag").addClass("weibo_drop sina").children().remove();t=("<div class='cross' action='delete'></div><div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>"+ag+"</span>"+B+R+"</div><div class='story_signature'><span class='float_r'><a href='"+x+"' target='_blank'><img class='profile_img_drop' src='"+aa+"' alt='"+Y+"' border=0 /></a></span><div class='signature_text_drop'><div class='text_wrapper'><span><a class='weibo_from_drop' href='"+x+"' target='_blank'>"+Y+"</a></span></div><div class='weibo_date_drop'>"+z+"</div></div></div></div>");if(D.index(L)==0){$("#story_thumbnail").attr("src",aa.replace(/(\d+)\/50\/(\d+)/,"$1/180/$2"))}}else{if(D.find(".weibo_img img").length!=0){var u=D.find(".weibo_img img").attr("src").replace(/120$/,"240");R="<div class='weibo_img_drop'><img src='"+u+"' /></div>"}if(D.find(".weibo_retweet_img img").length!=0){var ae=D.find(".weibo_retweet_img img").attr("src").replace(/120$/,"240");B="<div class='weibo_retweet_img_drop'><img src='"+ae+"' /></div>"}D.removeClass("weibo_drag").addClass("weibo_drop tencent").children().remove();t=("<div class='cross' action='delete'></div><div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>"+ag+"</span>"+B+R+"</div><div class='story_signature'><span class='float_r'><a href='"+x+"' target='_blank'><img class='profile_img_drop' src='"+aa+"' alt='"+Y+"' border=0 /></a></span><div class='signature_text_drop'><div class='text_wrapper'><span ><a class='weibo_from_drop' href='"+x+"' target='_blank'>"+Y+"</a></span></div><div class='weibo_date_drop'>"+z+"</div></div></div></div>");if(D.index(L)==0){$("#story_thumbnail").attr("src",aa.replace(/50$/,"180"))}}D.append(t);if(0==vtabIndex){show_weibo_card(D.attr("id"))}}else{if(D.hasClass("douban_drag")){var G="",o=D.find(".profile_img").attr("src"),F=D.find(".profile_img").attr("title"),k=D.find(".douban_from").attr("href");if(D.hasClass("event")){var q=D.find(".event_title a").text(),l=D.find(".event_summary").text(),ah=D.find(".event_initiator a").text(),p=D.find(".event_initiator a").attr("href"),ad=D.find(".start_time").text(),j=D.find(".end_time").text(),I=D.find(".event_title a").attr("href"),w=D.find(".event_img_wrapper img").attr("src"),W=D.find(".event_location").text(),T=D.find(".event_city").text();G=("<div class='cross' action='delete'></div><div class='handle'></div><div class='douban_wrapper'><div class='content_wrapper'><div class='event_summary_drop'>"+l+"</div><div class='event_wrapper'><a href='"+I+"' target='_blank'><img class='item_img_drop float_l' src='"+w+"' /></a><div class='item_meta_drop'><div class='event_title_drop'>活动：<a href='"+I+"' target='_blank'>"+q+"</a></div><div class='event_initiator_drop'>发起人：<a href='"+p+"' target='_blank'>"+ah+"</a></div><div class='start_time_drop'>"+ad+"</div><div class='end_time_drop'>"+j+"</div><div class='event_city_drop'>"+T+"</div><div class='event_location_drop'>"+W+"</div></div></div></div><div class='douban_signature'><span class='float_r'><a href='"+k+"' target='_blank'><img class='profile_img_drop' src='"+o+"' alt='"+F+"' border=0 /></a></span><span class='signature_text_drop'><div class='text_wrapper'><span ><a class='douban_from_drop' href='"+k+"' target='_blank'>"+F+"</a></span></div><div class='douban_date_drop'></div></span> </div></div>");D.removeClass("douban_drag").addClass("douban_drop").children().remove();if(D.index(L)==0){$("#story_thumbnail").attr("src",o)}D.append(G)}else{if(D.hasClass("bookReviews")||D.hasClass("movieReviews")||D.hasClass("musicReviews")){var A=D.find(".item_title").attr("href"),s=D.find(".comment_title").text(),aj=D.find(".comment_summary").html(),V=D.find(".comment_date").text(),Q=D.find(".item_img").attr("src"),y=D.find(".item_title").text(),S=D.find(".item_author").text(),v=D.find(".item_date").text(),al=D.find(".average_rating").text(),r=D.find(".item_rating").text();G=("<div class='cross' action='delete'></div><div class='handle'></div><div class='douban_wrapper'><div class='content_wrapper'><div><div class='comment_title_drop'>"+s+"</div><div class='comment_summary_drop'>"+aj+"</div></div><div class='item_info_drop'><a href='"+A+"' target='_blank'><img class='item_img_drop float_l' src='"+Q+"' /></a><div class='item_meta_drop'><div><a class='item_title_drop' href='"+A+"' target='_blank'>"+y+"</a></div><div class='item_author_drop'>"+S+"</div><div class='item_date_drop'>"+v+"</div><div class=item_rating_drop>"+r+"</div><div class='average_rating_drop'>"+al+"</div></div></div></div><div class='douban_signature'><span class='float_r'><a href='"+k+"' target='_blank'><img class='profile_img_drop' src='"+o+"' alt='"+F+"' border=0 /></a></span><span class='signature_text_drop'><div class='text_wrapper'><span ><a class='douban_from_drop' href='"+k+"' target='_blank'>"+F+"</a></span></div><div class='douban_date_drop'>"+V+"</div></span> </div></div>");D.removeClass("douban_drag").addClass("douban_drop").children().remove();if(D.index(L)==0){$("#story_thumbnail").attr("src",o)}D.append(G)}else{if(D.index(L)==0){$("#story_thumbnail").attr("src",D.find(".item_img").attr("src"))}D.removeClass("douban_drag").addClass("douban_drop");D.find(".douban_flag").removeClass().addClass("content_wrapper");D.find(".douban_review").closest("div").remove();D.prepend("<div class='cross' action='delete'></div><div class='handle'></div>")}}}else{if(D.hasClass("img_upload_drag")){var X=D.find("img").attr("src"),J=("<div class='cross' action='delete'></div><div class='handle'></div><div class='img_wrapper'><img src='"+X+"'></div>");if(D.index(L)==0){$("#story_thumbnail").attr("src",D.find("img").attr("src"))}D.removeClass("img_upload_drag").addClass("img_upload_drop").children().remove();D.append(J)}else{if(D.hasClass("video_drag")){var ai=D.find(".videoTitle a"),ac=ai.attr("href"),ak=ai.text();var m=("<div class='cross' action='delete'></div><div class='handle'></div><div class='youku_wrapper'><div><a class='videoTitle' target='_blank' href='"+ac+"'>"+ak+"</a></div><div class='embed'>"+embedCode+"</div></div>");D.removeClass("video_drag").addClass("video_drop").children().remove();D.append(m)}else{if(D.hasClass("pic_drag")){var M=D.find("img").attr("src"),K=D.find(".pic_title").text(),C=D.find(".pic_title").attr("href"),ab=D.find(".pic_author").text(),H=D.find(".pic_author").attr("href"),n=M.split("/"),O=n.length;n[O-1]="small";M=n.join("/");var af=("<div class='cross' action='delete'></div><div class='handle'></div><div class='yupoo_wrapper'><a target='_blank' href='"+C+"'><img class='pic_img' src='"+M+"'/></a><div><a class='pic_title' target='_blank' href='"+C+"'>"+K+"</a></div><div><a class='pic_author' target='_blank' href='"+H+"'>"+ab+"</a></div><div class='yupoo_sign'></div></div>");D.removeClass("pic_drag").addClass("pic_drop").children().remove();D.append(af);if(D.index(L)==0){$("#story_thumbnail").attr("src",M.replace(/small$/,"square"))}}}}}}}});$("#embedVideo").click(function(n){n.preventDefault();var j=$("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");$("#source_list").html(j);var r,s="<div class='bind_txt'><div class='imply_color center'>请检查输入的视频链接是否可以正常访问或再试一次</div></div>",k=$("#videoUrl"),q=k.val(),l={url:q},o="/member/embedVideo.php",m=new RegExp("youku.com/"),p=m.test(q);if(k.hasClass("imply_color")||!p){r=s;$("#source_list").html(r);return false}$.get(o,l,function(v,y){if(y=="success"){if(v.errorcode==0){embedCode=v.embedcode;var w=v.title,t=v.desc,u=v.host+".com",x=v.img;if(typeof t==="undefined"){t=""}r="<li class='video_drag'><div class='videoTitle'><a target='_blank' href='"+q+"'>"+w+"</a></div><div class='videoContent'><img class='video_thumbnail' src='"+x+"' /><div class='video_wrapper'><div class='video_domain'><a target='_blank' href='"+q+"'>"+u+"</a></div><div class='video_description'>"+t+"</div></div></div></li>"}else{r=s}$("#source_list").html(r)}},"json")});if($("#sto_title").val()==""){$("#sto_title").val("你的故事标题").removeClass("imply_color").focus(function(){if($(this).val()=="你的故事标题"){$(this).val("").removeClass("imply_color")}}).blur(function(){if($(this).val()==""){$(this).val("你的故事标题").removeClass("imply_color")}})}if($("#sto_summary").val()==""){$("#sto_summary").val("给你的故事写一个简短的描述").addClass("imply_color").focus(function(){if($(this).val()=="给你的故事写一个简短的描述"){$(this).val("").removeClass("imply_color")}}).blur(function(){if($(this).val()==""){$(this).val("给你的故事写一个简短的描述").addClass("imply_color")}})}if($("#sto_tag").val()==""){$("#sto_tag").val("添加故事标签，空格或逗号分隔").addClass("imply_color").focus(function(){if($(this).val()=="添加故事标签，空格或逗号分隔"){$(this).val("").removeClass("imply_color")}}).blur(function(){if($(this).val()==""){$(this).val("添加故事标签，空格或逗号分隔").addClass("imply_color")}})}$("#story_list li").live("mouseover",function(j){$(this).find(".cross").css("visibility","visible")});$("#story_list li").live("mouseout",function(j){$(this).find(".cross").css("visibility","hidden")});$("#actions").click(function(q){q.preventDefault();var s=$(q.target);unbindonbeforeunload();if(s.hasClass("disable")){var m=$(window).height(),u=$(window).width(),k=$(document).scrollTop(),l=$(document).scrollLeft(),t=$("#boxes #dialog");t.css("top",m/2-t.height()/2+k-100);t.css("left",u/2-t.width()/2+l);t.fadeIn(1000)}else{var n=$("#sto_title").attr("value");var v;var p="/member/publish.php";if(s.is("#publishBtn")){v=prepare_story_data("Publish")}else{if(s.is("#previewBtn")){v=prepare_story_data("Preview")}else{if(s.is("#draftBtn")){v=prepare_story_data("Draft")}else{var j=confirm("确定放弃吗? 您本次做的更改不会保存。");if(j==true){if(s.hasClass("login_flag")){var o=s.closest("span").attr("id").substr(5);self.location="/user/"+o;return false}else{self.location="/";return false}}}}}if(s.is("#publishBtn")&&n=="你的故事标题"){alert("请为你的故事输入一个标题");$("#sto_title").focus()}else{$.post(p,v,function(r,w){self.location=r})}}});$(".douban_review").live("click",function(l){l.preventDefault();var k=douban_rurl;var j;var m=$(this).closest(".douban_drag").attr("id").substr(2);if($(this).hasClass("book")){j={operation:"bookReviews",subjectID:m,startIndex:bookReviewStartIndex,numResults:commentsPerQuery}}else{if($(this).hasClass("movie")){j={operation:"movieReviews",subjectID:m,startIndex:movieReviewStartIndex,numResults:commentsPerQuery}}else{if($(this).hasClass("music")){j={operation:"musicReviews",subjectID:m,startIndex:musicReviewStartIndex,numResults:commentsPerQuery}}}}$.ajax({type:"GET",url:k,data:j,beforeSend:function(){var n=$("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");$("#source_list").html(n)},success:function(n){$("#source_list").html(n)}})});$(".list_tweibo").live("click",function(m){usersearchTimestamp=0;m.preventDefault();var k=tweibo_url;var j;var l=$(this).closest(".weibo_drag").attr("id");j={operation:"user_search",keywords:l,page:0,timestamp:usersearchTimestamp};$.ajax({type:"GET",url:k,data:j,beforeSend:function(){var n=$("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");$("#source_list").html(n)},success:function(n){$("#source_list").html(n)}})});$(".list_t_weibo").live("click",function(l){l.preventDefault();weiboSearhPage=1;var k=weibo_url;var j;var m=$(this).text();j={operation:"weibo_search",keywords:m,page:weiboSearhPage};$.ajax({type:"GET",url:k,data:j,beforeSend:function(){var n=$("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");$("#source_list").html(n)},success:function(n){$("#source_list").html(n);show_weibo_card("source_list")}})});$("#source_list").click(function(o){var m;if(0==vtabIndex||1==vtabIndex){m=f.tabs("option","selected")}else{if(2==vtabIndex){m=b.tabs("option","selected")}else{if(4==vtabIndex){m=i.tabs("option","selected")}}}if($(o.target).is(".loadmore")){var l;var j;if(0==m){var p;if(0==vtabIndex){p=$("#keywords").val();l=weibo_url;weiboSearhPage++;j={operation:"weibo_search",keywords:p,page:weiboSearhPage}}else{if(1==vtabIndex){p=$("#keywords").val();l=tweibo_url;tweibosearchPage++;j={operation:"weibo_search",keywords:p,page:tweibosearchPage}}else{if(2==vtabIndex){var k=$(".loadmore");if(k.hasClass("book")){l=douban_url;bookStartIndex=bookStartIndex+doubanItemCounts;j={operation:"book",keywords:$("#d_keywords").val(),startIndex:bookStartIndex,numResults:doubanItemCounts}}else{if(k.hasClass("bookReviews")){l=douban_rurl;bookReviewStartIndex=bookReviewStartIndex+commentsPerQuery;j={operation:"bookReviews",subjectID:k.attr("id"),startIndex:bookReviewStartIndex,numResults:commentsPerQuery}}}}else{if(4==vtabIndex){p=$("#pic_keywords").val();l=yupoo_url;picSearchPage++;j={operation:"pic_search",keywords:p,page:picSearchPage}}}}}$(".loadmore").remove();$.get(l,j,function(q,r){$("#source_list").append(q);if(0==vtabIndex){show_weibo_card("source_list")}})}else{if(1==m){if(0==vtabIndex){l=weibo_url;userSearchPage++;j={operation:"user_search",keywords:$("#keywords").val(),page:userSearchPage}}else{if(1==vtabIndex){l=tweibo_url;if($(o.target).closest(".loadmore").hasClass("tuser")){tuserSearchPage++;j={operation:"list_user",keywords:$("#keywords").val(),page:tuserSearchPage}}else{var n=$(".loadmore").prev().find(".user_page").attr("href").replace(/http:\/\/t.qq.com\//,"");usersearchTimestamp=$(".loadmore span").attr("id");j={operation:"user_search",keywords:n,page:1,timestamp:usersearchTimestamp}}}else{if(2==vtabIndex){var k=$(".loadmore");if(k.hasClass("movie")){l=douban_url;movieStartIndex=movieStartIndex+doubanItemCounts;j={operation:"movie",keywords:$("#d_keywords").val(),startIndex:movieStartIndex,numResults:doubanItemCounts}}else{if(k.hasClass("movieReviews")){l=douban_rurl;movieReviewStartIndex=movieReviewStartIndex+commentsPerQuery;j={operation:"movieReviews",subjectID:k.attr("id"),startIndex:movieReviewStartIndex,numResults:commentsPerQuery}}}}else{if(4==vtabIndex){p=$("#pic_keywords").val();l=yupoo_url;userpicSearchPage++;j={operation:"user_search",keywords:p,page:userpicSearchPage}}}}}$(".loadmore").remove();$.get(l,j,function(q,r){$("#source_list").append(q);if(0==vtabIndex){show_weibo_card("source_list")}})}else{if(2==m){if(0==vtabIndex){l=weibo_url;myPage++;j={operation:"my_weibo",page:myPage}}else{if(1==vtabIndex){l=tweibo_url;myPageTimestamp=$(".loadmore span").attr("id");j={operation:"my_weibo",page:1,timestamp:myPageTimestamp}}else{if(2==vtabIndex){var k=$(".loadmore");if(k.hasClass("music")){l=douban_url;musicStartIndex=musicStartIndex+doubanItemCounts;j={operation:"music",keywords:$("#d_keywords").val(),startIndex:musicStartIndex,numResults:doubanItemCounts}}else{if(k.hasClass("musicReviews")){l=douban_rurl;musicReviewStartIndex=musicReviewStartIndex+commentsPerQuery;j={operation:"musicReviews",subjectID:k.attr("id"),startIndex:musicReviewStartIndex,numResults:commentsPerQuery}}}}else{if(4==vtabIndex){p=$("#pic_keywords").val();l=yupoo_url;colSearchPage++;j={operation:"col_search",keywords:p,page:colSearchPage}}}}}$(".loadmore").remove();$.get(l,j,function(q,r){$("#source_list").append(q);if(0==vtabIndex){show_weibo_card("source_list")}})}else{if(3==m){if(0==vtabIndex){l=weibo_url;followPage++;j={operation:"my_follow",page:followPage}}else{if(1==vtabIndex){l=tweibo_url;followTimestamp=$(".loadmore span").attr("id");j={operation:"my_follow",page:1,timestamp:followTimestamp}}else{if(2==vtabIndex){l=douban_url;eventStartIndex=eventStartIndex+doubanItemCounts;j={operation:"event",keywords:$("#d_keywords").val(),startIndex:eventStartIndex,numResults:doubanItemCounts}}else{if(4==vtabIndex){p=$("#pic_keywords").val();l=yupoo_url;recSearchPage++;j={operation:"rec_search",keywords:p,page:recSearchPage}}}}}$(".loadmore").remove();$.get(l,j,function(q,r){$("#source_list").append(q);if(0==vtabIndex){show_weibo_card("source_list")}})}else{if(0==vtabIndex){l=weibo_url;favPage++;j={operation:"my_fav",page:favPage}}else{if(1==vtabIndex){l=tweibo_url;favTimestamp=$(".loadmore span").attr("id");j={operation:"my_fav",page:1,timestamp:favTimestamp}}}$(".loadmore").remove();$.get(l,j,function(q,r){$("#source_list").append(q);if(0==vtabIndex){show_weibo_card("source_list")}})}}}}}});$(".addTextElementAnchor").live("mouseenter",function(){$(this).css("background-color","#FDFFD2").append('<span class="add_text">点击添加文字</span>')}).live("mouseleave",function(){$(this).css("background-color","#FFFFFF").find(".add_text").remove()});$("#story_list").click(function(n){if($(n.target).is(".add_comment")||$(n.target).is(".add_text")||$(n.target).is(".addTextElementAnchor")){n.preventDefault();var k=$("<li class='textElement editing'><div class='editingDiv'><form class='formTextElement'><textarea class='inputEditor' name='inputEditor'></textarea></form><div class='belowTextEdit'><div class='actions'><button class='submit submitComment' type='submit'>确定</button><button class='cancel cancelEditor' type='reset'>取消</button></div></div></div></li><li class='addTextElementAnchor'><span><a class='add_comment'></a></span></li>");$(n.target).closest("li").after(k);$(".inputEditor").cleditor({width:476,height:150,controls:"bold italic underline strikethrough | font size removeformat | bullets numbering | alignleft center alignright | undo redo | link unlink"})}if($(n.target).is(".cancelEditor")){n.preventDefault();$(n.target).closest(".textElement").next(".addTextElementAnchor").remove();$(n.target).closest(".textElement").remove()}if($(n.target).is(".submitComment")){n.preventDefault();var m=$(n.target).closest(".textElement"),o=m.find(".inputEditor").val(),j=o.replace(/(\&nbsp;|\<br\>)/g,"");j=$.trim(j);if(j==""){$(n.target).closest(".textElement").next(".addTextElementAnchor").remove();$(n.target).closest(".textElement").remove()}else{$(n.target).closest(".editingDiv").remove();var l=$("<div class='cross' action='delete'></div><div class='handle'></div><div class='commentBox'>"+o+"</div>");m.removeClass("editing").addClass("editted").append(l)}}});$(".add_fav").live("click",function(m){m.preventDefault();var l=$(this),n=l.closest("li"),k=n.attr("id").substr(2),j={operation:"add_fav",id:k};if(n.hasClass("sina")){postUrl="/weibo/postweibo.php"}else{postUrl="/tweibo/posttweibo.php"}$.post(postUrl,j,function(o,p){if(p=="success"){l.text("[取消收藏]");l.removeClass().addClass("del_fav")}})});$(".del_fav").live("click",function(m){m.preventDefault();var l=$(this),n=l.closest("li"),k=n.attr("id").substr(2),j={operation:"del_fav",id:k};if(n.hasClass("sina")){postUrl="/weibo/postweibo.php"}else{postUrl="/tweibo/posttweibo.php"}$.post(postUrl,j,function(o,p){if(p=="success"){if(l.hasClass("remove_flag")){n.hide("slow",function(){n.remove()})}else{l.text("[收藏]");l.removeClass().addClass("add_fav")}}})});var d=$("#upload_btn"),a;if(d.length){new AjaxUpload(d,{action:"/member/imgupload.php",name:"photofile",onSubmit:function(j,k){k=k.toLowerCase();if(k&&/^(jpg|png|jpeg|gif|bmp)$/.test(k)){d.text("正在上传");this.disable();a=window.setInterval(function(){var l=d.text();if(l.length<13){d.text(l+".")}else{d.text("正在上传")}},200)}else{$('<div class="imply_color center">不支持该文件类型</div>').appendTo("#source_list");return false}},onComplete:function(k,j){d.text("添加照片");window.clearInterval(a);this.enable();$("#source_list .imply_color").remove();$("#source_list").append(j)}})}var e=$("#vtab>ul>li");var g=0;e.click(function(){e.removeClass("selected");$(this).addClass("selected");vtabIndex=e.index($(this));switch(vtabIndex){case 0:$("#search_tab").text("话题搜索");$("#my_tab").text("我的微博");$("#follow_tab").text("我的关注");$("#weibo_search_btn").text("搜索话题");if(0!=g){f.tabs("select",0);$("#weibo_search").removeClass("none");$("#source_list").children().remove();if($("#keywords").hasClass("imply_color")){$("#keywords").val("关键字")}var k=weibo_url;var j;j={operation:"list_ht"};$.ajax({type:"GET",url:k,data:j,beforeSend:function(){var l=$("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");$("#source_list").html(l)},success:function(l){$("#source_list").html(l)}})}g=0;$("#vtab>div").hide().eq(vtabIndex).show();break;case 1:$("#search_tab").text("微博搜索");$("#my_tab").text("我的广播");$("#follow_tab").text("我的收听");$("#weibo_search_btn").text("搜索微博");if(1!=g){f.tabs("select",0);$("#weibo_search").removeClass("none");$("#source_list").children().remove();if($("#keywords").hasClass("imply_color")){$("#keywords").val("关键字")}}g=1;$("#vtab>div").hide().eq(vtabIndex-1).show();break;case 2:if(2!=g){b.tabs("select",0);$("#source_list").children().remove();if($("#d_keywords").hasClass("imply_color")){$("#d_keywords").val("书名")}}g=2;$("#vtab>div").hide().eq(vtabIndex-1).show();break;case 3:if(3!=g){$("#source_list").children().remove()}g=3;$("#vtab>div").hide().eq(vtabIndex-1).show();break;case 4:if(4!=g){i.tabs("select",0);$("#source_list").children().remove();$("#pic_keywords").val("关键字").addClass("imply_color")}g=4;$("#vtab>div").hide().eq(vtabIndex-1).show();break;case 5:if(5!=g){$("#source_list").children().remove()}g=5;$("#vtab>div").hide().eq(vtabIndex-1).show();break}}).eq(0).click();$(".window .close").click(function(j){j.preventDefault();$("#mask").hide();$(".window").hide()});$("#mask").click(function(){$(this).hide();$(".window").hide()})});
+var embedCode, vtabIndex, followPage, myPage, favPage, userSearchPage, tuserSearchPage, myPageTimestamp, followTimestamp, favTimestamp, usersearchTimestamp;
+var weiboSearhPage = 1, picSearchPage = 1, userpicSearchPage =1, colSearchPage = 1, recSearchPage = 1, tweibosearchPage = 1, doubanItemCounts = 10, commentsPerQuery = 5, eventStartIndex = 1, bookStartIndex = 1, bookReviewStartIndex = 1, movieStartIndex = 1, movieReviewStartIndex = 1, musicStartIndex = 1, musicReviewStartIndex = 1, weibo_url = '/weibo/weibooperation.php', tweibo_url = '/tweibo/tweibooperation.php', douban_url = '/douban/doubanoperation.php', douban_rurl = '/douban/doubanreviewsoperation.php', yupoo_url = '/yupoo/yupoooperation.php';
+
+if( typeof( window.innerHeight ) == 'number' ){
+//Non-IE
+myHeight = window.innerHeight;
+} else if( document.documentElement && document.documentElement.clientHeight) {
+//IE 6+ in 'standards compliant mode'
+myHeight = document.documentElement.clientHeight;
+}
+var l_used_height = 267, r_user_height = 326, height_adjust = 3, l_list_height = myHeight -l_used_height, r_list_height;
+
+var browser_info = $.browser;
+
+if (browser_info.mozilla )
+{
+  r_list_height = myHeight - r_user_height;
+}
+else if (browser_info.webkit) 
+{
+  r_list_height = myHeight - r_user_height-height_adjust;
+}
+else if (browser_info.msie) 
+{
+  r_list_height = myHeight - r_user_height+height_adjust;
+}
+$('#source_list').css('height', l_list_height);
+$('#story_list').css('min-height', r_list_height);   
+
+
+Array.prototype.getUnique = function()
+{
+  var o = {}, i, e;
+  for (i=0; e=this[i]; i++) {o[e]=1};
+  var a=new Array();
+  for (e in o)
+  {a.push (e)};
+  return a;
+}
+
+String.prototype.len=function()
+{
+  return this.replace(/[^\x00-\xff]/g,"**").length;
+}
+
+function bindonbeforeunload()
+{
+  window.onbeforeunload=popalert;
+}
+
+function unbindonbeforeunload()
+{
+  window.onbeforeunload=null;
+}
+
+function popalert()
+{
+  return"本页面要求您确认您要离开 - 您输入的数据可能不会被保存";
+}
+
+function createCookie(name,value,days) {
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime()+(days*24*60*60*1000));
+		var expires = "; expires="+date.toGMTString();
+	}
+	else var expires = "";
+	document.cookie = name+"="+value+expires+"; path=/";
+}
+
+function readCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	}
+	return null;
+}
+
+function eraseCookie(name) {
+	createCookie(name,"",-1);
+}
+
+function show_weibo_card(id)
+{
+  WB2.anyWhere(function(W){
+	W.widget.hoverCard({
+		id: id,
+		search: true
+		}); 
+	});
+} 
+
+function prepare_story_data(action_value)
+{
+  if(action_value !='Publish' &&  action_value !='Preview' && action_value != "Draft")
+    alert("not a proper operation:"+action_value);
+  var story_id_val;
+  if (typeof(post_id)=="undefined" || post_id==null)
+  {
+	story_id_val = 0;
+  }
+  else
+  {
+	story_id_val = post_id;
+  }
+  
+  var story_content_val = new Object;
+  story_content_val.content = [];
+  $('#story_list li:not(.addTextElementAnchor)').each(function(i)
+  {
+	story_content_val.content[i] = {};
+	story_content_val.content[i].id = i;
+	if($(this).hasClass('sina'))
+	{
+	  story_content_val.content[i].type = 'weibo';
+	  var wid = $(this).attr('id').substr(2);
+	  var wnic = $(this).find('.weibo_from_drop').text();
+	  var wuid = $(this).find('.weibo_from_drop').attr('href').replace(/http:\/\/weibo.com\//,"");
+	  var weibo_metadata = {id: wid, nic: wnic, uid: wuid};
+	  story_content_val.content[i].content = weibo_metadata;
+	}
+	else if($(this).hasClass('tencent'))
+	{
+	  story_content_val.content[i].type = 'tweibo';
+	  var tid = $(this).attr('id').substr(2);
+	  var tnic = $(this).find('.weibo_from_drop').text();
+	  var tname = $(this).find('.weibo_from_drop').attr('href').replace(/http:\/\/t.qq.com\//,"");
+	  var tweibo_metadata = {id: tid, nic: tnic, name: tname};
+	  story_content_val.content[i].content = tweibo_metadata;
+	}
+	else if($(this).hasClass('img_upload_drop'))
+	{
+	  story_content_val.content[i].type = 'upload_img';
+	  story_content_val.content[i].content = $(this).find('img').attr('src');
+	}
+	else if($(this).hasClass('textElement'))
+	{
+	  if($(this).hasClass('editing'))
+	  {
+		var comment = $(this).find('.inputEditor').val();
+			temp = comment.replace(/(\&nbsp;|\<br\>)/g,'');
+			temp = $.trim(temp);		
+		if(!(temp == ''))
+		{
+		  story_content_val.content[i].type = 'comment';
+		  story_content_val.content[i].content = comment;
+		}
+	  }
+	  else
+	  {
+	    story_content_val.content[i].type = 'comment';
+		story_content_val.content[i].content = $(this).find('.commentBox').html();
+	  }
+	}
+	else if($(this).hasClass('douban'))
+	{
+	  var doubanclass = $(this).attr('class');
+	  var temp_douban = doubanclass.split(' ');
+	  var temp_douban_length = temp_douban.length;
+	  var j;
+	  for(j=0; j<temp_douban_length; j++)
+	  {
+	    if(temp_douban[j]!='douban' && temp_douban[j]!='douban_drop')
+		break;
+	  }
+	  var item_type_val;
+	  item_type_val = temp_douban[j];
+	  story_content_val.content[i].type = 'douban';
+	  var item_per_id = $(this).attr('id').substr(2);
+	  var douban_metadata = {item_type: item_type_val, item_id: item_per_id};
+	  story_content_val.content[i].content = douban_metadata;
+	}
+	else if($(this).hasClass('video_drop'))
+	{
+	  story_content_val.content[i].type = 'video';
+	  var video_title = $(this).find('.videoTitle').text();
+	  var video_src = $(this).find('embed').attr('src');
+	  var video_url = $(this).find('.videoTitle').attr('href');
+	  var video_meta = {title: video_title, src: video_src, url: video_url};
+	  story_content_val.content[i].content = video_meta;
+	}
+	else if($(this).hasClass('pic_drop'))
+	{
+	  story_content_val.content[i].type = 'photo';
+	  var photo_title = $(this).find('.pic_title').text();
+	  var photo_author = $(this).find('.pic_author').attr('href').replace(/http:\/\/www.yupoo.com\/photos\//,"");
+	  var author_nic =  $(this).find('.pic_author').text();
+	  var pic_link = $(this).find('.pic_title').attr('href');
+	  var temp_y = pic_link.split('/');
+	  var temp_y_len = temp_y.length;
+	  var yid = temp_y[temp_y_len-1];
+	  var photo_per_url = $(this).find('.pic_img').attr('src');
+	  var photo_metadata = {id: yid, title: photo_title, author: photo_author, nic: author_nic, url: photo_per_url};
+	  story_content_val.content[i].content = photo_metadata;
+	}
+  });
+  var story_content_val_string = JSON.stringify(story_content_val);
+  var story_title_val = $('#sto_title').attr('value');
+  var summary_txt = $('#sto_summary').val();
+  var story_summary_val = (summary_txt == '给你的故事写一个简短的描述'? '': summary_txt);
+  var tag_txt = $('#sto_tag').attr('value');
+  var story_tag_val = (tag_txt == '添加故事标签，空格或逗号分隔'? '': tag_txt);
+  var story_pic_val = $('#story_thumbnail').attr('src');
+  var storydata = {story_id: story_id_val, story_title: story_title_val, story_summary: story_summary_val, story_pic: story_pic_val, story_tag: story_tag_val, story_content: story_content_val_string, action:action_value};	
+  return storydata;
+}
+
+function remove_item(evt)
+{
+  var $temp = $(evt.target || evt.srcElement).closest('li');
+  if($temp.hasClass('img_upload_drop'))
+  {
+	var rm_flag = true,
+	    rm_file = $temp.find('img').attr('src').substr(12); 
+  }
+  $temp.next('li').remove();
+  $temp.hide('slow', function(){$temp.remove();});
+  if(rm_flag)
+  {
+    var getData = {file: rm_file};
+	$.get('/member/imgdelete.php', getData);
+  }
+}
+
+function change_story_pic(direction)
+{
+  var item_pic_url, story_pic_array = [], url_array_length = story_pic_array.length;
+  $('#story_list img').each(function(index){
+	item_pic_url = $(this).attr('src');
+	if(item_pic_url != '')
+	{
+	  if($(this).hasClass('profile_img_drop'))
+      {
+	    if($(this).closest('li').hasClass('sina'))
+	    {
+	      item_pic_url = item_pic_url.replace(/(\d+)\/50\/(\d+)/, "$1\/180\/$2");
+	    }
+	    else if($(this).closest('li').hasClass('tencent'))
+	    {
+	      item_pic_url = item_pic_url.replace(/50$/, "180");
+	    }
+      }
+	  story_pic_array[url_array_length] = item_pic_url;
+	  url_array_length++;
+	}
+  });
+  story_pic_array = story_pic_array.getUnique();
+  var unique_array_length = story_pic_array.length;
+  var current_pic_url = $('#story_thumbnail').attr('src');
+  var i;
+  for(i=0;i<unique_array_length ;i++)
+  {
+	if(story_pic_array[i]===current_pic_url)
+    {
+	  break;
+    }
+  }
+  if(i == unique_array_length)
+  {
+    i=0;
+  }
+  else
+  {
+    if(direction == 'next')
+    {
+      i = i+1;
+	  if(i == unique_array_length)
+	  {
+	    i=0;
+	  }
+    }
+    else if(direction == 'prev')
+    {
+      i = i-1;
+	  if(i<0)
+	  {
+	    i=unique_array_length-1;
+	  }
+    }
+  }
+  $('#story_thumbnail').attr('src', story_pic_array[i]);
+}
+
+$(function() {				
+		var $weiboTabs = $( '#weiboTabs' ).tabs();
+		var $doubanTabs = $( '#doubanTabs' ).tabs();
+		var $picTabs = $( '#picTabs' ).tabs();
+		
+		if(null == readCookie('editortip'))
+		{
+		  var tip_content = "<div id='first_tip' class='tip_container'><div class='tip_arrow top'></div><div class='tip_wrapper'><strong>小贴士1/4: 开始创建</strong><br>输入故事标题，描述，标签<br>左右箭头可以用来选择故事的封面<div class='tip_actions'><a class='tip_hide' href='#'>隐藏</a><a class='tip_next' href='#'>下一条 &raquo;</a></div></div></div>";
+	      $('#storyContent .inner').prepend(tip_content);
+		  createCookie('editortip','tippopflag',365); 
+		}
+		
+		$('#first_tip .tip_next').live('click', function(){
+		  $('#first_tip').remove();
+		  var tip_content = "<div id='second_tip' class='tip_container'><div class='tip_arrow left'></div><div class='tip_wrapper'><strong>小贴士2/4: 寻找素材</strong><br>切换信息源来寻找喜欢的素材<div class='tip_actions'><a class='tip_hide' href='#'>隐藏</a><a class='tip_next' href='#'>下一条 &raquo;</a></div></div></div>";
+		  $('#storyContent .inner').prepend(tip_content);
+		})
+		
+		$('#second_tip .tip_next').live('click', function(){
+		  $('#second_tip').remove();
+		  var tip_content = "<div id='third_tip' class='tip_container'><div class='tip_arrow left'></div><div class='tip_arrow right'></div><div class='tip_wrapper'><strong>小贴士3/4: 组织素材</strong><br>将喜欢的素材从左栏拖放到右栏<br>别忘了可以选择放置的位置<div class='tip_actions'><a class='tip_hide' href='#'>隐藏</a><a class='tip_next' href='#'>下一条 &raquo;</a></div></div></div>";
+		  $('#storyContent .inner').prepend(tip_content);
+		})
+		
+		$('#third_tip .tip_next').live('click', function(){
+		  $('#third_tip').remove();
+		  var tip_content = "<div id='fourth_tip' class='tip_container'><div class='tip_arrow top'></div><div class='tip_wrapper'><strong>小贴士4/4: 添加文字</strong><br>点击T图标给故事添加文字<div class='tip_actions'><a class='tip_hide' href='#'>隐藏</a></div></div></div>";
+		  $('#storyContent .inner').prepend(tip_content);
+		})
+		
+		$('.tip_container .tip_hide').live('click', function(){
+		  $('.tip_container').remove();
+		})
+		
+		$('#keywords, #d_keywords, #videoUrl, #pic_keywords').bind('keyup', function(e)
+		{
+		  var code = e.keyCode || e.which; 
+		  if(code == 13)
+		  {
+			$(this).next().click();
+		  }
+		});
+		
+		$('#connectBtn').live('click', function(e)
+	    {
+		  e.preventDefault();
+		  $.post('/accounts/login/sina_auth.php', {}, 		
+		  function(data, textStatus)
+		  {
+		    $('#dialog.window').hide();
+		    self.location=data;
+		  });
+	    });
+
+		$('#prev_img').click(function(e)
+		{
+		  e.preventDefault();
+		  change_story_pic('prev');
+		});
+		
+		$('#next_img').click(function(e)
+		{
+		  e.preventDefault();
+		  change_story_pic('next');
+		});
+		
+		$('.cross').live('click', function(e){
+		  e.preventDefault();
+		  remove_item(e);
+		})
+		
+		show_weibo_card('story_list');
+		
+		var tag_txt = $('#sto_tag').val();
+		if(tag_txt == ' ')
+		{
+		  $('#sto_tag').val('添加故事标签，空格或逗号分隔').addClass('imply_color');
+		}
+		  
+		$('#keywords').val('关键字').addClass('imply_color');
+		
+		$('#keywords').blur(function(){
+		    if($(this).val() == '')
+		    {
+		      var weibo_selected = $weiboTabs.tabs('option', 'selected');
+			  if(weibo_selected == 0)
+			  {
+			    $(this).val('关键字').addClass('imply_color');
+			  }
+			  else if(weibo_selected == 1)
+			  {
+			    $(this).val('微博用户名').addClass('imply_color');
+			  }
+		    }
+		  }).focus(function(){
+		    var weibo_selected = $weiboTabs.tabs('option', 'selected');
+			if((weibo_selected == 0 && $(this).val() == '关键字') || (weibo_selected == 1 && $(this).val() == '微博用户名'))
+			{
+			  $(this).val('').removeClass('imply_color');
+			}
+		  });
+		  
+		$('#d_keywords').val('书名').addClass('imply_color');
+		
+		$('#videoUrl').val('浏览器地址栏url').addClass('imply_color');
+		
+		$('#videoUrl').blur(function(){
+		  if($(this).val() == '')
+		  {
+		    $(this).val('浏览器地址栏url').addClass('imply_color');
+		  }
+		}).focus(function(){
+		  if($(this).val() == '浏览器地址栏url')
+		  {
+		    $(this).val('').removeClass('imply_color');
+		  }
+		});
+		
+		$('#book_tab').click(function(){
+		  bookStartIndex = 1;
+		  if($('#d_keywords').hasClass('imply_color'))
+		  {
+		    $('#d_keywords').val('书名');
+		  }
+		  $('#source_list').children().remove();
+		});
+		
+		$('#movie_tab').click(function(){
+		  movieStartIndex = 1;
+		  if($('#d_keywords').hasClass('imply_color'))
+		  {
+		    $('#d_keywords').val('电影名');
+		  }
+		  $('#source_list').children().remove();
+		});
+		
+		$('#music_tab').click(function(){
+		  musicStartIndex = 1;
+		  if($('#d_keywords').hasClass('imply_color'))
+		  {
+		    $('#d_keywords').val('歌曲名');
+		  }
+		  $('#source_list').children().remove();
+		});
+		
+		$('#event_tab').click(function(e){
+		   eventStartIndex = 1;
+		   if($('#d_keywords').hasClass('imply_color'))
+		   {
+		     $('#d_keywords').val('搜活动');
+		   }
+		   $('#source_list').children().remove();
+		});
+		
+		$('#d_keywords').blur(function(){
+		    if($(this).val() == '')
+		    {
+			  $(this).addClass('imply_color');
+			  var douban_selected = $doubanTabs.tabs('option', 'selected');
+			  switch(douban_selected)
+			  {
+			    case 0: $(this).val('书名');
+				break;
+				case 1: $(this).val('电影名');
+				break;
+				case 2: $(this).val('歌曲名');
+				break;
+				case 3: $(this).val('搜活动');
+				break;
+			  }
+		    }
+		  }).focus(function(){
+		    var douban_selected = $doubanTabs.tabs('option', 'selected');
+			var input_txt = $(this).val();
+			if((douban_selected == 0 && input_txt == '书名') || (douban_selected == 1 && input_txt == '电影名') || (douban_selected == 2 && input_txt == '歌曲名') || (douban_selected == 3 && input_txt == '搜活动'))
+			{
+			  $(this).val('').removeClass('imply_color');
+			}
+		  });
+		
+		$('#pic_keywords').val('关键字').addClass('imply_color');
+		
+		$('#pic_keywords').blur(function(){
+		    if($(this).val() == '')
+		    {
+		      $(this).addClass('imply_color');
+			  var yupoo_selected = $picTabs.tabs('option', 'selected');
+			  if(yupoo_selected == 0)
+			  {
+			    $(this).val('关键字');
+			  }
+			  else if(yupoo_selected == 1 || yupoo_selected == 2)
+			  {
+			    $(this).val('又拍用户名，注意不是昵称');
+			  }
+			  else
+			  {
+			    $(this).val('可指定日期如2010-6,默认搜索全部');
+			  }
+		    }
+		  }).focus(function(){
+		    var yupoo_selected = $picTabs.tabs('option', 'selected');
+			var yupoo_txt = $(this).val();
+			if((yupoo_selected == 0 && yupoo_txt == '关键字') || (yupoo_selected == 1 && yupoo_txt == '又拍用户名，注意不是昵称') || (yupoo_selected == 2 && yupoo_txt == '又拍用户名，注意不是昵称') || (yupoo_selected == 3 && yupoo_txt == '可指定日期如2010-6,默认搜索全部'))
+			{
+			  $(this).val('').removeClass('imply_color');
+			}
+		  });
+		
+		$('#my_tab').click(function()
+		{
+		  $('.weibo_drag').remove();
+		  $('.loadmore').remove();
+		  $('#weibo_search').addClass('none');
+		  myPage = 1;
+		  myPageTimestamp = 0;
+		  
+		  if(0 == vtabIndex)
+		  {
+		    var sinaFlag = true;
+		  }
+		  if(sinaFlag)
+		  {
+		    if($(this).hasClass('sina_disable'))
+			{
+			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>查看我的关注需要绑定新浪微博帐号</div><a href='/accounts/source'>马上绑定</a></div>";
+			  $('#source_list').html(imply_txt);
+			  return false;
+			}
+		  }
+		  else
+		  {
+		    if($(this).hasClass('tencent_disable'))
+			{
+			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>查看我的广播需要绑定腾讯微博帐号</div><a href='/accounts/source'>马上绑定</a></div>";
+			  $('#source_list').html(imply_txt);
+			  return false;
+			}
+		  }
+		  
+		  var getUrl, getData;
+		  if(sinaFlag)
+		  {
+		    getUrl = weibo_url;
+			getData = {operation: 'my_weibo', page: myPage};
+		  }
+		  else
+		  {
+		    getUrl = tweibo_url;
+			getData = {operation: 'my_weibo', page: 0, timestamp: myPageTimestamp};
+		  }
+		  
+		  $.ajax({
+		  type: 'GET',
+		  url: getUrl,
+		  data: getData, 
+		  beforeSend:function() 
+		  {
+		    var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
+		    $('#source_list').html(imgloading);
+		  },
+		  success: function(data)
+		  {
+			$('#source_list').html(data);
+			if(0 == vtabIndex)
+			{
+			  show_weibo_card('source_list');
+			}
+		  }
+		  });
+		});
+		
+		$('#follow_tab').click(function()
+		{
+		  $('.weibo_drag').remove();
+		  $('.loadmore').remove();
+		  $('#weibo_search').addClass('none');
+		  followPage = 1;
+		  followTimestamp = 0;
+		  
+		  if(0 == vtabIndex)
+		  {
+		    var sinaFlag = true;
+		  }
+		  if(sinaFlag)
+		  {
+		    if($(this).hasClass('sina_disable'))
+			{
+			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>查看我的关注需要绑定新浪微博帐号</div><a href='/accounts/source'>马上绑定</a></div>";
+			  $('#source_list').html(imply_txt);
+			  return false;
+			}
+		  }
+		  else
+		  {
+		    if($(this).hasClass('tencent_disable'))
+			{
+			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>查看我的收听需要绑定腾讯微博帐号</div><a href='/accounts/source'>马上绑定</a></div>";
+			  $('#source_list').html(imply_txt);
+			  return false;
+			}
+		  }
+		  
+		  var getUrl, getData;
+		  if(sinaFlag)
+		  {
+		    getUrl = weibo_url;
+			getData = {operation: 'my_follow', page: followPage};
+		  }
+		  else
+		  {
+		    getUrl = tweibo_url;
+			getData = {operation: 'my_follow', page: 0, timestamp: followTimestamp};
+		  }
+		  
+		  $.ajax({
+		  type: 'GET',
+		  url: getUrl,
+		  data: getData, 
+		  beforeSend:function() 
+		  {
+			var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
+		    $('#source_list').html(imgloading);
+		  },
+		  success: function(data)
+		  {
+			$('#source_list').html(data);
+			if(0 == vtabIndex)
+			{
+			  show_weibo_card('source_list');
+			}
+		  }
+		  });
+		});
+		
+		$('#favorite_tab').click(function()
+		{
+		  $('.weibo_drag').remove();
+		  $('.loadmore').remove();
+		  $('#weibo_search').addClass('none');
+		  favPage = 1;
+		  favTimestamp = 0;
+		  
+		  if(0 == vtabIndex)
+		  {
+		    var sinaFlag = true;
+		  }
+		  if(sinaFlag)
+		  {
+		    if($(this).hasClass('sina_disable'))
+			{
+			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>查看我的关注需要绑定新浪微博帐号</div><a href='/accounts/source'>马上绑定</a></div>";
+			  $('#source_list').html(imply_txt);
+			  return false;
+			}
+		  }
+		  else
+		  {
+		    if($(this).hasClass('tencent_disable'))
+			{
+			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>查看我的收听需要绑定腾讯微博帐号</div><a href='/accounts/source'>马上绑定</a></div>";
+			  $('#source_list').html(imply_txt);
+			  return false;
+			}
+		  }
+		  
+		  var getUrl, getData;
+		  if(sinaFlag)
+		  {
+		    getUrl = weibo_url;
+			getData = {operation: 'my_fav', page: favPage};
+		  }
+		  else
+		  {
+		    getUrl = tweibo_url;
+			getData = {operation: 'my_fav', page: 0, timestamp: favTimestamp};
+		  }
+		  
+		  $.ajax({
+		  type: 'GET',
+		  url: getUrl,
+		  data: getData, 
+		  beforeSend:function() 
+		  {
+			var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
+		    $('#source_list').html(imgloading);
+		  },
+		  success: function(data)
+		  {
+			$('#source_list').html(data);
+			if(0 == vtabIndex)
+			{
+			  show_weibo_card('source_list');
+			}
+		  }
+		  });
+		});
+		
+		$('#search_tab').click(function(e)
+		{
+		  weiboSearhPage = 1;
+		  tweibosearchPage = 1;
+		  if($('#keywords').hasClass('imply_color'))
+		  {
+		    $('#keywords').val('关键字');
+		  }
+		  $('#source_list').children().remove();
+		  if(0 == vtabIndex)
+		  {
+		    $('#weibo_search_btn').text('搜索话题');
+			e.preventDefault();
+		    var getUrl = weibo_url;
+		    var getData;
+		    getData = {operation: 'list_ht'};
+		  
+		    $.ajax({
+		    type: 'GET',
+		    url: getUrl,
+		    data: getData, 
+		    beforeSend:function() 
+		    {
+		      var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
+		      $('#source_list').html(imgloading);
+		    },
+		    success: function(data)
+		    {
+			  $('#source_list').html(data);
+		    }
+		    }); 
+		  }
+		  else
+		  {
+		    $('#weibo_search_btn').text('搜索微博');
+		  }
+		  $('#weibo_search').addClass('imply_color').removeClass('none');
+		});
+		
+		$('#user_tab').click(function()
+		{
+		  userSearchPage = 1;
+		  tuserSearchPage = 1;
+		  if($('#keywords').hasClass('imply_color'))
+		  {
+		    $('#keywords').val('微博用户名');
+		  }
+		  $('#source_list').children().remove();
+		  $('#weibo_search_btn').text('搜索用户');
+		  $('#weibo_search').addClass('imply_color').removeClass('none');
+		});
+		
+		$('#weibo_search_btn').click(function(e){
+		  e.preventDefault();
+		  weiboSearhPage = 1;
+		  userSearchPage = 1;
+		  tuserSearchPage = 1;
+		  tweibosearchPage = 1;
+		  $('.loadmore').remove();
+		  var words = $('#keywords').val();
+		  var type = $('#weibo_search_btn').text();
+		  var getUrl;
+		  var getData;
+		  if(type === '搜索用户')
+		  {
+		    if(0 == vtabIndex)
+		    {
+		      getUrl = weibo_url;
+			  getData = {operation: 'user_search', keywords: words, page:userSearchPage};
+		    }
+		    else
+		    {
+			  getUrl = tweibo_url;
+			  getData = {operation: 'list_user', keywords: words, page: tuserSearchPage};
+		    }	
+		  }
+		  else
+		  {
+			if(0 == vtabIndex)
+		    {
+		      getUrl = weibo_url;
+			  getData = {operation: 'weibo_search', keywords: words, page:weiboSearhPage};
+		    }
+		    else
+		    {
+		      //need to revise according to Tencen API
+			  getUrl = tweibo_url;
+			  getData = {operation: 'weibo_search', keywords: words, page:tweibosearchPage};
+		    }	
+		  }
+		  
+		  $.ajax({
+		  type: 'GET',
+		  url: getUrl,
+		  data: getData, 
+		  beforeSend:function() 
+		  {
+		    var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
+		    $('#source_list').html(imgloading);
+		  },
+		  success: function(data)
+		  {
+			$('#source_list').html(data);
+			if(0 == vtabIndex)
+			{
+			  show_weibo_card('source_list');
+			}
+		  }
+		  });
+		});
+		
+		//Douban part
+		$('#douban_search_btn').click(function(e){
+		  e.preventDefault();
+		  var doubanSelected = $doubanTabs.tabs('option', 'selected');
+		  var getUrl = douban_url;
+		  var keywords_val = $('#d_keywords').val();
+		  var getData;
+		  switch(doubanSelected)
+		  {
+		    case 0: getData = {operation: 'book', keywords: keywords_val, startIndex: bookStartIndex, numResults: doubanItemCounts};
+			break;
+			case 1: getData = {operation: 'movie', keywords: keywords_val, startIndex: movieStartIndex, numResults: doubanItemCounts};
+			break;
+			case 2: getData = {operation: 'music', keywords: keywords_val, startIndex: musicStartIndex, numResults: doubanItemCounts};
+			break;
+			case 3: getData = {operation: 'event', keywords: keywords_val, startIndex: eventStartIndex, numResults: doubanItemCounts};
+			break;
+			default:
+			break;
+		  }		  
+		  $.ajax({
+		  type: 'GET',
+		  url: getUrl,
+		  data: getData, 
+		  beforeSend:function() 
+		  {
+		    var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
+		    $('#source_list').html(imgloading);
+		  },
+		  success: function(data)
+		  {
+			$('#source_list').html(data);
+		  }
+		  });
+		});
+		
+		//Yupoo part
+		$('#search_tab_pic').click(function()
+		{
+		  picSearchPage = 1;
+		  $('#source_list').children().remove();
+		  $('#pic_keywords').val('关键字').addClass('imply_color');
+		});
+		
+		$('#user_tab_pic').click(function()
+		{
+		  userpicSearchPage = 1;
+		  $('#source_list').children().remove();
+		  $('#pic_keywords').val('又拍用户名，注意不是昵称').addClass('imply_color');
+		});
+		
+		$('#collect_tab_pic').click(function()
+		{
+		  colSearchPage = 1;
+		  $('#source_list').children().remove();
+		  $('#pic_keywords').val('又拍用户名，注意不是昵称').addClass('imply_color');
+		});
+		
+		$('#recom_tab_pic').click(function()
+		{
+		  recSearchPage = 1;
+		  $('#source_list').children().remove();
+		  $('#pic_keywords').val('可指定日期如2010-6,默认搜索全部').addClass('imply_color');
+		});
+		
+		$('#pic_search_btn').click(function(e)
+		{
+		  e.preventDefault();
+		  $('.loadmore').remove();
+		  var words = $('#pic_keywords').val();
+		  var selected = $picTabs.tabs('option', 'selected');
+		  var getUrl = yupoo_url;
+		  var getData;
+		  if(0 == selected)
+		  {
+		    getData = {operation: 'pic_search', keywords: words, page: picSearchPage};
+		  }
+		  else if(1 == selected)
+		  {
+		    if($('#user_tab_pic').hasClass('yupoo_disable'))
+			{
+			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>用户搜索功能需要绑定又拍帐号</div><a href='/accounts/source'>马上绑定</a></div>";
+			  $('#source_list').html(imply_txt);
+			  return false;
+			}
+			getData = {operation: 'user_search', keywords: words, page: userpicSearchPage};
+		  }
+		  else if(2 == selected)
+		  {
+		    getData = {operation: 'col_search', keywords: words, page: colSearchPage};
+		  }
+		  else if(3 == selected)
+		  {
+		    getData = {operation: 'rec_search', keywords: words, page: recSearchPage};
+		  }
+		  
+		  $.ajax({
+		  type: 'GET',
+		  url: getUrl,
+		  data: getData, 
+		  beforeSend:function() 
+		  {
+		    var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
+		    $('#source_list').html(imgloading);
+		  },
+		  success: function(data)
+		  {
+			$('#source_list').html(data);
+		  }
+		  });
+		});
+		
+		$( "#source_list, #story_list" ).sortable({
+			connectWith: ".connectedSortable",
+			cancel: ".weibo_drop, .douban_drop, .img_upload_drop, .video_drop, .addTextElementAnchor, .textElement, .tuser, .loadmore, .ht_wrapper, .bind_txt",
+			receive: function(evt, ui) 
+			{
+			  var dragItem = ui.item;
+			  var commentContent = ("<li class='addTextElementAnchor'><span><a class='add_comment'></a></span></li>");
+			  var prev_li = dragItem.prev('li');
+			  var next_li = dragItem.next('li');
+			  if(!prev_li.hasClass('addTextElementAnchor'))
+			  {
+			    dragItem.before(commentContent);
+			  }
+			  if(!next_li.hasClass('addTextElementAnchor'))
+			  {
+			    dragItem.after(commentContent);
+			  }
+			  var list_item_have_pic = $('#story_list li:not(.addTextElementAnchor, .textElement, .video_drop)');
+			  if(dragItem.hasClass('weibo_drag'))
+			  {
+				var weibo_img_content = "";
+				var weibo_retweet_img_content = "";
+				var weibo_from_url = dragItem.find('.user_page').attr('href');
+			　  var weibo_Text= dragItem.find('.weibo_text').html();
+			　  var weibo_from = dragItem.find('.weibo_from').text();
+			  　var weibo_time = dragItem.find('.create_time').text();
+			　  var weibo_photo = dragItem.find('.profile_img').attr('src');
+				var content;	
+				if(dragItem.hasClass('sina'))
+				{
+				  if(dragItem.find('.weibo_img img').length != 0)
+				  {
+				    var weibo_img = dragItem.find('.weibo_img img').attr('src').replace(/thumbnail/,"bmiddle");
+				    weibo_img_content = "<div class='weibo_img_drop'><img src='"+weibo_img+"' /></div>";
+				  }
+				  if(dragItem.find('.weibo_retweet_img img').length != 0)
+				  {
+				    var weibo_retweet_img = dragItem.find('.weibo_retweet_img img').attr('src').replace(/thumbnail/,"bmiddle");
+				    weibo_retweet_img_content = "<div class='weibo_retweet_img_drop'><img src='"+weibo_retweet_img+"' /></div>";
+				  }
+				  dragItem.removeClass('weibo_drag').addClass('weibo_drop sina').children().remove();
+				  content = ("<div class='cross' action='delete'></div><div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>"
+					+weibo_Text+"</span>"+weibo_retweet_img_content+weibo_img_content+"</div><div class='story_signature'><span class='float_r'><a href='"+weibo_from_url+"' target='_blank'><img class='profile_img_drop' src='"
+					+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></span><div class='signature_text_drop'><div class='text_wrapper'><span><a class='weibo_from_drop' href='"
+					+weibo_from_url+"' target='_blank'>"+weibo_from+"</a></span></div><div class='weibo_date_drop'>"+weibo_time+"</div></div></div></div>");
+				  if(dragItem.index(list_item_have_pic) == 0)
+				  {
+				    $('#story_thumbnail').attr('src', weibo_photo.replace(/(\d+)\/50\/(\d+)/, "$1\/180\/$2"));
+				  }
+				}
+				else
+				{
+				  if(dragItem.find('.weibo_img img').length != 0)
+				  {
+				    var weibo_img = dragItem.find('.weibo_img img').attr('src').replace(/120$/,"240");
+				    weibo_img_content = "<div class='weibo_img_drop'><img src='"+weibo_img+"' /></div>";
+				  }
+				  if(dragItem.find('.weibo_retweet_img img').length != 0)
+				  {
+				    var weibo_retweet_img = dragItem.find('.weibo_retweet_img img').attr('src').replace(/120$/,"240");
+				    weibo_retweet_img_content = "<div class='weibo_retweet_img_drop'><img src='"+weibo_retweet_img+"' /></div>";
+				  }
+				  dragItem.removeClass('weibo_drag').addClass('weibo_drop tencent').children().remove();
+				  content = ("<div class='cross' action='delete'></div><div class='handle'></div><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>"
+					+weibo_Text+"</span>"+weibo_retweet_img_content+weibo_img_content+"</div><div class='story_signature'><span class='float_r'><a href='"+weibo_from_url+"' target='_blank'><img class='profile_img_drop' src='"
+					+weibo_photo+"' alt='"+weibo_from+"' border=0 /></a></span><div class='signature_text_drop'><div class='text_wrapper'><span ><a class='weibo_from_drop' href='"
+					+weibo_from_url+"' target='_blank'>"+weibo_from+"</a></span></div><div class='weibo_date_drop'>"+weibo_time+"</div></div></div></div>");
+				  if(dragItem.index(list_item_have_pic) == 0)
+				  {
+					$('#story_thumbnail').attr('src', weibo_photo.replace(/50$/, "180"));
+				  }
+				}
+				dragItem.append(content);
+				if(0 == vtabIndex)
+				{
+				  show_weibo_card(dragItem.attr('id'));
+				}
+			  }
+			  else if(dragItem.hasClass('douban_drag'))
+			  {
+				var doubanContent = "",
+				    douban_profile_img = dragItem.find('.profile_img').attr('src'),
+				    douban_profile_name = dragItem.find('.profile_img').attr('title'),
+				    douban_profile_url = dragItem.find('.douban_from').attr('href');
+				if(dragItem.hasClass('event'))
+				{
+				  var event_title = dragItem.find('.event_title a').text(),
+					  event_summary = dragItem.find('.event_summary').text(),
+					  event_initiator_name = dragItem.find('.event_initiator a').text(),
+					  event_initiator_url = dragItem.find('.event_initiator a').attr('href'),
+					  event_start_time = dragItem.find('.start_time').text(),
+					  event_end_time = dragItem.find('.end_time').text(),
+					  event_link = dragItem.find('.event_title a').attr('href'),
+					  event_pic = dragItem.find('.event_img_wrapper img').attr('src'),
+					  event_location = dragItem.find('.event_location').text(),
+					  event_city = dragItem.find('.event_city').text();
+				  doubanContent=("<div class='cross' action='delete'></div><div class='handle'></div><div class='douban_wrapper'><div class='content_wrapper'><div class='event_summary_drop'>"+event_summary+"</div><div class='event_wrapper'><a href='"
+				  +event_link+"' target='_blank'><img class='item_img_drop float_l' src='"+event_pic+"' /></a><div class='item_meta_drop'><div class='event_title_drop'>活动：<a href='"
+				  +event_link+"' target='_blank'>"+event_title+"</a></div><div class='event_initiator_drop'>发起人：<a href='"+event_initiator_url+"' target='_blank'>"
+				  +event_initiator_name+"</a></div><div class='start_time_drop'>"+event_start_time+"</div><div class='end_time_drop'>"+event_end_time+"</div><div class='event_city_drop'>"
+				  +event_city+"</div><div class='event_location_drop'>"+event_location+"</div></div></div></div><div class='douban_signature'><span class='float_r'><a href='"+douban_profile_url+"' target='_blank'><img class='profile_img_drop' src='"
+					+douban_profile_img+"' alt='"+douban_profile_name+"' border=0 /></a></span><span class='signature_text_drop'><div class='text_wrapper'><span ><a class='douban_from_drop' href='"
+					+douban_profile_url+"' target='_blank'>"+douban_profile_name+"</a></span></div><div class='douban_date_drop'></div></span> </div></div>");
+				  
+				  dragItem.removeClass('douban_drag').addClass('douban_drop').children().remove();
+				  if(dragItem.index(list_item_have_pic) == 0)
+				  {
+				    $('#story_thumbnail').attr('src', douban_profile_img);
+				  }　
+			      dragItem.append(doubanContent);
+				}
+				else if(dragItem.hasClass('bookReviews') || dragItem.hasClass('movieReviews') || dragItem.hasClass('musicReviews'))
+				{
+				  var douban_per_url = dragItem.find('.item_title').attr('href'),
+					  douban_comment_title = dragItem.find('.comment_title').text(),
+					  douban_comment_summary = dragItem.find('.comment_summary').html(),
+					  douban_comment_date = dragItem.find('.comment_date').text(),
+					  douban_item_img = dragItem.find('.item_img').attr('src'),
+					  douban_item_title = dragItem.find('.item_title').text(),
+					  douban_item_author = dragItem.find('.item_author').text(),
+					  douban_item_date = dragItem.find('.item_date').text(),
+					  douban_average_rating = dragItem.find('.average_rating').text(),
+					  douban_item_rating = dragItem.find('.item_rating').text();
+				  doubanContent = ("<div class='cross' action='delete'></div><div class='handle'></div><div class='douban_wrapper'><div class='content_wrapper'><div><div class='comment_title_drop'>"
+					+douban_comment_title+"</div><div class='comment_summary_drop'>"+douban_comment_summary+"</div></div><div class='item_info_drop'><a href='"+douban_per_url+"' target='_blank'><img class='item_img_drop float_l' src='"
+				  +douban_item_img+"' /></a><div class='item_meta_drop'><div><a class='item_title_drop' href='"+douban_per_url+"' target='_blank'>"+douban_item_title+"</a></div><div class='item_author_drop'>"
+				  +douban_item_author+"</div><div class='item_date_drop'>"+douban_item_date+"</div><div class=item_rating_drop>"+douban_item_rating+"</div><div class='average_rating_drop'>"+douban_average_rating+"</div></div></div></div><div class='douban_signature'><span class='float_r'><a href='"+douban_profile_url+"' target='_blank'><img class='profile_img_drop' src='"
+					+douban_profile_img+"' alt='"+douban_profile_name+"' border=0 /></a></span><span class='signature_text_drop'><div class='text_wrapper'><span ><a class='douban_from_drop' href='"
+					+douban_profile_url+"' target='_blank'>"+douban_profile_name+"</a></span></div><div class='douban_date_drop'>"+douban_comment_date+"</div></span> </div></div>");
+				  dragItem.removeClass('douban_drag').addClass('douban_drop').children().remove();
+				  if(dragItem.index(list_item_have_pic) == 0)
+				  {
+				    $('#story_thumbnail').attr('src', douban_profile_img);
+				  }　
+			      dragItem.append(doubanContent);
+				}
+				else
+				{
+				  if(dragItem.index(list_item_have_pic) == 0)
+				  {
+					$('#story_thumbnail').attr('src', dragItem.find('.item_img').attr('src'));
+				  }　
+				  dragItem.removeClass('douban_drag').addClass('douban_drop');
+				  dragItem.find('.douban_flag').removeClass().addClass('content_wrapper');
+				  dragItem.find('.douban_review').closest('div').remove();
+				  dragItem.prepend("<div class='cross' action='delete'></div><div class='handle'></div>");
+				}
+			  }
+			  else if(dragItem.hasClass('img_upload_drag'))
+			  {
+				var imgSrc = dragItem.find('img').attr('src'),
+				    imgContent = ("<div class='cross' action='delete'></div><div class='handle'></div><div class='img_wrapper'><img src='"+imgSrc+"'></div>");
+				if(dragItem.index(list_item_have_pic) == 0)
+				{
+				  $('#story_thumbnail').attr('src', dragItem.find('img').attr('src'));
+				}
+				dragItem.removeClass('img_upload_drag').addClass('img_upload_drop').children().remove();　
+			    dragItem.append(imgContent);
+			  }
+			  else if(dragItem.hasClass('video_drag'))
+			  {
+				var videoItem = dragItem.find('.videoTitle a'),
+                    videoUrl = videoItem.attr('href'),
+				    videoTitle = videoItem.text();
+				var videoContent = ("<div class='cross' action='delete'></div><div class='handle'></div><div class='youku_wrapper'><div><a class='videoTitle' target='_blank' href='"
+				+videoUrl+"'>"+videoTitle+"</a></div><div class='embed'>"+embedCode+"</div></div>");
+				dragItem.removeClass('video_drag').addClass('video_drop').children().remove();　
+			    dragItem.append(videoContent);
+			  }
+			  else if(dragItem.hasClass('pic_drag'))
+			  {
+				var picUrl = dragItem.find('img').attr('src'),
+					picTitle = dragItem.find('.pic_title').text(),
+					picLink = dragItem.find('.pic_title').attr('href'),
+					picAuthor = dragItem.find('.pic_author').text(),
+					authorLink = dragItem.find('.pic_author').attr('href'),
+					temp_array = picUrl.split("\/"),
+					temp_array_length = temp_array.length;
+				temp_array[temp_array_length-1] = "small";
+				picUrl = temp_array.join("\/");
+				
+				var picContent = ("<div class='cross' action='delete'></div><div class='handle'></div><div class='yupoo_wrapper'><a target='_blank' href='"+picLink+"'><img class='pic_img' src='"
+				+picUrl+"'/></a><div><a class='pic_title' target='_blank' href='"+picLink+"'>"+picTitle+"</a></div><div><a class='pic_author' target='_blank' href='"+authorLink+"'>"+picAuthor+"</a></div><div class='yupoo_sign'></div></div>");
+				dragItem.removeClass('pic_drag').addClass('pic_drop').children().remove();　
+			    dragItem.append(picContent);
+				if(dragItem.index(list_item_have_pic) == 0)
+				{
+				  $('#story_thumbnail').attr('src', picUrl.replace(/small$/, "square"));
+				}
+			  }
+			}
+		});/*.disableSelection();*/
+		
+		$('#embedVideo').click(function(e)
+		{
+		  e.preventDefault();
+		  var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
+		  $('#source_list').html(imgloading);		  
+		  var post,
+		      imply = "<div class='bind_txt'><div class='imply_color center'>请检查输入的视频链接是否可以正常访问或再试一次</div></div>",
+		      videoInput = $('#videoUrl'),
+		      videoUrl = videoInput.val(),
+		      getData = {url: videoUrl},
+		      getUrl = '/member/embedVideo.php',
+			  patt = new RegExp("youku\.com/|tudou\.com/"),
+              validFlag = patt.test(videoUrl);  
+		  if(videoInput.hasClass('imply_color') || !validFlag)
+          {
+		    post = imply;
+			$('#source_list').html(post);   
+			return false;
+		  }		  
+		  $.get(getUrl, getData,
+		  function(data, textStatus)
+		  {
+			debugger;
+			if(textStatus == 'success')
+			{
+			  if(data.errorcode == 0)
+			  {
+				embedCode = data.embedcode;
+			    var title = data.title,
+			      description = data.desc,
+				  domain = data.host+".com",
+				  thumbnail = data.img;
+				if(typeof description === 'undefined')
+                {
+				  description = "";
+				}				
+				post = "<li class='video_drag'><div class='videoTitle'><a target='_blank' href='"+videoUrl+"'>"+title+"</a></div><div class='videoContent'><img class='video_thumbnail' src='"+thumbnail+"' /><div class='video_wrapper'><div class='video_domain'><a target='_blank' href='"+videoUrl+"'>"+domain+"</a></div><div class='video_description'>"+description+"</div></div></div></li>";
+			  }
+			  else
+			  {
+			    post = imply;
+			  }
+			  $('#source_list').html(post);   
+			}
+		  },'json');
+		})
+		
+		if($('#sto_title').val() =='')
+		{
+		  $('#sto_title').val('你的故事标题').removeClass('imply_color').focus(function(){
+		  if($(this).val() == '你的故事标题')
+		  {
+		    $(this).val('').removeClass('imply_color');
+		  }
+		  }).blur(function(){
+		  if($(this).val() == '')
+		  {
+		    $(this).val('你的故事标题').removeClass('imply_color');
+		  }
+		  });
+		}
+		
+		
+		if($('#sto_summary').val() =='')
+		{
+		  $('#sto_summary').val('给你的故事写一个简短的描述').addClass('imply_color').focus(function(){
+		  if($(this).val() == '给你的故事写一个简短的描述')
+		  {
+		    $(this).val('').removeClass('imply_color');
+		  }		  
+		  }).blur(function(){
+		  if($(this).val() == '')
+		  {
+		    $(this).val('给你的故事写一个简短的描述').addClass('imply_color');
+		  }
+		  });
+		}
+
+		if($('#sto_tag').val() =='')
+		{
+		  $('#sto_tag').val('添加故事标签，空格或逗号分隔').addClass('imply_color').focus(function(){
+		  if($(this).val() == '添加故事标签，空格或逗号分隔')
+		  {
+		    $(this).val('').removeClass('imply_color');
+		  }		  
+		  }).blur(function(){
+		  if($(this).val() == '')
+		  {
+		    $(this).val('添加故事标签，空格或逗号分隔').addClass('imply_color');
+		  }
+		  });
+		}	
+		
+		$('#story_list li').live('mouseover', function(e)
+		{
+		  $(this).find('.cross').css('visibility', 'visible');
+		});
+		
+		$('#story_list li').live('mouseout', function(e)
+		{
+		  $(this).find('.cross').css('visibility', 'hidden');
+		});
+		
+		$('#actions').click(function(e)
+		{
+		  e.preventDefault();
+		  var target = $(e.target);
+		  unbindonbeforeunload();
+		  if(target.hasClass('disable'))
+		  {
+			var winH = $(window).height(),
+                winW = $(window).width(),
+		        scrollTop = $(document).scrollTop(),
+			    scrollLeft = $(document).scrollLeft(),
+			    login_dialog = $('#boxes #dialog');
+				  
+			login_dialog.css('top',  winH/2-login_dialog.height()/2+scrollTop-100);
+			login_dialog.css('left', winW/2-login_dialog.width()/2+scrollLeft);
+		
+			login_dialog.fadeIn(1000);
+		  }
+		  else
+		  {
+		      var story_title_txt = $('#sto_title').attr('value');
+			  var postdata; 
+			  var posturl = '/member/publish.php';
+			  if(target.is('#publishBtn'))
+			  {
+				postdata = prepare_story_data('Publish');
+			  }
+			  else if(target.is('#previewBtn'))
+			  {
+				postdata = prepare_story_data('Preview');
+			  }
+			  else if(target.is('#draftBtn'))
+			  {
+				postdata = prepare_story_data('Draft');
+			  }
+			  else
+			  {
+				var r=confirm("确定放弃吗? 您本次做的更改不会保存。");
+				if (r==true)
+				{
+				  if(target.hasClass('login_flag'))
+				  {
+				    var uid = target.closest('span').attr('id').substr(5);
+					self.location = '/user/'+uid;
+				    return false;
+				  }
+				  else
+				  {
+				    self.location = '/';
+				    return false;
+				  }
+				}
+			  }
+			  if(target.is('#publishBtn') && story_title_txt == '你的故事标题')
+			  {
+				alert('请为你的故事输入一个标题');
+				$('#sto_title').focus();
+			  }
+			  else
+			  {
+				$.post(posturl, postdata,
+				function(data, textStatus)
+				{					
+				  self.location = data;
+				});
+			  }
+		  }
+		});
+		
+		//douban reviews part
+		$('.douban_review').live('click', function(e){
+		  e.preventDefault();
+		  var getUrl = douban_rurl;
+		  var getData;
+		  var itemSubjectId = $(this).closest('.douban_drag').attr('id').substr(2);
+		  if($(this).hasClass('book'))
+		  {
+		    getData = {operation: 'bookReviews', subjectID: itemSubjectId, startIndex: bookReviewStartIndex, numResults: commentsPerQuery};
+		  }
+		  else if($(this).hasClass('movie'))
+		  {
+		    getData = {operation: 'movieReviews', subjectID: itemSubjectId, startIndex: movieReviewStartIndex, numResults: commentsPerQuery};
+		  }
+		  else if($(this).hasClass('music'))
+		  {
+		    getData = {operation: 'musicReviews', subjectID: itemSubjectId, startIndex: musicReviewStartIndex, numResults: commentsPerQuery};
+		  } 
+		  
+		  $.ajax({
+		  type: 'GET',
+		  url: getUrl,
+		  data: getData, 
+		  beforeSend:function() 
+		  {
+		    var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
+		    $('#source_list').html(imgloading);
+		  },
+		  success: function(data)
+		  {
+			$('#source_list').html(data);
+		  }
+		  }); 
+		});
+		
+		//tencent user weibo part
+		$('.list_tweibo').live('click', function(e){
+		  usersearchTimestamp = 0;
+		  e.preventDefault();
+		  var getUrl = tweibo_url;
+		  var getData;
+		  var tUserName = $(this).closest('.weibo_drag').attr('id');
+		  getData = {operation: 'user_search', keywords: tUserName, page: 0, timestamp: usersearchTimestamp};
+		  
+		  $.ajax({
+		  type: 'GET',
+		  url: getUrl,
+		  data: getData, 
+		  beforeSend:function() 
+		  {
+		    var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
+		    $('#source_list').html(imgloading);
+		  },
+		  success: function(data)
+		  {
+			$('#source_list').html(data);
+		  }
+		  }); 
+		});
+		
+		$('.list_t_weibo').live('click', function(e){
+		  e.preventDefault();
+		  weiboSearhPage = 1;
+		  var getUrl = weibo_url;
+		  var getData;
+		  var words_val = $(this).text();
+		  getData = {operation: 'weibo_search', keywords: words_val, page: weiboSearhPage};
+		  
+		  $.ajax({
+		  type: 'GET',
+		  url: getUrl,
+		  data: getData, 
+		  beforeSend:function() 
+		  {
+		    var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
+		    $('#source_list').html(imgloading);
+		  },
+		  success: function(data)
+		  {
+			$('#source_list').html(data);
+			show_weibo_card('source_list');
+		  }
+		  }); 
+		});
+		
+		$('#source_list').click(function(e)
+		{
+		  var selected;
+		  if(0 == vtabIndex || 1 == vtabIndex)
+		  {
+		    selected = $weiboTabs.tabs('option', 'selected'); 
+		  }
+		  else if(2 == vtabIndex)
+		  {
+		    selected = $doubanTabs.tabs('option', 'selected'); 
+		  }
+		  else if(4 == vtabIndex)
+		  {
+		    selected = $picTabs.tabs('option', 'selected'); 
+		  }
+		  if ($(e.target).is('.loadmore'))
+		  {
+			var getUrl;
+			var getData;
+			if(0 == selected)
+			{
+			  var words;
+			  if(0 == vtabIndex)
+		      {
+		        words = $('#keywords').val();
+				getUrl = weibo_url;
+				weiboSearhPage++;
+				getData = {operation: 'weibo_search', keywords: words, page: weiboSearhPage};
+		      }
+		      else if(1 == vtabIndex)
+		      {
+		        words = $('#keywords').val();
+				getUrl = tweibo_url;
+				//weibosearchTimestamp = $('.loadmore span').attr('id');
+				tweibosearchPage++;
+				getData = {operation: 'weibo_search', keywords: words, page: tweibosearchPage}; 
+		      }
+			  else if(2 == vtabIndex)
+		      {
+				var loadMoreItem = $('.loadmore');
+				if(loadMoreItem.hasClass('book'))
+				{
+				  getUrl = douban_url;
+				  bookStartIndex = bookStartIndex+doubanItemCounts;
+				  getData = {operation: 'book', keywords: $('#d_keywords').val(), startIndex: bookStartIndex, numResults: doubanItemCounts};
+				}
+				else if(loadMoreItem.hasClass('bookReviews'))
+				{
+				  getUrl = douban_rurl;
+				  bookReviewStartIndex = bookReviewStartIndex+commentsPerQuery;
+				  getData = {operation: 'bookReviews', subjectID: loadMoreItem.attr('id'), startIndex: bookReviewStartIndex, numResults: commentsPerQuery};
+				}
+		      }
+			  else if(4 == vtabIndex)
+			  {
+			    words = $('#pic_keywords').val();
+				getUrl = yupoo_url;
+				picSearchPage++;
+				getData = {operation: 'pic_search', keywords: words, page: picSearchPage};
+			  }
+			  $('.loadmore').remove();
+			  //add weibo search function
+			  
+			  $.get(getUrl, getData,
+			  function(data, textStatus)
+			  {
+				$('#source_list').append(data);
+				if(0 == vtabIndex)
+				{
+				  show_weibo_card('source_list');
+				}
+			  });
+			}
+			else if(1 == selected)
+			{
+			  if(0 == vtabIndex)
+		      {
+		        getUrl = weibo_url;
+				userSearchPage++;
+				getData = {operation: 'user_search', keywords: $('#keywords').val(), page:userSearchPage};
+		      }
+		      else if(1 == vtabIndex)
+		      {
+		        getUrl = tweibo_url;
+				if($(e.target).closest('.loadmore').hasClass('tuser'))
+				{
+				  tuserSearchPage++;
+				  getData = {operation: 'list_user', keywords: $('#keywords').val(), page: tuserSearchPage};
+				}
+				else
+				{
+				  var tUserName = $('.loadmore').prev().find('.user_page').attr('href').replace(/http:\/\/t.qq.com\//,"");
+				  usersearchTimestamp = $('.loadmore span').attr('id');
+				  getData = {operation: 'user_search', keywords: tUserName, page: 1, timestamp: usersearchTimestamp};
+				}
+		      }
+			  else if(2 == vtabIndex)
+		      {
+				var loadMoreItem = $('.loadmore');
+				if(loadMoreItem.hasClass('movie'))
+				{
+				  getUrl = douban_url;
+				  movieStartIndex = movieStartIndex+doubanItemCounts;
+				  getData = {operation: 'movie', keywords: $('#d_keywords').val(), startIndex: movieStartIndex, numResults: doubanItemCounts};
+				}
+				else if(loadMoreItem.hasClass('movieReviews'))
+				{
+				  getUrl = douban_rurl;
+				  movieReviewStartIndex = movieReviewStartIndex+commentsPerQuery;
+				  getData = {operation: 'movieReviews', subjectID: loadMoreItem.attr('id'), startIndex: movieReviewStartIndex, numResults: commentsPerQuery};
+				}
+		      }
+			  else if(4 == vtabIndex)
+			  {
+			    words = $('#pic_keywords').val();
+				getUrl = yupoo_url;
+				userpicSearchPage++;
+				getData = {operation: 'user_search', keywords: words, page: userpicSearchPage};
+			  }
+			  $('.loadmore').remove();					  
+			  $.get(getUrl, getData,
+			  function(data, textStatus)
+			  {
+				$('#source_list').append(data);
+				if(0 == vtabIndex)
+				{
+				  show_weibo_card('source_list');
+				}
+			  });
+			}
+			else if(2 == selected)
+			{
+			  if(0 == vtabIndex)
+		      {
+		        getUrl = weibo_url;
+				myPage++;
+				getData = {operation: 'my_weibo', page: myPage}
+		      }
+		      else if(1 == vtabIndex)
+		      {
+		        getUrl = tweibo_url;
+				myPageTimestamp = $('.loadmore span').attr('id');
+				getData = {operation: 'my_weibo', page: 1, timestamp: myPageTimestamp};
+		      }
+			  else if(2 == vtabIndex)
+		      {
+				var loadMoreItem = $('.loadmore');
+				if(loadMoreItem.hasClass('music'))
+				{
+				  getUrl = douban_url;
+				  musicStartIndex = musicStartIndex+doubanItemCounts;
+				  getData = {operation: 'music', keywords: $('#d_keywords').val(), startIndex: musicStartIndex, numResults: doubanItemCounts};
+				}
+				else if(loadMoreItem.hasClass('musicReviews'))
+				{
+				  getUrl = douban_rurl;
+				  musicReviewStartIndex = musicReviewStartIndex+commentsPerQuery;
+				  getData = {operation: 'musicReviews', subjectID: loadMoreItem.attr('id'), startIndex: musicReviewStartIndex, numResults: commentsPerQuery};
+				}
+		      }
+			  else if(4 == vtabIndex)
+			  {
+			    words = $('#pic_keywords').val();
+				getUrl = yupoo_url;
+				colSearchPage++;
+				getData = {operation: 'col_search', keywords: words, page: colSearchPage};
+			  }
+			  $('.loadmore').remove();
+			  $.get(getUrl, getData,
+			  function(data, textStatus)
+			  {
+				$('#source_list').append(data);
+				if(0 == vtabIndex)
+				{
+				  show_weibo_card('source_list');
+				}
+			  });
+			}
+			else if(3 == selected)
+			{
+			  if(0 == vtabIndex)
+		      {
+		        getUrl = weibo_url;
+				followPage++;
+				getData = {operation: 'my_follow', page: followPage}
+		      }
+		      else if(1 == vtabIndex)
+		      {
+				getUrl = tweibo_url;
+				followTimestamp = $('.loadmore span').attr('id');
+				getData = {operation: 'my_follow', page: 1, timestamp: followTimestamp};
+		      }
+			  else if(2 == vtabIndex)
+		      {
+		        getUrl = douban_url;
+				eventStartIndex = eventStartIndex+doubanItemCounts;
+				getData = {operation: 'event', keywords: $('#d_keywords').val(), startIndex: eventStartIndex, numResults: doubanItemCounts};
+		      }
+			  else if(4 == vtabIndex)
+			  {
+			    words = $('#pic_keywords').val();
+				getUrl = yupoo_url;
+				recSearchPage++;
+				getData = {operation: 'rec_search', keywords: words, page: recSearchPage};
+			  }
+			  $('.loadmore').remove();
+			  $.get(getUrl, getData,
+			  function(data, textStatus)
+			  {
+				$('#source_list').append(data);
+				if(0 == vtabIndex)
+				{
+				  show_weibo_card('source_list');
+				}
+			  });
+			}
+			else
+			{
+			  if(0 == vtabIndex)
+		      {
+		        getUrl = weibo_url;
+				favPage++;
+				getData = {operation: 'my_fav', page: favPage}
+		      }
+		      else if(1 == vtabIndex)
+		      {
+				getUrl = tweibo_url;
+				favTimestamp = $('.loadmore span').attr('id');
+				getData = {operation: 'my_fav', page: 1, timestamp: favTimestamp};
+		      }
+			  $('.loadmore').remove();
+			  $.get(getUrl, getData,
+			  function(data, textStatus)
+			  {
+				$('#source_list').append(data);
+				if(0 == vtabIndex)
+				{
+				  show_weibo_card('source_list');
+				}
+			  });
+			}
+		  }
+		});
+		
+		$('.addTextElementAnchor').live('mouseenter', function(){
+		  $(this).css('background-color','#FDFFD2').append('<span class=\"add_text\">点击添加文字</span>');
+		}).live('mouseleave', function(){
+		  $(this).css('background-color','#FFFFFF').find('.add_text').remove();
+		});
+		
+		$('#story_list').click(function(e)
+		{
+		  if ($(e.target).is('.add_comment') || $(e.target).is('.add_text') || $(e.target).is('.addTextElementAnchor'))
+		  {
+		    e.preventDefault();
+			var $comment_box = $("<li class='textElement editing'><div class='editingDiv'><form class='formTextElement'><textarea class='inputEditor' name='inputEditor'></textarea></form><div class='belowTextEdit'><div class='actions'><button class='submit submitComment' type='submit'>确定</button><button class='cancel cancelEditor' type='reset'>取消</button></div></div></div></li><li class='addTextElementAnchor'><span><a class='add_comment'></a></span></li>");
+		    $(e.target).closest('li').after($comment_box);
+			$(".inputEditor").cleditor({
+			width:476,
+			height:150,
+			//controls:"bold italic underline strikethrough link | font size"
+			controls:"bold italic underline strikethrough | font size removeformat | bullets numbering | alignleft center alignright | undo redo | link unlink"
+			});
+		  }
+		  
+		  if($(e.target).is('.cancelEditor'))
+		  {
+			e.preventDefault();
+			$(e.target).closest('.textElement').next('.addTextElementAnchor').remove();
+			$(e.target).closest('.textElement').remove();
+		  }
+		  
+		  if($(e.target).is('.submitComment'))
+		  {
+			e.preventDefault();
+			var $textElement = $(e.target).closest('.textElement'),
+                comment = $textElement.find('.inputEditor').val(),
+				temp = comment.replace(/(\&nbsp;|\<br\>)/g,'');
+				temp = $.trim(temp);
+			if(temp == '')
+			{
+			  $(e.target).closest('.textElement').next('.addTextElementAnchor').remove();
+			  $(e.target).closest('.textElement').remove();
+			}
+			else
+			{
+			  $(e.target).closest('.editingDiv').remove();
+			  var $commentDiv = $("<div class='cross' action='delete'></div><div class='handle'></div><div class='commentBox'>"+comment+"</div>");
+			  $textElement.removeClass('editing').addClass('editted').append($commentDiv);
+			}
+		  }
+		});	
+
+		$('.add_fav').live('click', function(e){
+		  e.preventDefault();
+		  var item = $(this),
+		      li_item = item.closest('li'),
+		      id_val = li_item.attr('id').substr(2),
+		      postData = {operation: 'add_fav', id: id_val};
+		  if(li_item.hasClass('sina'))
+		  {
+		    postUrl = '/weibo/postweibo.php';
+		  }
+		  else
+		  {
+		    postUrl = '/tweibo/posttweibo.php';
+		  }
+		  $.post(postUrl, postData,
+		  function(data, textStatus)
+		  {
+			if(textStatus == 'success')
+			{
+			  item.text('[取消收藏]');
+			  item.removeClass().addClass('del_fav');
+			}
+		  });
+		})
+		
+		$('.del_fav').live('click', function(e){
+		  e.preventDefault();
+		  var item = $(this),
+		      li_item = item.closest('li'),
+		      id_val = li_item.attr('id').substr(2),
+		      postData = {operation: 'del_fav', id: id_val};
+		  if(li_item.hasClass('sina'))
+		  {
+		    postUrl = '/weibo/postweibo.php';
+		  }
+		  else
+		  {
+		    postUrl = '/tweibo/posttweibo.php';
+		  }
+		  $.post(postUrl, postData,
+		  function(data, textStatus)
+		  {
+			if(textStatus == 'success')
+			{
+			  if(item.hasClass('remove_flag'))
+			  {
+				li_item.hide('slow', function(){ li_item.remove(); });
+			  }
+			  else
+			  {
+			    item.text('[收藏]');
+			    item.removeClass().addClass('add_fav');
+			  }
+			}
+		  });
+		})
+		
+		var button = $('#upload_btn'), interval;
+		if(button.length)
+		{
+		  new AjaxUpload(button, {
+			action: '/member/imgupload.php', 
+			name: 'photofile',
+			onSubmit : function(file, ext)
+			{		
+				ext = ext.toLowerCase();
+				if (ext && /^(jpg|png|jpeg|gif|bmp)$/.test(ext))
+				{
+				  button.text('正在上传');
+				  this.disable();
+				  interval = window.setInterval(function(){
+					var text = button.text();
+					if (text.length < 13){
+						button.text(text + '.');					
+					} else {
+						button.text('正在上传');				
+					}
+				  }, 200);
+				}
+				else
+				{
+				  $('<div class=\"imply_color center\">不支持该文件类型</div>').appendTo('#source_list');
+				  return false;	
+				}
+			},
+			onComplete: function(file, response){
+				button.text('添加照片');		
+				window.clearInterval(interval);
+				this.enable();
+				$('#source_list .imply_color').remove();
+				$('#source_list').append(response);
+			}
+		  });
+		}
+		
+		var $items = $('#vtab>ul>li');
+		var selVTab = 0;
+        $items.click(function(){
+        $items.removeClass('selected');
+        $(this).addClass('selected');
+        vtabIndex = $items.index($(this));
+		switch(vtabIndex)
+	    {
+		  case 0:
+			{
+			  $('#search_tab').text('话题搜索');
+			  $('#my_tab').text('我的微博');
+			  $('#follow_tab').text('我的关注');
+			  $('#weibo_search_btn').text('搜索话题');
+			  if(0 != selVTab)
+			  {
+				$weiboTabs.tabs( "select" , 0 );
+				$('#weibo_search').removeClass('none');
+				$('#source_list').children().remove();
+				if($('#keywords').hasClass('imply_color'))
+				{
+				  $('#keywords').val('关键字');
+				}
+				var getUrl = weibo_url;
+				var getData;
+				getData = {operation: 'list_ht'};
+			  
+				$.ajax({
+				type: 'GET',
+				url: getUrl,
+				data: getData, 
+				beforeSend:function() 
+				{
+				  var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
+				  $('#source_list').html(imgloading);
+				},
+				success: function(data)
+				{
+				  $('#source_list').html(data);
+				}
+				});
+			  }
+			  selVTab = 0;
+			  $('#vtab>div').hide().eq(vtabIndex).show();
+			  break;
+			}
+		  case 1: 
+			{
+			  $('#search_tab').text('微博搜索');
+			  $('#my_tab').text('我的广播');
+			  $('#follow_tab').text('我的收听');
+			  $('#weibo_search_btn').text('搜索微博');
+			  if(1 != selVTab)
+			  {
+				$weiboTabs.tabs( "select" , 0 );
+				$('#weibo_search').removeClass('none');
+				$('#source_list').children().remove();
+				if($('#keywords').hasClass('imply_color'))
+				{
+				  $('#keywords').val('关键字');
+				}
+			  }
+			  selVTab = 1;
+			  $('#vtab>div').hide().eq(vtabIndex-1).show();
+			  break;
+			}
+		  case 2: 
+			{
+			  if(2 != selVTab)
+			  {
+				$doubanTabs.tabs( "select" , 0 );
+				$('#source_list').children().remove();
+				if($('#d_keywords').hasClass('imply_color'))
+				{
+				  $('#d_keywords').val('书名');
+				}
+			  } 
+			  selVTab = 2;
+			  $('#vtab>div').hide().eq(vtabIndex-1).show();
+			  break;
+			}
+		  case 3:
+			{
+			  if(3 != selVTab)
+			  {
+				$('#source_list').children().remove();
+			  } 
+			  selVTab = 3;
+			  $('#vtab>div').hide().eq(vtabIndex-1).show();
+			  break;
+			}		  
+		  case 4: 
+			{
+			  if(4 != selVTab)
+			  {
+				$picTabs.tabs( "select" , 0 );
+				$('#source_list').children().remove();
+				$('#pic_keywords').val('关键字').addClass('imply_color');
+			  } 
+			  selVTab = 4;
+			  $('#vtab>div').hide().eq(vtabIndex-1).show();
+			  break;
+			}
+		  case 5: 
+			{
+			  if(5 != selVTab)
+			  {
+				$('#source_list').children().remove();
+			  } 
+			  selVTab = 5;
+			  $('#vtab>div').hide().eq(vtabIndex-1).show();
+			  break;
+			}
+	    }
+        }).eq(0).click();
+
+		$('.window .close').click(function (e) {
+			e.preventDefault();
+			$('#mask').hide();
+			$('.window').hide();
+		});		
+
+		$('#mask').click(function () {
+			$(this).hide();
+			$('.window').hide();
+		});	
+	});

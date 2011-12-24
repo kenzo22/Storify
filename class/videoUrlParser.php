@@ -185,7 +185,7 @@ class VideoUrlParser
      */
     private function _parseTudou($url){
 
-        $data['host']="tudou.com";
+        $data['host']="tudou";
         preg_match("#view/([-\w]+)/?#", $url, $matches);
 
         $html = self::_cget($url,true);
