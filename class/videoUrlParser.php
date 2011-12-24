@@ -184,6 +184,8 @@ class VideoUrlParser
      * http://www.tudou.com/l/G5BzgI4lAb8/&iid=74909603/v.swf
      */
     private function _parseTudou($url){
+
+        $data['host']="tudou.com";
         preg_match("#view/([-\w]+)/?#", $url, $matches);
 
         $html = self::_cget($url,true);
@@ -195,7 +197,10 @@ class VideoUrlParser
 
             if(strpos($url, 'iid=') !== false){
                 $quarr = explode("iid=", $lowerurl);
-                if (empty($quarr[1]))  return false;
+                if (empty($quarr[1]))  {
+                    $data['errorcode']=1;
+                    return $data;
+                };
             }elseif(preg_match("#p\/l(\d+)\.#", $lowerurl, $quarr)){
                 if (empty($quarr[1])){
                     $data['errorcode']=1;
@@ -219,6 +224,7 @@ class VideoUrlParser
 
             $json = json_decode(iconv("GBK", "UTF-8", $str));
 
+            $data['errorcode']=0;
             $data['img'] = $json->pic;
             $data['title'] = $json->title;
             $data['url'] = $url;
@@ -230,9 +236,10 @@ class VideoUrlParser
         $data['swf'] = "http://www.tudou.com/v/{$matches[1]}/v.swf";
         preg_match('#title = "(.+?)".*?desc = "(.+?)".*?bigItemUrl = "([\w:\/\.]+)"#s',$html,$ele);
         if($ele){
+            $data['errorcode']=0;
             $data['img'] = $ele[3];
-            $data['title'] = $ele[1];
-            $data['desc'] = $ele[2];
+            $data['title'] = iconv('GBK','UTF-8',$ele[1]);
+            $data['desc'] = iconv('GBK','UTF-8',$ele[2]);
             $data['embedcode']='<embed src="'.$data['swf'].'" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="opaque" width="420" height="340"></embed>';
         }else{
             $data['errorcode']=1;
