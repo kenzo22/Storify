@@ -184,19 +184,24 @@ class VideoUrlParser
      * http://www.tudou.com/l/G5BzgI4lAb8/&iid=74909603/v.swf
      */
     private function _parseTudou($url){
-        preg_match("#view/([-\w]+)/#", $url, $matches);
+        preg_match("#view/([-\w]+)/?#", $url, $matches);
 
+        $html = self::_cget($url,true);
         if (empty($matches)) {
-            if (strpos($url, "/playlist/") == false) return false;
+            if (strpos($url, "/playlist/") == false) {
+                $data['errorcode']=1;
+                return $data;
+            }
 
             if(strpos($url, 'iid=') !== false){
                 $quarr = explode("iid=", $lowerurl);
                 if (empty($quarr[1]))  return false;
-            }elseif(preg_match("#p\/l(\d+).#", $lowerurl, $quarr)){
-                if (empty($quarr[1])) return false;
+            }elseif(preg_match("#p\/l(\d+)\.#", $lowerurl, $quarr)){
+                if (empty($quarr[1])){
+                    $data['errorcode']=1;
+                    return $data;
+                }
             }
-
-            $html = self::_cget($url);
 
             preg_match("/lid_code\s*=(?:\s*lcode\s*)=\s*['\"](.*)['\"]/", $html, $matches);
             $icode = $matches[1];
@@ -204,33 +209,40 @@ class VideoUrlParser
             preg_match("/iid\s*=\s*.*?\|\|\s*(\d+)/", $html, $matches);
             $iid = $matches[1];
 
-            preg_match("/listData\s*=\s*\[\{(.*)\}\]/sx", $html, $matches);
+            preg_match("/iid:$iid(.*?)\}/sx", $html, $matches);
             $str = str_replace("\n", "", $matches[1]);
             $str = str_replace(" ", "", $str);
-            $str = "[{" . str_replace("'", "\"", $str) . "}]";
+            $str = str_replace(',title','"title"',$str);
+            $str = preg_replace('#rat.*?,#','',$str);
+            $str = "{" . str_replace("'", "\"", $str) . "}";
             $str = preg_replace("/,(\w+):/", ',"\\1":', $str);
-            $str = preg_replace("/{(\w+):/", '{"\\1":', $str);
 
-            $json = json_decode(iconv("GB2312", "UTF-8", $str));
-            foreach ($json as $val) {
-                if ($val->iid == $iid) {
-                    break;
-                }
-            }
+            $json = json_decode(iconv("GBK", "UTF-8", $str));
 
-            $data['img'] = $val->pic;
-            $data['title'] = $val->title;
+            $data['img'] = $json->pic;
+            $data['title'] = $json->title;
             $data['url'] = $url;
             $data['swf'] = "http://www.tudou.com/l/{$icode}/&iid={$iid}/v.swf";
-
+            $data['embedcode']='<embed src="'.$data['swf'].'" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="opaque" width="420" height="340"></embed>';
             return $data;
         }
 
+        $data['swf'] = "http://www.tudou.com/v/{$matches[1]}/v.swf";
+        preg_match('#title = "(.+?)".*?desc = "(.+?)".*?bigItemUrl = "([\w:\/\.]+)"#s',$html,$ele);
+        if($ele){
+            $data['img'] = $ele[3];
+            $data['title'] = $ele[1];
+            $data['desc'] = $ele[2];
+            $data['embedcode']='<embed src="'.$data['swf'].'" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="opaque" width="420" height="340"></embed>';
+        }else{
+            $data['errorcode']=1;
+        }
+        /*  
         $host = "www.tudou.com";
         $path = "/v/{$matches[1]}/v.swf";
 
         $ret = self::_fsget($path, $host);
-
+        
         if (preg_match("#\nLocation: (.*)\n#", $ret, $mat)) {
             parse_str(parse_url(urldecode($mat[1]), PHP_URL_QUERY));
 
@@ -238,10 +250,13 @@ class VideoUrlParser
             $data['title'] = $title;
             $data['url'] = $url;
             $data['swf'] = "http://www.tudou.com/v/{$matches[1]}/v.swf";
+            $data['embedcode']='<embed src="'.$data['swf'].'" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="opaque" width="420" height="340"></embed>';
 
             return $data;
         }
-        return false;
+        */
+
+        return $data;
     }
 
     /**
@@ -371,8 +386,8 @@ HEADER;
     /*
      * 通过 curl 获取内容
      */
-    private function _cget($url='', $user_agent=''){
-        if(!$url) return;
+    private function _cget($url='', $gzip=false, $user_agent=''){
+        if(!$url) return ;
 
         $user_agent = $user_agent ? $user_agent : self::USER_AGENT;
 
@@ -382,6 +397,8 @@ HEADER;
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
         if(strlen($user_agent)) curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
+        if($gzip)
+            curl_setopt($ch,CURLOPT_ENCODING,'gzip');
 
         $ret=curl_exec($ch);
 
