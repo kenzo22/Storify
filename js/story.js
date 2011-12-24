@@ -1,1 +1,46 @@
-function addBookmark(){var b="口立方",a="http://www.koulifang.com";if(window.sidebar){window.sidebar.addPanel(b,a,"")}else{if(document.all){window.external.AddFavorite(a,b)}else{alert("请按 Ctrl + D 为你的浏览器添加书签！")}}}$(function(){var b=$.browser;if(b.msie){browser_version=b.version;if(parseInt(browser_version)<7){var f="<div class='n_support'><div class='title_bar'><span>很抱歉，我们暂不支持此版本的浏览器</span></div><div><p>我们正在努力让口立方支持更多的浏览器版本，请您考虑使用下面的浏览器</p><ul><li><a href='http://www.firefox.com.cn' target='_blank'>Firefox (火狐浏览器)</a></li><li><a href='http://www.google.cn/chrome' target='_blank'>Chrome (谷歌浏览器)</a></li><li><a href='http://www.apple.com/safari' target='_blank'>Safari (苹果浏览器)</a></li><li><a href='http://windows.microsoft.com/zh-CN/internet-explorer/products/ie/home' target='_blank'>IE浏览器 (7.0及以上版本)</a></li></ul><a class='go_back' href='http://www.koulifang.com'>口立方主页 &raquo;</a></div></div><div class='n_mask'></div>";$("body").prepend(f);var e=$(window).height(),a=$(window).width(),d=$(document).height(),c=$(window).width();$(".n_support").css("top",e/2-$(".n_support").height()/2);$(".n_support").css("left",a/2-$(".n_support").width()/2);$(".n_support").show();$(".n_mask").css({width:c,height:d});$(".n_mask").show().css("opacity","0.8")}}$(".person_li").bind("mouseover",function(g){g.preventDefault();$(".person_li").css("display","block")});$(".user_console").bind("mouseout",function(){$(".person_li").slice(1,4).css("display","none")})});
+function addBookmark() 
+{
+    var title='口立方', url='http://www.koulifang.com';
+    if(window.sidebar)
+	{
+      window.sidebar.addPanel(title, url, "");
+    }
+	else if(document.all) 
+	{
+      window.external.AddFavorite(url, title);
+    } 
+	else
+	{
+      alert('请按 Ctrl + D 为你的浏览器添加书签！');
+    }
+}
+
+$(function(){
+var browser_info = $.browser;
+if(browser_info.msie) 
+{
+  browser_version = browser_info.version;
+  if(parseInt(browser_version) < 7)
+  {
+    var n_support_content = "<div class='n_support'><div class='title_bar'><span>很抱歉，我们暂不支持此版本的浏览器</span></div><div><p>我们正在努力让口立方支持更多的浏览器版本，请您考虑使用下面的浏览器</p><ul><li><a href='http://www.firefox.com.cn' target='_blank'>Firefox (火狐浏览器)</a></li><li><a href='http://www.google.cn/chrome' target='_blank'>Chrome (谷歌浏览器)</a></li><li><a href='http://www.apple.com/safari' target='_blank'>Safari (苹果浏览器)</a></li><li><a href='http://windows.microsoft.com/zh-CN/internet-explorer/products/ie/home' target='_blank'>IE浏览器 (7.0及以上版本)</a></li></ul><a class='go_back' href='http://www.koulifang.com'>口立方主页 &raquo;</a></div></div><div class='n_mask'></div>";
+	$('body').prepend(n_support_content);
+	
+	var winH = $(window).height(), winW = $(window).width(), mask_height = $(document).height(), mask_width = $(window).width();
+              
+	$('.n_support').css('top',  winH/2-$('.n_support').height()/2);
+	$('.n_support').css('left', winW/2-$('.n_support').width()/2);
+	$('.n_support').show();
+	
+	$('.n_mask').css({'width':mask_width,'height':mask_height});	
+	$('.n_mask').show().css('opacity', '0.8');
+  }
+}
+
+$('.person_li').bind('mouseover', function(e){
+e.preventDefault();
+$('.person_li').css('display', 'block');
+});
+$('.user_console').bind('mouseout', function(){
+$('.person_li').slice(1, 4).css('display', 'none');
+});
+});
