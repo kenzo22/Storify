@@ -1120,7 +1120,6 @@ $(function() {
 		  $.get(getUrl, getData,
 		  function(data, textStatus)
 		  {
-			debugger;
 			if(textStatus == 'success')
 			{
 			  if(data.errorcode == 0)
