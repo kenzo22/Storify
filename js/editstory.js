@@ -388,15 +388,15 @@ $(function() {
 		  
 		$('#d_keywords').val('书名').addClass('imply_color');
 		
-		$('#videoUrl').val('浏览器地址栏url').addClass('imply_color');
+		$('#videoUrl').val('请输入视频播放页地址').addClass('imply_color');
 		
 		$('#videoUrl').blur(function(){
 		  if($(this).val() == '')
 		  {
-		    $(this).val('浏览器地址栏url').addClass('imply_color');
+		    $(this).val('请输入视频播放页地址').addClass('imply_color');
 		  }
 		}).focus(function(){
-		  if($(this).val() == '浏览器地址栏url')
+		  if($(this).val() == '请输入视频播放页地址')
 		  {
 		    $(this).val('').removeClass('imply_color');
 		  }
