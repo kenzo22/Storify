@@ -205,7 +205,7 @@ li.tencent .weibo_date_drop{background:url("../img/editsprite.png") no-repeat sc
 #prev_img{background:url("../img/editsprite.png") no-repeat scroll 16px -167px transparent;height:16px;width:16px}
 #next_img{background:url("../img/editsprite.png") no-repeat scroll 16px -335px transparent;height:16px;width:16px}
 #story_pic p{width:98px;height:98px;overflow:hidden;background:none repeat scroll 0 0 #FFF;border:1px solid #CCC;border-radius:3px 3px 3px 3px;display:block;text-align:center;margin:0;padding:3px}
-#story_pic p img{background:none repeat scroll 0 0 #FFF;border:1px solid #BBBEBF;border-radius:2px 2px 2px 2px;display:block;max-height:90px;padding:4px}
+#story_pic p img{background:none repeat scroll 0 0 #FFF;border:1px solid #BBBEBF;border-radius:2px 2px 2px 2px;display:block;max-height:90px;padding:4px;width:88px;height:88px}
 #story_pic ul{list-style:none outside none;overflow:hidden;width:100%;margin:4px 2px 2px 5px;padding:0}
 #story_pic ul li a img{height:16px;width:32px}
 #story_pic ul li a{border:1px solid #BBBEBF;float:left;height:16px;width:46px}

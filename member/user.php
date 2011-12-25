@@ -353,7 +353,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 					     <h3 id='draft_imply'>发布故事，分享到社交媒体，让大家都来欣赏品评你的作品~</h3>
 						 <div id='draft_action'>  
 						   <a class='edit png_fix medium green awesome' href='/user/".$user_id."/".$post_id."/edit' title='继续编辑'>继续编辑 &raquo;</a>
-						   <a id='".$post_id."_delete' class='delete redirect png_fix medium yellow awesome' title='删了重来'>删了重来 &raquo;</a>
+						   <a id='".$post_id."_delete' class='delete redirect png_fix medium yellow awesome' title='删除草稿'>删除草稿 &raquo;</a>
 						   <a class='publish medium blue awesome' href='/user/".$user_id."/".$post_id."/publish' title='发布故事'>发布故事 &raquo;</a>
 					     </div>
 						 <div id='publish_container'>
