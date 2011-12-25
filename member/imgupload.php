@@ -31,7 +31,7 @@ if(($_FILES["photofile"]["type"] == "image/png") || ($_FILES["photofile"]["type"
 		echo "<div class='imply_color center'>上传失败了，请您稍后再试</div>";
 	}
 	chmod($local_file,0755);
-	echo "<li class='img_upload_drag'><div class='img_wrapper'><img src='".$stored_file."' /></div></li>";
+	echo "<li class='img_upload_drag'><div class='cross'></div><div class='img_wrapper'><img src='".$stored_file."' /></div></li>";
   }
   else
   {

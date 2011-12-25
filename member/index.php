@@ -137,10 +137,10 @@ $content .= "<div class='inner'>
 		  <ul>
 		    <li class='weiboLi'><a><span class='source_img' title='新浪微博'></span></a></li>
 			<li class='tweiboLi'><a><span class='source_img' title='腾讯微博'></span></a></li>
-			<li class='doubanLi'><a><span class='source_img' title='豆瓣社区'></span></a></li>
-		    <li class='videoLi'><a><span class='source_img' title='优酷视频'></span></a></li>
-			<li class='yupooLi'><a><span class='source_img' title='又拍社区'></span></a></li>
 			<li class='impUploadLi'><a><span class='source_img' title='上传图片'></span></a></li>
+		    <li class='videoLi'><a><span class='source_img' title='添加视频'></span></a></li>
+			<li class='doubanLi'><a><span class='source_img' title='豆瓣社区'></span></a></li>
+			<li class='yupooLi'><a><span class='source_img' title='又拍社区'></span></a></li>
 		  </ul>
 		  <div id='weiboTabs'>
 		    <ul>
@@ -174,6 +174,20 @@ $content .= "<div class='inner'>
 		      </div>
 		    </div>
 		  </div>
+		  <div id='imgUploadTabs'>
+		    <div class='wrapper'>
+		      <div id='pic_imply'>JPG,GIF,PNG或BMP文件,不超过600K。</div>".$img_content."
+		    </div>
+		  </div>
+		  <div id='videoTabs'>
+		    <div class='wrapper'>
+		      <div>
+			    <div id='video_imply'>视频 (目前已支持优酷，土豆)</div>          
+			    <input id='videoUrl' name='videoUrl' type='text' value='' />
+			    <button value='嵌入视频' id='embedVideo' type='button'>嵌入视频</button>
+              </div>
+		    </div>
+		  </div>
 		  <div id='doubanTabs'>
 		    <ul>
 			  <li><a id='book_tab' href='#dtabs-1'>图书</a></li>
@@ -202,15 +216,6 @@ $content .= "<div class='inner'>
 		      </div>
 		    </div>
 		  </div>
-		  <div id='videoTabs'>
-		    <div class='wrapper'>
-		      <div>
-			    <div id='video_imply'>视频 (目前已支持优酷，土豆)</div>          
-			    <input id='videoUrl' name='videoUrl' type='text' value='' />
-			    <button value='嵌入视频' id='embedVideo' type='button'>嵌入视频</button>
-              </div>
-		    </div>
-		  </div>
 		  <div id='picTabs'>
 		    <ul>
 			  <li><a id='search_tab_pic' href='#pictabs-1'>图片搜索</a></li>
@@ -237,11 +242,6 @@ $content .= "<div class='inner'>
 			      <button id='pic_search_btn' value='search' type='button'>搜索</button>
                 </div>
 		      </div>
-		    </div>
-		  </div>
-		  <div id='imgUploadTabs'>
-		    <div class='wrapper'>
-		      <div id='pic_imply'>JPG,GIF,PNG或BMP文件,不超过600K。</div>".$img_content."
 		    </div>
 		  </div>
 		</div>
