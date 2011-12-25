@@ -518,7 +518,7 @@ $(function() {
 		  {
 		    if($(this).hasClass('sina_disable'))
 			{
-			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>查看我的关注需要绑定新浪微博帐号</div><a href='/accounts/source'>马上绑定</a></div>";
+			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>查看我的微博需要绑定新浪微博帐号</div><a href='/accounts/source'>马上绑定</a></div>";
 			  $('#source_list').html(imply_txt);
 			  return false;
 			}
@@ -644,7 +644,7 @@ $(function() {
 		  {
 		    if($(this).hasClass('sina_disable'))
 			{
-			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>查看我的关注需要绑定新浪微博帐号</div><a href='/accounts/source'>马上绑定</a></div>";
+			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>查看我的收藏需要绑定新浪微博帐号</div><a href='/accounts/source'>马上绑定</a></div>";
 			  $('#source_list').html(imply_txt);
 			  return false;
 			}
@@ -653,7 +653,7 @@ $(function() {
 		  {
 		    if($(this).hasClass('tencent_disable'))
 			{
-			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>查看我的收听需要绑定腾讯微博帐号</div><a href='/accounts/source'>马上绑定</a></div>";
+			  var imply_txt = "<div class='bind_txt'><div class='imply_color'>查看我的收藏需要绑定腾讯微博帐号</div><a href='/accounts/source'>马上绑定</a></div>";
 			  $('#source_list').html(imply_txt);
 			  return false;
 			}
@@ -750,15 +750,20 @@ $(function() {
 		  tuserSearchPage = 1;
 		  tweibosearchPage = 1;
 		  $('.loadmore').remove();
-		  var words = $('#keywords').val();
-		  var type = $('#weibo_search_btn').text();
-		  var getUrl;
-		  var getData;
+		  var getUrl,
+              getData,
+			  fav_flag = true,
+			  words = $('#keywords').val(),
+			  type = $('#weibo_search_btn').text();
 		  if(type === '搜索用户')
 		  {
 		    if(0 == vtabIndex)
 		    {
-		      getUrl = weibo_url;
+		      if($('#my_tab').hasClass('sina_disable'))
+			  {
+			    fav_flag = false;
+			  }
+			  getUrl = weibo_url;
 			  getData = {operation: 'user_search', keywords: words, page:userSearchPage};
 		    }
 		    else
@@ -771,12 +776,20 @@ $(function() {
 		  {
 			if(0 == vtabIndex)
 		    {
-		      getUrl = weibo_url;
+		      if($('#my_tab').hasClass('sina_disable'))
+			  {
+			    fav_flag = false;
+			  }
+			  getUrl = weibo_url;
 			  getData = {operation: 'weibo_search', keywords: words, page:weiboSearhPage};
 		    }
 		    else
 		    {
-		      //need to revise according to Tencen API
+		      if($('#my_tab').hasClass('tencent_disable'))
+			  {
+			    fav_flag = false;
+			  }
+			  //need to revise according to Tencen API
 			  getUrl = tweibo_url;
 			  getData = {operation: 'weibo_search', keywords: words, page:tweibosearchPage};
 		    }	
@@ -794,6 +807,10 @@ $(function() {
 		  success: function(data)
 		  {
 			$('#source_list').html(data);
+			if(!fav_flag)
+			{
+			  $('.add_fav').remove();
+			}
 			if(0 == vtabIndex)
 			{
 			  show_weibo_card('source_list');
@@ -1148,7 +1165,8 @@ $(function() {
 			  {
 			    post = imply;
 			  }
-			  $('#source_list').html(post);   
+			  $('#source_list').html(post);
+              videoInput.addClass('imply_color').val('请输入视频播放页地址');			  
 			}
 		  },'json');
 		})
@@ -1317,10 +1335,10 @@ $(function() {
 		$('.list_tweibo').live('click', function(e){
 		  usersearchTimestamp = 0;
 		  e.preventDefault();
-		  var getUrl = tweibo_url;
-		  var getData;
-		  var tUserName = $(this).closest('.weibo_drag').attr('id');
-		  getData = {operation: 'user_search', keywords: tUserName, page: 0, timestamp: usersearchTimestamp};
+		  var getUrl = tweibo_url,
+		      tUserName = $(this).closest('.weibo_drag').attr('id'),
+		      getData = {operation: 'user_search', keywords: tUserName, page: 0, timestamp: usersearchTimestamp},
+			  fav_flag = !$('#my_tab').hasClass('tencent_disable');
 		  
 		  $.ajax({
 		  type: 'GET',
@@ -1334,6 +1352,10 @@ $(function() {
 		  success: function(data)
 		  {
 			$('#source_list').html(data);
+			if(!fav_flag)
+			{
+			  $('.add_fav').remove();
+			}
 		  }
 		  }); 
 		});
@@ -1343,7 +1365,8 @@ $(function() {
 		  weiboSearhPage = 1;
 		  var getUrl = weibo_url,
               getData,
-		      words_val = $(this).text();
+		      words_val = $(this).text(),
+			  fav_flag = !$('#my_tab').hasClass('sina_disable');
 		  $('#keywords').removeClass('imply_color').val(words_val);
 		  getData = {operation: 'weibo_search', keywords: words_val, page: weiboSearhPage};
 		  
@@ -1359,6 +1382,10 @@ $(function() {
 		  success: function(data)
 		  {
 			$('#source_list').html(data);
+			if(!fav_flag)
+			{
+			  $('.add_fav').remove();
+			}
 			show_weibo_card('source_list');
 		  }
 		  }); 
