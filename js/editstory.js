@@ -210,13 +210,22 @@ function prepare_story_data(action_value)
 
 function remove_item(evt)
 {
-  var $temp = $(evt.target || evt.srcElement).closest('li');
-  if($temp.hasClass('img_upload_drop'))
+  var $temp = $(evt.target || evt.srcElement).closest('li'),
+      r_flag = true,
+      img_lflag = $temp.hasClass('img_upload_drag');	  
+  if($temp.hasClass('img_upload_drop') || img_lflag)
   {
 	var rm_flag = true,
 	    rm_file = $temp.find('img').attr('src').substr(12); 
   }
-  $temp.next('li').remove();
+  if($temp.hasClass('video_drag') || img_lflag)
+  {
+	r_flag = false;
+  }
+  if(r_flag)
+  {
+    $temp.next('li').remove();
+  }
   $temp.hide('slow', function(){$temp.remove();});
   if(rm_flag)
   {
@@ -1133,7 +1142,7 @@ $(function() {
                 {
 				  description = "";
 				}				
-				post = "<li class='video_drag'><div class='videoTitle'><a target='_blank' href='"+videoUrl+"'>"+title+"</a></div><div class='videoContent'><img class='video_thumbnail' src='"+thumbnail+"' /><div class='video_wrapper'><div class='video_domain'><a target='_blank' href='"+videoUrl+"'>"+domain+"</a></div><div class='video_description'>"+description+"</div></div></div></li>";
+				post = "<li class='video_drag'><div class='cross'></div><div class='videoTitle'><a target='_blank' href='"+videoUrl+"'>"+title+"</a></div><div class='videoContent'><img class='video_thumbnail' src='"+thumbnail+"' /><div class='video_wrapper'><div class='video_domain'><a target='_blank' href='"+videoUrl+"'>"+domain+"</a></div><div class='video_description'>"+description+"</div></div></div></li>";
 			  }
 			  else
 			  {

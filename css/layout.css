@@ -140,7 +140,7 @@ div.pagination span.current{border:1px solid #b7d8ee;font-weight:700;color:#444;
 .weibo_img,.weibo_retweet_img{margin:3px 0}
 .weibo_img_drop,.weibo_retweet_img_drop{text-align:center;margin:3px 0}
 .weibo_img_drop img,.weibo_retweet_img_drop img{width:280px}
-.weibo_drag,.video_drag,.pic_drag,.douban_drag{overflow:auto;z-index:10;cursor:move;border-color:#ababac;border-style:solid;border-width:1px;margin:8px;padding:5px}
+.weibo_drag,.video_drag,.pic_drag,.douban_drag,.img_upload_drag{overflow:auto;z-index:10;cursor:move;border-color:#ababac;border-style:solid;border-width:1px;margin:8px;padding:5px}
 .weibo_drag.tuser{cursor:default}
 .video_drag .video_thumbnail{float:left;margin:6px 5px 0 0;border:1px solid #E9E9E9;padding:3px;width:100px;height:100px}
 .video_drag .video_wrapper{margin-left:125px}
@@ -171,6 +171,7 @@ li.tencent .weibo_date_drop{background:url("../img/editsprite.png") no-repeat sc
 .source_drag{margin:5px;padding:5px}
 .editted{border-color:#ababac;border-style:solid;border-width:1px;padding:0 5px 5px}
 .cross{cursor:pointer;margin-left:472px;visibility:hidden;background:url("../img/editsprite.png") no-repeat scroll 0 0 transparent;width:15px;height:15px}
+#source_list .cross{margin-left:344px;visibility:visible}
 .yupoo_wrapper{position:relative;text-align:center;border:5px solid #FFF;box-shadow:0 0 10px rgba(0, 0, 0, 0.4);-moz-box-shadow:0 0 10px rgba(0, 0, 0, 0.4);-webkit-box-shadow:0 0 10px rgba(0, 0, 0, 0.4);max-width:260px;_width:expression(document.body.clientWidth < 132? "130px" : document.body.clientWidth > 262? "260px" : "auto");overflow:auto;padding-top:5px;margin:0 auto}
 .yupoo_sign{background:url("../img/editsprite.png") no-repeat scroll 0 -591px transparent;height:16px;right:10px;position:absolute;bottom:0;width:16px}
 .content_wrapper{padding-left:26px;background:url('../img/apostrophe.png') no-repeat scroll 0 0 transparent!important;zoom:1}
@@ -456,7 +457,7 @@ div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,block
 #reply_container #comment_container .post_comment{margin:10px 5px 10px 0; float:right}
 #doubanTabs.ui-tabs .ui-tabs-nav li, #picTabs.ui-tabs .ui-tabs-nav li {width:84px}
 #doubanTabs.ui-tabs .ui-tabs-nav li a, #picTabs.ui-tabs .ui-tabs-nav li a {width:68px;text-align:center}
-.img_upload_drag .img_wrapper{overflow:auto;z-index:10;cursor:move;border-color:#ababac;border-style:solid;border-width:1px;margin:8px;padding:5px;text-align:center}
+.img_upload_drag .img_wrapper{text-align:center}
 .img_upload_drag .img_wrapper img{max-width:300px;_width:expression(document.body.clientWidth < 152? "150px" : document.body.clientWidth > 302? "300px" : "auto");}
 .img_upload_drop .img_wrapper{text-align:center}
 .img_upload_drop .img_wrapper img{max-width:340px;_width:expression(document.body.clientWidth < 172? "170px" : document.body.clientWidth > 342? "340px" : "auto");}
