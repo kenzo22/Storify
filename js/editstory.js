@@ -1408,13 +1408,15 @@ $(function() {
 		  }
 		  if ($(e.target).is('.loadmore'))
 		  {
-			var getUrl;
-			var getData;
+			var getUrl,
+                getData,
+				fav_flag;
 			if(0 == selected)
 			{
 			  var words;
 			  if(0 == vtabIndex)
 		      {
+				fav_flag = !$('#my_tab').hasClass('sina_disable');
 				words = $('#keywords').val();
 				getUrl = weibo_url;
 				weiboSearhPage++;
@@ -1422,7 +1424,8 @@ $(function() {
 		      }
 		      else if(1 == vtabIndex)
 		      {
-		        words = $('#keywords').val();
+		        fav_flag = !$('#my_tab').hasClass('tencent_disable');
+				words = $('#keywords').val();
 				getUrl = tweibo_url;
 				//weibosearchTimestamp = $('.loadmore span').attr('id');
 				tweibosearchPage++;
@@ -1458,6 +1461,10 @@ $(function() {
 			  function(data, textStatus)
 			  {
 				$('#source_list').append(data);
+				if(!fav_flag)
+				{
+				  $('.add_fav').remove();
+				}
 				if(0 == vtabIndex)
 				{
 				  show_weibo_card('source_list');
@@ -1468,13 +1475,15 @@ $(function() {
 			{
 			  if(0 == vtabIndex)
 		      {
-		        getUrl = weibo_url;
+		        fav_flag = !$('#my_tab').hasClass('sina_disable');
+				getUrl = weibo_url;
 				userSearchPage++;
 				getData = {operation: 'user_search', keywords: $('#keywords').val(), page:userSearchPage};
 		      }
 		      else if(1 == vtabIndex)
 		      {
-		        getUrl = tweibo_url;
+		        fav_flag = !$('#my_tab').hasClass('tencent_disable');
+				getUrl = tweibo_url;
 				if($(e.target).closest('.loadmore').hasClass('tuser'))
 				{
 				  tuserSearchPage++;
@@ -1515,6 +1524,10 @@ $(function() {
 			  function(data, textStatus)
 			  {
 				$('#source_list').append(data);
+				if(!fav_flag)
+				{
+				  $('.add_fav').remove();
+				}
 				if(0 == vtabIndex)
 				{
 				  show_weibo_card('source_list');
