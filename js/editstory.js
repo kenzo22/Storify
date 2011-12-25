@@ -1370,11 +1370,11 @@ $(function() {
 		  {
 		    selected = $weiboTabs.tabs('option', 'selected'); 
 		  }
-		  else if(2 == vtabIndex)
+		  else if(4 == vtabIndex)
 		  {
 		    selected = $doubanTabs.tabs('option', 'selected'); 
 		  }
-		  else if(4 == vtabIndex)
+		  else if(5 == vtabIndex)
 		  {
 		    selected = $picTabs.tabs('option', 'selected'); 
 		  }
@@ -1400,7 +1400,7 @@ $(function() {
 				tweibosearchPage++;
 				getData = {operation: 'weibo_search', keywords: words, page: tweibosearchPage}; 
 		      }
-			  else if(2 == vtabIndex)
+			  else if(4 == vtabIndex)
 		      {
 				var loadMoreItem = $('.loadmore');
 				if(loadMoreItem.hasClass('book'))
@@ -1416,7 +1416,7 @@ $(function() {
 				  getData = {operation: 'bookReviews', subjectID: loadMoreItem.attr('id'), startIndex: bookReviewStartIndex, numResults: commentsPerQuery};
 				}
 		      }
-			  else if(4 == vtabIndex)
+			  else if(5 == vtabIndex)
 			  {
 			    words = $('#pic_keywords').val();
 				getUrl = yupoo_url;
@@ -1459,7 +1459,7 @@ $(function() {
 				  getData = {operation: 'user_search', keywords: tUserName, page: 1, timestamp: usersearchTimestamp};
 				}
 		      }
-			  else if(2 == vtabIndex)
+			  else if(4 == vtabIndex)
 		      {
 				var loadMoreItem = $('.loadmore');
 				if(loadMoreItem.hasClass('movie'))
@@ -1475,7 +1475,7 @@ $(function() {
 				  getData = {operation: 'movieReviews', subjectID: loadMoreItem.attr('id'), startIndex: movieReviewStartIndex, numResults: commentsPerQuery};
 				}
 		      }
-			  else if(4 == vtabIndex)
+			  else if(5 == vtabIndex)
 			  {
 			    words = $('#pic_keywords').val();
 				getUrl = yupoo_url;
@@ -1507,7 +1507,7 @@ $(function() {
 				myPageTimestamp = $('.loadmore span').attr('id');
 				getData = {operation: 'my_weibo', page: 1, timestamp: myPageTimestamp};
 		      }
-			  else if(2 == vtabIndex)
+			  else if(4 == vtabIndex)
 		      {
 				var loadMoreItem = $('.loadmore');
 				if(loadMoreItem.hasClass('music'))
@@ -1523,7 +1523,7 @@ $(function() {
 				  getData = {operation: 'musicReviews', subjectID: loadMoreItem.attr('id'), startIndex: musicReviewStartIndex, numResults: commentsPerQuery};
 				}
 		      }
-			  else if(4 == vtabIndex)
+			  else if(5 == vtabIndex)
 			  {
 			    words = $('#pic_keywords').val();
 				getUrl = yupoo_url;
@@ -1555,13 +1555,13 @@ $(function() {
 				followTimestamp = $('.loadmore span').attr('id');
 				getData = {operation: 'my_follow', page: 1, timestamp: followTimestamp};
 		      }
-			  else if(2 == vtabIndex)
+			  else if(4 == vtabIndex)
 		      {
 		        getUrl = douban_url;
 				eventStartIndex = eventStartIndex+doubanItemCounts;
 				getData = {operation: 'event', keywords: $('#d_keywords').val(), startIndex: eventStartIndex, numResults: doubanItemCounts};
 		      }
-			  else if(4 == vtabIndex)
+			  else if(5 == vtabIndex)
 			  {
 			    words = $('#pic_keywords').val();
 				getUrl = yupoo_url;
@@ -1821,12 +1821,7 @@ $(function() {
 			{
 			  if(2 != selVTab)
 			  {
-				$doubanTabs.tabs( "select" , 0 );
 				$('#source_list').children().remove();
-				if($('#d_keywords').hasClass('imply_color'))
-				{
-				  $('#d_keywords').val('书名');
-				}
 			  } 
 			  selVTab = 2;
 			  $('#vtab>div').hide().eq(vtabIndex-1).show();
@@ -1841,24 +1836,29 @@ $(function() {
 			  selVTab = 3;
 			  $('#vtab>div').hide().eq(vtabIndex-1).show();
 			  break;
-			}		  
+			}	
 		  case 4: 
 			{
 			  if(4 != selVTab)
 			  {
-				$picTabs.tabs( "select" , 0 );
+				$doubanTabs.tabs( "select" , 0 );
 				$('#source_list').children().remove();
-				$('#pic_keywords').val('关键字').addClass('imply_color');
+				if($('#d_keywords').hasClass('imply_color'))
+				{
+				  $('#d_keywords').val('书名');
+				}
 			  } 
 			  selVTab = 4;
 			  $('#vtab>div').hide().eq(vtabIndex-1).show();
 			  break;
-			}
+			}		  
 		  case 5: 
 			{
 			  if(5 != selVTab)
 			  {
+				$picTabs.tabs( "select" , 0 );
 				$('#source_list').children().remove();
+				$('#pic_keywords').val('关键字').addClass('imply_color');
 			  } 
 			  selVTab = 5;
 			  $('#vtab>div').hide().eq(vtabIndex-1).show();
