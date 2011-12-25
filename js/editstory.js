@@ -1341,9 +1341,10 @@ $(function() {
 		$('.list_t_weibo').live('click', function(e){
 		  e.preventDefault();
 		  weiboSearhPage = 1;
-		  var getUrl = weibo_url;
-		  var getData;
-		  var words_val = $(this).text();
+		  var getUrl = weibo_url,
+              getData,
+		      words_val = $(this).text();
+		  $('#keywords').removeClass('imply_color').val(words_val);
 		  getData = {operation: 'weibo_search', keywords: words_val, page: weiboSearhPage};
 		  
 		  $.ajax({
@@ -1387,7 +1388,7 @@ $(function() {
 			  var words;
 			  if(0 == vtabIndex)
 		      {
-		        words = $('#keywords').val();
+				words = $('#keywords').val();
 				getUrl = weibo_url;
 				weiboSearhPage++;
 				getData = {operation: 'weibo_search', keywords: words, page: weiboSearhPage};
