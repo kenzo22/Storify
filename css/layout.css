@@ -183,7 +183,7 @@ li.tencent .weibo_date_drop{background:url("../img/editsprite.png") no-repeat sc
 .cover{display:block;height:186px;position:relative;width:186px;padding:0}
 .title_wrap{bottom:13px;position:absolute;width:185px;text-align:left;margin:0;word-wrap:break-word;word-break:break-all}
 .topic_list .topic_title{float:left;overflow:hidden;white-space:nowrap;width:100px;text-overflow:ellipsis;}
-.title_wrap .title{background:none repeat scroll 0 0 #000;color:#FFF;display:inline;font:bold;text-shadow:0 0 2px rgba(0, 0, 0, 0.8);text-transform:uppercase;padding:1px 0}
+.title_wrap .title{background:none repeat scroll 0 0 #232523;color:#FFF;display:inline;font:bold;text-shadow:0 0 2px rgba(0, 0, 0, 0.8);text-transform:uppercase;padding:1px 0}
 .title_wrap .title:hover{background:none repeat scroll 0 0 #ABABAC}
 .weiboLi,.tweiboLi,.doubanLi,.videoLi,.yupooLi,.impUploadLi{padding:5px 0 5px 5px}
 .weiboLi .source_img{background:url("../img/editsprite.png") no-repeat scroll 0 -415px transparent;height:24px;width:24px;display:block}
