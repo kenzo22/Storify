@@ -329,7 +329,7 @@ $(function(){
 	
 	$('#user_action').css('display', 'inline');
 	
-	$('.delete').click(function(e){
+	/*$('.delete').click(function(e){
 	  e.preventDefault();
 	  var r=confirm("确定删除这个故事吗?");
 	  if (r==true)
@@ -354,14 +354,43 @@ $(function(){
 		  }
 	    });
 	  }
+	});*/
+	
+	$('.delete').click(function(e){
+	  e.preventDefault();
+	  var r=confirm("确定删除这个故事吗?");
+	  if (r==true)
+	  {
+	    var info = $(this).attr('id').split('_'),
+		    uid_val = info[1],
+			pid_val = info[2],
+	        postData = {uid: uid_val, pid: pid_val};
+	    $.post('/member/removestory.php', postData,
+	    function(data, textStatus)
+	    {
+		  if(textStatus == 'success')
+		  {
+            var item = $('#delete_'+uid_val+'_'+pid_val);
+			if(item.hasClass('redirect'))
+			{
+			  self.location = '/user/'+data;
+			}
+			else
+			{
+			  var remove = item.closest('li');
+			  remove.hide('slow', function(){remove.remove();});
+			}
+		  }
+	    });
+	  }
 	});
 	
 	$('.act_digg').click(function(e)
 	{
 	  e.preventDefault();
-	  var temp_array = $(this).attr('id').split('_');
-	  var post_id_val = temp_array[2]; 
-	  var getData = {post_id: post_id_val};
+	  var temp_array = $(this).attr('id').split('_'),
+          post_id_val = temp_array[2], 
+	      getData = {post_id: post_id_val};
 	  $.get('/member/diggoperation.php', getData,
 	  function(data, textStatus)
 	  {
@@ -622,7 +651,7 @@ $(function(){
 			});	  
 	});
 	
-	$('.del_comment').live('click', function(e){
+	/*$('.del_comment').live('click', function(e){
 	  e.preventDefault();
 	  var r=confirm("确定删除这条评论吗?");
 	  if (r==true)
@@ -631,6 +660,26 @@ $(function(){
 		    comment_id_val = remove.attr('id').substr(8);
 	        getData = {comment_id: comment_id_val};
 	    $.get('/member/deletecomment.php', getData,
+	    function(data, textStatus)
+	    {
+		  if(textStatus == 'success')
+		  {
+			remove.hide('slow', function(){ remove.remove(); });
+		  }
+	    });
+	  }
+	});*/
+	$('.del_comment').live('click', function(e){
+	  e.preventDefault();
+	  var r=confirm("确定删除这条评论吗?");
+	  if (r==true)
+	  {
+	    var remove = $(this).closest('li'),
+		    cinfo = remove.attr('id').split('_'),
+			uid_val = cinfo[1],
+			cid_val = cinfo[2],
+	        postData = {uid: uid_val, cid: cid_val};
+	    $.post('/member/deletecomment.php', postData,
 	    function(data, textStatus)
 	    {
 		  if(textStatus == 'success')

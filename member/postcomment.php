@@ -35,7 +35,7 @@ if($comment_author_pic == '')
   $comment_author_pic = '/img/douban_user_dft.jpg';
 }
 
-$content ="<li id='comment_".$comment_id."' style='display:none;'>
+$content ="<li id='comment_".$user_id."_".$comment_id."' style='display:none;'>
 			  <a class='float_l' href='/user/".$user_id."' target='_blank'><img alt='' src='".$comment_author_pic."' /></a>
 			  <div class='comment_wrapper'>
 			    <div class='comment_author'><a href='/user/".$user_id."' target='_blank'>".$comment_author_name."</a></div>

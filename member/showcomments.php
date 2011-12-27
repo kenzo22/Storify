@@ -56,7 +56,7 @@ if($self_flag || !$login_status)
 	$comment_author_id = $item['user_id'];
 	$comment_time = dateFormatTrans($item['comment_date'],$date_t);
 	$comment_content = nl2br($item['comment_content']);
-	$content.="<li id='comment_".$comment_id."'>
+	$content.="<li id='comment_".$comment_author_id."_".$comment_id."'>
 		   <a href='/user/".$comment_author_id."' target='_blank'><img alt='' src='".$pic_url."' /></a>
 		   <div class='comment_wrapper'>
 			 <div class='comment_author'><a href='/user/".$comment_author_id."' target='_blank'>".$comment_author."</a></div>
@@ -88,7 +88,7 @@ else
 	}
 	$comment_time = dateFormatTrans($item['comment_date'],$date_t);
 	$comment_content = nl2br($item['comment_content']);
-	$content.="<li id='comment_".$comment_id."'>
+	$content.="<li id='comment_".$comment_author_id."_".$comment_id."'>
 		   <a href='/user/".$comment_author_id."' target='_blank'><img alt='' src='".$pic_url."' /></a>
 		   <div class='comment_wrapper'>
 			 <div class='comment_author'><a href='/user/".$comment_author_id."' target='_blank'>".$comment_author."</a></div>
