@@ -36,9 +36,9 @@ if (isset($msg['id'])){
 
 $content = "<div class='form_wrapper'>
 			  <div id='account_meta'>
-			    <div class='account_title'>正在使用下面的微博帐号登录</div>
-				<div style='margin:10px 0 0 10px; overflow:auto;'>
-				  <img src='".$photo."' style='float:left; width:50px; height:50px;' />
+			    <div id='account_title'>正在使用下面的微博帐号登录</div>
+				<div class='wrapper'>
+				  <img src='".$photo."' alt='".$weibo_nick."' />
 			      <div class='meta_wrapper'>
 			        <div><a href='http://weibo.com/".$weibo_uid."' target='_blank'>".$weibo_nick."</a></div>
 					<div class='account_count'>
@@ -50,7 +50,7 @@ $content = "<div class='form_wrapper'>
 				  </div>
 				</div>
 			  </div>
-			  <div style='clear:both;'></div>
+			  <div class='clear'></div>
 			  <h2>请选择关联帐号的方式</h2>
 			  <div id='select_form' style='overflow:hidden;'>
 			    <div class='left selected'>
@@ -62,8 +62,8 @@ $content = "<div class='form_wrapper'>
 			  </div>
 			  <div id='form_1'>
 			    <form method='post' action='/accounts/associate'> 
-				  <div style='display:inline; margin:0;padding:0;' ><input type='hidden' value='".$weibo_uid."' name='weibo_uid' /></div>
-				  <div style='display:inline; margin:0;padding:0;' ><input type='hidden' value='".$photo."' name='weibo_photo' /></div>
+				  <div class='hidden_div'><input type='hidden' value='".$weibo_uid."' name='weibo_uid' /></div>
+				  <div class='hidden_div'><input type='hidden' value='".$photo."' name='weibo_photo' /></div>
 				  <div><label>电子邮箱</label><input id='email' type='text' value='' size='50' name='email' maxlength='50' /><span class='form_tip' id='email_tip'></span></div>
 				  <div><label>密码</label><input id='pwd' type='password' value='' size='50' name='pwd' maxlength='50' /><span class='form_tip' id='pwd_tip'></span></div>
 				  <div class='aa_submit'><a class='cfm_awesome large blue awesome'>确定关联 &raquo;</a></div>
@@ -71,8 +71,8 @@ $content = "<div class='form_wrapper'>
 			  </div>
 			  <div id='form_2' style='display:none;'>
 			    <form method='post' action='/accounts/associate'>
-				  <div style='display:inline; margin:0;padding:0;' ><input type='hidden' value='".$weibo_uid."' name='weibo_uid' /></div>
-				  <div style='display:inline; margin:0;padding:0;' ><input type='hidden' value='".$photo."' name='weibo_photo' /></div>
+				  <div class='hidden_div'><input type='hidden' value='".$weibo_uid."' name='weibo_uid' /></div>
+				  <div class='hidden_div'><input type='hidden' value='".$photo."' name='weibo_photo' /></div>
 				  <div><label>电子邮箱</label><input id='user_email' type='text' value='' size='50' name='user_email' maxlength='50' /><span class='form_tip' id='user_email_tip'></span></div>
 				  <div><label>用户名</label><input id='user_name' type='text' value='' size='50' name='user_name' maxlength='50' /><span class='form_tip' id='user_name_tip'></span></div>  
 				  <div><label>密码</label><input id='user_pwd' type='password' value='' size='50' name='user_pwd' maxlength='50' /><span class='form_tip' id='user_pwd_tip'></span></div>
