@@ -32,8 +32,7 @@
 .douban_wrapper .item_info{overflow:auto}
 .douban_wrapper .item_info a img{float:left}
 .douban_wrapper .item_info .item_meta{margin-left:92px}
-.douban_drop{overflow:hidden;position:relative;margin:auto;padding:0 5px 5px}
-#weibo_ul .weibo_drop{width:98%;border:none}
+#weibo_ul .weibo_drop,#weibo_ul .img_upload_drop{width:98%;border:none}
 .douban_signature .text_wrapper,.story_signature .text_wrapper{float:right;height:16px}
 .item_action{border:1px solid rgba(0, 0, 0, 0.3);border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;display:block;height:auto;opacity:0.3;position:absolute;right:-55px;width:87px;z-index:100;margin:0 -10px 0 0 !important;padding:0!important}
 #weibo_ul .item_action{top:5px}
@@ -43,7 +42,9 @@
 .item_action:hover{opacity:1;right:-5px;background-color:rgba(245,245,245,0.9)}
 .content_wrapper{padding-left:26px;background:url('../img/apostrophe.png') no-repeat scroll 0 0 transparent!important}
 #weibo_ul{margin:0 0 15px;padding:0}
-.weibo_drop{border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;width:98%;overflow:hidden;position:relative;border-color:#ababac;border-style:solid;border-width:1px;margin:auto;padding:0 5px 5px}
+.video_drop,.weibo_drop,.douban_drop,.img_upload_drop{border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;width:98%;overflow:hidden;position:relative;border-color:#ababac;border-style:solid;border-width:1px;margin:auto;padding:0 5px 5px}
+.img_upload_drop .img_wrapper{text-align:center}
+.img_upload_drop .img_wrapper img{max-width:340px;_width:expression(document.body.clientWidth < 172? "170px" : document.body.clientWidth > 342? "340px" : "auto");}
 .signature_text{margin-right:5px;float:right;zoom:1}
 .profile_img_drop{width:32px;height:32px;overflow:auto;margin-top:2px}
 .douban_date_drop{background:url("../img/editsprite.png") no-repeat scroll 0 -39px transparent;padding-left:17px;height:16px;margin-top:3px;color:#939393;clear:both;float:right}
