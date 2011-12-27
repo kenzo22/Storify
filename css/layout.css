@@ -331,8 +331,12 @@ li#more{margin:10px 0}
 .topic_list ul li{position:relative;float:left;color:#323232;display:inline-block;text-decoration:none;zoom:1;margin:0 0 0 9px;padding:5px}
 .story_count{float:right;color:#555}
 .form_wrapper{width:760px;overflow:hidden;margin:50px auto}
-#account_meta{background-color:#FAFAFA;border:1px solid #CCC;border-radius:3px 3px 3px 3px;position:relative;margin:0 0 20px}
-#account_meta .account_title{font-size:14px;border-bottom:1px solid #EDEDED;padding:10px}
+.form_wrapper .hidden_div{display:inline; margin:0;padding:0}
+.form_wrapper h2{font-size:14px;padding:10px}
+#account_meta{background-color:#FAFAFA;border:1px solid #CCC;border-radius:3px 3px 3px 3px;position:relative;margin-bottom:10px;padding-bottom:10px}
+#account_meta #account_title{font-size:14px;border-bottom:1px solid #EDEDED;padding:10px}
+#account_meta .wrapper{margin:10px 0 0 10px;overflow:auto}
+#account_meta .wrapper img{float:left;width:50px;height:50px}
 #account_meta .meta_wrapper div{margin-bottom:3px}
 #form_1,#form_2{background-color:#FAFAFA;border-right:1px solid #CCC;height:210px;border-color:#CCC;border-style:none solid solid;border-width:1px;padding:14px 14px 14px 50px}
 #form_1 label,#form_2 label{float:left;height:32px;line-height:32px;margin-right:10px;text-align:right;width:50px;padding:0}
