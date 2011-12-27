@@ -154,7 +154,8 @@ else
 		case "upload_img":{
 		$meta = array();
 		$meta['type'] = 'upload_img';
-		$meta['img_src'] = $val['content'];	
+		$meta['img_src'] = $val['content'];
+        $content_array[] = $meta;		
 		break;}
 		 
 		case "douban":{
