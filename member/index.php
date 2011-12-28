@@ -290,13 +290,13 @@ $content .=	"</ul>
 	  
 if(isset($_GET['user_id']) && isset($_GET['post_id']))
 { 
+  $user_id = $_GET['user_id'];
   if(!$login_flag)
   {
     header("location: /accounts/login"); 
     exit;
-  } 
-  $t = new TWeiboClient( MB_AKEY , MB_SKEY , $_SESSION['last_tkey']['oauth_token'] , $_SESSION['last_tkey']['oauth_token_secret']  );
-  $d = new DoubanClient( DB_AKEY , DB_SKEY , $_SESSION['last_dkey']['oauth_token'] , $_SESSION['last_dkey']['oauth_token_secret']  );
+  }
+  
   $post_id = $_GET['post_id'];
   echo "<script language=javascript >
   var post_id=$post_id;
@@ -306,6 +306,12 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
   {
 	throw new Exception('Could not execute query.');
   }
+  $author_id=$result['post_author'];
+  if($user_id != $author_id || $user_id != $_SESSION['uid'])
+  {
+    header("location: /"); 
+    exit;
+  } 
   $story_title=$result['post_title'];
   $story_summary=$result['post_summary'];
   $story_pic=$result['post_pic_url'];
@@ -349,6 +355,8 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 		  <ul id='story_list' class='connectedSortable'><li class='addTextElementAnchor'>
 			  <span><a class='add_comment'></a></span></li>";
   
+  $t = new TWeiboClient( MB_AKEY , MB_SKEY , $_SESSION['last_tkey']['oauth_token'] , $_SESSION['last_tkey']['oauth_token_secret']  );
+  $d = new DoubanClient( DB_AKEY , DB_SKEY , $_SESSION['last_dkey']['oauth_token'] , $_SESSION['last_dkey']['oauth_token_secret']  );
   foreach($story_content_array['content'] as $key=>$val)
   {	
 	switch($val['type'])
