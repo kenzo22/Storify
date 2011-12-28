@@ -13,8 +13,64 @@ String.prototype.len=function()
   return this.replace(/[^\x00-\xff]/g,"**").length;
 }
 
+var goto_top_type = -1, goto_top_itv = 0;  
+  
+function goto_top_timer()  
+{  
+  var moveby = 25,
+      y = goto_top_type == 1 ? document.documentElement.scrollTop : document.body.scrollTop;     
+  y -= Math.ceil(y * moveby / 100);  
+  if (y < 0) 
+  {  
+    y = 0;  
+  }   
+  if(goto_top_type == 1) 
+  {  
+    document.documentElement.scrollTop = y;  
+  }  
+  else 
+  {  
+    document.body.scrollTop = y;  
+  }   
+  if (y == 0) 
+  {  
+    clearInterval(goto_top_itv);  
+    goto_top_itv = 0;  
+  }  
+}  
+  
+function goto_top()  
+{  
+  if(goto_top_itv == 0) 
+  {  
+	if(document.documentElement && document.documentElement.scrollTop) 
+	{  
+	  goto_top_type = 1;  
+	}  
+	else if(document.body && document.body.scrollTop) 
+	{  
+	  goto_top_type = 2;  
+	}  
+	else 
+	{  
+	  goto_top_type = 0;  
+	}  
+	if(goto_top_type > 0) 
+	{  
+	  goto_top_itv = setInterval('goto_top_timer()', 20);  
+	}  
+  }  
+} 
+
 $(function(){
 	$('body').prepend("<div id='mask'></div>");
+	
+	var gotop_ele = $('#go_top');
+	gotop_ele.hide();
+	$(window).bind("scroll", function(){
+	  var st = $(document).scrollTop();
+      (st > 0)? gotop_ele.show(): gotop_ele.hide();
+	});
 			  
 	$('.follow').click(function(){
 	  var follow_info = $(this).attr('id'),
