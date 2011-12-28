@@ -667,12 +667,12 @@ $(function(){
 	      user_id_val = temp_array[2],
 		  post_id_val = temp_array[1],
 	      content_val = comment_input.val();
-	      getData = {post_id: post_id_val, user_id: user_id_val, comment_content: content_val};
+	      postData = {post_id: post_id_val, user_id: user_id_val, comment_content: content_val};
 	  if(content_val == '' || (content_val == '我想说...' && comment_input.hasClass('imply_color')))
 	  {
 	    return false;
 	  }
-	  $.get('/member/postcomment.php', getData,
+	  $.post('/member/postcomment.php', postData,
 	  function(data, textStatus)
 	  {
 	    if(textStatus == 'success')
@@ -690,12 +690,12 @@ $(function(){
 	      temp_array = $(this).attr('id').split('_'),
 		  post_id_val = temp_array[2],
 		  first_val = temp_array[3],
-	      getData = {post_id: post_id_val, first: first_val};
+	      postData = {post_id: post_id_val, first: first_val};
 	  
 	  $.ajax({
-			type: 'GET',
+			type: 'POST',
 			url: '/member/showcomments.php',
-			data: getData, 
+			data: postData, 
 			beforeSend:function() 
 			{
 			  $('#reply_container .load_more').html(imgloading);
@@ -707,24 +707,6 @@ $(function(){
 			});	  
 	});
 	
-	/*$('.del_comment').live('click', function(e){
-	  e.preventDefault();
-	  var r=confirm("确定删除这条评论吗?");
-	  if (r==true)
-	  {
-	    var remove = $(this).closest('li');
-		    comment_id_val = remove.attr('id').substr(8);
-	        getData = {comment_id: comment_id_val};
-	    $.get('/member/deletecomment.php', getData,
-	    function(data, textStatus)
-	    {
-		  if(textStatus == 'success')
-		  {
-			remove.hide('slow', function(){ remove.remove(); });
-		  }
-	    });
-	  }
-	});*/
 	$('.del_comment').live('click', function(e){
 	  e.preventDefault();
 	  var r=confirm("确定删除这条评论吗?");
