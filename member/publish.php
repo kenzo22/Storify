@@ -1,20 +1,20 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT']."/connect_db.php";
 require_once $_SERVER['DOCUMENT_ROOT']."/include/functions.php";
-require ($_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php');
+require ($_SERVER['DOCUMENT_ROOT'].'/include/secureCommon.php');
 session_start();
 
-$action=$_POST['action'];
-$story_id=$_POST['story_id'];
-$story_title=$_POST['story_title'];
-$story_summary=$_POST['story_summary'];
-$story_tag=$_POST['story_tag'];
-$story_pic=$_POST['story_pic'];
+$action=secureQ($_POST['action']);
+$story_id=secureQ($_POST['story_id']);
+$story_title=secureQ($_POST['story_title']);
+$story_summary=secureQ($_POST['story_summary']);
+$story_tag=secureQ($_POST['story_tag']);
+$story_pic=secureQ($_POST['story_pic']);
 if($story_pic == '/img/story_dft.jpg')
 {
   $story_pic = '';
 }
-$story_content=$_POST['story_content'];
+$story_content=secureNQ($_POST['story_content']);
 
 $tag_table=$db_prefix."tag";
 $tag_story_table=$db_prefix."tag_story";
