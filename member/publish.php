@@ -1,8 +1,13 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT']."/connect_db.php";
 require_once $_SERVER['DOCUMENT_ROOT']."/include/functions.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/include/user_auth_fns.php";
 require ($_SERVER['DOCUMENT_ROOT'].'/include/secureCommon.php');
 session_start();
+
+if(!islogin())
+{
+  exit;
+}
 
 $action=secureQ($_POST['action']);
 $story_id=secureQ($_POST['story_id']);
@@ -10,6 +15,7 @@ $story_title=secureQ($_POST['story_title']);
 $story_summary=secureQ($_POST['story_summary']);
 $story_tag=secureQ($_POST['story_tag']);
 $story_pic=secureQ($_POST['story_pic']);
+
 if($story_pic == '/img/story_dft.jpg')
 {
   $story_pic = '';

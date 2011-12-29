@@ -5,8 +5,8 @@ require_once "../include/user_auth_fns.php";
 include '../include/secureGlobals.php';
 session_start();
 
-$post_id=$_GET['post_id'];
-$first=intval($_GET['first']);
+$post_id=$_POST['post_id'];
+$first=intval($_POST['first']);
 $limit = 10;
 $date_t = date("Y-m-d H:i:s");
 

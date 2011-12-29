@@ -1013,7 +1013,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		$content .="</ul><a href='/user/".$story_author."'>访问".$story_author_name."的主页 &raquo;</a></div>";
 	}
 	
-	$content .="</div></div>";
+	$content .="</div></div><div id='go_top'><a href='javascript:void(0)' onclick='goto_top()' title='返回顶部'></a></div>";
 	echo $content;
 	echo "<script type='text/javascript' language='javascript'>
 		   document.title = '$story_title'+' - '+'$story_author_name'+' - 口立方';
@@ -1312,7 +1312,7 @@ include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm";
 
 <script type='text/javascript' src='/js/userstory.js'></script>
 <script type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=2417356638" charset="utf-8"></script>
-<script type="text/javascript">var jiathis_config = {data_track_clickback:true};</script>
+<script type="text/javascript">var jiathis_config = {appkey:{"tsina":"2417356638","tqq":"358992a2339f4bd18c31dc8794557053"},data_track_clickback:true};</script>
 <script type="text/javascript" src="http://v2.jiathis.com/code/jia.js?uid=1542042" charset="utf-8"></script>
 </body>
 </html>

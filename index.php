@@ -9,7 +9,6 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title><?php print $html_title; ?></title>
 	<link type='text/css' rel='stylesheet' href="/css/layout.css" />
-    <link type="text/css" rel="stylesheet" href="/css/orbit-1.2.3.css" />
 	<link type="image/ico" rel="shortcut icon"  href="/img/favicon.ico" />
     <script type="text/javascript">
 	  var _gaq = _gaq || [];
@@ -304,7 +303,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
       <li><a title="faq" href="http://www.koulifang.com/user/3/4">用户帮助</a></li>
       <li><a title="terms" href="/terms">使用协议</a></li>
       <li><a title="contact" href='/contactus'>联系我们</a></li>
-      <li><span><img alt="官方微博" src="http://t.sina.com.cn/favicon.ico" /><a class='float_l' title="口立方微博" href="http://weibo.com/2329577672" target="_blank">@口立方</a></span></li>
+      <li><span id='footer_weibo'><a title="口立方微博" href="http://weibo.com/2329577672" target="_blank">@口立方</a></span></li>
     </ul>
     <p>&copy; 2011 Koulifang.com. All rights reserved. 沪ICP备11038197号</p>
   </div>

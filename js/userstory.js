@@ -13,8 +13,64 @@ String.prototype.len=function()
   return this.replace(/[^\x00-\xff]/g,"**").length;
 }
 
+var goto_top_type = -1, goto_top_itv = 0;  
+  
+function goto_top_timer()  
+{  
+  var moveby = 25,
+      y = goto_top_type == 1 ? document.documentElement.scrollTop : document.body.scrollTop;     
+  y -= Math.ceil(y * moveby / 100);  
+  if (y < 0) 
+  {  
+    y = 0;  
+  }   
+  if(goto_top_type == 1) 
+  {  
+    document.documentElement.scrollTop = y;  
+  }  
+  else 
+  {  
+    document.body.scrollTop = y;  
+  }   
+  if (y == 0) 
+  {  
+    clearInterval(goto_top_itv);  
+    goto_top_itv = 0;  
+  }  
+}  
+  
+function goto_top()  
+{  
+  if(goto_top_itv == 0) 
+  {  
+	if(document.documentElement && document.documentElement.scrollTop) 
+	{  
+	  goto_top_type = 1;  
+	}  
+	else if(document.body && document.body.scrollTop) 
+	{  
+	  goto_top_type = 2;  
+	}  
+	else 
+	{  
+	  goto_top_type = 0;  
+	}  
+	if(goto_top_type > 0) 
+	{  
+	  goto_top_itv = setInterval('goto_top_timer()', 20);  
+	}  
+  }  
+} 
+
 $(function(){
 	$('body').prepend("<div id='mask'></div>");
+	
+	var gotop_ele = $('#go_top');
+	gotop_ele.hide();
+	$(window).bind("scroll", function(){
+	  var st = $(document).scrollTop();
+      (st > 0)? gotop_ele.show(): gotop_ele.hide();
+	});
 			  
 	$('.follow').click(function(){
 	  var follow_info = $(this).attr('id'),
@@ -611,12 +667,12 @@ $(function(){
 	      user_id_val = temp_array[2],
 		  post_id_val = temp_array[1],
 	      content_val = comment_input.val();
-	      getData = {post_id: post_id_val, user_id: user_id_val, comment_content: content_val};
+	      postData = {post_id: post_id_val, user_id: user_id_val, comment_content: content_val};
 	  if(content_val == '' || (content_val == '我想说...' && comment_input.hasClass('imply_color')))
 	  {
 	    return false;
 	  }
-	  $.get('/member/postcomment.php', getData,
+	  $.post('/member/postcomment.php', postData,
 	  function(data, textStatus)
 	  {
 	    if(textStatus == 'success')
@@ -634,12 +690,12 @@ $(function(){
 	      temp_array = $(this).attr('id').split('_'),
 		  post_id_val = temp_array[2],
 		  first_val = temp_array[3],
-	      getData = {post_id: post_id_val, first: first_val};
+	      postData = {post_id: post_id_val, first: first_val};
 	  
 	  $.ajax({
-			type: 'GET',
+			type: 'POST',
 			url: '/member/showcomments.php',
-			data: getData, 
+			data: postData, 
 			beforeSend:function() 
 			{
 			  $('#reply_container .load_more').html(imgloading);
@@ -651,24 +707,6 @@ $(function(){
 			});	  
 	});
 	
-	/*$('.del_comment').live('click', function(e){
-	  e.preventDefault();
-	  var r=confirm("确定删除这条评论吗?");
-	  if (r==true)
-	  {
-	    var remove = $(this).closest('li');
-		    comment_id_val = remove.attr('id').substr(8);
-	        getData = {comment_id: comment_id_val};
-	    $.get('/member/deletecomment.php', getData,
-	    function(data, textStatus)
-	    {
-		  if(textStatus == 'success')
-		  {
-			remove.hide('slow', function(){ remove.remove(); });
-		  }
-	    });
-	  }
-	});*/
 	$('.del_comment').live('click', function(e){
 	  e.preventDefault();
 	  var r=confirm("确定删除这条评论吗?");

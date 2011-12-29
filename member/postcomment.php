@@ -4,9 +4,9 @@ include '../include/secureGlobals.php';
 include '../include/user_auth_fns.php';
 session_start();
 
-$user_id=$_GET['user_id'];
-$post_id=$_GET['post_id'];
-$comment_content=$_GET['comment_content'];
+$user_id=$_POST['user_id'];
+$post_id=$_POST['post_id'];
+$comment_content=$_POST['comment_content'];
 $comment_time=date("Y-m-d H:i:s");
 
 $userresult = $DB->fetch_one_array("SELECT username, photo FROM ".$db_prefix."user where id='".$user_id."'");

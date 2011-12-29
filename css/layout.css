@@ -378,6 +378,7 @@ div.inner{width:920px;overflow:hidden;position:relative;margin:0 auto}
 #user ul li{float:left;font-size:1.1em;line-height:1.2;margin:0 0 0 3px}
 #user ul li a{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px}
 #footer{width:920px;border-top:1px solid #E3E5E6;clear:both;position:relative;margin:0 auto;padding:5px 0 20px}
+#footer_weibo{background:url("../img/editsprite.png") no-repeat scroll 0 -375px transparent;width:16px;height:16px;padding-left:18px}
 .editor #footer{width:100%;position:fixed;bottom:0;height:40px;z-index:1200;background:none repeat scroll 0 0 #F9F9F9;padding:5px 0 0}
 .editor #footer .wrapper{position:absolute;width:920px;left:50%;margin-left:-460px}
 #footer p{color:#BBB;font-size:1.1em}
@@ -488,6 +489,9 @@ div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,block
 #third_tip{top:320px;left:325px}
 #fourth_tip{top:210px;left:500px}
 #more_info{position:absolute;bottom:8px;right:8px;z-index:100}
+#go_top{position:fixed;right:15px;bottom:15px;display:block;z-index:100}
+#go_top a{display:block;_display:none;height:50px;width:50px;background:url('../img/gotop.gif')}
+#go_top a:hover{background:url('../img/gotoph.gif')}
 .jcarousel-skin-tango .jcarousel-container{-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;background:#FCFCFC;border:1px solid #CCCCCC}
 .jcarousel-skin-tango .jcarousel-direction-rtl{direction:rtl}
 .jcarousel-skin-tango .jcarousel-container-horizontal{padding:10px 0 10px}
@@ -497,3 +501,30 @@ div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,block
 .jcarousel-skin-tango .jcarousel-item-placeholder{background:#fff;color:#000}
 .jcarousel-skin-tango .jcarousel-next-horizontal{position:absolute;top:100px;right:0px;width:39px;height:50px;cursor:pointer;background:transparent url(../img/next-horizontal.png) no-repeat 0 0}
 .jcarousel-skin-tango .jcarousel-prev-horizontal{position:absolute;top:100px;left:0px;width:39px;height:50px;cursor:pointer;background:transparent url(../img/prev-horizontal.png) no-repeat 0 0}
+#featured_container{position:relative;margin:40px 0 20px 0}      
+#featured{width:920px;height:380px;background:#000 url('orbit/loading.gif') no-repeat center center;overflow:hidden}
+#featured>img,#featured>div,#featured>a{display:none}
+div.orbit-wrapper{width:1px;height:1px;position:relative; border:1px solid #CCCCCC}
+div.orbit {width:1px;height:1px;position:relative;overflow:hidden}
+div.orbit>img{position:absolute;top:0;left:0;display:none}
+div.orbit>a{border:none;position:absolute;top:0;left:0;line-height:0; display:none}
+.orbit>div{position:absolute;top:0;left:0;width:100%;height:100%}
+div.timer {width:40px;height:40px;overflow:hidden;position:absolute;top:10px;left:10px;opacity:.6;cursor:pointer;z-index:1001}
+span.rotator{display:block;width:40px;height:40px;position:absolute;top:0;left:-20px;background:url(orbit/rotator-black.png) no-repeat;z-index:3}
+span.mask{display:block;width:20px;height:40px;position:absolute;top:0;right:0;z-index:2;overflow:hidden}
+span.rotator.move{left:0}
+span.mask.move{width:40px;left:0;background:url(orbit/timer-black.png) repeat 0 0}
+span.pause{display:block;width:40px;height:40px;position:absolute;top:0;left:0;background:url(orbit/pause-black.png) no-repeat;z-index:4;opacity:0}
+span.pause.active{background:url(orbit/pause-black.png) no-repeat 0 -40px}
+div.timer:hover span.pause,span.pause.active {opacity: 1}
+.orbit-caption{display:none;font-family: "HelveticaNeue", "Helvetica-Neue", Helvetica, Arial, sans-serif}
+.orbit-wrapper .orbit-caption{background:#000;background:rgba(0,0,0,.6);z-index:1000;color:#fff;text-align:center;padding:7px 0;font-size:13px;position:absolute;right:0;bottom:0;width:100%}
+div.slider-nav{display: block}
+div.slider-nav span{width:39px;height:50px;text-indent:-9999px;position:absolute;z-index:1000;top:50%;margin-top:-25px;cursor:pointer}
+div.slider-nav span.right{background:url(orbit/right-arrow.png);right:0}
+div.slider-nav span.left{background:url(orbit/left-arrow.png);left:0}
+.orbit-bullets{position:absolute;z-index:1000;list-style:none;bottom:-20px;left:50%;margin-left:-50px;padding:0}
+.orbit-bullets li{float:left;margin-left:5px;cursor:pointer;color:#999;text-indent:-9999px;background:url(orbit/bullets.jpg) no-repeat 4px 0;width:13px;height:12px;overflow:hidden}
+.orbit-bullets li.active{color:#222;background-position:-8px 0} 
+.orbit-bullets li.has-thumb{background:none;width:100px;height:75px}
+.orbit-bullets li.active.has-thumb{background-position:0 0;border-top:2px solid #000}
