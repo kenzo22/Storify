@@ -5,7 +5,7 @@ require $_SERVER['DOCUMENT_ROOT']."/include/functions.php";
 $fileSize = $_FILES['photofile']['size']; 
 if($fileSize > 600000)
 {
-  echo "<div class='imply_color center'>请选择小于600K的照片</div>";
+  echo "<div class='bind_txt'><div class='imply_color'>请选择小于600K的照片</div></div>";
   exit;
 }
 
@@ -28,7 +28,7 @@ if(($_FILES["photofile"]["type"] == "image/png") || ($_FILES["photofile"]["type"
 	$stored_file="/img/upload/".$filename;
 	if(!move_uploaded_file($_FILES['photofile']['tmp_name'],$local_file))
 	{
-		echo "<div class='imply_color center'>上传失败了，请您稍后再试</div>";
+		echo "<div class='bind_txt'><div class='imply_color'>上传失败了，请您稍后再试</div></div>";
 	}
 	chmod($local_file,0755);
 	echo "<li class='img_upload_drag'><div class='cross'></div><div class='img_wrapper'><img src='".$stored_file."' /></div></li>";
@@ -42,6 +42,6 @@ if(($_FILES["photofile"]["type"] == "image/png") || ($_FILES["photofile"]["type"
 }
 else
 {
-  echo "<div class='imply_color center'>不支持的图片类型</div>";
+  echo "<div class='bind_txt'><div class='imply_color'>不支持的图片类型</div></div>";
 }
 ?>

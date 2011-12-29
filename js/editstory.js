@@ -228,8 +228,13 @@ function remove_item(evt)
   $temp.hide('slow', function(){$temp.remove();});
   if(rm_flag)
   {
-    var getData = {file: rm_file};
-	$.get('/member/imgdelete.php', getData);
+	var nail = $('#story_thumbnail');
+	if(('/img/upload/'+rm_file) == nail.attr('src'))
+	{
+	  nail.attr('src', '/img/story_dft.jpg');
+	}
+	var postData = {file: rm_file};
+	$.post('/member/imgdelete.php', postData);
   }
 }
 
@@ -256,17 +261,15 @@ function change_story_pic(direction)
 	}
   });
   story_pic_array = story_pic_array.getUnique();
-  var unique_array_length = story_pic_array.length;
-  var current_pic_url = $('#story_thumbnail').attr('src');
-  var i;
-  for(i=0;i<unique_array_length ;i++)
+  var i,u_len = story_pic_array.length,c_pic = $('#story_thumbnail').attr('src');
+  for(i=0;i<u_len ;i++)
   {
-	if(story_pic_array[i]===current_pic_url)
+	if(story_pic_array[i]===c_pic)
     {
 	  break;
     }
   }
-  if(i == unique_array_length)
+  if(i == u_len)
   {
     i=0;
   }
@@ -275,7 +278,7 @@ function change_story_pic(direction)
     if(direction == 'next')
     {
       i = i+1;
-	  if(i == unique_array_length)
+	  if(i == u_len)
 	  {
 	    i=0;
 	  }
@@ -285,7 +288,7 @@ function change_story_pic(direction)
       i = i-1;
 	  if(i<0)
 	  {
-	    i=unique_array_length-1;
+	    i=u_len-1;
 	  }
     }
   }
@@ -1780,7 +1783,7 @@ $(function() {
 				}
 				else
 				{
-				  $('<div class=\"imply_color center\">不支持该文件类型</div>').appendTo('#source_list');
+				  $('<div class=\"bind_txt\"><div class=\"imply_color\">不支持该文件类型</div></div>').appendTo('#source_list');
 				  return false;	
 				}
 			},
