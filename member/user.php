@@ -429,7 +429,6 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		$single_weibo  = $c->show_status($weibo_per_id );
 		
 		if ($single_weibo === false || $single_weibo === null){
-		echo "<br/><br/><br/><br/><br/>Error occured";
 		//return false;
 		}
 		if (isset($single_weibo['error_code']) && isset($single_weibo['error'])){

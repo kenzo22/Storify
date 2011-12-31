@@ -40,7 +40,6 @@ foreach($story_content_array as $key=>$val)
 	$single_weibo  = $c->show_status($weibo_per_id );
 	
 	if ($single_weibo === false || $single_weibo === null){
-	echo "<br/><br/><br/><br/><br/>Error occured";
 	}
 	if (isset($single_weibo['error_code']) && isset($single_weibo['error'])){
 		$content .="<li class='weibo_drop sina' id='w_".$weibo_per_id."'><div class='story_wrapper'><div class='content_wrapper'><span class='weibo_text_drop'>此微博已被删除</span></div>";
