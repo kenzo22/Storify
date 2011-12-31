@@ -492,6 +492,9 @@ div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,block
 #go_top{position:fixed;right:15px;bottom:15px;display:block;z-index:100}
 #go_top a{display:block;_display:none;height:50px;width:50px;background:url('../img/gotop.gif')}
 #go_top a:hover{background:url('../img/gotoph.gif')}
+#crop_wrapper #crop_imply{font-size:16px;color:#999;font-weight:500}
+#upload_form #user_profile_img{overflow:auto;margin-bottom:20px;vertical-align:baseline}
+#upload_form #user_profile_img img{float:left;margin-right:20px}
 .jcarousel-skin-tango .jcarousel-container{-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;background:#FCFCFC;border:1px solid #CCCCCC}
 .jcarousel-skin-tango .jcarousel-direction-rtl{direction:rtl}
 .jcarousel-skin-tango .jcarousel-container-horizontal{padding:10px 0 10px}
@@ -528,3 +531,10 @@ div.slider-nav span.left{background:url(orbit/left-arrow.png);left:0}
 .orbit-bullets li.active{color:#222;background-position:-8px 0} 
 .orbit-bullets li.has-thumb{background:none;width:100px;height:75px}
 .orbit-bullets li.active.has-thumb{background-position:0 0;border-top:2px solid #000}
+.imgareaselect-border1{background:url(../img/border-anim-v.gif) repeat-y left top}
+.imgareaselect-border2{background:url(../img/border-anim-h.gif) repeat-x left top}
+.imgareaselect-border3{background:url(../img/border-anim-v.gif) repeat-y right top}
+.imgareaselect-border4{background:url(../img/border-anim-h.gif) repeat-x left bottom}
+.imgareaselect-border1,.imgareaselect-border2,.imgareaselect-border3,.imgareaselect-border4{filter: alpha(opacity=50);opacity: 0.5}
+.imgareaselect-handle{background-color:#fff;border:solid 1px #000;filter:alpha(opacity=50);opacity:0.5}
+.imgareaselect-outer{background-color:#000;filter:alpha(opacity=50);opacity:0.5}
