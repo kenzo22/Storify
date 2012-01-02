@@ -1,7 +1,8 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT']."/include/functions.php";
 require_once $_SERVER['DOCUMENT_ROOT']."/include/user_auth_fns.php";
-require ($_SERVER['DOCUMENT_ROOT'].'/include/secureCommon.php');
+require $_SERVER['DOCUMENT_ROOT'].'/include/secureCommon.php';
+include $_SERVER['DOCUMENT_ROOT'].'/include/lib_filter.php';
 session_start();
 
 if(!islogin())
@@ -20,7 +21,7 @@ if($story_pic == '/img/story_dft.jpg')
 {
   $story_pic = '';
 }
-$story_content=secureNQ($_POST['story_content']);
+$story_content=$filter->go($_POST['story_content']);
 
 $tag_table=$db_prefix."tag";
 $tag_story_table=$db_prefix."tag_story";
