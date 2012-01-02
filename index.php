@@ -7,6 +7,9 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="keywords" content="口立方, 新媒体, 社会媒体, 社会媒体故事社区, 整合社会媒体, 聚合社会媒体, 热点话题, koulifang.com"/>
+    <meta name="description" content="整合社会媒体, 用社会媒体讲故事" />
 	<title><?php print $html_title; ?></title>
 	<link type='text/css' rel='stylesheet' href="/css/layout.css" />
 	<link type="image/ico" rel="shortcut icon"  href="/img/favicon.ico" />
