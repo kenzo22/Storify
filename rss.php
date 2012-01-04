@@ -31,15 +31,15 @@ $feed_t_link = $feed->get_permalink();
 //$content="<h1 id='feed_title'><a target='_blank' href='".$feed_t_link."'>".$feed_title."</a></h1><h3 id='feed_des'>".$feed_description."</h3>";
 $content="";
 
+$feed_encoding = $feed->get_encoding();
+
 foreach ($feed->get_items() as $item)
 {
   $link = $item->get_permalink();
   $title = $item->get_title();
   $description = $item->get_description();
-  if(preg_match('#<p>\s*(.*?)\s*<\/p>#',$description,$matches))
-  {
-    $description = $matches[1];
-  }
+    $notags = strip_tags($description);
+    $description=mb_substr($notags,0,125,$feed_encoding);
   if($author = $item->get_author())
   {
 	$author_name = $author->get_name();
