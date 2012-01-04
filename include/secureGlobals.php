@@ -1,14 +1,10 @@
 <?php
-function secureGlobals(&$value, $key)
-{
-    $value = trim($value);
-    $value = str_ireplace("script", "blocked", $value);
-    if(!get_magic_quotes_gpc())
-        $value = mysql_real_escape_string($value);
-}
+include $_SERVER['DOCUMENT_ROOT'].'/include/secureCommon.php';
 
 if(isset($_GET))
-    array_walk($_GET, 'secureGlobals');
+    array_walk($_GET, 'secureQ');
 if(isset($_POST))
-    array_walk($_POST, 'secureGlobals');
+    array_walk($_POST, 'secureQ');
+if(isset($_REQUEST))
+    array_walk($_REQUEST, 'secureQ');
 ?>
