@@ -230,7 +230,7 @@ if (isset($_POST["act"]) && $_POST["act"] == 'upload') {
 			}
 		}
 		//Refresh the page to show the new uploaded image
-		header("location:".$_SERVER["PHP_SELF"]);
+		header("location: /accounts/photoedit");
 		exit();
 	}
 }
@@ -452,7 +452,7 @@ if(strlen($large_photo_exists)>0 && strlen($thumb_photo_exists)>0){
 				<img src="<?php echo $upload_path.$large_image_name.$_SESSION['user_file_ext'];?>" style="position: relative;" alt="预览" />
 			</div>
 			<br style="clear:both;"/>
-			<form id="crop_form" name="thumbnail" action="<?php echo $_SERVER["PHP_SELF"];?>" method="post">
+			<form id="crop_form" name="thumbnail" action="/accounts/photoedit" method="post">
 				<input type="hidden" name="x1" value="" id="x1" />
 				<input type="hidden" name="y1" value="" id="y1" />
 				<input type="hidden" name="x2" value="" id="x2" />

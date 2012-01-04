@@ -1,5 +1,5 @@
 var embedCode, vtabIndex, followPage, myPage, favPage, userSearchPage, tuserSearchPage, myPageTimestamp, followTimestamp, favTimestamp, usersearchTimestamp;
-var weiboSearhPage = 1, picSearchPage = 1, userpicSearchPage =1, colSearchPage = 1, recSearchPage = 1, tweibosearchPage = 1, doubanItemCounts = 10, commentsPerQuery = 5, eventStartIndex = 1, bookStartIndex = 1, bookReviewStartIndex = 1, movieStartIndex = 1, movieReviewStartIndex = 1, musicStartIndex = 1, musicReviewStartIndex = 1, weibo_url = '/weibo/weibooperation.php', tweibo_url = '/tweibo/tweibooperation.php', douban_url = '/douban/doubanoperation.php', douban_rurl = '/douban/doubanreviewsoperation.php', yupoo_url = '/yupoo/yupoooperation.php',sum_txt = '给你的故事写一个简短的描述',tags_txt = '添加故事标签，空格或逗号分隔';
+var weiboSearhPage = 1, picSearchPage = 1, userpicSearchPage =1, colSearchPage = 1, recSearchPage = 1, tweibosearchPage = 1, doubanItemCounts = 10, commentsPerQuery = 5, eventStartIndex = 1, bookStartIndex = 1, bookReviewStartIndex = 1, movieStartIndex = 1, movieReviewStartIndex = 1, musicStartIndex = 1, musicReviewStartIndex = 1, weibo_url = '/weibo/weibooperation.php', tweibo_url = '/tweibo/tweibooperation.php', douban_url = '/douban/doubanoperation.php', douban_rurl = '/douban/doubanreviewsoperation.php', yupoo_url = '/yupoo/yupoooperation.php',sum_txt = '给你的故事写一个简短的描述',tags_txt = '添加故事标签，空格或逗号分隔', videoImply='请输入视频播放页地址', feedImply='如:http://www.36kr.com/feed';
 
 if( typeof( window.innerHeight ) == 'number' ){
 //Non-IE
@@ -178,6 +178,20 @@ function prepare_story_data(action_value)
 	      video_meta = {title: video_title, src: video_src, url: video_url};
 	  story_content_val.content[i].content = video_meta;
 	}
+	else if($(this).hasClass('feed_drop'))
+	{
+	  story_content_val.content[i].type = 'feed';
+	  var link = $(this).find('.feed_link');
+	      f_title = link.text(),
+	      f_link = link.attr('href'),
+		  f_desc = $(this).find('.feed_des').text(),
+		  f_author = $(this).find('.feed_author').text(),
+		  r_item = $(this).find('.feed_sig a'),
+	      r_title = r_item.text(),
+	      r_link = r_item.attr('href'),
+	      feed_meta = {title: f_title, link: f_link, desc: f_desc, author: f_author, rtitle: r_title, rlink: r_link};
+	  story_content_val.content[i].content = feed_meta;
+	}
 	else if($(this).hasClass('pic_drop'))
 	{
 	  story_content_val.content[i].type = 'photo';
@@ -334,7 +348,7 @@ $(function() {
 		  $('.tip_container').remove();
 		})
 		
-		$('#keywords, #d_keywords, #videoUrl, #pic_keywords').bind('keyup', function(e)
+		$('#keywords, #d_keywords, #videoUrl, #pic_keywords, #feedUrl').bind('keyup', function(e)
 		{
 		  var code = e.keyCode || e.which; 
 		  if(code == 13)
@@ -398,15 +412,29 @@ $(function() {
 		  
 		$('#d_keywords').val('书名').addClass('imply_color');
 		
-		$('#videoUrl').val('请输入视频播放页地址').addClass('imply_color');
+		$('#videoUrl').val(videoImply).addClass('imply_color');
 		
 		$('#videoUrl').blur(function(){
 		  if($(this).val() == '')
 		  {
-		    $(this).val('请输入视频播放页地址').addClass('imply_color');
+		    $(this).val(videoImply).addClass('imply_color');
 		  }
 		}).focus(function(){
-		  if($(this).val() == '请输入视频播放页地址')
+		  if($(this).val() == videoImply)
+		  {
+		    $(this).val('').removeClass('imply_color');
+		  }
+		});
+		
+		$('#feedUrl').val(feedImply).addClass('imply_color');
+		
+		$('#feedUrl').blur(function(){
+		  if($(this).val() == '')
+		  {
+		    $(this).val(feedImply).addClass('imply_color');
+		  }
+		}).focus(function(){
+		  if($(this).val() == feedImply)
 		  {
 		    $(this).val('').removeClass('imply_color');
 		  }
@@ -1092,6 +1120,11 @@ $(function() {
 				dragItem.removeClass('video_drag').addClass('video_drop').children().remove();　
 			    dragItem.append(videoContent);
 			  }
+			  else if(dragItem.hasClass('feed_drag'))
+			  {
+			    dragItem.removeClass('feed_drag').addClass('feed_drop').find('.feed_date').remove();
+				dragItem.find(".feed_wrapper").before("<div class='cross' action='delete'></div><div class='handle'></div>");
+			  }
 			  else if(dragItem.hasClass('pic_drag'))
 			  {
 				var picUrl = dragItem.find('img').attr('src'),
@@ -1158,9 +1191,32 @@ $(function() {
 			    post = imply;
 			  }
 			  $('#source_list').html(post);
-              videoInput.addClass('imply_color').val('请输入视频播放页地址');			  
+              videoInput.addClass('imply_color').val(videoImply);			  
 			}
 		  },'json');
+		})
+		
+		$('#embedFeed').click(function(e)
+		{
+		  e.preventDefault();
+		  var getUrl = '/rss.php',
+		      url_val = $('#feedUrl').val(),
+			  getData = {url: url_val};
+		  
+		  $.ajax({
+		  type: 'GET',
+		  url: getUrl,
+		  data: getData, 
+		  beforeSend:function() 
+		  {
+		    var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
+		    $('#source_list').html(imgloading);
+		  },
+		  success: function(data)
+		  {
+			$('#source_list').html(data);
+		  }
+		  }); 
 		})
 		
 	    var sto_title = $('#sto_title'),
@@ -1907,6 +1963,16 @@ $(function() {
 				$('#pic_keywords').val('关键字').addClass('imply_color');
 			  } 
 			  selVTab = 5;
+			  $('#vtab>div').hide().eq(vtabIndex-1).show();
+			  break;
+			}
+		  case 6: 
+			{
+			  if(6 != selVTab)
+			  {
+				$('#source_list').children().remove();
+			  } 
+			  selVTab = 6;
 			  $('#vtab>div').hide().eq(vtabIndex-1).show();
 			  break;
 			}
