@@ -1026,7 +1026,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 							  <div class='story_meta'>
 								<span>
 								  <a class='meta_date'>".$post_date."</a>
-								  <img src='".$user_profile_img."' alt='".$story_author_name."'/>
+								  <img src='".$user_profile_img."' alt=''/>
 								  <a class='meta_author' href='/user/".$post_author."'>".$story_author_name."</a>
 								</span>
 							  </div>
@@ -1311,7 +1311,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 		  <div class='clear'></div>
 		  </div>";
 		}
-		$story_content .="</div><div class='story_meta'><span><a class='meta_date'>".$post_date."</a><img src='".$user_profile_img."' alt='".$username."' /><a class='meta_author'>".$username."</a></span></div></li>";
+		$story_content .="</div><div class='story_meta'><span><a class='meta_date'>".$post_date."</a><img src='".$user_profile_img."' alt='' /><a class='meta_author'>".$username."</a></span></div></li>";
 	  }
 	  $story_content .="</ul></div>".$pagination."</div>";
   }

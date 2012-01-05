@@ -107,10 +107,10 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	  $slider_content ="
 	  <div id='featured_container'>
 		<div id='featured'> 
-		  <img src='img/slide1.jpg' alt='口立方'/>
-		  <img src='img/slide2.jpg' alt='口立方'/>
-		  <img src='img/slide3.jpg' alt='口立方'/>
-		  <img src='img/slide4.jpg' alt='口立方'/>
+		  <img src='img/slide1.jpg' alt=''/>
+		  <img src='img/slide2.jpg' alt=''/>
+		  <img src='img/slide3.jpg' alt=''/>
+		  <img src='img/slide4.jpg' alt=''/>
 		</div>
 		<div id='more_info'><a class='large blue awesome' href='/tour'>了解更多 &raquo;</a></div>
 	  </div>";
@@ -160,7 +160,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 							  <div class='story_meta'>
 								<span>
 								  <a class='meta_date'>".$post_date."</a>
-								  <img src='".$user_profile_img."' alt='".$author_name."'/>
+								  <img src='".$user_profile_img."' alt=''/>
 								  <a class='meta_author' href='/user/".$post_author."'>".$author_name."</a>
 								</span>
 							  </div>
@@ -238,7 +238,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 						  <div class='story_meta'>
 							<span>
 							  <a class='meta_date'>".$post_date."</a>
-							  <img src='".$user_profile_img."' alt='".$author_name."'/>
+							  <img src='".$user_profile_img."' alt=''/>
 							  <a class='meta_author' href='/user/".$post_author."'>".$author_name."</a>
 							</span>
 						  </div>
