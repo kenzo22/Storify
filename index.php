@@ -181,8 +181,9 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 		$fol_result = $DB->query($follow_query);
 		$fol_array = array();
 		$item__array = array();
-		while($item = mysql_fetch_array($fol_result))
+		while($item = mysql_fetch_array($fol_result)){
 			$fol_array[] = $item['follow_id'];
+        }
 		$len = sizeof($fol_array);
 		if ($len >= 10){
 			$ran_keys = array_rand($fol_array, 10);
@@ -203,8 +204,9 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 		else
 			$new_query="select * from story_posts where post_author !=".$uid." and post_status = 'Published' order by post_date desc limit $left";
 		$others_result = $DB->query($new_query);
-		while($item=$DB->fetch_array($others_result))
+		while($item=$DB->fetch_array($others_result)){
 			$item_array[] = $item;
+        }
 		foreach($item_array as $story_item)
 	  {
 	    $post_author = $story_item['post_author'];
