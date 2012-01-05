@@ -107,10 +107,10 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	  $slider_content ="
 	  <div id='featured_container'>
 		<div id='featured'> 
-		  <img src='img/slide1.jpg' alt='口立方'/>
-		  <img src='img/slide2.jpg' alt='口立方'/>
-		  <img src='img/slide3.jpg' alt='口立方'/>
-		  <img src='img/slide4.jpg' alt='口立方'/>
+		  <img src='img/slide1.jpg' alt=''/>
+		  <img src='img/slide2.jpg' alt=''/>
+		  <img src='img/slide3.jpg' alt=''/>
+		  <img src='img/slide4.jpg' alt=''/>
 		</div>
 		<div id='more_info'><a class='large blue awesome' href='/tour'>了解更多 &raquo;</a></div>
 	  </div>";
@@ -160,7 +160,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 							  <div class='story_meta'>
 								<span>
 								  <a class='meta_date'>".$post_date."</a>
-								  <img src='".$user_profile_img."' alt='".$author_name."'/>
+								  <img src='".$user_profile_img."' alt=''/>
 								  <a class='meta_author' href='/user/".$post_author."'>".$author_name."</a>
 								</span>
 							  </div>
@@ -199,9 +199,9 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 			}
 		$left = 10 - $len;
 		if( $left < 10 )
-			$new_query="select post_author,post_pic_url,post_title,post_date,story_posts.ID from story_posts where post_author not in (select follow_id from story_follow where user_id=".$uid.") and post_status = 'Published' group by story_posts.ID order by post_date desc limit ".$left;
+			$new_query="select post_author,post_pic_url,post_title,post_date,story_posts.ID from story_posts where post_author !=".$uid." and post_author not in (select follow_id from story_follow where user_id=".$uid.") and post_status = 'Published' order by post_date desc limit ".$left;
 		else
-			$new_query="select * from story_posts where post_status = 'Published' order by post_date desc limit $left";
+			$new_query="select * from story_posts where post_author !=".$uid." and post_status = 'Published' order by post_date desc limit $left";
 		$others_result = $DB->query($new_query);
 		while($item=$DB->fetch_array($others_result))
 			$item_array[] = $item;
@@ -238,7 +238,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 						  <div class='story_meta'>
 							<span>
 							  <a class='meta_date'>".$post_date."</a>
-							  <img src='".$user_profile_img."' alt='".$author_name."'/>
+							  <img src='".$user_profile_img."' alt=''/>
 							  <a class='meta_author' href='/user/".$post_author."'>".$author_name."</a>
 							</span>
 						  </div>
@@ -308,7 +308,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
       <li><a title="contact" href='/contactus'>联系我们</a></li>
       <li><span id='footer_weibo'><a title="口立方微博" href="http://weibo.com/2329577672" target="_blank">@口立方</a></span></li>
     </ul>
-    <p>&copy; 2011 Koulifang.com. All rights reserved. 沪ICP备11038197号</p>
+    <p>&copy; 2011 Koulifang.com. 沪ICP备11038197号</p>
   </div>
 </div>
 <script type="text/javascript" src="/js/jquery.js"></script>

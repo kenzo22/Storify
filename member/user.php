@@ -691,6 +691,29 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		$content .="<li class='video_element'><div><a class='videoTitle' target='_blank' href='".$video_url."'>".$video_title."</a></div><div class='embed'>
 		<embed src='".$video_src."' quality='high' width='420' height='340' align='middle' allowscriptaccess='always' allowfullscreen='true' mode='transparent' type='application/x-shockwave-flash' wmode='opaque'></embed></div></li>";
 		break;}
+		
+		case "feed":{
+		$feed_meta = $val['content'];
+		$feed_title = $feed_meta['title'];
+        $feed_link = $feed_meta['link'];
+		$feed_description = $feed_meta['desc'];
+		$feed_author = $feed_meta['author'];
+		$r_title = $feed_meta['rtitle'];
+		$r_link = $feed_meta['rlink'];
+		$content .="<li class='feed_drop'>
+		              <div class='feed_wrapper'>
+					    <div class='feed_title'>
+				          <a class='feed_link' target='_blank' href='".$feed_link."'>".$feed_title."</a>
+				        </div>
+				        <div class='feed_des'>".$feed_description."</div>
+				        <div class='feed_sig'>
+				          <div><img src='/img/feed.png' /></div>
+				          <div class='feed_author'>".$feed_author."</div>
+				          <div><a target='_blank' href='".$r_link."'>".$r_title."</a></div>
+				        </div>
+					  </div>
+					</li>";
+		break;}
 		 
 		case "photo":{
 		$photo_meta_data = $val['content'];
@@ -1003,7 +1026,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 							  <div class='story_meta'>
 								<span>
 								  <a class='meta_date'>".$post_date."</a>
-								  <img src='".$user_profile_img."' alt='".$story_author_name."'/>
+								  <img src='".$user_profile_img."' alt=''/>
 								  <a class='meta_author' href='/user/".$post_author."'>".$story_author_name."</a>
 								</span>
 							  </div>
@@ -1288,7 +1311,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 		  <div class='clear'></div>
 		  </div>";
 		}
-		$story_content .="</div><div class='story_meta'><span><a class='meta_date'>".$post_date."</a><img src='".$user_profile_img."' alt='".$username."' /><a class='meta_author'>".$username."</a></span></div></li>";
+		$story_content .="</div><div class='story_meta'><span><a class='meta_date'>".$post_date."</a><img src='".$user_profile_img."' alt='' /><a class='meta_author'>".$username."</a></span></div></li>";
 	  }
 	  $story_content .="</ul></div>".$pagination."</div>";
   }

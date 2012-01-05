@@ -12,8 +12,8 @@ $feed = new SimplePie();
 //$feed_url = 'http://feeds.feedburner.com/Mashable/';
 //$feed_url = 'http://coolshell.cn/feed';
 //$feed_url = 'http://simplepie.org/blog/feed/';
-$feed_url = 'http://36kr.com/feed/';
-//$feed_url = 'http://cn.engadget.com/rss.xml';
+//$feed_url = 'http://36kr.com/feed/';
+$feed_url = 'http://cn.engadget.com/rss.xml';
 //$feed_url = 'http://blog.sina.com.cn/rss/twocold.xml';
 //$feed_url = 'http://rss.sina.com.cn/news/marquee/ddt.xml';
 //$feed_url = 'http://rss.sina.com.cn/news/world/focus15.xml';
@@ -40,6 +40,7 @@ $feed->handle_content_type();
 	<div class="header">
 		<h1><a href="<?php echo $feed->get_permalink(); ?>"><?php echo $feed->get_title(); ?></a></h1>
 		<p><?php echo $feed->get_description(); ?></p>
+		<img src="<?php echo $feed->get_favicon(); ?>" alt="">
 	</div>
  
 	<?php
@@ -54,11 +55,7 @@ $feed->handle_content_type();
 			<p>
 			<?php 
 			  $desc = $item->get_description();
-              preg_match('#<p>\s*(.*+)\s*<\/p>#',$desc,$matches);
-              if($matches)
-              {
-			    echo $matches[1];
-			  }			  
+              echo $desc;		  
 			?>
 			</p>
 			<p><small>Posted on <?php echo $item->get_date('j F Y | g:i a'); ?></small></p>

@@ -235,6 +235,9 @@
 				case 'video':
 				  content +="<li class='video_element'><div><a class='videoTitle' target='_blank' href='"+sub_item.url+"'>"+sub_item.title+"</a></div><div class='embed'><embed src='"+sub_item.src+"' quality='high' width='420' height='340' align='middle' allowscriptaccess='always' allowfullscreen='true' mode='transparent' type='application/x-shockwave-flash' wmode='opaque'></embed></div></li>";
 				  break;
+				case 'feed':
+				  content +="<li class='feed_drop'><div class='feed_wrapper'><div class='feed_title'><a class='feed_link' target='_blank' href='"+sub_item.link+"'>"+sub_item.title+"</a></div><div class='feed_des'>"+sub_item.desc+"</div><div class='feed_sig'><div><img src='/img/feed.png' /></div><div class='feed_author'>"+sub_item.author+"</div><div><a target='_blank' href='"+sub_item.rlink+"'>"+sub_item.rtitle+"</a></div></div></div></li>";
+				  break;
 				default:
 				  break;
 			  }

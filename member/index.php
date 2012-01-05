@@ -141,6 +141,7 @@ $content .= "<div class='inner'>
 		    <li class='videoLi'><a><span class='source_img' title='添加视频'></span></a></li>
 			<li class='doubanLi'><a><span class='source_img' title='豆瓣社区'></span></a></li>
 			<li class='yupooLi'><a><span class='source_img' title='又拍社区'></span></a></li>
+			<li class='rssLi'><a><span class='source_img' title='rss feed'></span></a></li>
 		  </ul>
 		  <div id='weiboTabs'>
 		    <ul>
@@ -242,6 +243,24 @@ $content .= "<div class='inner'>
 			      <button id='pic_search_btn' value='search' type='button'>搜索</button>
                 </div>
 		      </div>
+		    </div>
+		  </div>
+		  <div id='feedTabs'>
+		    <div class='wrapper'>
+		      <div>
+			    <div id='feed_imply'>Rss Feed地址</div> 
+                <select id='feedUrl' name='feedUrl'>
+				  <option value='0' selected>请选择:</option>
+				  <option>36氪: http://www.36kr.com/feed</option>
+				  <option>月光博客: http://feed.williamlong.info</option>
+				  <option>对牛乱弹琴: http://feed.keso.cn/PlayinWithIt</option>
+				  <option>Engaget中国版: http://cn.engadget.com/rss.xml</option>
+				  <option>新浪焦点新闻: http://rss.sina.com.cn/news/world/focus15.xml</option>
+				  <option>其他rss源</option>
+				</select>
+                <input id='feedInput' type='text' name='choicetext' style='visibility:hidden;'>				
+			    <button value='提取内容' id='embedFeed' type='button'>提取内容</button>
+              </div>
 		    </div>
 		  </div>
 		</div>
@@ -645,6 +664,32 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 	  $content .="<li class='video_drop'><div class='cross'></div><div class='handle'></div><div class='youku_wrapper'><div><a class='videoTitle' target='_blank' href='"
 	  .$video_url."'>".$video_title."</a></div><div class='embed'><embed src='".$video_src."' quality='high' width='420' height='340' align='middle' allowscriptaccess='always' allowfullscreen='true' mode='transparent' type='application/x-shockwave-flash' wmode='opaque'></embed></div></div></li>
 	  <li class='addTextElementAnchor'><span><a class='add_comment'></a></span></li>";    	
+		break;}
+		
+	  case "feed":{
+		$feed_meta = $val['content'];
+		$feed_title = $feed_meta['title'];
+        $feed_link = $feed_meta['link'];
+		$feed_description = $feed_meta['desc'];
+		$feed_author = $feed_meta['author'];
+		$r_title = $feed_meta['rtitle'];
+		$r_link = $feed_meta['rlink'];
+		$content .="<li class='feed_drop'>
+		              <div class='cross'></div>
+					  <div class='handle'></div>
+					  <div class='feed_wrapper'>
+					    <div class='feed_title'>
+				          <a class='feed_link' target='_blank' href='".$feed_link."'>".$feed_title."</a>
+				        </div>
+				        <div class='feed_des'>".$feed_description."</div>
+				        <div class='feed_sig'>
+				          <div><img src='/img/feed.png' /></div>
+				          <div class='feed_author'>".$feed_author."</div>
+				          <div><a target='_blank' href='".$r_link."'>".$r_title."</a></div>
+				        </div>
+					  </div>
+					</li>
+					<li class='addTextElementAnchor'><span><a class='add_comment'></a></span></li>";
 		break;}
 		
 	  case "photo":{

@@ -310,14 +310,24 @@ else
 		 
 		case "video":{
 		$video_meta = $val['content'];
-		$video_title = $video_meta['title'];
-		$video_src = $video_meta['src'];
-		$video_url = $video_meta['url'];
 		$meta = array();
 		$meta['type'] = 'video';
 		$meta['title'] = $video_meta['title'];
 		$meta['url'] = $video_meta['url'];
 		$meta['src'] = $video_meta['src'];
+		$content_array[] = $meta;
+		break;}
+		
+		case "feed":{
+		$meta = array();
+		$meta['type'] = 'feed';
+		$feed_meta = $val['content'];
+		$meta['title'] = $feed_meta['title'];
+        $meta['link'] = $feed_meta['link'];
+		$meta['desc'] = $feed_meta['desc'];
+		$meta['author'] = $feed_meta['author'];
+		$meta['rtitle'] = $feed_meta['rtitle'];
+		$meta['rlink'] = $feed_meta['rlink'];
 		$content_array[] = $meta;
 		break;}
 		 
