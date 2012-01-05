@@ -13,15 +13,7 @@ function secureForDB($value)
 function secureQ(&$value, $key='')
 {
     $value = mb_convert_encoding($value, 'utf-8','utf-8');
-    $value = htmlentities($value, ENT_QUOTES, 'utf-8',false);
-    $value = secureForDB($value);
-    return $value;
-}
-
-function secureNQ(&$value, $key='')
-{
-    $value = mb_convert_encoding($value, 'utf-8','utf-8');
-    $value = htmlentities($value, ENT_NOQUOTES, 'utf-8',false);
+    $value = strip_tags($value);
     $value = secureForDB($value);
     return $value;
 }
