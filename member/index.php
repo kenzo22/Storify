@@ -248,8 +248,17 @@ $content .= "<div class='inner'>
 		  <div id='feedTabs'>
 		    <div class='wrapper'>
 		      <div>
-			    <div id='feed_imply'>Rss Feed地址</div>          
-			    <input id='feedUrl' name='feedUrl' type='text' value='' />
+			    <div id='feed_imply'>Rss Feed地址</div> 
+                <select id='feedUrl' name='feedUrl'>
+				  <option value='0' selected>请选择:</option>
+				  <option>36氪: http://www.36kr.com/feed</option>
+				  <option>月光博客: http://feed.williamlong.info</option>
+				  <option>对牛乱弹琴: http://feed.keso.cn/PlayinWithIt</option>
+				  <option>Engaget中国版: http://cn.engadget.com/rss.xml</option>
+				  <option>新浪焦点新闻: http://rss.sina.com.cn/news/world/focus15.xml</option>
+				  <option>其他rss源</option>
+				</select>
+                <input id='feedInput' type='text' name='choicetext' style='visibility:hidden;'>				
 			    <button value='提取内容' id='embedFeed' type='button'>提取内容</button>
               </div>
 		    </div>

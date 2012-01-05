@@ -199,14 +199,17 @@ li.tencent .weibo_date_drop{background:url("../img/editsprite.png") no-repeat sc
 .impUploadLi .source_img{background:url("../img/pic_add.png") no-repeat scroll 0 0 transparent;height:24px;width:24px;display:block}
 .rssLi .source_img{background:url("../img/feed.png") no-repeat scroll 0 0 transparent;height:24px;width:24px;display:block}
 #weibo_search,#douban_search,#pic_search{padding-left:4px}
-#weibo_search #keywords,#douban_search #d_keywords,#pic_search #pic_keywords,#videoTabs #videoUrl,#feedTabs #feedUrl{width:265px;vertical-align:middle}
+#weibo_search #keywords,#douban_search #d_keywords,#pic_search #pic_keywords,#videoTabs #videoUrl,#feedTabs #feedInput{width:265px;vertical-align:middle}
+#feedTabs #feedUrl{width:355px;vertical-align:middle}
 #weibo_search_btn,#douban_search_btn,#pic_search_btn,#embedVideo,#embedFeed{vertical-align:middle;margin-left:10px}
 #douban_search_btn,#pic_search_btn{width:76px}
-#videoTabs .wrapper,#feedTabs .wrapper{padding-top:16px;padding-bottom:29px}
+#videoTabs .wrapper{padding-top:16px;padding-bottom:29px}
+#feedTabs .wrapper{padding-top:16px}
+#feedTabs .wrapper input,#feedTabs .wrapper button{margin-top:9px}
 #videoTabs .wrapper #video_imply,#imgUploadTabs .wrapper #pic_imply,#feedTabs .wrapper #feed_imply{font-weight:600;font-size:13px}
 #imgUploadTabs .wrapper{padding:16px 0 12px}
 #imgUploadTabs .wrapper button{margin:13px 0 17px}
-#videoTabs .wrapper input,#videoTabs .wrapper button,#feedTabs .wrapper input,#feedTabs .wrapper button{margin-top:13px}
+#videoTabs .wrapper input,#videoTabs .wrapper button,#feedTabs .wrapper select{margin-top:13px}
 #story_pic{width:100px;min-height:100px;float:left;margin-right:20px}
 #prev_img{background:url("../img/editsprite.png") no-repeat scroll 16px -167px transparent;height:16px;width:16px}
 #next_img{background:url("../img/editsprite.png") no-repeat scroll 16px -335px transparent;height:16px;width:16px}

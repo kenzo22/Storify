@@ -55,6 +55,39 @@ function popalert()
   return"本页面要求您确认您要离开 - 您输入的数据可能不会被保存";
 }
 
+function valid(menu,txt) 
+{
+  if(menu.selectedIndex == 0) 
+  {
+    alert('You must make a selection from the menu');
+    return false;
+  } 
+  if(txt.value == '') 
+  {
+    if(last_choice(menu)) 
+	{
+      alert('You need to type your choice into the text box');
+      return false; 
+	}
+    else 
+	{
+      return true; 
+	}
+  }
+  else 
+  {
+    if(!last_choice(menu)) 
+	{
+      alert('Incompatible selection');
+      return false; 
+	}
+    else 
+	{
+      return true; 
+	}
+  }
+}
+
 function createCookie(name,value,days) {
 	if (days) {
 		var date = new Date();
@@ -349,7 +382,7 @@ $(function() {
 		  $('.tip_container').remove();
 		})
 		
-		$('#keywords, #d_keywords, #videoUrl, #pic_keywords, #feedUrl').bind('keyup', function(e)
+		$('#keywords, #d_keywords, #videoUrl, #pic_keywords').bind('keyup', function(e)
 		{
 		  var code = e.keyCode || e.which; 
 		  if(code == 13)
@@ -427,7 +460,7 @@ $(function() {
 		  }
 		});
 		
-		$('#feedUrl').val(feedImply).addClass('imply_color');
+		/*$('#feedUrl').val(feedImply).addClass('imply_color');
 		
 		$('#feedUrl').blur(function(){
 		  if($(this).val() == '')
@@ -439,7 +472,19 @@ $(function() {
 		  {
 		    $(this).val('').removeClass('imply_color');
 		  }
-		});
+		});*/
+		
+		$('#feedUrl').change(function(){
+		  field = $('#feedInput');
+		  if($(this).attr('selectedIndex') == $(this)[0].length-1) 
+		  {
+			field.attr("disabled",false).css('visibility', 'visible').focus();
+		  }
+		  else 
+		  {
+			field.attr("disabled",true).css('visibility', 'hidden').val('');
+		  }
+		})
 		
 		$('#book_tab').click(function(){
 		  bookStartIndex = 1;
@@ -1197,12 +1242,58 @@ $(function() {
 		  },'json');
 		})
 		
-		$('#embedFeed').click(function(e)
+		/*$('#embedFeed').click(function(e)
 		{
 		  e.preventDefault();
 		  var getUrl = '/rss.php',
 		      url_val = $('#feedUrl').val(),
 			  getData = {url: url_val};
+		  
+		  $.ajax({
+		  type: 'GET',
+		  url: getUrl,
+		  data: getData, 
+		  beforeSend:function() 
+		  {
+		    var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
+		    $('#source_list').html(imgloading);
+		  },
+		  success: function(data)
+		  {
+			$('#source_list').html(data);
+		  }
+		  }); 
+		})*/
+		
+		$('#embedFeed').click(function(e)
+		{
+		  e.preventDefault();
+		  var getUrl = '/rss.php',
+		      select = $('#feedUrl'),
+		      f_input = $('#feedInput'),
+			  s_index = select.attr('selectedIndex'),
+			  custom_flag = (f_input.css('visibility') == 'visible')?true:false;
+		  if(s_index == 0) 
+		  {
+			alert('请选择一个rss源');
+			return false;
+		  }
+          if(custom_flag && f_input.val() == '') 
+		  {
+			alert('请在文本框输入你要提取内容的rss源');
+			return false; 
+		  }
+		  var url_val,getData;
+          if(custom_flag)
+          {
+		    url_val = f_input.val();
+		  }
+          else
+          {
+			var reg = /(http:\/\/[\w\.-_]+)/;
+			url_val = reg.exec($('#feedUrl :selected').text())[0];
+		  }		  
+		  getData = {url: url_val};
 		  
 		  $.ajax({
 		  type: 'GET',
