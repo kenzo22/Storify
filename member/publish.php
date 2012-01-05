@@ -22,6 +22,7 @@ if($story_pic == '/img/story_dft.jpg')
   $story_pic = '';
 }
 $story_content=$filter->go($_POST['story_content']);
+$story_content = secureForDB($story_content);
 
 $tag_table=$db_prefix."tag";
 $tag_story_table=$db_prefix."tag_story";
