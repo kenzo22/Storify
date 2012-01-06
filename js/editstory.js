@@ -55,39 +55,6 @@ function popalert()
   return"本页面要求您确认您要离开 - 您输入的数据可能不会被保存";
 }
 
-function valid(menu,txt) 
-{
-  if(menu.selectedIndex == 0) 
-  {
-    alert('You must make a selection from the menu');
-    return false;
-  } 
-  if(txt.value == '') 
-  {
-    if(last_choice(menu)) 
-	{
-      alert('You need to type your choice into the text box');
-      return false; 
-	}
-    else 
-	{
-      return true; 
-	}
-  }
-  else 
-  {
-    if(!last_choice(menu)) 
-	{
-      alert('Incompatible selection');
-      return false; 
-	}
-    else 
-	{
-      return true; 
-	}
-  }
-}
-
 function createCookie(name,value,days) {
 	if (days) {
 		var date = new Date();
@@ -1241,29 +1208,6 @@ $(function() {
 			}
 		  },'json');
 		})
-		
-		/*$('#embedFeed').click(function(e)
-		{
-		  e.preventDefault();
-		  var getUrl = '/rss.php',
-		      url_val = $('#feedUrl').val(),
-			  getData = {url: url_val};
-		  
-		  $.ajax({
-		  type: 'GET',
-		  url: getUrl,
-		  data: getData, 
-		  beforeSend:function() 
-		  {
-		    var imgloading = $("<span class='loading_wrapper'><img src='../img/loading.gif' /></span>");
-		    $('#source_list').html(imgloading);
-		  },
-		  success: function(data)
-		  {
-			$('#source_list').html(data);
-		  }
-		  }); 
-		})*/
 		
 		$('#embedFeed').click(function(e)
 		{
