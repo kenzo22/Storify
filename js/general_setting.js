@@ -150,7 +150,7 @@ $(function(){
       $.post('/accounts/modifysetting', postdata,
       function(data, textStatus)
       {
-	    if("success" == textStatus)
+		if("success" == textStatus)
 	    {
 	      $('#lzform').before(data);
 	    }

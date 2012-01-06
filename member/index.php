@@ -253,9 +253,12 @@ $content .= "<div class='inner'>
 				  <option value='0' selected>请选择:</option>
 				  <option>36氪: http://www.36kr.com/feed</option>
 				  <option>月光博客: http://feed.williamlong.info</option>
-				  <option>对牛乱弹琴: http://feed.keso.cn/PlayinWithIt</option>
 				  <option>Engaget中国版: http://cn.engadget.com/rss.xml</option>
+				  <option>韩寒博客: http://blog.sina.com.cn/rss/twocold.xml</option>
+				  <option>南方周末热点: http://www.infzm.com/rss/home/rss2.0.xml</option>
 				  <option>新浪焦点新闻: http://rss.sina.com.cn/news/world/focus15.xml</option>
+				  <option>看电影杂志: http://feed.mtime.com/my/seemovie/feed.rss</option>
+				  <option>时光网精彩影评: http://feed.mtime.com/comment.rss</option>
 				  <option>其他rss源</option>
 				</select>
                 <input id='feedInput' type='text' name='choicetext' style='visibility:hidden;'>				

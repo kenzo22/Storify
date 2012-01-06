@@ -217,8 +217,8 @@ function prepare_story_data(action_value)
 	  var link = $(this).find('.feed_link');
 	      f_title = link.text(),
 	      f_link = link.attr('href'),
-		  f_desc = $(this).find('.feed_des').text(),
-		  //f_desc = $(this).find('.feed_des').text().replace(/(\s|\<|\>)/g, ""),
+		  //f_desc = $(this).find('.feed_des').text(),
+		  f_desc = $(this).find('.feed_des').text().replace(/(\<|\>)/g, ""),
 		  f_author = $(this).find('.feed_author').text(),
 		  r_item = $(this).find('.feed_sig a'),
 	      r_title = r_item.text(),
