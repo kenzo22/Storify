@@ -547,19 +547,26 @@ $(function(){
 	
 	//publish and repost part
 	$('.btn_w_publish').live('click', function(e){
-	  var w_content_val = $('.publish-tweet').val();
-	  var id_val = $('.publish-tweet').attr('id').substr(6);
-	  var ope_val;
-	  if($('#pub_text').text() == '评论')
+	  var ope_val,alert_txt,
+	      p_tweet = $('.publish-tweet'),
+		  pub_text = $('#pub_text'),
+		  sina_flag = pub_text.hasClass('sina'),
+	      w_content_val = p_tweet.val(),
+	      id_val = p_tweet.attr('id').substr(6);
+	  if(pub_text.text() == '评论')
 	  {
 	    ope_val = 'comment';
+		alert_txt = '评论成功';
 	  }
 	  else
 	  {
 	    ope_val = 'repost';
+		alert_txt = '转发成功';
+		if(!sina_flag)
+		alert_txt = '转播成功';
 	  }
 	  var postUrl, postData;
-	  if($('#pub_text').hasClass('sina'))
+	  if(sina_flag)
 	  {
 	    postUrl = '/weibo/postweibo.php';
 	  }
@@ -577,6 +584,7 @@ $(function(){
 	  {
 		$('#mask').hide();
 		$('.window').hide();
+		alert(alert_txt);
 	  }
 	  });
 	});
@@ -613,6 +621,7 @@ $(function(){
 		  success: function(data)
 		  {
 			$('.steps .notify-content').css('display', 'none');
+			alert('发布成功');
 		  }
 		  });
 	  }
@@ -631,6 +640,7 @@ $(function(){
 		  success: function(data)
 		  {
 			$('.steps .notify-content').css('display', 'none');
+			alert('发布成功');
 		  }
 		  });
 	  }

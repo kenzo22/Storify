@@ -29,7 +29,10 @@ input[type="checkbox"],input[type="radio"]{background:transparent;border:0}
 .bn_submit{width:80px;height:28px;font-size:14px;line-height:28px;padding-bottom:3px;cursor:pointer;color:#000}
 .clear{clear:both}
 body.editor{background:none repeat-y scroll 0 0 #F9F9F9}
-#featured_container #featured img{width:920px;height:380px}
+#sprite-slide1{background:url("../img/slide.jpg") no-repeat scroll 0 0 transparent;width:920px;height:380px} 
+#sprite-slide2{background:url("../img/slide.jpg") no-repeat scroll 0 -385px transparent;width:920px;height:380px} 
+#sprite-slide3{background:url("../img/slide.jpg") no-repeat scroll 0 -770px transparent;width:920px;height:380px} 
+#sprite-slide4{background:url("../img/slide.jpg") no-repeat scroll 0 -1155px transparent;width:920px;height:380px} 
 #login_form_f{margin-top:50px;float:left;width:620px;padding-bottom:10px}
 #login_form_r{float:right;margin-top:100px}
 #login_form_r .register_awesome{margin:5px 0 20px}

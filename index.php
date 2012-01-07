@@ -107,10 +107,10 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	  $slider_content ="
 	  <div id='featured_container'>
 		<div id='featured'> 
-		  <img src='img/slide1.jpg' alt=''/>
-		  <img src='img/slide2.jpg' alt=''/>
-		  <img src='img/slide3.jpg' alt=''/>
-		  <img src='img/slide4.jpg' alt=''/>
+		  <div id='sprite-slide1'></div>
+		  <div id='sprite-slide2'></div>
+		  <div id='sprite-slide3'></div>
+		  <div id='sprite-slide4'></div>
 		</div>
 		<div id='more_info'><a class='large blue awesome' href='/tour'>了解更多 &raquo;</a></div>
 	  </div>";
