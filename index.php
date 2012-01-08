@@ -1,5 +1,5 @@
 <?php
-$html_title = "口立方 - 新颖的社会媒体故事社区，帮助你用社会媒体讲故事";
+$html_title = "口立方 - 社会化媒体报道，源于大众，服务大众";
 include $_SERVER['DOCUMENT_ROOT'].'/global.php'; 
 include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 ?>
