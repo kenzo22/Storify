@@ -6,7 +6,7 @@ require  $_SERVER['DOCUMENT_ROOT']."/include/header.php";
 <div class="inner">
 <div id='tour_wrapper'>
   <h1 id='tour_title'><a class='float_r large green awesome' href='/accounts/source'>开始使用 &raquo;</a>欢迎来到口立方</h1>
-  <h3 id='tour_sub'>简单有趣的自助式报道，帮助你传播信息，构建影响力</h3>  
+  <h3 id='tour_sub'>自助报道，传递价值，构建影响力</h3>  
   <div class='tour_section'>
     <img class='float_l' src='img/tour1.png' />
 	<h2>新颖的讲述方式</h2>
@@ -19,7 +19,7 @@ require  $_SERVER['DOCUMENT_ROOT']."/include/header.php";
   </div>
   <div class='tour_section'>
     <img class='float_l' src='img/tour3.png' />
-	<h2>自助式报道，简单快速</h2>
+	<h2>自助报道，简单快速</h2>
 	<p>左栏是信息板，可以获取微博，图片，视频，RSS等报道素材，右栏是编辑区。简单的拖放操作你就能引用海量的社会媒体信息，润色你的报道，发布，就这么简单。</p>
   </div>
   <div class='tour_section'>
