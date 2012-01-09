@@ -1,5 +1,5 @@
 <?php
-$html_title = "口立方 - 新颖的社会媒体故事社区，帮助你用社会媒体讲故事";
+$html_title = "口立方 - 自助报道，传递价值，构建影响力";
 include $_SERVER['DOCUMENT_ROOT'].'/global.php'; 
 include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 ?>
@@ -8,8 +8,8 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
   <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<meta name="keywords" content="口立方, 新媒体, 社会媒体, 社会媒体故事社区, 整合社会媒体, 聚合社会媒体, 热点话题, koulifang.com"/>
-    <meta name="description" content="整合社会媒体, 用社会媒体讲故事" />
+	<meta name="keywords" content="口立方, 新媒体, 自媒体, 自助报道, 社会化媒体, 社会化媒体整合, 社会化媒体聚合, 报道热点话题, koulifang.com"/>
+    <meta name="description" content="口立方是新颖的自助报道媒体, 帮助用户筛选整合社会化媒体信息, 创作分享优质内容" />
 	<title><?php print $html_title; ?></title>
 	<link type='text/css' rel='stylesheet' href="/css/layout.css" />
 	<link type="image/ico" rel="shortcut icon"  href="/img/favicon.ico" />
@@ -55,12 +55,12 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 					<li class='person_li'><a class='person_a quit_icon' href='/accounts/logout'><img class='console_img' src='/img/quit.png'/><span>退出<span></a></li>
 		          </ul>";
 	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='口立方' accesskey='h' href='/'><img src='/img/koulifangbeta.png' alt='口立方' /></a></span>
-	  <span id='top_menu_a'><a class='edit_story_btn' href='/create'>开始创建</a></span>".$content."</div></div>";
+	  <span id='top_menu_a'><a class='edit_story_btn' href='/create'>开始报道</a></span>".$content."</div></div>";
     }
 	else
 	{
 	  getPublicToken();
-	  $content = "<span id='top_menu_b'><a class='register_top' href='/accounts/register'>注册</a><a class='login_top' href='/accounts/login?next=".urlencode($_SERVER['REQUEST_URI'])."'>登录</a><a class='edit_story_btn' href='/create'>开始创建</a></span>";
+	  $content = "<span id='top_menu_b'><a class='register_top' href='/accounts/register'>注册</a><a class='login_top' href='/accounts/login?next=".urlencode($_SERVER['REQUEST_URI'])."'>登录</a><a class='edit_story_btn' href='/create'>开始报道</a></span>";
 	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='口立方' accesskey='h' href='/'><img src='/img/koulifangbeta.png' alt='口立方' /></a></span>".$content."</div></div>";
 	}
    ?>
@@ -107,10 +107,10 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	  $slider_content ="
 	  <div id='featured_container'>
 		<div id='featured'> 
-		  <img src='img/slide1.jpg' alt=''/>
-		  <img src='img/slide2.jpg' alt=''/>
-		  <img src='img/slide3.jpg' alt=''/>
-		  <img src='img/slide4.jpg' alt=''/>
+		  <div id='sprite-slide1'></div>
+		  <div id='sprite-slide2'></div>
+		  <div id='sprite-slide3'></div>
+		  <div id='sprite-slide4'></div>
 		</div>
 		<div id='more_info'><a class='large blue awesome' href='/tour'>了解更多 &raquo;</a></div>
 	  </div>";
