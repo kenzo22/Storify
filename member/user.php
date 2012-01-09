@@ -195,7 +195,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 						  <button class='post-tab'>
 							<div class='icon'></div>
 							<h2>发布到您的网站上</h2>
-							<span>嵌入故事，轻松简单</span>
+							<span>嵌入报道，轻松简单</span>
 						  </button>
 						  <button class='notify-tab'>
 							<div class='icon'></div>
@@ -205,12 +205,12 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 						  <button class='share-tab'>
 							<div class='icon'></div>
 							<h2>分享</h2>
-							<span>好故事要让更多人看见</span>
+							<span>好东西要让更多人看见</span>
 						  </button>
 						</div>
 						<div class='steps'>
 						  <div class='post-content'>
-						    <h2>轻松嵌入故事到你的网站中~</h2>
+						    <h2>轻松嵌入报道到你的网站中~</h2>
 							<span>复制嵌入代码:</span>
 							<span><input type='text' value='".$embed_code."' class='sto_embed' size='72' /></span>
 							<a title='如何嵌入' class='embed_how' href='http://www.koulifang.com/user/3/4' target='_blank'></a>
@@ -320,7 +320,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		  $current_page_url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
 		  $url_result = $c->shorten_url($current_page_url);
 		  $url_short = $url_result[0]['url_short'];
-		  $base_txt = "我刚刚引用了你的微博，快来看一看吧：";
+		  $base_txt = "我刚刚在报道中引用了你的微博，快来看一看吧：";
 		  $word_remain = ceil(140-($user_count/2+strlen($url_short)/2+strlen($base_txt)/3));
 		  $content.="<textarea class='notify-tweet' name='tweet'>".$base_txt.$url_short."</textarea>
 		  <div class='tweet_control'><input id='weibo_f' type='checkbox' name='weibo_f'".$weibo_check.$weibo_dis." /><span>发布到新浪微博</span><input id='tweibo_f' type='checkbox' name='tweibo_f'".$tweibo_check.$tweibo_dis." /><span>发布到腾讯微博</span><span id='remain_txt' class='gray'>还可以输入</span><span class='word_counter'>".$word_remain."</span><span class='gray flag'>字</span><a class='tweet_btn large blue awesome'>发布 &raquo;</a></div>";
@@ -350,11 +350,11 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  {
 		$content .= "<div id='story_container'>
 		               <div class='publish_wrapper'>
-					     <h3 id='draft_imply'>发布故事，分享到社交媒体，让大家都来欣赏品评你的作品~</h3>
+					     <h3 id='draft_imply'>发布报道，分享到社交媒体，让大家都来欣赏品评你的作品~</h3>
 						 <div id='draft_action'>  
 						   <a class='edit png_fix medium green awesome' href='/user/".$user_id."/".$post_id."/edit' title='继续编辑'>继续编辑 &raquo;</a>
 						   <a id='delete_".$user_id."_".$post_id."' class='delete redirect png_fix medium yellow awesome' title='删除草稿'>删除草稿 &raquo;</a>
-						   <a class='publish medium blue awesome' href='/user/".$user_id."/".$post_id."/publish' title='发布故事'>发布故事 &raquo;</a>
+						   <a class='publish medium blue awesome' href='/user/".$user_id."/".$post_id."/publish' title='发布故事'>发布报道 &raquo;</a>
 					     </div>
 						 <div id='publish_container'>
 			               <div id='story_action'>

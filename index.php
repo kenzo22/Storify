@@ -1,5 +1,5 @@
 <?php
-$html_title = "口立方 - 社会化媒体报道，源于大众，服务大众";
+$html_title = "口立方 - 简单有趣的自助式报道，帮助你传播信息，构建影响力";
 include $_SERVER['DOCUMENT_ROOT'].'/global.php'; 
 include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 ?>
@@ -55,12 +55,12 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 					<li class='person_li'><a class='person_a quit_icon' href='/accounts/logout'><img class='console_img' src='/img/quit.png'/><span>退出<span></a></li>
 		          </ul>";
 	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='口立方' accesskey='h' href='/'><img src='/img/koulifangbeta.png' alt='口立方' /></a></span>
-	  <span id='top_menu_a'><a class='edit_story_btn' href='/create'>开始创建</a></span>".$content."</div></div>";
+	  <span id='top_menu_a'><a class='edit_story_btn' href='/create'>开始报道</a></span>".$content."</div></div>";
     }
 	else
 	{
 	  getPublicToken();
-	  $content = "<span id='top_menu_b'><a class='register_top' href='/accounts/register'>注册</a><a class='login_top' href='/accounts/login?next=".urlencode($_SERVER['REQUEST_URI'])."'>登录</a><a class='edit_story_btn' href='/create'>开始创建</a></span>";
+	  $content = "<span id='top_menu_b'><a class='register_top' href='/accounts/register'>注册</a><a class='login_top' href='/accounts/login?next=".urlencode($_SERVER['REQUEST_URI'])."'>登录</a><a class='edit_story_btn' href='/create'>开始报道</a></span>";
 	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='口立方' accesskey='h' href='/'><img src='/img/koulifangbeta.png' alt='口立方' /></a></span>".$content."</div></div>";
 	}
    ?>
