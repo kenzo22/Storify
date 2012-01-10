@@ -99,8 +99,8 @@ else
             continue;
 		}
 		if (isset($single_weibo['id']) && isset($single_weibo['text'])){
-            $single_weibo['text'] = subs_emotions($single_weibo['text'],"weibo");
             $single_weibo['text'] = subs_url($single_weibo['text'],'weibo');
+            $single_weibo['text'] = subs_emotions($single_weibo['text'],"weibo");
 			
 			$meta['text'] = $single_weibo['text'];
 
@@ -108,9 +108,8 @@ else
 			
 			$meta['time'] = $createTime;
     		if (isset($single_weibo['retweeted_status'])){
-                $single_weibo['retweeted_status']['text']=subs_emotions($single_weibo['retweeted_status']['text'],"weibo");
-
                 $single_weibo['retweeted_status']['text']=subs_url($single_weibo['retweeted_status']['text']);
+                $single_weibo['retweeted_status']['text']=subs_emotions($single_weibo['retweeted_status']['text'],"weibo");
 				
 				$meta['text'] .= "//@".$single_weibo['retweeted_status']['user']['name'].":".$single_weibo['retweeted_status']['text'];
 				

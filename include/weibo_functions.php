@@ -16,7 +16,7 @@ function subs_url($string)
 
 function subs_emotions($string,$img_parent_dir)
 {
-    $rooturl='http://www.koulifang.com';
+    $rooturl="http://www.koulifang.com";
     $OS=php_uname('s');
     $cwd = getcwd();
     if(strstr($OS,'Windows'))
