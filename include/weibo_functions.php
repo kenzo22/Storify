@@ -62,7 +62,7 @@ function subs_emotions($string,$img_parent_dir)
 						$fn = iconv('GBK','UTF-8',$fn);
 						$story_file =  $story_img_path."weibo/".$fn.".gif";
 					}
-                    $img_replace="<img src='".$story_file."'>";
+                    $img_replace="<img src='".$rooturl.$story_file."'>";
                     $string=str_replace($element[0],$img_replace,$string);
                 }
             }
