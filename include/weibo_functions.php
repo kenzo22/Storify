@@ -22,7 +22,7 @@ function subs_emotions($string,$img_parent_dir)
     if(strstr($OS,'Windows'))
 	$cwd = str_replace("\\",'/',$cwd);
     preg_match("/(.*?\/storify)/",$cwd,$abs_path_matches);
-    $story_img_path=$rooturl."/img/";
+    $story_img_path="/img/";
 
     // show emotions in text
     if($img_parent_dir == "weibo"){
@@ -46,7 +46,7 @@ function subs_emotions($string,$img_parent_dir)
 						    $fn = iconv('GBK','UTF-8',$fn);
 						    $story_file =  $story_img_path."tweibo/".$fn.".gif";
 					    }	
-                        $img_replace = "<img src='".$story_file."'>";
+                        $img_replace = "<img src='".$rooturl.$story_file."'>";
                         $string= str_replace(substr($element[0],0,$i+1),$img_replace,$string);
                         break;
                     }
