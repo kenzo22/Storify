@@ -16,12 +16,13 @@ function subs_url($string)
 
 function subs_emotions($string,$img_parent_dir)
 {
+    $rooturl='http://www.koulifang.com';
     $OS=php_uname('s');
     $cwd = getcwd();
     if(strstr($OS,'Windows'))
 	$cwd = str_replace("\\",'/',$cwd);
     preg_match("/(.*?\/storify)/",$cwd,$abs_path_matches);
-    $story_img_path="/img/";
+    $story_img_path=$rooturl."/img/";
 
     // show emotions in text
     if($img_parent_dir == "weibo"){

@@ -50,12 +50,12 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	$result = $DB->fetch_one_array("select * from ".$db_prefix."posts where ID='".$post_id."'");
 	if(!$result)
 	{
-	  go("/","您要查看的故事不存在",2);
+	  go("/","您要查看的文章不存在",2);
       exit;
 	}
 	if(!$self_flag && $result['post_status'] != 'Published')
 	{
-	  go("/","您要查看的故事不存在",2);
+	  go("/","您要查看的文章不存在",2);
       exit;
 	}
 	
@@ -354,7 +354,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 						 <div id='draft_action'>  
 						   <a class='edit png_fix medium green awesome' href='/user/".$user_id."/".$post_id."/edit' title='继续编辑'>继续编辑 &raquo;</a>
 						   <a id='delete_".$user_id."_".$post_id."' class='delete redirect png_fix medium yellow awesome' title='删除草稿'>删除草稿 &raquo;</a>
-						   <a class='publish medium blue awesome' href='/user/".$user_id."/".$post_id."/publish' title='发布故事'>发布报道 &raquo;</a>
+						   <a class='publish medium blue awesome' href='/user/".$user_id."/".$post_id."/publish' title='发布报道'>发布报道 &raquo;</a>
 					     </div>
 						 <div id='publish_container'>
 			               <div id='story_action'>
@@ -403,7 +403,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 							<a class='jiathis_counter_style'></a>
 						</div>
 						<div id='story_embed'>
-						  <a href='#' id='embed_a'>嵌入故事<span class='arrow_down'></span><span class='arrow_up'></span></a>
+						  <a href='#' id='embed_a'>嵌入报道<span class='arrow_down'></span><span class='arrow_up'></span></a>
 					    </div>
 					  </div>
 					  <div id='embed_bar'>
@@ -998,7 +998,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	if($DB->num_rows($more_result) > 0)
 	{
 	    $content .="<div class='more_story'>
-					  <div class='user_info_title'>".$story_author_name."的更多故事</div>
+					  <div class='user_info_title'>".$story_author_name."的更多报道</div>
 					  <ul id='more_story_list' class='sto_cover_list'>";
 		while ($story_item = mysql_fetch_array($more_result))
 		{
@@ -1119,7 +1119,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 						  <div class='account_count'>
 							<span>粉丝:</span><span class='fans_count'>".sizeof($follower_list)."</span>
 							<span>关注:</span><span class='follow_count'>".sizeof($following_list)."</span>
-							<span>故事:".$total_pages."</span>
+							<span>报道:".$total_pages."</span>
 						  </div>";
 					  
   if($follow_flag)
