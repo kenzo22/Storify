@@ -16,6 +16,7 @@ function subs_url($string)
 
 function subs_emotions($string,$img_parent_dir)
 {
+    $rooturl='http://www.koulifang.com';
     $OS=php_uname('s');
     $cwd = getcwd();
     if(strstr($OS,'Windows'))
@@ -45,7 +46,7 @@ function subs_emotions($string,$img_parent_dir)
 						    $fn = iconv('GBK','UTF-8',$fn);
 						    $story_file =  $story_img_path."tweibo/".$fn.".gif";
 					    }	
-                        $img_replace = "<img src='".$story_file."'>";
+                        $img_replace = "<img src='".$rooturl.$story_file."'>";
                         $string= str_replace(substr($element[0],0,$i+1),$img_replace,$string);
                         break;
                     }
