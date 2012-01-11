@@ -1,12 +1,23 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT']."/connect_db.php";
-include $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php';
+require $_SERVER['DOCUMENT_ROOT']."/connect_db.php";
+require $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php';
+require $_SERVER['DOCUMENT_ROOT'].'/include/functions.php';
+
 session_start();
+$weibo_uid = $_POST['weibo_uid'];
+if(!is_numeric($weibo_uid)){
+    go("/accounts/associate_form","微博id不是数字！",5);
+}
+$weibo_photo = $_POST['weibo_photo'];
+if(strpos($weibo_photo,' ') !== false | !preg_match('#http://#',$weibo_photo)){
+    go("/accounts/associate_form","微博头像url出错",5);
+}
 if(isset($_POST['email']))
 {
-  $weibo_uid = $_POST['weibo_uid'];
-  $weibo_photo = $_POST['weibo_photo'];
   $email = $_POST['email'];
+   if(!is_email($email)){
+        go("/accounts/associate_form","Email格式不正确，绕过前端验证",5);
+    }
   $pwd = sha1(trim($_POST["pwd"]));
   $photo_result = $DB->fetch_one_array("select photo from ".$db_prefix."user WHERE email='".$email."'");
   if(!empty($photo_result['photo']))
@@ -23,10 +34,14 @@ if(isset($_POST['email']))
 }
 else
 {
-  $weibo_uid = $_POST['weibo_uid'];
-  $weibo_photo = $_POST['weibo_photo'];
   $email = $_POST['user_email'];
+   if(!is_email($email)){
+        go("/accounts/associate_form","Email格式不正确，绕过前端验证",5);
+    }
   $user_name = $_POST['user_name'];
+    if(strpos($user_name,' ') !== false){
+        go("/accounts/associate_form","用户名带空格？",5);
+    }
   $pwd = sha1(trim($_POST["user_pwd"]));
   $pwd_confirm = $_POST['user_pwd_confirm'];
   

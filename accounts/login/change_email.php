@@ -2,7 +2,8 @@
 $html_title = "更改登录邮箱 - 口立方";
 require $_SERVER['DOCUMENT_ROOT']."/global.php";
 require $_SERVER['DOCUMENT_ROOT']."/include/header.php";
-include $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php';
+require $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php';
+require $_SERVER['DOCUMENT_ROOT']."/include/functions.php";
 
 if(!islogin())
 {
@@ -54,8 +55,14 @@ else
 {
   $uid=intval($_SESSION['uid']);
   $login_email=$_POST['login_email'];
+    if(!is_email($login_email)){
+        go("/accounts/change_email","Email格式不正确，绕过前端验证",5);
+    }
   $login_pwd=sha1(trim($_POST["login_pwd"]));
   $new_login_email=$_POST['new_login_email'];
+    if(!is_email($new_login_email)){
+        go("/accounts/change_email","Email格式不正确，绕过前端验证",5);
+    }
   
   $result=$DB->fetch_one_array("SELECT * FROM ".$db_prefix."user WHERE email='".$login_email."' AND passwd='".$login_pwd."'" );
   if(!empty($result))

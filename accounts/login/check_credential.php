@@ -1,6 +1,10 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT']."/connect_db.php"; 
+require_once $_SERVER['DOCUMENT_ROOT']."/include/functions.php"; 
 $email=$_POST['email'];
+if(!is_email($email)){
+    go("/","Email格式不正确，绕过前端验证"，5);
+}
 $pwd=sha1(trim($_POST["pwd"]));
 try
 {
