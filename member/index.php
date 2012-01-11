@@ -655,7 +655,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 		
 	  case "comment":{
 	  $comment_text = $val['content'];
-	  $content .="<li class='textElement editted'><div class='cross'></div><div class='handle'></div><div class='commentBox'>"
+	  $content .="<li class='textElement editted'><div class='action_w'><div class='editComment'></div><div class='cross' action='delete'></div></div><div class='clear'></div><div class='handle'></div><div class='commentBox'>"
 	  .$comment_text."</div></li><li class='addTextElementAnchor'><span><a class='add_comment'></a></span></li>";		
 		break;}	
 		

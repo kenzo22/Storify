@@ -386,6 +386,22 @@ $(function() {
 		  remove_item(e);
 		})
 		
+		
+		$('.editComment').live('click', function(e){
+		  e.preventDefault();
+		  var t_elem = $(this).closest('.textElement'),
+		      commment_val = t_elem.find('.commentBox').html();
+		  var edit_control = $("<div class='editingDiv'><form class='formTextElement'><textarea class='inputEditor' name='inputEditor'>+</textarea></form><div class='belowTextEdit'><div class='actions'><button class='submit submitComment' type='submit'>确定</button><button class='cancel cancelEditor' type='reset'>取消</button></div></div></div>");
+		  t_elem.children().remove();
+		  t_elem.removeClass('editted').addClass('editing').append(edit_control);
+		  var i_editor = t_elem.find('.inputEditor');
+		  i_editor.val(commment_val).cleditor({
+			width:476,
+			height:150,
+			controls:"bold italic underline strikethrough | font size removeformat | bullets numbering | alignleft center alignright | undo redo | link unlink"
+		  });
+		})
+		
 		show_weibo_card('story_list');
 		  
 		$('#keywords').val('关键字').addClass('imply_color');
@@ -1307,14 +1323,22 @@ $(function() {
 		}
 		});	
 		
-		$('#story_list li').live('mouseover', function(e)
+		$('#story_list > li').live('mouseover', function(e)
 		{
 		  $(this).find('.cross').css('visibility', 'visible');
+		  if($(this).hasClass('textElement'))
+		  {
+		    $(this).find('.editComment').css('visibility', 'visible');
+		  }
 		});
 		
-		$('#story_list li').live('mouseout', function(e)
+		$('#story_list > li').live('mouseout', function(e)
 		{
 		  $(this).find('.cross').css('visibility', 'hidden');
+		  if($(this).hasClass('textElement'))
+		  {
+		    $(this).find('.editComment').css('visibility', 'hidden');
+		  }
 		});
 		
 		$('#actions').click(function(e)
@@ -1788,7 +1812,7 @@ $(function() {
 			else
 			{
 			  $(e.target).closest('.editingDiv').remove();
-			  var $commentDiv = $("<div class='cross' action='delete'></div><div class='handle'></div><div class='commentBox'>"+comment+"</div>");
+			  var $commentDiv = $("<div class='action_w'><div class='editComment'></div><div class='cross' action='delete'></div></div><div class='clear'></div><div class='handle'></div><div class='commentBox'>"+comment+"</div>");
 			  $textElement.removeClass('editing').addClass('editted').append($commentDiv);
 			}
 		  }
