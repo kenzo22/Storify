@@ -1,4 +1,13 @@
 <?php
+function is_email($email){
+    $pattern='/.+?@\w+\.\w+/';
+    if(!preg_match($pattern,$email)){
+        return false;
+    }else{
+        return true;
+    }
+}
+
 function binhex($str) 
 {
     $hex = "";

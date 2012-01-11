@@ -8,7 +8,7 @@ if(this.value=='')
 }
 else
 {
-  if(!/.+@.+\.[a-zA-Z]{2,4}$/.test(this.value))
+  if(!/.+?@.+?\.[a-zA-Z]{2,4}$/.test(this.value))
   {
     $('#email_tip').text('Email格式不正确').css('color', 'red');
   }
@@ -21,9 +21,12 @@ else
     {
 	  $('#email_tip').text('该邮箱已被注册').css('color', 'red').show();
     }
-    else
+    else if($data == '0')
     {
 	  $('#email_tip').text('该邮箱可以使用').css('color', '#666699').show();
+    }
+    else{
+        $('#email_tip').text($data).css('color', 'red').show();
     }
     return false;
     })

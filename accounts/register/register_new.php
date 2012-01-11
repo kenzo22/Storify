@@ -1,21 +1,27 @@
 <?php
-  $html_title = "用户注册 - 口立方";
-  require $_SERVER['DOCUMENT_ROOT']."/global.php";
-  require $_SERVER['DOCUMENT_ROOT']."/include/header.php";
-  include $_SERVER['DOCUMENT_ROOT']."/include/mail_functions.php";
+$html_title = "用户注册 - 口立方";
+require $_SERVER['DOCUMENT_ROOT']."/global.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/include/header.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/include/mail_functions.php";
+require_once $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php';
 
-  $email=$_POST['email'];
-  $username=$_POST['username'];
-  $passwd=$_POST['passwd'];
-  //$invite_code=$_POST['invite_code'];
-  $reset_code_l = 8;
-  $reset_code=produce_random_strdig($reset_code_l);
-  $current_time = time();
+$email=$_POST['email'];
+$username=$_POST['username'];
+$passwd=$_POST['passwd'];
+//$invite_code=$_POST['invite_code'];
+$reset_code_l = 8;
+$reset_code=produce_random_strdig($reset_code_l);
+$current_time = time();
 
-  try   {
+if(!is_email($email)){
+    go("/accounts/register","Email格式不正确，并且绕过前端验证。",5);
+}
+
+try   
+{
 	if (!filled_out($_POST)) 
 	{
-	  throw new Exception('You have not filled the form out correctly - please go back and try again.');
+	    throw new Exception('You have not filled the form out correctly - please go back and try again.');
 	}
 
         /*$query="select * from ".$db_prefix."icode where ic_code='".$invite_code."'";
@@ -27,13 +33,13 @@
                 throw new Exception("无效的邀请码.");
         }*/
 	
-	  $url = 'http://'.$_SERVER['SERVER_NAME'].'/accounts/activation';
-	  $url .= '?confirmation='.$reset_code.$current_time;
+	    $url = 'http://'.$_SERVER['SERVER_NAME'].'/accounts/activation';
+	    $url .= '?confirmation='.$reset_code.$current_time;
 
 	 
 	  
-	  $subject="口立方注册用户激活邮件";
-	  $message='<p>欢迎您在口立方注册用户，请点击以下链接以激活您的帐户:<br/><br/>
+	    $subject="口立方注册用户激活邮件";
+	    $message='<p>欢迎您在口立方注册用户，请点击以下链接以激活您的帐户:<br/><br/>
 
 	(pleae click on the following link to activate your account:)<br/><br/>
 
@@ -89,7 +95,6 @@
      echo $e->getMessage();
      exit;
   }
-  
 include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm";
 ?>
 <script type='text/javascript' src='/js/register.js'></script>
