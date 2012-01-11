@@ -153,6 +153,10 @@ $('#email_reg, #pwd_reg, #pwd_confirm, #name_reg, #agree_term').bind('keyup', fu
 $('#a_resend').click(function(e)
 {
   e.preventDefault();
+  var $th = $(this);
+  if($th.data('executing'))
+    return;
+  $th.data('executing', true);
   $('.a_notify').remove();
   var ori_info = $('#imply_info').val(),
       info = decodeURIComponent(ori_info),
@@ -164,6 +168,7 @@ $('#a_resend').click(function(e)
 	  if(data == 1)
 	  {
 		$('#a_flag').after('<div class=\"a_notify\">邮件已重新发送，请查收！</div>');
+		$th.removeData('executing');
 	  }
 	});
 });
