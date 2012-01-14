@@ -2,6 +2,11 @@
 $html_title = "上传照片 - 口立方";
 require $_SERVER['DOCUMENT_ROOT']."/global.php";
 require $_SERVER['DOCUMENT_ROOT']."/include/header.php";
+
+if(!islogin()){
+    header("location:/");
+}
+
 $uid=intval($_SESSION['uid']);
 $result=$DB->fetch_one_array("select username,photo from story_user where id=".$uid);
 $u_name = $result['username'];

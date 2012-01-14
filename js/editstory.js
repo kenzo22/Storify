@@ -1414,6 +1414,7 @@ $(function() {
 				$.post(posturl, postdata,
 				function(data, textStatus)
 				{					
+                    debugger;
 				  self.location = data;
 				});
 			  }

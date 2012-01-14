@@ -16,7 +16,7 @@ if($operation == 'add')
   $_SESSION['wkeys'] = $wkeys;
   echo $aurl;
 }
-else
+elseif($operation == 'delete')
 {
     $photoresult=$DB->fetch_one_array("SELECT photo FROM story_user WHERE id=".$_SESSION['uid']);
     if(strstr($photoresult['photo'],'sinaimg'))

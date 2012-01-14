@@ -6,7 +6,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php';
 
 if(isset($_GET['topic_id']))
 {
-  $topic_id = $_GET['topic_id'];
+  $topic_id = intval($_GET['topic_id']);
 }
 
 $date_t = date("Y-m-d H:i:s");

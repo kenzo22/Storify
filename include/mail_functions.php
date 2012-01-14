@@ -1,6 +1,6 @@
 <?php
   require_once $_SERVER['DOCUMENT_ROOT']."/connect_db.php";
-  require_once('class.phpmailer.php');
+  require_once $_SERVER['DOCUMENT_ROOT'].'/class/class.phpmailer.php';
   
   function check_email($field,$email,$table){
 	try 

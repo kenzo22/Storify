@@ -1,6 +1,6 @@
 <?php
 require_once '../include/user_auth_fns.php';
-include '../include/secureGlobals.php';
+require '../include/secureGlobals.php';
 session_start();
 
 if(!islogin())
@@ -8,8 +8,8 @@ if(!islogin())
   exit;
 }
 
-$user_id=$_POST['uid'];
-$comment_id=$_POST['cid'];
+$user_id=intval($_POST['uid']);
+$comment_id=intval($_POST['cid']);
 
 $query = "SELECT COUNT(*) as num FROM ".$db_prefix."comments where comment_id='".$comment_id."' and user_id=".$user_id;
 $count = mysql_fetch_array(mysql_query($query));

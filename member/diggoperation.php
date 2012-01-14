@@ -1,10 +1,9 @@
 <?php
-require_once "../connect_db.php";
-include '../include/secureGlobals.php';
-include '../include/user_auth_fns.php';
+require $_SERVER['DOCUMENT_ROOT'].'/include/user_auth_fns.php';
+require $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php';
 session_start();
 
-$post_id=$_GET['post_id'];
+$post_id=intval($_GET['post_id']);
 $cookie_sid="";
 
 if(!empty($_COOKIE['votesid']))
@@ -13,7 +12,6 @@ if(!empty($_COOKIE['votesid']))
   if(in_array($post_id,$cookie_sid))
   {
 	echo 0;
-	//exit();
   }
   else
   {

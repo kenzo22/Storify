@@ -2,12 +2,12 @@
 require_once $_SERVER['DOCUMENT_ROOT']."/include/functions.php";
 require_once $_SERVER['DOCUMENT_ROOT']."/include/user_auth_fns.php";
 require $_SERVER['DOCUMENT_ROOT'].'/include/secureCommon.php';
-include $_SERVER['DOCUMENT_ROOT'].'/include/lib_filter.php';
+include $_SERVER['DOCUMENT_ROOT'].'/class/class.lib_filter.php';
 session_start();
 
 if(!islogin())
 {
-  exit;
+  exit(1);
 }
 
 $action=secureQ($_POST['action']);
@@ -34,6 +34,9 @@ if($action == 'Publish')
     $post_status = 'Published';
 else if($action == 'Preview' || $action == 'Draft')
     $post_status = 'Draft';
+else{
+    exit(2);
+}
 
 mb_regex_encoding("utf-8");
 
