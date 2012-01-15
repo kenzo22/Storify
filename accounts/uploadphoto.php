@@ -5,6 +5,7 @@ require $_SERVER['DOCUMENT_ROOT']."/include/header.php";
 
 if(!islogin()){
     header("location:/");
+    exit;
 }
 
 $uid=intval($_SESSION['uid']);

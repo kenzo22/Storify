@@ -17,6 +17,10 @@ if(!is_email($email)){
     go("/accounts/register","Email格式不正确，并且绕过前端验证。",5);
 }
 
+if(strpos($username,' ') !== false){
+    go("/accounts/register", '用户名不能包括括号'，5);
+}
+
 try   
 {
 	if (!filled_out($_POST)) 

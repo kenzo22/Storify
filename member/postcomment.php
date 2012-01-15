@@ -39,7 +39,7 @@ $content ="<li id='comment_".$user_id."_".$comment_id."' style='display:none;'>
 			  <div class='comment_wrapper'>
 			    <div class='comment_author'><a href='/user/".$user_id."' target='_blank'>".$comment_author_name."</a></div>
 				<div>".$comment_content."</div>
-				div class='comment_action'><span class='float_r'><a href='#' class='reply_comment'>回复</a> | <a href='#' class='del_comment'>删除</a></span><span>一分钟前</span></div>
+				<div class='comment_action'><span class='float_r'><a href='#' class='reply_comment'>回复</a> | <a href='#' class='del_comment'>删除</a></span><span>一分钟前</span></div>
 			  </div>
 			</li>";
 echo $content;
