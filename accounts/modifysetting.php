@@ -7,9 +7,13 @@ $uid=intval($_SESSION['uid']);
 
 if(!islogin()){
     header("location:/");
+    exit;
 }
 
 $user_name = $_POST['username'];
+if(strpos($user_name,' ') !==false){
+    exit("用户名不能带空格");
+}
 $intro = $_POST['userintro'];
 $DB->query("update ".$db_prefix."user set username='".$user_name."', intro='".$intro."' where id=".$uid);
 $userresult = $DB->fetch_one_array("SELECT email FROM ".$db_prefix."user where id='".$uid."'");

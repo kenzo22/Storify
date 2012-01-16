@@ -10,6 +10,7 @@ include_once( $_SERVER['DOCUMENT_ROOT'].'/tweibo/txwboauth.php' );
 include_once( $_SERVER['DOCUMENT_ROOT'].'/douban/config.php' );
 include_once( $_SERVER['DOCUMENT_ROOT'].'/douban/doubanapi.php' );
 include $_SERVER['DOCUMENT_ROOT']."/member/userrelation.php";
+require $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php';
 ?>
 
 <!--[if IE]>     
@@ -28,7 +29,7 @@ include $_SERVER['DOCUMENT_ROOT']."/member/userrelation.php";
 <?php
 $date_t = date("Y-m-d H:i:s");
 $login_status = islogin();
-$user_id = $_GET['user_id'];
+$user_id = intval($_GET['user_id']);
 $self_flag = false;
 $follow_flag = false;
 if($login_status && $user_id == $_SESSION['uid'])
@@ -42,7 +43,7 @@ else if($login_status && $user_id != $_SESSION['uid'])
 
 if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action']))
 {
-	$post_id = $_GET['post_id'];
+	$post_id = intval($_GET['post_id']);
 	
 	$c = new WeiboClient(WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']);
 	$t = new TWeiboClient(MB_AKEY , MB_SKEY , $_SESSION['last_tkey']['oauth_token'] , $_SESSION['last_tkey']['oauth_token_secret']);
@@ -1045,7 +1046,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 
 else if(isset($_GET['user_id']) && isset($_GET['post_id']) && isset($_GET['action']))
 {
-	$story_id = $_GET['post_id'];
+	$story_id = intval($_GET['post_id']);
 	$story_action = $_GET['action'];
 	if(0 == strcmp($story_action, 'edit'))
 	{
@@ -1159,7 +1160,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
   {	
 	$targetpage = "/user/".$user_id; 
 	$limit = 12; 								//how many items to show per page
-	$page = $_GET['page'];
+	$page = intval($_GET['page']);
 	if($page) 
 		$start = ($page - 1) * $limit; 			//first item to display on this page
 	else

@@ -1,22 +1,23 @@
 <?php
-include "../connect_db.php";
-include "../include/functions.php";
-include_once "../include/weibo_functions.php";
+require "../connect_db.php";
+require "../include/functions.php";
+require_once "../include/weibo_functions.php";
+
 session_start();
-include_once( '../weibo/config.php' );
-include_once( '../weibo/sinaweibo.php' );
-include_once( '../tweibo/config.php' );
-include_once( '../tweibo/txwboauth.php' );
-include_once( '../douban/config.php' );
-include_once( '../douban/doubanapi.php' );
-include '../include/secureGlobals.php';
+require_once( '../weibo/config.php' );
+require_once( '../weibo/sinaweibo.php' );
+require_once( '../tweibo/config.php' );
+require_once( '../tweibo/txwboauth.php' );
+require_once( '../douban/config.php' );
+require_once( '../douban/doubanapi.php' );
+require '../include/secureGlobals.php';
 
 $date_t = date("Y-m-d H:i:s");
 
 $c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']  );
 $t = new TWeiboClient( MB_AKEY , MB_SKEY , $_SESSION['last_tkey']['oauth_token'] , $_SESSION['last_tkey']['oauth_token_secret']  );
 $d = new DoubanClient( DB_AKEY , DB_SKEY , $_SESSION['last_dkey']['oauth_token'] , $_SESSION['last_dkey']['oauth_token_secret']  );
-$post_id = $_POST['post_id'];
+$post_id = intval($_POST['post_id'];
 $first_item = intval($_POST['first_item']);
 $result = $DB->fetch_one_array("select * from ".$db_prefix."posts where ID='".$post_id."'");
 if(!$result)

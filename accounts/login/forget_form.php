@@ -2,8 +2,8 @@
 $html_title = "重设密码 - 口立方";
 require $_SERVER['DOCUMENT_ROOT']."/global.php";
 require $_SERVER['DOCUMENT_ROOT']."/include/header.php";
-include $_SERVER['DOCUMENT_ROOT']."/include/mail_functions.php";
-include $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php';
+require $_SERVER['DOCUMENT_ROOT']."/include/mail_functions.php";
+require $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php';
 
 if($_GET['act']!="forget_pwd")
 {
@@ -32,6 +32,9 @@ if($_GET['act']!="forget_pwd")
 else
 {
   $email=$_GET['email'];
+    if(!is_email($email)){
+        go("/accounts/login/forget_password","Email格式不正确，绕过前端验证",5);
+    }
   $result=$DB->fetch_one_array("SELECT * FROM ".$db_prefix."user WHERE email='".$email."'");
   if(!empty($result))
   {
@@ -89,7 +92,7 @@ else
   }
   else
   {
-    echo "您没有注册。";
+    echo "<br />您还没有注册。";
   }
 }
 

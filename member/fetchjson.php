@@ -1,20 +1,21 @@
 <?php
-require_once "../connect_db.php";
-require_once "../include/functions.php";
-require_once '../include/user_auth_fns.php';
-include_once "../include/weibo_functions.php";
-include_once( '../weibo/config.php' );
-include_once( '../weibo/sinaweibo.php' );
-include_once( '../tweibo/config.php' );
-include_once( '../tweibo/txwboauth.php' );
-include_once( '../douban/config.php' );
-include_once( '../douban/doubanapi.php' );
+require $_SERVER['DOCUMENT_ROOT'].'/include/user_auth_fns.php';
+require $_SERVER['DOCUMENT_ROOT'].'/include/functions.php';
+require $_SERVER['DOCUMENT_ROOT'].'/include/weibo_functions.php';
+require $_SERVER['DOCUMENT_ROOT'].'/weibo/config.php';
+require $_SERVER['DOCUMENT_ROOT'].'/weibo/sinaweibo.php';
+require $_SERVER['DOCUMENT_ROOT'].'/tweibo/config.php';
+require $_SERVER['DOCUMENT_ROOT'].'/tweibo/txwboauth.php';
+require $_SERVER['DOCUMENT_ROOT'].'/douban/config.php';
+require $_SERVER['DOCUMENT_ROOT'].'/douban/doubanapi.php';
+require $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals';
+
 
 header("content-type: text/javascript");
 
 if(!isset($_GET['id']) || !isset($_GET['name']) || !isset($_GET['callback']))
 {
-  exit();	
+  exit();
 }
 else
 {
@@ -38,7 +39,7 @@ else
   $t = new TWeiboClient(MB_AKEY , MB_SKEY , $t_token , $t_token_secret);
   $d = new DoubanClient(DB_AKEY , DB_SKEY, '', '');
   
-  $user_id = $_GET['id'];
+  $user_id = intval($_GET['id']);
   $embed_name = $_GET['name'];
   $result = $DB->fetch_one_array("select * from ".$db_prefix."posts where post_author='".$user_id."' and embed_name='".$embed_name."' and post_status='Published'");
   if(!empty($result))
@@ -154,7 +155,7 @@ else
 		$meta = array();
 		$meta['type'] = 'upload_img';
 		$meta['img_src'] = $val['content'];
-        $content_array[] = $meta;		
+        $content_array[] = $meta;
 		break;}
 		 
 		case "douban":{

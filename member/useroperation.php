@@ -5,7 +5,7 @@ include $_SERVER['DOCUMENT_ROOT']."/member/userrelation.php";
 include $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php';
  
 $operation=$_POST['operation'];
-$follow_uid = $_POST['uid'];
+$follow_uid = intval($_POST['uid']);
 
 $query="select id, username, photo from ".$db_prefix."user where id=".$_SESSION['uid'];
 $result=$DB->query($query);

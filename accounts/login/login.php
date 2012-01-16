@@ -33,6 +33,11 @@ $passwd=sha1(trim($_POST["passwd"]));
 $autologin=$_POST["autologin"];
 $redirect_info = $_POST["redirect_info"];
 
+if(!is_email($email)){
+    go("/accounts/login","Email格式不正确，绕过前端验证",5);
+    exit;
+}
+
 if($email && $passwd)
 {
   $result=$DB->fetch_one_array("SELECT * FROM ".$db_prefix."user WHERE email='".$email."' AND passwd='".$passwd."'" );

@@ -1,11 +1,10 @@
 <?php
 $html_title = "用户设置 - 口立方";
 require $_SERVER['DOCUMENT_ROOT']."/global.php";
-require  $_SERVER['DOCUMENT_ROOT']."/include/header.php";
+require $_SERVER['DOCUMENT_ROOT']."/include/header.php";
 if(!islogin())
 {
   header("location: /accounts/login"); 
-  exit;
 }
 $uid=intval($_SESSION['uid']);
 

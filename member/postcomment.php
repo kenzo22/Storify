@@ -1,11 +1,10 @@
 <?php
-require_once "../connect_db.php";
-include '../include/secureGlobals.php';
-include '../include/user_auth_fns.php';
+require '../include/user_auth_fns.php';
+require '../include/secureGlobals.php';
 session_start();
 
-$user_id=$_POST['user_id'];
-$post_id=$_POST['post_id'];
+$user_id=intval($_POST['user_id']);
+$post_id=intval($_POST['post_id']);
 $comment_content=$_POST['comment_content'];
 $comment_time=date("Y-m-d H:i:s");
 

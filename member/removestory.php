@@ -7,8 +7,8 @@ if(!islogin())
 {
   exit;
 }
-$user_id=$_POST['uid']; 
-$post_id=$_POST['pid'];
+$user_id=intval($_POST['uid']); 
+$post_id=intval($_POST['pid']);
 
 $query = "SELECT COUNT(*) as num FROM ".$db_prefix."posts where ID='".$post_id."' and post_author=".$user_id;
 $count = mysql_fetch_array(mysql_query($query));

@@ -1,6 +1,6 @@
 <?php
-include "config/db_config.php";
-include "class/mysql.php";
+include $_SERVER['DOCUMENT_ROOT']."/config/db_config.php";
+include $_SERVER['DOCUMENT_ROOT']."/class/mysql.php";
 
 $DB=new DB_MySQL;
 $DB->servername=$db_host;
