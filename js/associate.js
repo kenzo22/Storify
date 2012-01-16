@@ -126,14 +126,19 @@ $('#user_name').bind('focus', function(){
 $('#user_name_tip').text('中、英文均可，最长14个英文或7个汉字').css('color', '#666699').show();
 }).bind('blur', function(){
 $('#user_name_tip').text('');
-if(this.value=='')
+var name_val = this.value;
+if(name_val=='')
 {
   $('#user_name_tip').text('名号不能为空').css('color', 'red');
 }
+else if(name_val.indexOf(" ") != -1)
+{
+  $('#user_name_tip').text('名号不能包含空格').css('color', 'red');
+}
 else
 {
-  var cArr = this.value.match(/[^\x00-\xff]/ig),   
-      name_length = this.value.length + (cArr == null ? 0 : cArr.length);
+  var cArr = name_val.match(/[^\x00-\xff]/ig),   
+      name_length = name_val.length + (cArr == null ? 0 : cArr.length);
   if(name_length > 14)
   {
     $('#user_name_tip').text('名号长度不能超过14个英文或7个汉字').css('color', 'red');
