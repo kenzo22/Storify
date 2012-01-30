@@ -168,9 +168,15 @@ $content .= "<div class='inner'>
 	        </div>
 			<div id='weibo_search'>
 		      <div>
-		        <div class='sep'>         
-			      <input id='keywords' name='keywords' type='text' value='' />
-			      <button id='weibo_search_btn'  value='search' type='button'>搜索话题</button>
+		        <div class='sep'>
+				  <input id='ori_check' type='checkbox' checked='checked' /><label>原创</label>
+				  <input id='rt_check' type='checkbox' checked='checked' /><label>转发</label>
+				  <input id='pic_check' type='checkbox' checked='checked' /><label>图片</label>
+			      <div>  
+					<input id='keywords' name='keywords' type='text' value='' />
+				    <input id='ukeywords' name='ukeywords' type='text' value='' />
+					<button id='weibo_search_btn'  value='search' type='button'>搜索话题</button>
+				  </div>	
                 </div>
 		      </div>
 		    </div>

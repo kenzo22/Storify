@@ -34,7 +34,10 @@ else if('my_fav' == $operation)
 else if('weibo_search' == $operation)
 {
   $keywords = $_GET['keywords'];
-  $tweibo  = $c->search_t($keywords, $page, $itemsPerPage, 'json', 2);
+  $is_original = $_GET['original'];
+  $is_retweet = $_GET['retweet'];
+  $havepic = $_GET['havepic'];
+  $tweibo  = $c->search_t($keywords, $page, $itemsPerPage, 'json');
   if($tweibo['data'] == NULL)
   {
     echo "<div class='imply_color center'>对不起，没有找到相关的微博</div>";

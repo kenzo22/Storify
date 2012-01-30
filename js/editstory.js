@@ -8,7 +8,7 @@ myHeight = window.innerHeight;
 //IE 6+ in 'standards compliant mode'
 myHeight = document.documentElement.clientHeight;
 }
-var l_used_height = 267, r_user_height = 326, height_adjust = 3, l_list_height = myHeight -l_used_height, r_list_height;
+var l_used_height = 272, r_user_height = 326, height_adjust = 3, l_list_height = myHeight -l_used_height, r_list_height;
 
 var browser_info = $.browser;
 
@@ -405,6 +405,7 @@ $(function() {
 		show_weibo_card('story_list');
 		  
 		$('#keywords').val('关键字').addClass('imply_color');
+		$('#ukeywords').val('微博用户名').addClass('imply_color');
 		
 		$('#keywords').blur(function(){
 		    if($(this).val() == '')
@@ -422,6 +423,18 @@ $(function() {
 		  }).focus(function(){
 		    var weibo_selected = $weiboTabs.tabs('option', 'selected');
 			if((weibo_selected == 0 && $(this).val() == '关键字') || (weibo_selected == 1 && $(this).val() == '微博用户名'))
+			{
+			  $(this).val('').removeClass('imply_color');
+			}
+		  });
+		  
+		  $('#ukeywords').blur(function(){
+		    if($(this).val() == '')
+		    {
+			  $(this).val('微博用户名').addClass('imply_color');
+		    }
+		  }).focus(function(){
+			if($(this).val() == '微博用户名')
 			{
 			  $(this).val('').removeClass('imply_color');
 			}
@@ -785,7 +798,7 @@ $(function() {
 		  {
 		    $('#weibo_search_btn').text('搜索微博');
 		  }
-		  $('#weibo_search').addClass('imply_color').removeClass('none');
+		  $('#weibo_search').removeClass('none');
 		});
 		
 		$('#user_tab').click(function()
@@ -798,7 +811,7 @@ $(function() {
 		  }
 		  $('#source_list').children().remove();
 		  $('#weibo_search_btn').text('搜索用户');
-		  $('#weibo_search').addClass('imply_color').removeClass('none');
+		  $('#weibo_search').removeClass('none');
 		});
 		
 		$('#weibo_search_btn').click(function(e){
@@ -812,6 +825,10 @@ $(function() {
               getData,
 			  keep_fav = true,
 			  words = $('#keywords').val(),
+			  uwords = $('#ukeywords').val(),
+			  ori_val = $('#ori_check').attr('checked'),
+			  rt_val = $('#rt_check').attr('checked'),
+			  pic_val = $('#pic_check').attr('checked'),
 			  type = $('#weibo_search_btn').text();
 		  if(type === '搜索用户')
 		  {
@@ -840,7 +857,7 @@ $(function() {
 		      keep_fav = tfav_flag;
 			  //need to revise according to Tencen API
 			  getUrl = tweibo_url;
-			  getData = {operation: 'weibo_search', keywords: words, page:tweibosearchPage};
+			  getData = {operation: 'weibo_search', keywords: words, ukeywords: uwords, original: ori_val, retweet: rt_val, havepic: pic_val, page:tweibosearchPage};
 		    }	
 		  }
 		  
