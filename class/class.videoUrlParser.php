@@ -13,24 +13,21 @@
  *
  * Usage
  * require_once "VideoUrlParser.class.php";
- * $urls[] = "http://v.youku.com/v_show/id_XMjI4MDM4NDc2.html";
- * $urls[] = "http://www.tudou.com/playlist/p/l13087099.html";
- * $urls[] = "http://www.tudou.com/programs/view/ufg-A3tlcxk/";
- * $urls[] = "http://v.ku6.com/special/show_4926690/Klze2mhMeSK6g05X.html";
- * $urls[] = "http://www.56.com/u68/v_NjI2NTkxMzc.html";
+ * youku
+ * $urls[] = "http://v.youku.com/v_playlist/f16819482o1p0.html";
+ * $urls[] = "http://v.youku.com/v_show/id_XMzM1NDkxNDMy.html";
+ * tudou
+ * $urls[] = "http://www.tudou.com/programs/view/Ux14Ia3EFyk/";
+ * $urls[] = "http://www.tudou.com/playlist/p/l14689911.html";
+ * ku6
+ * $urls[] = "http://v.ku6.com/show/1BcHjLqLxKrVmFOhZxcxdQ...html";
+ * $urls[] = "http://v.ku6.com/special/show_6565656/fJbjLU2xBCM92JCjtD-NEA...html"
+ * 56
+ * $urls[] = "http://www.56.com/u24/v_NjYxNDE4Njk.html"
+ * $urls[] = "http://www.56.com/w66/play_album-aid-9818891_vid-NjYxNDI4OTI.html";
+ *
  * $urls[] = "http://www.letv.com/ptv/vplay/1168109.html";
  * $urls[] = "http://video.sina.com.cn/v/b/46909166-1290055681.html";
- *
- * foreach($urls as $url){
- *     $info = VideoUrlParser::parse($url);
- *     //var_dump($info);
- *     echo "<a href='{$info['url']}' target='_new'>{$info['title']}</a>";
- *     echo "<br />";
- *     echo $info['object'];
- *     echo "<br />";
- * }
- *
- *
  *
  * //优酷
  * http://v.youku.com/v_show/id_XMjU0NjY4OTEy.html
@@ -45,8 +42,8 @@
  * <embed src="http://www.tudou.com/l/A_0urj-Geec/&iid=74905844/v.swf" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="opaque" width="480" height="400"></embed>
  * 
  * //56
- * http://www.56.com/u98/v_NTkyODY2NTU.html
- * <embed src="http://player.56.com/v_NTkyODY2NTU.swf"  type="application/x-shockwave-flash" width="480" height="405" allowNetworking="all" allowScriptAccess="always"></embed>
+ * http://www.56.com/u24/v_NjYxNDE4Njk.html
+ * <embed src='http://player.56.com/v_NjYxNDE4Njk.swf'  type='application/x-shockwave-flash' allowFullScreen='true' width='480' height='405' allowNetworking='all' allowScriptAccess='always'></embed>
  * 
  * //新浪播客
  * http://video.sina.com.cn/v/b/46909166-1290055681.html
@@ -95,7 +92,7 @@ class VideoUrlParser
         case 'letv.com':
             $data = self::_parseLetv($url);
             break;
-        case 'vedio.sina.com.cn':
+        case 'video.sina.com.cn':
             $data = self::_parseSina($url);
             break;
         case 'sohu.com':
@@ -110,6 +107,10 @@ class VideoUrlParser
         //if($data && $createObject) 
             //$data['object'] = "<embed src=\"{$data['swf']}\" quality=\"high\" width=\"480\" height=\"400\" align=\"middle\" allowNetworking=\"all\" allowScriptAccess=\"always\" type=\"application/x-shockwave-flash\"></embed>";
         return $data;
+    }
+
+    private function _embedSrc($swf){
+        return '<embed src="'.$swf.'" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" allowNetworking="all"  width="420" height="340"></embed>';
     }
 
     /**
@@ -227,7 +228,7 @@ class VideoUrlParser
             $data['img'] = $info[2];
             $data['url'] = $url;
             $data['swf'] = "http://www.tudou.com/l/{$icode}/&iid={$iid}/v.swf";
-            $data['embedcode']='<embed src="'.$data['swf'].'" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="opaque" width="420" height="340"></embed>';
+            $data['embedcode']=self::_embedSrc($data['swf']);
             preg_match('#shortDesc:"(.*?)"#',$str,$desc);
             if($desc)
                 $data['desc']=iconv('gbk','utf-8',$desc[1]);
@@ -242,7 +243,7 @@ class VideoUrlParser
             $data['title'] = iconv('GBK','UTF-8',$ele[1]);      
             if($ele[2]!='')
                 $data['desc'] = iconv('GBK','UTF-8',$ele[2]);
-            $data['embedcode']='<embed src="'.$data['swf'].'" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="opaque" width="420" height="340"></embed>';
+            $data['embedcode']=self::_embedSrc($data['swf']);
         }else{
             $data['errorcode']=1;
         }
@@ -274,7 +275,7 @@ class VideoUrlParser
      * http://player.ku6.com/refer/3X93vo4tIS7uotHg/v.swf
      */
     private function _parseKu6($url){
-        preg_match("#/([-\w]+)\.html#", $url, $matches);
+        preg_match("#/([-\w\.]+)\.html#", $url, $matches);
 
         if (empty($matches)) return false;
 
@@ -283,16 +284,22 @@ class VideoUrlParser
 
         if ($retval) {
             $json = json_decode($retval, true);
-
+            
+            $data['errorcode']=0;
             $data['img'] = $json['data']['picpath'];
             $data['title'] = $json['data']['t'];
             $data['url'] = $url;
             $data['swf'] = "http://player.ku6.com/refer/{$matches[1]}/v.swf";
-
-            return $data;
+            $data['embedcode']=self::_embedSrc($data['swf']);
+            $data['host']='ku6';
+            
+            $content=self::_cget($url);
+            if(preg_match("#infoBox.*?>[\d\D]+?<span>(.*?)</span>#",$content,$matches))
+                $data['desc']=iconv('GBK','UTF-8',$matches[1]);
         } else {
-            return false;
+            $data['errorcode']=1;
         }
+        return $data;
     }
 
     /**
@@ -301,7 +308,7 @@ class VideoUrlParser
      * http://player.56.com/v_NTkzMDcwNDY.swf
      */
     private function _parse56($url){
-        preg_match("#/v_(\w+)\.html#", $url, $matches);
+        preg_match("#(?:/v_|vid-)(\w+)\.html#", $url, $matches);
 
         if (empty($matches)) return false;
 
@@ -311,15 +318,23 @@ class VideoUrlParser
         if ($retval) {
             $json = json_decode($retval, true);
 
+            $data['errorcode']=0;
             $data['img'] = $json['info']['img'];
             $data['title'] = $json['info']['Subject'];
             $data['url'] = $url;
             $data['swf'] = "http://player.56.com/v_{$matches[1]}.swf";
-
-            return $data;
+            $data['embedcode'] = self::_embedSrc($data['swf']);
         } else {
-            return false;
+            $data['errorcode'] = 1;
         } 
+        $content=self::_cget($url);
+        if(preg_match("#videoinfo_raw\">([\d\D]*?)</span>#",$content,$matches)){
+            if($matches[1]){
+                $data['desc'] = "简介：".preg_replace("#<br \s*/?>#"," ",$matches[1]);
+            }
+        }
+        $data['host']="56";
+        return $data;
     }
 
     /**
@@ -355,6 +370,28 @@ class VideoUrlParser
      */
     private function _parseSina($url){
         break;
+        $content=self::_cget($url);
+        $data['host']='video.sina.com.cn';
+        if(preg_match("#SCOPE\s*=\s*(\{[\d\D]+?)</script>#",$content,$matches)){
+            if(preg_match("#title:\'(.*?)\'#",$matches[1],$title)){
+                $data['title']=$title[1];
+            }
+            if(preg_match("#pic:\'(.*?)\'#",$matches[1],$pic)){
+                $data['pic']=$pic[1];
+            }
+            $data['url']=$url;
+            if(preg_match("#swfOutsideUrl:\'(.*?)\'#",$matches[1],$swfurl)){
+                $data['swf']=$swfurl[1];
+            }
+            $data['embedcode']='<div><object id="ssss" width="420" height="340" ><param name="allowScriptAccess" value="always" /><embed pluginspage="http://www.macromedia.com/go/getflashplayer" src="'.$data['swf'].'" type="application/x-shockwave-flash" name="ssss" allowFullScreen="true" allowScriptAccess="always" width="480" height="370"></embed></object></div>';
+            if(preg_match("#class=\"videoContent\">\s*?<p>(.*?)</p>#",$content,$matches)){
+                $data['desc']=$matches[1];
+            }
+            $data['error_code']=0;
+        }else{
+            $data['error_code']=1;
+        }
+        return $data;
     }
 
     /*
