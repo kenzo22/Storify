@@ -1191,6 +1191,7 @@ $(function() {
 		      getUrl = '/member/embedVideo.php',
 			  patt = new RegExp("youku\.com/|tudou\.com|56\.com|ku6\.com|video\.sina\.com\.cn"),
               validFlag = patt.test(videoUrl);  
+            debugger;
 		  if(videoInput.hasClass('imply_color') || !validFlag)
           {
 		    post = "只支持youku, tudou, 56,ku6";
@@ -1200,7 +1201,6 @@ $(function() {
 		  $.get(getUrl, getData,
 		  function(data, textStatus)
 		  {
-            debugger;
 			if(textStatus == 'success')
 			{
 			  if(data.errorcode == 0)

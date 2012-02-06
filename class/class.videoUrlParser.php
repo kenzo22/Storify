@@ -369,28 +369,34 @@ class VideoUrlParser
      * http://you.video.sina.com.cn/api/sinawebApi/outplayrefer.php/vid=48717043_1290055681_PUzkSndrDzXK+l1lHz2stqkP7KQNt6nki2O0u1ehIwZYQ0/XM5GdatoG5ynSA9kEqDhAQJA4dPkm0x4/s.swf
      */
     private function _parseSina($url){
-        break;
         $content=self::_cget($url);
+
         $data['host']='video.sina.com.cn';
-        if(preg_match("#SCOPE\s*=\s*(\{[\d\D]+?)</script>#",$content,$matches)){
-            if(preg_match("#title:\'(.*?)\'#",$matches[1],$title)){
-                $data['title']=$title[1];
-            }
-            if(preg_match("#pic:\'(.*?)\'#",$matches[1],$pic)){
-                $data['pic']=$pic[1];
-            }
-            $data['url']=$url;
-            if(preg_match("#swfOutsideUrl:\'(.*?)\'#",$matches[1],$swfurl)){
-                $data['swf']=$swfurl[1];
-            }
-            $data['embedcode']='<div><object id="ssss" width="420" height="340" ><param name="allowScriptAccess" value="always" /><embed pluginspage="http://www.macromedia.com/go/getflashplayer" src="'.$data['swf'].'" type="application/x-shockwave-flash" name="ssss" allowFullScreen="true" allowScriptAccess="always" width="480" height="370"></embed></object></div>';
-            if(preg_match("#class=\"videoContent\">\s*?<p>(.*?)</p>#",$content,$matches)){
-                $data['desc']=$matches[1];
-            }
-            $data['error_code']=0;
-        }else{
-            $data['error_code']=1;
+        if(preg_match("#title:\'(.*?)\'#",$content,$title)){
+            $data['title']=$title[1];
         }
+        if(preg_match("#pic:\s*\'(.*?)\'#",$content,$pic)){
+            $data['img']=$pic[1];
+        }
+        $data['url']=$url;
+        if(preg_match("#swfOutsideUrl:\'(.*?)\'#",$content,$swfurl)){
+            $data['swf']=$swfurl[1];
+        }
+        if(isset($data['swf'])){
+            //$data['embedcode']='<div><object id="ssss" width="420" height="340" ><param name="allowScriptAccess" value="always" /><embed pluginspage="http://www.macromedia.com/go/getflashplayer" src="'.$data['swf'].'" type="application/x-shockwave-flash" name="ssss" allowFullScreen="true" allowScriptAccess="always" width="420" height="340"></embed></object></div>';
+            $data['embedcode']=self::_embedSrc($data['swf']);
+        }
+        if(preg_match("#class=\"videoContent\">([^<>]+?)</td>#",$content,$matches)){
+            $data['desc']=$matches[1];
+        }elseif(preg_match("#class=\"videoContent\">\s*?.*?>([^<>]+?</p>)#",$content,$matches)){
+            $data['desc']=$matches[1];
+        }
+        if(!isset($data['desc']))
+            $data['desc']=$data['title'];
+        if(isset($data['title']) && isset($data['url']) && isset($data['embedcode']))
+            $data['errorcode']=0;
+        else
+            $data['errorcode']=1;
         return $data;
     }
 
