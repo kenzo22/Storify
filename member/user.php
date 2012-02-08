@@ -1169,11 +1169,11 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 	/* Get data. */
 	if($self_flag)
 	{
-	  $sql = "SELECT * FROM $tbl_name where post_author='".$user_id."'LIMIT $start, $limit";
+	  $sql = "SELECT * FROM $tbl_name where post_author='".$user_id."' order by post_modified desc LIMIT $start, $limit";
 	}
 	else
 	{
-	  $sql = "SELECT * FROM $tbl_name where post_author='".$user_id."' and post_status = 'Published' LIMIT $start, $limit";
+	  $sql = "SELECT * FROM $tbl_name where post_author='".$user_id."' and post_status = 'Published' order by post_modified desc LIMIT $start, $limit";
 	}
 	$result = mysql_query($sql);
 	
