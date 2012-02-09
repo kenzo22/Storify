@@ -25,12 +25,35 @@ if(($_FILES["photofile"]["type"] == "image/png") || ($_FILES["photofile"]["type"
 	$current_time = time();
 	$filename=$ranstr.$current_time.".".$image_extention;
 	$local_file=$upload_dir.$filename;
-	$stored_file="/img/upload/".$filename;
 	if(!move_uploaded_file($_FILES['photofile']['tmp_name'],$local_file))
 	{
 		echo "<div class='bind_txt'><div class='imply_color'>上传失败了，请您稍后再试</div></div>";
 	}
-	chmod($local_file,0755);
+    
+    // compress the image with Imagick
+    try{
+        $im= new Imagick($local_file);
+        if($image_extention != "jpg" &&  $image_extention !="jpeg"){
+            $im->setImageFormat('jpeg');
+            $newFileName=$ranstr.$current_time.".jpg";
+            $destFileName=$upload_dir.$newFileName;
+            $im->writeImage($destFileName);
+            unlink($local_file);
+        }else{
+            $im->setImageCompression(Imagick::COMPRESSION_JPEG);
+            $im->setImageCompressionQuality(75);
+            $newFileName=$filename;
+            $destFileName=$local_file;
+            $im->writeImage($destFileName);
+        }
+        $im->clear();
+        $im->destroy();
+    }
+    catch(Exception $e){
+        echo $e->getMessage();
+    }
+	$stored_file="/img/upload/".$newFileName;
+	chmod($destFileName,0644);
 	echo "<li class='img_upload_drag'><div class='cross'></div><div class='img_wrapper'><img src='".$stored_file."' /></div></li>";
   }
   else
