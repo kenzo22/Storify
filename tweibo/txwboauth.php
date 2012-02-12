@@ -1,5 +1,5 @@
 <?php 
-require_once '../oauth.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/oauth.php';
 
 /* 
 <br><center>腾迅围脖API  PHP_SDK  流氓版</center><br><br>

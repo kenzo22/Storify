@@ -177,7 +177,7 @@ $content .= "<div class='inner'>
 		  </div>
 		  <div id='imgUploadTabs'>
 		    <div class='wrapper'>
-		      <div id='pic_imply'>JPG,GIF,PNG或BMP文件,不超过600K。</div>".$img_content."
+		      <div id='pic_imply'>JPG,GIF,PNG或BMP文件,不超过2M。</div>".$img_content."
 		    </div>
 		  </div>
 		  <div id='videoTabs'>

@@ -204,7 +204,10 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 		else
 			$new_query="select * from story_posts where post_author !=".$uid." and post_status = 'Published' order by post_date desc limit $left";
 		$others_result = $DB->query($new_query);
+        $cnt=array();
 		while($item=$DB->fetch_array($others_result)){
+            if(++$cnt[$item['post_author']] > 2)
+                continue;
 			$item_array[] = $item;
         }
 		foreach($item_array as $story_item)
