@@ -3,9 +3,19 @@ $html_title = "口立方";
 require "../global.php";
 require  "../include/header.php";
 include_once( 'config.php' );
-include $_SERVER['DOCUMENT_ROOT'].'/class/videoUrlParser.php';
+//include $_SERVER['DOCUMENT_ROOT'].'/class/videoUrlParser.php';
 //include_once( 'weibooauth.php' );
-include_once( 'sinaweibo.php' );
+include_once( 'saetv2.ex.class.php' );
+
+$c = new SaeTClientV2( WB_AKEY , WB_SKEY , '2.00bekztBMtyadC09c1cc3d4a0yO2Di' );
+//$ms  = $c->home_timeline();
+//$ms  = $c->user_timeline_by_name('三月之夏', 1, 20);
+//$ms  = $c->search_statuses('dota',  20);
+//$ms  = $c->search_statuses_high( array('q'=>'dota', 'count'=>'20') );
+$ms  = $c->show_status('3407925940719123');
+//$ms  = $c->get_favorites(1);
+//$ms  = $c->friends_timeline();
+var_dump($ms);
 
 //$token = $DB->fetch_one_array("select * from ".$db_prefix."publictoken where id='1'");
 
@@ -48,9 +58,9 @@ $_SESSION['last_wkey']['oauth_token_secret']=$result['weibo_access_token_secret'
 
 //echo $me[0]['url_short'];
 echo "<br /><br /><br />";
-$url="http://v.youku.com/v_show/id_XMzM1Mzg2NjM2.html";
-$obj = VideoUrlParser::parse($url);
-var_dump($obj);
+//$url="http://v.youku.com/v_show/id_XMzM1Mzg2NjM2.html";
+//$obj = VideoUrlParser::parse($url);
+//var_dump($obj);
 //var_dump($me);
 
 /*

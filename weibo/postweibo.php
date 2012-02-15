@@ -1,12 +1,14 @@
 <?php
 include_once( 'config.php' );
-include_once( 'sinaweibo.php' );
+//include_once( 'sinaweibo.php' );
+include_once( 'saetv2.ex.class.php' );
 include '../include/secureGlobals.php';
 session_start();
 
 $operation=$_POST['operation'];
 
-$c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']  );
+//$c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']  );
+$c = new SaeTClientV2( WB_AKEY , WB_SKEY , '2.00bekztBMtyadC09c1cc3d4a0yO2Di' );
 
 if('publish' == $operation)
 {

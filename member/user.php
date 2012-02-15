@@ -4,7 +4,8 @@ require $_SERVER['DOCUMENT_ROOT']."/global.php";
 require $_SERVER['DOCUMENT_ROOT']."/include/header.php";
 include_once $_SERVER['DOCUMENT_ROOT']."/include/weibo_functions.php";
 include_once( $_SERVER['DOCUMENT_ROOT'].'/weibo/config.php' );
-include_once( $_SERVER['DOCUMENT_ROOT'].'/weibo/sinaweibo.php' );
+//include_once( $_SERVER['DOCUMENT_ROOT'].'/weibo/sinaweibo.php' );
+include_once( $_SERVER['DOCUMENT_ROOT'].'/weibo/saetv2.ex.class.php' );
 include_once( $_SERVER['DOCUMENT_ROOT'].'/tweibo/config.php' );
 include_once( $_SERVER['DOCUMENT_ROOT'].'/tweibo/txwboauth.php' );
 include_once( $_SERVER['DOCUMENT_ROOT'].'/douban/config.php' );
@@ -45,7 +46,8 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 {
 	$post_id = intval($_GET['post_id']);
 	
-	$c = new WeiboClient(WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']);
+	//$c = new WeiboClient(WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']);
+	$c = new SaeTClientV2( WB_AKEY , WB_SKEY , '2.00bekztBMtyadC09c1cc3d4a0yO2Di' );
 	$t = new TWeiboClient(MB_AKEY , MB_SKEY , $_SESSION['last_tkey']['oauth_token'] , $_SESSION['last_tkey']['oauth_token_secret']);
 	$d = new DoubanClient(DB_AKEY , DB_SKEY , $_SESSION['last_dkey']['oauth_token'] , $_SESSION['last_dkey']['oauth_token_secret']);
 	$result = $DB->fetch_one_array("select * from ".$db_prefix."posts where ID='".$post_id."'");
@@ -225,11 +227,16 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		
 		//prepare the weibo author info to be notified
 		$w_nic_array = array();
-	    $msg = $c->verify_credentials();
-	    if (isset($msg['id']))
+	    //$msg = $c->verify_credentials();
+		
+		$uid_get = $c->get_uid();
+		$weibo_uid = $uid_get['uid'];
+		$user_message = $c->show_user_by_id($weibo_uid);
+	    $weibo_nick = $user_message['screen_name'];
+		/*if (isset($msg['id']))
 	    {
 		  $weibo_nick = $msg['screen_name'];
-	    }
+	    }*/
 	    foreach($temp_array['content'] as $tempItem)
 	    {
 		  if(0 == strcmp($tempItem['type'], 'weibo'))
@@ -319,8 +326,9 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 		  $weibo_check = $weiboFlag?"checked='checked'":" ";
 		  $tweibo_check = $tweiboFlag?"checked='checked'":" ";
 		  $current_page_url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
-		  $url_result = $c->shorten_url($current_page_url);
-		  $url_short = $url_result[0]['url_short'];
+		  //$url_result = $c->shorten_url($current_page_url);
+		  //$url_short = $url_result[0]['url_short'];
+		  $url_short = 'http://t.cn';
 		  $base_txt = "我刚刚在报道中引用了你的微博，快来看一看吧：";
 		  $word_remain = ceil(140-($user_count/2+strlen($url_short)/2+strlen($base_txt)/3));
 		  $content.="<textarea class='notify-tweet' name='tweet'>".$base_txt.$url_short."</textarea>
