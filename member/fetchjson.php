@@ -1,14 +1,14 @@
 <?php
-require $_SERVER['DOCUMENT_ROOT'].'/include/user_auth_fns.php';
-require $_SERVER['DOCUMENT_ROOT'].'/include/functions.php';
-require $_SERVER['DOCUMENT_ROOT'].'/include/weibo_functions.php';
-require $_SERVER['DOCUMENT_ROOT'].'/weibo/config.php';
-require $_SERVER['DOCUMENT_ROOT'].'/weibo/sinaweibo.php';
-require $_SERVER['DOCUMENT_ROOT'].'/tweibo/config.php';
-require $_SERVER['DOCUMENT_ROOT'].'/tweibo/txwboauth.php';
-require $_SERVER['DOCUMENT_ROOT'].'/douban/config.php';
-require $_SERVER['DOCUMENT_ROOT'].'/douban/doubanapi.php';
-require $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals';
+require '../include/user_auth_fns.php';
+require '../include/functions.php';
+require '../include/weibo_functions.php';
+require '../weibo/config.php';
+require '../weibo/sinaweibo.php';
+require '../tweibo/config.php';
+require '../tweibo/txwboauth.php';
+require '../douban/config.php';
+require '../douban/doubanapi.php';
+require '../include/secureGlobals';
 
 
 header("content-type: text/javascript");

@@ -18,7 +18,7 @@ if(!is_email($email)){
 }
 
 if(strpos($username,' ') !== false){
-    go("/accounts/register", '用户名不能包括空格'，5);
+    go("/accounts/register", '用户名不能包括空格',5);
 }
 
 try   
