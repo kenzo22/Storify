@@ -17,7 +17,7 @@ $date_t = date("Y-m-d H:i:s");
 $c = new WeiboClient( WB_AKEY , WB_SKEY , $_SESSION['last_wkey']['oauth_token'] , $_SESSION['last_wkey']['oauth_token_secret']  );
 $t = new TWeiboClient( MB_AKEY , MB_SKEY , $_SESSION['last_tkey']['oauth_token'] , $_SESSION['last_tkey']['oauth_token_secret']  );
 $d = new DoubanClient( DB_AKEY , DB_SKEY , $_SESSION['last_dkey']['oauth_token'] , $_SESSION['last_dkey']['oauth_token_secret']  );
-$post_id = intval($_POST['post_id'];
+$post_id = intval($_POST['post_id']);
 $first_item = intval($_POST['first_item']);
 $result = $DB->fetch_one_array("select * from ".$db_prefix."posts where ID='".$post_id."'");
 if(!$result)
