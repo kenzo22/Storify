@@ -102,80 +102,21 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	<div id='main_content' class='inner'>
 	  <div><a id='user_feedback_tab' href='/contactus'>feedback</a></div>
 	<?php
-	if(!islogin())
+	/*if(!islogin())
 	{
 	  $slider_content ="
 	  <div id='featured_container'>
-		<div id='featured'> 
-		  <div id='sprite-slide1'></div>
-		  <div id='sprite-slide2'></div>
-		  <div id='sprite-slide3'></div>
-		  <div id='sprite-slide4'></div>
-		</div>
-		<div id='more_info'><a class='large blue awesome' href='/tour'>了解更多 &raquo;</a></div>
+		<div id='sprite-slide1'></div>
+		<div id='more_info'><a class='large green awesome' href='/tour'>了解更多 &raquo;</a></div>
+		<div id='f_register'><a class='large blue awesome' href='/accounts/register'>加入我们 &raquo;</a></div>
 	  </div>";
 	  echo $slider_content;
-	}
+	}*/
 	?>
-	<div id='popular'>
-	  <h3>最流行</h3>
-	  <div id='pop_wrapper'>
-		<div id='time_wrapper'><a class='time_range'>三天内</a><a class='time_range selected'>一周内</a><a class='time_range'>一月内</a><a class='time_range'>365天内</a></div>
-		<ul id='pop_list' class='sto_cover_list'>
-		<?php
-		$story_content = '';
-		$i_query = "select * from ".$db_prefix."posts where post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_date) <=7 order by popular_count desc limit 4";
-		$result=$DB->query($i_query);
-		while ($story_item = mysql_fetch_array($result))
-		{
-		  $post_author = $story_item['post_author'];
-		  $post_pic_url = $story_item['post_pic_url'];
-		  if($post_pic_url == '')
-		  {
-		    $post_pic_url = '/img/event_dft.jpg';
-		  }
-		  $userresult = $DB->fetch_one_array("SELECT username, photo FROM ".$db_prefix."user where id='".$post_author."'");
-		  $user_profile_img = $userresult['photo'];
-		  $author_name = $userresult['username'];
-		  if($user_profile_img == '')
-		  {
-			$user_profile_img = '/img/douban_user_dft.jpg';
-		  }
-		  $post_title = $story_item['post_title'];
-		  $post_date = $story_item['post_date'];
-		  $temp_array = explode(" ", $story_item['post_date']);
-		  $post_date = $temp_array[0];
-		  $post_link = "/user/".$post_author."/".$story_item['ID'];
-		  //$post_link = htmlspecialchars($post_link, ENT_COMPAT, UTF-8);
-		  $post_link = htmlspecialchars($post_link);
-		  $story_content .= "<li>
-							  <div class='story_wrap'>	
-								<a href='".$post_link."'>
-								  <img class='cover' src='".$post_pic_url."' alt='' />
-								</a>
-								<a class='title_wrap' href='".$post_link."'>
-								  <span class='title'>".$post_title."</span>
-								</a>
-							  </div>
-							  <div class='story_meta'>
-								<span>
-								  <a class='meta_date'>".$post_date."</a>
-								  <img src='".$user_profile_img."' alt=''/>
-								  <a class='meta_author' href='/user/".$post_author."'>".$author_name."</a>
-								</span>
-							  </div>
-							</li>";
-		}
-		echo $story_content;
-		?>
-		</ul>
-	  </div>
-	  <div><a id='story_more'>换一组看看</a></div>
-	</div>
 	<?php
 	if(islogin())
 	{
-	    $new_content = "<div id='new_wrapper'><h3>最新发布</h3><ul id='mycarousel' class='jcarousel-skin-tango sto_cover_list'>";
+	    $new_content = "<div id='new_wrapper'><h3>我的订阅</h3><ul id='mycarousel' class='jcarousel-skin-tango sto_cover_list'>";
 		$uid = $_SESSION['uid'];
 		$follow_query="select follow_id from ".$db_prefix."follow, story_posts where user_id=".$uid." and follow_id = post_author and post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_date) <=7 group by follow_id";
 		$fol_result = $DB->query($follow_query);
@@ -252,53 +193,100 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
       echo $new_content;	  
 	}
 	?>
-	<div class='category'>
-	  <div id='trendTopics'>
-	    <h3>热门话题</h3>
-	    <div class='topic_list'>
-		  <ul>
-		<?php
-		$tag_content='';
-		$tags=getPopularTags(16);
-		foreach($tags as $tag_id)
-		{
-			$query = "select * from ".$db_prefix."tag where id=".$tag_id;
-			$results=$DB->query($query);
-			$tag_item=$DB->fetch_array($results);
-			$tag_name = $tag_item['name'];
-			$topic_link = "/topic/".$tag_id;
-			$tag_content .="<li><a class='topic_title' href='".$topic_link."' title='".$tag_name."'>#".$tag_name."#</a></li>";
-		}
-		echo $tag_content;
-	    ?>
-	      </ul>
-		</div>
-	  </div>
-	  <div id='topUsers' class='float_l'>
-	    <h3>随便看看</h3>
-	    <ul>
-		<?php
-		  $user_content='';
-		  $query = "SELECT id, username, photo from ".$db_prefix."user ORDER BY RAND() LIMIT 10";
-		  $result=$DB->query($query);
-		  while ($user_item = mysql_fetch_array($result))
-		  {
-		    $u_id = $user_item['id'];
-			$u_name = $user_item['username'];
-			$u_photo = $user_item['photo'];
-			if(empty($u_photo))
-			{
-			  $u_photo = 'img/douban_user_dft.jpg';
-			}
-			$u_link = "/user/".$u_id;
-			$user_content.="<li>
-							  <a href='".$u_link."' title='".$u_name."'><img src='".$u_photo."' /></a>
-							  <div><span><a href='".$u_link."' title='".$u_name."'>".$u_name."</a></span></div>
-							</li>";
-		  }
-		  echo $user_content;
+	<div id='left_main'>
+	<div id='society' class='t_category'>
+	  <h3><a href='#'>社会</a></h3>
+	  <ul class='category_list'>
+	    <li><a href='#'>全部</a></li>
+		<li><a href='#'>话题</a></li>
+	    <li><a href='#'>文化</a></li>
+		<li><a href='#'>万象</a></li>
+		<li><a href='#'>更多 &raquo;</a></li>
+	  </ul>
+	  <ul class='sto_cover_list'>
+	    <?php
+		$list_content = '';
+		$i_query = "select * from ".$db_prefix."posts ORDER BY RAND() LIMIT 3";
+		$result=$DB->query($i_query);
+		printStory($result);
 		?>
-	    </ul>
+	  </ul>
+	</div>
+	<div id='yule' class='t_category'>
+	  <h3><a href='#'>娱乐</a></h3>
+	  <ul class='category_list'>
+	    <li><a href='#'>全部</a></li>
+		<li><a href='#'>明星</a></li>
+		<li><a href='#'>时尚</a></li>
+		<li><a href='#'>美食</a></li>
+		<li><a href='#'>旅游</a></li>
+		<li><a href='#'>晒货</a></li>
+		<li><a href='#'>电影</a></li>
+		<li><a href='#'>音乐</a></li>
+		<li><a href='#'>更多 &raquo;</a></li>
+	  </ul>
+	  <ul class='sto_cover_list'>
+	    <?php
+		$list_content = '';
+		$i_query = "select * from ".$db_prefix."posts ORDER BY RAND() LIMIT 3";
+		$result=$DB->query($i_query);
+		printStory($result);
+		?>
+	  </ul>
+	</div>
+	<div id='tech' class='t_category'>
+	  <h3><a href='#'>科技</a></h3>
+	  <ul class='category_list'>
+	    <li><a href='#'>全部</a></li>
+		<li><a href='#'>互联网</a></li>
+		<li><a href='#'>创业</a></li>
+		<li><a href='#'>移动互联网</a></li>
+		<li><a href='#'>数码</a></li>
+		<li><a href='#'>游戏</a></li>
+		<li><a href='#'>更多 &raquo;</a></li>
+	  </ul>
+	  <ul class='sto_cover_list'>
+	    <?php
+		$list_content = '';
+		$i_query = "select * from ".$db_prefix."posts ORDER BY RAND() LIMIT 3";
+		$result=$DB->query($i_query);
+		printStory($result);
+		?>
+	  </ul>
+	</div>
+	<div id='sports' class='t_category'>
+	  <h3><a href='#'>体育</a></h3>
+	  <ul class='category_list'>
+	    <li><a href='#'>全部</a></li>
+		<li><a href='#'>国际足坛</a></li>
+		<li><a href='#'>NBA</a></li>
+		<li><a href='#'>综合</a></li>
+		<li><a href='#'>更多 &raquo;</a></li>
+	  </ul>
+	  <ul class='sto_cover_list'>
+	    <?php
+		$list_content = '';
+		$i_query = "select * from ".$db_prefix."posts ORDER BY RAND() LIMIT 3";
+		$result=$DB->query($i_query);
+		printStory($result);
+		?>
+	  </ul>
+	</div>
+	</div>
+	<div id='right_main'>
+	  <ul>
+	    <li><a href='#'>我的订阅</a></li>
+		<li><a href='#'>我的收藏</a></li>
+		<li><a href='#'>我的创作</a></li>
+	  </ul>
+	  <div id='add_info'>
+	    <h3><a href='#'>完善你的个人资料</a></h3>
+	  </div>
+	  <div id='invite_people'>
+	    <h3><a href='#'>邀请好友加入口立方</a></h3>
+	  </div>
+	  <div id='rec_people'>
+	    <h3><a href='#'>你可能感兴趣的人</a></h3>
 	  </div>
 	</div>
   </div>
@@ -316,7 +304,6 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
   </div>
 </div>
 <script type="text/javascript" src="/js/jquery.js"></script>
-<script type="text/javascript" src="/js/jquery.orbit-1.2.3.min.js"></script>
 <script type="text/javascript" src="/js/jquery.jcarousel.min.js"></script>
 <script type="text/javascript" src="/js/frontpage.js"></script>
 <script type="text/javascript">

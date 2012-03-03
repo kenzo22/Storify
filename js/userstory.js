@@ -650,6 +650,69 @@ $(function(){
 	  }
 	});
 	
+	//add/del like part
+	
+	$('.add_like').live('click', function(e){
+	  e.preventDefault();
+	  var item = $(this);
+	  if(item.hasClass('guest'))
+	  {
+	    $('#boxes #weibo_dialog #icon_flag').removeClass();
+		$('#publish_title').text('收集喜欢');
+		var id = item.attr('href');
+		var maskHeight = $(document).height(),
+			maskWidth = $(window).width(),
+			winH = $(window).height(),
+			winW = $(window).width();
+
+		$('#mask').css({'width':maskWidth,'height':maskHeight});	
+		$('#mask').show().css('opacity', '0.7');
+		var scrollTop = $(document).scrollTop(),
+			scrollLeft = $(document).scrollLeft();
+			  
+		$(id).css('top',  winH/2-$(id).height()/2+scrollTop-100);
+		$(id).css('left', winW/2-$(id).width()/2+scrollLeft);
+		$(id).show();
+	  }
+	  else
+	  {		  
+		var temp_array = item.attr('id').split('_'),
+		  uid_val = temp_array[1],
+		  pid_val = temp_array[2],
+		  postUrl = '/member/likeoperation.php',
+		  postData = {operation: 'add_like', uid: uid_val, pid: pid_val};
+	    $.post(postUrl, postData,
+	    function(data, textStatus)
+	    {
+		  if(textStatus == 'success')
+		  {
+		    item.text('取消喜欢');
+		    item.removeClass('add_like').addClass('del_like');
+			alert(data);
+		  }
+	    });
+	  }
+	});
+	
+	$('.del_like').live('click', function(e){
+	  e.preventDefault();
+	  var item = $(this),
+	      temp_array = item.attr('id').split('_'),
+		  uid_val = temp_array[1],
+		  pid_val = temp_array[2],
+		  postUrl = '/member/likeoperation.php',
+		  postData = {operation: 'del_like', uid: uid_val, pid: pid_val};
+	  $.post(postUrl, postData,
+	  function(data, textStatus)
+	  {
+		if(textStatus == 'success')
+		{
+		  item.text('喜欢');
+		  item.removeClass('del_like').addClass('add_like');
+		}
+	  });
+	});
+	
 	//user comment part
 	$('#reply_input').val('我想说...').addClass('imply_color');
 	$('#reply_input').blur(function(){

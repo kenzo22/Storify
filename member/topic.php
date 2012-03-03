@@ -29,14 +29,14 @@ if(isset($_GET['sort']))
 {
   $sort_type = $_GET['sort'];
   $padding = "&sort=".$sort_type;
-  $content .= "<div id='sort_type'><a href='/topic/".$topic_id."'>发布时间排序</a><a class='now' href='/topic/".$topic_id."/sort=popular'>关注度排序</a></div>
+  $content .= "<div class='sort_type'><a href='/topic/".$topic_id."'>发布时间排序</a><a class='now' href='/topic/".$topic_id."/sort=popular'>关注度排序</a></div>
 			   <ul id='tagstory_ul'>";
 }
 else
 {
   $sort_type='';
   $padding = '';
-  $content .= "<div id='sort_type'><a class='now' href='/topic/".$topic_id."'>发布时间排序</a><a href='/topic/".$topic_id."/sort=popular'>关注度排序</a></div>
+  $content .= "<div class='sort_type'><a class='now' href='/topic/".$topic_id."'>发布时间排序</a><a href='/topic/".$topic_id."/sort=popular'>关注度排序</a></div>
 			   <ul id='tagstory_ul'>";
 }
 

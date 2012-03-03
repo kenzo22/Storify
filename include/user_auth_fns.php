@@ -123,4 +123,100 @@ function getPopularScore($post_id)
   return $popularScore; 
 }
 
+function printStory($result)
+{
+  global $DB;
+  global $db_prefix;
+  $story_content = '';
+  while ($story_item = mysql_fetch_array($result))
+	{
+	  $post_author = $story_item['post_author'];
+	  $post_pic_url = $story_item['post_pic_url'];
+	  if($post_pic_url == '')
+	  {
+		$post_pic_url = '/img/event_dft.jpg';
+	  }
+	  $userresult = $DB->fetch_one_array("SELECT username, photo FROM ".$db_prefix."user where id='".$post_author."'");
+	  $user_profile_img = $userresult['photo'];
+	  $author_name = $userresult['username'];
+	  if($user_profile_img == '')
+	  {
+		$user_profile_img = '/img/douban_user_dft.jpg';
+	  }
+	  $post_title = $story_item['post_title'];
+	  $post_date = $story_item['post_date'];
+	  $temp_array = explode(" ", $story_item['post_date']);
+	  $post_date = $temp_array[0];
+	  $post_link = "/user/".$post_author."/".$story_item['ID'];
+	  $post_link = htmlspecialchars($post_link);
+	  $story_content .= "<li>
+						  <div class='story_wrap'>	
+							<a href='".$post_link."'>
+							  <img class='cover' src='".$post_pic_url."' alt='' />
+							</a>
+							<a class='title_wrap' href='".$post_link."'>
+							  <span class='title'>".$post_title."</span>
+							</a>
+						  </div>
+						  <div class='story_meta'>
+							<span>
+							  <a class='meta_date'>".$post_date."</a>
+							  <img src='".$user_profile_img."' alt=''/>
+							  <a class='meta_author' href='/user/".$post_author."'>".$author_name."</a>
+							</span>
+						  </div>
+						</li>";
+	}
+	echo $story_content;
+}
+
+function printFollow($user_list)
+{
+  global $DB;
+  global $db_prefix;
+  $content = "";
+  foreach($user_list as $user)
+  {
+	$query="select id, username, photo from ".$db_prefix."user where id=".$user;
+	$result=$DB->query($query);
+	$item=$DB->fetch_array($result);
+	$usr_img = $item['photo'];
+	if($usr_img == '')
+	{
+	  $usr_img = '/img/douban_user_dft.jpg';
+	}
+	$content .="<li id='follower_id_".$item['id']."'><a class='follow_mini_icon' href='/user/".$item['id']."'><img title='".$item['username']."' src='".$usr_img."' alt='".$item['username']."' /></a></li>";
+  }
+  return $content;
+}
+
+function getAvatarImg($userresult)
+{
+  if(substr($userresult['photo'], 0, 4) == 'http')
+  {
+	if(substr($userresult['photo'], 11, 4) == 'sina')
+	{
+	  $pattern = "/(\d+)\/50\/(\d+)/";
+	  $user_profile_img = preg_replace($pattern,"$1/180/$2",$userresult['photo']);
+	}
+    else
+	{
+	  $pattern = "/50$/";
+	  $user_profile_img = preg_replace($pattern,'100',$userresult['photo']);
+	}
+  }
+  else
+  {
+	if($userresult['photo'] == '')
+	{
+	  $user_profile_img = '/img/douban_user_dft.jpg';
+	}
+	else
+	{
+	  $user_profile_img =$userresult['photo'];
+	}
+  }
+  return $user_profile_img;
+}
+
 ?>
