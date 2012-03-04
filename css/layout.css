@@ -325,7 +325,7 @@ li#more{margin:10px 0}
 .userstory_list ul li,.t_category .sto_cover_list li{border:1px solid #DDD;border-radius:3px 3px 3px 3px;color:#323232;display:inline;text-decoration:none;height:218px;width:188px;float:left;margin:20px 20px 0 0;padding:5px 5px 2px}
 .t_category .sto_cover_list li{margin:20px 10px 0 18px}
 #popular{clear:both;margin-bottom:20px}
-#popular h3, #new_wrapper h3, .t_category h3{color:#999;margin-top:30px;padding-bottom:15px;font-size:20px;font-weight:500}
+#popular h3, #new_wrapper h3, .t_category h3{color:#666;margin-top:30px;padding-bottom:15px;font-size:20px;font-weight:500}
 #pop_wrapper{height:280px;background:none repeat scroll 0 0 #FCFCFC;border:1px solid #CCC;border-bottom:none;border-radius:5px 5px 0 0}
 #new_wrapper{overflow:hidden;height:340px}
 #pop_wrapper #pop_list,#new_wrapper ul{margin-top:0;margin-left:0;overflow:auto;zoom:1;padding:0}
@@ -566,14 +566,20 @@ div.slider-nav span.left{background:url(orbit/left-arrow.png);left:0}
 .t_category .category_list li a:hover{text-decoration:underline}
 #subscription #more_sub{position:absolute;top:3px;left:105px}
 #left_main{float:left;width:694px;margin-right:50px;}
-#right_main{float:right;width:200px;margin-top:55px;padding-left:16px}
-#right_main ul li{font-size:14px;margin-top:15px}
-#rec_people,#invite_people,#add_info{border-top:1px solid #DDD;margin-top:30px;padding-top:15px}
-#recUsers{overflow:hidden;padding:30px 0 10px;border-bottom:1px solid #DDD}
-#topUsers{overflow:hidden}
-#topUsers ul li{float:left;margin:0 10px 7px 0;width:40px;height:40px;display:inline;text-align:center}
+#right_main{float:right;width:216px}
+#right_main #my_page{font-size:14px;margin-top:15px}
+#rec_people,#invite_people,#add_info{overflow:auto;border-top:1px solid #DDD;margin-top:30px;padding-top:15px}
+#recUsers{overflow:hidden;padding:10px 0 10px;border-bottom:1px solid #DDD}
+#topUsers{overflow:hidden;padding-bottom:14px;border-bottom:1px solid #DDD}
+#topUsers ul li{float:left;margin:0 14px 11px 0;width:40px;height:40px;display:inline;text-align:center}
 #topUsers ul li img{width:40px;height:40px;border:0px}
-#recUsers ul li{clear:both;overflow:auto;margin-bottom:5px}
+#recUsers ul li{clear:both;overflow:auto;margin-bottom:10px}
 #recUsers ul li img{float:left;width:50px;height:50px;border:0px}
-#recUsers .user_intro{float:left;margin-left:10px}
-#recUsers .user_intro div{width:120px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+#add_info img{float:left;width:50px;height:50px;border:0px}
+.user_intro{float:left;margin-left:10px}
+.user_intro div{width:154px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+#more_info{position:absolute;bottom:5px;right:95px;z-index:100}
+#f_register{position:absolute;bottom:5px;right:5px;z-index:100}
+#follow_us{margin-top:30px}
+#my_page{padding-top:50px}
+#my_page div{margin-bottom:20px}

@@ -40,7 +40,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	if($login_flag)
     { 
 		$user_profile_img;
-		$userresult=$DB->fetch_one_array("SELECT id, photo FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
+		$userresult=$DB->fetch_one_array("SELECT id, photo, intro FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
 		if($userresult['photo'] != '')
 		{
 		  $user_profile_img = $userresult['photo'];
@@ -120,6 +120,8 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	  ?>
 	  <div id='featured_container'>
 		<img src='/img/slide1.jpg'/>
+		<div id='more_info'><a class='medium green awesome' href='/tour'>了解更多 &raquo;</a></div>
+		<div id='f_register'><a class='medium blue awesome' href='/tour'>免费注册 &raquo;</a></div>
 	  </div>
 	  <?php
 	}
@@ -205,39 +207,13 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	</div>
 	<div id='right_main'>
 	  <?php
-	  if($login_flag)
+	  $rec_user="<div id='recUsers' class='t_category'>
+				   <h3>推荐用户</h3>
+				   <ul>";
+	  $query = "SELECT id, username, photo, intro from ".$db_prefix."user ORDER BY RAND() LIMIT 4";
+	  $result=$DB->query($query);
+	  while ($user_item = mysql_fetch_array($result))
 	  {
-	    $custom_content = "<ul>
-		<li><a href='#'>我创作的 &raquo;</a></li>
-		<li><a href='#'>我喜欢的 &raquo;</a></li>
-	  </ul>
-	  <div id='add_info'>
-	    <h3><a href='#'>完善你的个人资料</a></h3>
-	  </div>
-	  <div id='invite_people'>
-	    <h3><a href='#'>邀请好友加入口立方</a></h3>
-	  </div>
-	  <div id='rec_people'>
-	    <h3><a href='#'>你可能感兴趣的人</a></h3>
-	  </div>";
-	  }	  
-	  else
-	  {
-	    $custom_content = "<div id='login_form_right'>
-						     <form method='post' action='/accounts/login/login'>
-							   <div class='form_div'><div class='form_label'>邮&nbsp;箱</div><input type='text' name='email' id='email_login' size='26' /></div>
-							   <div class='form_div'><div class='form_label'>密&nbsp;码</div><input type='password' name='passwd' id='pwd_login' size='26' /></div>
-							   <div class='auto_login'><span><input type='checkbox' name='autologin' />下次自动登录</span> | <span><a href='/accounts/forget_password'>忘记密码了？</a></span></div>
-							   <div><a class='medium blue awesome loginbtn'>登 录 &raquo;</a><a class='medium green awesome' href='/accounts/register'>注册 &raquo;</a></div>
-							 </form>
-						   </div>
-						   <div id='recUsers' class='t_category'>
-						     <h3>推荐用户</h3>
-							 <ul>";
-		$query = "SELECT id, username, photo, intro from ".$db_prefix."user ORDER BY RAND() LIMIT 4";
-		$result=$DB->query($query);
-		while ($user_item = mysql_fetch_array($result))
-		{
 		  $u_id = $user_item['id'];
 		  $u_name = $user_item['username'];
 		  $u_photo = $user_item['photo'];
@@ -248,20 +224,39 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 			$u_photo = 'img/douban_user_dft.jpg';
 		  }
 		  $u_link = "/user/".$u_id;
-		  $custom_content.="<li>
-							  <a href='".$u_link."' title='".$u_name."'><img src='".$u_photo."' /></a>
-							  <div class='user_intro'>
-							    <div><a href='".$u_link."' title='".$u_name."'>".$u_name."</a></div>
-							    <div>".$u_intro."</div>
-							  </div>
-							</li>";
-		}
-		$custom_content.= "</ul>
+		  $rec_user.="<li>
+						  <a href='".$u_link."' title='".$u_name."'><img src='".$u_photo."' /></a>
+						  <div class='user_intro'>
+							<div><a href='".$u_link."' title='".$u_name."'>".$u_name."</a></div>
+							<div>".$u_intro."</div>
+						  </div>
+						</li>";
+	  }
+	  $rec_user.="</ul></div>";
+	  if($login_flag)
+	  {
+	    $custom_content = "<div id='my_page'>
+						     <div><a href='#'>我创作的 &raquo;</a></div>
+							 <div><a href='#'>我喜欢的 &raquo;</a></div>
 						   </div>
-						   <div id='topUsers' class='t_category'>
-						     <h3>随便看看</h3>
-							 <ul>";
-		$query = "SELECT id, username, photo from ".$db_prefix."user ORDER BY RAND() LIMIT 16";
+						   <div id='add_info' class='t_category'>
+							 <h3>完善个人资料</h3>
+							 <img src='".$user_profile_img."'/>
+							 <div class='user_intro'>
+							   <div>".$_SESSION['username']."</div>
+							   <div>".$userresult['intro']."</div>
+							 </div>
+						   </div>
+						   <div id='invite_people'>
+							 <h3><a href='#'>邀请好友加入口立方</a></h3>
+						   </div>".$rec_user;
+	  }	  
+	  else
+	  {
+	    $custom_content = $rec_user."<div id='topUsers' class='t_category'>
+									    <h3>随便看看</h3>
+										  <ul>";
+		$query = "SELECT id, username, photo from ".$db_prefix."user ORDER BY RAND() LIMIT 20";
 		$result=$DB->query($query);
 		while ($user_item = mysql_fetch_array($result))
 		{
@@ -281,6 +276,10 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	  }
 	  echo $custom_content;
 	  ?>
+	  <div id='follow_us' class='t_category'>
+	    <h3>关注口立方</h3>
+	    <iframe width="100%" height="64" frameborder="0" allowtransparency="true" marginwidth="0" marginheight="0" scrolling="no" border="0" src="http://widget.weibo.com/relationship/followbutton.php?language=zh_cn&width=100%&height=64&uid=2329577672&style=4&btn=red&dpc=1"></iframe>
+	  </div>
 	</div>
   </div>
 
