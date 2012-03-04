@@ -369,9 +369,22 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	{
 	  $content .= "<div class='tool_wrapper'>
 	                  <div id='like_wrapper'>";
+        $sql="SELECT postid_str FROM story_favor WHERE user_id=".intval($_SESSION['uid']);
+        $results=$DB->query($sql);
+        $like=true;
+        if($DB->num_rows($results) == 1){
+            $row=$DB->fetch_array($results);
+            $tmp_array=explode(":",$row['postid_str']);
+            if(in_array($post_id,$tmp_array)){
+                $like=false;
+            }
+        }
 	  if($login_status)
 	  {
-	    $content .="<a id='like_".$_SESSION['uid']."_".$post_id."' class='add_like' href='#weibo_dialog'>喜欢</a></div>";
+        if($like)
+	        $content .="<a id='like_".$_SESSION['uid']."_".$post_id."' class='add_like' href='#weibo_dialog'>喜欢</a></div>";
+        else
+	        $content .="<a id='like_".$_SESSION['uid']."_".$post_id."' class='del_like' href='#weibo_dialog'>取消喜欢</a></div>";
 	  }
 	  else
 	  {
