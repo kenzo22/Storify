@@ -108,6 +108,20 @@ $(function(){
 	  self.location=data;
 	});
   });
+  
+  $('#login_form_right .loginbtn').click(function(e)
+  {
+    var email_val = $('#login_form_right #email_login').val(),
+        pwd_val = $('#login_form_right #pwd_login').val();
+    if(email_val == '' || pwd_val == '')
+    {
+      e.preventDefault();
+    }
+    else
+    {
+      $('#login_form_right form').submit();
+    }
+  });
 	
 	$('a[name=modal]').click(function(e) {
 		e.preventDefault();

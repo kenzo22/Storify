@@ -85,10 +85,6 @@ div.pagination a{color:#0030ce;text-decoration:none;border:1px solid #b7d8ee;mar
 div.pagination a:hover,div.pagination a:active{color:#0066a7;border:1px solid #b7d8ee;background-color:#d2eaf6}
 div.pagination span.current{border:1px solid #b7d8ee;font-weight:700;color:#444;background-color:#d2eaf6;margin:0 3px;padding:5px 6px 4px 5px}
 #trendTopics{float:left;width:550px;margin-right:40px}
-#topUsers{overflow:hidden;width:320px;float:left}
-#topUsers ul li{float:left;margin:0 14px 7px 0;width:50px;height:80px;display:inline;text-align:center}
-#topUsers ul li div{overflow:hidden;white-space:nowrap;width:50px;text-overflow:ellipsis;text-align:center}
-#topUsers ul li img{width:50px;height:50px;border:0px}
 .category h3{border-bottom:1px solid #E6E6E6;color:#666;padding-bottom:10px;font-size:20px;font-weight:500;text-shadow:0 1px 0 #FFFFFF, 0 1px 0 #EEE;margin:40px 0 18px}
 .published-steps{background:none repeat scroll 0 0 #FFF;border:1px solid #ABABAC;box-shadow:0 0 5px rgba(212, 212, 212, 0.3);font-size:12px;width:660px;margin:0 0 5px;padding:10px 0 0}
 .published-steps .tabs{margin-bottom:-1px;padding:0 0 0 10px}
@@ -436,6 +432,9 @@ div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,block
 #login_form_wrapper,#homepage .inner .category,.douban_wrapper .item_info,.douban_wrapper .item_info_drop,.user_info,#footer .wrapper,#boxes #dialog form div.wrapper{overflow:auto}
 #login_form_r #connectBtn,.login_right #connectBtn{margin-top:5px}
 #login_form .form_div,#sign_up div{margin-bottom:20px}
+#login_form_right{padding:20px 0 60px;border-bottom:1px solid #DDD}
+#login_form_right a{margin-right:10px}
+#login_form_right .form_div{margin-bottom:10px}
 #fb_form .label{margin-top:20px}
 #login_form .auto_login,.create_time{padding-left:36px}
 #c_pwd_form .wrapper div,#c_email_form .wrapper div,#login_modal .form_div{margin-top:20px}
@@ -508,8 +507,6 @@ div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,block
 #second_tip{top:70px;left:10px}
 #third_tip{top:320px;left:325px}
 #fourth_tip{top:210px;left:500px}
-#more_info{position:absolute;bottom:8px;right:118px;z-index:100}
-#f_register{position:absolute;bottom:8px;right:8px;z-index:100}
 #go_top{position:fixed;right:15px;bottom:15px;display:block;z-index:100}
 #go_top a{display:block;_display:none;height:50px;width:50px;background:url('../img/gotop.gif')}
 #go_top a:hover{background:url('../img/gotoph.gif')}
@@ -567,7 +564,16 @@ div.slider-nav span.left{background:url(orbit/left-arrow.png);left:0}
 .t_category .category_list li{float:left;margin-right:10px}
 .t_category .category_list li a{}
 .t_category .category_list li a:hover{text-decoration:underline}
+#subscription #more_sub{position:absolute;top:3px;left:105px}
 #left_main{float:left;width:694px;margin-right:50px;}
-#right_main{float:right;width:216px;margin-top:100px}
+#right_main{float:right;width:200px;margin-top:55px;padding-left:16px}
 #right_main ul li{font-size:14px;margin-top:15px}
 #rec_people,#invite_people,#add_info{border-top:1px solid #DDD;margin-top:30px;padding-top:15px}
+#recUsers{overflow:hidden;padding:30px 0 10px;border-bottom:1px solid #DDD}
+#topUsers{overflow:hidden}
+#topUsers ul li{float:left;margin:0 10px 7px 0;width:40px;height:40px;display:inline;text-align:center}
+#topUsers ul li img{width:40px;height:40px;border:0px}
+#recUsers ul li{clear:both;overflow:auto;margin-bottom:5px}
+#recUsers ul li img{float:left;width:50px;height:50px;border:0px}
+#recUsers .user_intro{float:left;margin-left:10px}
+#recUsers .user_intro div{width:120px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}

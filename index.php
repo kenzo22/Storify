@@ -36,7 +36,8 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
    } 
    set_magic_quotes_runtime(0); //关闭magic_quotes_gpc
 
-	if(islogin())
+	$login_flag = islogin();
+	if($login_flag)
     { 
 		$user_profile_img;
 		$userresult=$DB->fetch_one_array("SELECT id, photo FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
@@ -101,99 +102,28 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
     
 	<div id='main_content' class='inner'>
 	  <div><a id='user_feedback_tab' href='/contactus'>feedback</a></div>
+	<div id='left_main'>
 	<?php
-	/*if(!islogin())
+	if($login_flag)
 	{
-	  $slider_content ="
+	  echo "<div id='subscription' class='t_category'>
+	  <h3><a href='#'>我的订阅</a></h3>
+	  <span id='more_sub'><a href='#'>更多 &raquo;</a></span>
+	  <ul class='sto_cover_list'>";
+	  $i_query = "select * from ".$db_prefix."posts ORDER BY RAND() LIMIT 3";
+	  $result=$DB->query($i_query);
+	  printStory($result);
+	  echo "</ul></div>";
+	}
+	else
+	{
+	  ?>
 	  <div id='featured_container'>
-		<div id='sprite-slide1'></div>
-		<div id='more_info'><a class='large green awesome' href='/tour'>了解更多 &raquo;</a></div>
-		<div id='f_register'><a class='large blue awesome' href='/accounts/register'>加入我们 &raquo;</a></div>
-	  </div>";
-	  echo $slider_content;
-	}*/
-	?>
-	<?php
-	if(islogin())
-	{
-	    $new_content = "<div id='new_wrapper'><h3>我的订阅</h3><ul id='mycarousel' class='jcarousel-skin-tango sto_cover_list'>";
-		$uid = $_SESSION['uid'];
-		$follow_query="select follow_id from ".$db_prefix."follow, story_posts where user_id=".$uid." and follow_id = post_author and post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_date) <=7 group by follow_id";
-		$fol_result = $DB->query($follow_query);
-		$fol_array = array();
-		$item__array = array();
-		while($item = mysql_fetch_array($fol_result))
-			$fol_array[] = $item['follow_id'];
-		$len = sizeof($fol_array);
-		if ($len >= 10){
-			$ran_keys = array_rand($fol_array, 10);
-			foreach($ran_keys as $idx){
-				$query = "select * from story_posts where post_author=".$fol_array[$idx]." order by post_date desc limit 1";
-				$story_result = $DB->query($query);
-				$item_array[] = mysql_fetch_array($story_result);
-			}
-		}else if ($len > 0)
-			foreach($fol_array as $fid){
-				$query = "select * from story_posts where post_author=".$fid." order by post_date desc limit 1";
-				$story_result = $DB->query($query);
-				$item_array[] = mysql_fetch_array($story_result);
-			}
-		$left = 10 - $len;
-		if( $left < 10 )
-			$new_query="select post_author,post_pic_url,post_title,post_date,story_posts.ID from story_posts where post_author !=".$uid." and post_author not in (select follow_id from story_follow where user_id=".$uid.") and post_status = 'Published' order by post_date desc limit ".$left;
-		else
-			$new_query="select * from story_posts where post_author !=".$uid." and post_status = 'Published' order by post_date desc limit $left";
-		$others_result = $DB->query($new_query);
-        $cnt=array();
-		while($item=$DB->fetch_array($others_result)){
-            if(++$cnt[$item['post_author']] > 2)
-                continue;
-			$item_array[] = $item;
-        }
-		foreach($item_array as $story_item)
-	  {
-	    $post_author = $story_item['post_author'];
-	    $post_pic_url = $story_item['post_pic_url'];
-		if($post_pic_url == '')
-		{
-		  $post_pic_url = '/img/event_dft.jpg';
-		}
-	    $userresult = $DB->fetch_one_array("SELECT username, photo FROM ".$db_prefix."user where id='".$post_author."'");
-	    $user_profile_img = $userresult['photo'];
-		$author_name = $userresult['username'];
-		if($user_profile_img == '')
-		{
-		  $user_profile_img = '/img/douban_user_dft.jpg';
-		}
-	    $post_title = $story_item['post_title'];
-	    $post_date = $story_item['post_date'];
-	    $temp_array = explode(" ", $story_item['post_date']);
-	    $post_date = $temp_array[0];
-		$post_link = "/user/".$post_author."/".$story_item['ID'];
-		$post_link = htmlspecialchars($post_link);
-	    $new_content .= "<li>
-						  <div class='story_wrap'>	
-							<a href='".$post_link."'>
-							  <img class='cover' src='".$post_pic_url."' alt='' />
-							</a>
-							<a class='title_wrap' href='".$post_link."'>
-							  <span class='title'>".$post_title."</span>
-							</a>
-						  </div>
-						  <div class='story_meta'>
-							<span>
-							  <a class='meta_date'>".$post_date."</a>
-							  <img src='".$user_profile_img."' alt=''/>
-							  <a class='meta_author' href='/user/".$post_author."'>".$author_name."</a>
-							</span>
-						  </div>
-						</li>";
-	  }
-	  $new_content.="</ul></div>";
-      echo $new_content;	  
+		<img src='/img/slide1.jpg'/>
+	  </div>
+	  <?php
 	}
 	?>
-	<div id='left_main'>
 	<div id='society' class='t_category'>
 	  <h3><a href='#'>社会</a></h3>
 	  <ul class='category_list'>
@@ -274,10 +204,12 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	</div>
 	</div>
 	<div id='right_main'>
-	  <ul>
-	    <li><a href='#'>我的订阅</a></li>
-		<li><a href='#'>我的收藏</a></li>
-		<li><a href='#'>我的创作</a></li>
+	  <?php
+	  if($login_flag)
+	  {
+	    $custom_content = "<ul>
+		<li><a href='#'>我创作的 &raquo;</a></li>
+		<li><a href='#'>我喜欢的 &raquo;</a></li>
 	  </ul>
 	  <div id='add_info'>
 	    <h3><a href='#'>完善你的个人资料</a></h3>
@@ -287,7 +219,68 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	  </div>
 	  <div id='rec_people'>
 	    <h3><a href='#'>你可能感兴趣的人</a></h3>
-	  </div>
+	  </div>";
+	  }	  
+	  else
+	  {
+	    $custom_content = "<div id='login_form_right'>
+						     <form method='post' action='/accounts/login/login'>
+							   <div class='form_div'><div class='form_label'>邮&nbsp;箱</div><input type='text' name='email' id='email_login' size='26' /></div>
+							   <div class='form_div'><div class='form_label'>密&nbsp;码</div><input type='password' name='passwd' id='pwd_login' size='26' /></div>
+							   <div class='auto_login'><span><input type='checkbox' name='autologin' />下次自动登录</span> | <span><a href='/accounts/forget_password'>忘记密码了？</a></span></div>
+							   <div><a class='medium blue awesome loginbtn'>登 录 &raquo;</a><a class='medium green awesome' href='/accounts/register'>注册 &raquo;</a></div>
+							 </form>
+						   </div>
+						   <div id='recUsers' class='t_category'>
+						     <h3>推荐用户</h3>
+							 <ul>";
+		$query = "SELECT id, username, photo, intro from ".$db_prefix."user ORDER BY RAND() LIMIT 4";
+		$result=$DB->query($query);
+		while ($user_item = mysql_fetch_array($result))
+		{
+		  $u_id = $user_item['id'];
+		  $u_name = $user_item['username'];
+		  $u_photo = $user_item['photo'];
+		  $u_intro = $user_item['intro'];
+		  $u_intro = "推荐用户推荐用户推荐用户推荐用户推荐用户推荐用户推荐用户";
+		  if(empty($u_photo))
+		  {
+			$u_photo = 'img/douban_user_dft.jpg';
+		  }
+		  $u_link = "/user/".$u_id;
+		  $custom_content.="<li>
+							  <a href='".$u_link."' title='".$u_name."'><img src='".$u_photo."' /></a>
+							  <div class='user_intro'>
+							    <div><a href='".$u_link."' title='".$u_name."'>".$u_name."</a></div>
+							    <div>".$u_intro."</div>
+							  </div>
+							</li>";
+		}
+		$custom_content.= "</ul>
+						   </div>
+						   <div id='topUsers' class='t_category'>
+						     <h3>随便看看</h3>
+							 <ul>";
+		$query = "SELECT id, username, photo from ".$db_prefix."user ORDER BY RAND() LIMIT 16";
+		$result=$DB->query($query);
+		while ($user_item = mysql_fetch_array($result))
+		{
+		  $u_id = $user_item['id'];
+		  $u_name = $user_item['username'];
+		  $u_photo = $user_item['photo'];
+		  if(empty($u_photo))
+		  {
+			$u_photo = 'img/douban_user_dft.jpg';
+		  }
+		  $u_link = "/user/".$u_id;
+		  $custom_content.="<li>
+							  <a href='".$u_link."' title='".$u_name."'><img src='".$u_photo."' /></a>
+							</li>";
+		}
+		$custom_content.= "</ul></div>";
+	  }
+	  echo $custom_content;
+	  ?>
 	</div>
   </div>
 
