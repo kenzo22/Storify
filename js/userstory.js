@@ -709,6 +709,7 @@ $(function(){
 		{
 		  item.text('喜欢');
 		  item.removeClass('del_like').addClass('add_like');
+            alert(data);
 		}
 	  });
 	});
