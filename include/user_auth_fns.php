@@ -170,6 +170,59 @@ function printStory($result)
 	echo $story_content;
 }
 
+function printLikedStory($result,$login_uid)
+{
+  global $DB;
+  global $db_prefix;
+  $story_content = '';
+  while ($story_item = mysql_fetch_array($result))
+	{
+	  $post_author = $story_item['post_author'];
+	  $post_pic_url = $story_item['post_pic_url'];
+	  if($post_pic_url == '')
+	  {
+		$post_pic_url = '/img/event_dft.jpg';
+	  }
+	  $userresult = $DB->fetch_one_array("SELECT username, photo FROM ".$db_prefix."user where id='".$post_author."'");
+	  $user_profile_img = $userresult['photo'];
+	  $author_name = $userresult['username'];
+	  if($user_profile_img == '')
+	  {
+		$user_profile_img = '/img/douban_user_dft.jpg';
+	  }
+	  $post_title = $story_item['post_title'];
+	  $post_date = $story_item['post_date'];
+	  $temp_array = explode(" ", $story_item['post_date']);
+	  $post_date = $temp_array[0];
+	  $post_link = "/user/".$post_author."/".$story_item['ID'];
+	  $post_link = htmlspecialchars($post_link);
+	  $story_content .= "<li>
+						  <div class='story_wrap'>	
+							<a href='".$post_link."'>
+							  <img class='cover' src='".$post_pic_url."' alt='' />
+							</a>
+							<a class='title_wrap' href='".$post_link."'>
+							  <span class='title'>".$post_title."</span>
+							</a>";
+	  if($login_uid != 0)
+	  {
+	    $story_content .= "<div class='del_wrapper'>
+						     <a id='like_".$login_uid."_".$story_item['ID']."' class='del_like remove_item' title='取消喜欢'><img src='/img/heart.png'/></a>
+						   </div>";
+	  }
+	  $story_content .="</div>
+						  <div class='story_meta'>
+							<span>
+							  <a class='meta_date'>".$post_date."</a>
+							  <img src='".$user_profile_img."' alt=''/>
+							  <a class='meta_author' href='/user/".$post_author."'>".$author_name."</a>
+							</span>
+						  </div>
+						</li>";
+	}
+	return $story_content;
+}
+
 function printFollow($user_list)
 {
   global $DB;

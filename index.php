@@ -278,7 +278,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	  ?>
 	  <div id='follow_us' class='t_category'>
 	    <h3>关注口立方</h3>
-	    <iframe width="100%" height="64" frameborder="0" allowtransparency="true" marginwidth="0" marginheight="0" scrolling="no" border="0" src="http://widget.weibo.com/relationship/followbutton.php?language=zh_cn&width=100%&height=64&uid=2329577672&style=4&btn=red&dpc=1"></iframe>
+	    <iframe width="100%" height="84" frameborder="0" allowtransparency="true" marginwidth="0" marginheight="0" scrolling="no" border="0" src="http://widget.weibo.com/relationship/followbutton.php?language=zh_cn&width=100%&height=64&uid=2329577672&style=4&btn=red&dpc=1"></iframe>
 	  </div>
 	</div>
   </div>

@@ -26,7 +26,7 @@ if($operation == 'add_like')
     }
     elseif($num == 1){
         $row=$DB->fetch_array($result); 
-        echo $row['postid_str'];
+        //echo $row['postid_str'];
         $post_s=$row['postid_str'].":".$post_id;
         $cmd="UPDATE story_favor SET postid_str='".$post_s."'";
     }else{

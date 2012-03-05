@@ -688,7 +688,6 @@ $(function(){
 		  {
 		    item.text('取消喜欢');
 		    item.removeClass('add_like').addClass('del_like');
-			alert(data);
 		  }
 	    });
 	  }
@@ -707,9 +706,16 @@ $(function(){
 	  {
 		if(textStatus == 'success')
 		{
-		  item.text('喜欢');
-		  item.removeClass('del_like').addClass('add_like');
-            alert(data);
+		  if(item.hasClass('remove_item'))
+		  {
+			var remove = item.closest('li');
+			remove.hide('slow', function(){remove.remove();});
+		  }
+		  else
+		  {
+			item.text('喜欢');
+		    item.removeClass('del_like').addClass('add_like');
+		  }
 		}
 	  });
 	});
