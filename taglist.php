@@ -15,28 +15,18 @@ try{
         $sth->execute(array(':story_id'=> $row['id']));
     }
 */
+    if(isset($_GET['edit'])){
+        $cmd="UPDATE story_category SET name=:name, subname=:subname WHERE story_id=:post_id";
+        $st=$dbh->prepare($cmd);
+        for($i=0;$i<sizeof($_POST['pname']);$i++){
+            if($_POST['pname'][$i]=='')
+                continue;
+            $st->execute(array(':name'=>$_POST['pname'][$i],':subname'=>$_POST['sname'][$i],':post_id'=>$_POST['id'][$i]));
+        }
+    }
 }
 catch(PDOException $e){
     echo $e->getMessage();
-}
-if(isset($_GET['edit'])){
-    $cmd="UPDATE story_category SET name=:name, subname=:subname WHERE story_id=:post_id";
-    try{
-        $st=$dbh->prepare($cmd);
-    }
-    catch(PDOException $e){
-        $e->getMessage();
-    }
-    for($i=0;$i<sizeof($_POST['pname']);$i++){
-        if($_POST['pname'][$i]=='')
-            continue;
-        try{
-            $st->execute(array(':name'=>$_POST['pname'][$i],':subname'=>$_POST['sname'][$i],':post_id'=>$_POST['id'][$i]));
-        }
-        catch(PDOException $e){
-            $e->getMessage();
-        }
-    }
 }
 ?>
 
@@ -46,7 +36,12 @@ if(isset($_GET['edit'])){
 	<div class='title'> 未处理标签的故事 </div>  
     <table border="0">
     <?php
-    $content="";
+    $content="<tr>
+                <td>故事ID</td>
+                <td>故事标题</td>
+                <td>一级分类</td>
+                <td>二级分类</td>
+             </tr>";
     $query="SELECT story_posts.id, post_author, post_title FROM story_posts, story_category WHERE story_posts.id=story_id AND (name ='' OR subname = '') ";
     $smst=$dbh->query($query);
     foreach($smst as $row){
