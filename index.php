@@ -51,7 +51,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 		}
 		$content="<ul class='user_console'>
 				    <li class='person_li display'><a class='person_a person_a_display' href='/user/".$userresult['id']."'><img id='person_img' src='".$user_profile_img."'><span id='person_name'>".$_SESSION['username']."</span></a></li>
-					<li class='person_li'><a class='person_a home_icon' href='/user/".$userresult['id']."'><img class='console_img' src='/img/home.png'/><span>我的主页</span></a></li>
+					<li class='person_li'><a class='person_a home_icon' href='/user/".$userresult['id']."/subscription'><img class='console_img' src='/img/home.png'/><span>我的订阅</span></a></li>
 					<li class='person_li'><a class='person_a setting_icon' href='/accounts/setting'><img class='console_img' src='/img/setting.png'/><span>设置</span></a></li>
 					<li class='person_li'><a class='person_a quit_icon' href='/accounts/logout'><img class='console_img' src='/img/quit.png'/><span>退出<span></a></li>
 		          </ul>";
@@ -107,12 +107,12 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	if($login_flag)
 	{
 	  echo "<div id='subscription' class='t_category'>
-	  <h3><a href='#'>我的订阅</a></h3>
-	  <span id='more_sub'><a href='#'>更多 &raquo;</a></span>
+	  <h3><a href='/user/".$userresult['id']."/subscription'>我的订阅</a></h3>
+	  <span id='more_sub'><a href='/user/".$userresult['id']."/subscription'>更多 &raquo;</a></span>
 	  <ul class='sto_cover_list'>";
 	  $i_query = "select * from ".$db_prefix."posts ORDER BY RAND() LIMIT 3";
 	  $result=$DB->query($i_query);
-	  printStory($result);
+	  echo printStory($result);
 	  echo "</ul></div>";
 	}
 	else
@@ -140,7 +140,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 		$list_content = '';
 		$i_query = "select * from ".$db_prefix."posts ORDER BY RAND() LIMIT 3";
 		$result=$DB->query($i_query);
-		printStory($result);
+		echo printStory($result);
 		?>
 	  </ul>
 	</div>
@@ -162,7 +162,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 		$list_content = '';
 		$i_query = "select * from ".$db_prefix."posts ORDER BY RAND() LIMIT 3";
 		$result=$DB->query($i_query);
-		printStory($result);
+		echo printStory($result);
 		?>
 	  </ul>
 	</div>
@@ -182,7 +182,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 		$list_content = '';
 		$i_query = "select * from ".$db_prefix."posts ORDER BY RAND() LIMIT 3";
 		$result=$DB->query($i_query);
-		printStory($result);
+		echo printStory($result);
 		?>
 	  </ul>
 	</div>
@@ -200,7 +200,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 		$list_content = '';
 		$i_query = "select * from ".$db_prefix."posts ORDER BY RAND() LIMIT 3";
 		$result=$DB->query($i_query);
-		printStory($result);
+		echo printStory($result);
 		?>
 	  </ul>
 	</div>

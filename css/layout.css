@@ -316,15 +316,18 @@ li#more{margin:10px 0}
 .del_wrapper{position:absolute;right:4px;top:3px}
 .del_wrapper a img{width:16px;height:16px}
 #tagstory_container{margin-bottom:30px;overflow:auto;zoom:1;position:relative}
-.sort_type{background-color: #DDDDDD;overflow: hidden; width:300px;padding:7px 0 0 40px;font-size:16px;border-radius:5px}
+.sort_type{background-color: #DDDDDD;overflow: hidden;padding:7px 0 0 40px;margin-right:50px;font-size:16px;border-radius:5px}
+#sub_container .sort_type{margin-right:20px}
 #tagstory_container .sort_type{margin-bottom:20px}
 .sort_type a{margin-right:40px;padding:3px 8px}
 .sort_type a.now{background-color:#FFF;}
-#userstory_container{overflow:auto;zoom:1;position:relative;width:960px;padding-top:50px;min-height:650px;margin:0 auto 30px}
+#userstory_container,#sub_container{overflow:auto;zoom:1;position:relative;width:960px;padding-top:50px;min-height:650px;margin:0 auto 30px}
+#sublist_wrapper{padding:0 40px}
+#sublist_wrapper #sublist_title{color:#494949;display:block;font-size:25px;font-weight:700;line-height:1.1;padding:0 0 20px}
 .userstory_list{float:left;width:690px;padding:0 0 0 30px}
-.userstory_list ul,.t_category .sto_cover_list{overflow:auto;zoom:1;padding:0}
+.userstory_list ul,.t_category .sto_cover_list,#sub_container .sto_cover_list{overflow:auto;zoom:1;padding:0}
 .userstory_list #first_imply{font-size:14px;font-weight:600;margin-bottom:5px}
-.userstory_list ul li,.t_category .sto_cover_list li{border:1px solid #DDD;border-radius:3px 3px 3px 3px;color:#323232;display:inline;text-decoration:none;height:218px;width:188px;float:left;margin:20px 20px 0 0;padding:5px 5px 2px}
+.userstory_list ul li,.t_category .sto_cover_list li,#sub_container .sto_cover_list li{border:1px solid #DDD;border-radius:3px 3px 3px 3px;color:#323232;display:inline;text-decoration:none;height:218px;width:188px;float:left;margin:20px 20px 0 0;padding:5px 5px 2px}
 .t_category .sto_cover_list li{margin:20px 10px 0 18px}
 #popular{clear:both;margin-bottom:20px}
 #popular h3, #new_wrapper h3, .t_category h3{color:#666;margin-top:30px;padding-bottom:15px;font-size:20px;font-weight:500}
