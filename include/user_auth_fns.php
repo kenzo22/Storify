@@ -167,7 +167,7 @@ function printStory($result)
 						  </div>
 						</li>";
 	}
-	echo $story_content;
+	return $story_content;
 }
 
 function printLikedStory($result,$login_uid)
