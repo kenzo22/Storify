@@ -181,8 +181,9 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 		$fol_result = $DB->query($follow_query);
 		$fol_array = array();
 		$item__array = array();
-		while($item = mysql_fetch_array($fol_result))
+		while($item = mysql_fetch_array($fol_result)){
 			$fol_array[] = $item['follow_id'];
+        }
 		$len = sizeof($fol_array);
 		if ($len >= 10){
 			$ran_keys = array_rand($fol_array, 10);
