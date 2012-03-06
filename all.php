@@ -56,7 +56,7 @@ switch($name)
 	$tab_content = "<li class='selected' rel='shehui'><a href='/shehui'>社会</a></li>
 				    <li rel='yule'><a href='/yule'>娱乐</a></li>
 				    <li rel='keji'><a href='/keji'>科技</a></li>
-				    <li rel='tiyu'><a href='tiyu'>体育</a></li>";
+				    <li rel='tiyu'><a href='/tiyu'>体育</a></li>";
     break;
   }
   case "yule":{
@@ -65,7 +65,7 @@ switch($name)
 	$tab_content = "<li rel='shehui'><a href='/shehui'>社会</a></li>
 				    <li class='selected' rel='yule'><a href='/yule'>娱乐</a></li>
 				    <li rel='keji'><a href='/keji'>科技</a></li>
-				    <li rel='tiyu'><a href='tiyu'>体育</a></li>";
+				    <li rel='tiyu'><a href='/tiyu'>体育</a></li>";
     break;
   }
   case "keji":{
@@ -74,7 +74,7 @@ switch($name)
 	$tab_content = "<li rel='shehui'><a href='/shehui'>社会</a></li>
 				    <li rel='yule'><a href='/yule'>娱乐</a></li>
 				    <li class='selected' rel='keji'><a href='/keji'>科技</a></li>
-				    <li rel='tiyu'><a href='tiyu'>体育</a></li>";
+				    <li rel='tiyu'><a href='/tiyu'>体育</a></li>";
     break;
   }
   case "tiyu":{
@@ -83,7 +83,7 @@ switch($name)
 	$tab_content = "<li rel='shehui'><a href='/shehui'>社会</a></li>
 				    <li rel='yule'><a href='/yule'>娱乐</a></li>
 				    <li rel='keji'><a href='/keji'>科技</a></li>
-				    <li class='selected' rel='tiyu'><a href='tiyu'>体育</a></li>";
+				    <li class='selected' rel='tiyu'><a href='/tiyu'>体育</a></li>";
     break;
   }
 }
