@@ -13,13 +13,13 @@ try{
         for($j=0;$j<sizeof($_POST['list']);$j++){
             if(!$_POST['list'][$j])
                 continue;
-            $tmp_array=explode(":",$_POST['list'][$j]);
+            $tmp_array=explode(",",$_POST['list'][$j]);
             if(sizeof($tmp_array)<$max){
                 echo "For $category[$j], Set $max tales!";
                 continue;
             }
             array_splice($tmp_array,3);
-            $post_str=implode(":",$tmp_array);
+            $post_str=implode(",",$tmp_array);
             $sh->execute(array(':cate'=>$category[$j]));
             $row=$sh->fetch();
             if($row){
@@ -47,7 +47,7 @@ try{
     <?php
     $content="<tr>
                 <td>一级分类</td>
-                <td>输入3个故事ID，用:分割</td>
+                <td>输入3个故事ID，用,分割</td>
              <tr/>";
     $sql="SELECT * FROM story_maintale WHERE category=:cate";
     $smth=$dbh->prepare($sql);

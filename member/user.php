@@ -341,13 +341,13 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	}
 
     // get tags for this story
-    $tag_query = "select tag_id,name from story_tag,story_tag_story where story_tag.id=tag_id and story_id=".$post_id;
+    /*$tag_query = "select tag_id,name from story_tag,story_tag_story where story_tag.id=tag_id and story_id=".$post_id;
     $tag_names = $DB->query($tag_query);
     if($DB->num_rows($tag_names) > 0){
         while($tag_name_row = $DB->fetch_array($tag_names)){
             $tags .= "<a class='tag_item' href='/topic/".$tag_name_row['tag_id']."'>".$tag_name_row['name']."</a>";
         }
-    }
+    }*/
 
 	$story_author_name = $userresult['username'];
 	$content .="<div id='story_header'>";
@@ -360,10 +360,10 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 				  <div class='story_title'>".$story_title."</div>
 				  <div class='story_author'>by<a href='http://www.koulifang.com/user/".$user_id."'>".$story_author_name."</a>, ".$story_time."</div>
 				  <div class='story_sum'>".$story_summary."</div>";
-	if($tags!='')
+	/*if($tags!='')
 	{
 	  $content .="<div class='story_tag'>标签:".$tags."</div>";
-	}
+	}*/
 	$content .="</div>";
 	if($publish_flag)
 	{
@@ -382,7 +382,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  if($login_status)
 	  {
         if($like)
-	        $content .="<a id='like_".$_SESSION['uid']."_".$post_id."' class='add_like' href='#weibo_dialog'>喜欢</a></div>";
+	        $content .="<a id='like_".$_SESSION['uid']."_".$post_id."' class='add_like' href='#weibo_dialog'>喜欢</a><span> | </span></div>";
         else
 	        $content .="<a id='like_".$_SESSION['uid']."_".$post_id."' class='del_like' href='#weibo_dialog'>取消喜欢</a></div>";
 	  }

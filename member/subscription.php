@@ -2,7 +2,6 @@
 $html_title = "我的订阅";
 require $_SERVER['DOCUMENT_ROOT']."/global.php";
 require $_SERVER['DOCUMENT_ROOT']."/include/header.php";
-include $_SERVER['DOCUMENT_ROOT']."/member/userrelation.php";
 require $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php';
 
 $login_flag = islogin();
@@ -45,13 +44,13 @@ if(isset($_GET['user_id']))
     {
 	  $sort_type = $_GET['sort'];
 	  $padding = "&sort=".$sort_type;
-	  $content .= "<div class='sort_type'><a href='/user/".$user_id."/subscription'>最新</a><a class='now' href='/user/".$user_id."/subscription/sort=popular'>最流行</a></div><ul class='sto_cover_list'>";
+	  $content .= "<div class='sort_type'><a href='/user/".$user_id."/subscription'>最新</a><a class='now' href='/user/".$user_id."/subscription/sort=popular'>最热</a></div><ul class='sto_cover_list'>";
 	}
     else
     {
 	  $sort_type='';
 	  $padding = '';
-	  $content .= "<div class='sort_type'><a class='now' href='/user/".$user_id."/subscription'>最新</a><a href='/user/".$user_id."/subscription/sort=popular'>最流行</a></div><ul class='sto_cover_list'>";
+	  $content .= "<div class='sort_type'><a class='now' href='/user/".$user_id."/subscription'>最新</a><a href='/user/".$user_id."/subscription/sort=popular'>最热</a></div><ul class='sto_cover_list'>";
     }
 	
 	$adjacents = 3;

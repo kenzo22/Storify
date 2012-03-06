@@ -102,6 +102,18 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
     
 	<div id='main_content' class='inner'>
 	  <div><a id='user_feedback_tab' href='/contactus'>feedback</a></div>
+	  <?php
+	  if(!$login_flag)
+	  {
+	  ?>
+	    <div id='featured_container'>
+		  <img src='/img/slide1.jpg'/>
+		  <div id='more_info'><a class='large green awesome' href='/tour'>了解更多 &raquo;</a></div>
+		  <div id='f_register'><a class='large blue awesome' href='/tour'>免费注册 &raquo;</a></div>
+	    </div>
+	  <?php
+	  }
+	  ?>
 	<div id='left_main'>
 	<?php
 	if($login_flag)
@@ -115,91 +127,86 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	  echo printStory($result);
 	  echo "</ul></div>";
 	}
-	else
-	{
-	  ?>
-	  <div id='featured_container'>
-		<img src='/img/slide1.jpg'/>
-		<div id='more_info'><a class='medium green awesome' href='/tour'>了解更多 &raquo;</a></div>
-		<div id='f_register'><a class='medium blue awesome' href='/tour'>免费注册 &raquo;</a></div>
-	  </div>
-	  <?php
-	}
 	?>
 	<div id='society' class='t_category'>
-	  <h3><a href='#'>社会</a></h3>
+	  <h3><a href='/shehui'>社会</a></h3>
 	  <ul class='category_list'>
-	    <li><a href='#'>全部</a></li>
-		<li><a href='#'>话题</a></li>
-	    <li><a href='#'>文化</a></li>
-		<li><a href='#'>万象</a></li>
-		<li><a href='#'>更多 &raquo;</a></li>
+	    <li><a href='/shehui'>全部</a></li>
+		<li><a href='/shehui/1'>热点话题</a></li>
+	    <li><a href='/shehui/2'>文化</a></li>
+		<li><a href='/shehui/3'>万象</a></li>
+		<li><a href='/shehui'>更多 &raquo;</a></li>
 	  </ul>
 	  <ul class='sto_cover_list'>
 	    <?php
-		$list_content = '';
-		$i_query = "select * from ".$db_prefix."posts ORDER BY RAND() LIMIT 3";
-		$result=$DB->query($i_query);
+		$result = $DB->fetch_one_array("select post_str from ".$db_prefix."maintale where category='社会'");
+		$post_str = $result['post_str'];
+		$sql = "SELECT * FROM story_posts WHERE ID IN ($post_str) ORDER BY FIND_IN_SET(ID, '$post_str')";
+		$result = mysql_query($sql);
 		echo printStory($result);
 		?>
 	  </ul>
 	</div>
 	<div id='yule' class='t_category'>
-	  <h3><a href='#'>娱乐</a></h3>
+	  <h3><a href='/yule'>娱乐</a></h3>
 	  <ul class='category_list'>
-	    <li><a href='#'>全部</a></li>
-		<li><a href='#'>明星</a></li>
-		<li><a href='#'>时尚</a></li>
-		<li><a href='#'>美食</a></li>
-		<li><a href='#'>旅游</a></li>
-		<li><a href='#'>晒货</a></li>
-		<li><a href='#'>电影</a></li>
-		<li><a href='#'>音乐</a></li>
-		<li><a href='#'>更多 &raquo;</a></li>
+	    <li><a href='/yule'>全部</a></li>
+		<li><a href='/yule/1'>明星</a></li>
+		<li><a href='/yule/2'>美食</a></li>
+		<li><a href='/yule/3'>旅游</a></li>
+		<li><a href='/yule/4'>晒货</a></li>
+		<li><a href='/yule/5'>搞笑</a></li>
+		<li><a href='/yule/6'>电影</a></li>
+		<li><a href='/yule/7'>音乐</a></li>
+		<li><a href='/yule/8'>图书</a></li>
+		<li><a href='/yule'>更多 &raquo;</a></li>
 	  </ul>
 	  <ul class='sto_cover_list'>
 	    <?php
-		$list_content = '';
-		$i_query = "select * from ".$db_prefix."posts ORDER BY RAND() LIMIT 3";
-		$result=$DB->query($i_query);
+		$result = $DB->fetch_one_array("select post_str from ".$db_prefix."maintale where category='娱乐'");
+		$post_str = $result['post_str'];
+		$sql = "SELECT * FROM story_posts WHERE ID IN ($post_str) ORDER BY FIND_IN_SET(ID, '$post_str')";
+		$result = mysql_query($sql);
 		echo printStory($result);
 		?>
 	  </ul>
 	</div>
 	<div id='tech' class='t_category'>
-	  <h3><a href='#'>科技</a></h3>
+	  <h3><a href='/keji'>科技</a></h3>
 	  <ul class='category_list'>
-	    <li><a href='#'>全部</a></li>
-		<li><a href='#'>互联网</a></li>
-		<li><a href='#'>创业</a></li>
-		<li><a href='#'>移动互联网</a></li>
-		<li><a href='#'>数码</a></li>
-		<li><a href='#'>游戏</a></li>
-		<li><a href='#'>更多 &raquo;</a></li>
+	    <li><a href='/keji'>全部</a></li>
+		<li><a href='/keji/1'>互联网</a></li>
+		<li><a href='/keji/2'>创业</a></li>
+		<li><a href='/keji/3'>移动互联网</a></li>
+		<li><a href='/keji/4'>数码</a></li>
+		<li><a href='/keji/5'>游戏</a></li>
+		<li><a href='/keji'>更多 &raquo;</a></li>
 	  </ul>
 	  <ul class='sto_cover_list'>
 	    <?php
-		$list_content = '';
-		$i_query = "select * from ".$db_prefix."posts ORDER BY RAND() LIMIT 3";
-		$result=$DB->query($i_query);
+		$result = $DB->fetch_one_array("select post_str from ".$db_prefix."maintale where category='科技'");
+		$post_str = $result['post_str'];
+		$sql = "SELECT * FROM story_posts WHERE ID IN ($post_str) ORDER BY FIND_IN_SET(ID, '$post_str')";
+		$result = mysql_query($sql);
 		echo printStory($result);
 		?>
 	  </ul>
 	</div>
 	<div id='sports' class='t_category'>
-	  <h3><a href='#'>体育</a></h3>
+	  <h3><a href='/tiyu'>体育</a></h3>
 	  <ul class='category_list'>
-	    <li><a href='#'>全部</a></li>
-		<li><a href='#'>国际足坛</a></li>
-		<li><a href='#'>NBA</a></li>
-		<li><a href='#'>综合</a></li>
-		<li><a href='#'>更多 &raquo;</a></li>
+	    <li><a href='/tiyu'>全部</a></li>
+		<li><a href='/tiyu/1'>国际足坛</a></li>
+		<li><a href='/tiyu/2'>NBA</a></li>
+		<li><a href='/tiyu/3'>综合</a></li>
+		<li><a href='/tiyu'>更多 &raquo;</a></li>
 	  </ul>
 	  <ul class='sto_cover_list'>
 	    <?php
-		$list_content = '';
-		$i_query = "select * from ".$db_prefix."posts ORDER BY RAND() LIMIT 3";
-		$result=$DB->query($i_query);
+		$result = $DB->fetch_one_array("select post_str from ".$db_prefix."maintale where category='体育'");
+		$post_str = $result['post_str'];
+		$sql = "SELECT * FROM story_posts WHERE ID IN ($post_str) ORDER BY FIND_IN_SET(ID, '$post_str')";
+		$result = mysql_query($sql);
 		echo printStory($result);
 		?>
 	  </ul>
@@ -236,19 +243,16 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	  if($login_flag)
 	  {
 	    $custom_content = "<div id='my_page'>
-						     <div><a href='#'>我创作的 &raquo;</a></div>
-							 <div><a href='#'>我喜欢的 &raquo;</a></div>
+						     <div><a href='/user/".$userresult['id']."'>我创作的 &raquo;</a></div>
+							 <div><a href='/user/".$userresult['id']."/like'>我喜欢的 &raquo;</a></div>
 						   </div>
 						   <div id='add_info' class='t_category'>
 							 <h3>完善个人资料</h3>
 							 <img src='".$user_profile_img."'/>
 							 <div class='user_intro'>
-							   <div>".$_SESSION['username']."</div>
+							   <div>".$_SESSION['username']." <a href='/accounts/setting'>[修改]</a></div>
 							   <div>".$userresult['intro']."</div>
 							 </div>
-						   </div>
-						   <div id='invite_people'>
-							 <h3><a href='#'>邀请好友加入口立方</a></h3>
 						   </div>".$rec_user;
 	  }	  
 	  else
