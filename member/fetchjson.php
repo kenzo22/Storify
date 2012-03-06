@@ -8,8 +8,7 @@ require '../tweibo/config.php';
 require '../tweibo/txwboauth.php';
 require '../douban/config.php';
 require '../douban/doubanapi.php';
-require '../include/secureGlobals';
-
+require '../include/secureGlobals.php';
 
 header("content-type: text/javascript");
 
@@ -432,6 +431,6 @@ else
   $obj->tags = $tag_array;
   $obj->content_array = $content_array;
 
-  echo $_GET['callback']. '(' . json_encode($obj) . ');';
+  echo $_GET['callback']. '(' . json_encode($obj) . ')';
 }
 ?>
