@@ -2,6 +2,7 @@
 $html_title = "我的订阅";
 require $_SERVER['DOCUMENT_ROOT']."/global.php";
 require $_SERVER['DOCUMENT_ROOT']."/include/header.php";
+include $_SERVER['DOCUMENT_ROOT']."/member/userrelation.php";
 require $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals.php';
 
 $login_flag = islogin();
@@ -44,132 +45,79 @@ if(isset($_GET['user_id']))
     {
 	  $sort_type = $_GET['sort'];
 	  $padding = "&sort=".$sort_type;
-	  $content .= "<div class='sort_type'><a href='/user/".$user_id."/subscription'>最新</a><a class='now' href='/user/".$user_id."/subscription/sort=popular'>最热</a></div><ul class='sto_cover_list'>";
+	  $content .= "<div class='sort_type'><a href='/user/".$user_id."/subscription'>最新</a><a class='now' href='/user/".$user_id."/subscription/sort=popular'>最流行</a></div><ul class='sto_cover_list'>";
 	}
     else
     {
 	  $sort_type='';
 	  $padding = '';
-	  $content .= "<div class='sort_type'><a class='now' href='/user/".$user_id."/subscription'>最新</a><a href='/user/".$user_id."/subscription/sort=popular'>最热</a></div><ul class='sto_cover_list'>";
+	  $content .= "<div class='sort_type'><a class='now' href='/user/".$user_id."/subscription'>最新</a><a href='/user/".$user_id."/subscription/sort=popular'>最流行</a></div><ul class='sto_cover_list'>";
     }
 	
-	$adjacents = 3;
 	$query="select COUNT(*) as num from ".$db_prefix."follow, story_posts where user_id=".$user_id." and follow_id = post_author and post_status = 'Published'";
-    $total_pages = mysql_fetch_array(mysql_query($query));
-    $total_pages = $total_pages[num];
+    $total_num = mysql_fetch_array(mysql_query($query));
+    $total_num = $total_num[num];
 	
-	$targetpage = "/user/".$user_id."/subscription"; 
-	$limit = 24; 								//how many items to show per page
-	$page = $_GET['page'];
-	
-	if($page) 
-		$start = ($page - 1) * $limit; 			//first item to display on this page
-	else
-		$start = 0;								//if no page var is given, set start to 0
+	$limit = 16; 							
 
-	/* Get data. */
 	if(0 == strcmp($sort_type, 'popular'))
 	{
-	  //$sql = "SELECT * FROM $tbl_name where post_author=1 order by popular_count desc LIMIT $start, $limit";
-	  $sql = "select story_posts.* from ".$db_prefix."follow, story_posts where user_id=".$user_id." and follow_id = post_author and post_status = 'Published' order by popular_count desc LIMIT $start, $limit";
+	  $sql = "select story_posts.* from ".$db_prefix."follow, story_posts where user_id=".$user_id." and follow_id = post_author and post_status = 'Published' order by popular_count desc LIMIT 0, $limit";
 	}
 	else
 	{
-	  //$sql = "SELECT * FROM $tbl_name where post_author=1 order by post_modified desc LIMIT $start, $limit";
-	  $sql = "select story_posts.* from ".$db_prefix."follow, story_posts where user_id=".$user_id." and follow_id = post_author and post_status = 'Published' order by post_modified desc LIMIT $start, $limit";
+	  $sql = "select story_posts.* from ".$db_prefix."follow, story_posts where user_id=".$user_id." and follow_id = post_author and post_status = 'Published' order by post_modified desc LIMIT 0, $limit";
 	}
 
 	$result = mysql_query($sql);
-
-	/* Setup page vars for display. */
-	if ($page == 0) $page = 1;					//if no page var is given, default to 1.
-	$prev = $page - 1;							
-	$next = $page + 1;							
-	$lastpage = ceil($total_pages/$limit);	
-	$lpm1 = $lastpage - 1;						//last page minus 1
-
-	$pagination = "";
-	if($lastpage > 1)
-	{	
-		$pagination .= "<div class=\"pagination\">";
-		//previous button
-		if ($page > 1) 
-			$pagination.= "<a href=\"$targetpage/page=$prev$padding\">« 前页</a>";
-		else
-			$pagination.= "<span class=\"disabled\">« 前页</span>";	
-		
-		//pages	
-		if ($lastpage < 7 + ($adjacents * 2))	//not enough pages to bother breaking it up
-		{	
-			for ($counter = 1; $counter <= $lastpage; $counter++)
-			{
-				if ($counter == $page)
-					$pagination.= "<span class=\"current\">$counter</span>";
-				else
-					$pagination.= "<a href=\"$targetpage/page=$counter$padding\">$counter</a>";					
-			}
-		}
-		elseif($lastpage > 5 + ($adjacents * 2))	//enough pages to hide some
-		{
-			//close to beginning; only hide later pages
-			if($page < 1 + ($adjacents * 2))		
-			{
-				for ($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
-				{
-					if ($counter == $page)
-						$pagination.= "<span class=\"current\">$counter</span>";
-					else
-						$pagination.= "<a href=\"$targetpage/page=$counter$padding\">$counter</a>";					
-				}
-				$pagination.= "...";
-				$pagination.= "<a href=\"$targetpage/page=$lpm1$padding\">$lpm1</a>";
-				$pagination.= "<a href=\"$targetpage/page=$lastpage$padding\">$lastpage</a>";		
-			}
-			//in middle; hide some front and some back
-			elseif($lastpage - ($adjacents * 2) > $page && $page > ($adjacents * 2))
-			{
-				$pagination.= "<a href=\"$targetpage/page=1$padding\">1</a>";
-				$pagination.= "<a href=\"$targetpage/page=2$padding\">2</a>";
-				$pagination.= "...";
-				for ($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
-				{
-					if ($counter == $page)
-						$pagination.= "<span class=\"current\">$counter</span>";
-					else
-						$pagination.= "<a href=\"$targetpage/page=$counter$padding\">$counter</a>";					
-				}
-				$pagination.= "...";
-				$pagination.= "<a href=\"$targetpage/page=$lpm1$padding\">$lpm1</a>";
-				$pagination.= "<a href=\"$targetpage/page=$lastpage$padding\">$lastpage</a>";		
-			}
-			//close to end; only hide early pages
-			else
-			{
-				$pagination.= "<a href=\"$targetpage/page=1$padding\">1</a>";
-				$pagination.= "<a href=\"$targetpage/page=2$padding\">2</a>";
-				$pagination.= "...";
-				for ($counter = $lastpage - (2 + ($adjacents * 2)); $counter <= $lastpage; $counter++)
-				{
-					if ($counter == $page)
-						$pagination.= "<span class=\"current\">$counter</span>";
-					else
-						$pagination.= "<a href=\"$targetpage/page=$counter$padding\">$counter</a>";					
-				}
-			}
-		}
-		
-		//next button
-		if ($page < $counter - 1) 
-			$pagination.= "<a href=\"$targetpage/page=$next$padding\">后页 »</a>";
-		else
-			$pagination.= "<span class=\"disabled\">后页 »</span>";
-		$pagination.= "</div>\n";		
+	$content .= printStory($result);
+	if($total_num > $limit)
+	{
+	  $content .= "</ul><div class='more_content'><a id='sub_".$limit."' class='load_more' href='#'>更多</a></div></div></div>";
 	}
-	$content .= printStory($result)."</ul>".$pagination."</div></div>";
+	else
+	{
+	  $content .= "</ul></div></div>";
+	}
 	echo $content;
 }
 
 include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm";
 ?>
+<script type="text/javascript">
+$(function()
+{	  
+  $('.load_more').live('click', function(e){
+	e.preventDefault();
+    var sort_val,postData,
+		more_id_val = $(this).attr('id'),
+	    more_array = more_id_val.split('_'),
+	    first_item_val = more_array[1];
+	if($('.sort_type .now').text() == "最新")
+	{
+	  sort_val = "time";
+	}
+	else
+	{
+	  sort_val = "popular";
+	}
+	postData = {from: "sub",first_item: first_item_val, sort: sort_val};
+	imgloading = $("<img src='/img/loading.gif' />");
+	$.ajax({
+			type: 'POST',
+			url: '/member/loadmorestory.php',
+			data: postData, 
+			beforeSend:function() 
+			{
+			  $('.load_more').html(imgloading);
+			},
+			success: function(data){
+				$('.more_content').remove();
+				$('.sto_cover_list').append(data).after($('.more_content').remove());
+			}
+			});
+  })
+});
+</script>
 </body>
 </html>

@@ -133,8 +133,8 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	  <ul class='category_list'>
 	    <li><a href='/shehui'>全部</a></li>
 		<li><a href='/shehui/1'>热点话题</a></li>
-	    <li><a href='/shehui/2'>文化</a></li>
-		<li><a href='/shehui/3'>万象</a></li>
+	    <li><a href='/shehui/2'>万象</a></li>
+		<li><a href='/shehui/3'>公益</a></li>
 		<li><a href='/shehui'>更多 &raquo;</a></li>
 	  </ul>
 	  <ul class='sto_cover_list'>
@@ -156,7 +156,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 		<li><a href='/yule/3'>旅游</a></li>
 		<li><a href='/yule/4'>晒货</a></li>
 		<li><a href='/yule/5'>搞笑</a></li>
-		<li><a href='/yule/6'>电影</a></li>
+		<li><a href='/yule/6'>影视</a></li>
 		<li><a href='/yule/7'>音乐</a></li>
 		<li><a href='/yule/8'>图书</a></li>
 		<li><a href='/yule'>更多 &raquo;</a></li>
@@ -217,7 +217,16 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	  $rec_user="<div id='recUsers' class='t_category'>
 				   <h3>推荐用户</h3>
 				   <ul>";
-	  $query = "SELECT id, username, photo, intro from ".$db_prefix."user ORDER BY RAND() LIMIT 4";
+	  $recomment_user = "64,95,54,1,74,117,77,80";
+	  //$query = "SELECT id, username, photo, intro from ".$db_prefix."user WHERE id IN ($recomment_user) ORDER BY FIND_IN_SET(id, '$recomment_user') limit 4";
+	  if($login_flag)
+	  {
+	    $query = "SELECT id, username, photo, intro from ".$db_prefix."user WHERE id IN ($recomment_user) and id<>".$_SESSION['uid']." ORDER BY RAND() LIMIT 4";
+	  }
+	  else
+	  {
+	    $query = "SELECT id, username, photo, intro from ".$db_prefix."user WHERE id IN ($recomment_user) ORDER BY RAND() LIMIT 4";
+	  }
 	  $result=$DB->query($query);
 	  while ($user_item = mysql_fetch_array($result))
 	  {
@@ -225,7 +234,6 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 		  $u_name = $user_item['username'];
 		  $u_photo = $user_item['photo'];
 		  $u_intro = $user_item['intro'];
-		  $u_intro = "推荐用户推荐用户推荐用户推荐用户推荐用户推荐用户推荐用户";
 		  if(empty($u_photo))
 		  {
 			$u_photo = 'img/douban_user_dft.jpg';

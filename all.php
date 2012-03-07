@@ -13,13 +13,22 @@ else
   exit;
 }
 
+if(isset($_GET['sort']))
+{
+  $sort_type = "popular_count";
+}
+else
+{
+  $sort_type = "post_modified";
+}
+
 $query_names = array
 (
   array
   (
   "热点话题",
-  "文化",
-  "万象"
+  "万象",
+  "公益"
   ),
   array
   (
@@ -28,7 +37,7 @@ $query_names = array
   "旅游",
   "晒货",
   "搞笑",
-  "电影",
+  "影视",
   "音乐",
   "图书"
   ),
@@ -86,6 +95,8 @@ switch($name)
 				    <li class='selected' rel='tiyu'><a href='/tiyu'>体育</a></li>";
     break;
   }
+  default:
+    break;
 }
 
 if(isset($_GET['sub']))
@@ -108,8 +119,8 @@ $content = "<div id='all_container' class='inner'>
 $sub_content = "<div id='shehui' class='submenustyle'>
 				  <a href='/shehui'>全部</a>
 				  <a href='/shehui/1'>热点话题</a>
-				  <a href='/shehui/2'>文化</a>
-				  <a href='/shehui/3'>万象</a>
+				  <a href='/shehui/2'>万象</a>
+				  <a href='/shehui/3'>公益</a>
 				</div>
 				
 				<div id='keji' class='submenustyle'>
@@ -135,26 +146,44 @@ $sub_content = "<div id='shehui' class='submenustyle'>
 				  <a href='/yule/3'>旅游</a>
 				  <a href='/yule/4'>晒货</a>
 				  <a href='/yule/5'>搞笑</a>
-				  <a href='/yule/6'>电影</a>
+				  <a href='/yule/6'>影视</a>
 				  <a href='/yule/7'>音乐</a>
 				  <a href='/yule/8'>图书</a>
 				</div>";
 				
 $sub_content = str_replace($needle,$replace,$sub_content);
-//$content.=$sub_content."<div class='sort_type'><a class='now' href='".$_SERVER['REQUEST_URI']."'>最新</a><a href='".$_SERVER['REQUEST_URI']."/sort=popular'>最热</a></div></div><div id='alllist_wrapper'><ul class='sto_cover_list'>";
-$content.=$sub_content."</div><div id='alllist_wrapper'><ul class='sto_cover_list'>";
+$content.=$sub_content."<div class='sort_type'><a class='now' href='".$_SERVER['REQUEST_URI']."'>最新</a><a href='".$_SERVER['REQUEST_URI']."/sort=popular'>最热</a></div></div><div id='alllist_wrapper'><ul class='sto_cover_list'>";
+//$content.=$sub_content."</div><div id='alllist_wrapper'><ul class='sto_cover_list'>";
+
+$limit = 16;
 
 if($sub_select == 0)
 {
-  $sql = "select story_posts.* from story_category, story_posts where name='".$q_name."' and story_id=story_posts.ID and post_status = 'Published' order by popular_count desc";
+  $sql = "select story_posts.* from story_category, story_posts where name='".$q_name."' and story_id=story_posts.ID and post_status = 'Published' order by ".$sort_type." desc LIMIT 0, $limit";
+  $query = "select COUNT(*) as num from story_category, story_posts where name='".$q_name."' and story_id=story_posts.ID and post_status = 'Published'";
 }
 else
 {
-  $sql = "select story_posts.* from story_category, story_posts where name='".$q_name."' and subname='".$sub_name."' and story_id=story_posts.ID and post_status = 'Published' order by popular_count desc";
+  $sql = "select story_posts.* from story_category, story_posts where name='".$q_name."' and subname='".$sub_name."' and story_id=story_posts.ID and post_status = 'Published' order by ".$sort_type." desc LIMIT 0, $limit";
+  $query = "select COUNT(*) as num from story_category, story_posts where name='".$q_name."' and subname='".$sub_name."' and story_id=story_posts.ID and post_status = 'Published'";
 }
+$total_num = mysql_fetch_array(mysql_query($query));
+$total_num = $total_num[num];
+
 $result = mysql_query($sql);
-$content.=printStory($result)."</ul></div></div>";
+$content.=printStory($result);
+
+if($total_num > $limit)
+{
+  $content .= "</ul><div class='more_content'><a id='all_".$limit."' class='load_more' href='#'>更多</a></div></div></div>";
+}
+else
+{
+  $content .= "</ul></div></div>";
+}
+
 echo $content;
+
 include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm";
 ?>
 <script type="text/javascript">
@@ -220,6 +249,42 @@ function initalizetab(tabid)
 }
 
 initalizetab("maintab");
+
+$(function()
+{	   
+  $('.load_more').live('click', function(e){
+	e.preventDefault();
+    var sort_val,name_val,subname_val,postData,
+		more_id_val = $(this).attr('id'),
+	    more_array = more_id_val.split('_'),
+	    first_item_val = more_array[1];
+	if($('.sort_type .now').text() == "最新")
+	{
+	  sort_val = "time";
+	}
+	else
+	{
+	  sort_val = "popular";
+	}
+	name_val = $('#maintab li.selected').text();
+	subname_val = $('.submenustyle a.selected').text();
+	postData = {from: "all", name: name_val, subname: subname_val, first_item: first_item_val, sort: sort_val};
+	imgloading = $("<img src='/img/loading.gif' />");
+	$.ajax({
+			type: 'POST',
+			url: '/member/loadmorestory.php',
+			data: postData, 
+			beforeSend:function() 
+			{
+			  $('.load_more').html(imgloading);
+			},
+			success: function(data){
+				$('.more_content').remove();
+				$('.sto_cover_list').append(data).after($('.more_content').remove());
+			}
+			});
+  })
+});
 </script>
 </body>
 </html>

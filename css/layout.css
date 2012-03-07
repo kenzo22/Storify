@@ -316,8 +316,8 @@ li#more{margin:10px 0}
 .del_wrapper{position:absolute;left:4px;top:3px}
 .del_wrapper a img{width:16px;height:16px}
 #tagstory_container{margin-bottom:30px;overflow:auto;zoom:1;position:relative}
-.sort_type{background-color: #DDDDDD;overflow: hidden;padding:7px 0 0 40px;margin-right:50px;font-size:16px;border-radius:5px}
-#sub_container .sort_type{margin-right:20px}
+.sort_type{background-color: #DDDDDD;overflow: hidden;padding:7px 0 0 40px;margin:0 40px 0 10px;font-size:16px;border-radius:5px}
+#sub_container .sort_type{margin-right:10px}
 #all_container .sort_type{margin:20px 0 0}
 #tagstory_container .sort_type{margin-bottom:20px}
 .sort_type a{margin-right:40px;padding:3px 8px}
@@ -326,9 +326,9 @@ li#more{margin:10px 0}
 #sublist_wrapper,#alllist_wrapper{padding:0 40px}
 #sublist_wrapper #sublist_title{color:#494949;display:block;font-size:25px;font-weight:700;line-height:1.1;padding:0 0 20px}
 .userstory_list{float:left;width:690px;padding:0 0 0 30px}
-.userstory_list ul,.t_category .sto_cover_list,#sub_container .sto_cover_list，#all_container .sto_cover_list{overflow:auto;zoom:1;padding:0}
+.userstory_list ul,.t_category .sto_cover_list,#sub_container .sto_cover_list,#all_container .sto_cover_list{overflow:auto;zoom:1;padding:0}
 .userstory_list #first_imply{font-size:14px;font-weight:600;margin-bottom:5px}
-.userstory_list ul li,.t_category .sto_cover_list li,#sub_container .sto_cover_list li,#all_container .sto_cover_list li{border:1px solid #DDD;border-radius:3px 3px 3px 3px;color:#323232;display:inline;text-decoration:none;height:218px;width:188px;float:left;margin:20px 20px 0 0;padding:5px 5px 2px}
+.userstory_list ul li,.t_category .sto_cover_list li,#sub_container .sto_cover_list li,#all_container .sto_cover_list li{border:1px solid #DDD;border-radius:3px 3px 3px 3px;color:#323232;display:inline;text-decoration:none;height:218px;width:188px;float:left;margin:20px 10px 0 10px;padding:5px 5px 2px}
 .t_category .sto_cover_list li{margin:20px 10px 0 18px}
 #popular{clear:both;margin-bottom:20px}
 #popular h3, #new_wrapper h3, .t_category h3{color:#666;margin-top:30px;padding-bottom:15px;font-size:20px;font-weight:500}
@@ -587,18 +587,20 @@ div.slider-nav span.left{background:url(orbit/left-arrow.png);left:0}
 #more_info{position:absolute;bottom:5px;right:115px;z-index:100}
 #f_register{position:absolute;bottom:5px;right:5px;z-index:100}
 #my_page div{margin-bottom:20px}
-#menu_wrapper {padding:10px 60px 30px 40px;overflow:auto;position:relative}
+#menu_wrapper {padding:10px 40px 30px 40px;overflow:auto;position:relative}
 #menu_wrapper #sort_wrapper{position:absolute;top:3px;right:40px}
 #menu_wrapper #sort_wrapper a{margin-right:30px}
 .basictab{padding:6px 0;margin-left:0;font:14px Verdana;border-bottom:1px solid gray;list-style-type:none;margin-bottom:0;text-align:left}
 .basictab li{display:inline;margin:0}
 .basictab li a{text-decoration:none;padding:6px 15px;margin-right:6px;border:1px solid gray;border-bottom:none;background-color:white;color:black}
 .basictab li a:visited{color:black}
-.basictab li a:hover{background-color:#ddd;color:black}
+.basictab li a:hover{background-color:#eee;color:black}
 .basictab li a:active{color:black}
-.basictab li.selected a{position:relative;top:1px;padding-top:7px;background-color:#ddd;color:black}
+.basictab li.selected a{position:relative;top:1px;padding-top:7px;background-color:#ccc;color:black}
 .submenustyle{padding:4px 1px;border:1px solid gray;border-top-width:0;width:auto;display:none;background-color:white;filter:alpha(opacity=0);-moz-opacity:0}
 * html .submenustyle{ /*IE only width definition*/width: 100%}
 .submenustyle a{border-right:1px dashed black;padding:3px 15px;text-decoration:none;color:#666}
 .submenustyle a:hover{color:#007AC4}
-.submenustyle a.selected{color:#007AC4}
+.submenustyle a.selected{color:red}
+.more_content{margin-top:30px}
+#userstory_container .load_more{margin:0 0 6px 10px;width:640px}
