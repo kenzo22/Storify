@@ -807,5 +807,38 @@ $(function(){
 	    });
 	  }
 	});
+	
+	$('#userstory_container .load_more').live('click', function(e){
+	e.preventDefault();
+    var sort_val,uid_val,category_val,postData,
+		more_id_val = $(this).attr('id'),
+	    more_array = more_id_val.split('_'),
+	    first_item_val = more_array[1];
+		uid_val = more_array[2];
+	if($('.sort_type .now').text() == "喜欢")
+	{
+	  category_val = "like";
+	}
+	else
+	{
+	  category_val = "";
+	}
+	//uid_val = $('.user_info .avatar a').attr('href')
+	postData = {from: "user",first_item: first_item_val, category: category_val, uid: uid_val};
+	imgloading = $("<img src='/img/loading.gif' />");
+	$.ajax({
+			type: 'POST',
+			url: '/member/loadmorestory.php',
+			data: postData, 
+			beforeSend:function() 
+			{
+			  $('#userstory_container .load_more').html(imgloading);
+			},
+			success: function(data){
+				$('.more_content').remove();
+				$('.sto_cover_list').append(data).after($('.more_content').remove());
+			}
+			});
+  })
 
 });
