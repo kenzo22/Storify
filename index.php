@@ -122,9 +122,20 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	  <h3><a href='/user/".$userresult['id']."/subscription'>我的订阅</a></h3>
 	  <span id='more_sub'><a href='/user/".$userresult['id']."/subscription'>更多 &raquo;</a></span>
 	  <ul class='sto_cover_list'>";
-	  $i_query = "select * from ".$db_prefix."posts ORDER BY RAND() LIMIT 3";
-	  $result=$DB->query($i_query);
-	  echo printStory($result);
+        $exclude=array();
+        for($k=0;$k<3;$k++){
+            if(sizeof($exclude)>0){
+                foreach($exclude as $ite){
+                    $scmd.=" AND post_author!=$ite ";
+                }
+            }
+	        $i_query = "SELECT story_posts.* FROM story_posts,story_follow WHERE user_id=".$_SESSION['uid']." AND follow_id=post_author AND post_status='Published' ".$scmd." ORDER BY post_modified desc limit 1";
+	    $result=$DB->query($i_query);
+        $row=$DB->fetch_array($result);
+        $story_content.=printPureStory($row);
+        $exclude[]=$row['post_author'];
+        }   
+        echo $story_content;
 	  echo "</ul></div>";
 	}
 	?>
