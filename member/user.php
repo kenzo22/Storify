@@ -1060,14 +1060,12 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
   if(isset($_GET['cat']))
   {
 	$cat_type = $_GET['cat'];
-	$padding = "/".$cat_type;
-	$story_content .= "<div class='sort_type'><a href='/user/".$user_id."'>创作</a><a class='now' href='/user/".$user_id."/like'>喜欢</a></div>";
+	$story_content .= "<div class='sort_type'><a href='/user/".$user_id."'>创作</a><a class='now' href='/user/".$user_id."/like'>喜欢</a></div><div class='clear'></div>";
   }
   else
   {
 	$cat_type='';
-	$padding = '';
-	$story_content .= "<div class='sort_type'><a class='now' href='/user/".$user_id."'>创作</a><a href='/user/".$user_id."/like'>喜欢</a></div>";
+	$story_content .= "<div class='sort_type'><a class='now' href='/user/".$user_id."'>创作</a><a href='/user/".$user_id."/like'>喜欢</a></div><div class='clear'></div>";
   }
   
   if($self_flag)

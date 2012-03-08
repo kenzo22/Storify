@@ -13,13 +13,25 @@ else
   exit;
 }
 
+$sort_pos = strpos($_SERVER['REQUEST_URI'], "sort");
+if($sort_pos)
+{
+  $sort_link = substr($_SERVER['REQUEST_URI'], 0, $sort_pos-1);
+}
+else
+{
+  $sort_link = $_SERVER['REQUEST_URI'];
+}
+
 if(isset($_GET['sort']))
 {
   $sort_type = "popular_count";
+  $sort_content = "<div class='sort_type'><a href='".$sort_link."'>最新</a><a class='now' href='".$sort_link."/sort=popular'>最热</a></div>";
 }
 else
 {
   $sort_type = "post_modified";
+  $sort_content = "<div class='sort_type'><a class='now' href='".$sort_link."'>最新</a><a href='".$sort_link."/sort=popular'>最热</a></div>";
 }
 
 $query_names = array
@@ -152,8 +164,8 @@ $sub_content = "<div id='shehui' class='submenustyle'>
 				</div>";
 				
 $sub_content = str_replace($needle,$replace,$sub_content);
-$content.=$sub_content."<div class='sort_type'><a class='now' href='".$_SERVER['REQUEST_URI']."'>最新</a><a href='".$_SERVER['REQUEST_URI']."/sort=popular'>最热</a></div></div><div id='alllist_wrapper'><ul class='sto_cover_list'>";
-//$content.=$sub_content."</div><div id='alllist_wrapper'><ul class='sto_cover_list'>";
+	
+$content.=$sub_content."</div>".$sort_content."<div id='alllist_wrapper'><ul class='sto_cover_list'>";
 
 $limit = 16;
 

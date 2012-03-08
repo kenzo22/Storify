@@ -38,20 +38,20 @@ if(isset($_GET['user_id']))
   ?>
   
   <div id='sub_container' class='inner'>
+    <div id='sublist_title'>我的订阅</div>
     <div id='sublist_wrapper'>
-	  <div id='sublist_title'>我的订阅</div>
 	<?php
 	if(isset($_GET['sort']))
     {
 	  $sort_type = $_GET['sort'];
 	  $padding = "&sort=".$sort_type;
-	  $content .= "<div class='sort_type'><a href='/user/".$user_id."/subscription'>最新</a><a class='now' href='/user/".$user_id."/subscription/sort=popular'>最流行</a></div><ul class='sto_cover_list'>";
+	  $content .= "<div class='sort_type'><a href='/user/".$user_id."/subscription'>最新</a><a class='now' href='/user/".$user_id."/subscription/sort=popular'>最流行</a></div><div class='clear'></div><ul class='sto_cover_list'>";
 	}
     else
     {
 	  $sort_type='';
 	  $padding = '';
-	  $content .= "<div class='sort_type'><a class='now' href='/user/".$user_id."/subscription'>最新</a><a href='/user/".$user_id."/subscription/sort=popular'>最流行</a></div><ul class='sto_cover_list'>";
+	  $content .= "<div class='sort_type'><a class='now' href='/user/".$user_id."/subscription'>最新</a><a href='/user/".$user_id."/subscription/sort=popular'>最流行</a></div><div class='clear'></div><ul class='sto_cover_list'>";
     }
 	
 	$query="select COUNT(*) as num from ".$db_prefix."follow, story_posts where user_id=".$user_id." and follow_id = post_author and post_status = 'Published'";
