@@ -1102,11 +1102,11 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 	  $story_content.="<div style='height:30px;'></div>";
 	  if($self_flag)
 	  {
-	    $story_content.="<h3 id='first_imply' class='text'>发现喜欢的文章，可以标记为喜欢喔～</h3><div class='footer_spacer'></div>";
+	    $story_content.="<h3 class='first_imply'>发现喜欢的文章，标记为喜欢可以在这里找到喔～</h3><div class='footer_spacer'></div>";
 	  }
 	  else
 	  {
-	    $story_content.="<h3 id='first_imply' class='text'>Ta还没有喜欢的文章</h3><div class='footer_spacer'></div>";
+	    $story_content.="<h3 class='first_imply'>Ta还没有喜欢的文章~</h3><div class='footer_spacer'></div>";
 	  }
     }
   }
@@ -1117,14 +1117,15 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
     $total_num = $total_num[num];
 	if(0 == $total_num)
     {
-      $story_content.="<div style='height:30px;'></div>";
+      $nostory_flag = true;
+	  $story_content.="<div style='height:30px;'></div>";
 	  if($self_flag)
 	  {
-	    $story_content.="<h3 id='first_imply' class='text'>快来发布你的第一篇吧，你可以用口立方报道新闻，追踪网络热点事件，更多精彩等着你来挖掘～</h3><a class='large green awesome' href='/create'>开始创建 &raquo;</a><div class='footer_spacer'></div>";
+	    $story_content.="<h3 class='first_imply'>来口立方报道热点话题，串联精彩，传递价值，我的自媒体听我的 <a class='large green awesome' href='/create'>开始创作 &raquo;</a></h3><div class='footer_spacer'></div>";
 	  }
 	  else
 	  {
-	    $story_content.="<h3 id='first_imply' class='text'>Ta还没有发布过文章～</h3><div class='footer_spacer'></div>";
+	    $story_content.="<h3 class='first_imply'>Ta还没有发表过文章～</h3><div class='footer_spacer'></div>";
 	  }
     }
   }
@@ -1135,82 +1136,88 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 	/* Get data. */
 	if($like_page)
 	{
-	  $sql="SELECT postid_str FROM story_favor WHERE user_id=".$user_id;
-      $result=$DB->query($sql);
-      if($DB->num_rows($result)== 1)
+	  if($like_flag)
 	  {
-        $row=$DB->fetch_array($result); 
-        $tmp_array=explode(":",$row['postid_str']);
-		$tmp_array = array_reverse($tmp_array);
-		$tmp_array = array_slice($tmp_array,0,$limit);
-		$like_ids = join(',',$tmp_array);
-		$sql = "SELECT * FROM $tbl_name WHERE ID IN ($like_ids) ORDER BY FIND_IN_SET(ID, '$like_ids')";
-		$result = mysql_query($sql);
-		if($self_flag)
-		{
-		  $story_content .= printLikedStory($result,$_SESSION['uid']);
-		}
-		else
-		{
-		  $story_content .= printLikedStory($result,0);
-		}
-      }
+	    $sql="SELECT postid_str FROM story_favor WHERE user_id=".$user_id;
+        $result=$DB->query($sql);
+        if($DB->num_rows($result)== 1)
+	    {
+          $row=$DB->fetch_array($result); 
+          $tmp_array=explode(":",$row['postid_str']);
+		  $tmp_array = array_reverse($tmp_array);
+		  $tmp_array = array_slice($tmp_array,0,$limit);
+		  $like_ids = join(',',$tmp_array);
+		  $sql = "SELECT * FROM $tbl_name WHERE ID IN ($like_ids) ORDER BY FIND_IN_SET(ID, '$like_ids')";
+		  $result = mysql_query($sql);
+		  if($self_flag)
+		  {
+		    $story_content .= printLikedStory($result,$_SESSION['uid']);
+		  }
+		  else
+		  {
+		    $story_content .= printLikedStory($result,0);
+		  }
+        }
+	  }
 	}
 	else
 	{
-	  $sql = "SELECT * FROM $tbl_name where post_author='.$user_id.'".$extra_limit." order by post_modified desc LIMIT 0, $limit";
-	  $result = mysql_query($sql);
-	  while ($story_item = mysql_fetch_array($result))
+	  if(!$nostory_flag)
 	  {
-		//printf ("title: %s  summary: %s", $story_item['post_title'], $story_item['post_summary']);
-		$post_id = $story_item['ID'];
-		$post_title = $story_item['post_title'];
-		$post_pic_url = $story_item['post_pic_url'];
-		if($post_pic_url == '')
-		{
-	      $post_pic_url = '/img/event_dft.jpg';
-		}
-		$post_status = $story_item['post_status'];
-		if(0 == strcmp($post_status, 'Published'))
-		{
-		  $post_status_txt = '已发布';
-		  $icon_type = 'publish_icon';
-		}
-		else
-		{
-		  $post_status_txt = '草稿';
-		  $icon_type = 'draft_icon';
-		}
-		$post_date = $story_item['post_date'];
-		$temp_array = explode(" ", $story_item['post_date']);
-		$post_date = $temp_array[0];
-		$post_link = "/user/".$user_id."/".$post_id;
-		$post_link = htmlspecialchars($post_link);
-		$story_content .="<li>
-							<div class='story_wrap'>
-							  <a href='".$post_link."'>
-								<img class='cover' src='".$post_pic_url."' alt='' />
-							  </a>
-							  <a class='title_wrap' href='".$post_link."'>
-								<span class='title'>".$post_title."</span>
-							  </a>";
-		if($self_flag)
-		{
-		  $story_content .="<div class='editable'>
-		  <div class='actions'>
-			<a id='delete_".$user_id."_".$post_id."' class='icon delete png_fix' title='删除' href='#'></a>
-			<a class='icon edit png_fix' title='编辑' href='/user/".$user_id."/".$post_id."/edit'></a>
-		  </div>
-		  <div class='status'>
-			<div class='".$post_status."'>
-			  <div class='".$icon_type." png_fix'></div>
-			  <span>".$post_status_txt."</span>
-			</div>
-		  </div>
-		  <div class='clear'></div>
-		  </div>";
-		}
-		$story_content .="</div><div class='story_meta'><span><a class='meta_date'>".$post_date."</a><img src='".$user_profile_img."' alt='' /><a class='meta_author'>".$username."</a></span></div></li>";
+		  $sql = "SELECT * FROM $tbl_name where post_author='.$user_id.'".$extra_limit." order by post_modified desc LIMIT 0, $limit";
+		  $result = mysql_query($sql);
+		  while ($story_item = mysql_fetch_array($result))
+		  {
+			//printf ("title: %s  summary: %s", $story_item['post_title'], $story_item['post_summary']);
+			$post_id = $story_item['ID'];
+			$post_title = $story_item['post_title'];
+			$post_pic_url = $story_item['post_pic_url'];
+			if($post_pic_url == '')
+			{
+			  $post_pic_url = '/img/event_dft.jpg';
+			}
+			$post_status = $story_item['post_status'];
+			if(0 == strcmp($post_status, 'Published'))
+			{
+			  $post_status_txt = '已发布';
+			  $icon_type = 'publish_icon';
+			}
+			else
+			{
+			  $post_status_txt = '草稿';
+			  $icon_type = 'draft_icon';
+			}
+			$post_date = $story_item['post_date'];
+			$temp_array = explode(" ", $story_item['post_date']);
+			$post_date = $temp_array[0];
+			$post_link = "/user/".$user_id."/".$post_id;
+			$post_link = htmlspecialchars($post_link);
+			$story_content .="<li>
+								<div class='story_wrap'>
+								  <a href='".$post_link."'>
+									<img class='cover' src='".$post_pic_url."' alt='' />
+								  </a>
+								  <a class='title_wrap' href='".$post_link."'>
+									<span class='title'>".$post_title."</span>
+								  </a>";
+			if($self_flag)
+			{
+			  $story_content .="<div class='editable'>
+			  <div class='actions'>
+				<a id='delete_".$user_id."_".$post_id."' class='icon delete png_fix' title='删除' href='#'></a>
+				<a class='icon edit png_fix' title='编辑' href='/user/".$user_id."/".$post_id."/edit'></a>
+			  </div>
+			  <div class='status'>
+				<div class='".$post_status."'>
+				  <div class='".$icon_type." png_fix'></div>
+				  <span>".$post_status_txt."</span>
+				</div>
+			  </div>
+			  <div class='clear'></div>
+			  </div>";
+			}
+			$story_content .="</div><div class='story_meta'><span><a class='meta_date'>".$post_date."</a><img src='".$user_profile_img."' alt='' /><a class='meta_author'>".$username."</a></span></div></li>";
+		  }
 	  }
 	}
 	if($total_num > $limit)

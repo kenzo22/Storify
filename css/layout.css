@@ -319,11 +319,11 @@ li#more{margin:10px 0}
 .sort_type{margin:10px 0 0 20px;overflow:auto}
 .sort_type a{margin-right:20px;line-height:25px;float:left;font-size:16px}
 .sort_type a.now{border-bottom:4px solid #999}
-#userstory_container,#sub_container,#all_container{overflow:auto;zoom:1;position:relative;width:960px;padding-top:50px;min-height:650px;margin:0 auto 30px}
+#userstory_container,#sub_container,#all_container{overflow:auto;zoom:1;position:relative;width:960px;padding-top:50px;margin:0 auto 30px}
 #sublist_title{color:#494949;display:block;font-size:25px;font-weight:700;line-height:1.1;padding:0 0 20px}
 .userstory_list{float:left;width:690px;padding:0 0 0 30px}
 .userstory_list ul,.t_category .sto_cover_list,#sub_container .sto_cover_list,#all_container .sto_cover_list{overflow:auto;zoom:1;padding:0}
-.userstory_list #first_imply{font-size:14px;font-weight:600;margin-bottom:5px}
+.first_imply{font-size:14px;font-weight:600;margin:0 0 8px 20px;font-family:'Hiragino Sans GB','Microsoft YaHei',sans-serif!important}
 .userstory_list ul li,.t_category .sto_cover_list li{border:1px solid #DDD;border-radius:3px 3px 3px 3px;color:#323232;display:inline;text-decoration:none;height:218px;width:188px;float:left;margin:20px 10px 0 10px;padding:5px 5px 2px}
 #sub_container .sto_cover_list li,#all_container .sto_cover_list li{border:1px solid #DDD;border-radius:3px 3px 3px 3px;color:#323232;display:inline;text-decoration:none;height:218px;width:188px;float:left;margin:20px 24px 0 16px;padding:5px 5px 2px}
 .t_category .sto_cover_list li{margin:20px 10px 0 18px}

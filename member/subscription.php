@@ -41,44 +41,63 @@ if(isset($_GET['user_id']))
     <div id='sublist_title'>我的订阅</div>
     <div id='sublist_wrapper'>
 	<?php
-	if(isset($_GET['sort']))
-    {
-	  $sort_type = $_GET['sort'];
-	  $padding = "&sort=".$sort_type;
-	  $content .= "<div class='sort_type'><a href='/user/".$user_id."/subscription'>最新</a><a class='now' href='/user/".$user_id."/subscription/sort=popular'>最流行</a></div><div class='clear'></div><ul class='sto_cover_list'>";
-	}
-    else
-    {
-	  $sort_type='';
-	  $padding = '';
-	  $content .= "<div class='sort_type'><a class='now' href='/user/".$user_id."/subscription'>最新</a><a href='/user/".$user_id."/subscription/sort=popular'>最流行</a></div><div class='clear'></div><ul class='sto_cover_list'>";
-    }
-	
-	$query="select COUNT(*) as num from ".$db_prefix."follow, story_posts where user_id=".$user_id." and follow_id = post_author and post_status = 'Published'";
-    $total_num = mysql_fetch_array(mysql_query($query));
-    $total_num = $total_num[num];
-	
-	$limit = 16; 							
-
-	if(0 == strcmp($sort_type, 'popular'))
+	$follow_flag = false;
+	$following_list = getFollowing($user_id);
+	if(sizeof($following_list) > 0)
 	{
-	  $sql = "select story_posts.* from ".$db_prefix."follow, story_posts where user_id=".$user_id." and follow_id = post_author and post_status = 'Published' order by popular_count desc LIMIT 0, $limit";
+	  $follow_flag = true;
+	}
+	
+	if($follow_flag)
+	{
+	  $query="select COUNT(*) as num from ".$db_prefix."follow, story_posts where user_id=".$user_id." and follow_id = post_author and post_status = 'Published'";
+      $total_num = mysql_fetch_array(mysql_query($query));
+      $total_num = $total_num[num];
+	  if($total_num == 0)
+	  {
+	    $content .="<h3 class='first_imply'>你订阅的作者还没有发表过文章～</h3><div class='footer_spacer'></div>";
+	  }
+	  else
+	  {
+		if(isset($_GET['sort']))
+		{
+		  $sort_type = $_GET['sort'];
+		  $content .= "<div class='sort_type'><a href='/user/".$user_id."/subscription'>最新</a><a class='now' href='/user/".$user_id."/subscription/sort=popular'>最流行</a></div><div class='clear'></div><ul class='sto_cover_list'>";
+		}
+		else
+		{
+		  $sort_type='';
+		  $content .= "<div class='sort_type'><a class='now' href='/user/".$user_id."/subscription'>最新</a><a href='/user/".$user_id."/subscription/sort=popular'>最流行</a></div><div class='clear'></div><ul class='sto_cover_list'>";
+		}
+		
+		$limit = 16; 							
+
+		if(0 == strcmp($sort_type, 'popular'))
+		{
+		  $sql = "select story_posts.* from ".$db_prefix."follow, story_posts where user_id=".$user_id." and follow_id = post_author and post_status = 'Published' order by popular_count desc LIMIT 0, $limit";
+		}
+		else
+		{
+		  $sql = "select story_posts.* from ".$db_prefix."follow, story_posts where user_id=".$user_id." and follow_id = post_author and post_status = 'Published' order by post_modified desc LIMIT 0, $limit";
+		}
+
+		$result = mysql_query($sql);
+		$content .= printStory($result);
+		if($total_num > $limit)
+		{
+		  $content .= "</ul><div class='more_content'><a id='sub_".$limit."' class='load_more' href='#'>更多</a></div></div></div>";
+		}
+		else
+		{
+		  $content .= "</ul></div></div>";
+		}
+	  }
 	}
 	else
 	{
-	  $sql = "select story_posts.* from ".$db_prefix."follow, story_posts where user_id=".$user_id." and follow_id = post_author and post_status = 'Published' order by post_modified desc LIMIT 0, $limit";
+	  $content .="<h3 class='first_imply'>订阅你喜欢的作者，他们的文章会显示在这里喔～</h3><div class='footer_spacer'></div></div></div>";
 	}
-
-	$result = mysql_query($sql);
-	$content .= printStory($result);
-	if($total_num > $limit)
-	{
-	  $content .= "</ul><div class='more_content'><a id='sub_".$limit."' class='load_more' href='#'>更多</a></div></div></div>";
-	}
-	else
-	{
-	  $content .= "</ul></div></div>";
-	}
+	
 	echo $content;
 }
 
