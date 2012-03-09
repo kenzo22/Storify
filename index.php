@@ -146,7 +146,6 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 		<li><a href='/shehui/1'>热点话题</a></li>
 	    <li><a href='/shehui/2'>万象</a></li>
 		<li><a href='/shehui/3'>公益</a></li>
-		<li><a href='/shehui'>更多 &raquo;</a></li>
 	  </ul>
 	  <ul class='sto_cover_list'>
 	    <?php
@@ -165,12 +164,10 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 		<li><a href='/yule/1'>明星</a></li>
 		<li><a href='/yule/2'>美食</a></li>
 		<li><a href='/yule/3'>旅游</a></li>
-		<li><a href='/yule/4'>晒货</a></li>
-		<li><a href='/yule/5'>搞笑</a></li>
-		<li><a href='/yule/6'>影视</a></li>
-		<li><a href='/yule/7'>音乐</a></li>
-		<li><a href='/yule/8'>图书</a></li>
-		<li><a href='/yule'>更多 &raquo;</a></li>
+		<li><a href='/yule/4'>搞笑</a></li>
+		<li><a href='/yule/5'>影视</a></li>
+		<li><a href='/yule/6'>音乐</a></li>
+		<li><a href='/yule/7'>图书</a></li>
 	  </ul>
 	  <ul class='sto_cover_list'>
 	    <?php
@@ -188,10 +185,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	    <li><a href='/keji'>全部</a></li>
 		<li><a href='/keji/1'>互联网</a></li>
 		<li><a href='/keji/2'>创业</a></li>
-		<li><a href='/keji/3'>移动互联网</a></li>
-		<li><a href='/keji/4'>数码</a></li>
-		<li><a href='/keji/5'>游戏</a></li>
-		<li><a href='/keji'>更多 &raquo;</a></li>
+		<li><a href='/keji/3'>数码</a></li>
 	  </ul>
 	  <ul class='sto_cover_list'>
 	    <?php
@@ -207,10 +201,9 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	  <h3><a href='/tiyu'>体育</a></h3>
 	  <ul class='category_list'>
 	    <li><a href='/tiyu'>全部</a></li>
-		<li><a href='/tiyu/1'>国际足坛</a></li>
+		<li><a href='/tiyu/1'>足坛</a></li>
 		<li><a href='/tiyu/2'>NBA</a></li>
 		<li><a href='/tiyu/3'>综合</a></li>
-		<li><a href='/tiyu'>更多 &raquo;</a></li>
 	  </ul>
 	  <ul class='sto_cover_list'>
 	    <?php

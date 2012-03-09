@@ -34,7 +34,7 @@ body.editor{background:none repeat-y scroll 0 0 #F9F9F9}
 #sprite-slide3{background:url("../img/slide.jpg") no-repeat scroll 0 -770px transparent;width:920px;height:380px} 
 #sprite-slide4{background:url("../img/slide.jpg") no-repeat scroll 0 -1155px transparent;width:920px;height:380px} 
 #login_form_f{margin-top:50px;float:left;width:620px;padding-bottom:10px}
-#login_form_r{float:right;margin-top:100px}
+#login_form_r{float:right;margin:82px 220px 0 0}
 #login_form_r .register_awesome{margin:5px 0 20px}
 #login_form_f .form_title{color:#494949;display:block;font-size:25px;font-weight:700;line-height:1.1;word-wrap:break-word;margin:0;padding:0 0 30px}
 #login_form{padding-left:30px}
@@ -319,6 +319,7 @@ li#more{margin:10px 0}
 .sort_type a{margin-right:20px;line-height:25px;float:left;font-size:16px}
 .sort_type a.now{border-bottom:4px solid #999}
 #userstory_container,#sub_container,#all_container{overflow:auto;zoom:1;position:relative;width:960px;padding-top:50px;margin:0 auto 30px}
+#all_container .sort_type{position:absolute;top:80px;right:0}
 #sublist_title{color:#494949;display:block;font-size:25px;font-weight:700;line-height:1.1;padding:0 0 20px}
 .userstory_list{float:left;width:690px;padding:0 0 0 30px}
 .userstory_list ul,.t_category .sto_cover_list,#sub_container .sto_cover_list,#all_container .sto_cover_list{overflow:auto;zoom:1;padding:0}
@@ -583,14 +584,14 @@ div.slider-nav span.left{background:url(orbit/left-arrow.png);left:0}
 #more_info{position:absolute;bottom:5px;right:115px;z-index:100}
 #f_register{position:absolute;bottom:5px;right:5px;z-index:100}
 #my_page div{margin-bottom:20px}
-#menu_wrapper {padding:10px 20px 10px;overflow:auto;position:relative}
+#menu_wrapper {padding:10px 20px 10px;overflow:auto;position:relative;margin-right:450px}
 .basictab{padding:6px 0;margin-left:0;font:14px Verdana;border-bottom:1px solid gray;list-style-type:none;margin-bottom:0;text-align:left}
 .basictab li{display:inline;margin:0}
 .basictab li a{text-decoration:none;padding:6px 15px;margin-right:6px;border:1px solid gray;border-bottom:none;background-color:white;color:black}
 .basictab li a:visited{color:black}
-.basictab li a:hover{background-color:#9ff33d;color:black}
+.basictab li a:hover{background-color:#ffc773;color:black}
 .basictab li a:active{color:black}
-.basictab li.selected a{position:relative;top:1px;padding-top:7px;background-color:#39e639;color:black}
+.basictab li.selected a{position:relative;top:1px;padding-top:7px;background-color:#ff9900;color:black}
 .submenustyle{padding:4px 1px;border:1px solid gray;border-top-width:0;width:auto;display:none;background-color:white;filter:alpha(opacity=0);-moz-opacity:0}
 * html .submenustyle{ /*IE only width definition*/width: 100%}
 .submenustyle a{border-right:1px dashed black;padding:3px 15px;text-decoration:none;color:#666}

@@ -62,12 +62,12 @@ if(isset($_GET['user_id']))
 		if(isset($_GET['sort']))
 		{
 		  $sort_type = $_GET['sort'];
-		  $content .= "<div class='sort_type'><a href='/user/".$user_id."/subscription'>最新</a><a class='now' href='/user/".$user_id."/subscription/sort=popular'>最流行</a></div><div class='clear'></div><ul class='sto_cover_list'>";
+		  $content .= "<div class='sort_type'><a href='/user/".$user_id."/subscription'>最新</a><a class='now' href='/user/".$user_id."/subscription/sort=popular'>最热</a></div><div class='clear'></div><ul class='sto_cover_list'>";
 		}
 		else
 		{
 		  $sort_type='';
-		  $content .= "<div class='sort_type'><a class='now' href='/user/".$user_id."/subscription'>最新</a><a href='/user/".$user_id."/subscription/sort=popular'>最流行</a></div><div class='clear'></div><ul class='sto_cover_list'>";
+		  $content .= "<div class='sort_type'><a class='now' href='/user/".$user_id."/subscription'>最新</a><a href='/user/".$user_id."/subscription/sort=popular'>最热</a></div><div class='clear'></div><ul class='sto_cover_list'>";
 		}
 		
 		$limit = 16; 							

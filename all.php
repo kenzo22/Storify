@@ -47,7 +47,6 @@ $query_names = array
   "明星",
   "美食",
   "旅游",
-  "晒货",
   "搞笑",
   "影视",
   "音乐",
@@ -57,13 +56,11 @@ $query_names = array
   (
   "互联网",
   "创业",
-  "移动互联网",
-  "数码",
-  "游戏"
+  "数码"
   ),
   array
   (
-  "国际足坛",
+  "足坛",
   "NBA",
   "综合"
   )
@@ -139,14 +136,12 @@ $sub_content = "<div id='shehui' class='submenustyle'>
 				  <a href='/keji'>全部</a>
 				  <a href='/keji/1'>互联网</a>
 				  <a href='/keji/2'>创业</a>
-				  <a href='/keji/3'>移动互联网</a>
-				  <a href='/keji/4'>数码</a>
-				  <a href='/keji/5'>游戏</a>
+				  <a href='/keji/3'>数码</a>
 				</div>
 				
 				<div id='tiyu' class='submenustyle'>
 				  <a href='/tiyu'>全部</a>
-				  <a href='/tiyu/1'>国际足坛</a>
+				  <a href='/tiyu/1'>足坛</a>
 				  <a href='/tiyu/2'>NBA</a>
 				  <a href='/tiyu/3'>综合</a>
 				</div>
@@ -156,11 +151,10 @@ $sub_content = "<div id='shehui' class='submenustyle'>
 				  <a href='/yule/1'>明星</a>
 				  <a href='/yule/2'>美食</a>
 				  <a href='/yule/3'>旅游</a>
-				  <a href='/yule/4'>晒货</a>
-				  <a href='/yule/5'>搞笑</a>
-				  <a href='/yule/6'>影视</a>
-				  <a href='/yule/7'>音乐</a>
-				  <a href='/yule/8'>图书</a>
+				  <a href='/yule/4'>搞笑</a>
+				  <a href='/yule/5'>影视</a>
+				  <a href='/yule/6'>音乐</a>
+				  <a href='/yule/7'>图书</a>
 				</div>";
 				
 $sub_content = str_replace($needle,$replace,$sub_content);
