@@ -1,5 +1,5 @@
 var embedCode, vtabIndex, followPage, myPage, favPage, userSearchPage, tuserSearchPage, myPageTimestamp, followTimestamp, favTimestamp, usersearchTimestamp;
-var weiboSearhPage = 1, picSearchPage = 1, userpicSearchPage =1, colSearchPage = 1, recSearchPage = 1, tweibosearchPage = 1, doubanItemCounts = 10, commentsPerQuery = 5, eventStartIndex = 1, bookStartIndex = 1, bookReviewStartIndex = 1, movieStartIndex = 1, movieReviewStartIndex = 1, musicStartIndex = 1, musicReviewStartIndex = 1, weibo_url = '/weibo/weibooperation.php', tweibo_url = '/tweibo/tweibooperation.php', douban_url = '/douban/doubanoperation.php', douban_rurl = '/douban/doubanreviewsoperation.php', yupoo_url = '/yupoo/yupoooperation.php',sum_txt = '给你的故事写一个简短的描述',tags_txt = '添加故事标签，空格或逗号分隔', videoImply='请输入视频播放页地址', feedImply='如:http://www.36kr.com/feed';
+var weiboSearhPage = 1, picSearchPage = 1, userpicSearchPage =1, colSearchPage = 1, recSearchPage = 1, tweibosearchPage = 1, doubanItemCounts = 10, commentsPerQuery = 5, eventStartIndex = 1, bookStartIndex = 1, bookReviewStartIndex = 1, movieStartIndex = 1, movieReviewStartIndex = 1, musicStartIndex = 1, musicReviewStartIndex = 1, weibo_url = '/weibo/weibooperation.php', tweibo_url = '/tweibo/tweibooperation.php', douban_url = '/douban/doubanoperation.php', douban_rurl = '/douban/doubanreviewsoperation.php', yupoo_url = '/yupoo/yupoooperation.php',sum_txt = '写个简短的描述', videoImply='请输入视频播放页地址', feedImply='如:http://www.36kr.com/feed';
 
 if( typeof( window.innerHeight ) == 'number' ){
 //Non-IE
@@ -8,7 +8,7 @@ myHeight = window.innerHeight;
 //IE 6+ in 'standards compliant mode'
 myHeight = document.documentElement.clientHeight;
 }
-var l_used_height = 267, r_user_height = 326, height_adjust = 3, l_list_height = myHeight -l_used_height, r_list_height;
+var l_used_height = 267, r_user_height = 296, height_adjust = 3, l_list_height = myHeight -l_used_height, r_list_height;
 
 var browser_info = $.browser;
 
@@ -211,14 +211,11 @@ function prepare_story_data(action_value)
   var story_content_val_string = JSON.stringify(story_content_val),
       s_title = $('#sto_title'),
 	  s_sum = $('#sto_summary'),
-	  s_tag = $('#sto_tag'),
       story_title_val = s_title.attr('value'),
       summary_txt = s_sum.val(),
       story_summary_val = (s_sum.hasClass('imply_color')? '': summary_txt),
-      tag_txt = s_tag.attr('value'),
-      story_tag_val = (s_tag.hasClass('imply_color')? '': tag_txt),
       story_pic_val = $('#story_thumbnail').attr('src'),
-      storydata = {story_id: story_id_val, story_title: story_title_val, story_summary: story_summary_val, story_pic: story_pic_val, story_tag: story_tag_val, story_content: story_content_val_string, action:action_value};	
+      storydata = {story_id: story_id_val, story_title: story_title_val, story_summary: story_summary_val, story_pic: story_pic_val, story_content: story_content_val_string, action:action_value};	
   return storydata;
 }
 
@@ -322,7 +319,7 @@ $(function() {
 		
 		if(null == readCookie('editortip'))
 		{
-		  var tip_content = "<div id='first_tip' class='tip_container'><div class='tip_arrow top'></div><div class='tip_wrapper'><strong>小贴士1/4: 开始创建</strong><br>输入故事标题，描述，标签<br>左右箭头可以用来选择故事的封面<div class='tip_actions'><a class='tip_hide' href='#'>隐藏</a><a class='tip_next' href='#'>下一条 &raquo;</a></div></div></div>";
+		  var tip_content = "<div id='first_tip' class='tip_container'><div class='tip_arrow top'></div><div class='tip_wrapper'><strong>小贴士1/4: 开始创作</strong><br>输入标题，简短的描述，<br>左边的箭头可以用来选择封面喔<div class='tip_actions'><a class='tip_hide' href='#'>隐藏</a><a class='tip_next' href='#'>下一条 &raquo;</a></div></div></div>";
 	      $('#storyContent .inner').prepend(tip_content);
 		  createCookie('editortip','tippopflag',365); 
 		}
@@ -1272,8 +1269,7 @@ $(function() {
 		})
 		
 	    var sto_title = $('#sto_title'),
-		    sto_sum = $('#sto_summary'),
-			sto_tag = $('#sto_tag');
+		    sto_sum = $('#sto_summary');
 		if(sto_title.val() =='')
 		{
 		  sto_title.focus();
@@ -1287,7 +1283,7 @@ $(function() {
 	    }).blur(function(){
 	    if(sto_title.val() == '')
 	    {
-		  sto_title.addClass('imply_flag').val('你的故事标题');
+		  sto_title.addClass('imply_flag').val('写个标题');
 	    }
 	    });
 		
@@ -1306,22 +1302,6 @@ $(function() {
 	      sto_sum.val(sum_txt).addClass('imply_color');
 		}
 		});
-
-		if(sto_tag.val() =='')
-		{
-		  sto_tag.val(tags_txt).addClass('imply_color');
-		}
-		sto_tag.focus(function(){
-		if(sto_tag.hasClass('imply_color'))
-		{
-		  sto_tag.val('').removeClass('imply_color');
-		}		  
-		}).blur(function(){
-		if(sto_tag.val() == '')
-		{
-		  sto_tag.val(tags_txt).addClass('imply_color');
-		}
-		});	
 		
 		$('#story_list > li').live('mouseover', function(e)
 		{
@@ -1357,7 +1337,7 @@ $(function() {
                 winW = $(window).width(),
 		        scrollTop = $(document).scrollTop(),
 			    scrollLeft = $(document).scrollLeft(),
-			    login_dialog = $('#boxes #dialog');
+			    login_dialog = $('.boxes #dialog');
 				  
 			login_dialog.css('top',  winH/2-login_dialog.height()/2+scrollTop-100);
 			login_dialog.css('left', winW/2-login_dialog.width()/2+scrollLeft);
@@ -1406,7 +1386,7 @@ $(function() {
 			  if(target.is('#publishBtn') && $('#sto_title').hasClass('imply_flag'))
 			  {
 				$th.removeData('executing');
-				alert('请为你的故事输入一个标题');
+				alert('你还没有写标题喔');
 				$('#sto_title').focus();
 			  }
 			  else

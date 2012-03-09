@@ -104,7 +104,7 @@ else
 {
   $img_content = "<div class='bind_txt'><div class='imply_color'>上传图片需要登录口立方</div><a href='/accounts/login'>马上登录</a></div>";
   $content="<div id='storyContent'>
-            <div id='boxes'>
+            <div class='boxes'>
 			  <div id='dialog' class='window'>
 			    <div class='title_bar'><span><a href='#' class='close'>关闭</a></span><span>登录 koulifang.com</span></div>
 			    <form method='post' action='/accounts/login/login'>
@@ -342,16 +342,6 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
     $story_pic = "/img/story_dft.jpg";
   }
   
-  $tag_query = "select name from story_tag,story_tag_story where story_tag.id=tag_id and story_id=".$post_id;
-  $tag_names = $DB->query($tag_query);
-  if($DB->num_rows($tag_names) > 0)
-  {
-    while($tag_name_row = $DB->fetch_array($tag_names))
-	{
-      $tags .= $tag_name_row['name']." ";
-    }
-  }
-  
   $story_content=$result['post_content'];
   $story_content_array = json_decode($story_content, true);
   $weibo_id_array = array();
@@ -368,9 +358,6 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']))
 		  <span > <input type='text' value='".$story_title."' name='story_title' id='sto_title' maxlength='48' /> </span>
 		  <div>
 		    <textarea id='sto_summary' cols='40' rows='4'>".$story_summary."</textarea>
-		  </div>
-		  <div>
-		    <span><input type='text' value='".$tags."' name='story_tag' id='sto_tag' /></span>
 		  </div>
 		</div>
 		<div id='storylist_container'>
@@ -795,9 +782,6 @@ else
 		  <span ><input type='text' value='' name='story_title' id='sto_title' maxlength='48' /></span>
 		  <div>
 		    <textarea id='sto_summary' cols='40' rows='4'></textarea>
-		  </div>
-		  <div>
-		    <span ><input type='text' value='' name='story_tag' id='sto_tag' /></span>
 		  </div>
 		</div>
 		<div id='storylist_container'>

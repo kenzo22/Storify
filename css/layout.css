@@ -70,7 +70,7 @@ body.editor{background:none repeat-y scroll 0 0 #F9F9F9}
 #user_action{padding-left:10px;position:relative;top:10px}
 .edit_story_btn,.my_story_btn,.login_top,.register_top{margin-right:5px;border:1px solid #C9C9C9;border-top:none;border-bottom:none;float:right;height:30px;padding:11px 15px 0}
 a.login_top:active{color:#369}
-.edit_story_btn{background:none repeat scroll 0 0 #EFEFEF}
+.edit_story_btn{background:none repeat scroll 0 0 #eee}
 .register_top{margin-right:0}
 #person_img{border:1px solid rgba(0, 0, 0, 0.1);box-shadow:0 1px 0 rgba(255, 255, 255, 0.15);float:left;height:25px;overflow:hidden;width:25px;margin:6px 14px 0 6px}
 .console_img{width:24px;height:24px;float:left;overflow:hidden;margin:6px 14px 0 6px}
@@ -224,7 +224,6 @@ li.textElement ol li{list-style:decimal inside}
 #story_pic ul li a{border:1px solid #BBBEBF;float:left;height:16px;width:46px}
 #sto_title{width:360px;font-weight:700;height:30px;line-height:30px;margin:1px 0 10px}
 #sto_summary{width:360px;height:80px;margin-bottom:10px}
-#sto_tag{width:480px;height:25px;line-height:25px;margin:0}
 .trends_wrapper{text-align:center;background-color:#F9F9F9;background-repeat:repeat-x;display:block;border-color:#DDD #AAA #AAA #DDD;border-style:solid;border-width:1px;margin:10px 5px 0;padding:5px 0}
 li#more{margin:10px 0}
 .loadmore,.load_more{background-color:#FFF;background-image:url("../img/more.gif");background-position:left top;background-repeat:repeat-x;display:block;font-size:14px;font-weight:700;height:22px;line-height:1.5em;outline:medium none;text-align:center;text-shadow:1px 1px 1px #FFF;width:95%;border-color:#DDD #AAA #AAA #DDD;border-style:solid;border-width:1px;margin:0 auto 6px;padding:6px 0}
@@ -233,7 +232,7 @@ li#more{margin:10px 0}
 .load_more:active{background-position:left -38px;color:#666}
 .story_title{padding-left:20px;font-size:30px;font-weight:300;line-height:1.4;margin-right:70px;word-wrap:break-word;word-break:break-all}
 .story_author a{margin-left:8px}
-.story_sum{padding-left:20px;padding-right:10px;margin-top:10px;color:#555}
+.story_sum{padding-left:20px;padding-right:10px;margin-top:5px;color:#555}
 .story_tag{margin-top:5px;padding-left:20px;color:#555}
 .tag_item{background:none repeat scroll 0 0 #F2F7FC;border:1px solid #D1E3EF;margin-left:5px;padding:3px}
 .tool_wrapper{border-bottom:1px solid #E6E6E6;overflow:auto;zoom:1;padding-bottom:5px}
@@ -248,7 +247,7 @@ li#more{margin:10px 0}
 #story_embed .arrow_up{background:url("../img/usersprite.png") no-repeat scroll 0 -32px transparent;width:16px;height:16px;display:none}
 .draft_icon{background:url("../img/usersprite.png") no-repeat scroll 0 -168px transparent;float:left;height:16px;width:16px;margin:0 3px 0 2px}
 .publish_icon{background:url("../img/usersprite.png") no-repeat scroll 0 -456px transparent;float:left;height:16px;width:16px;margin:0 3px 0 2px}
-#story #story_header{border:1px solid #C9C9C9;border-radius:5px 5px 0 0;border-bottom:none;padding:10px 10px 15px}
+#story #story_header{border:1px solid #C9C9C9;border-radius:5px 5px 0 0;border-bottom:none;padding:10px}
 #publish_container #story_header{overflow:auto;width:100%;zoom:1}
 #publish_container #story_header #story_img{float:right;padding:10px 10px 0 0}
 #publish_container #story_header #story_img img{width:60px;height:60px}
@@ -281,7 +280,7 @@ li#more{margin:10px 0}
 .kou_signature{display:block;text-align:right;padding:0 10px 5px 5px}
 .kou_signature span{vertical-align:bottom;margin-right:5px}
 .kou_signature a{background:url("../img/usersprite.png") no-repeat scroll 0 -264px transparent;display:inline-block;width:35px;height:38px}
-.user_profiles{border-radius:3px 3px 3px 3px;width:210px;overflow:auto;margin:20px 0 0}
+.user_profiles{border-radius:3px 3px 3px 3px;width:210px;overflow:auto;margin:10px 0 0}
 .user_box{overflow:auto;zoom:1;padding:10px}
 .user_box .user_info .wrapper{float:left;width:88px;height:90px}
 .more_story,.story_stats{padding:10px}
@@ -415,12 +414,12 @@ div.inner{width:960px;overflow:hidden;position:relative;margin:0 auto}
 .n_support ul{margin:10px 0 10px 25px}
 .n_support ul li{list-style:disc inside}
 .n_support ul li a:active{color:#666}
-#boxes{z-index:400;zoom:1}
-#boxes .window{position:absolute;left:0;top:0;width:440px;height:200px;display:none;z-index:9999}
-#boxes #dialog{width:550px;height:216px;background-color:#fff;border-radius:9px;-moz-border-radius:9px;-webkit-border-radius:9px;border-color:#ababac;border-style:solid;border-width:5px}
-#boxes #dialog .title_bar{background-color:#ababac;padding:5px}
-#boxes #weibo_dialog{width:440px;height:190px;background-color:#fff;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;zoom:1;border-color:#ababac;border-style:solid;border-width:4px;padding:10px}
-#boxes #weibo_dialog .title_bar{background-color:#f3f3f3;margin-bottom:10px;padding:5px}
+.boxes{z-index:400;zoom:1}
+.boxes .window{position:absolute;left:0;top:0;width:440px;height:200px;display:none;z-index:9999}
+.boxes #dialog{width:550px;height:216px;background-color:#fff;border-radius:9px;-moz-border-radius:9px;-webkit-border-radius:9px;border-color:#ababac;border-style:solid;border-width:5px}
+.boxes #dialog .title_bar{background-color:#ababac;padding:5px}
+.boxes #weibo_dialog{width:440px;height:190px;background-color:#fff;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;zoom:1;border-color:#ababac;border-style:solid;border-width:4px;padding:10px}
+.boxes #weibo_dialog .title_bar{background-color:#f3f3f3;margin-bottom:10px;padding:5px}
 .pub_imply_sina span,.pub_imply_tencent span,.sina_user span,.tentcent_user span{margin-left:3px;margin-right:5px;color:#878787}
 #vtab{width:430px;position:relative;margin:0 0 0 -40px}
 #vtab > ul > li{width:33px;height:24px;background-color:#F9F9F9!important;list-style-type:none;display:block;border:1px solid #F9F9F9;border-right:none;position:relative}
@@ -428,11 +427,11 @@ div.inner{width:960px;overflow:hidden;position:relative;margin:0 auto}
 #vtab > ul{width:35px;text-align:left;display:block;position:absolute;top:40px;left:0;margin:auto 0;padding:0}
 #vtab > div{background-color:#FFF;margin-left:40px;border:1px solid #ddd;min-height:50px;position:relative;z-index:9;-moz-border-radius:5px;padding:12px}
 a:hover,#previewBtn:hover,#draftBtn:hover,#dropBtn:hover{color:#666;text-decoration:none}
-div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,#boxes #dialog form{margin:0;padding:0}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,.boxes #dialog form{margin:0;padding:0}
 .center,.youku_wrapper{text-align:center}
 .float_l,.left_half,.douban_wrapper .event_img_wrapper .item_img,.douban_wrapper .item_info a img,#story_pic ul li,.follower_list li,.following_list li{float:left}
-.float_r,.btn_w_publish,#boxes .close{float:right}
-#login_form_wrapper,#homepage .inner .category,.douban_wrapper .item_info,.douban_wrapper .item_info_drop,.user_info,#footer .wrapper,#boxes #dialog form div.wrapper{overflow:auto}
+.float_r,.btn_w_publish,.boxes .close{float:right}
+#login_form_wrapper,#homepage .inner .category,.douban_wrapper .item_info,.douban_wrapper .item_info_drop,.user_info,#footer .wrapper,.boxes #dialog form div.wrapper{overflow:auto}
 #login_form_r #connectBtn,.login_right #connectBtn{margin-top:5px}
 #login_form .form_div,#sign_up div{margin-bottom:20px}
 #login_form_right{padding:20px 0 60px;border-bottom:1px solid #DDD}
@@ -460,10 +459,10 @@ div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,block
 .time_range,#account_meta .account_count span{margin-right:10px}
 #login_awesome:link,.register_awesome:link,.cfm_awesome:link,.cfm_awesome:hover{color:#FFF}
 #account_meta .meta_wrapper,.aa_submit{margin-left:60px}
-#form_1 form div,#form_2 form div,#boxes #weibo_dialog .alert{margin-bottom:10px}
+#form_1 form div,#form_2 form div,.boxes #weibo_dialog .alert{margin-bottom:10px}
 #previewBtn,#draftBtn,#dropBtn{color:#444;font-size:12px;font-weight:700;height:32px;line-height:32px;text-align:center;width:auto;padding:9px 12px}
 #login_btn:hover,#login_modal_btn:hover,#copy_btn:hover{background-color:#f5f5f5}
-.gray,#boxes #weibo_dialog .title_bar #publish_title{color:#B8B7B7}
+.gray,.boxes #weibo_dialog .title_bar #publish_title{color:#B8B7B7}
 #term_content{font-size:13px}
 #term_content h3{font-size:14px;font-weight:bold;margin:10px 0 10px}
 #term_content ol,#term_content ul{padding:0 0 0 20px}
@@ -506,10 +505,10 @@ div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,block
 .tip_wrapper .tip_actions{text-align:right}
 .tip_wrapper .tip_actions a{text-decoration:underline;color:#000}
 .tip_wrapper .tip_actions .tip_hide{margin-right:10px}
-#first_tip{top:180px;right:180px}
+#first_tip{top:80px;right:196px}
 #second_tip{top:70px;left:10px}
 #third_tip{top:320px;left:325px}
-#fourth_tip{top:210px;left:500px}
+#fourth_tip{top:175px;left:454px}
 #go_top{position:fixed;right:15px;bottom:15px;display:block;z-index:100}
 #go_top a{display:block;_display:none;height:50px;width:50px;background:url('../img/gotop.gif')}
 #go_top a:hover{background:url('../img/gotoph.gif')}

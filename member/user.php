@@ -31,15 +31,33 @@ $date_t = date("Y-m-d H:i:s");
 $login_status = islogin();
 $user_id = intval($_GET['user_id']);
 $self_flag = false;
-$follow_flag = false;
 if($login_status && $user_id == $_SESSION['uid'])
 {
   $self_flag = true;
 }
-else if($login_status && $user_id != $_SESSION['uid'])
-{
-  $follow_flag = true;
-}
+$login_dialog = "<div class='boxes'>
+				 <div id='dialog' class='window'>
+				   <div class='title_bar'><span><a href='#' class='close'>关闭</a></span><span>登录 koulifang.com</span></div>
+				   <form method='post' action='/accounts/login/login'>
+				     <div class='wrapper'>
+					  <div id='login_modal'>
+						<div class='form_div'><span class='form_label'>邮&nbsp;箱</span><span><input type='text' name='email' id='email_login' onclick='this.value=\"\"'/></span></div>
+						<div class='form_div'><span class='form_label'>密&nbsp;码</span><span><input type='password' name='passwd' id='pwd_login' onclick='this.value=\"\"'/> </span></div>
+						<div class='auto_login'><span><input type='checkbox' name='autologin' />下次自动登录</span> | <span><a href='/accounts/forget_password'>忘记密码了？</a></span></div>
+						<div>
+						  <input type='submit' id='login_modal_btn' value='登录'/>
+						</div>
+					  </div>
+					  <div class='login_right'>
+						<div>还没有口立方帐号?</div>
+						<a class='large green awesome register_awesome' href='/accounts/register'>马上注册 &raquo;</a>
+						<div><span>使用新浪微博帐号登录</span></div>
+						<div><a id='connectBtn' href='#'><span class='sina_icon'></span><span class='sina_name'>新浪微博</span></a></div>  
+					  </div>
+					 </div>
+				   </form>
+				 </div>
+				 </div>";
 
 if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action']))
 {
@@ -125,7 +143,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  {
 	    $extra_class .=" tencent";
 	  }
-	  $content = "<div id='boxes' class='p_relative'>
+	  $content = "<div class='boxes p_relative'>
 					<div id='weibo_dialog' class='window".$extra_class."'>
 					  <div class='title_bar'><span><a href='#' class='close'>关闭</a></span><span id='icon_flag'></span><span id='publish_title'>发表微博</span></div>
 					  <div id='pub_wrapper'>
@@ -140,13 +158,13 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	}
 	else
 	{
-	  $content = "<div id='boxes' class='p_relative'>
+	  $content = "<div class='boxes p_relative'>
 				    <div id='weibo_dialog' class='window disable'>
 					  <div class='title_bar'><span><a href='#' class='close'>关闭</a></span><span id='icon_flag'></span><span id='publish_title'>发表微博</span></div>
 					  <div class='imply_color alert'>对不起，只有本站注册用户能使用该功能</div>
 					  <div class='imply_color'>请您<a href='/accounts/login?next'>登录</a>或<a href='/accounts/register'>注册</a></div>
 				    </div>
-				  </div>";
+				  </div>".$login_dialog;
 	}
 	
 	if(0 == strcmp($story_status, 'Published'))
@@ -340,15 +358,6 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  }	
 	}
 
-    // get tags for this story
-    /*$tag_query = "select tag_id,name from story_tag,story_tag_story where story_tag.id=tag_id and story_id=".$post_id;
-    $tag_names = $DB->query($tag_query);
-    if($DB->num_rows($tag_names) > 0){
-        while($tag_name_row = $DB->fetch_array($tag_names)){
-            $tags .= "<a class='tag_item' href='/topic/".$tag_name_row['tag_id']."'>".$tag_name_row['name']."</a>";
-        }
-    }*/
-
 	$story_author_name = $userresult['username'];
 	$content .="<div id='story_header'>";
 	
@@ -360,10 +369,6 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 				  <div class='story_title'>".$story_title."</div>
 				  <div class='story_author'>by<a href='http://www.koulifang.com/user/".$user_id."'>".$story_author_name."</a>, ".$story_time."</div>
 				  <div class='story_sum'>".$story_summary."</div>";
-	/*if($tags!='')
-	{
-	  $content .="<div class='story_tag'>标签:".$tags."</div>";
-	}*/
 	$content .="</div>";
 	if($publish_flag)
 	{
@@ -914,22 +919,27 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 			<div class='wrapper'>
 			  <div class='user_name'><a href='/user/".$story_author."'><span>".$userresult['username']."</span></a></div>";
 		  
-	if($follow_flag)
+	if(!$self_flag)
 	{
-	  $login_user_id = $_SESSION['uid'];
-	  
-	  $query="select * from ".$db_prefix."follow where user_id=".$_SESSION[uid]." and follow_id=".$story_author;
-      $relationresult=$DB->query($query);
-      $num=$DB->num_rows($relationresult);
-	  if($num > 0)
+	  if($login_status)
 	  {
-	    $content .="<a id='".$login_user_id."_sep_".$story_author."_flag' class='large green awesome follow_btn' href='#'>已关注</a><a id='".$login_user_id."_sep_".$story_author."' class='large green awesome follow_btn' style='display:none;' href='#'>关注</a>";
+	    $login_user_id = $_SESSION['uid'];
+	    $query="select * from ".$db_prefix."follow where user_id=".$_SESSION[uid]." and follow_id=".$story_author;
+        $relationresult=$DB->query($query);
+        $num=$DB->num_rows($relationresult);
+	    if($num > 0)
+	    {
+	      $content .="<a id='".$login_user_id."_sep_".$story_author."_flag' class='large green awesome follow_btn' href='#'>已关注</a><a id='".$login_user_id."_sep_".$story_author."' class='large green awesome follow_btn' style='display:none;' href='#'>关注</a>";
+	    }
+	    else
+	    {
+	      $content .="<a id='".$login_user_id."_sep_".$story_author."' class='large green awesome follow_btn' href='#'>关注</a><a id='".$login_user_id."_sep_".$story_author."_flag' href='#' class='large green awesome follow_btn' style='display:none;'>已关注</a>";
+	    }
 	  }
 	  else
 	  {
-	    $content .="<a id='".$login_user_id."_sep_".$story_author."' class='large green awesome follow_btn' href='#'>关注</a><a id='".$login_user_id."_sep_".$story_author."_flag' href='#' class='large green awesome follow_btn' style='display:none;'>已关注</a>";
-	  }
-	  
+	    $content .="<a class='need_login large green awesome follow_btn' href='#'>关注</a>";
+	  }  
 	}
     // get the following and follower info
     $following_list = getFollowing($story_author);
@@ -1054,9 +1064,14 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 	$user_profile_img = '/img/douban_user_dft.jpg';
   }
   
-  $story_content = "<div id='userstory_container' class='inner'>
-					  <div class='userstory_list'>"; 
-					  
+  if($login_status)
+  {
+    $story_content = "<div id='userstory_container' class='inner'><div class='userstory_list'>"; 
+  }
+  else
+  {
+    $story_content = $login_dialog."<div id='userstory_container' class='inner'><div class='userstory_list'>";
+  }			  
   if(isset($_GET['cat']))
   {
 	$cat_type = $_GET['cat'];
@@ -1241,21 +1256,27 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 							<div class='wrapper'>
 							  <div class='user_name'><a href='/user/".$user_id."'><span>".$username."</span></a></div>";
 					  
-  if($follow_flag)
+  if(!$self_flag)
   {
+    if($login_status)
+    {
 	  $login_user_id = $_SESSION['uid'];
-	  
 	  $query="select * from ".$db_prefix."follow where user_id=".$_SESSION[uid]." and follow_id=".$user_id;
       $relationresult=$DB->query($query);
       $num=$DB->num_rows($relationresult);
 	  if($num > 0)
 	  {
-	    $story_content .="<a id='".$login_user_id."_sep_".$user_id."_flag' class='large green awesome follow' href='#'>已关注</a><a id='".$login_user_id."_sep_".$user_id."' class='large green awesome follow' href='#' style='display:none;'>关注</a>";
+	    $story_content .="<a id='".$login_user_id."_sep_".$user_id."_flag' class='large green awesome follow_btn' href='#'>已关注</a><a id='".$login_user_id."_sep_".$user_id."' class='large green awesome follow_btn' href='#' style='display:none;'>关注</a>";
 	  }
 	  else
 	  {
-	    $story_content .="<a id='".$login_user_id."_sep_".$user_id."' class='large green awesome follow' href='#'>关注</a><a id='".$login_user_id."_sep_".$user_id."_flag' class='large green awesome follow' href='#' style='display:none;'>已关注</a>";
+	    $story_content .="<a id='".$login_user_id."_sep_".$user_id."' class='large green awesome follow_btn' href='#'>关注</a><a id='".$login_user_id."_sep_".$user_id."_flag' class='large green awesome follow_btn' href='#' style='display:none;'>已关注</a>";
 	  }
+	}
+	else
+	{
+	  $story_content .="<a class='need_login large green awesome follow_btn' href='#'>关注</a>";
+	}
   }
   
   $story_content .="</div></div><p class='user-bio'>".nl2br($userresult['intro'])."</p>
