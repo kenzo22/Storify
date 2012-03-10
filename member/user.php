@@ -869,7 +869,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 			   <a href='/user/".$comment_author_id."' target='_blank'><img alt='' src='".$pic_url."' /></a>
 			   <div class='comment_wrapper'>
 			     <div class='comment_author'><a href='/user/".$comment_author_id."' target='_blank'>".$comment_author."</a></div>
-				 <div>".$comment_content."</div>
+				 <div class='comment_content'>".$comment_content."</div>
 				 <div class='comment_action'>".$comment_action."<span>".$comment_time."</span></div>
 			   </div>
 			 </li>";
@@ -901,7 +901,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 			   <a href='/user/".$comment_author_id."' target='_blank'><img alt='' src='".$pic_url."' /></a>
 			   <div class='comment_wrapper'>
 			     <div class='comment_author'><a href='/user/".$comment_author_id."' target='_blank'>".$comment_author."</a></div>
-				 <div>".$comment_content."</div>
+				 <div class='comment_content'>".$comment_content."</div>
 				 <div class='comment_action'>".$comment_action."<span>".$comment_time."</span></div>
 			   </div>
 			 </li>";
@@ -992,39 +992,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	    $content .="<div class='more_story'>
 					  <div class='user_info_title'>".$story_author_name."的更多报道</div>
 					  <ul id='more_story_list' class='sto_cover_list'>";
-		while ($story_item = mysql_fetch_array($more_result))
-		{
-		  $post_author = $story_item['post_author'];
-		  $post_pic_url = $story_item['post_pic_url'];
-		  if($post_pic_url == '')
-		  {
-		    $post_pic_url = '/img/event_dft.jpg';
-		  }
-		  $post_title = $story_item['post_title'];
-		  $post_date = $story_item['post_date'];
-		  $temp_array = explode(" ", $story_item['post_date']);
-		  $post_date = $temp_array[0];
-		  $post_link = "/user/".$post_author."/".$story_item['ID'];
-		  $post_link = htmlspecialchars($post_link);
-		  $content .= "<li>
-							  <div class='story_wrap'>	
-								<a href='".$post_link."'>
-								  <img class='cover' src='".$post_pic_url."' alt=''/>
-								</a>
-								<a class='title_wrap' href='".$post_link."'>
-								  <span class='title'>".$post_title."</span>
-								</a>
-							  </div>
-							  <div class='story_meta'>
-								<span>
-								  <a class='meta_date'>".$post_date."</a>
-								  <img src='".$user_profile_img."' alt=''/>
-								  <a class='meta_author' href='/user/".$post_author."'>".$story_author_name."</a>
-								</span>
-							  </div>
-							</li>";
-		}
-		$content .="</ul><a href='/user/".$story_author."'>访问".$story_author_name."的主页 &raquo;</a></div>";
+		$content .=printStory($more_result)."</ul><a href='/user/".$story_author."'>访问".$story_author_name."的主页 &raquo;</a></div>";
 	}
 	
 	$content .="</div></div><div id='go_top'><a href='javascript:void(0)' onclick='goto_top()' title='返回顶部'></a></div>";
@@ -1190,6 +1158,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 		  while ($story_item = mysql_fetch_array($result))
 		  {
 			//printf ("title: %s  summary: %s", $story_item['post_title'], $story_item['post_summary']);
+			$sview_count = 0;
 			$post_id = $story_item['ID'];
 			$post_title = $story_item['post_title'];
 			$post_pic_url = $story_item['post_pic_url'];
@@ -1211,6 +1180,15 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 			$post_date = dateFormatTrans($story_item['post_date'],$date_t);
 			$post_link = "/user/".$user_id."/".$post_id;
 			$post_link = htmlspecialchars($post_link);
+			
+			$count_query = "select domain_name, refer_url, view_count from ".$db_prefix."pageview where story_id=".$post_id;
+			$countResult = $DB->query($count_query);
+			if($DB->num_rows($countResult) > 0){
+				while($count_result_row = $DB->fetch_array($countResult)){
+					$sview_count += $count_result_row['view_count'];
+				}
+			}
+			
 			$story_content .="<li>
 								<div class='story_wrap'>
 								  <a href='".$post_link."'>
@@ -1235,7 +1213,20 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 			  <div class='clear'></div>
 			  </div>";
 			}
-			$story_content .="</div><div class='story_meta'><span><a class='meta_date'>".$post_date."</a><img src='".$user_profile_img."' alt='' /><a class='meta_author'>".$username."</a></span></div></li>";
+			$story_content .="</div>
+							  <div class='story_meta'>
+							    <div class='float_l'>
+								  <img src='".$user_profile_img."' alt='' />
+								</div>
+								<div class='meta_info'>
+								  <div>
+								    <a class='meta_author'>".$username."</a>
+									<div class='meta_date'>".$post_date."</div>
+									<div class='meta_view'>".$sview_count."</div>
+								  </div>
+								</div>
+								<div class='clear'></div>
+							  </div></li>";
 		  }
 	  }
 	}

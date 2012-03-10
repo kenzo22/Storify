@@ -189,9 +189,9 @@ li.textElement ol li{list-style:decimal inside}
 .add_comment{background:url("../img/editsprite.png") no-repeat scroll 0 -79px transparent;width:16px;height:16px;overflow:hidden;display:inline-block}
 .textElement{width:95%;overflow:hidden;position:relative;margin:auto}
 .textElement .actions{padding-left:380px}
-.cover{display:block;height:186px;position:relative;width:186px;padding:0}
+.cover{display:block;height:166px;position:relative;width:186px;padding:0}
 .story_wrap a:hover{opacity:0.75;filter:alpha(opacity=75)}
-.title_wrap{bottom:40px;position:absolute;width:135px;margin:0;word-wrap:break-word;word-break:break-all;background:none repeat scroll 0 0 #000;opacity:0.75;filter:alpha(opacity=75);padding:3px 5px;border:1px solid #333;border-radius:0 6px 6px 0}
+.title_wrap{bottom:0;position:absolute;width:174px;margin:0;word-wrap:break-word;word-break:break-all;background:none repeat scroll 0 0 #000;opacity:0.75;filter:alpha(opacity=75);padding:3px 5px;border:1px solid #333}
 .topic_list .topic_title{float:left;overflow:hidden;white-space:nowrap;width:100px;text-overflow:ellipsis;}
 .title_wrap .title{color:#FFF;display:inline;text-shadow:0 0 2px rgba(0, 0, 0, 0.8);text-transform:uppercase;font-size:14px}
 .weiboLi,.tweiboLi,.doubanLi,.videoLi,.yupooLi,.impUploadLi,.rssLi{padding:5px 0 5px 5px}
@@ -326,7 +326,7 @@ li#more{margin:10px 0}
 .userstory_list{float:left;width:690px;padding:0 0 0 30px}
 .userstory_list ul,.t_category .sto_cover_list,#sub_container .sto_cover_list,#all_container .sto_cover_list{overflow:auto;zoom:1;padding:0}
 .first_imply{font-size:14px;font-weight:600;margin:0 0 8px 20px;font-family:'Hiragino Sans GB','Microsoft YaHei',sans-serif!important}
-.userstory_list ul li,.t_category .sto_cover_list li{border:1px solid #DDD;border-radius:3px 3px 3px 3px;color:#323232;display:inline;text-decoration:none;height:218px;width:188px;float:left;margin:20px 10px 0 10px;padding:5px 5px 2px}
+.userstory_list ul li,.t_category .sto_cover_list li{border:1px solid #DDD;border-radius:3px 3px 3px 3px;color:#323232;display:inline;text-decoration:none;height:210px;width:188px;float:left;margin:20px 10px 0 10px;padding:5px 5px 2px}
 #sub_container .sto_cover_list li,#all_container .sto_cover_list li{border:1px solid #DDD;border-radius:3px 3px 3px 3px;color:#323232;display:inline;text-decoration:none;height:218px;width:188px;float:left;margin:20px 24px 0 16px;padding:5px 5px 2px}
 .t_category .sto_cover_list li{margin:20px 10px 0 18px}
 #popular{clear:both;margin-bottom:20px}
@@ -338,11 +338,13 @@ li#more{margin:10px 0}
 #more_story_list{margin:0 0 20px;padding:0}
 #more_story_list li{border:1px solid #BBB;margin-top:10px;padding:5px 5px 2px}
 .sto_cover_list{margin-left:0}
-.sto_cover_list .story_meta{padding-top:5px}
-.sto_cover_list .story_meta span img{width:20px;height:20px}
-.sto_cover_list .story_meta .meta_author{margin-left:5px;vertical-align:top;color:#333}
+.sto_cover_list .story_meta{padding-top:5px;height:36px}
+.sto_cover_list .story_meta  img{width:32px;height:32px;padding:1px;border:1px solid #ddd;display:block}
+.sto_cover_list .story_meta .meta_info{margin-left:43px}
+.sto_cover_list .story_meta .meta_author{display:block;color:#336699;font-size:13px;height:16px}
 .sto_cover_list .story_meta .meta_author:hover{text-decoration:underline}
-.sto_cover_list .story_meta .meta_date{float:right;vertical-align:top;color:#333}
+.sto_cover_list .story_meta .meta_date{float:left;height:16px;display:block;color:#999}
+.sto_cover_list .story_meta .meta_view{float:left;height:16px;display:block;color:#999;padding-left:17px;margin-left:10px;background:url("../img/eye.png") no-repeat scroll 0 3px transparent}
 #time_wrapper{width:960px;text-align:center;margin-top:10px}
 .time_range.selected{background:none repeat scroll 0 0 #E6E6E8;border:1px solid #CCC;padding:2px}
 #story_more{border-radius: 0 0 5px 5px;-moz-border-radius: 0 0 5px 5px;-webkit-border-radius: 0 0 5px 5px;box-shadow: 0 1px 0 #C3C3C6;height: 28px;line-height: 30px;background:#f8f8f9;background: -moz-linear-gradient(center top , #F8F8F9, #E6E6E8) repeat scroll 0 0 transparent;background:-webkit-gradient(linear,left top,left bottom,from(#f8f8f9),to(#e6e6e8));filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f8f8f9',endColorstr='#e6e6e8');border: 1px solid #CCCCCC;color: #666666 !important;cursor: pointer;display: block;font-size: 14px;padding: 6px 10px;text-align: center;text-decoration: none !important;vertical-align: middle;}
@@ -475,6 +477,7 @@ div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,block
 #comment_list li img{height:50px; width:50px}
 #comment_list li .comment_wrapper{margin-left:60px}
 #comment_list li .comment_author{border: 1px solid #DDD;border-radius: 3px 3px 3px 3px;font-size: 13px;line-height: 14px;margin: 0 0 1em;max-height: 36px;overflow: hidden;padding: 10px;white-space: nowrap;background-color:#FFF;background-image:url("../img/more.gif");background-position:left top;background-repeat:repeat-x;display:block}
+#comment_list li .comment_content{word-wrap:break-word;word-break:break-all}
 #comment_list li .comment_action{padding:9px 5px 0 0}
 #reply_container .load_more{width:99%}
 #reply_container #count_wrapper{margin:10px 0 20px;color:#369;overflow:auto}
@@ -606,4 +609,4 @@ div.slider-nav span.left{background:url(orbit/left-arrow.png);left:0}
 #comment_tab a{background:none repeat scroll 0 0 #EEEEEE;border:1px solid #DDDDDD;color:#555555;float:left;height:29px;line-height:30px;margin:0 -1px 0 0;padding:0 9px;width:50px}
 #comment_tab a.active{background:none repeat scroll 0 0 #FFFFFF;border-width:1px 1px 0;height:30px}
 #kou_comment{display:none}
-#dual_comment_list{position:relative}
+#dual_comment_list{overflow:auto;min-Height:400px}
