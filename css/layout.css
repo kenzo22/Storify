@@ -99,7 +99,7 @@ div.pagination span.current{border:1px solid #b7d8ee;font-weight:700;color:#444;
 .published-steps .steps{background:none repeat scroll 0 0 #FFF;border-top:1px solid #ABABAC;overflow:auto}
 .published-steps .post-content,.published-steps .notify-content,.published-steps .share-content{display:none;overflow:auto}
 .published-steps .notify-content,.published-steps .post-content,.published-steps .share-content{padding:10px 10px 0}
-.publish_wrapper .spacer{height:100px}
+.publish_wrapper .spacer{height:10px}
 .footer_spacer{height:180px}
 .published-steps .steps h2{clear:left;font-size:16px;margin:0 0 5px;padding:0}
 .notify-user input[type="checkbox"]{clear:none;float:left;margin:1px 5px 0}
@@ -237,10 +237,10 @@ li#more{margin:10px 0}
 .tag_item{background:none repeat scroll 0 0 #F2F7FC;border:1px solid #D1E3EF;margin-left:5px;padding:3px}
 .tool_wrapper{border-bottom:1px solid #E6E6E6;overflow:auto;zoom:1;padding-bottom:5px}
 .like_wrapper{float:left;padding:5px 0 0 20px}
-.like_wrapper a{background:none repeat scroll 0 0 #EEEEEE;color:#666666;border-radius:3px 3px 3px 3px;display:block;float:left;font-size:13px;font-weight:600;height:24px;line-height:24px;padding:0 10px 0 5px}
-.like_wrapper a:hover{background:none repeat scroll 0 0 #e7e7e7;color:#333}
-.like_wrapper a i{ background:url("../img/heart.png") no-repeat scroll 0 0 transparent;display:block;float:left;height:16px;margin-top:4px;width:16px}
-.like_wrapper a span{display:block;float:left;padding-left:5px}
+.like_wrapper a,.del_wrapper a{background:none repeat scroll 0 0 #EEEEEE;color:#666666;border-radius:3px 3px 3px 3px;display:block;float:left;font-size:13px;font-weight:600;height:24px;line-height:24px;padding:0 10px 0 5px}
+.like_wrapper a:hover,.del_wrapper a:hover{background:none repeat scroll 0 0 #e7e7e7;color:#333}
+.like_wrapper a i,.del_wrapper a i{ background:url("../img/heart.png") no-repeat scroll 0 0 transparent;display:block;float:left;height:16px;margin-top:4px;width:16px}
+.like_wrapper a span,.del_wrapper a span{display:block;float:left;padding-left:5px}
 .story_share{overflow:auto;padding:8px 0 0 15px}
 #story_embed{float:right;display:inline;margin:-5px 10px 0 0}
 .sto_embed{margin-left:10px;margin-right:10px}
@@ -316,7 +316,6 @@ li#more{margin:10px 0}
 .editable .actions .icon.delete{background:url("../img/usersprite.png") no-repeat scroll 0 -64px transparent;height:16px;width:16px;display:inline-block}
 .editable .actions .icon.edit{background:url("../img/usersprite.png") no-repeat scroll 0 -200px transparent;height:16px;width:16px;display:inline-block}
 .del_wrapper{position:absolute;left:4px;top:3px}
-.del_wrapper a img{width:16px;height:16px}
 #tagstory_container{margin-bottom:30px;overflow:auto;zoom:1;position:relative}
 .sort_type{margin:10px 0 0 20px;overflow:auto}
 .sort_type a{margin-right:20px;line-height:25px;float:left;font-size:16px}

@@ -1208,9 +1208,7 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 			  $post_status_txt = '草稿';
 			  $icon_type = 'draft_icon';
 			}
-			$post_date = $story_item['post_date'];
-			$temp_array = explode(" ", $story_item['post_date']);
-			$post_date = $temp_array[0];
+			$post_date = dateFormatTrans($story_item['post_date'],$date_t);
 			$post_link = "/user/".$user_id."/".$post_id;
 			$post_link = htmlspecialchars($post_link);
 			$story_content .="<li>

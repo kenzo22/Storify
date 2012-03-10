@@ -60,6 +60,33 @@ function getUserInfo($email, $password)
   return $result;
 }
 
+function postDateFormat($oridate,$curdate)
+{
+    $ori_array = preg_split('/[-:\s]/',$oridate);
+    $cur_array = preg_split('/[-:\s]/',$curdate);
+    if(sizeof($cur_array) !=6 || (sizeof($ori_array) !=5 && sizeof($ori_array)!=6)) 
+        return "原始或者当前的日期格式出错";
+    $len = sizeof($ori_array);
+    $me = array('年','个月','天','小时','分钟','秒');
+	if($ori_array[0] != $cur_array[0] || $ori_array[1] != $cur_array[1])
+	{
+	  $temp_array = explode(" ", $oridate);
+      return $temp_array[0];
+	}
+	else
+	{
+	  for($i=2; $i< $len-1; $i++)
+      {
+        if($ori_array[$i] != $cur_array[$i])
+        {
+          $diff = $cur_array[$i] - $ori_array[$i];
+          return $diff.$me[$i]."前";
+        }
+      }
+      return "1分钟前";
+	}
+}
+
 function getUserPic($uid)
 {
   global $DB;
@@ -140,9 +167,7 @@ function printPureStory($story_item){
 		$user_profile_img = '/img/douban_user_dft.jpg';
 	  }
 	  $post_title = $story_item['post_title'];
-	  $post_date = $story_item['post_date'];
-	  $temp_array = explode(" ", $story_item['post_date']);
-	  $post_date = $temp_array[0];
+	  $post_date = postDateFormat($story_item['post_date'],date("Y-m-d H:i:s"));
 	  $post_link = "/user/".$post_author."/".$story_item['ID'];
 	  $post_link = htmlspecialchars($post_link);
 	  $story_content .= "<li>
@@ -188,9 +213,7 @@ function printStory($result)
 		$user_profile_img = '/img/douban_user_dft.jpg';
 	  }
 	  $post_title = $story_item['post_title'];
-	  $post_date = $story_item['post_date'];
-	  $temp_array = explode(" ", $story_item['post_date']);
-	  $post_date = $temp_array[0];
+	  $post_date = postDateFormat($story_item['post_date'],date("Y-m-d H:i:s"));
 	  $post_link = "/user/".$post_author."/".$story_item['ID'];
 	  $post_link = htmlspecialchars($post_link);
 	  $story_content .= "<li>
@@ -235,9 +258,7 @@ function printLikedStory($result,$login_uid)
 		$user_profile_img = '/img/douban_user_dft.jpg';
 	  }
 	  $post_title = $story_item['post_title'];
-	  $post_date = $story_item['post_date'];
-	  $temp_array = explode(" ", $story_item['post_date']);
-	  $post_date = $temp_array[0];
+	  $post_date = postDateFormat($story_item['post_date'],date("Y-m-d H:i:s"));
 	  $post_link = "/user/".$post_author."/".$story_item['ID'];
 	  $post_link = htmlspecialchars($post_link);
 	  $story_content .= "<li>
@@ -251,7 +272,7 @@ function printLikedStory($result,$login_uid)
 	  if($login_uid != 0)
 	  {
 	    $story_content .= "<div class='del_wrapper'>
-						     <a id='like_".$login_uid."_".$story_item['ID']."' class='del_like remove_item' title='取消喜欢'><img src='/img/heart.png'/></a>
+						     <a id='like_".$login_uid."_".$story_item['ID']."' class='del_like remove_item'><i></i><span>喜欢</span></a>
 						   </div>";
 	  }
 	  $story_content .="</div>

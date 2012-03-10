@@ -726,6 +726,13 @@ $(function(){
 	  });
 	});
 	
+	$('.del_wrapper a').hover(function(){
+	  $(this).find('span').text('取消喜欢');
+	},
+	function(){
+	  $(this).find('span').text('喜欢');
+	})
+	
 	//user comment part
 	$('#reply_input').val('我想说...').addClass('imply_color');
 	$('#reply_input').blur(function(){

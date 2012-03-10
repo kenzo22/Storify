@@ -98,7 +98,8 @@ function dateFormatTrans($oridate,$curdate)
     $me = array('年','个月','天','小时','分钟','秒');
 	if($ori_array[0] != $cur_array[0] || $ori_array[1] != $cur_array[1])
 	{
-	  return $oridate;
+	  $temp_array = explode(" ", $oridate);
+      return $temp_array[0];
 	}
 	else
 	{
