@@ -99,7 +99,7 @@ div.pagination span.current{border:1px solid #b7d8ee;font-weight:700;color:#444;
 .published-steps .steps{background:none repeat scroll 0 0 #FFF;border-top:1px solid #ABABAC;overflow:auto}
 .published-steps .post-content,.published-steps .notify-content,.published-steps .share-content{display:none;overflow:auto}
 .published-steps .notify-content,.published-steps .post-content,.published-steps .share-content{padding:10px 10px 0}
-.spacer{height:10px}
+.publish_wrapper .spacer{height:100px}
 .footer_spacer{height:180px}
 .published-steps .steps h2{clear:left;font-size:16px;margin:0 0 5px;padding:0}
 .notify-user input[type="checkbox"]{clear:none;float:left;margin:1px 5px 0}
@@ -236,9 +236,12 @@ li#more{margin:10px 0}
 .story_tag{margin-top:5px;padding-left:20px;color:#555}
 .tag_item{background:none repeat scroll 0 0 #F2F7FC;border:1px solid #D1E3EF;margin-left:5px;padding:3px}
 .tool_wrapper{border-bottom:1px solid #E6E6E6;overflow:auto;zoom:1;padding-bottom:5px}
-.like_wrapper{float:left;padding:3px 0 0 20px}
-.like_wrapper a{padding-left:18px;background:url("../img/heart.png") no-repeat scroll 0 0;width:16px;height:16px}
-.story_share{overflow:auto;padding:5px 0 0 5px}
+.like_wrapper{float:left;padding:5px 0 0 20px}
+.like_wrapper a{background:none repeat scroll 0 0 #EEEEEE;color:#666666;border-radius:3px 3px 3px 3px;display:block;float:left;font-size:13px;font-weight:600;height:24px;line-height:24px;padding:0 10px 0 5px}
+.like_wrapper a:hover{background:none repeat scroll 0 0 #e7e7e7;color:#333}
+.like_wrapper a i{ background:url("../img/heart.png") no-repeat scroll 0 0 transparent;display:block;float:left;height:16px;margin-top:4px;width:16px}
+.like_wrapper a span{display:block;float:left;padding-left:5px}
+.story_share{overflow:auto;padding:8px 0 0 15px}
 #story_embed{float:right;display:inline;margin:-5px 10px 0 0}
 .sto_embed{margin-left:10px;margin-right:10px}
 #embed_bar{background:none repeat scroll 0 0 #EFEFEF;display:none;clear:both;padding:5px 0 5px 20px}
@@ -274,7 +277,7 @@ li#more{margin:10px 0}
 .side_title{vertical-align:top;font-size:12px;color:#555}
 .user-bio{color:#555;font-size:12px;line-height:1.5;text-shadow:1px 1px 0 #FFF;margin:3px 0 7px;padding:5px}
 .act_digg{float:right;margin:4px 5px 0 0;background:url("../img/usersprite.png") no-repeat scroll 0 -96px transparent;width:16px;height:16px}
-.digg_counter{background:url("../img/counter.gif") no-repeat scroll 0 -64px transparent;font-family:arial,helvetica,sans-serif;font-weight:700;height:16px;text-align:center;width:32px!important;color:#565656;cursor:pointer;float:right;font-size:11px;line-height:16px!important;text-decoration:none;margin:4px 10px 0 -2px;padding:0 0 0 4px}
+.digg_counter{background:url("../img/counter.gif") no-repeat scroll 0 -64px transparent;font-family:arial,helvetica,sans-serif;font-weight:700;height:16px;text-align:center;width:32px!important;float:left;color:#565656;cursor:pointer;font-size:11px;line-height:16px!important;text-decoration:none;margin:3px 0 0 5px;padding:0 0 0 4px}
 #publish_container{background-color:#FFF;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;width:660px;border-color:#ababac;border-style:solid;border-width:1px;margin-bottom:40px}
 .userinfo_container{float:right;min-height:500px;height:auto;width:220px;zoom:1}
 .kou_signature{display:block;text-align:right;padding:0 10px 5px 5px}
@@ -475,12 +478,12 @@ div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,block
 #comment_list li .comment_author{border: 1px solid #DDD;border-radius: 3px 3px 3px 3px;font-size: 13px;line-height: 14px;margin: 0 0 1em;max-height: 36px;overflow: hidden;padding: 10px;white-space: nowrap;background-color:#FFF;background-image:url("../img/more.gif");background-position:left top;background-repeat:repeat-x;display:block}
 #comment_list li .comment_action{padding:9px 5px 0 0}
 #reply_container .load_more{width:99%}
-#reply_container #count_wrapper{margin:10px 0 20px;padding:0 0 10px 10px;color:#369;border-bottom:1px solid #DDD}
-#reply_container #comment_container{padding:0 10px;overflow:auto}
+#reply_container #count_wrapper{margin:10px 0 20px;color:#369;overflow:auto}
+#reply_container #comment_container{overflow:auto}
 #reply_container #comment_container img{float:left;width:50px;height:50px}
 #reply_container #comment_container #login_require{margin-left:15px}
 #reply_container #comment_container #input_wrapper{margin-left:60px}
-#reply_container #comment_container #reply_input{overflow-y: auto; width:575px; height:50px; border: 1px solid #DDD;padding:3px}
+#reply_container #comment_container #reply_input{overflow-y: auto; width:595px; height:50px; border: 1px solid #DDD;padding:3px}
 #reply_container #comment_container .post_comment{margin:10px 5px 10px 0; float:right}
 #doubanTabs.ui-tabs .ui-tabs-nav li, #picTabs.ui-tabs .ui-tabs-nav li {width:84px}
 #doubanTabs.ui-tabs .ui-tabs-nav li a, #picTabs.ui-tabs .ui-tabs-nav li a {width:68px;text-align:center}
@@ -600,3 +603,8 @@ div.slider-nav span.left{background:url(orbit/left-arrow.png);left:0}
 .more_content{margin-top:30px}
 #userstory_container .load_more{margin:0 0 6px 10px;width:640px}
 #all_container .load_more,#sub_container .load_more{margin:0 0 6px 17px;width:916px}
+#comment_tab{border-bottom:1px solid #DDDDDD;display:block;height:30px;margin:0 0 20px;padding:0}
+#comment_tab a{background:none repeat scroll 0 0 #EEEEEE;border:1px solid #DDDDDD;color:#555555;float:left;height:29px;line-height:30px;margin:0 -1px 0 0;padding:0 9px;width:50px}
+#comment_tab a.active{background:none repeat scroll 0 0 #FFFFFF;border-width:1px 1px 0;height:30px}
+#kou_comment{display:none}
+#dual_comment_list{position:relative}

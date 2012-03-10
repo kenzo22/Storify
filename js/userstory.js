@@ -60,6 +60,18 @@ function goto_top()
 	  goto_top_itv = setInterval('goto_top_timer()', 20);  
 	}  
   }  
+}
+
+function show_login()
+{
+  var winH = $(window).height(),
+	  winW = $(window).width(),
+	  scrollTop = $(document).scrollTop(),
+	  scrollLeft = $(document).scrollLeft(),
+	  login_dialog = $('.boxes #dialog');
+	  login_dialog.css('top',  winH/2-login_dialog.height()/2+scrollTop-100);
+	  login_dialog.css('left', winW/2-login_dialog.width()/2+scrollLeft);
+	  login_dialog.fadeIn(1000);
 } 
 
 $(function(){
@@ -122,15 +134,7 @@ $(function(){
 		  var target = $(e.target);
 		  if(target.hasClass('need_login'))
 		  {
-			var winH = $(window).height(),
-                winW = $(window).width(),
-		        scrollTop = $(document).scrollTop(),
-			    scrollLeft = $(document).scrollLeft(),
-			    login_dialog = $('.boxes #dialog');
-				  
-			login_dialog.css('top',  winH/2-login_dialog.height()/2+scrollTop-100);
-			login_dialog.css('left', winW/2-login_dialog.width()/2+scrollLeft);
-			login_dialog.fadeIn(1000);
+			show_login();
 		  }
 		  else
 		  {
@@ -674,22 +678,7 @@ $(function(){
 	  var item = $(this);
 	  if(item.hasClass('guest'))
 	  {
-	    $('.boxes #weibo_dialog #icon_flag').removeClass();
-		$('#publish_title').text('收集喜欢');
-		var id = item.attr('href');
-		var maskHeight = $(document).height(),
-			maskWidth = $(window).width(),
-			winH = $(window).height(),
-			winW = $(window).width();
-
-		$('#mask').css({'width':maskWidth,'height':maskHeight});	
-		$('#mask').show().css('opacity', '0.7');
-		var scrollTop = $(document).scrollTop(),
-			scrollLeft = $(document).scrollLeft();
-			  
-		$(id).css('top',  winH/2-$(id).height()/2+scrollTop-100);
-		$(id).css('left', winW/2-$(id).width()/2+scrollLeft);
-		$(id).show();
+	    show_login();
 	  }
 	  else
 	  {		  
@@ -703,7 +692,7 @@ $(function(){
 	    {
 		  if(textStatus == 'success')
 		  {
-		    item.text('取消喜欢');
+		    $('.add_like span').text('取消喜欢');
 		    item.removeClass('add_like').addClass('del_like');
 		  }
 	    });
@@ -730,7 +719,7 @@ $(function(){
 		  }
 		  else
 		  {
-			item.text('喜欢');
+			$('.del_like span').text('喜欢');
 		    item.removeClass('del_like').addClass('add_like');
 		  }
 		}
@@ -759,26 +748,34 @@ $(function(){
 	
 	$('.post_comment').click(function(e){
 	  e.preventDefault();
-	  var comment_input = $('#reply_input');
+	  var target = $(e.target);
+	  if(target.hasClass('need_login'))
+	  {
+		show_login();
+	  }
+	  else
+	  {
+	    var comment_input = $('#reply_input');
 	      temp_array = $(this).attr('id').split('_'),
 	      user_id_val = temp_array[2],
 		  post_id_val = temp_array[1],
 	      content_val = comment_input.val();
 	      postData = {post_id: post_id_val, user_id: user_id_val, comment_content: content_val};
-	  if(content_val == '' || (content_val == '我想说...' && comment_input.hasClass('imply_color')))
-	  {
-	    return false;
-	  }
-	  $.post('/member/postcomment.php', postData,
-	  function(data, textStatus)
-	  {
-	    if(textStatus == 'success')
+	    if(content_val == '' || (content_val == '我想说...' && comment_input.hasClass('imply_color')))
 	    {
-		  $('#reply_input').val('我想说...').addClass('imply_color');
-		  $('#comment_list').prepend(data);
-		  $('#comment_list li:first').show('slow');
+	      return false;
 	    }
-	  });
+	    $.post('/member/postcomment.php', postData,
+	    function(data, textStatus)
+	    {
+	      if(textStatus == 'success')
+	      {
+		    $('#reply_input').val('我想说...').addClass('imply_color');
+		    $('#comment_list').prepend(data);
+		    $('#comment_list li:first').show('slow');
+	      }
+	    });
+	  }
 	});
 	
 	$('#reply_container .load_more').live('click', function(e){
@@ -859,14 +856,48 @@ $(function(){
   });
   
   $('#connectBtn').live('click', function(e)
-	    {
-		  e.preventDefault();
-		  $.post('/accounts/login/sina_auth.php', {}, 		
-		  function(data, textStatus)
-		  {
-		    $('#dialog.window').hide();
-		    self.location=data;
-		  });
-	    });
+	{
+	  e.preventDefault();
+	  $.post('/accounts/login/sina_auth.php', {}, 		
+	  function(data, textStatus)
+	  {
+		$('#dialog.window').hide();
+		self.location=data;
+	  });
+	});
+	
+	$('#comment_tab dd a').mouseover(function(e){
+	  var target = $(e.target);
+	  if(target.is('#kou_comment_tab'))
+	  {
+	    target.addClass('active');
+		$('#uyan_comment_tab').removeClass();
+		$('#uyan_comment').css('display','none');
+		$('#kou_comment').css('display','block');
+	  }
+	  else if(target.is('#uyan_comment_tab'))
+	  {
+	    target.addClass('active');
+		$('#kou_comment_tab').removeClass();
+		$('#kou_comment').css('display','none');
+		$('#uyan_comment').css('display','block');
+	  }
+	})
+	
+	/*$('#kou_comment_tab').mouseover(function(e){
+	  e.preventDefault();
+	  $(this).addClass('active');
+	  $('#uyan_comment_tab').removeClass();
+	  $('#uyan_comment').css('display','none');
+	  $('#kou_comment').css('display','block');
+	});
+	
+	$('#uyan_comment_tab').mouseover(function(e){
+	  e.preventDefault();
+	  $(this).addClass('active');
+	  $('#kou_comment_tab').removeClass();
+	  $('#kou_comment').css('display','none');
+	  $('#uyan_comment').css('display','block');
+	});*/
 
 });

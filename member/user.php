@@ -387,13 +387,13 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  if($login_status)
 	  {
         if($like)
-	        $content .="<a id='like_".$_SESSION['uid']."_".$post_id."' class='add_like' href='#weibo_dialog'>喜欢</a><span> | </span></div>";
+	        $content .="<a id='like_".$_SESSION['uid']."_".$post_id."' class='add_like' href='#weibo_dialog'><i></i><span>喜欢</span></a></div>";
         else
-	        $content .="<a id='like_".$_SESSION['uid']."_".$post_id."' class='del_like' href='#weibo_dialog'>取消喜欢</a></div>";
+	        $content .="<a id='like_".$_SESSION['uid']."_".$post_id."' class='del_like' href='#weibo_dialog'><i></i><span>取消喜欢</span></a></div>";
 	  }
 	  else
 	  {
-	    $content .="<a class='add_like guest' href='#weibo_dialog'>喜欢</a></div>";
+	    $content .="<a class='add_like guest' href='#weibo_dialog'><i></i><span>喜欢</span></a></div>";
 	  }
 		  $content .="<div class='story_share'>
 						<div id='ckepop'>
@@ -813,13 +813,14 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	$reply_count = $reply_result[num];
 	
 	$content .="<div class='kou_signature'><span>Powered by</span><a title='口立方' name='poweredby' target='_blank' href='http://koulifang.com'></a></div></div>
-	<div id='reply_container'>  
-	  <div id='count_wrapper'>
-		<span id='digg_count_".$post_id."' class='digg_counter' title='累计赞".$story_digg_count."次'>".$story_digg_count."</span>
-		<a id='act_digg_".$post_id."' class='act_digg' title='赞一个'></a>
-		<span>评论 (".$reply_count.") </span>
-	  </div>
-	  <div id='comment_container'>";
+			    <dl id='comment_tab'><dd><a id='kou_comment_tab' href='#'>站内评论</a></dd><dd><a id='uyan_comment_tab' class='active' href='#'>社交评论</a></dd></dl>
+				<ul id='dual_comment_list'>
+				  <li id='kou_comment'>
+					<div id='reply_container'>  
+					  <div id='count_wrapper'>
+						<span class='float_l'>评论</span><span class='digg_counter' title='评论".$reply_count."次'>".$reply_count."</span>
+					  </div>
+					  <div id='comment_container'>";
 	if($login_status)
 	{
 	  $content.="<img src='".$current_user_pic."' alt='' />
@@ -830,7 +831,11 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	}
 	else
 	{
-	  $content.="<div><span>发表评论</span><a id='login_require' href='/accounts/login?next=".urlencode($_SERVER['REQUEST_URI'])."'>请登录</a></div>"; 
+	  $content.="<img src='/img/douban_user_dft.jpg' alt='游客' />
+				 <div id='input_wrapper'>
+				   <textarea rows='1' cols='20' value='' type='text' id='reply_input'></textarea>
+				   <a class='large blue awesome post_comment need_login'>发表评论 &raquo;</a>
+				 </div>";
 	}
 	$content .="<div class='clear'></div>
         <ul id='comment_list'>";
@@ -909,6 +914,9 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	}	
 	$content .="</ul></div>	
 	</div>
+	</li>
+	<li id='uyan_comment'><div id='uyan_frame'></div></li>
+	</ul>
 	<div class='spacer'></div>
 	</div>
 	<div class='userinfo_container'>
@@ -1021,9 +1029,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	
 	$content .="</div></div><div id='go_top'><a href='javascript:void(0)' onclick='goto_top()' title='返回顶部'></a></div>";
 	echo $content;
-	echo "<script type='text/javascript' language='javascript'>
-		   document.title = '$story_title'+' - '+'$story_author_name'+' - 口立方';
-		</script>";
+	echo "<script type='text/javascript' id='UYScript' src='http://v1.uyan.cc/js/iframe.js?UYUserId=2602' async=''></script><script type='text/javascript' language='javascript'>document.title = '$story_title'+' - '+'$story_author_name'+' - 口立方';</script>";
 }
 
 else if(isset($_GET['user_id']) && isset($_GET['post_id']) && isset($_GET['action']))
