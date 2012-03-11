@@ -119,20 +119,22 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	if($login_flag)
 	{
 	  echo "<div id='subscription' class='t_category'>
-	  <h3><a href='/user/".$userresult['id']."/subscription'>我的订阅</a></h3>
-	  <span id='more_sub'><a href='/user/".$userresult['id']."/subscription'>更多 &raquo;</a></span>
-	  <ul class='sto_cover_list'>";
-	    
-        $i_query = "SELECT story_posts.* FROM story_posts,story_follow WHERE user_id=".$_SESSION['uid']." AND follow_id=post_author AND post_status='Published' ORDER BY post_modified desc limit 3";
-	    $result=$DB->query($i_query);
-        if($DB->num_rows($result) == 0){
-            echo "您订阅的用户没有发表故事!";
-        }
-        while($row=$DB->fetch_array($result)){
+	  <h3><a href='/user/".$userresult['id']."/subscription'>我的订阅</a></h3>";
+      $i_query = "SELECT story_posts.* FROM story_posts,story_follow WHERE user_id=".$_SESSION['uid']." AND follow_id=post_author AND post_status='Published' ORDER BY post_modified desc limit 3";
+	  $result=$DB->query($i_query);
+      if($DB->num_rows($result) == 0)
+	  {
+        echo "<div id='sub_imply'>订阅你喜欢的作者，他们的文章会显示在这里喔～</div>";
+      }
+	  else
+	  {
+	    $story_content ="<span id='more_sub'><a href='/user/".$userresult['id']."/subscription'>更多 &raquo;</a></span><ul class='sto_cover_list'>";
+		while($row=$DB->fetch_array($result)){
             $story_content.=printPureStory($row);
-        }   
-        echo $story_content;
-	  echo "</ul></div>";
+        }
+		echo $story_content."</ul>";	
+	  }
+	  echo "</div>";
 	}
 	?>
 	<div id='society' class='t_category'>
