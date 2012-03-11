@@ -1,5 +1,5 @@
 <?php
-require_once '../oauth.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/oauth.php';
 require_once 'doubanoauth.php';
 /** 
  * 豆瓣操作类 

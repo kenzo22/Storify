@@ -1,15 +1,14 @@
 <?php
-require $_SERVER['DOCUMENT_ROOT'].'/include/user_auth_fns.php';
-require $_SERVER['DOCUMENT_ROOT'].'/include/functions.php';
-require $_SERVER['DOCUMENT_ROOT'].'/include/weibo_functions.php';
-require $_SERVER['DOCUMENT_ROOT'].'/weibo/config.php';
-require $_SERVER['DOCUMENT_ROOT'].'/weibo/sinaweibo.php';
-require $_SERVER['DOCUMENT_ROOT'].'/tweibo/config.php';
-require $_SERVER['DOCUMENT_ROOT'].'/tweibo/txwboauth.php';
-require $_SERVER['DOCUMENT_ROOT'].'/douban/config.php';
-require $_SERVER['DOCUMENT_ROOT'].'/douban/doubanapi.php';
-require $_SERVER['DOCUMENT_ROOT'].'/include/secureGlobals';
-
+require '../include/user_auth_fns.php';
+require '../include/functions.php';
+require '../include/weibo_functions.php';
+require '../weibo/config.php';
+require '../weibo/sinaweibo.php';
+require '../tweibo/config.php';
+require '../tweibo/txwboauth.php';
+require '../douban/config.php';
+require '../douban/doubanapi.php';
+require '../include/secureGlobals.php';
 
 header("content-type: text/javascript");
 
@@ -70,17 +69,6 @@ else
     $story_content=$result['post_content'];
 	$temp_array = json_decode($story_content, true);
 	$story_content_array = $temp_array['content'];
-	
-	$tag_query = "select name from story_tag,story_tag_story where story_tag.id=tag_id and story_id=".$post_id;
-	$tag_names = $DB->query($tag_query);
-	if($DB->num_rows($tag_names) > 0)
-	{
-	  while($tag_name_row = $DB->fetch_array($tag_names))
-	  {
-		$tag_array[] = $tag_name_row['name'];
-	  }
-	}
-	$content = "";
 	$content_array[] = array();
 			  
     foreach($story_content_array as $key=>$val)
@@ -429,9 +417,8 @@ else
   $obj->pic = $story_pic;
   $obj->time = $story_time;
   $obj->embed = $story_embed;
-  $obj->tags = $tag_array;
   $obj->content_array = $content_array;
 
-  echo $_GET['callback']. '(' . json_encode($obj) . ');';
+  echo $_GET['callback']. '(' . json_encode($obj) . ')';
 }
 ?>

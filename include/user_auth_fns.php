@@ -60,6 +60,33 @@ function getUserInfo($email, $password)
   return $result;
 }
 
+function postDateFormat($oridate,$curdate)
+{
+    $ori_array = preg_split('/[-:\s]/',$oridate);
+    $cur_array = preg_split('/[-:\s]/',$curdate);
+    if(sizeof($cur_array) !=6 || (sizeof($ori_array) !=5 && sizeof($ori_array)!=6)) 
+        return "原始或者当前的日期格式出错";
+    $len = sizeof($ori_array);
+    $me = array('年','个月','天','小时','分钟','秒');
+	if($ori_array[0] != $cur_array[0] || $ori_array[1] != $cur_array[1])
+	{
+	  $temp_array = explode(" ", $oridate);
+      return $temp_array[0];
+	}
+	else
+	{
+	  for($i=2; $i< $len-1; $i++)
+      {
+        if($ori_array[$i] != $cur_array[$i])
+        {
+          $diff = $cur_array[$i] - $ori_array[$i];
+          return $diff.$me[$i]."前";
+        }
+      }
+      return "1分钟前";
+	}
+}
+
 function getUserPic($uid)
 {
   global $DB;
@@ -121,6 +148,238 @@ function getPopularScore($post_id)
   }
   $popularScore = $comment_weight*$comment_count + $digg_weight*$digg_count + $view_weight*$view_count;
   return $popularScore; 
+}
+
+function printPureStory($story_item){
+        global $DB;
+        global $db_prefix;
+	  $post_author = $story_item['post_author'];
+	  $post_pic_url = $story_item['post_pic_url'];
+	  $post_id = $story_item['ID'];
+	  $sview_count = 0;
+	  if($post_pic_url == '')
+	  {
+		$post_pic_url = '/img/event_dft.jpg';
+	  }
+	  $userresult = $DB->fetch_one_array("SELECT username, photo FROM ".$db_prefix."user where id='".$post_author."'");
+	  $user_profile_img = $userresult['photo'];
+	  $author_name = $userresult['username'];
+	  if($user_profile_img == '')
+	  {
+		$user_profile_img = '/img/douban_user_dft.jpg';
+	  }
+	  $post_title = $story_item['post_title'];
+	  $post_date = postDateFormat($story_item['post_date'],date("Y-m-d H:i:s"));
+	  $post_link = "/user/".$post_author."/".$post_id;
+	  $post_link = htmlspecialchars($post_link);
+	  $count_query = "select view_count from ".$db_prefix."pageview where story_id=".$post_id;
+	  $countResult = $DB->query($count_query);
+	  if($DB->num_rows($countResult) > 0){
+		while($count_result_row = $DB->fetch_array($countResult)){
+			$sview_count += $count_result_row['view_count'];
+		}
+	  }
+	  $story_content .= "<li>
+						  <div class='story_wrap'>	
+							<a href='".$post_link."'>
+							  <img class='cover' src='".$post_pic_url."' alt='' />
+							</a>
+							<a class='title_wrap' href='".$post_link."'>
+							  <span class='title'>".$post_title."</span>
+							</a>
+						  </div>
+						  <div class='story_meta'>
+							<div class='float_l'>
+							  <img src='".$user_profile_img."' alt='' />
+							</div>
+							<div class='meta_info'>
+							  <div>
+								<a class='meta_author' href='/user/".$post_author."'>".$author_name."</a>
+								<div class='meta_date'>".$post_date."</div>
+								<div class='meta_view'>".$sview_count."</div>
+							  </div>
+							</div>
+							<div class='clear'></div>
+						  </div>
+						</li>";
+
+	return $story_content;
+}
+
+
+function printStory($result)
+{
+  global $DB;
+  global $db_prefix;
+  $story_content = '';
+  while ($story_item = mysql_fetch_array($result))
+	{
+	  $sview_count = 0;
+	  $post_author = $story_item['post_author'];
+	  $post_pic_url = $story_item['post_pic_url'];
+	  $post_id = $story_item['ID'];
+	  if($post_pic_url == '')
+	  {
+		$post_pic_url = '/img/event_dft.jpg';
+	  }
+	  $userresult = $DB->fetch_one_array("SELECT username, photo FROM ".$db_prefix."user where id='".$post_author."'");
+	  $user_profile_img = $userresult['photo'];
+	  $author_name = $userresult['username'];
+	  if($user_profile_img == '')
+	  {
+		$user_profile_img = '/img/douban_user_dft.jpg';
+	  }
+	  $post_title = $story_item['post_title'];
+	  $post_date = postDateFormat($story_item['post_date'],date("Y-m-d H:i:s"));
+	  $post_link = "/user/".$post_author."/".$post_id;
+	  $post_link = htmlspecialchars($post_link);
+	  $count_query = "select view_count from ".$db_prefix."pageview where story_id=".$post_id;
+	  $countResult = $DB->query($count_query);
+	  if($DB->num_rows($countResult) > 0){
+		while($count_result_row = $DB->fetch_array($countResult)){
+			$sview_count += $count_result_row['view_count'];
+		}
+	  }
+	  $story_content .= "<li>
+						  <div class='story_wrap'>	
+							<a href='".$post_link."'>
+							  <img class='cover' src='".$post_pic_url."' alt='' />
+							</a>
+							<a class='title_wrap' href='".$post_link."'>
+							  <span class='title'>".$post_title."</span>
+							</a>
+						  </div>
+						  <div class='story_meta'>
+							<div class='float_l'>
+							  <img src='".$user_profile_img."' alt='' />
+							</div>
+							<div class='meta_info'>
+							  <div>
+								<a class='meta_author' href='/user/".$post_author."'>".$author_name."</a>
+								<div class='meta_date'>".$post_date."</div>
+								<div class='meta_view'>".$sview_count."</div>
+							  </div>
+							</div>
+							<div class='clear'></div>
+						  </div>
+						</li>";
+	}
+	return $story_content;
+}
+
+function printLikedStory($result,$login_uid)
+{
+  global $DB;
+  global $db_prefix;
+  $story_content = '';
+  while ($story_item = mysql_fetch_array($result))
+	{
+	  $sview_count = 0;
+	  $post_author = $story_item['post_author'];
+	  $post_pic_url = $story_item['post_pic_url'];
+	  $post_id = $story_item['ID'];
+	  if($post_pic_url == '')
+	  {
+		$post_pic_url = '/img/event_dft.jpg';
+	  }
+	  $userresult = $DB->fetch_one_array("SELECT username, photo FROM ".$db_prefix."user where id='".$post_author."'");
+	  $user_profile_img = $userresult['photo'];
+	  $author_name = $userresult['username'];
+	  if($user_profile_img == '')
+	  {
+		$user_profile_img = '/img/douban_user_dft.jpg';
+	  }
+	  $post_title = $story_item['post_title'];
+	  $post_date = postDateFormat($story_item['post_date'],date("Y-m-d H:i:s"));
+	  $post_link = "/user/".$post_author."/".$post_id;
+	  $post_link = htmlspecialchars($post_link);
+	  $count_query = "select view_count from ".$db_prefix."pageview where story_id=".$post_id;
+	  $countResult = $DB->query($count_query);
+	  if($DB->num_rows($countResult) > 0){
+		while($count_result_row = $DB->fetch_array($countResult)){
+			$sview_count += $count_result_row['view_count'];
+		}
+	  }
+	  $story_content .= "<li>
+						  <div class='story_wrap'>	
+							<a href='".$post_link."'>
+							  <img class='cover' src='".$post_pic_url."' alt='' />
+							</a>
+							<a class='title_wrap' href='".$post_link."'>
+							  <span class='title'>".$post_title."</span>
+							</a>";
+	  if($login_uid != 0)
+	  {
+	    $story_content .= "<div class='del_wrapper'>
+						     <a id='like_".$login_uid."_".$story_item['ID']."' class='del_like remove_item'><i></i><span>喜欢</span></a>
+						   </div>";
+	  }
+	  $story_content .="</div>
+						  <div class='story_meta'>
+							<div class='float_l'>
+							  <img src='".$user_profile_img."' alt='' />
+							</div>
+							<div class='meta_info'>
+							  <div>
+								<a class='meta_author' href='/user/".$post_author."'>".$author_name."</a>
+								<div class='meta_date'>".$post_date."</div>
+								<div class='meta_view'>".$sview_count."</div>
+							  </div>
+							</div>
+							<div class='clear'></div>
+						  </div>
+						</li>";
+	}
+	return $story_content;
+}
+
+function printFollow($user_list)
+{
+  global $DB;
+  global $db_prefix;
+  $content = "";
+  foreach($user_list as $user)
+  {
+	$query="select id, username, photo from ".$db_prefix."user where id=".$user;
+	$result=$DB->query($query);
+	$item=$DB->fetch_array($result);
+	$usr_img = $item['photo'];
+	if($usr_img == '')
+	{
+	  $usr_img = '/img/douban_user_dft.jpg';
+	}
+	$content .="<li id='follower_id_".$item['id']."'><a class='follow_mini_icon' href='/user/".$item['id']."'><img title='".$item['username']."' src='".$usr_img."' alt='".$item['username']."' /></a></li>";
+  }
+  return $content;
+}
+
+function getAvatarImg($userresult)
+{
+  if(substr($userresult['photo'], 0, 4) == 'http')
+  {
+	if(substr($userresult['photo'], 11, 4) == 'sina')
+	{
+	  $pattern = "/(\d+)\/50\/(\d+)/";
+	  $user_profile_img = preg_replace($pattern,"$1/180/$2",$userresult['photo']);
+	}
+    else
+	{
+	  $pattern = "/50$/";
+	  $user_profile_img = preg_replace($pattern,'100',$userresult['photo']);
+	}
+  }
+  else
+  {
+	if($userresult['photo'] == '')
+	{
+	  $user_profile_img = '/img/douban_user_dft.jpg';
+	}
+	else
+	{
+	  $user_profile_img =$userresult['photo'];
+	}
+  }
+  return $user_profile_img;
 }
 
 ?>
