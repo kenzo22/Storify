@@ -60,6 +60,18 @@ function goto_top()
 	  goto_top_itv = setInterval('goto_top_timer()', 20);  
 	}  
   }  
+}
+
+function show_login()
+{
+  var winH = $(window).height(),
+	  winW = $(window).width(),
+	  scrollTop = $(document).scrollTop(),
+	  scrollLeft = $(document).scrollLeft(),
+	  login_dialog = $('.boxes #dialog');
+	  login_dialog.css('top',  winH/2-login_dialog.height()/2+scrollTop-100);
+	  login_dialog.css('left', winW/2-login_dialog.width()/2+scrollLeft);
+	  login_dialog.fadeIn(1000);
 } 
 
 $(function(){
@@ -117,42 +129,51 @@ $(function(){
 	  }
 	});
 	  
-	  $('.follow_btn').click(function(){
-		  var follow_btn_info = $(this).attr('id'),
-		      info_array = follow_btn_info.split('_'),
-		      userid = info_array[2],
-		      operation_val = $(this).text();
-		  if('关注' == operation_val)
+	  $('.follow_btn').click(function(e){
+	      e.preventDefault();
+		  var target = $(e.target);
+		  if(target.hasClass('need_login'))
 		  {
-			operation_val = 'follow';
+			show_login();
 		  }
 		  else
 		  {
-			operation_val = 'unfollow';
-		  }
-		  var postdata = {operation: operation_val, uid: userid}, temp='';
-		  $.post('/member/useroperation.php', postdata,
-			  function(data, textStatus)
+		    var follow_btn_info = $(this).attr('id'),
+		      info_array = follow_btn_info.split('_'),
+		      userid = info_array[2],
+		      operation_val = $(this).text();
+			  if('关注' == operation_val)
 			  {
-				if('success'==textStatus)
-				{
-				  if(operation_val == 'follow')
+				operation_val = 'follow';
+			  }
+			  else
+			  {
+				operation_val = 'unfollow';
+			  }
+			  var postdata = {operation: operation_val, uid: userid}, temp='';
+			  $.post('/member/useroperation.php', postdata,
+				  function(data, textStatus)
 				  {
-					temp = $('.usersfollowers .count').text();
-					$('.usersfollowers .count').text(parseInt(temp)+1);
-					$('.follower_list').append(data);
-				  }
-				  else
-				  {
-					var user_id=info_array[0];
-					$('#follower_id_'+user_id).remove();
-					temp = $('.usersfollowers .count').text();
-					$('.usersfollowers .count').text(parseInt(temp)-1);
-				  }
-				  $('.follow_btn').toggle();
-				}
-				console.log(data);						
-			  });
+					if('success'==textStatus)
+					{
+					  if(operation_val == 'follow')
+					  {
+						temp = $('.usersfollowers .count').text();
+						$('.usersfollowers .count').text(parseInt(temp)+1);
+						$('.follower_list').append(data);
+					  }
+					  else
+					  {
+						var user_id=info_array[0];
+						$('#follower_id_'+user_id).remove();
+						temp = $('.usersfollowers .count').text();
+						$('.usersfollowers .count').text(parseInt(temp)-1);
+					  }
+					  $('.follow_btn').toggle();
+					}
+					console.log(data);						
+				  });
+		  }
 		}).hover(function(){
 		  if($(this).text() == '已关注')
 		  {
@@ -231,8 +252,8 @@ $(function(){
 			$('#weibo_dialog .word_counter').text('140');
 			if($(this).hasClass('sina'))
 			{
-			  $('#boxes #weibo_dialog #icon_flag').removeClass().addClass('sina16_icon');
-			  if($('#boxes #weibo_dialog').hasClass('sina'))
+			  $('.boxes #weibo_dialog #icon_flag').removeClass().addClass('sina16_icon');
+			  if($('.boxes #weibo_dialog').hasClass('sina'))
 			  {
 				$('#pub_wrapper').show();
 				$('.pub_imply_sina, .pub_imply_tencent').hide();
@@ -266,7 +287,7 @@ $(function(){
 				  $('#publish_title').text('评论微博');
 				}
 			  }
-			  else if(!$('#boxes #weibo_dialog').hasClass('disable'))
+			  else if(!$('.boxes #weibo_dialog').hasClass('disable'))
 			  {
 				$('#pub_wrapper, .pub_imply_tencent').hide();
 				$('.pub_imply_sina').show();
@@ -282,8 +303,8 @@ $(function(){
 			}
 			else if($(this).hasClass('tencent'))
 			{
-			  $('#boxes #weibo_dialog #icon_flag').removeClass().addClass('tencent16_icon');
-			  if($('#boxes #weibo_dialog').hasClass('tencent'))
+			  $('.boxes #weibo_dialog #icon_flag').removeClass().addClass('tencent16_icon');
+			  if($('.boxes #weibo_dialog').hasClass('tencent'))
 			  {
 				$('#pub_wrapper').show();
 				$('.pub_imply_sina, .pub_imply_tencent').hide();
@@ -318,7 +339,7 @@ $(function(){
 				  $('#publish_title').text('评论微博');
 				}
 			  }
-			  else if(!$('#boxes #weibo_dialog').hasClass('disable'))
+			  else if(!$('.boxes #weibo_dialog').hasClass('disable'))
 			  {
 				$('#pub_wrapper, .pub_imply_sina').hide();
 				$('.pub_imply_tencent').show();
@@ -650,6 +671,68 @@ $(function(){
 	  }
 	});
 	
+	//add/del like part
+	
+	$('.add_like').live('click', function(e){
+	  e.preventDefault();
+	  var item = $(this);
+	  if(item.hasClass('guest'))
+	  {
+	    show_login();
+	  }
+	  else
+	  {		  
+		var temp_array = item.attr('id').split('_'),
+		  uid_val = temp_array[1],
+		  pid_val = temp_array[2],
+		  postUrl = '/member/likeoperation.php',
+		  postData = {operation: 'add_like', uid: uid_val, pid: pid_val};
+	    $.post(postUrl, postData,
+	    function(data, textStatus)
+	    {
+		  if(textStatus == 'success')
+		  {
+		    $('.add_like span').text('取消喜欢');
+		    item.removeClass('add_like').addClass('del_like');
+		  }
+	    });
+	  }
+	});
+	
+	$('.del_like').live('click', function(e){
+	  e.preventDefault();
+	  var item = $(this),
+	      temp_array = item.attr('id').split('_'),
+		  uid_val = temp_array[1],
+		  pid_val = temp_array[2],
+		  postUrl = '/member/likeoperation.php',
+		  postData = {operation: 'del_like', uid: uid_val, pid: pid_val};
+	  $.post(postUrl, postData,
+	  function(data, textStatus)
+	  {
+		if(textStatus == 'success')
+		{
+		  if(item.hasClass('remove_item'))
+		  {
+			var remove = item.closest('li');
+			remove.hide('slow', function(){remove.remove();});
+		  }
+		  else
+		  {
+			$('.del_like span').text('喜欢');
+		    item.removeClass('del_like').addClass('add_like');
+		  }
+		}
+	  });
+	});
+	
+	$('.del_wrapper a').hover(function(){
+	  $(this).find('span').text('取消喜欢');
+	},
+	function(){
+	  $(this).find('span').text('喜欢');
+	})
+	
 	//user comment part
 	$('#reply_input').val('我想说...').addClass('imply_color');
 	$('#reply_input').blur(function(){
@@ -672,26 +755,34 @@ $(function(){
 	
 	$('.post_comment').click(function(e){
 	  e.preventDefault();
-	  var comment_input = $('#reply_input');
+	  var target = $(e.target);
+	  if(target.hasClass('need_login'))
+	  {
+		show_login();
+	  }
+	  else
+	  {
+	    var comment_input = $('#reply_input');
 	      temp_array = $(this).attr('id').split('_'),
 	      user_id_val = temp_array[2],
 		  post_id_val = temp_array[1],
 	      content_val = comment_input.val();
 	      postData = {post_id: post_id_val, user_id: user_id_val, comment_content: content_val};
-	  if(content_val == '' || (content_val == '我想说...' && comment_input.hasClass('imply_color')))
-	  {
-	    return false;
-	  }
-	  $.post('/member/postcomment.php', postData,
-	  function(data, textStatus)
-	  {
-	    if(textStatus == 'success')
+	    if(content_val == '' || (content_val == '我想说...' && comment_input.hasClass('imply_color')))
 	    {
-		  $('#reply_input').val('我想说...').addClass('imply_color');
-		  $('#comment_list').prepend(data);
-		  $('#comment_list li:first').show('slow');
+	      return false;
 	    }
-	  });
+	    $.post('/member/postcomment.php', postData,
+	    function(data, textStatus)
+	    {
+	      if(textStatus == 'success')
+	      {
+		    $('#reply_input').val('我想说...').addClass('imply_color');
+		    $('#comment_list').prepend(data);
+		    $('#comment_list li:first').show('slow');
+	      }
+	    });
+	  }
 	});
 	
 	$('#reply_container .load_more').live('click', function(e){
@@ -737,5 +828,83 @@ $(function(){
 	    });
 	  }
 	});
+	
+	$('#userstory_container .load_more').live('click', function(e){
+	e.preventDefault();
+    var sort_val,uid_val,category_val,postData,
+		more_id_val = $(this).attr('id'),
+	    more_array = more_id_val.split('_'),
+	    first_item_val = more_array[1];
+		uid_val = more_array[2];
+	if($('.sort_type .now').text() == "喜欢")
+	{
+	  category_val = "like";
+	}
+	else
+	{
+	  category_val = "";
+	}
+	//uid_val = $('.user_info .avatar a').attr('href')
+	postData = {from: "user",first_item: first_item_val, category: category_val, uid: uid_val};
+	imgloading = $("<img src='/img/loading.gif' />");
+	$.ajax({
+			type: 'POST',
+			url: '/member/loadmorestory.php',
+			data: postData, 
+			beforeSend:function() 
+			{
+			  $('#userstory_container .load_more').html(imgloading);
+			},
+			success: function(data){
+				$('.more_content').remove();
+				$('.sto_cover_list').append(data).after($('.more_content').remove());
+			}
+			});
+  });
+  
+  $('#connectBtn').live('click', function(e)
+	{
+	  e.preventDefault();
+	  $.post('/accounts/login/sina_auth.php', {}, 		
+	  function(data, textStatus)
+	  {
+		$('#dialog.window').hide();
+		self.location=data;
+	  });
+	});
+	
+	$('#comment_tab dd a').mouseover(function(e){
+	  var target = $(e.target);
+	  if(target.is('#kou_comment_tab'))
+	  {
+	    target.addClass('active');
+		$('#uyan_comment_tab').removeClass();
+		$('#uyan_comment').css('display','none');
+		$('#kou_comment').css('display','block');
+	  }
+	  else if(target.is('#uyan_comment_tab'))
+	  {
+	    target.addClass('active');
+		$('#kou_comment_tab').removeClass();
+		$('#kou_comment').css('display','none');
+		$('#uyan_comment').css('display','block');
+	  }
+	})
+	
+	/*$('#kou_comment_tab').mouseover(function(e){
+	  e.preventDefault();
+	  $(this).addClass('active');
+	  $('#uyan_comment_tab').removeClass();
+	  $('#uyan_comment').css('display','none');
+	  $('#kou_comment').css('display','block');
+	});
+	
+	$('#uyan_comment_tab').mouseover(function(e){
+	  e.preventDefault();
+	  $(this).addClass('active');
+	  $('#kou_comment_tab').removeClass();
+	  $('#kou_comment').css('display','none');
+	  $('#uyan_comment').css('display','block');
+	});*/
 
 });

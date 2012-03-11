@@ -31,15 +31,33 @@ $date_t = date("Y-m-d H:i:s");
 $login_status = islogin();
 $user_id = intval($_GET['user_id']);
 $self_flag = false;
-$follow_flag = false;
 if($login_status && $user_id == $_SESSION['uid'])
 {
   $self_flag = true;
 }
-else if($login_status && $user_id != $_SESSION['uid'])
-{
-  $follow_flag = true;
-}
+$login_dialog = "<div class='boxes'>
+				 <div id='dialog' class='window'>
+				   <div class='title_bar'><span><a href='#' class='close'>关闭</a></span><span>登录 koulifang.com</span></div>
+				   <form method='post' action='/accounts/login/login'>
+				     <div class='wrapper'>
+					  <div id='login_modal'>
+						<div class='form_div'><span class='form_label'>邮&nbsp;箱</span><span><input type='text' name='email' id='email_login' onclick='this.value=\"\"'/></span></div>
+						<div class='form_div'><span class='form_label'>密&nbsp;码</span><span><input type='password' name='passwd' id='pwd_login' onclick='this.value=\"\"'/> </span></div>
+						<div class='auto_login'><span><input type='checkbox' name='autologin' />下次自动登录</span> | <span><a href='/accounts/forget_password'>忘记密码了？</a></span></div>
+						<div>
+						  <input type='submit' id='login_modal_btn' value='登录'/>
+						</div>
+					  </div>
+					  <div class='login_right'>
+						<div>还没有口立方帐号?</div>
+						<a class='large green awesome register_awesome' href='/accounts/register'>马上注册 &raquo;</a>
+						<div><span>使用新浪微博帐号登录</span></div>
+						<div><a id='connectBtn' href='#'><span class='sina_icon'></span><span class='sina_name'>新浪微博</span></a></div>  
+					  </div>
+					 </div>
+				   </form>
+				 </div>
+				 </div>";
 
 if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action']))
 {
@@ -107,31 +125,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	$story_digg_count=$result['post_digg_count'];
 	$embed_code = "<script src=\"http://www.koulifang.com/user/".$story_author."/".$story_embed.".js\"></script>";
 	//get the profile image of the story author
-	$user_profile_img;
-    if(substr($userresult['photo'], 0, 4) == 'http')
-    {
-	  if(substr($userresult['photo'], 11, 4) == 'sina')
-	  {
-		$pattern = "/(\d+)\/50\/(\d+)/";
-		$user_profile_img = preg_replace($pattern,"$1/180/$2",$userresult['photo']);
-	  }
-	  else
-	  {
-	    $pattern = "/50$/";
-		$user_profile_img = preg_replace($pattern,'100',$userresult['photo']);
-	  }
-    }
-    else
-    {
-	  if($userresult['photo'] == '')
-	  {
-		$user_profile_img = '/img/douban_user_dft.jpg';
-	  }
-	  else
-	  {
-	    $user_profile_img =$userresult['photo'];
-	  }
-    }
+	$user_profile_img = getAvatarImg($userresult);
 	
 	$temp_array = json_decode($story_content, true);
 	$items_perpage = 20;
@@ -149,7 +143,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  {
 	    $extra_class .=" tencent";
 	  }
-	  $content = "<div id='boxes' class='p_relative'>
+	  $content = "<div class='boxes p_relative'>
 					<div id='weibo_dialog' class='window".$extra_class."'>
 					  <div class='title_bar'><span><a href='#' class='close'>关闭</a></span><span id='icon_flag'></span><span id='publish_title'>发表微博</span></div>
 					  <div id='pub_wrapper'>
@@ -164,13 +158,13 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	}
 	else
 	{
-	  $content = "<div id='boxes' class='p_relative'>
+	  $content = "<div class='boxes p_relative'>
 				    <div id='weibo_dialog' class='window disable'>
 					  <div class='title_bar'><span><a href='#' class='close'>关闭</a></span><span id='icon_flag'></span><span id='publish_title'>发表微博</span></div>
 					  <div class='imply_color alert'>对不起，只有本站注册用户能使用该功能</div>
 					  <div class='imply_color'>请您<a href='/accounts/login?next'>登录</a>或<a href='/accounts/register'>注册</a></div>
 				    </div>
-				  </div>";
+				  </div>".$login_dialog;
 	}
 	
 	if(0 == strcmp($story_status, 'Published'))
@@ -211,7 +205,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 						</div>
 						<div class='steps'>
 						  <div class='post-content'>
-						    <h2>轻松嵌入报道到你的网站中~</h2>
+						    <h2>嵌入本文到您的网站中~</h2>
 							<span>复制嵌入代码:</span>
 							<span><input type='text' value='".$embed_code."' class='sto_embed' size='72' /></span>
 							<a title='如何嵌入' class='embed_how' href='http://www.koulifang.com/user/3/4' target='_blank'></a>
@@ -364,15 +358,6 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	  }	
 	}
 
-    // get tags for this story
-    $tag_query = "select tag_id,name from story_tag,story_tag_story where story_tag.id=tag_id and story_id=".$post_id;
-    $tag_names = $DB->query($tag_query);
-    if($DB->num_rows($tag_names) > 0){
-        while($tag_name_row = $DB->fetch_array($tag_names)){
-            $tags .= "<a class='tag_item' href='/topic/".$tag_name_row['tag_id']."'>".$tag_name_row['name']."</a>";
-        }
-    }
-
 	$story_author_name = $userresult['username'];
 	$content .="<div id='story_header'>";
 	
@@ -384,15 +369,33 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 				  <div class='story_title'>".$story_title."</div>
 				  <div class='story_author'>by<a href='http://www.koulifang.com/user/".$user_id."'>".$story_author_name."</a>, ".$story_time."</div>
 				  <div class='story_sum'>".$story_summary."</div>";
-	if($tags!='')
-	{
-	  $content .="<div class='story_tag'>标签:".$tags."</div>";
-	}
 	$content .="</div>";
 	if($publish_flag)
 	{
 	  $content .= "<div class='tool_wrapper'>
-					  <div class='story_share'>
+	                  <div class='like_wrapper'>";
+        $sql="SELECT postid_str FROM story_favor WHERE user_id=".intval($_SESSION['uid']);
+        $results=$DB->query($sql);
+        $like=true;
+        if($DB->num_rows($results) == 1){
+            $row=$DB->fetch_array($results);
+            $tmp_array=explode(":",$row['postid_str']);
+            if(in_array($post_id,$tmp_array)){
+                $like=false;
+            }
+        }
+	  if($login_status)
+	  {
+        if($like)
+	        $content .="<a id='like_".$_SESSION['uid']."_".$post_id."' class='add_like' href='#weibo_dialog'><i></i><span>喜欢</span></a></div>";
+        else
+	        $content .="<a id='like_".$_SESSION['uid']."_".$post_id."' class='del_like' href='#weibo_dialog'><i></i><span>取消喜欢</span></a></div>";
+	  }
+	  else
+	  {
+	    $content .="<a class='add_like guest' href='#weibo_dialog'><i></i><span>喜欢</span></a></div>";
+	  }
+		  $content .="<div class='story_share'>
 						<div id='ckepop'>
 							<span class='jiathis_txt'>分享到：</span>
 							<a class='jiathis_button_qzone'></a>
@@ -404,7 +407,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 							<a class='jiathis_counter_style'></a>
 						</div>
 						<div id='story_embed'>
-						  <a href='#' id='embed_a'>嵌入报道<span class='arrow_down'></span><span class='arrow_up'></span></a>
+						  <a href='#' id='embed_a'>嵌入到我的网站<span class='arrow_down'></span><span class='arrow_up'></span></a>
 					    </div>
 					  </div>
 					  <div id='embed_bar'>
@@ -810,13 +813,14 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	$reply_count = $reply_result[num];
 	
 	$content .="<div class='kou_signature'><span>Powered by</span><a title='口立方' name='poweredby' target='_blank' href='http://koulifang.com'></a></div></div>
-	<div id='reply_container'>  
-	  <div id='count_wrapper'>
-		<span id='digg_count_".$post_id."' class='digg_counter' title='累计赞".$story_digg_count."次'>".$story_digg_count."</span>
-		<a id='act_digg_".$post_id."' class='act_digg' title='赞一个'></a>
-		<span>评论 (".$reply_count.") </span>
-	  </div>
-	  <div id='comment_container'>";
+			    <dl id='comment_tab'><dd><a id='kou_comment_tab' href='#'>站内评论</a></dd><dd><a id='uyan_comment_tab' class='active' href='#'>社交评论</a></dd></dl>
+				<ul id='dual_comment_list'>
+				  <li id='kou_comment'>
+					<div id='reply_container'>  
+					  <div id='count_wrapper'>
+						<span class='float_l'>评论</span><span class='digg_counter' title='评论".$reply_count."次'>".$reply_count."</span>
+					  </div>
+					  <div id='comment_container'>";
 	if($login_status)
 	{
 	  $content.="<img src='".$current_user_pic."' alt='' />
@@ -827,7 +831,11 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	}
 	else
 	{
-	  $content.="<div><span>发表评论</span><a id='login_require' href='/accounts/login?next=".urlencode($_SERVER['REQUEST_URI'])."'>请登录</a></div>"; 
+	  $content.="<img src='/img/douban_user_dft.jpg' alt='游客' />
+				 <div id='input_wrapper'>
+				   <textarea rows='1' cols='20' value='' type='text' id='reply_input'></textarea>
+				   <a class='large blue awesome post_comment need_login'>发表评论 &raquo;</a>
+				 </div>";
 	}
 	$content .="<div class='clear'></div>
         <ul id='comment_list'>";
@@ -861,7 +869,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 			   <a href='/user/".$comment_author_id."' target='_blank'><img alt='' src='".$pic_url."' /></a>
 			   <div class='comment_wrapper'>
 			     <div class='comment_author'><a href='/user/".$comment_author_id."' target='_blank'>".$comment_author."</a></div>
-				 <div>".$comment_content."</div>
+				 <div class='comment_content'>".$comment_content."</div>
 				 <div class='comment_action'>".$comment_action."<span>".$comment_time."</span></div>
 			   </div>
 			 </li>";
@@ -893,7 +901,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 			   <a href='/user/".$comment_author_id."' target='_blank'><img alt='' src='".$pic_url."' /></a>
 			   <div class='comment_wrapper'>
 			     <div class='comment_author'><a href='/user/".$comment_author_id."' target='_blank'>".$comment_author."</a></div>
-				 <div>".$comment_content."</div>
+				 <div class='comment_content'>".$comment_content."</div>
 				 <div class='comment_action'>".$comment_action."<span>".$comment_time."</span></div>
 			   </div>
 			 </li>";
@@ -906,9 +914,12 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	}	
 	$content .="</ul></div>	
 	</div>
+	</li>
+	<li id='uyan_comment'><div id='uyan_frame'></div></li>
+	</ul>
 	<div class='spacer'></div>
 	</div>
-	<div id='userinfo_container'>
+	<div class='userinfo_container'>
 	  <div class='user_profiles'>
 	    <div class='user_box'>
 		  <div class='user_info'>
@@ -916,60 +927,43 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 			<div class='wrapper'>
 			  <div class='user_name'><a href='/user/".$story_author."'><span>".$userresult['username']."</span></a></div>";
 		  
-	if($follow_flag)
+	if(!$self_flag)
 	{
-	  $login_user_id = $_SESSION['uid'];
-	  
-	  $query="select * from ".$db_prefix."follow where user_id=".$_SESSION[uid]." and follow_id=".$story_author;
-      $relationresult=$DB->query($query);
-      $num=$DB->num_rows($relationresult);
-	  if($num > 0)
+	  if($login_status)
 	  {
-	    $content .="<a id='".$login_user_id."_sep_".$story_author."_flag' class='large green awesome follow_btn' href='#'>已关注</a><a id='".$login_user_id."_sep_".$story_author."' class='large green awesome follow_btn' style='display:none;' href='#'>关注</a>";
+	    $login_user_id = $_SESSION['uid'];
+	    $query="select * from ".$db_prefix."follow where user_id=".$_SESSION[uid]." and follow_id=".$story_author;
+        $relationresult=$DB->query($query);
+        $num=$DB->num_rows($relationresult);
+	    if($num > 0)
+	    {
+	      $content .="<a id='".$login_user_id."_sep_".$story_author."_flag' class='large green awesome follow_btn' href='#'>已关注</a><a id='".$login_user_id."_sep_".$story_author."' class='large green awesome follow_btn' style='display:none;' href='#'>关注</a>";
+	    }
+	    else
+	    {
+	      $content .="<a id='".$login_user_id."_sep_".$story_author."' class='large green awesome follow_btn' href='#'>关注</a><a id='".$login_user_id."_sep_".$story_author."_flag' href='#' class='large green awesome follow_btn' style='display:none;'>已关注</a>";
+	    }
 	  }
 	  else
 	  {
-	    $content .="<a id='".$login_user_id."_sep_".$story_author."' class='large green awesome follow_btn' href='#'>关注</a><a id='".$login_user_id."_sep_".$story_author."_flag' href='#' class='large green awesome follow_btn' style='display:none;'>已关注</a>";
-	  }
-	  
+	    $content .="<a class='need_login large green awesome follow_btn' href='#'>关注</a>";
+	  }  
 	}
     // get the following and follower info
     $following_list = getFollowing($story_author);
     $follower_list=getFollower($story_author);
 
-	$content .="</div></div><p class='user-bio'>".nl2br($userresult['intro'])."</p>
+	$content .="</div></div>
+				  <p class='user-bio'>".nl2br($userresult['intro'])."</p>
 				  <div class='usersfollowers'>
 					<div><span class='side_title'>粉丝</span><span class='count'>".sizeof($follower_list)."</span></div>
-					  <ul class='follower_list'>";
-    $usr_img;
-	foreach($follower_list as $fower){
-        $query="select id, username, photo from ".$db_prefix."user where id=".$fower;
-        $result=$DB->query($query);
-        $item=$DB->fetch_array($result);
-		$usr_img = $item['photo'];
-		if($usr_img == '')
-		{
-		  $usr_img = '/img/douban_user_dft.jpg';
-		}
-        $content .="<li id='follower_id_".$item['id']."'><a class='follow_mini_icon' href='/user/".$item['id']."'><img title='".$item['username']."' src='".$usr_img."' alt='".$item['username']."' /></a></li>";
-    }
-    $content .= "</ul>
-                </div>
-		  <div class='clear'></div>
-		  <div class='usersfollowing'>
-		    <div><span class='side_title'>关注</span><span class='count'>".sizeof($following_list)."</span></div>
-			<ul class='following_list'>";
-    foreach($following_list as $fowing){
-        $query="select id, username, photo from ".$db_prefix."user where id=".$fowing;
-        $result=$DB->query($query);
-        $item=$DB->fetch_array($result);
-		$usr_img = $item['photo'];
-		if($usr_img == '')
-		{
-		  $usr_img = '/img/douban_user_dft.jpg';
-		}
-        $content .="<li id='following_id_".$item['id']."'><a class='follow_mini_icon' href='/user/".$item['id']."'><img title='".$item['username']."' src='".$usr_img."' alt='".$item['username']."' /></a></li>";
-    }
+					<ul class='follower_list'>".printFollow($follower_list)."</ul>
+                  </div>
+		          <div class='clear'></div>
+		          <div class='usersfollowing'>
+					<div><span class='side_title'>关注</span><span class='count'>".sizeof($following_list)."</span></div>
+					<ul class='following_list'>".printFollow($following_list)."</ul>
+				  </div>";
 	$total_count = 0;
 	$count_query = "select domain_name, refer_url, view_count from ".$db_prefix."pageview where story_id=".$post_id;
 	$countResult = $DB->query($count_query);
@@ -986,11 +980,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	    }
     }	
 	
-    $content .= "
-			</ul>
-		  </div>
-		</div>
-	  </div>
+    $content .= "</div></div>
 	  <div class='story_stats'>
 	    <div class='user_info_title'>总浏览次数: <span>".$total_count."</span></div>".$view_content."
 	  </div>";
@@ -1002,46 +992,12 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	    $content .="<div class='more_story'>
 					  <div class='user_info_title'>".$story_author_name."的更多报道</div>
 					  <ul id='more_story_list' class='sto_cover_list'>";
-		while ($story_item = mysql_fetch_array($more_result))
-		{
-		  $post_author = $story_item['post_author'];
-		  $post_pic_url = $story_item['post_pic_url'];
-		  if($post_pic_url == '')
-		  {
-		    $post_pic_url = '/img/event_dft.jpg';
-		  }
-		  $post_title = $story_item['post_title'];
-		  $post_date = $story_item['post_date'];
-		  $temp_array = explode(" ", $story_item['post_date']);
-		  $post_date = $temp_array[0];
-		  $post_link = "/user/".$post_author."/".$story_item['ID'];
-		  $post_link = htmlspecialchars($post_link);
-		  $content .= "<li>
-							  <div class='story_wrap'>	
-								<a href='".$post_link."'>
-								  <img class='cover' src='".$post_pic_url."' alt=''/>
-								</a>
-								<a class='title_wrap' href='".$post_link."'>
-								  <span class='title'>".$post_title."</span>
-								</a>
-							  </div>
-							  <div class='story_meta'>
-								<span>
-								  <a class='meta_date'>".$post_date."</a>
-								  <img src='".$user_profile_img."' alt=''/>
-								  <a class='meta_author' href='/user/".$post_author."'>".$story_author_name."</a>
-								</span>
-							  </div>
-							</li>";
-		}
-		$content .="</ul><a href='/user/".$story_author."'>访问".$story_author_name."的主页 &raquo;</a></div>";
+		$content .=printStory($more_result)."</ul><a href='/user/".$story_author."'>访问".$story_author_name."的主页 &raquo;</a></div>";
 	}
 	
 	$content .="</div></div><div id='go_top'><a href='javascript:void(0)' onclick='goto_top()' title='返回顶部'></a></div>";
 	echo $content;
-	echo "<script type='text/javascript' language='javascript'>
-		   document.title = '$story_title'+' - '+'$story_author_name'+' - 口立方';
-		</script>";
+	echo "<script type='text/javascript' id='UYScript' src='http://v1.uyan.cc/js/iframe.js?UYUserId=2602' async=''></script><script type='text/javascript' language='javascript'>document.title = '$story_title'+' - '+'$story_author_name'+' - 口立方';</script>";
 }
 
 else if(isset($_GET['user_id']) && isset($_GET['post_id']) && isset($_GET['action']))
@@ -1082,241 +1038,254 @@ else if(isset($_GET['user_id']) && !isset($_GET['post_id']))
 	$user_profile_img = '/img/douban_user_dft.jpg';
   }
   
-  if(substr($userresult['photo'], 0, 4) == 'http')
+  if($login_status)
   {
-    if(substr($userresult['photo'], 11, 4) == 'sina')
-    {
-	  $pattern = "/(\d+)\/50\/(\d+)/";
-	  $user_avatar_img = preg_replace($pattern,"$1/180/$2",$userresult['photo']);
-    }
-    else
-    {
-	  $pattern = "/50$/";
-	  $user_avatar_img = preg_replace($pattern,'100',$userresult['photo']);
-    }
+    $story_content = "<div id='userstory_container' class='inner'><div class='userstory_list'>"; 
   }
   else
   {
-	$user_avatar_img = $user_profile_img;
+    $story_content = $login_dialog."<div id='userstory_container' class='inner'><div class='userstory_list'>";
+  }			  
+  if(isset($_GET['cat']))
+  {
+	$cat_type = $_GET['cat'];
+	$story_content .= "<div class='sort_type'><a href='/user/".$user_id."'>创作</a><a class='now' href='/user/".$user_id."/like'>喜欢</a></div><div class='clear'></div>";
   }
-  $following_list = getFollowing($user_id);
-  $follower_list=getFollower($user_id);
+  else
+  {
+	$cat_type='';
+	$story_content .= "<div class='sort_type'><a class='now' href='/user/".$user_id."'>创作</a><a href='/user/".$user_id."/like'>喜欢</a></div><div class='clear'></div>";
+  }
   
   if($self_flag)
   {
-    $query = "SELECT COUNT(*) as num FROM $tbl_name where post_author='".$user_id."'";
+	$extra_limit = "";
   }
   else
   {
-    $query = "SELECT COUNT(*) as num FROM $tbl_name where post_author='".$user_id."' and post_status = 'Published'";
+	$extra_limit = " and post_status = 'Published'";
   }
-  $total_pages = mysql_fetch_array(mysql_query($query));
-  $total_pages = $total_pages[num];
   
-  $story_content = "<div id='userstory_container' class='inner'>
-					  <div class='userinfo_wrapper'>
-						<div class='avatar'><a href='/user/".$user_id."'><img width='80px' height='80px' src='".$user_avatar_img."' alt='".$username."' /></a></div>
-						<div class='misc_wrapper'>
-						  <div class='user_name'><a href='/user/".$user_id."'><span>".$username."</span></a></div>
-						  <div class='account_count'>
-							<span>粉丝:</span><span class='fans_count'>".sizeof($follower_list)."</span>
-							<span>关注:</span><span class='follow_count'>".sizeof($following_list)."</span>
-							<span>报道:".$total_pages."</span>
-						  </div>";
-					  
-  if($follow_flag)
+  if(0 == strcmp($cat_type, 'like'))
   {
+    //to flag the like page
+	$like_page = true;
+	//to flag whether user have any liked stories
+	$like_flag = true;
+	$sql="SELECT postid_str FROM story_favor WHERE user_id=".$user_id;
+    $result=$DB->query($sql);
+	if($DB->num_rows($result)== 1)
+	{
+	  $row=$DB->fetch_array($result); 
+      $tmp_array=explode(":",$row['postid_str']);
+      $total_num = count($tmp_array);
+	  if($total_num == 0)
+	  $like_flag = false;
+	}
+	else
+	{
+	  $like_flag = false;
+	}
+    if(!$like_flag)
+    {
+	  $story_content.="<div style='height:30px;'></div>";
+	  if($self_flag)
+	  {
+	    $story_content.="<h3 class='first_imply'>发现喜欢的文章，标记为喜欢可以在这里找到喔～</h3><div class='footer_spacer'></div>";
+	  }
+	  else
+	  {
+	    $story_content.="<h3 class='first_imply'>Ta还没有喜欢的文章~</h3><div class='footer_spacer'></div>";
+	  }
+    }
+  }
+  else
+  {
+    $query = "SELECT COUNT(*) as num FROM $tbl_name where post_author='.$user_id.'".$extra_limit;
+    $total_num = mysql_fetch_array(mysql_query($query));
+    $total_num = $total_num[num];
+	if(0 == $total_num)
+    {
+      $nostory_flag = true;
+	  $story_content.="<div style='height:30px;'></div>";
+	  if($self_flag)
+	  {
+	    $story_content.="<h3 class='first_imply'>来口立方报道热点话题，串联精彩，传递价值，我的自媒体听我的 <a class='large green awesome' href='/create'>开始创作 &raquo;</a></h3><div class='footer_spacer'></div>";
+	  }
+	  else
+	  {
+	    $story_content.="<h3 class='first_imply'>Ta还没有发表过文章～</h3><div class='footer_spacer'></div>";
+	  }
+    }
+  }
+  $story_content .="<ul class='sto_cover_list'>";
+  	
+	$limit = 9; 
+	
+	/* Get data. */
+	if($like_page)
+	{
+	  if($like_flag)
+	  {
+	    $sql="SELECT postid_str FROM story_favor WHERE user_id=".$user_id;
+        $result=$DB->query($sql);
+        if($DB->num_rows($result)== 1)
+	    {
+          $row=$DB->fetch_array($result); 
+          $tmp_array=explode(":",$row['postid_str']);
+		  $tmp_array = array_reverse($tmp_array);
+		  $tmp_array = array_slice($tmp_array,0,$limit);
+		  $like_ids = join(',',$tmp_array);
+		  $sql = "SELECT * FROM $tbl_name WHERE ID IN ($like_ids) ORDER BY FIND_IN_SET(ID, '$like_ids')";
+		  $result = mysql_query($sql);
+		  if($self_flag)
+		  {
+		    $story_content .= printLikedStory($result,$_SESSION['uid']);
+		  }
+		  else
+		  {
+		    $story_content .= printLikedStory($result,0);
+		  }
+        }
+	  }
+	}
+	else
+	{
+	  if(!$nostory_flag)
+	  {
+		  $sql = "SELECT * FROM $tbl_name where post_author='.$user_id.'".$extra_limit." order by post_modified desc LIMIT 0, $limit";
+		  $result = mysql_query($sql);
+		  while ($story_item = mysql_fetch_array($result))
+		  {
+			//printf ("title: %s  summary: %s", $story_item['post_title'], $story_item['post_summary']);
+			$sview_count = 0;
+			$post_id = $story_item['ID'];
+			$post_title = $story_item['post_title'];
+			$post_pic_url = $story_item['post_pic_url'];
+			if($post_pic_url == '')
+			{
+			  $post_pic_url = '/img/event_dft.jpg';
+			}
+			$post_status = $story_item['post_status'];
+			if(0 == strcmp($post_status, 'Published'))
+			{
+			  $post_status_txt = '已发布';
+			  $icon_type = 'publish_icon';
+			}
+			else
+			{
+			  $post_status_txt = '草稿';
+			  $icon_type = 'draft_icon';
+			}
+			$post_date = dateFormatTrans($story_item['post_date'],$date_t);
+			$post_link = "/user/".$user_id."/".$post_id;
+			$post_link = htmlspecialchars($post_link);
+			
+			$count_query = "select domain_name, refer_url, view_count from ".$db_prefix."pageview where story_id=".$post_id;
+			$countResult = $DB->query($count_query);
+			if($DB->num_rows($countResult) > 0){
+				while($count_result_row = $DB->fetch_array($countResult)){
+					$sview_count += $count_result_row['view_count'];
+				}
+			}
+			
+			$story_content .="<li>
+								<div class='story_wrap'>
+								  <a href='".$post_link."'>
+									<img class='cover' src='".$post_pic_url."' alt='' />
+								  </a>
+								  <a class='title_wrap' href='".$post_link."'>
+									<span class='title'>".$post_title."</span>
+								  </a>";
+			if($self_flag)
+			{
+			  $story_content .="<div class='editable'>
+			  <div class='actions'>
+				<a id='delete_".$user_id."_".$post_id."' class='icon delete png_fix' title='删除' href='#'></a>
+				<a class='icon edit png_fix' title='编辑' href='/user/".$user_id."/".$post_id."/edit'></a>
+			  </div>
+			  <div class='status'>
+				<div class='".$post_status."'>
+				  <div class='".$icon_type." png_fix'></div>
+				  <span>".$post_status_txt."</span>
+				</div>
+			  </div>
+			  <div class='clear'></div>
+			  </div>";
+			}
+			$story_content .="</div>
+							  <div class='story_meta'>
+							    <div class='float_l'>
+								  <img src='".$user_profile_img."' alt='' />
+								</div>
+								<div class='meta_info'>
+								  <div>
+								    <a class='meta_author'>".$username."</a>
+									<div class='meta_date'>".$post_date."</div>
+									<div class='meta_view'>".$sview_count."</div>
+								  </div>
+								</div>
+								<div class='clear'></div>
+							  </div></li>";
+		  }
+	  }
+	}
+	if($total_num > $limit)
+	{
+	  $story_content .= "</ul><div class='more_content'><a id='user_".$limit."_".$user_id."' class='load_more' href='#'>更多</a></div></div>";
+	}
+	else
+	{
+	  $story_content .= "</ul></div>";
+	}
+  
+  $user_avatar_img = getAvatarImg($userresult);
+  $following_list = getFollowing($user_id);
+  $follower_list=getFollower($user_id);
+  
+  $story_content .="<div class='userinfo_container'>
+					  <div class='user_profiles'>
+					    <div class='user_box'>
+						  <div class='user_info'>
+						    <div class='avatar'><a href='/user/".$user_id."'><img width='80px' height='80px' src='".$user_avatar_img."' alt='".$username."' /></a></div>
+							<div class='wrapper'>
+							  <div class='user_name'><a href='/user/".$user_id."'><span>".$username."</span></a></div>";
+					  
+  if(!$self_flag)
+  {
+    if($login_status)
+    {
 	  $login_user_id = $_SESSION['uid'];
-	  
 	  $query="select * from ".$db_prefix."follow where user_id=".$_SESSION[uid]." and follow_id=".$user_id;
       $relationresult=$DB->query($query);
       $num=$DB->num_rows($relationresult);
 	  if($num > 0)
 	  {
-	    $story_content .="<a id='".$login_user_id."_sep_".$user_id."_flag' class='large green awesome follow' href='#'>已关注</a><a id='".$login_user_id."_sep_".$user_id."' class='large green awesome follow' href='#' style='display:none;'>关注</a>";
+	    $story_content .="<a id='".$login_user_id."_sep_".$user_id."_flag' class='large green awesome follow_btn' href='#'>已关注</a><a id='".$login_user_id."_sep_".$user_id."' class='large green awesome follow_btn' href='#' style='display:none;'>关注</a>";
 	  }
 	  else
 	  {
-	    $story_content .="<a id='".$login_user_id."_sep_".$user_id."' class='large green awesome follow' href='#'>关注</a><a id='".$login_user_id."_sep_".$user_id."_flag' class='large green awesome follow' href='#' style='display:none;'>已关注</a>";
+	    $story_content .="<a id='".$login_user_id."_sep_".$user_id."' class='large green awesome follow_btn' href='#'>关注</a><a id='".$login_user_id."_sep_".$user_id."_flag' class='large green awesome follow_btn' href='#' style='display:none;'>已关注</a>";
 	  }
+	}
+	else
+	{
+	  $story_content .="<a class='need_login large green awesome follow_btn' href='#'>关注</a>";
+	}
   }
   
-  $story_content .="</div><div id='user_intro'>".nl2br($userresult['intro'])."</div></div><div class='userstory_list'>";
-  
-  
-  if(0 == $total_pages)
-  {
-    $story_content.="<div style='height:30px;'></div>";
-	if($self_flag)
-	{
-	  $story_content.="<h3 id='first_imply' class='text'>快来发布你的第一篇吧，你可以用口立方报道新闻，追踪网络热点事件，更多精彩等着你来挖掘～</h3><a class='large green awesome' href='/create'>开始创建 &raquo;</a><div class='footer_spacer'></div></div></div>";
-	}
-	else
-	{
-	  $story_content.="<div class='footer_spacer'></div></div></div>";
-	}
-  }
-  else
-  {	
-	$targetpage = "/user/".$user_id; 
-	$limit = 12; 								//how many items to show per page
-	$page = intval($_GET['page']);
-	if($page) 
-		$start = ($page - 1) * $limit; 			//first item to display on this page
-	else
-		$start = 0;								//if no page var is given, set start to 0
-	
-	/* Get data. */
-	if($self_flag)
-	{
-	  $sql = "SELECT * FROM $tbl_name where post_author='".$user_id."' order by post_modified desc LIMIT $start, $limit";
-	}
-	else
-	{
-	  $sql = "SELECT * FROM $tbl_name where post_author='".$user_id."' and post_status = 'Published' order by post_modified desc LIMIT $start, $limit";
-	}
-	$result = mysql_query($sql);
-	
-	/* Setup page vars for display. */
-	if ($page == 0) $page = 1;					//if no page var is given, default to 1.
-	$prev = $page - 1;							
-	$next = $page + 1;							
-	$lastpage = ceil($total_pages/$limit);	
-	$lpm1 = $lastpage - 1;						//last page minus 1
-	
-	$pagination = "";
-	if($lastpage > 1)
-	{	
-		$pagination .= "<div class=\"pagination\">";
-		//previous button
-		if ($page > 1) 
-			$pagination.= "<a href=\"$targetpage/page=$prev\">« 前页</a>";
-		else
-			$pagination.= "<span class=\"disabled\">« 前页</span>";	
-		
-		//pages	
-		if ($lastpage < 7 + ($adjacents * 2))	//not enough pages to bother breaking it up
-		{	
-			for ($counter = 1; $counter <= $lastpage; $counter++)
-			{
-				if ($counter == $page)
-					$pagination.= "<span class=\"current\">$counter</span>";
-				else
-					$pagination.= "<a href=\"$targetpage/page=$counter\">$counter</a>";					
-			}
-		}
-		elseif($lastpage > 5 + ($adjacents * 2))	//enough pages to hide some
-		{
-			//close to beginning; only hide later pages
-			if($page < 1 + ($adjacents * 2))		
-			{
-				for ($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
-				{
-					if ($counter == $page)
-						$pagination.= "<span class=\"current\">$counter</span>";
-					else
-						$pagination.= "<a href=\"$targetpage/page=$counter\">$counter</a>";					
-				}
-				$pagination.= "...";
-				$pagination.= "<a href=\"$targetpage/page=$lpm1\">$lpm1</a>";
-				$pagination.= "<a href=\"$targetpage/page=$lastpage\">$lastpage</a>";		
-			}
-			//in middle; hide some front and some back
-			elseif($lastpage - ($adjacents * 2) > $page && $page > ($adjacents * 2))
-			{
-				$pagination.= "<a href=\"$targetpage/page=1\">1</a>";
-				$pagination.= "<a href=\"$targetpage/page=2\">2</a>";
-				$pagination.= "...";
-				for ($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
-				{
-					if ($counter == $page)
-						$pagination.= "<span class=\"current\">$counter</span>";
-					else
-						$pagination.= "<a href=\"$targetpage/page=$counter\">$counter</a>";					
-				}
-				$pagination.= "...";
-				$pagination.= "<a href=\"$targetpage/page=$lpm1\">$lpm1</a>";
-				$pagination.= "<a href=\"$targetpage/page=$lastpage\">$lastpage</a>";		
-			}
-			//close to end; only hide early pages
-			else
-			{
-				$pagination.= "<a href=\"$targetpage/page=1\">1</a>";
-				$pagination.= "<a href=\"$targetpage/page=2\">2</a>";
-				$pagination.= "...";
-				for ($counter = $lastpage - (2 + ($adjacents * 2)); $counter <= $lastpage; $counter++)
-				{
-					if ($counter == $page)
-						$pagination.= "<span class=\"current\">$counter</span>";
-					else
-						$pagination.= "<a href=\"$targetpage/page=$counter\">$counter</a>";					
-				}
-			}
-		}
-		
-		//next button
-		if ($page < $counter - 1) 
-			$pagination.= "<a href=\"$targetpage/page=$next\">后页 »</a>";
-		else
-			$pagination.= "<span class=\"disabled\">后页 »</span>";
-		$pagination.= "</div>\n";		
-	}
-  
-	  $story_content .="<ul class='sto_cover_list'>";
-	  while ($story_item = mysql_fetch_array($result))
-	  {
-		//printf ("title: %s  summary: %s", $story_item['post_title'], $story_item['post_summary']);
-		$post_id = $story_item['ID'];
-		$post_title = $story_item['post_title'];
-		$post_pic_url = $story_item['post_pic_url'];
-		if($post_pic_url == '')
-		{
-	      $post_pic_url = '/img/event_dft.jpg';
-		}
-		$post_status = $story_item['post_status'];
-		if(0 == strcmp($post_status, 'Published'))
-		{
-		  $post_status_txt = '已发布';
-		  $icon_type = 'publish_icon';
-		}
-		else
-		{
-		  $post_status_txt = '草稿';
-		  $icon_type = 'draft_icon';
-		}
-		$post_date = $story_item['post_date'];
-		$temp_array = explode(" ", $story_item['post_date']);
-		$post_date = $temp_array[0];
-		$post_link = "/user/".$user_id."/".$post_id;
-		$post_link = htmlspecialchars($post_link);
-		$story_content .="<li>
-							<div class='story_wrap'>
-							  <a href='".$post_link."'>
-								<img class='cover' src='".$post_pic_url."' alt='' />
-							  </a>
-							  <a class='title_wrap' href='".$post_link."'>
-								<span class='title'>".$post_title."</span>
-							  </a>";
-		if($self_flag)
-		{
-		  $story_content .="<div class='editable'>
-		  <div class='actions'>
-			<a id='delete_".$user_id."_".$post_id."' class='icon delete png_fix' title='删除' href='#'></a>
-			<a class='icon edit png_fix' title='编辑' href='/user/".$user_id."/".$post_id."/edit'></a>
-		  </div>
-		  <div class='status'>
-			<div class='".$post_status."'>
-			  <div class='".$icon_type." png_fix'></div>
-			  <span>".$post_status_txt."</span>
-			</div>
-		  </div>
+  $story_content .="</div></div><p class='user-bio'>".nl2br($userresult['intro'])."</p>
+				  <div class='usersfollowers'>
+					<div><span class='side_title'>粉丝</span><span class='count'>".sizeof($follower_list)."</span></div>
+					  <ul class='follower_list'>".printFollow($follower_list);
+    $story_content .= "</ul>
+                </div>
 		  <div class='clear'></div>
-		  </div>";
-		}
-		$story_content .="</div><div class='story_meta'><span><a class='meta_date'>".$post_date."</a><img src='".$user_profile_img."' alt='' /><a class='meta_author'>".$username."</a></span></div></li>";
-	  }
-	  $story_content .="</ul></div>".$pagination."</div>";
-  }
+		  <div class='usersfollowing'>
+		    <div><span class='side_title'>关注</span><span class='count'>".sizeof($following_list)."</span></div>
+			<ul class='following_list'>".printFollow($following_list);
+	$story_content .="</ul></div></div></div></div></div>";
+  
   echo $story_content;
   echo "<script type='text/javascript' language='javascript'>
 		  document.title = '$username'+'的个人主页'+' - 口立方';

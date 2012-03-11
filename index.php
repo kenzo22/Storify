@@ -36,10 +36,11 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
    } 
    set_magic_quotes_runtime(0); //关闭magic_quotes_gpc
 
-	if(islogin())
+	$login_flag = islogin();
+	if($login_flag)
     { 
 		$user_profile_img;
-		$userresult=$DB->fetch_one_array("SELECT id, photo FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
+		$userresult=$DB->fetch_one_array("SELECT id, photo, intro FROM ".$db_prefix."user WHERE id='".$_SESSION['uid']."'" );
 		if($userresult['photo'] != '')
 		{
 		  $user_profile_img = $userresult['photo'];
@@ -50,17 +51,17 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 		}
 		$content="<ul class='user_console'>
 				    <li class='person_li display'><a class='person_a person_a_display' href='/user/".$userresult['id']."'><img id='person_img' src='".$user_profile_img."'><span id='person_name'>".$_SESSION['username']."</span></a></li>
-					<li class='person_li'><a class='person_a home_icon' href='/user/".$userresult['id']."'><img class='console_img' src='/img/home.png'/><span>我的主页</span></a></li>
+					<li class='person_li'><a class='person_a home_icon' href='/user/".$userresult['id']."/subscription'><img class='console_img' src='/img/home.png'/><span>我的订阅</span></a></li>
 					<li class='person_li'><a class='person_a setting_icon' href='/accounts/setting'><img class='console_img' src='/img/setting.png'/><span>设置</span></a></li>
 					<li class='person_li'><a class='person_a quit_icon' href='/accounts/logout'><img class='console_img' src='/img/quit.png'/><span>退出<span></a></li>
 		          </ul>";
 	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='口立方' accesskey='h' href='/'><img src='/img/koulifangbeta.png' alt='口立方' /></a></span>
-	  <span id='top_menu_a'><a class='edit_story_btn' href='/create'>开始报道</a></span>".$content."</div></div>";
+	  <span id='top_menu_a'><a class='edit_story_btn' href='/create'>开始创作</a></span>".$content."</div></div>";
     }
 	else
 	{
 	  getPublicToken();
-	  $content = "<span id='top_menu_b'><a class='register_top' href='/accounts/register'>注册</a><a class='login_top' href='/accounts/login?next=".urlencode($_SERVER['REQUEST_URI'])."'>登录</a><a class='edit_story_btn' href='/create'>开始报道</a></span>";
+	  $content = "<span id='top_menu_b'><a class='register_top' href='/accounts/register'>注册</a><a class='login_top' href='/accounts/login?next=".urlencode($_SERVER['REQUEST_URI'])."'>登录</a><a class='edit_story_btn' href='/create'>开始创作</a></span>";
 	  echo "<div id='top_bar'><div class='top_nav'><span id='logo'><a title='口立方' accesskey='h' href='/'><img src='/img/koulifangbeta.png' alt='口立方' /></a></span>".$content."</div></div>";
 	}
    ?>
@@ -75,7 +76,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	    #user_feedback_tab{display:none;}
 	  </style>
 	<![endif]-->
-	<div id='boxes'>  
+	<div class='boxes'>  
 	<div id='dialog' class='window'>
 	  <div class='title_bar'><span><a href='#' class='close'>关闭</a></span><span>登录 koulifang.com</span></div>
 	  <form method='post' action='/accounts/login/login'>
@@ -101,204 +102,195 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
     
 	<div id='main_content' class='inner'>
 	  <div><a id='user_feedback_tab' href='/contactus'>feedback</a></div>
+	  <?php
+	  if(!$login_flag)
+	  {
+	  ?>
+	    <div id='featured_container'>
+		  <img src='/img/slide1.jpg'/>
+		  <div id='more_info'><a class='large green awesome' href='/tour'>了解更多 &raquo;</a></div>
+		  <div id='f_register'><a class='large blue awesome' href='/tour'>免费注册 &raquo;</a></div>
+	    </div>
+	  <?php
+	  }
+	  ?>
+	<div id='left_main'>
 	<?php
-	if(!islogin())
+	if($login_flag)
 	{
-	  $slider_content ="
-	  <div id='featured_container'>
-		<div id='featured'> 
-		  <div id='sprite-slide1'></div>
-		  <div id='sprite-slide2'></div>
-		  <div id='sprite-slide3'></div>
-		  <div id='sprite-slide4'></div>
-		</div>
-		<div id='more_info'><a class='large blue awesome' href='/tour'>了解更多 &raquo;</a></div>
-	  </div>";
-	  echo $slider_content;
+	  echo "<div id='subscription' class='t_category'>
+	  <h3><a href='/user/".$userresult['id']."/subscription'>我的订阅</a></h3>
+	  <span id='more_sub'><a href='/user/".$userresult['id']."/subscription'>更多 &raquo;</a></span>
+	  <ul class='sto_cover_list'>";
+	    
+        $i_query = "SELECT story_posts.* FROM story_posts,story_follow WHERE user_id=".$_SESSION['uid']." AND follow_id=post_author AND post_status='Published' ORDER BY post_modified desc limit 3";
+	    $result=$DB->query($i_query);
+        if($DB->num_rows($result) == 0){
+            echo "您订阅的用户没有发表故事!";
+        }
+        while($row=$DB->fetch_array($result)){
+            $story_content.=printPureStory($row);
+        }   
+        echo $story_content;
+	  echo "</ul></div>";
 	}
 	?>
-	<div id='popular'>
-	  <h3>最流行</h3>
-	  <div id='pop_wrapper'>
-		<div id='time_wrapper'><a class='time_range'>三天内</a><a class='time_range selected'>一周内</a><a class='time_range'>一月内</a><a class='time_range'>365天内</a></div>
-		<ul id='pop_list' class='sto_cover_list'>
-		<?php
-		$story_content = '';
-		$i_query = "select * from ".$db_prefix."posts where post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_date) <=7 order by popular_count desc limit 4";
-		$result=$DB->query($i_query);
-		while ($story_item = mysql_fetch_array($result))
-		{
-		  $post_author = $story_item['post_author'];
-		  $post_pic_url = $story_item['post_pic_url'];
-		  if($post_pic_url == '')
-		  {
-		    $post_pic_url = '/img/event_dft.jpg';
-		  }
-		  $userresult = $DB->fetch_one_array("SELECT username, photo FROM ".$db_prefix."user where id='".$post_author."'");
-		  $user_profile_img = $userresult['photo'];
-		  $author_name = $userresult['username'];
-		  if($user_profile_img == '')
-		  {
-			$user_profile_img = '/img/douban_user_dft.jpg';
-		  }
-		  $post_title = $story_item['post_title'];
-		  $post_date = $story_item['post_date'];
-		  $temp_array = explode(" ", $story_item['post_date']);
-		  $post_date = $temp_array[0];
-		  $post_link = "/user/".$post_author."/".$story_item['ID'];
-		  //$post_link = htmlspecialchars($post_link, ENT_COMPAT, UTF-8);
-		  $post_link = htmlspecialchars($post_link);
-		  $story_content .= "<li>
-							  <div class='story_wrap'>	
-								<a href='".$post_link."'>
-								  <img class='cover' src='".$post_pic_url."' alt='' />
-								</a>
-								<a class='title_wrap' href='".$post_link."'>
-								  <span class='title'>".$post_title."</span>
-								</a>
-							  </div>
-							  <div class='story_meta'>
-								<span>
-								  <a class='meta_date'>".$post_date."</a>
-								  <img src='".$user_profile_img."' alt=''/>
-								  <a class='meta_author' href='/user/".$post_author."'>".$author_name."</a>
-								</span>
-							  </div>
-							</li>";
-		}
-		echo $story_content;
+	<div id='society' class='t_category'>
+	  <h3><a href='/shehui'>社会</a></h3>
+	  <ul class='category_list'>
+	    <li><a href='/shehui'>全部</a></li>
+		<li><a href='/shehui/1'>热点话题</a></li>
+	    <li><a href='/shehui/2'>万象</a></li>
+		<li><a href='/shehui/3'>公益</a></li>
+	  </ul>
+	  <ul class='sto_cover_list'>
+	    <?php
+		$result = $DB->fetch_one_array("select post_str from ".$db_prefix."maintale where category='社会'");
+		$post_str = $result['post_str'];
+		$sql = "SELECT * FROM story_posts WHERE ID IN ($post_str) ORDER BY FIND_IN_SET(ID, '$post_str')";
+		$result = mysql_query($sql);
+		echo printStory($result);
 		?>
-		</ul>
-	  </div>
-	  <div><a id='story_more'>换一组看看</a></div>
+	  </ul>
 	</div>
-	<?php
-	if(islogin())
-	{
-	    $new_content = "<div id='new_wrapper'><h3>最新发布</h3><ul id='mycarousel' class='jcarousel-skin-tango sto_cover_list'>";
-		$uid = $_SESSION['uid'];
-		$follow_query="select follow_id from ".$db_prefix."follow, story_posts where user_id=".$uid." and follow_id = post_author and post_status = 'Published' and TO_DAYS(NOW())-TO_DAYS(post_date) <=7 group by follow_id";
-		$fol_result = $DB->query($follow_query);
-		$fol_array = array();
-		$item__array = array();
-		while($item = mysql_fetch_array($fol_result))
-			$fol_array[] = $item['follow_id'];
-		$len = sizeof($fol_array);
-		if ($len >= 10){
-			$ran_keys = array_rand($fol_array, 10);
-			foreach($ran_keys as $idx){
-				$query = "select * from story_posts where post_author=".$fol_array[$idx]." order by post_date desc limit 1";
-				$story_result = $DB->query($query);
-				$item_array[] = mysql_fetch_array($story_result);
-			}
-		}else if ($len > 0)
-			foreach($fol_array as $fid){
-				$query = "select * from story_posts where post_author=".$fid." order by post_date desc limit 1";
-				$story_result = $DB->query($query);
-				$item_array[] = mysql_fetch_array($story_result);
-			}
-		$left = 10 - $len;
-		if( $left < 10 )
-			$new_query="select post_author,post_pic_url,post_title,post_date,story_posts.ID from story_posts where post_author !=".$uid." and post_author not in (select follow_id from story_follow where user_id=".$uid.") and post_status = 'Published' order by post_date desc limit ".$left;
-		else
-			$new_query="select * from story_posts where post_author !=".$uid." and post_status = 'Published' order by post_date desc limit $left";
-		$others_result = $DB->query($new_query);
-        $cnt=array();
-		while($item=$DB->fetch_array($others_result)){
-            if(++$cnt[$item['post_author']] > 2)
-                continue;
-			$item_array[] = $item;
-        }
-		foreach($item_array as $story_item)
+	<div id='yule' class='t_category'>
+	  <h3><a href='/yule'>娱乐</a></h3>
+	  <ul class='category_list'>
+	    <li><a href='/yule'>全部</a></li>
+		<li><a href='/yule/1'>明星</a></li>
+		<li><a href='/yule/2'>美食</a></li>
+		<li><a href='/yule/3'>旅游</a></li>
+		<li><a href='/yule/4'>搞笑</a></li>
+		<li><a href='/yule/5'>影视</a></li>
+		<li><a href='/yule/6'>音乐</a></li>
+		<li><a href='/yule/7'>图书</a></li>
+	  </ul>
+	  <ul class='sto_cover_list'>
+	    <?php
+		$result = $DB->fetch_one_array("select post_str from ".$db_prefix."maintale where category='娱乐'");
+		$post_str = $result['post_str'];
+		$sql = "SELECT * FROM story_posts WHERE ID IN ($post_str) ORDER BY FIND_IN_SET(ID, '$post_str')";
+		$result = mysql_query($sql);
+		echo printStory($result);
+		?>
+	  </ul>
+	</div>
+	<div id='tech' class='t_category'>
+	  <h3><a href='/keji'>科技</a></h3>
+	  <ul class='category_list'>
+	    <li><a href='/keji'>全部</a></li>
+		<li><a href='/keji/1'>互联网</a></li>
+		<li><a href='/keji/2'>创业</a></li>
+		<li><a href='/keji/3'>数码</a></li>
+	  </ul>
+	  <ul class='sto_cover_list'>
+	    <?php
+		$result = $DB->fetch_one_array("select post_str from ".$db_prefix."maintale where category='科技'");
+		$post_str = $result['post_str'];
+		$sql = "SELECT * FROM story_posts WHERE ID IN ($post_str) ORDER BY FIND_IN_SET(ID, '$post_str')";
+		$result = mysql_query($sql);
+		echo printStory($result);
+		?>
+	  </ul>
+	</div>
+	<div id='sports' class='t_category'>
+	  <h3><a href='/tiyu'>体育</a></h3>
+	  <ul class='category_list'>
+	    <li><a href='/tiyu'>全部</a></li>
+		<li><a href='/tiyu/1'>足坛</a></li>
+		<li><a href='/tiyu/2'>NBA</a></li>
+		<li><a href='/tiyu/3'>综合</a></li>
+	  </ul>
+	  <ul class='sto_cover_list'>
+	    <?php
+		$result = $DB->fetch_one_array("select post_str from ".$db_prefix."maintale where category='体育'");
+		$post_str = $result['post_str'];
+		$sql = "SELECT * FROM story_posts WHERE ID IN ($post_str) ORDER BY FIND_IN_SET(ID, '$post_str')";
+		$result = mysql_query($sql);
+		echo printStory($result);
+		?>
+	  </ul>
+	</div>
+	</div>
+	<div id='right_main'>
+	  <?php
+	  $rec_user="<div id='recUsers' class='t_category'>
+				   <h3>推荐用户</h3>
+				   <ul>";
+	  $recomment_user = "64,95,54,1,74,117,77,80,76,53,58,72";
+	  //$query = "SELECT id, username, photo, intro from ".$db_prefix."user WHERE id IN ($recomment_user) ORDER BY FIND_IN_SET(id, '$recomment_user') limit 4";
+	  if($login_flag)
 	  {
-	    $post_author = $story_item['post_author'];
-	    $post_pic_url = $story_item['post_pic_url'];
-		if($post_pic_url == '')
-		{
-		  $post_pic_url = '/img/event_dft.jpg';
-		}
-	    $userresult = $DB->fetch_one_array("SELECT username, photo FROM ".$db_prefix."user where id='".$post_author."'");
-	    $user_profile_img = $userresult['photo'];
-		$author_name = $userresult['username'];
-		if($user_profile_img == '')
-		{
-		  $user_profile_img = '/img/douban_user_dft.jpg';
-		}
-	    $post_title = $story_item['post_title'];
-	    $post_date = $story_item['post_date'];
-	    $temp_array = explode(" ", $story_item['post_date']);
-	    $post_date = $temp_array[0];
-		$post_link = "/user/".$post_author."/".$story_item['ID'];
-		$post_link = htmlspecialchars($post_link);
-	    $new_content .= "<li>
-						  <div class='story_wrap'>	
-							<a href='".$post_link."'>
-							  <img class='cover' src='".$post_pic_url."' alt='' />
-							</a>
-							<a class='title_wrap' href='".$post_link."'>
-							  <span class='title'>".$post_title."</span>
-							</a>
-						  </div>
-						  <div class='story_meta'>
-							<span>
-							  <a class='meta_date'>".$post_date."</a>
-							  <img src='".$user_profile_img."' alt=''/>
-							  <a class='meta_author' href='/user/".$post_author."'>".$author_name."</a>
-							</span>
+	    $query = "SELECT id, username, photo, intro from ".$db_prefix."user WHERE id IN ($recomment_user) and id<>".$_SESSION['uid']." ORDER BY RAND() LIMIT 4";
+	  }
+	  else
+	  {
+	    $query = "SELECT id, username, photo, intro from ".$db_prefix."user WHERE id IN ($recomment_user) ORDER BY RAND() LIMIT 4";
+	  }
+	  $result=$DB->query($query);
+	  while ($user_item = mysql_fetch_array($result))
+	  {
+		  $u_id = $user_item['id'];
+		  $u_name = $user_item['username'];
+		  $u_photo = $user_item['photo'];
+		  $u_intro = $user_item['intro'];
+		  if(empty($u_photo))
+		  {
+			$u_photo = 'img/douban_user_dft.jpg';
+		  }
+		  $u_link = "/user/".$u_id;
+		  $rec_user.="<li>
+						  <a href='".$u_link."' title='".$u_name."'><img src='".$u_photo."' /></a>
+						  <div class='user_intro'>
+							<div><a href='".$u_link."' title='".$u_name."'>".$u_name."</a></div>
+							<div>".$u_intro."</div>
 						  </div>
 						</li>";
 	  }
-	  $new_content.="</ul></div>";
-      echo $new_content;	  
-	}
-	?>
-	<div class='category'>
-	  <div id='trendTopics'>
-	    <h3>热门话题</h3>
-	    <div class='topic_list'>
-		  <ul>
-		<?php
-		$tag_content='';
-		$tags=getPopularTags(16);
-		foreach($tags as $tag_id)
+	  $rec_user.="</ul></div>";
+	  if($login_flag)
+	  {
+	    $custom_content = "<div id='my_page'>
+						     <div><a href='/user/".$userresult['id']."'>我创作的 &raquo;</a></div>
+							 <div><a href='/user/".$userresult['id']."/like'>我喜欢的 &raquo;</a></div>
+						   </div>
+						   <div id='add_info' class='t_category'>
+							 <h3>完善个人资料</h3>
+							 <img src='".$user_profile_img."'/>
+							 <div class='user_intro'>
+							   <div>".$_SESSION['username']." <a href='/accounts/setting'>[修改]</a></div>
+							   <div>".$userresult['intro']."</div>
+							 </div>
+						   </div>".$rec_user;
+	  }	  
+	  else
+	  {
+	    $custom_content = $rec_user."<div id='topUsers' class='t_category'>
+									    <h3>随便看看</h3>
+										  <ul>";
+		$query = "SELECT id, username, photo from ".$db_prefix."user ORDER BY RAND() LIMIT 20";
+		$result=$DB->query($query);
+		while ($user_item = mysql_fetch_array($result))
 		{
-			$query = "select * from ".$db_prefix."tag where id=".$tag_id;
-			$results=$DB->query($query);
-			$tag_item=$DB->fetch_array($results);
-			$tag_name = $tag_item['name'];
-			$topic_link = "/topic/".$tag_id;
-			$tag_content .="<li><a class='topic_title' href='".$topic_link."' title='".$tag_name."'>#".$tag_name."#</a></li>";
-		}
-		echo $tag_content;
-	    ?>
-	      </ul>
-		</div>
-	  </div>
-	  <div id='topUsers' class='float_l'>
-	    <h3>随便看看</h3>
-	    <ul>
-		<?php
-		  $user_content='';
-		  $query = "SELECT id, username, photo from ".$db_prefix."user ORDER BY RAND() LIMIT 10";
-		  $result=$DB->query($query);
-		  while ($user_item = mysql_fetch_array($result))
+		  $u_id = $user_item['id'];
+		  $u_name = $user_item['username'];
+		  $u_photo = $user_item['photo'];
+		  if(empty($u_photo))
 		  {
-		    $u_id = $user_item['id'];
-			$u_name = $user_item['username'];
-			$u_photo = $user_item['photo'];
-			if(empty($u_photo))
-			{
-			  $u_photo = 'img/douban_user_dft.jpg';
-			}
-			$u_link = "/user/".$u_id;
-			$user_content.="<li>
-							  <a href='".$u_link."' title='".$u_name."'><img src='".$u_photo."' /></a>
-							  <div><span><a href='".$u_link."' title='".$u_name."'>".$u_name."</a></span></div>
-							</li>";
+			$u_photo = 'img/douban_user_dft.jpg';
 		  }
-		  echo $user_content;
-		?>
-	    </ul>
+		  $u_link = "/user/".$u_id;
+		  $custom_content.="<li>
+							  <a href='".$u_link."' title='".$u_name."'><img src='".$u_photo."' /></a>
+							</li>";
+		}
+		$custom_content.= "</ul></div>";
+	  }
+	  echo $custom_content;
+	  ?>
+	  <div id='follow_us' class='t_category'>
+	    <h3>关注口立方</h3>
+	    <iframe width="100%" height="84" frameborder="0" allowtransparency="true" marginwidth="0" marginheight="0" scrolling="no" border="0" src="http://widget.weibo.com/relationship/followbutton.php?language=zh_cn&width=100%&height=64&uid=2329577672&style=4&btn=red&dpc=1"></iframe>
 	  </div>
 	</div>
   </div>
@@ -316,7 +308,6 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
   </div>
 </div>
 <script type="text/javascript" src="/js/jquery.js"></script>
-<script type="text/javascript" src="/js/jquery.orbit-1.2.3.min.js"></script>
 <script type="text/javascript" src="/js/jquery.jcarousel.min.js"></script>
 <script type="text/javascript" src="/js/frontpage.js"></script>
 <script type="text/javascript">

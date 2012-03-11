@@ -60,7 +60,7 @@ $user_set = "<div class='inner'>
 				 </tr>
 				 <tr>  
 				   <td valign='top' align='right'>个人介绍:</td> 
-				   <td  colspan=2 ><textarea id='user_intro' cols=80 rows=10 name='intro'>".$result['intro']."</textarea></td>  
+				   <td  colspan=2 ><textarea id='user_intro' cols=80 rows=2 name='intro'>".$result['intro']."</textarea></td>  
 				 </tr>
 				 <tr>
 				   <td align='right'>登录邮箱: </td>
