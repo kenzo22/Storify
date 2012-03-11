@@ -1186,11 +1186,11 @@ $(function() {
 		      videoUrl = videoInput.val(),
 		      getData = {url: videoUrl},
 		      getUrl = '/member/embedVideo.php',
-			  patt = new RegExp("youku\.com/|tudou\.com/"),
+			  patt = new RegExp("youku\.com/|tudou\.com|56\.com|ku6\.com|video\.sina\.com\.cn"),
               validFlag = patt.test(videoUrl);  
 		  if(videoInput.hasClass('imply_color') || !validFlag)
           {
-		    post = imply;
+		    post = "只支持youku, tudou, 56,ku6";
 			$('#source_list').html(post);   
 			return false;
 		  }		  
