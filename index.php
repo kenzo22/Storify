@@ -221,7 +221,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	  $rec_user="<div id='recUsers' class='t_category'>
 				   <h3>推荐用户</h3>
 				   <ul>";
-	  $recomment_user = "64,95,54,1,74,117,77,80";
+	  $recomment_user = "64,95,54,1,74,117,77,80,76,53,58,72";
 	  //$query = "SELECT id, username, photo, intro from ".$db_prefix."user WHERE id IN ($recomment_user) ORDER BY FIND_IN_SET(id, '$recomment_user') limit 4";
 	  if($login_flag)
 	  {

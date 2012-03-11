@@ -205,7 +205,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 						</div>
 						<div class='steps'>
 						  <div class='post-content'>
-						    <h2>轻松嵌入报道到你的网站中~</h2>
+						    <h2>嵌入本文到您的网站中~</h2>
 							<span>复制嵌入代码:</span>
 							<span><input type='text' value='".$embed_code."' class='sto_embed' size='72' /></span>
 							<a title='如何嵌入' class='embed_how' href='http://www.koulifang.com/user/3/4' target='_blank'></a>
@@ -407,7 +407,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 							<a class='jiathis_counter_style'></a>
 						</div>
 						<div id='story_embed'>
-						  <a href='#' id='embed_a'>嵌入报道<span class='arrow_down'></span><span class='arrow_up'></span></a>
+						  <a href='#' id='embed_a'>嵌入到我的网站<span class='arrow_down'></span><span class='arrow_up'></span></a>
 					    </div>
 					  </div>
 					  <div id='embed_bar'>

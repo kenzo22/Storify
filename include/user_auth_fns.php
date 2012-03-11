@@ -172,7 +172,7 @@ function printPureStory($story_item){
 	  $post_date = postDateFormat($story_item['post_date'],date("Y-m-d H:i:s"));
 	  $post_link = "/user/".$post_author."/".$post_id;
 	  $post_link = htmlspecialchars($post_link);
-	  $count_query = "select domain_name, refer_url, view_count from ".$db_prefix."pageview where story_id=".$post_id;
+	  $count_query = "select view_count from ".$db_prefix."pageview where story_id=".$post_id;
 	  $countResult = $DB->query($count_query);
 	  if($DB->num_rows($countResult) > 0){
 		while($count_result_row = $DB->fetch_array($countResult)){
@@ -233,7 +233,7 @@ function printStory($result)
 	  $post_date = postDateFormat($story_item['post_date'],date("Y-m-d H:i:s"));
 	  $post_link = "/user/".$post_author."/".$post_id;
 	  $post_link = htmlspecialchars($post_link);
-	  $count_query = "select domain_name, refer_url, view_count from ".$db_prefix."pageview where story_id=".$post_id;
+	  $count_query = "select view_count from ".$db_prefix."pageview where story_id=".$post_id;
 	  $countResult = $DB->query($count_query);
 	  if($DB->num_rows($countResult) > 0){
 		while($count_result_row = $DB->fetch_array($countResult)){
@@ -293,7 +293,7 @@ function printLikedStory($result,$login_uid)
 	  $post_date = postDateFormat($story_item['post_date'],date("Y-m-d H:i:s"));
 	  $post_link = "/user/".$post_author."/".$post_id;
 	  $post_link = htmlspecialchars($post_link);
-	  $count_query = "select domain_name, refer_url, view_count from ".$db_prefix."pageview where story_id=".$post_id;
+	  $count_query = "select view_count from ".$db_prefix."pageview where story_id=".$post_id;
 	  $countResult = $DB->query($count_query);
 	  if($DB->num_rows($countResult) > 0){
 		while($count_result_row = $DB->fetch_array($countResult)){
