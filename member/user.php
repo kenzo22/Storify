@@ -123,7 +123,7 @@ if(isset($_GET['user_id']) && isset($_GET['post_id']) && !isset($_GET['action'])
 	$story_status=$result['post_status'];
 	$story_content=$result['post_content'];
 	$story_digg_count=$result['post_digg_count'];
-	$embed_code = "<script src=\"http://www.koulifang.com/user/".$story_author."/".$story_embed.".js\"></script>";
+	$embed_code = "<script type=\"text/javascript\" src=\"http://www.koulifang.com/user/".$story_author."/".$story_embed.".js\"></script>";
 	//get the profile image of the story author
 	$user_profile_img = getAvatarImg($userresult);
 	
