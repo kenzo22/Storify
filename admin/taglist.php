@@ -7,7 +7,7 @@ $user_id=intval($_SESSION['uid']);
 if($user_id == 1 || $user_id == 2){
 
 try{
-    $dbh = new PDO("mysql:host=127.0.0.1;dbname=storybing",'story_user','jin12web',array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''));
+    $dbh = new PDO("mysql:host=127.0.0.1;dbname=storybing",'root','kenzo22',array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''));
 
     $smst=$dbh->prepare('SELECT id FROM story_posts order by id asc');
     $smst->execute();
@@ -63,9 +63,9 @@ catch(PDOException $e){
   </form>
 </div>
     
-</body>
-</html>
 <?php
 }
     include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm";
 ?>
+</body>
+</html>

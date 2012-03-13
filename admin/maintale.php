@@ -9,7 +9,7 @@ if($user_id == 1 || $user_id == 2){
 $category=array("社会","娱乐","科技","体育");
 $max=3;
 try{
-    $dbh = new PDO("mysql:host=127.0.0.1;dbname=storybing",'story_user','jin12web',array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''));
+    $dbh = new PDO("mysql:host=127.0.0.1;dbname=storybing",'root','kenzo22',array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''));
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     if(isset($_GET['edit'])){
         $sh=$dbh->prepare("SELECT * FROM story_maintale WHERE category=:cate");
@@ -72,3 +72,5 @@ try{
 }
 include $_SERVER['DOCUMENT_ROOT']."/include/footer.htm";
 ?>
+</body>
+</html>
