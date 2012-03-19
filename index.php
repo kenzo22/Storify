@@ -1,5 +1,5 @@
 <?php
-$html_title = "口立方 - 自助报道，传递价值，构建影响力";
+$html_title = "口立方 - 热点资讯，你来呈现";
 include $_SERVER['DOCUMENT_ROOT'].'/global.php'; 
 include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 ?>
@@ -8,8 +8,8 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
   <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<meta name="keywords" content="口立方, 新媒体, 自媒体, 自助报道, 社会化媒体, 社会化媒体整合, 社会化媒体聚合, 报道热点话题, koulifang.com"/>
-    <meta name="description" content="口立方是新颖的自助报道媒体, 帮助用户筛选整合社会化媒体信息, 创作分享优质内容" />
+	<meta name="keywords" content="口立方, 自媒体, 热点资讯, 新媒体, 社会化媒体, 社会化媒体整合, 社会化媒体聚合, koulifang.com"/>
+    <meta name="description" content="口立方是一个新颖的自媒体平台, 帮助用户筛选整合社会化媒体信息, 创作分享优质内容" />
 	<title><?php print $html_title; ?></title>
 	<link type='text/css' rel='stylesheet' href="/css/layout.css" />
 	<link type="image/ico" rel="shortcut icon"  href="/img/favicon.ico" />
