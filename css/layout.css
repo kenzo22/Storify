@@ -1,5 +1,5 @@
 html{color:#111}
-body{color:#333;font:12px/1.2 "Helvetica Neue",Helvetica,Arial,sans-serif;text-align:left;line-height:22px;background:url("../img/bg.jpg") repeat fixed 0 0 #F9F9F9;margin:0;padding:0}
+body{color:#333;font:12px/1.2 "Helvetica Neue",Helvetica,Arial,sans-serif;text-align:left;line-height:22px;background:url("../img/bg.png") repeat fixed 0 0 #F9F9F9;margin:0;padding:0}
 td{padding:5px}
 img{image-rendering:optimizeQuality;-ms-interpolation-mode:bicubic;border:0;border-width:0}
 input{border:1px solid #999;color:#333;height:20px;vertical-align:middle;line-height:20px}
@@ -530,9 +530,6 @@ div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,block
 .jcarousel-skin-tango .jcarousel-item-placeholder{background:#fff;color:#000}
 .jcarousel-skin-tango .jcarousel-next-horizontal{position:absolute;top:100px;right:0px;width:39px;height:50px;cursor:pointer;background:transparent url(../img/next-horizontal.png) no-repeat 0 0}
 .jcarousel-skin-tango .jcarousel-prev-horizontal{position:absolute;top:100px;left:0px;width:39px;height:50px;cursor:pointer;background:transparent url(../img/prev-horizontal.png) no-repeat 0 0}
-#featured_container{position:relative;margin:40px 0 0 0}      
-#featured{width:960px;height:380px;background:#000 url('orbit/loading.gif') no-repeat center center;overflow:hidden}
-#featured>img,#featured>div,#featured>a{display:none}
 div.orbit-wrapper{width:1px;height:1px;position:relative; border:1px solid #CCCCCC}
 div.orbit {width:1px;height:1px;position:relative;overflow:hidden}
 div.orbit>img{position:absolute;top:0;left:0;display:none}
@@ -611,3 +608,11 @@ div.slider-nav span.left{background:url(orbit/left-arrow.png);left:0}
 #comment_tab a.active{background:none repeat scroll 0 0 #FFFFFF;border-width:1px 1px 0;height:30px}
 #kou_comment{display:none}
 #dual_comment_list{overflow:auto;min-Height:400px}
+.feature{padding:5px 4px;border:1px solid #ccc;margin:40px auto 0;width:950px;height:270px;border-radius:5px;background:#fff;display:block;overflow:auto}
+.ad{background:url(../img/ad.jpg) no-repeat scroll 0 0 transparent;position:relative;width:950px;height:270px}
+.regBtnBox{position:absolute;width:180px;height:60px;left:750px;top:40px}
+.regBtn{border:none;background:url(../img/regbtn.jpg) no-repeat scroll 0 0 transparent;width:180px;height:60px;display:block}
+.logBtnBox{position:absolute;width:137px;height:47px;left:770px;top:145px}
+.logBtn{border:none;background:url(../img/logbtn.jpg) no-repeat scroll 0 0 transparent;width:137px;height:47px;display:block}
+.moreBox{position:absolute;width:89px;height:29px;left:855px;top:230px}
+.moreBtn{border:none;background:url(../img/morebtn.jpg) no-repeat scroll 0 0 transparent;width:89px;height:29px;display:block}
