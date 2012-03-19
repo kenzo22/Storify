@@ -45,12 +45,8 @@ $query_names = array
   array
   (
   "明星",
-  "美食",
-  "旅游",
   "搞笑",
-  "影视",
-  "音乐",
-  "图书"
+  "影视"
   ),
   array
   (
@@ -149,12 +145,8 @@ $sub_content = "<div id='shehui' class='submenustyle'>
 				<div id='yule' class='submenustyle'>
 				  <a href='/yule'>全部</a>
 				  <a href='/yule/1'>明星</a>
-				  <a href='/yule/2'>美食</a>
-				  <a href='/yule/3'>旅游</a>
-				  <a href='/yule/4'>搞笑</a>
-				  <a href='/yule/5'>影视</a>
-				  <a href='/yule/6'>音乐</a>
-				  <a href='/yule/7'>图书</a>
+				  <a href='/yule/2'>搞笑</a>
+				  <a href='/yule/3'>影视</a>
 				</div>";
 				
 $sub_content = str_replace($needle,$replace,$sub_content);

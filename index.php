@@ -106,11 +106,13 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	  if(!$login_flag)
 	  {
 	  ?>
-	    <div id='featured_container'>
-		  <img src='/img/slide1.jpg'/>
-		  <div id='more_info'><a class='large green awesome' href='/tour'>了解更多 &raquo;</a></div>
-		  <div id='f_register'><a class='large blue awesome' href='/tour'>免费注册 &raquo;</a></div>
-	    </div>
+	    <div class='feature'>
+		  <div class='ad'>
+			<div class='regBtnBox'><a class='regBtn' href='/accounts/register'></a></div>
+			<div class='logBtnBox'><a id='sinaConnect' class='logBtn' href='#'></a></div>
+			<div class='moreBox'><a class='moreBtn' href='/tour'></a></div>
+		  </div>
+		</div>
 	  <?php
 	  }
 	  ?>
@@ -160,12 +162,8 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	  <ul class='category_list'>
 	    <li><a href='/yule'>全部</a></li>
 		<li><a href='/yule/1'>明星</a></li>
-		<li><a href='/yule/2'>美食</a></li>
-		<li><a href='/yule/3'>旅游</a></li>
-		<li><a href='/yule/4'>搞笑</a></li>
-		<li><a href='/yule/5'>影视</a></li>
-		<li><a href='/yule/6'>音乐</a></li>
-		<li><a href='/yule/7'>图书</a></li>
+		<li><a href='/yule/2'>搞笑</a></li>
+		<li><a href='/yule/3'>影视</a></li>
 	  </ul>
 	  <ul class='sto_cover_list'>
 	    <?php

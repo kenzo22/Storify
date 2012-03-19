@@ -98,7 +98,7 @@ $(function(){
 	  });
   })
   
-  $('#connectBtn').live('click', function(e)
+  $('#connectBtn,#sinaConnect').live('click', function(e)
   {
 	e.preventDefault();
 	$.post('/accounts/login/sina_auth.php', {}, 		
