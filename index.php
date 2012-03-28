@@ -118,7 +118,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/member/tagoperation.php';
 	  else
 	  {
 	    echo "<div id='subscription' class='t_category'>
-	    <h3><a href='/user/".$userresult['id']."/subscription'>我的订阅</a></h3>";
+	    <h3>我的订阅</h3>";
         $i_query = "SELECT story_posts.* FROM story_posts,story_follow WHERE user_id=".$_SESSION['uid']." AND follow_id=post_author AND post_status='Published' ORDER BY post_modified desc limit 4";
 	    $result=$DB->query($i_query);
         if($DB->num_rows($result) == 0)
