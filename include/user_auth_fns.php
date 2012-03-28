@@ -243,7 +243,7 @@ function printStory($result)
 	  $story_content .= "<li>
 						  <div class='story_wrap'>	
 							<a href='".$post_link."'>
-							  <img class='cover' src='".$post_pic_url."' alt='' />
+							  <img class='cover' src='".$post_pic_url."' alt='".$post_title."' />
 							</a>
 							<a class='title_wrap' href='".$post_link."'>
 							  <span class='title'>".$post_title."</span>
@@ -251,7 +251,7 @@ function printStory($result)
 						  </div>
 						  <div class='story_meta'>
 							<div class='float_l'>
-							  <img src='".$user_profile_img."' alt='' />
+							  <img src='".$user_profile_img."' alt='".$author_name."' />
 							</div>
 							<div class='meta_info'>
 							  <div>
@@ -303,7 +303,7 @@ function printLikedStory($result,$login_uid)
 	  $story_content .= "<li>
 						  <div class='story_wrap'>	
 							<a href='".$post_link."'>
-							  <img class='cover' src='".$post_pic_url."' alt='' />
+							  <img class='cover' src='".$post_pic_url."' alt='".$post_title."' />
 							</a>
 							<a class='title_wrap' href='".$post_link."'>
 							  <span class='title'>".$post_title."</span>
@@ -317,7 +317,7 @@ function printLikedStory($result,$login_uid)
 	  $story_content .="</div>
 						  <div class='story_meta'>
 							<div class='float_l'>
-							  <img src='".$user_profile_img."' alt='' />
+							  <img src='".$user_profile_img."' alt='".$author_name."' />
 							</div>
 							<div class='meta_info'>
 							  <div>

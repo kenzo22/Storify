@@ -139,9 +139,6 @@ $content .= "<div class='inner'>
 			<li class='tweiboLi'><a><span class='source_img' title='腾讯微博'></span></a></li>
 			<li class='impUploadLi'><a><span class='source_img' title='上传图片'></span></a></li>
 		    <li class='videoLi'><a><span class='source_img' title='添加视频'></span></a></li>
-			<li class='doubanLi'><a><span class='source_img' title='豆瓣社区'></span></a></li>
-			<li class='yupooLi'><a><span class='source_img' title='又拍社区'></span></a></li>
-			<li class='rssLi'><a><span class='source_img' title='rss feed'></span></a></li>
 		  </ul>
 		  <div id='weiboTabs'>
 		    <ul>
