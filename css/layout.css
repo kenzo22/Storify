@@ -321,15 +321,13 @@ li#more{margin:10px 0}
 .sort_type a{margin-right:20px;line-height:25px;float:left;font-size:16px}
 .sort_type a.now{border-bottom:4px solid #999}
 #userstory_container,#sub_container,#all_container{overflow:auto;zoom:1;position:relative;width:960px;padding-top:50px;margin:0 auto 30px}
-#all_container .sort_type{position:absolute;top:80px;right:0}
-#sublist_title{color:#494949;display:block;font-size:25px;font-weight:700;line-height:1.1;padding:0 0 20px}
+#sublist_title,#alllist_title{color:#494949;display:block;font-size:25px;font-weight:700;line-height:1.1;padding:0 0 20px}
 .userstory_list{float:left;width:690px;padding:0 0 0 30px}
 .userstory_list ul,.t_category .sto_cover_list,#sub_container .sto_cover_list,#all_container .sto_cover_list{overflow:auto;zoom:1;padding:0}
 .first_imply{font-size:14px;font-weight:600;margin:0 0 8px 20px;font-family:'Hiragino Sans GB','Microsoft YaHei',sans-serif!important}
-.userstory_list ul li,.t_category .sto_cover_list li{border:1px solid #DDD;border-radius:3px 3px 3px 3px;color:#323232;display:inline;text-decoration:none;height:210px;width:188px;float:left;margin:20px 10px 0 10px;padding:5px 5px 2px}
-#sub_container .sto_cover_list li,#all_container .sto_cover_list li{border:1px solid #DDD;border-radius:3px 3px 3px 3px;color:#323232;display:inline;text-decoration:none;height:218px;width:188px;float:left;margin:20px 24px 0 16px;padding:5px 5px 2px}
-.t_category .sto_cover_list li{margin:20px 10px 0 18px}
-#popular{clear:both;margin-bottom:20px}
+.userstory_list ul li,.t_category .sto_cover_list li,#popular .sto_cover_list li{border:1px solid #DDD;border-radius:3px 3px 3px 3px;color:#323232;display:inline;text-decoration:none;height:210px;width:188px;float:left;margin:20px 10px 0 10px;padding:5px 5px 2px}
+#sub_container .sto_cover_list li,#all_container .sto_cover_list li{border:1px solid #DDD;border-radius:3px 3px 3px 3px;color:#323232;display:inline;text-decoration:none;height:210px;width:188px;float:left;margin:20px 24px 0 16px;padding:5px 5px 2px}
+#subscription .sto_cover_list li,#popular .sto_cover_list li{margin:20px 10px 0 25px}
 #popular h3, #new_wrapper h3, .t_category h3{color:#666;margin-top:30px;padding-bottom:15px;font-size:20px;font-weight:500}
 #pop_wrapper{height:280px;background:none repeat scroll 0 0 #FCFCFC;border:1px solid #CCC;border-bottom:none;border-radius:5px 5px 0 0}
 #new_wrapper{overflow:hidden;height:340px}
@@ -562,31 +560,23 @@ div.slider-nav span.left{background:url(orbit/left-arrow.png);left:0}
 .imgareaselect-handle{background-color:#fff;border:solid 1px #000;filter:alpha(opacity=50);opacity:0.5}
 .imgareaselect-outer{background-color:#000;filter:alpha(opacity=50);opacity:0.5}
 .t_category{position:relative}
-.t_category .sto_cover_list{height:270px;background:none repeat scroll 0 0 #FCFCFC;border:1px solid #CCC;border-radius:5px}
-.t_category h3 a{color:#666}
-.t_category h3 a:hover{text-decoration:underline}
-.t_category .category_list{position:absolute;top:3px;left:65px}
-.t_category .category_list li{float:left;margin-right:10px}
-.t_category .category_list li a{}
-.t_category .category_list li a:hover{text-decoration:underline}
+.t_category .sto_cover_list{height:260px;background:none repeat scroll 0 0 #FCFCFC;border:1px solid #CCC;border-radius:5px}
 #subscription #more_sub{position:absolute;top:3px;left:105px}
 #subscription #sub_imply{font-size:14px;color:#999;padding-bottom:34px}
-#left_main{float:left;width:694px;margin-right:50px;}
-#right_main{float:right;width:216px}
-#right_main #my_page{font-size:14px;margin-top:60px;padding:30px 0 15px;border-bottom:1px solid #DDD}
-#add_info{overflow:auto;border-bottom:1px solid #DDD;padding:0 0 30px}
-#recUsers{overflow:hidden;padding:0 0 21px;border-bottom:1px solid #DDD}
-#topUsers{overflow:hidden;padding-bottom:14px;border-bottom:1px solid #DDD}
-#topUsers ul li{float:left;margin:0 14px 11px 0;width:40px;height:40px;display:inline;text-align:center}
-#topUsers ul li img{width:40px;height:40px;border:0px}
-#recUsers ul li{clear:both;overflow:auto;margin-bottom:13px}
-#recUsers ul li img{float:left;width:50px;height:50px;border:0px}
+#left_main{float:left;width:694px;margin-right:30px;}
+#right_main{float:right;width:234px;padding-left:2px}
+#add_info{overflow:auto;border-bottom:1px solid #DDD;padding:0 0 70px}
+#recUsers{overflow:hidden;padding:0 0 21px}
+#recUsers ul li{overflow:auto;float:left;margin-right:19px;padding:4px 4px 0 4px;border:1px solid #ccc;border-radius:3px;background-color:#fff}
+#recUsers ul li a{display:block;overflow:auto;margin-bottom:3px}
+#recUsers ul li img{width:70px;height:70px;border:0px}
+#recUsers ul li div{text-align:center}
+#recUsers ul li div a:hover{text-decoration:underline}
 #add_info img{float:left;width:50px;height:50px;border:0px}
 .user_intro{float:left;margin-left:10px}
 .user_intro div{width:154px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 #more_info{position:absolute;bottom:5px;right:115px;z-index:100}
 #f_register{position:absolute;bottom:5px;right:5px;z-index:100}
-#my_page div{margin-bottom:20px}
 #menu_wrapper {padding:10px 20px 10px;overflow:auto;position:relative;margin-right:450px}
 .basictab{padding:6px 0;margin-left:0;font:14px Verdana;border-bottom:1px solid gray;list-style-type:none;margin-bottom:0;text-align:left}
 .basictab li{display:inline;margin:0}
@@ -616,3 +606,5 @@ div.slider-nav span.left{background:url(orbit/left-arrow.png);left:0}
 .logBtn{border:none;background:url(../img/logbtn.jpg) no-repeat scroll 0 0 transparent;width:137px;height:47px;display:block}
 .moreBox{position:absolute;width:89px;height:29px;left:855px;top:230px}
 .moreBtn{border:none;background:url(../img/morebtn.jpg) no-repeat scroll 0 0 transparent;width:89px;height:29px;display:block}
+#more_pop{position:absolute;top:0;right:20px}
+#more_pop:hover{text-decoration:underline}
